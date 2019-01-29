@@ -1,0 +1,81 @@
+
+//package StmStreamerDrManage;
+
+option java_package = "cn.infocore.protobuf";
+option java_outer_classname = "StmStreamerDrManage";
+
+
+enum ClientType{
+    SINGLE = 0;
+    VMWARE = 1;
+    MSCS = 2;
+    RAC = 3;
+    VC = 4;
+}
+
+//备份的错误类型
+enum FaultType{
+    NORMAL = 0;                      
+    CLIENT_LOCAL_LOST = 1;           //本地丢失
+    CLIENT_DST_LOST = 2;             //目标丢失
+    CLIENT_CREATE_SNAP_AILED = 3;    //任务计划创建快照点失败(暂时不考虑普通客户端)
+    VWARE_CBT_DROP = 4;              //CBT异常
+    CLIENT_OFFLINE = 5;              //客户端离线
+    VCENTER_OFFLINE = 6;             //VCENTER离线
+    EXIST_OFFLINE  = 7;              //集群/rac节点或实例离线
+    ALL_OFFLINE = 8;                 //集群/rac离线
+    STREAMER_POOL_DISABLE = 9;       //存储池异常
+    STREAMER_OFFLINE = 10;           //Streamer离线
+    CLIENT_AUTO_EXPAND_FAILED = 11;  //自动扩容失败
+    CLIENT_SNAP_MERGE_FAILED = 12;   //快照合并失败
+    ORACLE_STORAGE_DROP = 13;        //oracle备份空间异常
+    DR_COPY_FAILED = 14;             //容灾复制失败
+
+}
+
+//服务器信息
+message Streamer{
+	 required string ip = 1; 
+	 required string name = 2;
+    required uint64 total = 3;
+    required uint64 used = 4;
+    repeated FaultType Streamer_state = 5;
+    repeated uint64 oracle_vol = 6;
+}
+
+//有代理客户端 实体机
+message Client{
+    required string id = 1;
+    required string name = 2;
+    required string ip = 3;
+    required ClientType type = 4;
+    repeated FaultType Client_state = 5;
+}
+
+//无代理客户端 虚拟机
+message Vmware{
+    required string id = 1;
+    required string name = 2;
+    required ClientType type = 3;
+    required string path =4; 
+    repeated FaultType Vmware_state = 5;
+}
+
+//Vcent的信息
+message Vcent{
+    required string vc_name = 1;
+    required string vc_uuid = 2;
+    required string vc_ip = 3;
+    repeated FaultType Vcent_state = 4;
+    repeated Vmware clients = 5;
+    required ClientType type = 6;
+}
+
+
+//stm -> clouddrmanage
+message GetServerInfoReturn{
+    required string uuid =1;
+    required Streamer server = 2;
+    repeated Client  clients = 3;
+    repeated Vcent vcents = 4;
+}

@@ -1,0 +1,104 @@
+syntax = "proto2";
+
+option java_package = "cn.infocore.protobuf";
+option java_outer_classname = "CloudManagerAlarm";
+
+/* enum begin */
+
+enum ClientType {
+  ClientType_SingleClient = 0;
+  ClientType_Mscs = 1;
+  ClientType_Rose = 2;
+  ClientType_Vmware = 3;
+  ClientType_VmwareVirtualMachine = 4;
+  ClientType_Aix = 5;
+  ClientType_OsnSolution = 6;
+  ClientType_OsnSolution_Client = 7;
+  ClientType_MscsCluster = 8;  // 废弃
+  ClientType_RacClient = 9;
+  ClientType_FusionCompute = 10;
+  ClientType_FusionClient = 11;
+}
+
+enum Command {
+  /* data ark management begin */
+  Command_HeartBeat = 87000;
+  Command_AddDataArk = 205;
+  Command_RemoveDataArk = 206;
+  Command_AddClient = 212;
+  Command_RemoveClient = 213;
+
+  /* data ark management end */
+
+  /* system begin */
+
+  Command_UpdateEmailAlarm = 501;
+  Command_VerifyEmailAlarm = 502;
+
+  /* system end */
+}
+
+enum ErrorCode {
+  ErrorCode_Success = 0;
+  ErrorCode_Failed = 1;
+}
+
+enum Version {
+  option allow_alias = true;
+  Version_Value = 1;
+}
+
+/* enum end */
+
+/* message begin */
+/* data ark management begin */
+
+message AddDataArkRequest {
+  required string id = 1;
+}
+
+message RemoveDataArkRequest {
+  required string id = 1;
+}
+
+/* 如果是 VMware 虚拟机，第一层客户端信息填 vCenter，第二层客户端信息填 虚拟机，其他客户端只填第一层即可 */
+message AddClientRequest {
+  message Client {
+    required ClientType type = 1;
+    required string id = 2;
+    repeated Client clients = 3;
+  }
+  repeated Client clients = 1;
+}
+
+/* 同 AddClientRequest */
+message RemoveClientRequest {
+  message Client {
+    required ClientType type = 1;
+    required string id = 2;
+    repeated Client clients = 3;
+  }
+  repeated Client clients = 1;
+}
+
+/* data ark management end */
+
+/* system begin */
+
+
+message UpdateEmailAlarmRequest {
+  required uint32 id = 1;//配置id
+  required string user_id = 2;//用户id
+}
+
+message VerifyEmailAlarmRequest {
+  required string sender_email = 1;
+  required string sender_password = 2;
+  required string smtp_address = 3;
+  required uint32 smtp_port = 4;
+  required bool is_ssl_encrypt_enabled = 5;
+  repeated string receiver_emails = 6;
+}
+
+/* system end */
+/* message end */
