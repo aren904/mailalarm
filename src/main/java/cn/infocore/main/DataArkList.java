@@ -21,11 +21,11 @@ public class DataArkList {
 	private DataArkList() {
 		connection=MyDataSource.getConnection();
 		//初始的时候，先从数据库中获取一次
-		String sql="select id,ips from data_ark";
+		String sql="select id,ip from data_ark";
 		ResultSet set=DBUtils.executQuery(connection, sql, null);
 		try {
 			while (set.next()) {
-				this.data_ark_list.put(set.getString("id"),set.getString("ips"));
+				this.data_ark_list.put(set.getString("id"),set.getString("ip"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

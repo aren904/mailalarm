@@ -29,32 +29,6 @@ public class DBUtils {
 	}
 	
 	/**
-	 * 批量更新
-	 */
-	/*public static int batchUpdate(Connection conn, String sql, Object[] param,List<Client_> list) {
-		int result=0;
-		PreparedStatement statement=null;
-		try {
-			boolean auto=conn.getAutoCommit();
-			conn.setAutoCommit(false);
-			
-			 String sql="update client set type=?,name=?,ips=?,execeptions=? where id=?";
-			 
-			statement=conn.prepareStatement(sql);
-			for (Client_ client_:list) {
-				
-				//TODO
-				statement.addBatch();
-			}
-			statement.executeBatch();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}*/
-	
-	
-
-	/**
 	 * 单条记录增删改操作
 	 */
 	public static int executUpdate(Connection conn, String sql, Object[] param) {

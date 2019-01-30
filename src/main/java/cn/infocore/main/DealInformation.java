@@ -4,13 +4,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.sql.ResultSet;
+
+import org.apache.log4j.Logger;
 
 import cn.infocore.operator.Header;
 import cn.infocore.protobuf.CloudManagerAlarm.AddDataArkRequest;
 import cn.infocore.protobuf.CloudManagerAlarm.RemoveDataArkRequest;
+import cn.infocore.utils.DBUtils;
+import cn.infocore.utils.MyDataSource;
 
 public class DealInformation implements Runnable{
-	
+	private static final Logger logger=Logger.getLogger(DealInformation.class);
 	private InputStream in;
 	private OutputStream out;
 	private Socket socket;
@@ -48,7 +53,8 @@ public class DealInformation implements Runnable{
 	}
 	
 	//添加数据方舟
-	private void addDataArk(Header header) throws IOException {
+	private void addDataArk(Header header) throws Exception {
+		logger.info("Recived addDataArk command.");
 		if (header==null) {
 			return;
 		}
@@ -66,7 +72,17 @@ public class DealInformation implements Runnable{
 			return ;
 		}
 		String uuid=request.getId();
-		DataArkList.getInstance().addDataArk(uuid);
+		logger.info("Need to add data ark id:"+uuid);
+		String ip="";
+		String sql="select ip from data_ark where id=?";
+		String[] param= {uuid};
+		ResultSet rSet=DBUtils.executQuery(MyDataSource.getConnection(), sql, param);
+		if (rSet.next()) {
+			ip=rSet.getString("ip");
+		}
+		logger.info("Need to add data ark ip:"+ip);
+		DataArkList.getInstance().addDataArk(uuid,ip);
+		logger.info("Add data ark successed.");
 		header.setErrorCode(0);
 	}
 	
@@ -93,14 +109,6 @@ public class DealInformation implements Runnable{
 		header.setErrorCode(0);
 	}
 	
-	//添加客户端
-	private void addClient(Header header) {
-		
-	}
-	//删除客户端
-	private void removeClient(Header header) {
-		
-	}
 	//更新邮件报警配置
 	private void updateEmailAlarm(Header header) {
 		

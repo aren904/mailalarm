@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
+import org.apache.log4j.Logger;
+
 import cn.infocore.entity.Client_;
 import cn.infocore.entity.Data_ark;
 import cn.infocore.entity.Fault;
@@ -24,6 +27,7 @@ import cn.infocore.utils.MyDataSource;
 //解析数据，拦截，触发报警，写数据库等操作
 public class ProcessData implements Runnable{
 
+	private static final Logger logger=Logger.getLogger(ProcessData.class);
 	private GetServerInfoReturn hrt;
 	
 	private List<Client_> clientList;
@@ -38,12 +42,13 @@ public class ProcessData implements Runnable{
 	
 	
 	public void run() {
+		
+		logHeartbeat(hrt);
 		//1.解析protobuf
 		//如果过来的数据方舟心跳的uuid不再内存维护链表中，扔掉....
 		Set<String> uSet=DataArkList.getInstance().getData_ark_list().keySet();
 		if (uSet.contains(hrt.getUuid())) {
-			//Streamer掉线处理，单独拿出来
-			//StreamerQueue.getInstance().addIntoQueue(hrt.getUuid(), System.currentTimeMillis()/1000);
+			logger.info("Recived heartbeat from data ark,and data ark is on the data_ark_list,data ark uuid:"+hrt.getUuid());
 			//初始化
 			data_ark=new Data_ark();
 			faults=new LinkedList<Fault>();
@@ -212,7 +217,11 @@ public class ProcessData implements Runnable{
 			}
 		}
 	}
-	
+	//调试使用
+	private void logHeartbeat(GetServerInfoReturn hrt) {
+		logger.info("From data ark heartbeat:");
+		logger.info(hrt.toString());
+	}
 	
 	
 	private void parse(GetServerInfoReturn hrt){

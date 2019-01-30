@@ -15,13 +15,12 @@ import cn.infocore.utils.MyDataSource;
 //从DataArkList中取出，每隔一段时间ping一次，保证在线
 public class ThreadScanStreamer extends Thread {
 	private static final Logger logger = Logger.getLogger(ThreadScanStreamer.class);
-	private static final long sleeptime = 10 * 60 * 1000;
+	private static final long sleeptime = 3 * 60 * 1000;
 
 	private static volatile ThreadScanStreamer instance = null;
-	private Connection connection = null;// 用于更新数据库，Streamer是否离线的连接
 
 	public ThreadScanStreamer() {
-		connection = MyDataSource.getConnection();
+		logger.info("Init Data ark offline listener thread.");
 	}
 
 	public static ThreadScanStreamer getInstance() {
@@ -41,13 +40,18 @@ public class ThreadScanStreamer extends Thread {
 		while (true) {
 			try {
 				map = DataArkList.getInstance().getData_ark_list();
-
-				for (Map.Entry<String, String> entry : map.entrySet()) {
-					String uuid = entry.getKey();
-					String ip = entry.getValue();
-					boolean connected = checkOffLine(ip);
-					updateOffLine(uuid, ip, connected);
+				if (map.size()>0) {
+					logger.info("Successed get data ark list.");
+					for (Map.Entry<String, String> entry : map.entrySet()) {
+						String uuid = entry.getKey();
+						String ip = entry.getValue();
+						boolean connected = checkOffLine(ip);
+						updateOffLine(uuid, ip, connected);
+					}
+				}else {
+					logger.warn("Failed to get data ark list.");
 				}
+				logger.info("ThreadScanStreamer sleep 3 minutes.");
 				Thread.sleep(sleeptime);
 
 			} catch (Exception e) {
@@ -88,6 +92,7 @@ public class ThreadScanStreamer extends Thread {
 				e.printStackTrace();
 			}
 		}
+		Connection connection=MyDataSource.getConnection();
 		String sql = "update data_ark set exceptions=? where id=?";
 		Object[] param = { online ? "10" : "0", uuid };
 		DBUtils.executUpdate(connection, sql, param);

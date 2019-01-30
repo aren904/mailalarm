@@ -20,12 +20,12 @@ public class MailCenterRestry implements Center{
 	private static volatile MailCenterRestry instance=null;
 	private Map<String, MailSender> list=null;//必须线程安全
 	private Connection connection;
-	//private String info;
 
 	private MailCenterRestry() {
 		this.list=new ConcurrentHashMap<String,MailSender>();
 		connection=MyDataSource.getConnection();
 		//初始的时候，先从数据库中获取一次
+		logger.info("Start collect mail config from database.");
 		String sql="select * from email_alarm";
 		ResultSet set=DBUtils.executQuery(connection, sql, null);
 		try {
@@ -54,7 +54,7 @@ public class MailCenterRestry implements Center{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		logger.info("Collected mail config finished.");
 	}
 	
 	
@@ -78,7 +78,7 @@ public class MailCenterRestry implements Center{
 		
 	}
 	
-	public void addMailService(String name/*Email_alarm sender*/) {
+	public void addMailService(String name) {
 		//通过查数据库，添加到本地，自己构造MailSender对象
 		connection=MyDataSource.getConnection();
 		//初始的时候，先从数据库中获取一次

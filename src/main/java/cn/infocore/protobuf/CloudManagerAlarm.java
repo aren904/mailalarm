@@ -9,186 +9,6 @@ public final class CloudManagerAlarm {
       com.google.protobuf.ExtensionRegistry registry) {
   }
   /**
-   * Protobuf enum {@code ClientType}
-   */
-  public enum ClientType
-      implements com.google.protobuf.ProtocolMessageEnum {
-    /**
-     * <code>ClientType_SingleClient = 0;</code>
-     */
-    ClientType_SingleClient(0, 0),
-    /**
-     * <code>ClientType_Mscs = 1;</code>
-     */
-    ClientType_Mscs(1, 1),
-    /**
-     * <code>ClientType_Rose = 2;</code>
-     */
-    ClientType_Rose(2, 2),
-    /**
-     * <code>ClientType_Vmware = 3;</code>
-     */
-    ClientType_Vmware(3, 3),
-    /**
-     * <code>ClientType_VmwareVirtualMachine = 4;</code>
-     */
-    ClientType_VmwareVirtualMachine(4, 4),
-    /**
-     * <code>ClientType_Aix = 5;</code>
-     */
-    ClientType_Aix(5, 5),
-    /**
-     * <code>ClientType_OsnSolution = 6;</code>
-     */
-    ClientType_OsnSolution(6, 6),
-    /**
-     * <code>ClientType_OsnSolution_Client = 7;</code>
-     */
-    ClientType_OsnSolution_Client(7, 7),
-    /**
-     * <code>ClientType_MscsCluster = 8;</code>
-     *
-     * <pre>
-     * 废弃
-     * </pre>
-     */
-    ClientType_MscsCluster(8, 8),
-    /**
-     * <code>ClientType_RacClient = 9;</code>
-     */
-    ClientType_RacClient(9, 9),
-    /**
-     * <code>ClientType_FusionCompute = 10;</code>
-     */
-    ClientType_FusionCompute(10, 10),
-    /**
-     * <code>ClientType_FusionClient = 11;</code>
-     */
-    ClientType_FusionClient(11, 11),
-    ;
-
-    /**
-     * <code>ClientType_SingleClient = 0;</code>
-     */
-    public static final int ClientType_SingleClient_VALUE = 0;
-    /**
-     * <code>ClientType_Mscs = 1;</code>
-     */
-    public static final int ClientType_Mscs_VALUE = 1;
-    /**
-     * <code>ClientType_Rose = 2;</code>
-     */
-    public static final int ClientType_Rose_VALUE = 2;
-    /**
-     * <code>ClientType_Vmware = 3;</code>
-     */
-    public static final int ClientType_Vmware_VALUE = 3;
-    /**
-     * <code>ClientType_VmwareVirtualMachine = 4;</code>
-     */
-    public static final int ClientType_VmwareVirtualMachine_VALUE = 4;
-    /**
-     * <code>ClientType_Aix = 5;</code>
-     */
-    public static final int ClientType_Aix_VALUE = 5;
-    /**
-     * <code>ClientType_OsnSolution = 6;</code>
-     */
-    public static final int ClientType_OsnSolution_VALUE = 6;
-    /**
-     * <code>ClientType_OsnSolution_Client = 7;</code>
-     */
-    public static final int ClientType_OsnSolution_Client_VALUE = 7;
-    /**
-     * <code>ClientType_MscsCluster = 8;</code>
-     *
-     * <pre>
-     * 废弃
-     * </pre>
-     */
-    public static final int ClientType_MscsCluster_VALUE = 8;
-    /**
-     * <code>ClientType_RacClient = 9;</code>
-     */
-    public static final int ClientType_RacClient_VALUE = 9;
-    /**
-     * <code>ClientType_FusionCompute = 10;</code>
-     */
-    public static final int ClientType_FusionCompute_VALUE = 10;
-    /**
-     * <code>ClientType_FusionClient = 11;</code>
-     */
-    public static final int ClientType_FusionClient_VALUE = 11;
-
-
-    public final int getNumber() { return value; }
-
-    public static ClientType valueOf(int value) {
-      switch (value) {
-        case 0: return ClientType_SingleClient;
-        case 1: return ClientType_Mscs;
-        case 2: return ClientType_Rose;
-        case 3: return ClientType_Vmware;
-        case 4: return ClientType_VmwareVirtualMachine;
-        case 5: return ClientType_Aix;
-        case 6: return ClientType_OsnSolution;
-        case 7: return ClientType_OsnSolution_Client;
-        case 8: return ClientType_MscsCluster;
-        case 9: return ClientType_RacClient;
-        case 10: return ClientType_FusionCompute;
-        case 11: return ClientType_FusionClient;
-        default: return null;
-      }
-    }
-
-    public static com.google.protobuf.Internal.EnumLiteMap<ClientType>
-        internalGetValueMap() {
-      return internalValueMap;
-    }
-    private static com.google.protobuf.Internal.EnumLiteMap<ClientType>
-        internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<ClientType>() {
-            public ClientType findValueByNumber(int number) {
-              return ClientType.valueOf(number);
-            }
-          };
-
-    public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
-      return getDescriptor().getValues().get(index);
-    }
-    public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
-      return getDescriptor();
-    }
-    public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return cn.infocore.protobuf.CloudManagerAlarm.getDescriptor().getEnumTypes().get(0);
-    }
-
-    private static final ClientType[] VALUES = values();
-
-    public static ClientType valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-      if (desc.getType() != getDescriptor()) {
-        throw new java.lang.IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
-      }
-      return VALUES[desc.getIndex()];
-    }
-
-    private final int index;
-    private final int value;
-
-    private ClientType(int index, int value) {
-      this.index = index;
-      this.value = value;
-    }
-
-    // @@protoc_insertion_point(enum_scope:ClientType)
-  }
-
-  /**
    * Protobuf enum {@code Command}
    */
   public enum Command
@@ -210,21 +30,21 @@ public final class CloudManagerAlarm {
      */
     Command_RemoveDataArk(2, 206),
     /**
-     * <code>Command_AddClient = 212;</code>
-     */
-    Command_AddClient(3, 212),
-    /**
-     * <code>Command_RemoveClient = 213;</code>
-     */
-    Command_RemoveClient(4, 213),
-    /**
      * <code>Command_UpdateEmailAlarm = 501;</code>
      */
-    Command_UpdateEmailAlarm(5, 501),
+    Command_UpdateEmailAlarm(3, 501),
     /**
-     * <code>Command_VerifyEmailAlarm = 502;</code>
+     * <code>Command_CreateEmailAlarm = 502;</code>
      */
-    Command_VerifyEmailAlarm(6, 502),
+    Command_CreateEmailAlarm(4, 502),
+    /**
+     * <code>Command_DeleteEmailAlarm = 503;</code>
+     */
+    Command_DeleteEmailAlarm(5, 503),
+    /**
+     * <code>Command_VerifyEmailAlarm = 504;</code>
+     */
+    Command_VerifyEmailAlarm(6, 504),
     ;
 
     /**
@@ -244,21 +64,21 @@ public final class CloudManagerAlarm {
      */
     public static final int Command_RemoveDataArk_VALUE = 206;
     /**
-     * <code>Command_AddClient = 212;</code>
-     */
-    public static final int Command_AddClient_VALUE = 212;
-    /**
-     * <code>Command_RemoveClient = 213;</code>
-     */
-    public static final int Command_RemoveClient_VALUE = 213;
-    /**
      * <code>Command_UpdateEmailAlarm = 501;</code>
      */
     public static final int Command_UpdateEmailAlarm_VALUE = 501;
     /**
-     * <code>Command_VerifyEmailAlarm = 502;</code>
+     * <code>Command_CreateEmailAlarm = 502;</code>
      */
-    public static final int Command_VerifyEmailAlarm_VALUE = 502;
+    public static final int Command_CreateEmailAlarm_VALUE = 502;
+    /**
+     * <code>Command_DeleteEmailAlarm = 503;</code>
+     */
+    public static final int Command_DeleteEmailAlarm_VALUE = 503;
+    /**
+     * <code>Command_VerifyEmailAlarm = 504;</code>
+     */
+    public static final int Command_VerifyEmailAlarm_VALUE = 504;
 
 
     public final int getNumber() { return value; }
@@ -268,10 +88,10 @@ public final class CloudManagerAlarm {
         case 87000: return Command_HeartBeat;
         case 205: return Command_AddDataArk;
         case 206: return Command_RemoveDataArk;
-        case 212: return Command_AddClient;
-        case 213: return Command_RemoveClient;
         case 501: return Command_UpdateEmailAlarm;
-        case 502: return Command_VerifyEmailAlarm;
+        case 502: return Command_CreateEmailAlarm;
+        case 503: return Command_DeleteEmailAlarm;
+        case 504: return Command_VerifyEmailAlarm;
         default: return null;
       }
     }
@@ -298,7 +118,7 @@ public final class CloudManagerAlarm {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return cn.infocore.protobuf.CloudManagerAlarm.getDescriptor().getEnumTypes().get(1);
+      return cn.infocore.protobuf.CloudManagerAlarm.getDescriptor().getEnumTypes().get(0);
     }
 
     private static final Command[] VALUES = values();
@@ -380,7 +200,7 @@ public final class CloudManagerAlarm {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return cn.infocore.protobuf.CloudManagerAlarm.getDescriptor().getEnumTypes().get(2);
+      return cn.infocore.protobuf.CloudManagerAlarm.getDescriptor().getEnumTypes().get(1);
     }
 
     private static final ErrorCode[] VALUES = values();
@@ -453,7 +273,7 @@ public final class CloudManagerAlarm {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return cn.infocore.protobuf.CloudManagerAlarm.getDescriptor().getEnumTypes().get(3);
+      return cn.infocore.protobuf.CloudManagerAlarm.getDescriptor().getEnumTypes().get(2);
     }
 
     private static final Version[] VALUES = values();
@@ -1446,3300 +1266,6 @@ public final class CloudManagerAlarm {
     // @@protoc_insertion_point(class_scope:RemoveDataArkRequest)
   }
 
-  public interface AddClientRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:AddClientRequest)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>repeated .AddClientRequest.Client clients = 1;</code>
-     */
-    java.util.List<cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client> 
-        getClientsList();
-    /**
-     * <code>repeated .AddClientRequest.Client clients = 1;</code>
-     */
-    cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client getClients(int index);
-    /**
-     * <code>repeated .AddClientRequest.Client clients = 1;</code>
-     */
-    int getClientsCount();
-    /**
-     * <code>repeated .AddClientRequest.Client clients = 1;</code>
-     */
-    java.util.List<? extends cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder> 
-        getClientsOrBuilderList();
-    /**
-     * <code>repeated .AddClientRequest.Client clients = 1;</code>
-     */
-    cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder getClientsOrBuilder(
-        int index);
-  }
-  /**
-   * Protobuf type {@code AddClientRequest}
-   *
-   * <pre>
-   * 如果是 VMware 虚拟机，第一层客户端信息填 vCenter，第二层客户端信息填 虚拟机，其他客户端只填第一层即可 
-   * </pre>
-   */
-  public static final class AddClientRequest extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:AddClientRequest)
-      AddClientRequestOrBuilder {
-    // Use AddClientRequest.newBuilder() to construct.
-    private AddClientRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-      this.unknownFields = builder.getUnknownFields();
-    }
-    private AddClientRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final AddClientRequest defaultInstance;
-    public static AddClientRequest getDefaultInstance() {
-      return defaultInstance;
-    }
-
-    public AddClientRequest getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private AddClientRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                clients_ = new java.util.ArrayList<cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              clients_.add(input.readMessage(cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.PARSER, extensionRegistry));
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          clients_ = java.util.Collections.unmodifiableList(clients_);
-        }
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return cn.infocore.protobuf.CloudManagerAlarm.internal_static_AddClientRequest_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return cn.infocore.protobuf.CloudManagerAlarm.internal_static_AddClientRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.class, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<AddClientRequest> PARSER =
-        new com.google.protobuf.AbstractParser<AddClientRequest>() {
-      public AddClientRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new AddClientRequest(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<AddClientRequest> getParserForType() {
-      return PARSER;
-    }
-
-    public interface ClientOrBuilder extends
-        // @@protoc_insertion_point(interface_extends:AddClientRequest.Client)
-        com.google.protobuf.MessageOrBuilder {
-
-      /**
-       * <code>required .ClientType type = 1;</code>
-       */
-      boolean hasType();
-      /**
-       * <code>required .ClientType type = 1;</code>
-       */
-      cn.infocore.protobuf.CloudManagerAlarm.ClientType getType();
-
-      /**
-       * <code>required string id = 2;</code>
-       */
-      boolean hasId();
-      /**
-       * <code>required string id = 2;</code>
-       */
-      java.lang.String getId();
-      /**
-       * <code>required string id = 2;</code>
-       */
-      com.google.protobuf.ByteString
-          getIdBytes();
-
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 3;</code>
-       */
-      java.util.List<cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client> 
-          getClientsList();
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 3;</code>
-       */
-      cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client getClients(int index);
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 3;</code>
-       */
-      int getClientsCount();
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 3;</code>
-       */
-      java.util.List<? extends cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder> 
-          getClientsOrBuilderList();
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 3;</code>
-       */
-      cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder getClientsOrBuilder(
-          int index);
-    }
-    /**
-     * Protobuf type {@code AddClientRequest.Client}
-     */
-    public static final class Client extends
-        com.google.protobuf.GeneratedMessage implements
-        // @@protoc_insertion_point(message_implements:AddClientRequest.Client)
-        ClientOrBuilder {
-      // Use Client.newBuilder() to construct.
-      private Client(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-        super(builder);
-        this.unknownFields = builder.getUnknownFields();
-      }
-      private Client(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-      private static final Client defaultInstance;
-      public static Client getDefaultInstance() {
-        return defaultInstance;
-      }
-
-      public Client getDefaultInstanceForType() {
-        return defaultInstance;
-      }
-
-      private final com.google.protobuf.UnknownFieldSet unknownFields;
-      @java.lang.Override
-      public final com.google.protobuf.UnknownFieldSet
-          getUnknownFields() {
-        return this.unknownFields;
-      }
-      private Client(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        initFields();
-        int mutable_bitField0_ = 0;
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder();
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  done = true;
-                }
-                break;
-              }
-              case 8: {
-                int rawValue = input.readEnum();
-                cn.infocore.protobuf.CloudManagerAlarm.ClientType value = cn.infocore.protobuf.CloudManagerAlarm.ClientType.valueOf(rawValue);
-                if (value == null) {
-                  unknownFields.mergeVarintField(1, rawValue);
-                } else {
-                  bitField0_ |= 0x00000001;
-                  type_ = value;
-                }
-                break;
-              }
-              case 18: {
-                com.google.protobuf.ByteString bs = input.readBytes();
-                bitField0_ |= 0x00000002;
-                id_ = bs;
-                break;
-              }
-              case 26: {
-                if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
-                  clients_ = new java.util.ArrayList<cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client>();
-                  mutable_bitField0_ |= 0x00000004;
-                }
-                clients_.add(input.readMessage(cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.PARSER, extensionRegistry));
-                break;
-              }
-            }
-          }
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(this);
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(
-              e.getMessage()).setUnfinishedMessage(this);
-        } finally {
-          if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
-            clients_ = java.util.Collections.unmodifiableList(clients_);
-          }
-          this.unknownFields = unknownFields.build();
-          makeExtensionsImmutable();
-        }
-      }
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_AddClientRequest_Client_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_AddClientRequest_Client_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.class, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder.class);
-      }
-
-      public static com.google.protobuf.Parser<Client> PARSER =
-          new com.google.protobuf.AbstractParser<Client>() {
-        public Client parsePartialFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Client(input, extensionRegistry);
-        }
-      };
-
-      @java.lang.Override
-      public com.google.protobuf.Parser<Client> getParserForType() {
-        return PARSER;
-      }
-
-      private int bitField0_;
-      public static final int TYPE_FIELD_NUMBER = 1;
-      private cn.infocore.protobuf.CloudManagerAlarm.ClientType type_;
-      /**
-       * <code>required .ClientType type = 1;</code>
-       */
-      public boolean hasType() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required .ClientType type = 1;</code>
-       */
-      public cn.infocore.protobuf.CloudManagerAlarm.ClientType getType() {
-        return type_;
-      }
-
-      public static final int ID_FIELD_NUMBER = 2;
-      private java.lang.Object id_;
-      /**
-       * <code>required string id = 2;</code>
-       */
-      public boolean hasId() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>required string id = 2;</code>
-       */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (ref instanceof java.lang.String) {
-          return (java.lang.String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            id_ = s;
-          }
-          return s;
-        }
-      }
-      /**
-       * <code>required string id = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
-        if (ref instanceof java.lang.String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          id_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-
-      public static final int CLIENTS_FIELD_NUMBER = 3;
-      private java.util.List<cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client> clients_;
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 3;</code>
-       */
-      public java.util.List<cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client> getClientsList() {
-        return clients_;
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 3;</code>
-       */
-      public java.util.List<? extends cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder> 
-          getClientsOrBuilderList() {
-        return clients_;
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 3;</code>
-       */
-      public int getClientsCount() {
-        return clients_.size();
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 3;</code>
-       */
-      public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client getClients(int index) {
-        return clients_.get(index);
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 3;</code>
-       */
-      public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder getClientsOrBuilder(
-          int index) {
-        return clients_.get(index);
-      }
-
-      private void initFields() {
-        type_ = cn.infocore.protobuf.CloudManagerAlarm.ClientType.ClientType_SingleClient;
-        id_ = "";
-        clients_ = java.util.Collections.emptyList();
-      }
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized == 1) return true;
-        if (isInitialized == 0) return false;
-
-        if (!hasType()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasId()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        for (int i = 0; i < getClientsCount(); i++) {
-          if (!getClients(i).isInitialized()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-        }
-        memoizedIsInitialized = 1;
-        return true;
-      }
-
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeEnum(1, type_.getNumber());
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeBytes(2, getIdBytes());
-        }
-        for (int i = 0; i < clients_.size(); i++) {
-          output.writeMessage(3, clients_.get(i));
-        }
-        getUnknownFields().writeTo(output);
-      }
-
-      private int memoizedSerializedSize = -1;
-      public int getSerializedSize() {
-        int size = memoizedSerializedSize;
-        if (size != -1) return size;
-
-        size = 0;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeEnumSize(1, type_.getNumber());
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(2, getIdBytes());
-        }
-        for (int i = 0; i < clients_.size(); i++) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(3, clients_.get(i));
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSerializedSize = size;
-        return size;
-      }
-
-      private static final long serialVersionUID = 0L;
-      @java.lang.Override
-      protected java.lang.Object writeReplace()
-          throws java.io.ObjectStreamException {
-        return super.writeReplace();
-      }
-
-      public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return PARSER.parseFrom(input);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return PARSER.parseFrom(input, extensionRegistry);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return PARSER.parseDelimitedFrom(input);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return PARSER.parseDelimitedFrom(input, extensionRegistry);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return PARSER.parseFrom(input);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return PARSER.parseFrom(input, extensionRegistry);
-      }
-
-      public static Builder newBuilder() { return Builder.create(); }
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client prototype) {
-        return newBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() { return newBuilder(this); }
-
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      /**
-       * Protobuf type {@code AddClientRequest.Client}
-       */
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-          // @@protoc_insertion_point(builder_implements:AddClientRequest.Client)
-          cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return cn.infocore.protobuf.CloudManagerAlarm.internal_static_AddClientRequest_Client_descriptor;
-        }
-
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return cn.infocore.protobuf.CloudManagerAlarm.internal_static_AddClientRequest_Client_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                  cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.class, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder.class);
-        }
-
-        // Construct using cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-
-        private Builder(
-            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-            getClientsFieldBuilder();
-          }
-        }
-        private static Builder create() {
-          return new Builder();
-        }
-
-        public Builder clear() {
-          super.clear();
-          type_ = cn.infocore.protobuf.CloudManagerAlarm.ClientType.ClientType_SingleClient;
-          bitField0_ = (bitField0_ & ~0x00000001);
-          id_ = "";
-          bitField0_ = (bitField0_ & ~0x00000002);
-          if (clientsBuilder_ == null) {
-            clients_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000004);
-          } else {
-            clientsBuilder_.clear();
-          }
-          return this;
-        }
-
-        public Builder clone() {
-          return create().mergeFrom(buildPartial());
-        }
-
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return cn.infocore.protobuf.CloudManagerAlarm.internal_static_AddClientRequest_Client_descriptor;
-        }
-
-        public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client getDefaultInstanceForType() {
-          return cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.getDefaultInstance();
-        }
-
-        public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client build() {
-          cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-
-        public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client buildPartial() {
-          cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client result = new cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client(this);
-          int from_bitField0_ = bitField0_;
-          int to_bitField0_ = 0;
-          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-            to_bitField0_ |= 0x00000001;
-          }
-          result.type_ = type_;
-          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-            to_bitField0_ |= 0x00000002;
-          }
-          result.id_ = id_;
-          if (clientsBuilder_ == null) {
-            if (((bitField0_ & 0x00000004) == 0x00000004)) {
-              clients_ = java.util.Collections.unmodifiableList(clients_);
-              bitField0_ = (bitField0_ & ~0x00000004);
-            }
-            result.clients_ = clients_;
-          } else {
-            result.clients_ = clientsBuilder_.build();
-          }
-          result.bitField0_ = to_bitField0_;
-          onBuilt();
-          return result;
-        }
-
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client) {
-            return mergeFrom((cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-
-        public Builder mergeFrom(cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client other) {
-          if (other == cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.getDefaultInstance()) return this;
-          if (other.hasType()) {
-            setType(other.getType());
-          }
-          if (other.hasId()) {
-            bitField0_ |= 0x00000002;
-            id_ = other.id_;
-            onChanged();
-          }
-          if (clientsBuilder_ == null) {
-            if (!other.clients_.isEmpty()) {
-              if (clients_.isEmpty()) {
-                clients_ = other.clients_;
-                bitField0_ = (bitField0_ & ~0x00000004);
-              } else {
-                ensureClientsIsMutable();
-                clients_.addAll(other.clients_);
-              }
-              onChanged();
-            }
-          } else {
-            if (!other.clients_.isEmpty()) {
-              if (clientsBuilder_.isEmpty()) {
-                clientsBuilder_.dispose();
-                clientsBuilder_ = null;
-                clients_ = other.clients_;
-                bitField0_ = (bitField0_ & ~0x00000004);
-                clientsBuilder_ = 
-                  com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                     getClientsFieldBuilder() : null;
-              } else {
-                clientsBuilder_.addAllMessages(other.clients_);
-              }
-            }
-          }
-          this.mergeUnknownFields(other.getUnknownFields());
-          return this;
-        }
-
-        public final boolean isInitialized() {
-          if (!hasType()) {
-            
-            return false;
-          }
-          if (!hasId()) {
-            
-            return false;
-          }
-          for (int i = 0; i < getClientsCount(); i++) {
-            if (!getClients(i).isInitialized()) {
-              
-              return false;
-            }
-          }
-          return true;
-        }
-
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client parsedMessage = null;
-          try {
-            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            parsedMessage = (cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client) e.getUnfinishedMessage();
-            throw e;
-          } finally {
-            if (parsedMessage != null) {
-              mergeFrom(parsedMessage);
-            }
-          }
-          return this;
-        }
-        private int bitField0_;
-
-        private cn.infocore.protobuf.CloudManagerAlarm.ClientType type_ = cn.infocore.protobuf.CloudManagerAlarm.ClientType.ClientType_SingleClient;
-        /**
-         * <code>required .ClientType type = 1;</code>
-         */
-        public boolean hasType() {
-          return ((bitField0_ & 0x00000001) == 0x00000001);
-        }
-        /**
-         * <code>required .ClientType type = 1;</code>
-         */
-        public cn.infocore.protobuf.CloudManagerAlarm.ClientType getType() {
-          return type_;
-        }
-        /**
-         * <code>required .ClientType type = 1;</code>
-         */
-        public Builder setType(cn.infocore.protobuf.CloudManagerAlarm.ClientType value) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          bitField0_ |= 0x00000001;
-          type_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>required .ClientType type = 1;</code>
-         */
-        public Builder clearType() {
-          bitField0_ = (bitField0_ & ~0x00000001);
-          type_ = cn.infocore.protobuf.CloudManagerAlarm.ClientType.ClientType_SingleClient;
-          onChanged();
-          return this;
-        }
-
-        private java.lang.Object id_ = "";
-        /**
-         * <code>required string id = 2;</code>
-         */
-        public boolean hasId() {
-          return ((bitField0_ & 0x00000002) == 0x00000002);
-        }
-        /**
-         * <code>required string id = 2;</code>
-         */
-        public java.lang.String getId() {
-          java.lang.Object ref = id_;
-          if (!(ref instanceof java.lang.String)) {
-            com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            if (bs.isValidUtf8()) {
-              id_ = s;
-            }
-            return s;
-          } else {
-            return (java.lang.String) ref;
-          }
-        }
-        /**
-         * <code>required string id = 2;</code>
-         */
-        public com.google.protobuf.ByteString
-            getIdBytes() {
-          java.lang.Object ref = id_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-            id_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        /**
-         * <code>required string id = 2;</code>
-         */
-        public Builder setId(
-            java.lang.String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-          id_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>required string id = 2;</code>
-         */
-        public Builder clearId() {
-          bitField0_ = (bitField0_ & ~0x00000002);
-          id_ = getDefaultInstance().getId();
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>required string id = 2;</code>
-         */
-        public Builder setIdBytes(
-            com.google.protobuf.ByteString value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-          id_ = value;
-          onChanged();
-          return this;
-        }
-
-        private java.util.List<cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client> clients_ =
-          java.util.Collections.emptyList();
-        private void ensureClientsIsMutable() {
-          if (!((bitField0_ & 0x00000004) == 0x00000004)) {
-            clients_ = new java.util.ArrayList<cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client>(clients_);
-            bitField0_ |= 0x00000004;
-           }
-        }
-
-        private com.google.protobuf.RepeatedFieldBuilder<
-            cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder> clientsBuilder_;
-
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public java.util.List<cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client> getClientsList() {
-          if (clientsBuilder_ == null) {
-            return java.util.Collections.unmodifiableList(clients_);
-          } else {
-            return clientsBuilder_.getMessageList();
-          }
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public int getClientsCount() {
-          if (clientsBuilder_ == null) {
-            return clients_.size();
-          } else {
-            return clientsBuilder_.getCount();
-          }
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client getClients(int index) {
-          if (clientsBuilder_ == null) {
-            return clients_.get(index);
-          } else {
-            return clientsBuilder_.getMessage(index);
-          }
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public Builder setClients(
-            int index, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client value) {
-          if (clientsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensureClientsIsMutable();
-            clients_.set(index, value);
-            onChanged();
-          } else {
-            clientsBuilder_.setMessage(index, value);
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public Builder setClients(
-            int index, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder builderForValue) {
-          if (clientsBuilder_ == null) {
-            ensureClientsIsMutable();
-            clients_.set(index, builderForValue.build());
-            onChanged();
-          } else {
-            clientsBuilder_.setMessage(index, builderForValue.build());
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public Builder addClients(cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client value) {
-          if (clientsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensureClientsIsMutable();
-            clients_.add(value);
-            onChanged();
-          } else {
-            clientsBuilder_.addMessage(value);
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public Builder addClients(
-            int index, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client value) {
-          if (clientsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensureClientsIsMutable();
-            clients_.add(index, value);
-            onChanged();
-          } else {
-            clientsBuilder_.addMessage(index, value);
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public Builder addClients(
-            cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder builderForValue) {
-          if (clientsBuilder_ == null) {
-            ensureClientsIsMutable();
-            clients_.add(builderForValue.build());
-            onChanged();
-          } else {
-            clientsBuilder_.addMessage(builderForValue.build());
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public Builder addClients(
-            int index, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder builderForValue) {
-          if (clientsBuilder_ == null) {
-            ensureClientsIsMutable();
-            clients_.add(index, builderForValue.build());
-            onChanged();
-          } else {
-            clientsBuilder_.addMessage(index, builderForValue.build());
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public Builder addAllClients(
-            java.lang.Iterable<? extends cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client> values) {
-          if (clientsBuilder_ == null) {
-            ensureClientsIsMutable();
-            com.google.protobuf.AbstractMessageLite.Builder.addAll(
-                values, clients_);
-            onChanged();
-          } else {
-            clientsBuilder_.addAllMessages(values);
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public Builder clearClients() {
-          if (clientsBuilder_ == null) {
-            clients_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000004);
-            onChanged();
-          } else {
-            clientsBuilder_.clear();
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public Builder removeClients(int index) {
-          if (clientsBuilder_ == null) {
-            ensureClientsIsMutable();
-            clients_.remove(index);
-            onChanged();
-          } else {
-            clientsBuilder_.remove(index);
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder getClientsBuilder(
-            int index) {
-          return getClientsFieldBuilder().getBuilder(index);
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder getClientsOrBuilder(
-            int index) {
-          if (clientsBuilder_ == null) {
-            return clients_.get(index);  } else {
-            return clientsBuilder_.getMessageOrBuilder(index);
-          }
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public java.util.List<? extends cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder> 
-             getClientsOrBuilderList() {
-          if (clientsBuilder_ != null) {
-            return clientsBuilder_.getMessageOrBuilderList();
-          } else {
-            return java.util.Collections.unmodifiableList(clients_);
-          }
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder addClientsBuilder() {
-          return getClientsFieldBuilder().addBuilder(
-              cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.getDefaultInstance());
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder addClientsBuilder(
-            int index) {
-          return getClientsFieldBuilder().addBuilder(
-              index, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.getDefaultInstance());
-        }
-        /**
-         * <code>repeated .AddClientRequest.Client clients = 3;</code>
-         */
-        public java.util.List<cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder> 
-             getClientsBuilderList() {
-          return getClientsFieldBuilder().getBuilderList();
-        }
-        private com.google.protobuf.RepeatedFieldBuilder<
-            cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder> 
-            getClientsFieldBuilder() {
-          if (clientsBuilder_ == null) {
-            clientsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-                cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder>(
-                    clients_,
-                    ((bitField0_ & 0x00000004) == 0x00000004),
-                    getParentForChildren(),
-                    isClean());
-            clients_ = null;
-          }
-          return clientsBuilder_;
-        }
-
-        // @@protoc_insertion_point(builder_scope:AddClientRequest.Client)
-      }
-
-      static {
-        defaultInstance = new Client(true);
-        defaultInstance.initFields();
-      }
-
-      // @@protoc_insertion_point(class_scope:AddClientRequest.Client)
-    }
-
-    public static final int CLIENTS_FIELD_NUMBER = 1;
-    private java.util.List<cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client> clients_;
-    /**
-     * <code>repeated .AddClientRequest.Client clients = 1;</code>
-     */
-    public java.util.List<cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client> getClientsList() {
-      return clients_;
-    }
-    /**
-     * <code>repeated .AddClientRequest.Client clients = 1;</code>
-     */
-    public java.util.List<? extends cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder> 
-        getClientsOrBuilderList() {
-      return clients_;
-    }
-    /**
-     * <code>repeated .AddClientRequest.Client clients = 1;</code>
-     */
-    public int getClientsCount() {
-      return clients_.size();
-    }
-    /**
-     * <code>repeated .AddClientRequest.Client clients = 1;</code>
-     */
-    public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client getClients(int index) {
-      return clients_.get(index);
-    }
-    /**
-     * <code>repeated .AddClientRequest.Client clients = 1;</code>
-     */
-    public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder getClientsOrBuilder(
-        int index) {
-      return clients_.get(index);
-    }
-
-    private void initFields() {
-      clients_ = java.util.Collections.emptyList();
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      for (int i = 0; i < getClientsCount(); i++) {
-        if (!getClients(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      for (int i = 0; i < clients_.size(); i++) {
-        output.writeMessage(1, clients_.get(i));
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      for (int i = 0; i < clients_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, clients_.get(i));
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-
-    public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code AddClientRequest}
-     *
-     * <pre>
-     * 如果是 VMware 虚拟机，第一层客户端信息填 vCenter，第二层客户端信息填 虚拟机，其他客户端只填第一层即可 
-     * </pre>
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:AddClientRequest)
-        cn.infocore.protobuf.CloudManagerAlarm.AddClientRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_AddClientRequest_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_AddClientRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.class, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Builder.class);
-      }
-
-      // Construct using cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getClientsFieldBuilder();
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-
-      public Builder clear() {
-        super.clear();
-        if (clientsBuilder_ == null) {
-          clients_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          clientsBuilder_.clear();
-        }
-        return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_AddClientRequest_descriptor;
-      }
-
-      public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest getDefaultInstanceForType() {
-        return cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.getDefaultInstance();
-      }
-
-      public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest build() {
-        cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest buildPartial() {
-        cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest result = new cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest(this);
-        int from_bitField0_ = bitField0_;
-        if (clientsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            clients_ = java.util.Collections.unmodifiableList(clients_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.clients_ = clients_;
-        } else {
-          result.clients_ = clientsBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest) {
-          return mergeFrom((cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest other) {
-        if (other == cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.getDefaultInstance()) return this;
-        if (clientsBuilder_ == null) {
-          if (!other.clients_.isEmpty()) {
-            if (clients_.isEmpty()) {
-              clients_ = other.clients_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureClientsIsMutable();
-              clients_.addAll(other.clients_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.clients_.isEmpty()) {
-            if (clientsBuilder_.isEmpty()) {
-              clientsBuilder_.dispose();
-              clientsBuilder_ = null;
-              clients_ = other.clients_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              clientsBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getClientsFieldBuilder() : null;
-            } else {
-              clientsBuilder_.addAllMessages(other.clients_);
-            }
-          }
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        for (int i = 0; i < getClientsCount(); i++) {
-          if (!getClients(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.util.List<cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client> clients_ =
-        java.util.Collections.emptyList();
-      private void ensureClientsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          clients_ = new java.util.ArrayList<cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client>(clients_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilder<
-          cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder> clientsBuilder_;
-
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public java.util.List<cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client> getClientsList() {
-        if (clientsBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(clients_);
-        } else {
-          return clientsBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public int getClientsCount() {
-        if (clientsBuilder_ == null) {
-          return clients_.size();
-        } else {
-          return clientsBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client getClients(int index) {
-        if (clientsBuilder_ == null) {
-          return clients_.get(index);
-        } else {
-          return clientsBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public Builder setClients(
-          int index, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client value) {
-        if (clientsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureClientsIsMutable();
-          clients_.set(index, value);
-          onChanged();
-        } else {
-          clientsBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public Builder setClients(
-          int index, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder builderForValue) {
-        if (clientsBuilder_ == null) {
-          ensureClientsIsMutable();
-          clients_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          clientsBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public Builder addClients(cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client value) {
-        if (clientsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureClientsIsMutable();
-          clients_.add(value);
-          onChanged();
-        } else {
-          clientsBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public Builder addClients(
-          int index, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client value) {
-        if (clientsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureClientsIsMutable();
-          clients_.add(index, value);
-          onChanged();
-        } else {
-          clientsBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public Builder addClients(
-          cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder builderForValue) {
-        if (clientsBuilder_ == null) {
-          ensureClientsIsMutable();
-          clients_.add(builderForValue.build());
-          onChanged();
-        } else {
-          clientsBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public Builder addClients(
-          int index, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder builderForValue) {
-        if (clientsBuilder_ == null) {
-          ensureClientsIsMutable();
-          clients_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          clientsBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public Builder addAllClients(
-          java.lang.Iterable<? extends cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client> values) {
-        if (clientsBuilder_ == null) {
-          ensureClientsIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, clients_);
-          onChanged();
-        } else {
-          clientsBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public Builder clearClients() {
-        if (clientsBuilder_ == null) {
-          clients_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          clientsBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public Builder removeClients(int index) {
-        if (clientsBuilder_ == null) {
-          ensureClientsIsMutable();
-          clients_.remove(index);
-          onChanged();
-        } else {
-          clientsBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder getClientsBuilder(
-          int index) {
-        return getClientsFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder getClientsOrBuilder(
-          int index) {
-        if (clientsBuilder_ == null) {
-          return clients_.get(index);  } else {
-          return clientsBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public java.util.List<? extends cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder> 
-           getClientsOrBuilderList() {
-        if (clientsBuilder_ != null) {
-          return clientsBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(clients_);
-        }
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder addClientsBuilder() {
-        return getClientsFieldBuilder().addBuilder(
-            cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder addClientsBuilder(
-          int index) {
-        return getClientsFieldBuilder().addBuilder(
-            index, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .AddClientRequest.Client clients = 1;</code>
-       */
-      public java.util.List<cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder> 
-           getClientsBuilderList() {
-        return getClientsFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilder<
-          cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder> 
-          getClientsFieldBuilder() {
-        if (clientsBuilder_ == null) {
-          clientsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.Client.Builder, cn.infocore.protobuf.CloudManagerAlarm.AddClientRequest.ClientOrBuilder>(
-                  clients_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
-                  getParentForChildren(),
-                  isClean());
-          clients_ = null;
-        }
-        return clientsBuilder_;
-      }
-
-      // @@protoc_insertion_point(builder_scope:AddClientRequest)
-    }
-
-    static {
-      defaultInstance = new AddClientRequest(true);
-      defaultInstance.initFields();
-    }
-
-    // @@protoc_insertion_point(class_scope:AddClientRequest)
-  }
-
-  public interface RemoveClientRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:RemoveClientRequest)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-     */
-    java.util.List<cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client> 
-        getClientsList();
-    /**
-     * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-     */
-    cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client getClients(int index);
-    /**
-     * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-     */
-    int getClientsCount();
-    /**
-     * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-     */
-    java.util.List<? extends cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder> 
-        getClientsOrBuilderList();
-    /**
-     * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-     */
-    cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder getClientsOrBuilder(
-        int index);
-  }
-  /**
-   * Protobuf type {@code RemoveClientRequest}
-   *
-   * <pre>
-   * 同 AddClientRequest 
-   * </pre>
-   */
-  public static final class RemoveClientRequest extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:RemoveClientRequest)
-      RemoveClientRequestOrBuilder {
-    // Use RemoveClientRequest.newBuilder() to construct.
-    private RemoveClientRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-      this.unknownFields = builder.getUnknownFields();
-    }
-    private RemoveClientRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final RemoveClientRequest defaultInstance;
-    public static RemoveClientRequest getDefaultInstance() {
-      return defaultInstance;
-    }
-
-    public RemoveClientRequest getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private RemoveClientRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                clients_ = new java.util.ArrayList<cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              clients_.add(input.readMessage(cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.PARSER, extensionRegistry));
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          clients_ = java.util.Collections.unmodifiableList(clients_);
-        }
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return cn.infocore.protobuf.CloudManagerAlarm.internal_static_RemoveClientRequest_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return cn.infocore.protobuf.CloudManagerAlarm.internal_static_RemoveClientRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.class, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<RemoveClientRequest> PARSER =
-        new com.google.protobuf.AbstractParser<RemoveClientRequest>() {
-      public RemoveClientRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new RemoveClientRequest(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<RemoveClientRequest> getParserForType() {
-      return PARSER;
-    }
-
-    public interface ClientOrBuilder extends
-        // @@protoc_insertion_point(interface_extends:RemoveClientRequest.Client)
-        com.google.protobuf.MessageOrBuilder {
-
-      /**
-       * <code>required .ClientType type = 1;</code>
-       */
-      boolean hasType();
-      /**
-       * <code>required .ClientType type = 1;</code>
-       */
-      cn.infocore.protobuf.CloudManagerAlarm.ClientType getType();
-
-      /**
-       * <code>required string id = 2;</code>
-       */
-      boolean hasId();
-      /**
-       * <code>required string id = 2;</code>
-       */
-      java.lang.String getId();
-      /**
-       * <code>required string id = 2;</code>
-       */
-      com.google.protobuf.ByteString
-          getIdBytes();
-
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-       */
-      java.util.List<cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client> 
-          getClientsList();
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-       */
-      cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client getClients(int index);
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-       */
-      int getClientsCount();
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-       */
-      java.util.List<? extends cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder> 
-          getClientsOrBuilderList();
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-       */
-      cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder getClientsOrBuilder(
-          int index);
-    }
-    /**
-     * Protobuf type {@code RemoveClientRequest.Client}
-     */
-    public static final class Client extends
-        com.google.protobuf.GeneratedMessage implements
-        // @@protoc_insertion_point(message_implements:RemoveClientRequest.Client)
-        ClientOrBuilder {
-      // Use Client.newBuilder() to construct.
-      private Client(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-        super(builder);
-        this.unknownFields = builder.getUnknownFields();
-      }
-      private Client(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-      private static final Client defaultInstance;
-      public static Client getDefaultInstance() {
-        return defaultInstance;
-      }
-
-      public Client getDefaultInstanceForType() {
-        return defaultInstance;
-      }
-
-      private final com.google.protobuf.UnknownFieldSet unknownFields;
-      @java.lang.Override
-      public final com.google.protobuf.UnknownFieldSet
-          getUnknownFields() {
-        return this.unknownFields;
-      }
-      private Client(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        initFields();
-        int mutable_bitField0_ = 0;
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder();
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  done = true;
-                }
-                break;
-              }
-              case 8: {
-                int rawValue = input.readEnum();
-                cn.infocore.protobuf.CloudManagerAlarm.ClientType value = cn.infocore.protobuf.CloudManagerAlarm.ClientType.valueOf(rawValue);
-                if (value == null) {
-                  unknownFields.mergeVarintField(1, rawValue);
-                } else {
-                  bitField0_ |= 0x00000001;
-                  type_ = value;
-                }
-                break;
-              }
-              case 18: {
-                com.google.protobuf.ByteString bs = input.readBytes();
-                bitField0_ |= 0x00000002;
-                id_ = bs;
-                break;
-              }
-              case 26: {
-                if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
-                  clients_ = new java.util.ArrayList<cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client>();
-                  mutable_bitField0_ |= 0x00000004;
-                }
-                clients_.add(input.readMessage(cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.PARSER, extensionRegistry));
-                break;
-              }
-            }
-          }
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(this);
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(
-              e.getMessage()).setUnfinishedMessage(this);
-        } finally {
-          if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
-            clients_ = java.util.Collections.unmodifiableList(clients_);
-          }
-          this.unknownFields = unknownFields.build();
-          makeExtensionsImmutable();
-        }
-      }
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_RemoveClientRequest_Client_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_RemoveClientRequest_Client_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.class, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder.class);
-      }
-
-      public static com.google.protobuf.Parser<Client> PARSER =
-          new com.google.protobuf.AbstractParser<Client>() {
-        public Client parsePartialFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Client(input, extensionRegistry);
-        }
-      };
-
-      @java.lang.Override
-      public com.google.protobuf.Parser<Client> getParserForType() {
-        return PARSER;
-      }
-
-      private int bitField0_;
-      public static final int TYPE_FIELD_NUMBER = 1;
-      private cn.infocore.protobuf.CloudManagerAlarm.ClientType type_;
-      /**
-       * <code>required .ClientType type = 1;</code>
-       */
-      public boolean hasType() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required .ClientType type = 1;</code>
-       */
-      public cn.infocore.protobuf.CloudManagerAlarm.ClientType getType() {
-        return type_;
-      }
-
-      public static final int ID_FIELD_NUMBER = 2;
-      private java.lang.Object id_;
-      /**
-       * <code>required string id = 2;</code>
-       */
-      public boolean hasId() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>required string id = 2;</code>
-       */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (ref instanceof java.lang.String) {
-          return (java.lang.String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            id_ = s;
-          }
-          return s;
-        }
-      }
-      /**
-       * <code>required string id = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
-        if (ref instanceof java.lang.String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          id_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-
-      public static final int CLIENTS_FIELD_NUMBER = 3;
-      private java.util.List<cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client> clients_;
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-       */
-      public java.util.List<cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client> getClientsList() {
-        return clients_;
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-       */
-      public java.util.List<? extends cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder> 
-          getClientsOrBuilderList() {
-        return clients_;
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-       */
-      public int getClientsCount() {
-        return clients_.size();
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-       */
-      public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client getClients(int index) {
-        return clients_.get(index);
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-       */
-      public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder getClientsOrBuilder(
-          int index) {
-        return clients_.get(index);
-      }
-
-      private void initFields() {
-        type_ = cn.infocore.protobuf.CloudManagerAlarm.ClientType.ClientType_SingleClient;
-        id_ = "";
-        clients_ = java.util.Collections.emptyList();
-      }
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized == 1) return true;
-        if (isInitialized == 0) return false;
-
-        if (!hasType()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasId()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        for (int i = 0; i < getClientsCount(); i++) {
-          if (!getClients(i).isInitialized()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-        }
-        memoizedIsInitialized = 1;
-        return true;
-      }
-
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeEnum(1, type_.getNumber());
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeBytes(2, getIdBytes());
-        }
-        for (int i = 0; i < clients_.size(); i++) {
-          output.writeMessage(3, clients_.get(i));
-        }
-        getUnknownFields().writeTo(output);
-      }
-
-      private int memoizedSerializedSize = -1;
-      public int getSerializedSize() {
-        int size = memoizedSerializedSize;
-        if (size != -1) return size;
-
-        size = 0;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeEnumSize(1, type_.getNumber());
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(2, getIdBytes());
-        }
-        for (int i = 0; i < clients_.size(); i++) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(3, clients_.get(i));
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSerializedSize = size;
-        return size;
-      }
-
-      private static final long serialVersionUID = 0L;
-      @java.lang.Override
-      protected java.lang.Object writeReplace()
-          throws java.io.ObjectStreamException {
-        return super.writeReplace();
-      }
-
-      public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return PARSER.parseFrom(input);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return PARSER.parseFrom(input, extensionRegistry);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return PARSER.parseDelimitedFrom(input);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return PARSER.parseDelimitedFrom(input, extensionRegistry);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return PARSER.parseFrom(input);
-      }
-      public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return PARSER.parseFrom(input, extensionRegistry);
-      }
-
-      public static Builder newBuilder() { return Builder.create(); }
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client prototype) {
-        return newBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() { return newBuilder(this); }
-
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      /**
-       * Protobuf type {@code RemoveClientRequest.Client}
-       */
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-          // @@protoc_insertion_point(builder_implements:RemoveClientRequest.Client)
-          cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return cn.infocore.protobuf.CloudManagerAlarm.internal_static_RemoveClientRequest_Client_descriptor;
-        }
-
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return cn.infocore.protobuf.CloudManagerAlarm.internal_static_RemoveClientRequest_Client_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                  cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.class, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder.class);
-        }
-
-        // Construct using cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-
-        private Builder(
-            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-            getClientsFieldBuilder();
-          }
-        }
-        private static Builder create() {
-          return new Builder();
-        }
-
-        public Builder clear() {
-          super.clear();
-          type_ = cn.infocore.protobuf.CloudManagerAlarm.ClientType.ClientType_SingleClient;
-          bitField0_ = (bitField0_ & ~0x00000001);
-          id_ = "";
-          bitField0_ = (bitField0_ & ~0x00000002);
-          if (clientsBuilder_ == null) {
-            clients_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000004);
-          } else {
-            clientsBuilder_.clear();
-          }
-          return this;
-        }
-
-        public Builder clone() {
-          return create().mergeFrom(buildPartial());
-        }
-
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return cn.infocore.protobuf.CloudManagerAlarm.internal_static_RemoveClientRequest_Client_descriptor;
-        }
-
-        public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client getDefaultInstanceForType() {
-          return cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.getDefaultInstance();
-        }
-
-        public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client build() {
-          cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-
-        public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client buildPartial() {
-          cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client result = new cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client(this);
-          int from_bitField0_ = bitField0_;
-          int to_bitField0_ = 0;
-          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-            to_bitField0_ |= 0x00000001;
-          }
-          result.type_ = type_;
-          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-            to_bitField0_ |= 0x00000002;
-          }
-          result.id_ = id_;
-          if (clientsBuilder_ == null) {
-            if (((bitField0_ & 0x00000004) == 0x00000004)) {
-              clients_ = java.util.Collections.unmodifiableList(clients_);
-              bitField0_ = (bitField0_ & ~0x00000004);
-            }
-            result.clients_ = clients_;
-          } else {
-            result.clients_ = clientsBuilder_.build();
-          }
-          result.bitField0_ = to_bitField0_;
-          onBuilt();
-          return result;
-        }
-
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client) {
-            return mergeFrom((cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-
-        public Builder mergeFrom(cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client other) {
-          if (other == cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.getDefaultInstance()) return this;
-          if (other.hasType()) {
-            setType(other.getType());
-          }
-          if (other.hasId()) {
-            bitField0_ |= 0x00000002;
-            id_ = other.id_;
-            onChanged();
-          }
-          if (clientsBuilder_ == null) {
-            if (!other.clients_.isEmpty()) {
-              if (clients_.isEmpty()) {
-                clients_ = other.clients_;
-                bitField0_ = (bitField0_ & ~0x00000004);
-              } else {
-                ensureClientsIsMutable();
-                clients_.addAll(other.clients_);
-              }
-              onChanged();
-            }
-          } else {
-            if (!other.clients_.isEmpty()) {
-              if (clientsBuilder_.isEmpty()) {
-                clientsBuilder_.dispose();
-                clientsBuilder_ = null;
-                clients_ = other.clients_;
-                bitField0_ = (bitField0_ & ~0x00000004);
-                clientsBuilder_ = 
-                  com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                     getClientsFieldBuilder() : null;
-              } else {
-                clientsBuilder_.addAllMessages(other.clients_);
-              }
-            }
-          }
-          this.mergeUnknownFields(other.getUnknownFields());
-          return this;
-        }
-
-        public final boolean isInitialized() {
-          if (!hasType()) {
-            
-            return false;
-          }
-          if (!hasId()) {
-            
-            return false;
-          }
-          for (int i = 0; i < getClientsCount(); i++) {
-            if (!getClients(i).isInitialized()) {
-              
-              return false;
-            }
-          }
-          return true;
-        }
-
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client parsedMessage = null;
-          try {
-            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            parsedMessage = (cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client) e.getUnfinishedMessage();
-            throw e;
-          } finally {
-            if (parsedMessage != null) {
-              mergeFrom(parsedMessage);
-            }
-          }
-          return this;
-        }
-        private int bitField0_;
-
-        private cn.infocore.protobuf.CloudManagerAlarm.ClientType type_ = cn.infocore.protobuf.CloudManagerAlarm.ClientType.ClientType_SingleClient;
-        /**
-         * <code>required .ClientType type = 1;</code>
-         */
-        public boolean hasType() {
-          return ((bitField0_ & 0x00000001) == 0x00000001);
-        }
-        /**
-         * <code>required .ClientType type = 1;</code>
-         */
-        public cn.infocore.protobuf.CloudManagerAlarm.ClientType getType() {
-          return type_;
-        }
-        /**
-         * <code>required .ClientType type = 1;</code>
-         */
-        public Builder setType(cn.infocore.protobuf.CloudManagerAlarm.ClientType value) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          bitField0_ |= 0x00000001;
-          type_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>required .ClientType type = 1;</code>
-         */
-        public Builder clearType() {
-          bitField0_ = (bitField0_ & ~0x00000001);
-          type_ = cn.infocore.protobuf.CloudManagerAlarm.ClientType.ClientType_SingleClient;
-          onChanged();
-          return this;
-        }
-
-        private java.lang.Object id_ = "";
-        /**
-         * <code>required string id = 2;</code>
-         */
-        public boolean hasId() {
-          return ((bitField0_ & 0x00000002) == 0x00000002);
-        }
-        /**
-         * <code>required string id = 2;</code>
-         */
-        public java.lang.String getId() {
-          java.lang.Object ref = id_;
-          if (!(ref instanceof java.lang.String)) {
-            com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            if (bs.isValidUtf8()) {
-              id_ = s;
-            }
-            return s;
-          } else {
-            return (java.lang.String) ref;
-          }
-        }
-        /**
-         * <code>required string id = 2;</code>
-         */
-        public com.google.protobuf.ByteString
-            getIdBytes() {
-          java.lang.Object ref = id_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-            id_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        /**
-         * <code>required string id = 2;</code>
-         */
-        public Builder setId(
-            java.lang.String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-          id_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>required string id = 2;</code>
-         */
-        public Builder clearId() {
-          bitField0_ = (bitField0_ & ~0x00000002);
-          id_ = getDefaultInstance().getId();
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>required string id = 2;</code>
-         */
-        public Builder setIdBytes(
-            com.google.protobuf.ByteString value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-          id_ = value;
-          onChanged();
-          return this;
-        }
-
-        private java.util.List<cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client> clients_ =
-          java.util.Collections.emptyList();
-        private void ensureClientsIsMutable() {
-          if (!((bitField0_ & 0x00000004) == 0x00000004)) {
-            clients_ = new java.util.ArrayList<cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client>(clients_);
-            bitField0_ |= 0x00000004;
-           }
-        }
-
-        private com.google.protobuf.RepeatedFieldBuilder<
-            cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder> clientsBuilder_;
-
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public java.util.List<cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client> getClientsList() {
-          if (clientsBuilder_ == null) {
-            return java.util.Collections.unmodifiableList(clients_);
-          } else {
-            return clientsBuilder_.getMessageList();
-          }
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public int getClientsCount() {
-          if (clientsBuilder_ == null) {
-            return clients_.size();
-          } else {
-            return clientsBuilder_.getCount();
-          }
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client getClients(int index) {
-          if (clientsBuilder_ == null) {
-            return clients_.get(index);
-          } else {
-            return clientsBuilder_.getMessage(index);
-          }
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public Builder setClients(
-            int index, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client value) {
-          if (clientsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensureClientsIsMutable();
-            clients_.set(index, value);
-            onChanged();
-          } else {
-            clientsBuilder_.setMessage(index, value);
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public Builder setClients(
-            int index, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder builderForValue) {
-          if (clientsBuilder_ == null) {
-            ensureClientsIsMutable();
-            clients_.set(index, builderForValue.build());
-            onChanged();
-          } else {
-            clientsBuilder_.setMessage(index, builderForValue.build());
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public Builder addClients(cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client value) {
-          if (clientsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensureClientsIsMutable();
-            clients_.add(value);
-            onChanged();
-          } else {
-            clientsBuilder_.addMessage(value);
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public Builder addClients(
-            int index, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client value) {
-          if (clientsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensureClientsIsMutable();
-            clients_.add(index, value);
-            onChanged();
-          } else {
-            clientsBuilder_.addMessage(index, value);
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public Builder addClients(
-            cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder builderForValue) {
-          if (clientsBuilder_ == null) {
-            ensureClientsIsMutable();
-            clients_.add(builderForValue.build());
-            onChanged();
-          } else {
-            clientsBuilder_.addMessage(builderForValue.build());
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public Builder addClients(
-            int index, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder builderForValue) {
-          if (clientsBuilder_ == null) {
-            ensureClientsIsMutable();
-            clients_.add(index, builderForValue.build());
-            onChanged();
-          } else {
-            clientsBuilder_.addMessage(index, builderForValue.build());
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public Builder addAllClients(
-            java.lang.Iterable<? extends cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client> values) {
-          if (clientsBuilder_ == null) {
-            ensureClientsIsMutable();
-            com.google.protobuf.AbstractMessageLite.Builder.addAll(
-                values, clients_);
-            onChanged();
-          } else {
-            clientsBuilder_.addAllMessages(values);
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public Builder clearClients() {
-          if (clientsBuilder_ == null) {
-            clients_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000004);
-            onChanged();
-          } else {
-            clientsBuilder_.clear();
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public Builder removeClients(int index) {
-          if (clientsBuilder_ == null) {
-            ensureClientsIsMutable();
-            clients_.remove(index);
-            onChanged();
-          } else {
-            clientsBuilder_.remove(index);
-          }
-          return this;
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder getClientsBuilder(
-            int index) {
-          return getClientsFieldBuilder().getBuilder(index);
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder getClientsOrBuilder(
-            int index) {
-          if (clientsBuilder_ == null) {
-            return clients_.get(index);  } else {
-            return clientsBuilder_.getMessageOrBuilder(index);
-          }
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public java.util.List<? extends cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder> 
-             getClientsOrBuilderList() {
-          if (clientsBuilder_ != null) {
-            return clientsBuilder_.getMessageOrBuilderList();
-          } else {
-            return java.util.Collections.unmodifiableList(clients_);
-          }
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder addClientsBuilder() {
-          return getClientsFieldBuilder().addBuilder(
-              cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.getDefaultInstance());
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder addClientsBuilder(
-            int index) {
-          return getClientsFieldBuilder().addBuilder(
-              index, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.getDefaultInstance());
-        }
-        /**
-         * <code>repeated .RemoveClientRequest.Client clients = 3;</code>
-         */
-        public java.util.List<cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder> 
-             getClientsBuilderList() {
-          return getClientsFieldBuilder().getBuilderList();
-        }
-        private com.google.protobuf.RepeatedFieldBuilder<
-            cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder> 
-            getClientsFieldBuilder() {
-          if (clientsBuilder_ == null) {
-            clientsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-                cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder>(
-                    clients_,
-                    ((bitField0_ & 0x00000004) == 0x00000004),
-                    getParentForChildren(),
-                    isClean());
-            clients_ = null;
-          }
-          return clientsBuilder_;
-        }
-
-        // @@protoc_insertion_point(builder_scope:RemoveClientRequest.Client)
-      }
-
-      static {
-        defaultInstance = new Client(true);
-        defaultInstance.initFields();
-      }
-
-      // @@protoc_insertion_point(class_scope:RemoveClientRequest.Client)
-    }
-
-    public static final int CLIENTS_FIELD_NUMBER = 1;
-    private java.util.List<cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client> clients_;
-    /**
-     * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-     */
-    public java.util.List<cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client> getClientsList() {
-      return clients_;
-    }
-    /**
-     * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-     */
-    public java.util.List<? extends cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder> 
-        getClientsOrBuilderList() {
-      return clients_;
-    }
-    /**
-     * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-     */
-    public int getClientsCount() {
-      return clients_.size();
-    }
-    /**
-     * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-     */
-    public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client getClients(int index) {
-      return clients_.get(index);
-    }
-    /**
-     * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-     */
-    public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder getClientsOrBuilder(
-        int index) {
-      return clients_.get(index);
-    }
-
-    private void initFields() {
-      clients_ = java.util.Collections.emptyList();
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      for (int i = 0; i < getClientsCount(); i++) {
-        if (!getClients(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      for (int i = 0; i < clients_.size(); i++) {
-        output.writeMessage(1, clients_.get(i));
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      for (int i = 0; i < clients_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, clients_.get(i));
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-
-    public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code RemoveClientRequest}
-     *
-     * <pre>
-     * 同 AddClientRequest 
-     * </pre>
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:RemoveClientRequest)
-        cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_RemoveClientRequest_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_RemoveClientRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.class, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Builder.class);
-      }
-
-      // Construct using cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getClientsFieldBuilder();
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-
-      public Builder clear() {
-        super.clear();
-        if (clientsBuilder_ == null) {
-          clients_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          clientsBuilder_.clear();
-        }
-        return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_RemoveClientRequest_descriptor;
-      }
-
-      public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest getDefaultInstanceForType() {
-        return cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.getDefaultInstance();
-      }
-
-      public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest build() {
-        cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest buildPartial() {
-        cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest result = new cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest(this);
-        int from_bitField0_ = bitField0_;
-        if (clientsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            clients_ = java.util.Collections.unmodifiableList(clients_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.clients_ = clients_;
-        } else {
-          result.clients_ = clientsBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest) {
-          return mergeFrom((cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest other) {
-        if (other == cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.getDefaultInstance()) return this;
-        if (clientsBuilder_ == null) {
-          if (!other.clients_.isEmpty()) {
-            if (clients_.isEmpty()) {
-              clients_ = other.clients_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureClientsIsMutable();
-              clients_.addAll(other.clients_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.clients_.isEmpty()) {
-            if (clientsBuilder_.isEmpty()) {
-              clientsBuilder_.dispose();
-              clientsBuilder_ = null;
-              clients_ = other.clients_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              clientsBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getClientsFieldBuilder() : null;
-            } else {
-              clientsBuilder_.addAllMessages(other.clients_);
-            }
-          }
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        for (int i = 0; i < getClientsCount(); i++) {
-          if (!getClients(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.util.List<cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client> clients_ =
-        java.util.Collections.emptyList();
-      private void ensureClientsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          clients_ = new java.util.ArrayList<cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client>(clients_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilder<
-          cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder> clientsBuilder_;
-
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public java.util.List<cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client> getClientsList() {
-        if (clientsBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(clients_);
-        } else {
-          return clientsBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public int getClientsCount() {
-        if (clientsBuilder_ == null) {
-          return clients_.size();
-        } else {
-          return clientsBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client getClients(int index) {
-        if (clientsBuilder_ == null) {
-          return clients_.get(index);
-        } else {
-          return clientsBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public Builder setClients(
-          int index, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client value) {
-        if (clientsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureClientsIsMutable();
-          clients_.set(index, value);
-          onChanged();
-        } else {
-          clientsBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public Builder setClients(
-          int index, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder builderForValue) {
-        if (clientsBuilder_ == null) {
-          ensureClientsIsMutable();
-          clients_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          clientsBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public Builder addClients(cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client value) {
-        if (clientsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureClientsIsMutable();
-          clients_.add(value);
-          onChanged();
-        } else {
-          clientsBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public Builder addClients(
-          int index, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client value) {
-        if (clientsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureClientsIsMutable();
-          clients_.add(index, value);
-          onChanged();
-        } else {
-          clientsBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public Builder addClients(
-          cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder builderForValue) {
-        if (clientsBuilder_ == null) {
-          ensureClientsIsMutable();
-          clients_.add(builderForValue.build());
-          onChanged();
-        } else {
-          clientsBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public Builder addClients(
-          int index, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder builderForValue) {
-        if (clientsBuilder_ == null) {
-          ensureClientsIsMutable();
-          clients_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          clientsBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public Builder addAllClients(
-          java.lang.Iterable<? extends cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client> values) {
-        if (clientsBuilder_ == null) {
-          ensureClientsIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, clients_);
-          onChanged();
-        } else {
-          clientsBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public Builder clearClients() {
-        if (clientsBuilder_ == null) {
-          clients_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          clientsBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public Builder removeClients(int index) {
-        if (clientsBuilder_ == null) {
-          ensureClientsIsMutable();
-          clients_.remove(index);
-          onChanged();
-        } else {
-          clientsBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder getClientsBuilder(
-          int index) {
-        return getClientsFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder getClientsOrBuilder(
-          int index) {
-        if (clientsBuilder_ == null) {
-          return clients_.get(index);  } else {
-          return clientsBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public java.util.List<? extends cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder> 
-           getClientsOrBuilderList() {
-        if (clientsBuilder_ != null) {
-          return clientsBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(clients_);
-        }
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder addClientsBuilder() {
-        return getClientsFieldBuilder().addBuilder(
-            cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder addClientsBuilder(
-          int index) {
-        return getClientsFieldBuilder().addBuilder(
-            index, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .RemoveClientRequest.Client clients = 1;</code>
-       */
-      public java.util.List<cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder> 
-           getClientsBuilderList() {
-        return getClientsFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilder<
-          cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder> 
-          getClientsFieldBuilder() {
-        if (clientsBuilder_ == null) {
-          clientsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.Client.Builder, cn.infocore.protobuf.CloudManagerAlarm.RemoveClientRequest.ClientOrBuilder>(
-                  clients_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
-                  getParentForChildren(),
-                  isClean());
-          clients_ = null;
-        }
-        return clientsBuilder_;
-      }
-
-      // @@protoc_insertion_point(builder_scope:RemoveClientRequest)
-    }
-
-    static {
-      defaultInstance = new RemoveClientRequest(true);
-      defaultInstance.initFields();
-    }
-
-    // @@protoc_insertion_point(class_scope:RemoveClientRequest)
-  }
-
   public interface UpdateEmailAlarmRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:UpdateEmailAlarmRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -5388,6 +1914,1306 @@ public final class CloudManagerAlarm {
     }
 
     // @@protoc_insertion_point(class_scope:UpdateEmailAlarmRequest)
+  }
+
+  public interface CreateEmailAlarmRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:CreateEmailAlarmRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required uint32 config_id = 1;</code>
+     *
+     * <pre>
+     * 配置 ID
+     * </pre>
+     */
+    boolean hasConfigId();
+    /**
+     * <code>required uint32 config_id = 1;</code>
+     *
+     * <pre>
+     * 配置 ID
+     * </pre>
+     */
+    int getConfigId();
+
+    /**
+     * <code>required string user_id = 2;</code>
+     *
+     * <pre>
+     * 所属用户 ID
+     * </pre>
+     */
+    boolean hasUserId();
+    /**
+     * <code>required string user_id = 2;</code>
+     *
+     * <pre>
+     * 所属用户 ID
+     * </pre>
+     */
+    java.lang.String getUserId();
+    /**
+     * <code>required string user_id = 2;</code>
+     *
+     * <pre>
+     * 所属用户 ID
+     * </pre>
+     */
+    com.google.protobuf.ByteString
+        getUserIdBytes();
+  }
+  /**
+   * Protobuf type {@code CreateEmailAlarmRequest}
+   */
+  public static final class CreateEmailAlarmRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:CreateEmailAlarmRequest)
+      CreateEmailAlarmRequestOrBuilder {
+    // Use CreateEmailAlarmRequest.newBuilder() to construct.
+    private CreateEmailAlarmRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private CreateEmailAlarmRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final CreateEmailAlarmRequest defaultInstance;
+    public static CreateEmailAlarmRequest getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public CreateEmailAlarmRequest getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private CreateEmailAlarmRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              configId_ = input.readUInt32();
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              userId_ = bs;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return cn.infocore.protobuf.CloudManagerAlarm.internal_static_CreateEmailAlarmRequest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return cn.infocore.protobuf.CloudManagerAlarm.internal_static_CreateEmailAlarmRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest.class, cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<CreateEmailAlarmRequest> PARSER =
+        new com.google.protobuf.AbstractParser<CreateEmailAlarmRequest>() {
+      public CreateEmailAlarmRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CreateEmailAlarmRequest(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CreateEmailAlarmRequest> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int CONFIG_ID_FIELD_NUMBER = 1;
+    private int configId_;
+    /**
+     * <code>required uint32 config_id = 1;</code>
+     *
+     * <pre>
+     * 配置 ID
+     * </pre>
+     */
+    public boolean hasConfigId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required uint32 config_id = 1;</code>
+     *
+     * <pre>
+     * 配置 ID
+     * </pre>
+     */
+    public int getConfigId() {
+      return configId_;
+    }
+
+    public static final int USER_ID_FIELD_NUMBER = 2;
+    private java.lang.Object userId_;
+    /**
+     * <code>required string user_id = 2;</code>
+     *
+     * <pre>
+     * 所属用户 ID
+     * </pre>
+     */
+    public boolean hasUserId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string user_id = 2;</code>
+     *
+     * <pre>
+     * 所属用户 ID
+     * </pre>
+     */
+    public java.lang.String getUserId() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          userId_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string user_id = 2;</code>
+     *
+     * <pre>
+     * 所属用户 ID
+     * </pre>
+     */
+    public com.google.protobuf.ByteString
+        getUserIdBytes() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        userId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      configId_ = 0;
+      userId_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasConfigId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeUInt32(1, configId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getUserIdBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(1, configId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getUserIdBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code CreateEmailAlarmRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:CreateEmailAlarmRequest)
+        cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_CreateEmailAlarmRequest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_CreateEmailAlarmRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest.class, cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest.Builder.class);
+      }
+
+      // Construct using cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        configId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userId_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_CreateEmailAlarmRequest_descriptor;
+      }
+
+      public cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest getDefaultInstanceForType() {
+        return cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest.getDefaultInstance();
+      }
+
+      public cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest build() {
+        cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest buildPartial() {
+        cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest result = new cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.configId_ = configId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.userId_ = userId_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest) {
+          return mergeFrom((cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest other) {
+        if (other == cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest.getDefaultInstance()) return this;
+        if (other.hasConfigId()) {
+          setConfigId(other.getConfigId());
+        }
+        if (other.hasUserId()) {
+          bitField0_ |= 0x00000002;
+          userId_ = other.userId_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasConfigId()) {
+          
+          return false;
+        }
+        if (!hasUserId()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int configId_ ;
+      /**
+       * <code>required uint32 config_id = 1;</code>
+       *
+       * <pre>
+       * 配置 ID
+       * </pre>
+       */
+      public boolean hasConfigId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required uint32 config_id = 1;</code>
+       *
+       * <pre>
+       * 配置 ID
+       * </pre>
+       */
+      public int getConfigId() {
+        return configId_;
+      }
+      /**
+       * <code>required uint32 config_id = 1;</code>
+       *
+       * <pre>
+       * 配置 ID
+       * </pre>
+       */
+      public Builder setConfigId(int value) {
+        bitField0_ |= 0x00000001;
+        configId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint32 config_id = 1;</code>
+       *
+       * <pre>
+       * 配置 ID
+       * </pre>
+       */
+      public Builder clearConfigId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        configId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object userId_ = "";
+      /**
+       * <code>required string user_id = 2;</code>
+       *
+       * <pre>
+       * 所属用户 ID
+       * </pre>
+       */
+      public boolean hasUserId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string user_id = 2;</code>
+       *
+       * <pre>
+       * 所属用户 ID
+       * </pre>
+       */
+      public java.lang.String getUserId() {
+        java.lang.Object ref = userId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            userId_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string user_id = 2;</code>
+       *
+       * <pre>
+       * 所属用户 ID
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getUserIdBytes() {
+        java.lang.Object ref = userId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          userId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string user_id = 2;</code>
+       *
+       * <pre>
+       * 所属用户 ID
+       * </pre>
+       */
+      public Builder setUserId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string user_id = 2;</code>
+       *
+       * <pre>
+       * 所属用户 ID
+       * </pre>
+       */
+      public Builder clearUserId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        userId_ = getDefaultInstance().getUserId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string user_id = 2;</code>
+       *
+       * <pre>
+       * 所属用户 ID
+       * </pre>
+       */
+      public Builder setUserIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:CreateEmailAlarmRequest)
+    }
+
+    static {
+      defaultInstance = new CreateEmailAlarmRequest(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:CreateEmailAlarmRequest)
+  }
+
+  public interface DeleteEmailAlarmRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:DeleteEmailAlarmRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required uint32 config_id = 1;</code>
+     *
+     * <pre>
+     * 配置 ID
+     * </pre>
+     */
+    boolean hasConfigId();
+    /**
+     * <code>required uint32 config_id = 1;</code>
+     *
+     * <pre>
+     * 配置 ID
+     * </pre>
+     */
+    int getConfigId();
+
+    /**
+     * <code>required string user_id = 2;</code>
+     *
+     * <pre>
+     * 所属用户 ID
+     * </pre>
+     */
+    boolean hasUserId();
+    /**
+     * <code>required string user_id = 2;</code>
+     *
+     * <pre>
+     * 所属用户 ID
+     * </pre>
+     */
+    java.lang.String getUserId();
+    /**
+     * <code>required string user_id = 2;</code>
+     *
+     * <pre>
+     * 所属用户 ID
+     * </pre>
+     */
+    com.google.protobuf.ByteString
+        getUserIdBytes();
+  }
+  /**
+   * Protobuf type {@code DeleteEmailAlarmRequest}
+   */
+  public static final class DeleteEmailAlarmRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:DeleteEmailAlarmRequest)
+      DeleteEmailAlarmRequestOrBuilder {
+    // Use DeleteEmailAlarmRequest.newBuilder() to construct.
+    private DeleteEmailAlarmRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private DeleteEmailAlarmRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final DeleteEmailAlarmRequest defaultInstance;
+    public static DeleteEmailAlarmRequest getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public DeleteEmailAlarmRequest getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private DeleteEmailAlarmRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              configId_ = input.readUInt32();
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              userId_ = bs;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return cn.infocore.protobuf.CloudManagerAlarm.internal_static_DeleteEmailAlarmRequest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return cn.infocore.protobuf.CloudManagerAlarm.internal_static_DeleteEmailAlarmRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest.class, cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<DeleteEmailAlarmRequest> PARSER =
+        new com.google.protobuf.AbstractParser<DeleteEmailAlarmRequest>() {
+      public DeleteEmailAlarmRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new DeleteEmailAlarmRequest(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DeleteEmailAlarmRequest> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int CONFIG_ID_FIELD_NUMBER = 1;
+    private int configId_;
+    /**
+     * <code>required uint32 config_id = 1;</code>
+     *
+     * <pre>
+     * 配置 ID
+     * </pre>
+     */
+    public boolean hasConfigId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required uint32 config_id = 1;</code>
+     *
+     * <pre>
+     * 配置 ID
+     * </pre>
+     */
+    public int getConfigId() {
+      return configId_;
+    }
+
+    public static final int USER_ID_FIELD_NUMBER = 2;
+    private java.lang.Object userId_;
+    /**
+     * <code>required string user_id = 2;</code>
+     *
+     * <pre>
+     * 所属用户 ID
+     * </pre>
+     */
+    public boolean hasUserId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string user_id = 2;</code>
+     *
+     * <pre>
+     * 所属用户 ID
+     * </pre>
+     */
+    public java.lang.String getUserId() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          userId_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string user_id = 2;</code>
+     *
+     * <pre>
+     * 所属用户 ID
+     * </pre>
+     */
+    public com.google.protobuf.ByteString
+        getUserIdBytes() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        userId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      configId_ = 0;
+      userId_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasConfigId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeUInt32(1, configId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getUserIdBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(1, configId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getUserIdBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code DeleteEmailAlarmRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:DeleteEmailAlarmRequest)
+        cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_DeleteEmailAlarmRequest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_DeleteEmailAlarmRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest.class, cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest.Builder.class);
+      }
+
+      // Construct using cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        configId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userId_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_DeleteEmailAlarmRequest_descriptor;
+      }
+
+      public cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest getDefaultInstanceForType() {
+        return cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest.getDefaultInstance();
+      }
+
+      public cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest build() {
+        cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest buildPartial() {
+        cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest result = new cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.configId_ = configId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.userId_ = userId_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest) {
+          return mergeFrom((cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest other) {
+        if (other == cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest.getDefaultInstance()) return this;
+        if (other.hasConfigId()) {
+          setConfigId(other.getConfigId());
+        }
+        if (other.hasUserId()) {
+          bitField0_ |= 0x00000002;
+          userId_ = other.userId_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasConfigId()) {
+          
+          return false;
+        }
+        if (!hasUserId()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int configId_ ;
+      /**
+       * <code>required uint32 config_id = 1;</code>
+       *
+       * <pre>
+       * 配置 ID
+       * </pre>
+       */
+      public boolean hasConfigId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required uint32 config_id = 1;</code>
+       *
+       * <pre>
+       * 配置 ID
+       * </pre>
+       */
+      public int getConfigId() {
+        return configId_;
+      }
+      /**
+       * <code>required uint32 config_id = 1;</code>
+       *
+       * <pre>
+       * 配置 ID
+       * </pre>
+       */
+      public Builder setConfigId(int value) {
+        bitField0_ |= 0x00000001;
+        configId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint32 config_id = 1;</code>
+       *
+       * <pre>
+       * 配置 ID
+       * </pre>
+       */
+      public Builder clearConfigId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        configId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object userId_ = "";
+      /**
+       * <code>required string user_id = 2;</code>
+       *
+       * <pre>
+       * 所属用户 ID
+       * </pre>
+       */
+      public boolean hasUserId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string user_id = 2;</code>
+       *
+       * <pre>
+       * 所属用户 ID
+       * </pre>
+       */
+      public java.lang.String getUserId() {
+        java.lang.Object ref = userId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            userId_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string user_id = 2;</code>
+       *
+       * <pre>
+       * 所属用户 ID
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getUserIdBytes() {
+        java.lang.Object ref = userId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          userId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string user_id = 2;</code>
+       *
+       * <pre>
+       * 所属用户 ID
+       * </pre>
+       */
+      public Builder setUserId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string user_id = 2;</code>
+       *
+       * <pre>
+       * 所属用户 ID
+       * </pre>
+       */
+      public Builder clearUserId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        userId_ = getDefaultInstance().getUserId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string user_id = 2;</code>
+       *
+       * <pre>
+       * 所属用户 ID
+       * </pre>
+       */
+      public Builder setUserIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:DeleteEmailAlarmRequest)
+    }
+
+    static {
+      defaultInstance = new DeleteEmailAlarmRequest(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:DeleteEmailAlarmRequest)
   }
 
   public interface VerifyEmailAlarmRequestOrBuilder extends
@@ -6570,30 +4396,20 @@ public final class CloudManagerAlarm {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_RemoveDataArkRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_AddClientRequest_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_AddClientRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_AddClientRequest_Client_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_AddClientRequest_Client_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_RemoveClientRequest_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_RemoveClientRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_RemoveClientRequest_Client_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_RemoveClientRequest_Client_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_UpdateEmailAlarmRequest_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_UpdateEmailAlarmRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_CreateEmailAlarmRequest_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_CreateEmailAlarmRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_DeleteEmailAlarmRequest_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_DeleteEmailAlarmRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_VerifyEmailAlarmRequest_descriptor;
   private static
@@ -6610,38 +4426,24 @@ public final class CloudManagerAlarm {
     java.lang.String[] descriptorData = {
       "\n\027cloudmanagerAlarm.proto\"\037\n\021AddDataArkR" +
       "equest\022\n\n\002id\030\001 \002(\t\"\"\n\024RemoveDataArkReque" +
-      "st\022\n\n\002id\030\001 \002(\t\"\231\001\n\020AddClientRequest\022)\n\007c" +
-      "lients\030\001 \003(\0132\030.AddClientRequest.Client\032Z" +
-      "\n\006Client\022\031\n\004type\030\001 \002(\0162\013.ClientType\022\n\n\002i" +
-      "d\030\002 \002(\t\022)\n\007clients\030\003 \003(\0132\030.AddClientRequ" +
-      "est.Client\"\242\001\n\023RemoveClientRequest\022,\n\007cl" +
-      "ients\030\001 \003(\0132\033.RemoveClientRequest.Client" +
-      "\032]\n\006Client\022\031\n\004type\030\001 \002(\0162\013.ClientType\022\n\n" +
-      "\002id\030\002 \002(\t\022,\n\007clients\030\003 \003(\0132\033.RemoveClien",
-      "tRequest.Client\"6\n\027UpdateEmailAlarmReque" +
-      "st\022\n\n\002id\030\001 \002(\r\022\017\n\007user_id\030\002 \002(\t\"\252\001\n\027Veri" +
-      "fyEmailAlarmRequest\022\024\n\014sender_email\030\001 \002(" +
-      "\t\022\027\n\017sender_password\030\002 \002(\t\022\024\n\014smtp_addre" +
-      "ss\030\003 \002(\t\022\021\n\tsmtp_port\030\004 \002(\r\022\036\n\026is_ssl_en" +
-      "crypt_enabled\030\005 \002(\010\022\027\n\017receiver_emails\030\006" +
-      " \003(\t*\323\002\n\nClientType\022\033\n\027ClientType_Single" +
-      "Client\020\000\022\023\n\017ClientType_Mscs\020\001\022\023\n\017ClientT" +
-      "ype_Rose\020\002\022\025\n\021ClientType_Vmware\020\003\022#\n\037Cli" +
-      "entType_VmwareVirtualMachine\020\004\022\022\n\016Client",
-      "Type_Aix\020\005\022\032\n\026ClientType_OsnSolution\020\006\022!" +
-      "\n\035ClientType_OsnSolution_Client\020\007\022\032\n\026Cli" +
-      "entType_MscsCluster\020\010\022\030\n\024ClientType_RacC" +
-      "lient\020\t\022\034\n\030ClientType_FusionCompute\020\n\022\033\n" +
-      "\027ClientType_FusionClient\020\013*\310\001\n\007Command\022\027" +
-      "\n\021Command_HeartBeat\020\330\247\005\022\027\n\022Command_AddDa" +
-      "taArk\020\315\001\022\032\n\025Command_RemoveDataArk\020\316\001\022\026\n\021" +
-      "Command_AddClient\020\324\001\022\031\n\024Command_RemoveCl" +
-      "ient\020\325\001\022\035\n\030Command_UpdateEmailAlarm\020\365\003\022\035" +
-      "\n\030Command_VerifyEmailAlarm\020\366\003*8\n\tErrorCo",
-      "de\022\025\n\021ErrorCode_Success\020\000\022\024\n\020ErrorCode_F" +
-      "ailed\020\001* \n\007Version\022\021\n\rVersion_Value\020\001\032\002\020" +
-      "\001B)\n\024cn.infocore.protobufB\021CloudManagerA" +
-      "larm"
+      "st\022\n\n\002id\030\001 \002(\t\"6\n\027UpdateEmailAlarmReques" +
+      "t\022\n\n\002id\030\001 \002(\r\022\017\n\007user_id\030\002 \002(\t\"=\n\027Create" +
+      "EmailAlarmRequest\022\021\n\tconfig_id\030\001 \002(\r\022\017\n\007" +
+      "user_id\030\002 \002(\t\"=\n\027DeleteEmailAlarmRequest" +
+      "\022\021\n\tconfig_id\030\001 \002(\r\022\017\n\007user_id\030\002 \002(\t\"\252\001\n" +
+      "\027VerifyEmailAlarmRequest\022\024\n\014sender_email" +
+      "\030\001 \002(\t\022\027\n\017sender_password\030\002 \002(\t\022\024\n\014smtp_" +
+      "address\030\003 \002(\t\022\021\n\tsmtp_port\030\004 \002(\r\022\036\n\026is_s",
+      "sl_encrypt_enabled\030\005 \002(\010\022\027\n\017receiver_ema" +
+      "ils\030\006 \003(\t*\323\001\n\007Command\022\027\n\021Command_HeartBe" +
+      "at\020\330\247\005\022\027\n\022Command_AddDataArk\020\315\001\022\032\n\025Comma" +
+      "nd_RemoveDataArk\020\316\001\022\035\n\030Command_UpdateEma" +
+      "ilAlarm\020\365\003\022\035\n\030Command_CreateEmailAlarm\020\366" +
+      "\003\022\035\n\030Command_DeleteEmailAlarm\020\367\003\022\035\n\030Comm" +
+      "and_VerifyEmailAlarm\020\370\003*8\n\tErrorCode\022\025\n\021" +
+      "ErrorCode_Success\020\000\022\024\n\020ErrorCode_Failed\020" +
+      "\001* \n\007Version\022\021\n\rVersion_Value\020\001\032\002\020\001B)\n\024c" +
+      "n.infocore.protobufB\021CloudManagerAlarm"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -6667,36 +4469,24 @@ public final class CloudManagerAlarm {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_RemoveDataArkRequest_descriptor,
         new java.lang.String[] { "Id", });
-    internal_static_AddClientRequest_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_AddClientRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_AddClientRequest_descriptor,
-        new java.lang.String[] { "Clients", });
-    internal_static_AddClientRequest_Client_descriptor =
-      internal_static_AddClientRequest_descriptor.getNestedTypes().get(0);
-    internal_static_AddClientRequest_Client_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_AddClientRequest_Client_descriptor,
-        new java.lang.String[] { "Type", "Id", "Clients", });
-    internal_static_RemoveClientRequest_descriptor =
-      getDescriptor().getMessageTypes().get(3);
-    internal_static_RemoveClientRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_RemoveClientRequest_descriptor,
-        new java.lang.String[] { "Clients", });
-    internal_static_RemoveClientRequest_Client_descriptor =
-      internal_static_RemoveClientRequest_descriptor.getNestedTypes().get(0);
-    internal_static_RemoveClientRequest_Client_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_RemoveClientRequest_Client_descriptor,
-        new java.lang.String[] { "Type", "Id", "Clients", });
     internal_static_UpdateEmailAlarmRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_UpdateEmailAlarmRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_UpdateEmailAlarmRequest_descriptor,
         new java.lang.String[] { "Id", "UserId", });
+    internal_static_CreateEmailAlarmRequest_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_CreateEmailAlarmRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_CreateEmailAlarmRequest_descriptor,
+        new java.lang.String[] { "ConfigId", "UserId", });
+    internal_static_DeleteEmailAlarmRequest_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_DeleteEmailAlarmRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_DeleteEmailAlarmRequest_descriptor,
+        new java.lang.String[] { "ConfigId", "UserId", });
     internal_static_VerifyEmailAlarmRequest_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_VerifyEmailAlarmRequest_fieldAccessorTable = new

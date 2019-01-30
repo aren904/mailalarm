@@ -5,35 +5,22 @@ option java_outer_classname = "CloudManagerAlarm";
 
 /* enum begin */
 
-enum ClientType {
-  ClientType_SingleClient = 0;
-  ClientType_Mscs = 1;
-  ClientType_Rose = 2;
-  ClientType_Vmware = 3;
-  ClientType_VmwareVirtualMachine = 4;
-  ClientType_Aix = 5;
-  ClientType_OsnSolution = 6;
-  ClientType_OsnSolution_Client = 7;
-  ClientType_MscsCluster = 8;  // 废弃
-  ClientType_RacClient = 9;
-  ClientType_FusionCompute = 10;
-  ClientType_FusionClient = 11;
-}
+
 
 enum Command {
   /* data ark management begin */
   Command_HeartBeat = 87000;
   Command_AddDataArk = 205;
   Command_RemoveDataArk = 206;
-  Command_AddClient = 212;
-  Command_RemoveClient = 213;
 
   /* data ark management end */
 
   /* system begin */
 
   Command_UpdateEmailAlarm = 501;
-  Command_VerifyEmailAlarm = 502;
+  Command_CreateEmailAlarm = 502;
+  Command_DeleteEmailAlarm = 503;
+  Command_VerifyEmailAlarm = 504;
 
   /* system end */
 }
@@ -61,34 +48,20 @@ message RemoveDataArkRequest {
   required string id = 1;
 }
 
-/* 如果是 VMware 虚拟机，第一层客户端信息填 vCenter，第二层客户端信息填 虚拟机，其他客户端只填第一层即可 */
-message AddClientRequest {
-  message Client {
-    required ClientType type = 1;
-    required string id = 2;
-    repeated Client clients = 3;
-  }
-  repeated Client clients = 1;
-}
-
-/* 同 AddClientRequest */
-message RemoveClientRequest {
-  message Client {
-    required ClientType type = 1;
-    required string id = 2;
-    repeated Client clients = 3;
-  }
-  repeated Client clients = 1;
-}
-
-/* data ark management end */
-
-/* system begin */
-
 
 message UpdateEmailAlarmRequest {
   required uint32 id = 1;//配置id
   required string user_id = 2;//用户id
+}
+
+message CreateEmailAlarmRequest {
+  required uint32 config_id = 1;  // 配置 ID
+  required string user_id = 2;  // 所属用户 ID
+}
+
+message DeleteEmailAlarmRequest {
+  required uint32 config_id = 1;  // 配置 ID
+  required string user_id = 2;  // 所属用户 ID
 }
 
 message VerifyEmailAlarmRequest {

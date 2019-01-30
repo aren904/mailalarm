@@ -13,11 +13,15 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import org.apache.log4j.Logger;
+
 import cn.infocore.entity.Email_alarm;
 import cn.infocore.entity.Fault;
 import cn.infocore.utils.Utils;
 
 public class MailSender {
+	private static final Logger logger=Logger.getLogger(MailSender.class);
 	private Email_alarm config;
 	private MimeMessage message;
 	private Session s;
@@ -101,12 +105,6 @@ public class MailSender {
 			 * 		对应告警对象: 
 			 * 
 			 * 		此致 敬礼!
-			 * 
-			 */
-			/*
-			 * <div> 尊敬的用户，您好:<br/> <br/> 数据方舟统一管理平台发现告警信息:xxxxxxxxx<br/> 告警等级:xxxxxxx<br/>
-			 * 告警时间:xxxxxxxx<br/> 对应数据方舟:xxxxxxxx<br/> 对应告警对象:xxxxxxxxx<br/> <br/> 此致<br/>
-			 * 敬礼!</div>
 			 */
 			message.setSubject("数据方舟统一管理平台告警信息");
 			StringBuilder builder = new StringBuilder();
@@ -128,7 +126,7 @@ public class MailSender {
 			// 发送
 			transport.sendMessage(message, message.getAllRecipients());
 			transport.close();
-			System.out.println("send success!");
+			logger.info("Mail send successed...");
 		} catch (AddressException e) {
 			System.out.println(e);
 			e.printStackTrace();

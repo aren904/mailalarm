@@ -18,7 +18,7 @@ public class MyDataSource {
 			connection = dataSource.getConnection();
 
 		} catch (Exception e) {
-			logger.error("Exception in C3p0Utils!", e);
+			logger.error("Exception happened when get database connection.", e);
 		}
 		return connection;
 	}
@@ -30,7 +30,7 @@ public class MyDataSource {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				logger.error("Exception in C3p0Utils!", e);
+				logger.error("Exception in happened when close database connection.", e);
 			}
 		}
 	}
