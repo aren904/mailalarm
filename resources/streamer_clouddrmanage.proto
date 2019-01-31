@@ -40,7 +40,7 @@ message Streamer{
     required uint64 total = 3;
     required uint64 used = 4;
     repeated FaultType Streamer_state = 5;
-    repeated uint64 oracle_vol = 6;
+    required uint64 oracle_vol = 6;
 }
 
 //有代理客户端 实体机

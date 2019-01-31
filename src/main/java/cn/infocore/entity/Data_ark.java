@@ -13,6 +13,8 @@ public class Data_ark {
 	private long total_cap;
 	//已经使用了的容量
 	private long used_cap;
+	//Oracle备份空间
+	private long total_oracle_capacity;
 	//数据方舟的异常 ; 分隔
 	private String except;
 	
@@ -24,11 +26,19 @@ public class Data_ark {
 	//数据方舟的用户密码
 	private String user_password;
 	
-	//新增，添加数据方舟当前更新时间戳
-	private long update_timestamp;
 	
 	//对应Data_ark_group中的id字段，是外健
 	private int data_ark_group_id;
+
+	
+	
+	public long getTotal_oracle_capacity() {
+		return total_oracle_capacity;
+	}
+
+	public void setTotal_oracle_capacity(long total_oracle_capacity) {
+		this.total_oracle_capacity = total_oracle_capacity;
+	}
 
 	public String getId() {
 		return id;
@@ -102,13 +112,6 @@ public class Data_ark {
 		this.except = except;
 	}
 
-	public long getUpdate_timestamp() {
-		return update_timestamp;
-	}
-
-	public void setUpdate_timestamp(long update_timestamp) {
-		this.update_timestamp = update_timestamp;
-	}
 
 	public int getData_ark_group_id() {
 		return data_ark_group_id;

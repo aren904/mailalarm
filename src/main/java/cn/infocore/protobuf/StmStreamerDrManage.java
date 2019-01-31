@@ -494,6 +494,15 @@ public final class StmStreamerDrManage {
      * <code>repeated .FaultType Streamer_state = 5;</code>
      */
     cn.infocore.protobuf.StmStreamerDrManage.FaultType getStreamerState(int index);
+
+    /**
+     * <code>required uint64 oracle_vol = 6;</code>
+     */
+    boolean hasOracleVol();
+    /**
+     * <code>required uint64 oracle_vol = 6;</code>
+     */
+    long getOracleVol();
   }
   /**
    * Protobuf type {@code Streamer}
@@ -604,6 +613,11 @@ public final class StmStreamerDrManage {
                 }
               }
               input.popLimit(oldLimit);
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000010;
+              oracleVol_ = input.readUInt64();
               break;
             }
           }
@@ -784,12 +798,28 @@ public final class StmStreamerDrManage {
       return streamerState_.get(index);
     }
 
+    public static final int ORACLE_VOL_FIELD_NUMBER = 6;
+    private long oracleVol_;
+    /**
+     * <code>required uint64 oracle_vol = 6;</code>
+     */
+    public boolean hasOracleVol() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>required uint64 oracle_vol = 6;</code>
+     */
+    public long getOracleVol() {
+      return oracleVol_;
+    }
+
     private void initFields() {
       ip_ = "";
       name_ = "";
       total_ = 0L;
       used_ = 0L;
       streamerState_ = java.util.Collections.emptyList();
+      oracleVol_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -810,6 +840,10 @@ public final class StmStreamerDrManage {
         return false;
       }
       if (!hasUsed()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasOracleVol()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -834,6 +868,9 @@ public final class StmStreamerDrManage {
       }
       for (int i = 0; i < streamerState_.size(); i++) {
         output.writeEnum(5, streamerState_.get(i).getNumber());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeUInt64(6, oracleVol_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -868,6 +905,10 @@ public final class StmStreamerDrManage {
         }
         size += dataSize;
         size += 1 * streamerState_.size();
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(6, oracleVol_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1000,6 +1041,8 @@ public final class StmStreamerDrManage {
         bitField0_ = (bitField0_ & ~0x00000008);
         streamerState_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000010);
+        oracleVol_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -1049,6 +1092,10 @@ public final class StmStreamerDrManage {
           bitField0_ = (bitField0_ & ~0x00000010);
         }
         result.streamerState_ = streamerState_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.oracleVol_ = oracleVol_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1091,6 +1138,9 @@ public final class StmStreamerDrManage {
           }
           onChanged();
         }
+        if (other.hasOracleVol()) {
+          setOracleVol(other.getOracleVol());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -1109,6 +1159,10 @@ public final class StmStreamerDrManage {
           return false;
         }
         if (!hasUsed()) {
+          
+          return false;
+        }
+        if (!hasOracleVol()) {
           
           return false;
         }
@@ -1418,6 +1472,38 @@ public final class StmStreamerDrManage {
       public Builder clearStreamerState() {
         streamerState_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000010);
+        onChanged();
+        return this;
+      }
+
+      private long oracleVol_ ;
+      /**
+       * <code>required uint64 oracle_vol = 6;</code>
+       */
+      public boolean hasOracleVol() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>required uint64 oracle_vol = 6;</code>
+       */
+      public long getOracleVol() {
+        return oracleVol_;
+      }
+      /**
+       * <code>required uint64 oracle_vol = 6;</code>
+       */
+      public Builder setOracleVol(long value) {
+        bitField0_ |= 0x00000020;
+        oracleVol_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 oracle_vol = 6;</code>
+       */
+      public Builder clearOracleVol() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        oracleVol_ = 0L;
         onChanged();
         return this;
       }
@@ -6547,33 +6633,34 @@ public final class StmStreamerDrManage {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\034streamer_clouddrmanage.proto\"e\n\010Stream" +
+      "\n\034streamer_clouddrmanage.proto\"y\n\010Stream" +
       "er\022\n\n\002ip\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\r\n\005total\030\003 " +
       "\002(\004\022\014\n\004used\030\004 \002(\004\022\"\n\016Streamer_state\030\005 \003(" +
-      "\0162\n.FaultType\"k\n\006Client\022\n\n\002id\030\001 \002(\t\022\014\n\004n" +
-      "ame\030\002 \002(\t\022\n\n\002ip\030\003 \002(\t\022\031\n\004type\030\004 \002(\0162\013.Cl" +
-      "ientType\022 \n\014Client_state\030\005 \003(\0162\n.FaultTy" +
-      "pe\"m\n\006Vmware\022\n\n\002id\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\031" +
-      "\n\004type\030\003 \002(\0162\013.ClientType\022\014\n\004path\030\004 \002(\t\022" +
-      " \n\014Vmware_state\030\005 \003(\0162\n.FaultType\"\216\001\n\005Vc" +
-      "ent\022\017\n\007vc_name\030\001 \002(\t\022\017\n\007vc_uuid\030\002 \002(\t\022\r\n",
-      "\005vc_ip\030\003 \002(\t\022\037\n\013Vcent_state\030\004 \003(\0162\n.Faul" +
-      "tType\022\030\n\007clients\030\005 \003(\0132\007.Vmware\022\031\n\004type\030" +
-      "\006 \002(\0162\013.ClientType\"p\n\023GetServerInfoRetur" +
-      "n\022\014\n\004uuid\030\001 \002(\t\022\031\n\006server\030\002 \002(\0132\t.Stream" +
-      "er\022\030\n\007clients\030\003 \003(\0132\007.Client\022\026\n\006vcents\030\004" +
-      " \003(\0132\006.Vcent*?\n\nClientType\022\n\n\006SINGLE\020\000\022\n" +
-      "\n\006VMWARE\020\001\022\010\n\004MSCS\020\002\022\007\n\003RAC\020\003\022\006\n\002VC\020\004*\335\002" +
-      "\n\tFaultType\022\n\n\006NORMAL\020\000\022\025\n\021CLIENT_LOCAL_" +
-      "LOST\020\001\022\023\n\017CLIENT_DST_LOST\020\002\022\034\n\030CLIENT_CR" +
-      "EATE_SNAP_AILED\020\003\022\022\n\016VWARE_CBT_DROP\020\004\022\022\n",
-      "\016CLIENT_OFFLINE\020\005\022\023\n\017VCENTER_OFFLINE\020\006\022\021" +
-      "\n\rEXIST_OFFLINE\020\007\022\017\n\013ALL_OFFLINE\020\010\022\031\n\025ST" +
-      "REAMER_POOL_DISABLE\020\t\022\024\n\020STREAMER_OFFLIN" +
-      "E\020\n\022\035\n\031CLIENT_AUTO_EXPAND_FAILED\020\013\022\034\n\030CL" +
-      "IENT_SNAP_MERGE_FAILED\020\014\022\027\n\023ORACLE_STORA" +
-      "GE_DROP\020\r\022\022\n\016DR_COPY_FAILED\020\016B+\n\024cn.info" +
-      "core.protobufB\023StmStreamerDrManage"
+      "\0162\n.FaultType\022\022\n\noracle_vol\030\006 \002(\004\"k\n\006Cli" +
+      "ent\022\n\n\002id\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\n\n\002ip\030\003 \002(" +
+      "\t\022\031\n\004type\030\004 \002(\0162\013.ClientType\022 \n\014Client_s" +
+      "tate\030\005 \003(\0162\n.FaultType\"m\n\006Vmware\022\n\n\002id\030\001" +
+      " \002(\t\022\014\n\004name\030\002 \002(\t\022\031\n\004type\030\003 \002(\0162\013.Clien" +
+      "tType\022\014\n\004path\030\004 \002(\t\022 \n\014Vmware_state\030\005 \003(" +
+      "\0162\n.FaultType\"\216\001\n\005Vcent\022\017\n\007vc_name\030\001 \002(\t",
+      "\022\017\n\007vc_uuid\030\002 \002(\t\022\r\n\005vc_ip\030\003 \002(\t\022\037\n\013Vcen" +
+      "t_state\030\004 \003(\0162\n.FaultType\022\030\n\007clients\030\005 \003" +
+      "(\0132\007.Vmware\022\031\n\004type\030\006 \002(\0162\013.ClientType\"p" +
+      "\n\023GetServerInfoReturn\022\014\n\004uuid\030\001 \002(\t\022\031\n\006s" +
+      "erver\030\002 \002(\0132\t.Streamer\022\030\n\007clients\030\003 \003(\0132" +
+      "\007.Client\022\026\n\006vcents\030\004 \003(\0132\006.Vcent*?\n\nClie" +
+      "ntType\022\n\n\006SINGLE\020\000\022\n\n\006VMWARE\020\001\022\010\n\004MSCS\020\002" +
+      "\022\007\n\003RAC\020\003\022\006\n\002VC\020\004*\335\002\n\tFaultType\022\n\n\006NORMA" +
+      "L\020\000\022\025\n\021CLIENT_LOCAL_LOST\020\001\022\023\n\017CLIENT_DST" +
+      "_LOST\020\002\022\034\n\030CLIENT_CREATE_SNAP_AILED\020\003\022\022\n",
+      "\016VWARE_CBT_DROP\020\004\022\022\n\016CLIENT_OFFLINE\020\005\022\023\n" +
+      "\017VCENTER_OFFLINE\020\006\022\021\n\rEXIST_OFFLINE\020\007\022\017\n" +
+      "\013ALL_OFFLINE\020\010\022\031\n\025STREAMER_POOL_DISABLE\020" +
+      "\t\022\024\n\020STREAMER_OFFLINE\020\n\022\035\n\031CLIENT_AUTO_E" +
+      "XPAND_FAILED\020\013\022\034\n\030CLIENT_SNAP_MERGE_FAIL" +
+      "ED\020\014\022\027\n\023ORACLE_STORAGE_DROP\020\r\022\022\n\016DR_COPY" +
+      "_FAILED\020\016B+\n\024cn.infocore.protobufB\023StmSt" +
+      "reamerDrManage"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -6592,7 +6679,7 @@ public final class StmStreamerDrManage {
     internal_static_Streamer_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Streamer_descriptor,
-        new java.lang.String[] { "Ip", "Name", "Total", "Used", "StreamerState", });
+        new java.lang.String[] { "Ip", "Name", "Total", "Used", "StreamerState", "OracleVol", });
     internal_static_Client_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_Client_fieldAccessorTable = new

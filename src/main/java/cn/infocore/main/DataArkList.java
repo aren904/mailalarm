@@ -1,13 +1,15 @@
 package cn.infocore.main;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
-import cn.infocore.utils.DBUtils;
+import cn.infocore.entity.UUid_ip;
 import cn.infocore.utils.MyDataSource;
+import cn.infocore.utils.UUid_ipHandler;
 
 
 //内存中维护的数据方舟的列表,顺便初始化维护数据方舟心跳的单例queue
@@ -19,19 +21,21 @@ public class DataArkList {
 	private Map<String,String> data_ark_list=new ConcurrentHashMap<String, String>();
 	
 	private DataArkList() {
+		logger.info("Init,Start get all data ark from database.");
 		connection=MyDataSource.getConnection();
 		//初始的时候，先从数据库中获取一次
 		String sql="select id,ip from data_ark";
-		ResultSet set=DBUtils.executQuery(connection, sql, null);
+		QueryRunner qr=new QueryRunner();
+		List<UUid_ip> lIps=null;
 		try {
-			while (set.next()) {
-				this.data_ark_list.put(set.getString("id"),set.getString("ip"));
-			}
+			lIps=qr.query(connection, sql, new UUid_ipHandler());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		for (UUid_ip uid_ip:lIps) {
+			this.data_ark_list.put(uid_ip.getUuid(), uid_ip.getIp());
+		}
+		logger.info("Successed to get data ark,count:"+this.data_ark_list.size());
 	}
 	
 	public static DataArkList getInstance() {
@@ -54,7 +58,7 @@ public class DataArkList {
 		data_ark_list.remove(uuid);
 	}
 	//获取所有
-	public Map<String,String> getData_ark_list() {
+	public synchronized Map<String,String> getData_ark_list() {
 		return data_ark_list;
 	}
 	

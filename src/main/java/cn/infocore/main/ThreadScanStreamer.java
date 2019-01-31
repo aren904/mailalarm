@@ -5,11 +5,11 @@ import java.net.InetAddress;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
+import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 import cn.infocore.entity.Fault;
 import cn.infocore.mail.MailCenterRestry;
 import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
-import cn.infocore.utils.DBUtils;
 import cn.infocore.utils.MyDataSource;
 
 //从DataArkList中取出，每隔一段时间ping一次，保证在线
@@ -75,9 +75,10 @@ public class ThreadScanStreamer extends Thread {
 
 	// 更新数据库中是否离线的标志
 	private void updateOffLine(String uuid, String ip, boolean online) {
-		// true 离线 false 在线
+		// true 在线 false 离线
 		long now = System.currentTimeMillis() / 1000;
-		if (online) {
+		if (!online) {
+			//如果离线，触发邮件报警
 			Fault fault = new Fault();
 			fault.setTimestamp(now);
 			fault.setType(FaultType.STREAMER_OFFLINE);
@@ -95,8 +96,13 @@ public class ThreadScanStreamer extends Thread {
 		Connection connection=MyDataSource.getConnection();
 		String sql = "update data_ark set exceptions=? where id=?";
 		Object[] param = { online ? "10" : "0", uuid };
-		DBUtils.executUpdate(connection, sql, param);
-
+		QueryRunner qr=new QueryRunner();
+		try {
+			qr.update(connection,sql, param);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		MyDataSource.close(connection);
 	}
 
 }

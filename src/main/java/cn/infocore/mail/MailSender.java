@@ -13,23 +13,20 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
 import org.apache.log4j.Logger;
-
 import cn.infocore.entity.Email_alarm;
 import cn.infocore.entity.Fault;
 import cn.infocore.utils.Utils;
 
 public class MailSender {
 	private static final Logger logger=Logger.getLogger(MailSender.class);
+	private static Map<String, Long> howOfen=new ConcurrentHashMap<String, Long>();// 内存维护的发送间隔时间
 	private Email_alarm config;
 	private MimeMessage message;
 	private Session s;
-	private Map<String, Long> howOfen = null;// 内存维护的发送间隔时间
 
 	public MailSender(Email_alarm config) {
 		this.config=config;
-		this.howOfen = new ConcurrentHashMap<String, Long>();
 		final Properties properties = new Properties();
 		properties.put("mail.smtp.auth", config.getSmtp_authentication() == (byte)0 ? "false" : "true");//
 		properties.put("mail.debug", "true");
@@ -67,13 +64,14 @@ public class MailSender {
 				if (config.getEnabled() == 0) {
 					// 未开启,直接发送异常邮件
 					send(fault);
-					this.howOfen.put(key, now);// 保存一下发送的时间戳
+					howOfen.put(key, now);// 保存一下发送的时间戳
 				} else {
 					// 已经开启
 					long split = config.getLimit_suppress_time();
-					if (this.howOfen.get(key) + split >= now) {
+					//初始map
+					if (howOfen.get(key)==null||howOfen.get(key) + split >= now) {
 						send(fault);
-						this.howOfen.put(key, now);// 保存一下发送的时间戳
+						howOfen.put(key, now);// 保存一下发送的时间戳
 					}
 				}
 			}
@@ -92,7 +90,7 @@ public class MailSender {
 			// 设置收件人邮箱,这里是多个收件人
 			String[] recv = config.getReceiver_emails().split(";");
 			for (String r : recv) {
-				message.setRecipient(Message.RecipientType.TO, new InternetAddress(r));
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(r));
 			}
 			// 邮件标题
 			/*
@@ -106,18 +104,22 @@ public class MailSender {
 			 * 
 			 * 		此致 敬礼!
 			 */
-			message.setSubject("数据方舟统一管理平台告警信息");
 			StringBuilder builder = new StringBuilder();
-			builder.append("尊敬的用户,您好:\n");
-			builder.append("\t数据方舟统一管理平台发现告警信息:");
-			builder.append(fault.getData_ark_name());
-			builder.append("(" + fault.getData_ark_ip() + ")"+fault.getTarget()+Utils.getAlarmInformationType(fault.getType())+"\n");
-			builder.append("\t告警等级:" + Utils.getAlarmInformationClass(fault.getType())+"\n");
-			String time = new SimpleDateFormat("yyyy/MM/dd hh:mm").format(new Date(fault.getTimestamp()));
-			builder.append("\t告警时间:" + time+"\n");
-			builder.append("\t对应数据方舟:" + fault.getData_ark_name()+"\n");
-			builder.append("\t对应告警对象:" + fault.getTarget()+"\n\n");
-			builder.append("\t此致\n\t敬礼!\n\n");
+			message.setSubject("数据方舟统一管理平台告警信息");
+			if (fault!=null) {
+				builder.append("尊敬的用户,您好:\n");
+				builder.append("\t数据方舟统一管理平台发现告警信息:");
+				builder.append(fault.getData_ark_name());
+				builder.append("(" + fault.getData_ark_ip() + ")"+fault.getTarget()+Utils.getAlarmInformationType(fault.getType())+"\n");
+				builder.append("\t告警等级:" + Utils.getAlarmInformationClass(fault.getType())+"\n");
+				String time = new SimpleDateFormat("yyyy/MM/dd hh:mm").format(new Date(fault.getTimestamp()));
+				builder.append("\t告警时间:" + time+"\n");
+				builder.append("\t对应数据方舟:" + fault.getData_ark_name()+"\n");
+				builder.append("\t对应告警对象:" + fault.getTarget()+"\n\n");
+				builder.append("\t此致\n\t敬礼!\n\n");
+			}else {
+				builder.append("这是一封来自数据方舟统一管理平台的测试邮件!");
+			}
 			message.setText(builder.toString());
 			message.setSentDate(new Date());
 			//message.saveChanges();

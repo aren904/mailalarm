@@ -2,6 +2,9 @@ package cn.infocore.utils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
 import org.apache.log4j.Logger;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -33,5 +36,9 @@ public class MyDataSource {
 				logger.error("Exception in happened when close database connection.", e);
 			}
 		}
+	}
+	//获取数据源
+	public static DataSource getDataSource() {
+		return dataSource;
 	}
 }

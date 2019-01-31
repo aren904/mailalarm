@@ -39,7 +39,7 @@ public class ThreadHeartbeat extends Thread{
 			while(true) {
 				Socket socket=serverSocket.accept();
 				//从线程池中取一个线程处理
-				logger.info("Received a heartbeat...");
+				logger.info("Received a heartbeat from data ark...");
 				threadPool.execute(new DealSocket(socket));
 			}
 			

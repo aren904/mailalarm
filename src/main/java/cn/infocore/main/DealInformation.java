@@ -4,15 +4,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.sql.ResultSet;
-
+import java.sql.Connection;
+import java.util.List;
+import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
-
+import cn.infocore.entity.Email_alarm;
+import cn.infocore.mail.MailCenterRestry;
+import cn.infocore.mail.MailSender;
 import cn.infocore.operator.Header;
 import cn.infocore.protobuf.CloudManagerAlarm.AddDataArkRequest;
+import cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest;
 import cn.infocore.protobuf.CloudManagerAlarm.RemoveDataArkRequest;
-import cn.infocore.utils.DBUtils;
+import cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest;
+import cn.infocore.protobuf.CloudManagerAlarm.UpdateEmailAlarmRequest;
+import cn.infocore.protobuf.CloudManagerAlarm.VerifyEmailAlarmRequest;
 import cn.infocore.utils.MyDataSource;
+import cn.infocore.utils.StringHandler;
 
 public class DealInformation implements Runnable{
 	private static final Logger logger=Logger.getLogger(DealInformation.class);
@@ -26,7 +33,9 @@ public class DealInformation implements Runnable{
 		this.out=null;
 	}
 	
-	
+	/*
+	 * cloudmanager来的所有请求，数据库都不需要我来操作，只是通知我，对本地缓存操作.
+	 */
 	public void run() {
 		int ioret;
 		try {
@@ -41,10 +50,21 @@ public class DealInformation implements Runnable{
 				myHeader.parseByteArray(header);
 				int opCode=myHeader.getCommand();
 				if (opCode==205) {
-					
+					addDataArk(myHeader);
+				}else if (opCode==206) {
+					removeDataArk(myHeader);
+				}else if (opCode==207) {
+					updateDataArk(myHeader);
+				}else if (opCode==502) {
+					createEmailAlarm(myHeader);
+				}else if (opCode==501) {
+					updateEmailAlarm(myHeader);
+				}else if (opCode==504) {
+					verifyEmailAlarm(myHeader);
+				}else {
+					logger.error("Unknown Operation Code:"+opCode);
 				}
 			}
-			
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -59,6 +79,7 @@ public class DealInformation implements Runnable{
 			return;
 		}
 		if (header.getCommand()!=205) {
+			logger.error("Get information from cloudmanager,operation code:"+header.getCommand());
 			return;
 		}
 		int ioret;
@@ -72,14 +93,14 @@ public class DealInformation implements Runnable{
 			return ;
 		}
 		String uuid=request.getId();
+		Connection conn=MyDataSource.getConnection();
 		logger.info("Need to add data ark id:"+uuid);
 		String ip="";
 		String sql="select ip from data_ark where id=?";
-		String[] param= {uuid};
-		ResultSet rSet=DBUtils.executQuery(MyDataSource.getConnection(), sql, param);
-		if (rSet.next()) {
-			ip=rSet.getString("ip");
-		}
+		Object[] param= {uuid};
+		QueryRunner qr=new QueryRunner();
+		ip=qr.query(sql, new StringHandler(), param);
+		MyDataSource.close(conn);
 		logger.info("Need to add data ark ip:"+ip);
 		DataArkList.getInstance().addDataArk(uuid,ip);
 		logger.info("Add data ark successed.");
@@ -92,6 +113,7 @@ public class DealInformation implements Runnable{
 			return;
 		}
 		if (header.getCommand()!=206) {
+			logger.error("Get information from cloudmanager,operation code:"+header.getCommand());
 			return ;
 		}
 		int ioret;
@@ -108,13 +130,110 @@ public class DealInformation implements Runnable{
 		DataArkList.getInstance().removeDataArk(uuid);
 		header.setErrorCode(0);
 	}
+	//更新数据方舟
+	private void updateDataArk(Header header) throws IOException{
+		if (header==null) {
+			return;
+		}
+		if (header.getCommand()!=207) {
+			logger.error("Get information from cloudmanager,operation code:"+header.getCommand());
+			return;
+		}
+		int ioret;
+		byte[] buffer=new byte[header.getDataLength()];
+		ioret=in.read(buffer, 0, buffer.length);
+		if (ioret!=buffer.length) {
+			return ;
+		}
+		UpdateDataArkRequest request=UpdateDataArkRequest.parseFrom(buffer);
+		if (request==null) {
+			return;
+		}
+		//使用添加接口
+		DataArkList.getInstance().addDataArk(request.getId(), request.getIp());
+		logger.info("Update data ark successed.");
+		header.setErrorCode(0);
+	}
 	
-	//更新邮件报警配置
-	private void updateEmailAlarm(Header header) {
-		
+	
+	//添加邮件报警配置
+	private void createEmailAlarm(Header header) throws IOException {
+		if (header==null) {
+			return;
+		}
+		if (header.getCommand()!=502) {
+			logger.error("Get information from cloudmanager,operation code:"+header.getCommand());
+			return;
+		}
+		int ioret;
+		byte[] buff=new byte[header.getDataLength()];
+		ioret=in.read(buff, 0, buff.length);
+		if (ioret!=buff.length) {
+			return;
+		}
+		CreateEmailAlarmRequest request=CreateEmailAlarmRequest.parseFrom(buff);
+		if (request==null) {
+			return;
+		}
+		String name=request.getUserId();
+		MailCenterRestry.getInstance().addMailService(name);
+		logger.info("Add email alarm user successed.");
+	}
+	
+	
+	//更新邮件报警配置,其实可以和上面同用一个接口
+	private void updateEmailAlarm(Header header) throws IOException {
+		if (header==null) {
+			return;
+		}
+		if (header.getCommand()!=501) {
+			logger.error("Get information from cloudmanager,operation code:"+header.getCommand());
+			return;
+		}
+		int ioret;
+		byte[] buff=new byte[header.getDataLength()];
+		ioret=in.read(buff, 0, buff.length);
+		if (ioret!=buff.length) {
+			return;
+		}
+		UpdateEmailAlarmRequest request=UpdateEmailAlarmRequest.parseFrom(buff);
+		if (request==null) {
+			return;
+		}
+		String name=request.getUserId();
+		MailCenterRestry.getInstance().addMailService(name);
+		logger.info("Update email alarm user successed.");
 	}
 	//测试邮件报警配置
-	private void verifyEmailAlarm(Header header) {
-		
+	private void verifyEmailAlarm(Header header) throws IOException{
+		if (header==null)
+			return;
+		if (header.getCommand()!=504) {
+			logger.error("Get information from cloudmanager,operation code:"+header.getCommand());
+			return;
+		}
+		int ioret;
+		byte[] buffer=new byte[header.getDataLength()];
+		ioret=in.read(buffer, 0, buffer.length);
+		if (ioret!=buffer.length)
+			return;
+		VerifyEmailAlarmRequest request=VerifyEmailAlarmRequest.parseFrom(buffer);
+		if (request==null)
+			return;
+		Email_alarm email=new Email_alarm();
+		email.setSender_email(request.getSenderEmail());
+		email.setSmtp_address(request.getSmtpAddress());
+		email.setSmtp_port(request.getSmtpPort());
+		email.setSsl_encrypt(request.getIsSslEncryptEnabled()?(byte)1:0);
+		email.setSmtp_authentication(request.getIsSmtpAuthentication()?(byte)1:0);
+		email.setSmtp_user_id(request.getSmtpUserId());
+		email.setStmp_password(request.getSmtpPassword());
+		List<String> list=request.getReceiverEmailsList();
+		StringBuilder builder=new StringBuilder();
+		for (String s:list) {
+			builder.append(s+";");
+		}
+		email.setReceiver_emails(builder.toString());
+		new MailSender(email).send(null);
 	}
 }

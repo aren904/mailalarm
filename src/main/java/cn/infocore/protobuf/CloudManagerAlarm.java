@@ -10,51 +10,263 @@ public final class CloudManagerAlarm {
   }
   /**
    * Protobuf enum {@code Command}
+   *
+   * <pre>
+   * common begin 
+   * </pre>
    */
   public enum Command
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <code>Command_HeartBeat = 87000;</code>
-     *
-     * <pre>
-     * data ark management begin 
-     * </pre>
      */
     Command_HeartBeat(0, 87000),
     /**
+     * <code>Command_GetPublicKey = 0;</code>
+     *
+     * <pre>
+     * login begin 
+     * </pre>
+     */
+    Command_GetPublicKey(1, 0),
+    /**
+     * <code>Command_LoginCloudManager = 1;</code>
+     */
+    Command_LoginCloudManager(2, 1),
+    /**
+     * <code>Command_SendDek = 2;</code>
+     */
+    Command_SendDek(3, 2),
+    /**
+     * <code>Command_GetOverview = 100;</code>
+     */
+    Command_GetOverview(4, 100),
+    /**
+     * <code>Command_GetDataArkException = 101;</code>
+     */
+    Command_GetDataArkException(5, 101),
+    /**
+     * <code>Command_GetClientException = 102;</code>
+     */
+    Command_GetClientException(6, 102),
+    /**
+     * <code>Command_GetVirtualMachineException = 103;</code>
+     */
+    Command_GetVirtualMachineException(7, 103),
+    /**
+     * <code>Command_GetDataArks = 200;</code>
+     */
+    Command_GetDataArks(8, 200),
+    /**
+     * <code>Command_GetDataArkDetail = 201;</code>
+     */
+    Command_GetDataArkDetail(9, 201),
+    /**
+     * <code>Command_CreateDataArkGroup = 202;</code>
+     */
+    Command_CreateDataArkGroup(10, 202),
+    /**
+     * <code>Command_DeleteDataArkGroup = 203;</code>
+     */
+    Command_DeleteDataArkGroup(11, 203),
+    /**
+     * <code>Command_UpdateDataArkGroup = 204;</code>
+     */
+    Command_UpdateDataArkGroup(12, 204),
+    /**
      * <code>Command_AddDataArk = 205;</code>
      */
-    Command_AddDataArk(1, 205),
+    Command_AddDataArk(13, 205),
     /**
      * <code>Command_RemoveDataArk = 206;</code>
      */
-    Command_RemoveDataArk(2, 206),
+    Command_RemoveDataArk(14, 206),
+    /**
+     * <code>Command_UpdateDataArk = 207;</code>
+     */
+    Command_UpdateDataArk(15, 207),
+    /**
+     * <code>Command_MigrateDataArk = 208;</code>
+     */
+    Command_MigrateDataArk(16, 208),
+    /**
+     * <code>Command_AddDisasterDataArk = 209;</code>
+     */
+    Command_AddDisasterDataArk(17, 209),
+    /**
+     * <code>Command_RemoveDisasterDataArk = 210;</code>
+     */
+    Command_RemoveDisasterDataArk(18, 210),
+    /**
+     * <code>Command_GetClients = 211;</code>
+     */
+    Command_GetClients(19, 211),
+    /**
+     * <code>Command_AddClient = 212;</code>
+     */
+    Command_AddClient(20, 212),
+    /**
+     * <code>Command_RemoveClient = 213;</code>
+     */
+    Command_RemoveClient(21, 213),
+    /**
+     * <code>Command_GetUsers = 300;</code>
+     */
+    Command_GetUsers(22, 300),
+    /**
+     * <code>Command_CreateUserGroup = 301;</code>
+     */
+    Command_CreateUserGroup(23, 301),
+    /**
+     * <code>Command_DeleteUserGroup = 302;</code>
+     */
+    Command_DeleteUserGroup(24, 302),
+    /**
+     * <code>Command_UpdateUserGroup = 303;</code>
+     */
+    Command_UpdateUserGroup(25, 303),
+    /**
+     * <code>Command_MigrateUserGroup = 304;</code>
+     */
+    Command_MigrateUserGroup(26, 304),
+    /**
+     * <code>Command_CreateUser = 305;</code>
+     */
+    Command_CreateUser(27, 305),
+    /**
+     * <code>Command_DeleteUser = 306;</code>
+     */
+    Command_DeleteUser(28, 306),
+    /**
+     * <code>Command_UpdateUserPassword = 307;</code>
+     */
+    Command_UpdateUserPassword(29, 307),
+    /**
+     * <code>Command_ResetUserPassword = 308;</code>
+     */
+    Command_ResetUserPassword(30, 308),
+    /**
+     * <code>Command_UpdateUser = 309;</code>
+     */
+    Command_UpdateUser(31, 309),
+    /**
+     * <code>Command_GetUserQuota = 310;</code>
+     */
+    Command_GetUserQuota(32, 310),
+    /**
+     * <code>Command_UpdateUserQuota = 311;</code>
+     */
+    Command_UpdateUserQuota(33, 311),
+    /**
+     * <code>Command_UpdateUserUsedQuota = 312;</code>
+     */
+    Command_UpdateUserUsedQuota(34, 312),
+    /**
+     * <code>Command_MigrateUser = 313;</code>
+     */
+    Command_MigrateUser(35, 313),
+    /**
+     * <code>Command_GetAlarmLogs = 400;</code>
+     */
+    Command_GetAlarmLogs(36, 400),
+    /**
+     * <code>Command_UpdateAlarmLogProcessed = 401;</code>
+     */
+    Command_UpdateAlarmLogProcessed(37, 401),
+    /**
+     * <code>Command_DeleteAlarmLog = 402;</code>
+     */
+    Command_DeleteAlarmLog(38, 402),
+    /**
+     * <code>Command_GetOperationLogs = 403;</code>
+     */
+    Command_GetOperationLogs(39, 403),
+    /**
+     * <code>Command_GetEmailAlarm = 500;</code>
+     */
+    Command_GetEmailAlarm(40, 500),
     /**
      * <code>Command_UpdateEmailAlarm = 501;</code>
      */
-    Command_UpdateEmailAlarm(3, 501),
+    Command_UpdateEmailAlarm(41, 501),
     /**
      * <code>Command_CreateEmailAlarm = 502;</code>
+     *
+     * <pre>
+     * 报警模块用
+     * </pre>
      */
-    Command_CreateEmailAlarm(4, 502),
+    Command_CreateEmailAlarm(42, 502),
     /**
      * <code>Command_DeleteEmailAlarm = 503;</code>
+     *
+     * <pre>
+     * 报警模块用
+     * </pre>
      */
-    Command_DeleteEmailAlarm(5, 503),
+    Command_DeleteEmailAlarm(43, 503),
     /**
      * <code>Command_VerifyEmailAlarm = 504;</code>
      */
-    Command_VerifyEmailAlarm(6, 504),
+    Command_VerifyEmailAlarm(44, 504),
     ;
 
     /**
      * <code>Command_HeartBeat = 87000;</code>
-     *
-     * <pre>
-     * data ark management begin 
-     * </pre>
      */
     public static final int Command_HeartBeat_VALUE = 87000;
+    /**
+     * <code>Command_GetPublicKey = 0;</code>
+     *
+     * <pre>
+     * login begin 
+     * </pre>
+     */
+    public static final int Command_GetPublicKey_VALUE = 0;
+    /**
+     * <code>Command_LoginCloudManager = 1;</code>
+     */
+    public static final int Command_LoginCloudManager_VALUE = 1;
+    /**
+     * <code>Command_SendDek = 2;</code>
+     */
+    public static final int Command_SendDek_VALUE = 2;
+    /**
+     * <code>Command_GetOverview = 100;</code>
+     */
+    public static final int Command_GetOverview_VALUE = 100;
+    /**
+     * <code>Command_GetDataArkException = 101;</code>
+     */
+    public static final int Command_GetDataArkException_VALUE = 101;
+    /**
+     * <code>Command_GetClientException = 102;</code>
+     */
+    public static final int Command_GetClientException_VALUE = 102;
+    /**
+     * <code>Command_GetVirtualMachineException = 103;</code>
+     */
+    public static final int Command_GetVirtualMachineException_VALUE = 103;
+    /**
+     * <code>Command_GetDataArks = 200;</code>
+     */
+    public static final int Command_GetDataArks_VALUE = 200;
+    /**
+     * <code>Command_GetDataArkDetail = 201;</code>
+     */
+    public static final int Command_GetDataArkDetail_VALUE = 201;
+    /**
+     * <code>Command_CreateDataArkGroup = 202;</code>
+     */
+    public static final int Command_CreateDataArkGroup_VALUE = 202;
+    /**
+     * <code>Command_DeleteDataArkGroup = 203;</code>
+     */
+    public static final int Command_DeleteDataArkGroup_VALUE = 203;
+    /**
+     * <code>Command_UpdateDataArkGroup = 204;</code>
+     */
+    public static final int Command_UpdateDataArkGroup_VALUE = 204;
     /**
      * <code>Command_AddDataArk = 205;</code>
      */
@@ -64,15 +276,127 @@ public final class CloudManagerAlarm {
      */
     public static final int Command_RemoveDataArk_VALUE = 206;
     /**
+     * <code>Command_UpdateDataArk = 207;</code>
+     */
+    public static final int Command_UpdateDataArk_VALUE = 207;
+    /**
+     * <code>Command_MigrateDataArk = 208;</code>
+     */
+    public static final int Command_MigrateDataArk_VALUE = 208;
+    /**
+     * <code>Command_AddDisasterDataArk = 209;</code>
+     */
+    public static final int Command_AddDisasterDataArk_VALUE = 209;
+    /**
+     * <code>Command_RemoveDisasterDataArk = 210;</code>
+     */
+    public static final int Command_RemoveDisasterDataArk_VALUE = 210;
+    /**
+     * <code>Command_GetClients = 211;</code>
+     */
+    public static final int Command_GetClients_VALUE = 211;
+    /**
+     * <code>Command_AddClient = 212;</code>
+     */
+    public static final int Command_AddClient_VALUE = 212;
+    /**
+     * <code>Command_RemoveClient = 213;</code>
+     */
+    public static final int Command_RemoveClient_VALUE = 213;
+    /**
+     * <code>Command_GetUsers = 300;</code>
+     */
+    public static final int Command_GetUsers_VALUE = 300;
+    /**
+     * <code>Command_CreateUserGroup = 301;</code>
+     */
+    public static final int Command_CreateUserGroup_VALUE = 301;
+    /**
+     * <code>Command_DeleteUserGroup = 302;</code>
+     */
+    public static final int Command_DeleteUserGroup_VALUE = 302;
+    /**
+     * <code>Command_UpdateUserGroup = 303;</code>
+     */
+    public static final int Command_UpdateUserGroup_VALUE = 303;
+    /**
+     * <code>Command_MigrateUserGroup = 304;</code>
+     */
+    public static final int Command_MigrateUserGroup_VALUE = 304;
+    /**
+     * <code>Command_CreateUser = 305;</code>
+     */
+    public static final int Command_CreateUser_VALUE = 305;
+    /**
+     * <code>Command_DeleteUser = 306;</code>
+     */
+    public static final int Command_DeleteUser_VALUE = 306;
+    /**
+     * <code>Command_UpdateUserPassword = 307;</code>
+     */
+    public static final int Command_UpdateUserPassword_VALUE = 307;
+    /**
+     * <code>Command_ResetUserPassword = 308;</code>
+     */
+    public static final int Command_ResetUserPassword_VALUE = 308;
+    /**
+     * <code>Command_UpdateUser = 309;</code>
+     */
+    public static final int Command_UpdateUser_VALUE = 309;
+    /**
+     * <code>Command_GetUserQuota = 310;</code>
+     */
+    public static final int Command_GetUserQuota_VALUE = 310;
+    /**
+     * <code>Command_UpdateUserQuota = 311;</code>
+     */
+    public static final int Command_UpdateUserQuota_VALUE = 311;
+    /**
+     * <code>Command_UpdateUserUsedQuota = 312;</code>
+     */
+    public static final int Command_UpdateUserUsedQuota_VALUE = 312;
+    /**
+     * <code>Command_MigrateUser = 313;</code>
+     */
+    public static final int Command_MigrateUser_VALUE = 313;
+    /**
+     * <code>Command_GetAlarmLogs = 400;</code>
+     */
+    public static final int Command_GetAlarmLogs_VALUE = 400;
+    /**
+     * <code>Command_UpdateAlarmLogProcessed = 401;</code>
+     */
+    public static final int Command_UpdateAlarmLogProcessed_VALUE = 401;
+    /**
+     * <code>Command_DeleteAlarmLog = 402;</code>
+     */
+    public static final int Command_DeleteAlarmLog_VALUE = 402;
+    /**
+     * <code>Command_GetOperationLogs = 403;</code>
+     */
+    public static final int Command_GetOperationLogs_VALUE = 403;
+    /**
+     * <code>Command_GetEmailAlarm = 500;</code>
+     */
+    public static final int Command_GetEmailAlarm_VALUE = 500;
+    /**
      * <code>Command_UpdateEmailAlarm = 501;</code>
      */
     public static final int Command_UpdateEmailAlarm_VALUE = 501;
     /**
      * <code>Command_CreateEmailAlarm = 502;</code>
+     *
+     * <pre>
+     * 报警模块用
+     * </pre>
      */
     public static final int Command_CreateEmailAlarm_VALUE = 502;
     /**
      * <code>Command_DeleteEmailAlarm = 503;</code>
+     *
+     * <pre>
+     * 报警模块用
+     * </pre>
      */
     public static final int Command_DeleteEmailAlarm_VALUE = 503;
     /**
@@ -86,8 +410,46 @@ public final class CloudManagerAlarm {
     public static Command valueOf(int value) {
       switch (value) {
         case 87000: return Command_HeartBeat;
+        case 0: return Command_GetPublicKey;
+        case 1: return Command_LoginCloudManager;
+        case 2: return Command_SendDek;
+        case 100: return Command_GetOverview;
+        case 101: return Command_GetDataArkException;
+        case 102: return Command_GetClientException;
+        case 103: return Command_GetVirtualMachineException;
+        case 200: return Command_GetDataArks;
+        case 201: return Command_GetDataArkDetail;
+        case 202: return Command_CreateDataArkGroup;
+        case 203: return Command_DeleteDataArkGroup;
+        case 204: return Command_UpdateDataArkGroup;
         case 205: return Command_AddDataArk;
         case 206: return Command_RemoveDataArk;
+        case 207: return Command_UpdateDataArk;
+        case 208: return Command_MigrateDataArk;
+        case 209: return Command_AddDisasterDataArk;
+        case 210: return Command_RemoveDisasterDataArk;
+        case 211: return Command_GetClients;
+        case 212: return Command_AddClient;
+        case 213: return Command_RemoveClient;
+        case 300: return Command_GetUsers;
+        case 301: return Command_CreateUserGroup;
+        case 302: return Command_DeleteUserGroup;
+        case 303: return Command_UpdateUserGroup;
+        case 304: return Command_MigrateUserGroup;
+        case 305: return Command_CreateUser;
+        case 306: return Command_DeleteUser;
+        case 307: return Command_UpdateUserPassword;
+        case 308: return Command_ResetUserPassword;
+        case 309: return Command_UpdateUser;
+        case 310: return Command_GetUserQuota;
+        case 311: return Command_UpdateUserQuota;
+        case 312: return Command_UpdateUserUsedQuota;
+        case 313: return Command_MigrateUser;
+        case 400: return Command_GetAlarmLogs;
+        case 401: return Command_UpdateAlarmLogProcessed;
+        case 402: return Command_DeleteAlarmLog;
+        case 403: return Command_GetOperationLogs;
+        case 500: return Command_GetEmailAlarm;
         case 501: return Command_UpdateEmailAlarm;
         case 502: return Command_CreateEmailAlarm;
         case 503: return Command_DeleteEmailAlarm;
@@ -156,6 +518,238 @@ public final class CloudManagerAlarm {
      * <code>ErrorCode_Failed = 1;</code>
      */
     ErrorCode_Failed(1, 1),
+    /**
+     * <code>ErrorCode_ConnectFailed = 10;</code>
+     *
+     * <pre>
+     * 连接失败
+     * </pre>
+     */
+    ErrorCode_ConnectFailed(2, 10),
+    /**
+     * <code>ErrorCode_SendFailed = 11;</code>
+     *
+     * <pre>
+     * 发送失败
+     * </pre>
+     */
+    ErrorCode_SendFailed(3, 11),
+    /**
+     * <code>ErrorCode_ReceiveFailed = 12;</code>
+     *
+     * <pre>
+     * 接收失败
+     * </pre>
+     */
+    ErrorCode_ReceiveFailed(4, 12),
+    /**
+     * <code>ErrorCode_UnrecognizedOperation = 13;</code>
+     *
+     * <pre>
+     * 未识别的操作
+     * </pre>
+     */
+    ErrorCode_UnrecognizedOperation(5, 13),
+    /**
+     * <code>ErrorCode_EnqueueCommandFailed = 14;</code>
+     *
+     * <pre>
+     * 添加命令到队列失败
+     * </pre>
+     */
+    ErrorCode_EnqueueCommandFailed(6, 14),
+    /**
+     * <code>ErrorCode_DequeueCommandFailed = 15;</code>
+     *
+     * <pre>
+     * 从队里移除命令失败
+     * </pre>
+     */
+    ErrorCode_DequeueCommandFailed(7, 15),
+    /**
+     * <code>ErrorCode_ParametrError = 20;</code>
+     *
+     * <pre>
+     * 参数错误
+     * </pre>
+     */
+    ErrorCode_ParametrError(8, 20),
+    /**
+     * <code>ErrorCode_SerializeFailed = 21;</code>
+     *
+     * <pre>
+     * 序列化失败，格式不对
+     * </pre>
+     */
+    ErrorCode_SerializeFailed(9, 21),
+    /**
+     * <code>ErrorCode_DeserializeFailed = 22;</code>
+     *
+     * <pre>
+     * 反序列化失败，格式不对
+     * </pre>
+     */
+    ErrorCode_DeserializeFailed(10, 22),
+    /**
+     * <code>Errorcode_PermissionDenied = 23;</code>
+     *
+     * <pre>
+     * 没有权限
+     * </pre>
+     */
+    Errorcode_PermissionDenied(11, 23),
+    /**
+     * <code>ErrorCode_ConnectDatabaseFailed = 24;</code>
+     *
+     * <pre>
+     * 连接数据库失败
+     * </pre>
+     */
+    ErrorCode_ConnectDatabaseFailed(12, 24),
+    /**
+     * <code>ErrorCode_OperateDatabaseFailed = 25;</code>
+     *
+     * <pre>
+     * 执行数据库命令失败
+     * </pre>
+     */
+    ErrorCode_OperateDatabaseFailed(13, 25),
+    /**
+     * <code>ErrorCode_AlreadyLogged = 60;</code>
+     *
+     * <pre>
+     * 已经登录
+     * </pre>
+     */
+    ErrorCode_AlreadyLogged(14, 60),
+    /**
+     * <code>ErrorCode_CreateDataArkGroupFailed = 200;</code>
+     */
+    ErrorCode_CreateDataArkGroupFailed(15, 200),
+    /**
+     * <code>ErrorCode_DataArkGroupExistent = 201;</code>
+     */
+    ErrorCode_DataArkGroupExistent(16, 201),
+    /**
+     * <code>ErrorCode_DeleteDataArkGroupFailed = 202;</code>
+     */
+    ErrorCode_DeleteDataArkGroupFailed(17, 202),
+    /**
+     * <code>ErrorCode_UpdateDataArkGroupFailed = 203;</code>
+     */
+    ErrorCode_UpdateDataArkGroupFailed(18, 203),
+    /**
+     * <code>ErrorCode_AddDataArkFailed = 204;</code>
+     */
+    ErrorCode_AddDataArkFailed(19, 204),
+    /**
+     * <code>ErrorCode_RemoveDataArkFailed = 205;</code>
+     */
+    ErrorCode_RemoveDataArkFailed(20, 205),
+    /**
+     * <code>ErrorCode_UpdateDataArkFailed = 206;</code>
+     */
+    ErrorCode_UpdateDataArkFailed(21, 206),
+    /**
+     * <code>ErrorCode_UserGroupExistent = 300;</code>
+     *
+     * <pre>
+     * 已存在用户组
+     * </pre>
+     */
+    ErrorCode_UserGroupExistent(22, 300),
+    /**
+     * <code>ErrorCode_UserGroupNonexistent = 301;</code>
+     *
+     * <pre>
+     * 不存在用户组
+     * </pre>
+     */
+    ErrorCode_UserGroupNonexistent(23, 301),
+    /**
+     * <code>ErrorCode_UserExistent = 302;</code>
+     */
+    ErrorCode_UserExistent(24, 302),
+    /**
+     * <code>ErrorCode_UserNonexistent = 303;</code>
+     *
+     * <pre>
+     * 用户不存在
+     * </pre>
+     */
+    ErrorCode_UserNonexistent(25, 303),
+    /**
+     * <code>ErrorCode_UserPasswordUnmatch = 304;</code>
+     *
+     * <pre>
+     * 用户密码不匹配
+     * </pre>
+     */
+    ErrorCode_UserPasswordUnmatch(26, 304),
+    /**
+     * <code>ErrorCode_CreateUserFailed = 305;</code>
+     *
+     * <pre>
+     * 创建用户失败
+     * </pre>
+     */
+    ErrorCode_CreateUserFailed(27, 305),
+    /**
+     * <code>ErrorCode_DeleteUserFailed = 306;</code>
+     *
+     * <pre>
+     * 删除用户失败
+     * </pre>
+     */
+    ErrorCode_DeleteUserFailed(28, 306),
+    /**
+     * <code>ErrorCode_AlarmAddDataArkFailed = 10000;</code>
+     *
+     * <pre>
+     * 报警模块添加数据方舟失败
+     * </pre>
+     */
+    ErrorCode_AlarmAddDataArkFailed(29, 10000),
+    /**
+     * <code>ErrorCode_AlarmRemoveDataArkFailed = 10001;</code>
+     *
+     * <pre>
+     * 报警模块移除数据方舟失败
+     * </pre>
+     */
+    ErrorCode_AlarmRemoveDataArkFailed(30, 10001),
+    /**
+     * <code>ErrorCode_AlarmUpdateEmailAlarmFailed = 10002;</code>
+     *
+     * <pre>
+     * 报警模块更新邮件报警失败
+     * </pre>
+     */
+    ErrorCode_AlarmUpdateEmailAlarmFailed(31, 10002),
+    /**
+     * <code>ErrorCode_AlarmCreateEmailAlarmFailed = 10003;</code>
+     *
+     * <pre>
+     * 报警模块创建邮件报警失败
+     * </pre>
+     */
+    ErrorCode_AlarmCreateEmailAlarmFailed(32, 10003),
+    /**
+     * <code>ErrorCode_AlarmDeleteEmailAlarmFailed = 10004;</code>
+     *
+     * <pre>
+     * 报警模块删除邮件报警失败
+     * </pre>
+     */
+    ErrorCode_AlarmDeleteEmailAlarmFailed(33, 10004),
+    /**
+     * <code>ErrorCode_AlarmVerifyEmailAlarmFailed = 10005;</code>
+     *
+     * <pre>
+     * 报警模块验证邮件报警失败
+     * </pre>
+     */
+    ErrorCode_AlarmVerifyEmailAlarmFailed(34, 10005),
     ;
 
     /**
@@ -166,6 +760,238 @@ public final class CloudManagerAlarm {
      * <code>ErrorCode_Failed = 1;</code>
      */
     public static final int ErrorCode_Failed_VALUE = 1;
+    /**
+     * <code>ErrorCode_ConnectFailed = 10;</code>
+     *
+     * <pre>
+     * 连接失败
+     * </pre>
+     */
+    public static final int ErrorCode_ConnectFailed_VALUE = 10;
+    /**
+     * <code>ErrorCode_SendFailed = 11;</code>
+     *
+     * <pre>
+     * 发送失败
+     * </pre>
+     */
+    public static final int ErrorCode_SendFailed_VALUE = 11;
+    /**
+     * <code>ErrorCode_ReceiveFailed = 12;</code>
+     *
+     * <pre>
+     * 接收失败
+     * </pre>
+     */
+    public static final int ErrorCode_ReceiveFailed_VALUE = 12;
+    /**
+     * <code>ErrorCode_UnrecognizedOperation = 13;</code>
+     *
+     * <pre>
+     * 未识别的操作
+     * </pre>
+     */
+    public static final int ErrorCode_UnrecognizedOperation_VALUE = 13;
+    /**
+     * <code>ErrorCode_EnqueueCommandFailed = 14;</code>
+     *
+     * <pre>
+     * 添加命令到队列失败
+     * </pre>
+     */
+    public static final int ErrorCode_EnqueueCommandFailed_VALUE = 14;
+    /**
+     * <code>ErrorCode_DequeueCommandFailed = 15;</code>
+     *
+     * <pre>
+     * 从队里移除命令失败
+     * </pre>
+     */
+    public static final int ErrorCode_DequeueCommandFailed_VALUE = 15;
+    /**
+     * <code>ErrorCode_ParametrError = 20;</code>
+     *
+     * <pre>
+     * 参数错误
+     * </pre>
+     */
+    public static final int ErrorCode_ParametrError_VALUE = 20;
+    /**
+     * <code>ErrorCode_SerializeFailed = 21;</code>
+     *
+     * <pre>
+     * 序列化失败，格式不对
+     * </pre>
+     */
+    public static final int ErrorCode_SerializeFailed_VALUE = 21;
+    /**
+     * <code>ErrorCode_DeserializeFailed = 22;</code>
+     *
+     * <pre>
+     * 反序列化失败，格式不对
+     * </pre>
+     */
+    public static final int ErrorCode_DeserializeFailed_VALUE = 22;
+    /**
+     * <code>Errorcode_PermissionDenied = 23;</code>
+     *
+     * <pre>
+     * 没有权限
+     * </pre>
+     */
+    public static final int Errorcode_PermissionDenied_VALUE = 23;
+    /**
+     * <code>ErrorCode_ConnectDatabaseFailed = 24;</code>
+     *
+     * <pre>
+     * 连接数据库失败
+     * </pre>
+     */
+    public static final int ErrorCode_ConnectDatabaseFailed_VALUE = 24;
+    /**
+     * <code>ErrorCode_OperateDatabaseFailed = 25;</code>
+     *
+     * <pre>
+     * 执行数据库命令失败
+     * </pre>
+     */
+    public static final int ErrorCode_OperateDatabaseFailed_VALUE = 25;
+    /**
+     * <code>ErrorCode_AlreadyLogged = 60;</code>
+     *
+     * <pre>
+     * 已经登录
+     * </pre>
+     */
+    public static final int ErrorCode_AlreadyLogged_VALUE = 60;
+    /**
+     * <code>ErrorCode_CreateDataArkGroupFailed = 200;</code>
+     */
+    public static final int ErrorCode_CreateDataArkGroupFailed_VALUE = 200;
+    /**
+     * <code>ErrorCode_DataArkGroupExistent = 201;</code>
+     */
+    public static final int ErrorCode_DataArkGroupExistent_VALUE = 201;
+    /**
+     * <code>ErrorCode_DeleteDataArkGroupFailed = 202;</code>
+     */
+    public static final int ErrorCode_DeleteDataArkGroupFailed_VALUE = 202;
+    /**
+     * <code>ErrorCode_UpdateDataArkGroupFailed = 203;</code>
+     */
+    public static final int ErrorCode_UpdateDataArkGroupFailed_VALUE = 203;
+    /**
+     * <code>ErrorCode_AddDataArkFailed = 204;</code>
+     */
+    public static final int ErrorCode_AddDataArkFailed_VALUE = 204;
+    /**
+     * <code>ErrorCode_RemoveDataArkFailed = 205;</code>
+     */
+    public static final int ErrorCode_RemoveDataArkFailed_VALUE = 205;
+    /**
+     * <code>ErrorCode_UpdateDataArkFailed = 206;</code>
+     */
+    public static final int ErrorCode_UpdateDataArkFailed_VALUE = 206;
+    /**
+     * <code>ErrorCode_UserGroupExistent = 300;</code>
+     *
+     * <pre>
+     * 已存在用户组
+     * </pre>
+     */
+    public static final int ErrorCode_UserGroupExistent_VALUE = 300;
+    /**
+     * <code>ErrorCode_UserGroupNonexistent = 301;</code>
+     *
+     * <pre>
+     * 不存在用户组
+     * </pre>
+     */
+    public static final int ErrorCode_UserGroupNonexistent_VALUE = 301;
+    /**
+     * <code>ErrorCode_UserExistent = 302;</code>
+     */
+    public static final int ErrorCode_UserExistent_VALUE = 302;
+    /**
+     * <code>ErrorCode_UserNonexistent = 303;</code>
+     *
+     * <pre>
+     * 用户不存在
+     * </pre>
+     */
+    public static final int ErrorCode_UserNonexistent_VALUE = 303;
+    /**
+     * <code>ErrorCode_UserPasswordUnmatch = 304;</code>
+     *
+     * <pre>
+     * 用户密码不匹配
+     * </pre>
+     */
+    public static final int ErrorCode_UserPasswordUnmatch_VALUE = 304;
+    /**
+     * <code>ErrorCode_CreateUserFailed = 305;</code>
+     *
+     * <pre>
+     * 创建用户失败
+     * </pre>
+     */
+    public static final int ErrorCode_CreateUserFailed_VALUE = 305;
+    /**
+     * <code>ErrorCode_DeleteUserFailed = 306;</code>
+     *
+     * <pre>
+     * 删除用户失败
+     * </pre>
+     */
+    public static final int ErrorCode_DeleteUserFailed_VALUE = 306;
+    /**
+     * <code>ErrorCode_AlarmAddDataArkFailed = 10000;</code>
+     *
+     * <pre>
+     * 报警模块添加数据方舟失败
+     * </pre>
+     */
+    public static final int ErrorCode_AlarmAddDataArkFailed_VALUE = 10000;
+    /**
+     * <code>ErrorCode_AlarmRemoveDataArkFailed = 10001;</code>
+     *
+     * <pre>
+     * 报警模块移除数据方舟失败
+     * </pre>
+     */
+    public static final int ErrorCode_AlarmRemoveDataArkFailed_VALUE = 10001;
+    /**
+     * <code>ErrorCode_AlarmUpdateEmailAlarmFailed = 10002;</code>
+     *
+     * <pre>
+     * 报警模块更新邮件报警失败
+     * </pre>
+     */
+    public static final int ErrorCode_AlarmUpdateEmailAlarmFailed_VALUE = 10002;
+    /**
+     * <code>ErrorCode_AlarmCreateEmailAlarmFailed = 10003;</code>
+     *
+     * <pre>
+     * 报警模块创建邮件报警失败
+     * </pre>
+     */
+    public static final int ErrorCode_AlarmCreateEmailAlarmFailed_VALUE = 10003;
+    /**
+     * <code>ErrorCode_AlarmDeleteEmailAlarmFailed = 10004;</code>
+     *
+     * <pre>
+     * 报警模块删除邮件报警失败
+     * </pre>
+     */
+    public static final int ErrorCode_AlarmDeleteEmailAlarmFailed_VALUE = 10004;
+    /**
+     * <code>ErrorCode_AlarmVerifyEmailAlarmFailed = 10005;</code>
+     *
+     * <pre>
+     * 报警模块验证邮件报警失败
+     * </pre>
+     */
+    public static final int ErrorCode_AlarmVerifyEmailAlarmFailed_VALUE = 10005;
 
 
     public final int getNumber() { return value; }
@@ -174,6 +1000,39 @@ public final class CloudManagerAlarm {
       switch (value) {
         case 0: return ErrorCode_Success;
         case 1: return ErrorCode_Failed;
+        case 10: return ErrorCode_ConnectFailed;
+        case 11: return ErrorCode_SendFailed;
+        case 12: return ErrorCode_ReceiveFailed;
+        case 13: return ErrorCode_UnrecognizedOperation;
+        case 14: return ErrorCode_EnqueueCommandFailed;
+        case 15: return ErrorCode_DequeueCommandFailed;
+        case 20: return ErrorCode_ParametrError;
+        case 21: return ErrorCode_SerializeFailed;
+        case 22: return ErrorCode_DeserializeFailed;
+        case 23: return Errorcode_PermissionDenied;
+        case 24: return ErrorCode_ConnectDatabaseFailed;
+        case 25: return ErrorCode_OperateDatabaseFailed;
+        case 60: return ErrorCode_AlreadyLogged;
+        case 200: return ErrorCode_CreateDataArkGroupFailed;
+        case 201: return ErrorCode_DataArkGroupExistent;
+        case 202: return ErrorCode_DeleteDataArkGroupFailed;
+        case 203: return ErrorCode_UpdateDataArkGroupFailed;
+        case 204: return ErrorCode_AddDataArkFailed;
+        case 205: return ErrorCode_RemoveDataArkFailed;
+        case 206: return ErrorCode_UpdateDataArkFailed;
+        case 300: return ErrorCode_UserGroupExistent;
+        case 301: return ErrorCode_UserGroupNonexistent;
+        case 302: return ErrorCode_UserExistent;
+        case 303: return ErrorCode_UserNonexistent;
+        case 304: return ErrorCode_UserPasswordUnmatch;
+        case 305: return ErrorCode_CreateUserFailed;
+        case 306: return ErrorCode_DeleteUserFailed;
+        case 10000: return ErrorCode_AlarmAddDataArkFailed;
+        case 10001: return ErrorCode_AlarmRemoveDataArkFailed;
+        case 10002: return ErrorCode_AlarmUpdateEmailAlarmFailed;
+        case 10003: return ErrorCode_AlarmCreateEmailAlarmFailed;
+        case 10004: return ErrorCode_AlarmDeleteEmailAlarmFailed;
+        case 10005: return ErrorCode_AlarmVerifyEmailAlarmFailed;
         default: return null;
       }
     }
@@ -226,6 +1085,426 @@ public final class CloudManagerAlarm {
   }
 
   /**
+   * Protobuf enum {@code Exception}
+   */
+  public enum Exception
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>Exception_Tmp = 0;</code>
+     */
+    Exception_Tmp(0, 0),
+    /**
+     * <code>Exception_ClientLocalLost = 1;</code>
+     *
+     * <pre>
+     * 本地丢失
+     * </pre>
+     */
+    Exception_ClientLocalLost(1, 1),
+    /**
+     * <code>Exception_ClientTargetLost = 2;</code>
+     *
+     * <pre>
+     * 目标丢失
+     * </pre>
+     */
+    Exception_ClientTargetLost(2, 2),
+    /**
+     * <code>Exception_ClientCreateSnapshotFailed = 3;</code>
+     *
+     * <pre>
+     * 任务计划创建快照点失败(暂时不考虑普通客户端)
+     * </pre>
+     */
+    Exception_ClientCreateSnapshotFailed(3, 3),
+    /**
+     * <code>Exception_VmwareCbtDrop = 4;</code>
+     *
+     * <pre>
+     * CBT 异常
+     * </pre>
+     */
+    Exception_VmwareCbtDrop(4, 4),
+    /**
+     * <code>Exception_ClientOffline = 5;</code>
+     *
+     * <pre>
+     * 客户端离线
+     * </pre>
+     */
+    Exception_ClientOffline(5, 5),
+    /**
+     * <code>Exception_VcenterOffline = 6;</code>
+     *
+     * <pre>
+     * vCenter 离线
+     * </pre>
+     */
+    Exception_VcenterOffline(6, 6),
+    /**
+     * <code>Exception_NodeOffline = 7;</code>
+     *
+     * <pre>
+     * 集群节点或 Rac 实例离线
+     * </pre>
+     */
+    Exception_NodeOffline(7, 7),
+    /**
+     * <code>Exception_AllOffline = 8;</code>
+     *
+     * <pre>
+     * 集群或 Rac 离线
+     * </pre>
+     */
+    Exception_AllOffline(8, 8),
+    /**
+     * <code>Exception_StreamerPoolException = 9;</code>
+     *
+     * <pre>
+     * 存储池异常
+     * </pre>
+     */
+    Exception_StreamerPoolException(9, 9),
+    /**
+     * <code>Exception_StreamerOffline = 10;</code>
+     *
+     * <pre>
+     * Streamer 服务器离线
+     * </pre>
+     */
+    Exception_StreamerOffline(10, 10),
+    /**
+     * <code>Exception_ClientAutoExpandFailed = 11;</code>
+     *
+     * <pre>
+     * 自动扩容失败
+     * </pre>
+     */
+    Exception_ClientAutoExpandFailed(11, 11),
+    /**
+     * <code>Exception_ClientSnapshotMergeFailed = 12;</code>
+     *
+     * <pre>
+     * 快照合并失败
+     * </pre>
+     */
+    Exception_ClientSnapshotMergeFailed(12, 12),
+    /**
+     * <code>Exception_OracleStorageDrop = 13;</code>
+     *
+     * <pre>
+     * Oracle 备份空间异常
+     * </pre>
+     */
+    Exception_OracleStorageDrop(13, 13),
+    /**
+     * <code>Exception_DisasterReplicationFailed = 14;</code>
+     *
+     * <pre>
+     * 容灾复制失败
+     * </pre>
+     */
+    Exception_DisasterReplicationFailed(14, 14),
+    ;
+
+    /**
+     * <code>Exception_Tmp = 0;</code>
+     */
+    public static final int Exception_Tmp_VALUE = 0;
+    /**
+     * <code>Exception_ClientLocalLost = 1;</code>
+     *
+     * <pre>
+     * 本地丢失
+     * </pre>
+     */
+    public static final int Exception_ClientLocalLost_VALUE = 1;
+    /**
+     * <code>Exception_ClientTargetLost = 2;</code>
+     *
+     * <pre>
+     * 目标丢失
+     * </pre>
+     */
+    public static final int Exception_ClientTargetLost_VALUE = 2;
+    /**
+     * <code>Exception_ClientCreateSnapshotFailed = 3;</code>
+     *
+     * <pre>
+     * 任务计划创建快照点失败(暂时不考虑普通客户端)
+     * </pre>
+     */
+    public static final int Exception_ClientCreateSnapshotFailed_VALUE = 3;
+    /**
+     * <code>Exception_VmwareCbtDrop = 4;</code>
+     *
+     * <pre>
+     * CBT 异常
+     * </pre>
+     */
+    public static final int Exception_VmwareCbtDrop_VALUE = 4;
+    /**
+     * <code>Exception_ClientOffline = 5;</code>
+     *
+     * <pre>
+     * 客户端离线
+     * </pre>
+     */
+    public static final int Exception_ClientOffline_VALUE = 5;
+    /**
+     * <code>Exception_VcenterOffline = 6;</code>
+     *
+     * <pre>
+     * vCenter 离线
+     * </pre>
+     */
+    public static final int Exception_VcenterOffline_VALUE = 6;
+    /**
+     * <code>Exception_NodeOffline = 7;</code>
+     *
+     * <pre>
+     * 集群节点或 Rac 实例离线
+     * </pre>
+     */
+    public static final int Exception_NodeOffline_VALUE = 7;
+    /**
+     * <code>Exception_AllOffline = 8;</code>
+     *
+     * <pre>
+     * 集群或 Rac 离线
+     * </pre>
+     */
+    public static final int Exception_AllOffline_VALUE = 8;
+    /**
+     * <code>Exception_StreamerPoolException = 9;</code>
+     *
+     * <pre>
+     * 存储池异常
+     * </pre>
+     */
+    public static final int Exception_StreamerPoolException_VALUE = 9;
+    /**
+     * <code>Exception_StreamerOffline = 10;</code>
+     *
+     * <pre>
+     * Streamer 服务器离线
+     * </pre>
+     */
+    public static final int Exception_StreamerOffline_VALUE = 10;
+    /**
+     * <code>Exception_ClientAutoExpandFailed = 11;</code>
+     *
+     * <pre>
+     * 自动扩容失败
+     * </pre>
+     */
+    public static final int Exception_ClientAutoExpandFailed_VALUE = 11;
+    /**
+     * <code>Exception_ClientSnapshotMergeFailed = 12;</code>
+     *
+     * <pre>
+     * 快照合并失败
+     * </pre>
+     */
+    public static final int Exception_ClientSnapshotMergeFailed_VALUE = 12;
+    /**
+     * <code>Exception_OracleStorageDrop = 13;</code>
+     *
+     * <pre>
+     * Oracle 备份空间异常
+     * </pre>
+     */
+    public static final int Exception_OracleStorageDrop_VALUE = 13;
+    /**
+     * <code>Exception_DisasterReplicationFailed = 14;</code>
+     *
+     * <pre>
+     * 容灾复制失败
+     * </pre>
+     */
+    public static final int Exception_DisasterReplicationFailed_VALUE = 14;
+
+
+    public final int getNumber() { return value; }
+
+    public static Exception valueOf(int value) {
+      switch (value) {
+        case 0: return Exception_Tmp;
+        case 1: return Exception_ClientLocalLost;
+        case 2: return Exception_ClientTargetLost;
+        case 3: return Exception_ClientCreateSnapshotFailed;
+        case 4: return Exception_VmwareCbtDrop;
+        case 5: return Exception_ClientOffline;
+        case 6: return Exception_VcenterOffline;
+        case 7: return Exception_NodeOffline;
+        case 8: return Exception_AllOffline;
+        case 9: return Exception_StreamerPoolException;
+        case 10: return Exception_StreamerOffline;
+        case 11: return Exception_ClientAutoExpandFailed;
+        case 12: return Exception_ClientSnapshotMergeFailed;
+        case 13: return Exception_OracleStorageDrop;
+        case 14: return Exception_DisasterReplicationFailed;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<Exception>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static com.google.protobuf.Internal.EnumLiteMap<Exception>
+        internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<Exception>() {
+            public Exception findValueByNumber(int number) {
+              return Exception.valueOf(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(index);
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return cn.infocore.protobuf.CloudManagerAlarm.getDescriptor().getEnumTypes().get(2);
+    }
+
+    private static final Exception[] VALUES = values();
+
+    public static Exception valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int index;
+    private final int value;
+
+    private Exception(int index, int value) {
+      this.index = index;
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:Exception)
+  }
+
+  /**
+   * Protobuf enum {@code ClientType}
+   */
+  public enum ClientType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>ClientType_Single = 0;</code>
+     */
+    ClientType_Single(0, 0),
+    /**
+     * <code>ClientType_VmwareVirtualMachine = 1;</code>
+     */
+    ClientType_VmwareVirtualMachine(1, 1),
+    /**
+     * <code>ClientType_Mscs = 2;</code>
+     */
+    ClientType_Mscs(2, 2),
+    /**
+     * <code>ClientType_Rac = 3;</code>
+     */
+    ClientType_Rac(3, 3),
+    /**
+     * <code>ClientType_Vcenter = 4;</code>
+     */
+    ClientType_Vcenter(4, 4),
+    ;
+
+    /**
+     * <code>ClientType_Single = 0;</code>
+     */
+    public static final int ClientType_Single_VALUE = 0;
+    /**
+     * <code>ClientType_VmwareVirtualMachine = 1;</code>
+     */
+    public static final int ClientType_VmwareVirtualMachine_VALUE = 1;
+    /**
+     * <code>ClientType_Mscs = 2;</code>
+     */
+    public static final int ClientType_Mscs_VALUE = 2;
+    /**
+     * <code>ClientType_Rac = 3;</code>
+     */
+    public static final int ClientType_Rac_VALUE = 3;
+    /**
+     * <code>ClientType_Vcenter = 4;</code>
+     */
+    public static final int ClientType_Vcenter_VALUE = 4;
+
+
+    public final int getNumber() { return value; }
+
+    public static ClientType valueOf(int value) {
+      switch (value) {
+        case 0: return ClientType_Single;
+        case 1: return ClientType_VmwareVirtualMachine;
+        case 2: return ClientType_Mscs;
+        case 3: return ClientType_Rac;
+        case 4: return ClientType_Vcenter;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<ClientType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static com.google.protobuf.Internal.EnumLiteMap<ClientType>
+        internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<ClientType>() {
+            public ClientType findValueByNumber(int number) {
+              return ClientType.valueOf(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(index);
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return cn.infocore.protobuf.CloudManagerAlarm.getDescriptor().getEnumTypes().get(3);
+    }
+
+    private static final ClientType[] VALUES = values();
+
+    public static ClientType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int index;
+    private final int value;
+
+    private ClientType(int index, int value) {
+      this.index = index;
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:ClientType)
+  }
+
+  /**
    * Protobuf enum {@code Version}
    */
   public enum Version
@@ -273,7 +1552,7 @@ public final class CloudManagerAlarm {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return cn.infocore.protobuf.CloudManagerAlarm.getDescriptor().getEnumTypes().get(2);
+      return cn.infocore.protobuf.CloudManagerAlarm.getDescriptor().getEnumTypes().get(4);
     }
 
     private static final Version[] VALUES = values();
@@ -304,14 +1583,26 @@ public final class CloudManagerAlarm {
 
     /**
      * <code>required string id = 1;</code>
+     *
+     * <pre>
+     * data ark id
+     * </pre>
      */
     boolean hasId();
     /**
      * <code>required string id = 1;</code>
+     *
+     * <pre>
+     * data ark id
+     * </pre>
      */
     java.lang.String getId();
     /**
      * <code>required string id = 1;</code>
+     *
+     * <pre>
+     * data ark id
+     * </pre>
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -418,12 +1709,20 @@ public final class CloudManagerAlarm {
     private java.lang.Object id_;
     /**
      * <code>required string id = 1;</code>
+     *
+     * <pre>
+     * data ark id
+     * </pre>
      */
     public boolean hasId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
      * <code>required string id = 1;</code>
+     *
+     * <pre>
+     * data ark id
+     * </pre>
      */
     public java.lang.String getId() {
       java.lang.Object ref = id_;
@@ -441,6 +1740,10 @@ public final class CloudManagerAlarm {
     }
     /**
      * <code>required string id = 1;</code>
+     *
+     * <pre>
+     * data ark id
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getIdBytes() {
@@ -698,12 +2001,20 @@ public final class CloudManagerAlarm {
       private java.lang.Object id_ = "";
       /**
        * <code>required string id = 1;</code>
+       *
+       * <pre>
+       * data ark id
+       * </pre>
        */
       public boolean hasId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
        * <code>required string id = 1;</code>
+       *
+       * <pre>
+       * data ark id
+       * </pre>
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -721,6 +2032,10 @@ public final class CloudManagerAlarm {
       }
       /**
        * <code>required string id = 1;</code>
+       *
+       * <pre>
+       * data ark id
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -737,6 +2052,10 @@ public final class CloudManagerAlarm {
       }
       /**
        * <code>required string id = 1;</code>
+       *
+       * <pre>
+       * data ark id
+       * </pre>
        */
       public Builder setId(
           java.lang.String value) {
@@ -750,6 +2069,10 @@ public final class CloudManagerAlarm {
       }
       /**
        * <code>required string id = 1;</code>
+       *
+       * <pre>
+       * data ark id
+       * </pre>
        */
       public Builder clearId() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -759,6 +2082,10 @@ public final class CloudManagerAlarm {
       }
       /**
        * <code>required string id = 1;</code>
+       *
+       * <pre>
+       * data ark id
+       * </pre>
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -788,14 +2115,26 @@ public final class CloudManagerAlarm {
 
     /**
      * <code>required string id = 1;</code>
+     *
+     * <pre>
+     * data ark id
+     * </pre>
      */
     boolean hasId();
     /**
      * <code>required string id = 1;</code>
+     *
+     * <pre>
+     * data ark id
+     * </pre>
      */
     java.lang.String getId();
     /**
      * <code>required string id = 1;</code>
+     *
+     * <pre>
+     * data ark id
+     * </pre>
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -902,12 +2241,20 @@ public final class CloudManagerAlarm {
     private java.lang.Object id_;
     /**
      * <code>required string id = 1;</code>
+     *
+     * <pre>
+     * data ark id
+     * </pre>
      */
     public boolean hasId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
      * <code>required string id = 1;</code>
+     *
+     * <pre>
+     * data ark id
+     * </pre>
      */
     public java.lang.String getId() {
       java.lang.Object ref = id_;
@@ -925,6 +2272,10 @@ public final class CloudManagerAlarm {
     }
     /**
      * <code>required string id = 1;</code>
+     *
+     * <pre>
+     * data ark id
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getIdBytes() {
@@ -1182,6 +2533,692 @@ public final class CloudManagerAlarm {
       private java.lang.Object id_ = "";
       /**
        * <code>required string id = 1;</code>
+       *
+       * <pre>
+       * data ark id
+       * </pre>
+       */
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required string id = 1;</code>
+       *
+       * <pre>
+       * data ark id
+       * </pre>
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            id_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string id = 1;</code>
+       *
+       * <pre>
+       * data ark id
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string id = 1;</code>
+       *
+       * <pre>
+       * data ark id
+       * </pre>
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string id = 1;</code>
+       *
+       * <pre>
+       * data ark id
+       * </pre>
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string id = 1;</code>
+       *
+       * <pre>
+       * data ark id
+       * </pre>
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:RemoveDataArkRequest)
+    }
+
+    static {
+      defaultInstance = new RemoveDataArkRequest(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:RemoveDataArkRequest)
+  }
+
+  public interface UpdateDataArkRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:UpdateDataArkRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required string id = 1;</code>
+     */
+    boolean hasId();
+    /**
+     * <code>required string id = 1;</code>
+     */
+    java.lang.String getId();
+    /**
+     * <code>required string id = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <code>required string name = 2;</code>
+     */
+    boolean hasName();
+    /**
+     * <code>required string name = 2;</code>
+     */
+    java.lang.String getName();
+    /**
+     * <code>required string name = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>required string ip = 3;</code>
+     */
+    boolean hasIp();
+    /**
+     * <code>required string ip = 3;</code>
+     */
+    java.lang.String getIp();
+    /**
+     * <code>required string ip = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getIpBytes();
+  }
+  /**
+   * Protobuf type {@code UpdateDataArkRequest}
+   */
+  public static final class UpdateDataArkRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:UpdateDataArkRequest)
+      UpdateDataArkRequestOrBuilder {
+    // Use UpdateDataArkRequest.newBuilder() to construct.
+    private UpdateDataArkRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private UpdateDataArkRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final UpdateDataArkRequest defaultInstance;
+    public static UpdateDataArkRequest getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public UpdateDataArkRequest getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private UpdateDataArkRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              id_ = bs;
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              name_ = bs;
+              break;
+            }
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000004;
+              ip_ = bs;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return cn.infocore.protobuf.CloudManagerAlarm.internal_static_UpdateDataArkRequest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return cn.infocore.protobuf.CloudManagerAlarm.internal_static_UpdateDataArkRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest.class, cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<UpdateDataArkRequest> PARSER =
+        new com.google.protobuf.AbstractParser<UpdateDataArkRequest>() {
+      public UpdateDataArkRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new UpdateDataArkRequest(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UpdateDataArkRequest> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int ID_FIELD_NUMBER = 1;
+    private java.lang.Object id_;
+    /**
+     * <code>required string id = 1;</code>
+     */
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string id = 1;</code>
+     */
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          id_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string id = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NAME_FIELD_NUMBER = 2;
+    private java.lang.Object name_;
+    /**
+     * <code>required string name = 2;</code>
+     */
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string name = 2;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string name = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int IP_FIELD_NUMBER = 3;
+    private java.lang.Object ip_;
+    /**
+     * <code>required string ip = 3;</code>
+     */
+    public boolean hasIp() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required string ip = 3;</code>
+     */
+    public java.lang.String getIp() {
+      java.lang.Object ref = ip_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          ip_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string ip = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIpBytes() {
+      java.lang.Object ref = ip_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ip_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      id_ = "";
+      name_ = "";
+      ip_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasIp()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getIdBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getIpBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getIdBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getIpBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code UpdateDataArkRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:UpdateDataArkRequest)
+        cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_UpdateDataArkRequest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_UpdateDataArkRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest.class, cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest.Builder.class);
+      }
+
+      // Construct using cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        id_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        name_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        ip_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return cn.infocore.protobuf.CloudManagerAlarm.internal_static_UpdateDataArkRequest_descriptor;
+      }
+
+      public cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest getDefaultInstanceForType() {
+        return cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest.getDefaultInstance();
+      }
+
+      public cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest build() {
+        cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest buildPartial() {
+        cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest result = new cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.id_ = id_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.name_ = name_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.ip_ = ip_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest) {
+          return mergeFrom((cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest other) {
+        if (other == cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          bitField0_ |= 0x00000001;
+          id_ = other.id_;
+          onChanged();
+        }
+        if (other.hasName()) {
+          bitField0_ |= 0x00000002;
+          name_ = other.name_;
+          onChanged();
+        }
+        if (other.hasIp()) {
+          bitField0_ |= 0x00000004;
+          ip_ = other.ip_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasId()) {
+          
+          return false;
+        }
+        if (!hasName()) {
+          
+          return false;
+        }
+        if (!hasIp()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object id_ = "";
+      /**
+       * <code>required string id = 1;</code>
        */
       public boolean hasId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -1255,15 +3292,167 @@ public final class CloudManagerAlarm {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:RemoveDataArkRequest)
+      private java.lang.Object name_ = "";
+      /**
+       * <code>required string name = 2;</code>
+       */
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string name = 2;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            name_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string name = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string name = 2;</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 2;</code>
+       */
+      public Builder clearName() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 2;</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object ip_ = "";
+      /**
+       * <code>required string ip = 3;</code>
+       */
+      public boolean hasIp() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required string ip = 3;</code>
+       */
+      public java.lang.String getIp() {
+        java.lang.Object ref = ip_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            ip_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string ip = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIpBytes() {
+        java.lang.Object ref = ip_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ip_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string ip = 3;</code>
+       */
+      public Builder setIp(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        ip_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string ip = 3;</code>
+       */
+      public Builder clearIp() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        ip_ = getDefaultInstance().getIp();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string ip = 3;</code>
+       */
+      public Builder setIpBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        ip_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:UpdateDataArkRequest)
     }
 
     static {
-      defaultInstance = new RemoveDataArkRequest(true);
+      defaultInstance = new UpdateDataArkRequest(true);
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:RemoveDataArkRequest)
+    // @@protoc_insertion_point(class_scope:UpdateDataArkRequest)
   }
 
   public interface UpdateEmailAlarmRequestOrBuilder extends
@@ -1271,43 +3460,26 @@ public final class CloudManagerAlarm {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required uint32 id = 1;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
-     *配置id
-     * </pre>
-     */
-    boolean hasId();
-    /**
-     * <code>required uint32 id = 1;</code>
-     *
-     * <pre>
-     *配置id
-     * </pre>
-     */
-    int getId();
-
-    /**
-     * <code>required string user_id = 2;</code>
-     *
-     * <pre>
-     *用户id
+     * 所属用户 ID
      * </pre>
      */
     boolean hasUserId();
     /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
-     *用户id
+     * 所属用户 ID
      * </pre>
      */
     java.lang.String getUserId();
     /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
-     *用户id
+     * 所属用户 ID
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -1365,14 +3537,9 @@ public final class CloudManagerAlarm {
               }
               break;
             }
-            case 8: {
-              bitField0_ |= 0x00000001;
-              id_ = input.readUInt32();
-              break;
-            }
-            case 18: {
+            case 10: {
               com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000002;
+              bitField0_ |= 0x00000001;
               userId_ = bs;
               break;
             }
@@ -1416,46 +3583,23 @@ public final class CloudManagerAlarm {
     }
 
     private int bitField0_;
-    public static final int ID_FIELD_NUMBER = 1;
-    private int id_;
-    /**
-     * <code>required uint32 id = 1;</code>
-     *
-     * <pre>
-     *配置id
-     * </pre>
-     */
-    public boolean hasId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required uint32 id = 1;</code>
-     *
-     * <pre>
-     *配置id
-     * </pre>
-     */
-    public int getId() {
-      return id_;
-    }
-
-    public static final int USER_ID_FIELD_NUMBER = 2;
+    public static final int USER_ID_FIELD_NUMBER = 1;
     private java.lang.Object userId_;
     /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
-     *用户id
+     * 所属用户 ID
      * </pre>
      */
     public boolean hasUserId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
-     *用户id
+     * 所属用户 ID
      * </pre>
      */
     public java.lang.String getUserId() {
@@ -1473,10 +3617,10 @@ public final class CloudManagerAlarm {
       }
     }
     /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
-     *用户id
+     * 所属用户 ID
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -1494,7 +3638,6 @@ public final class CloudManagerAlarm {
     }
 
     private void initFields() {
-      id_ = 0;
       userId_ = "";
     }
     private byte memoizedIsInitialized = -1;
@@ -1503,10 +3646,6 @@ public final class CloudManagerAlarm {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       if (!hasUserId()) {
         memoizedIsInitialized = 0;
         return false;
@@ -1519,10 +3658,7 @@ public final class CloudManagerAlarm {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeUInt32(1, id_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getUserIdBytes());
+        output.writeBytes(1, getUserIdBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -1535,11 +3671,7 @@ public final class CloudManagerAlarm {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(1, id_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getUserIdBytes());
+          .computeBytesSize(1, getUserIdBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1658,10 +3790,8 @@ public final class CloudManagerAlarm {
 
       public Builder clear() {
         super.clear();
-        id_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000001);
         userId_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
@@ -1693,10 +3823,6 @@ public final class CloudManagerAlarm {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.id_ = id_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
         result.userId_ = userId_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -1714,11 +3840,8 @@ public final class CloudManagerAlarm {
 
       public Builder mergeFrom(cn.infocore.protobuf.CloudManagerAlarm.UpdateEmailAlarmRequest other) {
         if (other == cn.infocore.protobuf.CloudManagerAlarm.UpdateEmailAlarmRequest.getDefaultInstance()) return this;
-        if (other.hasId()) {
-          setId(other.getId());
-        }
         if (other.hasUserId()) {
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000001;
           userId_ = other.userId_;
           onChanged();
         }
@@ -1727,10 +3850,6 @@ public final class CloudManagerAlarm {
       }
 
       public final boolean isInitialized() {
-        if (!hasId()) {
-          
-          return false;
-        }
         if (!hasUserId()) {
           
           return false;
@@ -1757,70 +3876,22 @@ public final class CloudManagerAlarm {
       }
       private int bitField0_;
 
-      private int id_ ;
-      /**
-       * <code>required uint32 id = 1;</code>
-       *
-       * <pre>
-       *配置id
-       * </pre>
-       */
-      public boolean hasId() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required uint32 id = 1;</code>
-       *
-       * <pre>
-       *配置id
-       * </pre>
-       */
-      public int getId() {
-        return id_;
-      }
-      /**
-       * <code>required uint32 id = 1;</code>
-       *
-       * <pre>
-       *配置id
-       * </pre>
-       */
-      public Builder setId(int value) {
-        bitField0_ |= 0x00000001;
-        id_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required uint32 id = 1;</code>
-       *
-       * <pre>
-       *配置id
-       * </pre>
-       */
-      public Builder clearId() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        id_ = 0;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object userId_ = "";
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
-       *用户id
+       * 所属用户 ID
        * </pre>
        */
       public boolean hasUserId() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
-       *用户id
+       * 所属用户 ID
        * </pre>
        */
       public java.lang.String getUserId() {
@@ -1838,10 +3909,10 @@ public final class CloudManagerAlarm {
         }
       }
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
-       *用户id
+       * 所属用户 ID
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -1858,10 +3929,10 @@ public final class CloudManagerAlarm {
         }
       }
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
-       *用户id
+       * 所属用户 ID
        * </pre>
        */
       public Builder setUserId(
@@ -1869,29 +3940,29 @@ public final class CloudManagerAlarm {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000001;
         userId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
-       *用户id
+       * 所属用户 ID
        * </pre>
        */
       public Builder clearUserId() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         userId_ = getDefaultInstance().getUserId();
         onChanged();
         return this;
       }
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
-       *用户id
+       * 所属用户 ID
        * </pre>
        */
       public Builder setUserIdBytes(
@@ -1899,7 +3970,7 @@ public final class CloudManagerAlarm {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000001;
         userId_ = value;
         onChanged();
         return this;
@@ -1921,24 +3992,7 @@ public final class CloudManagerAlarm {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required uint32 config_id = 1;</code>
-     *
-     * <pre>
-     * 配置 ID
-     * </pre>
-     */
-    boolean hasConfigId();
-    /**
-     * <code>required uint32 config_id = 1;</code>
-     *
-     * <pre>
-     * 配置 ID
-     * </pre>
-     */
-    int getConfigId();
-
-    /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
      * 所属用户 ID
@@ -1946,7 +4000,7 @@ public final class CloudManagerAlarm {
      */
     boolean hasUserId();
     /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
      * 所属用户 ID
@@ -1954,7 +4008,7 @@ public final class CloudManagerAlarm {
      */
     java.lang.String getUserId();
     /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
      * 所属用户 ID
@@ -2015,14 +4069,9 @@ public final class CloudManagerAlarm {
               }
               break;
             }
-            case 8: {
-              bitField0_ |= 0x00000001;
-              configId_ = input.readUInt32();
-              break;
-            }
-            case 18: {
+            case 10: {
               com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000002;
+              bitField0_ |= 0x00000001;
               userId_ = bs;
               break;
             }
@@ -2066,43 +4115,20 @@ public final class CloudManagerAlarm {
     }
 
     private int bitField0_;
-    public static final int CONFIG_ID_FIELD_NUMBER = 1;
-    private int configId_;
-    /**
-     * <code>required uint32 config_id = 1;</code>
-     *
-     * <pre>
-     * 配置 ID
-     * </pre>
-     */
-    public boolean hasConfigId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required uint32 config_id = 1;</code>
-     *
-     * <pre>
-     * 配置 ID
-     * </pre>
-     */
-    public int getConfigId() {
-      return configId_;
-    }
-
-    public static final int USER_ID_FIELD_NUMBER = 2;
+    public static final int USER_ID_FIELD_NUMBER = 1;
     private java.lang.Object userId_;
     /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
      * 所属用户 ID
      * </pre>
      */
     public boolean hasUserId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
      * 所属用户 ID
@@ -2123,7 +4149,7 @@ public final class CloudManagerAlarm {
       }
     }
     /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
      * 所属用户 ID
@@ -2144,7 +4170,6 @@ public final class CloudManagerAlarm {
     }
 
     private void initFields() {
-      configId_ = 0;
       userId_ = "";
     }
     private byte memoizedIsInitialized = -1;
@@ -2153,10 +4178,6 @@ public final class CloudManagerAlarm {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasConfigId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       if (!hasUserId()) {
         memoizedIsInitialized = 0;
         return false;
@@ -2169,10 +4190,7 @@ public final class CloudManagerAlarm {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeUInt32(1, configId_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getUserIdBytes());
+        output.writeBytes(1, getUserIdBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -2185,11 +4203,7 @@ public final class CloudManagerAlarm {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(1, configId_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getUserIdBytes());
+          .computeBytesSize(1, getUserIdBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2308,10 +4322,8 @@ public final class CloudManagerAlarm {
 
       public Builder clear() {
         super.clear();
-        configId_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000001);
         userId_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
@@ -2343,10 +4355,6 @@ public final class CloudManagerAlarm {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.configId_ = configId_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
         result.userId_ = userId_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -2364,11 +4372,8 @@ public final class CloudManagerAlarm {
 
       public Builder mergeFrom(cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest other) {
         if (other == cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest.getDefaultInstance()) return this;
-        if (other.hasConfigId()) {
-          setConfigId(other.getConfigId());
-        }
         if (other.hasUserId()) {
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000001;
           userId_ = other.userId_;
           onChanged();
         }
@@ -2377,10 +4382,6 @@ public final class CloudManagerAlarm {
       }
 
       public final boolean isInitialized() {
-        if (!hasConfigId()) {
-          
-          return false;
-        }
         if (!hasUserId()) {
           
           return false;
@@ -2407,67 +4408,19 @@ public final class CloudManagerAlarm {
       }
       private int bitField0_;
 
-      private int configId_ ;
-      /**
-       * <code>required uint32 config_id = 1;</code>
-       *
-       * <pre>
-       * 配置 ID
-       * </pre>
-       */
-      public boolean hasConfigId() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required uint32 config_id = 1;</code>
-       *
-       * <pre>
-       * 配置 ID
-       * </pre>
-       */
-      public int getConfigId() {
-        return configId_;
-      }
-      /**
-       * <code>required uint32 config_id = 1;</code>
-       *
-       * <pre>
-       * 配置 ID
-       * </pre>
-       */
-      public Builder setConfigId(int value) {
-        bitField0_ |= 0x00000001;
-        configId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required uint32 config_id = 1;</code>
-       *
-       * <pre>
-       * 配置 ID
-       * </pre>
-       */
-      public Builder clearConfigId() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        configId_ = 0;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object userId_ = "";
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
        * 所属用户 ID
        * </pre>
        */
       public boolean hasUserId() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
        * 所属用户 ID
@@ -2488,7 +4441,7 @@ public final class CloudManagerAlarm {
         }
       }
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
        * 所属用户 ID
@@ -2508,7 +4461,7 @@ public final class CloudManagerAlarm {
         }
       }
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
        * 所属用户 ID
@@ -2519,26 +4472,26 @@ public final class CloudManagerAlarm {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000001;
         userId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
        * 所属用户 ID
        * </pre>
        */
       public Builder clearUserId() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         userId_ = getDefaultInstance().getUserId();
         onChanged();
         return this;
       }
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
        * 所属用户 ID
@@ -2549,7 +4502,7 @@ public final class CloudManagerAlarm {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000001;
         userId_ = value;
         onChanged();
         return this;
@@ -2571,24 +4524,7 @@ public final class CloudManagerAlarm {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required uint32 config_id = 1;</code>
-     *
-     * <pre>
-     * 配置 ID
-     * </pre>
-     */
-    boolean hasConfigId();
-    /**
-     * <code>required uint32 config_id = 1;</code>
-     *
-     * <pre>
-     * 配置 ID
-     * </pre>
-     */
-    int getConfigId();
-
-    /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
      * 所属用户 ID
@@ -2596,7 +4532,7 @@ public final class CloudManagerAlarm {
      */
     boolean hasUserId();
     /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
      * 所属用户 ID
@@ -2604,7 +4540,7 @@ public final class CloudManagerAlarm {
      */
     java.lang.String getUserId();
     /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
      * 所属用户 ID
@@ -2665,14 +4601,9 @@ public final class CloudManagerAlarm {
               }
               break;
             }
-            case 8: {
-              bitField0_ |= 0x00000001;
-              configId_ = input.readUInt32();
-              break;
-            }
-            case 18: {
+            case 10: {
               com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000002;
+              bitField0_ |= 0x00000001;
               userId_ = bs;
               break;
             }
@@ -2716,43 +4647,20 @@ public final class CloudManagerAlarm {
     }
 
     private int bitField0_;
-    public static final int CONFIG_ID_FIELD_NUMBER = 1;
-    private int configId_;
-    /**
-     * <code>required uint32 config_id = 1;</code>
-     *
-     * <pre>
-     * 配置 ID
-     * </pre>
-     */
-    public boolean hasConfigId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required uint32 config_id = 1;</code>
-     *
-     * <pre>
-     * 配置 ID
-     * </pre>
-     */
-    public int getConfigId() {
-      return configId_;
-    }
-
-    public static final int USER_ID_FIELD_NUMBER = 2;
+    public static final int USER_ID_FIELD_NUMBER = 1;
     private java.lang.Object userId_;
     /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
      * 所属用户 ID
      * </pre>
      */
     public boolean hasUserId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
      * 所属用户 ID
@@ -2773,7 +4681,7 @@ public final class CloudManagerAlarm {
       }
     }
     /**
-     * <code>required string user_id = 2;</code>
+     * <code>required string user_id = 1;</code>
      *
      * <pre>
      * 所属用户 ID
@@ -2794,7 +4702,6 @@ public final class CloudManagerAlarm {
     }
 
     private void initFields() {
-      configId_ = 0;
       userId_ = "";
     }
     private byte memoizedIsInitialized = -1;
@@ -2803,10 +4710,6 @@ public final class CloudManagerAlarm {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasConfigId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       if (!hasUserId()) {
         memoizedIsInitialized = 0;
         return false;
@@ -2819,10 +4722,7 @@ public final class CloudManagerAlarm {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeUInt32(1, configId_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getUserIdBytes());
+        output.writeBytes(1, getUserIdBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -2835,11 +4735,7 @@ public final class CloudManagerAlarm {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(1, configId_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getUserIdBytes());
+          .computeBytesSize(1, getUserIdBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2958,10 +4854,8 @@ public final class CloudManagerAlarm {
 
       public Builder clear() {
         super.clear();
-        configId_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000001);
         userId_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
@@ -2993,10 +4887,6 @@ public final class CloudManagerAlarm {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.configId_ = configId_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
         result.userId_ = userId_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -3014,11 +4904,8 @@ public final class CloudManagerAlarm {
 
       public Builder mergeFrom(cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest other) {
         if (other == cn.infocore.protobuf.CloudManagerAlarm.DeleteEmailAlarmRequest.getDefaultInstance()) return this;
-        if (other.hasConfigId()) {
-          setConfigId(other.getConfigId());
-        }
         if (other.hasUserId()) {
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000001;
           userId_ = other.userId_;
           onChanged();
         }
@@ -3027,10 +4914,6 @@ public final class CloudManagerAlarm {
       }
 
       public final boolean isInitialized() {
-        if (!hasConfigId()) {
-          
-          return false;
-        }
         if (!hasUserId()) {
           
           return false;
@@ -3057,67 +4940,19 @@ public final class CloudManagerAlarm {
       }
       private int bitField0_;
 
-      private int configId_ ;
-      /**
-       * <code>required uint32 config_id = 1;</code>
-       *
-       * <pre>
-       * 配置 ID
-       * </pre>
-       */
-      public boolean hasConfigId() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required uint32 config_id = 1;</code>
-       *
-       * <pre>
-       * 配置 ID
-       * </pre>
-       */
-      public int getConfigId() {
-        return configId_;
-      }
-      /**
-       * <code>required uint32 config_id = 1;</code>
-       *
-       * <pre>
-       * 配置 ID
-       * </pre>
-       */
-      public Builder setConfigId(int value) {
-        bitField0_ |= 0x00000001;
-        configId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required uint32 config_id = 1;</code>
-       *
-       * <pre>
-       * 配置 ID
-       * </pre>
-       */
-      public Builder clearConfigId() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        configId_ = 0;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object userId_ = "";
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
        * 所属用户 ID
        * </pre>
        */
       public boolean hasUserId() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
        * 所属用户 ID
@@ -3138,7 +4973,7 @@ public final class CloudManagerAlarm {
         }
       }
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
        * 所属用户 ID
@@ -3158,7 +4993,7 @@ public final class CloudManagerAlarm {
         }
       }
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
        * 所属用户 ID
@@ -3169,26 +5004,26 @@ public final class CloudManagerAlarm {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000001;
         userId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
        * 所属用户 ID
        * </pre>
        */
       public Builder clearUserId() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         userId_ = getDefaultInstance().getUserId();
         onChanged();
         return this;
       }
       /**
-       * <code>required string user_id = 2;</code>
+       * <code>required string user_id = 1;</code>
        *
        * <pre>
        * 所属用户 ID
@@ -3199,7 +5034,7 @@ public final class CloudManagerAlarm {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000001;
         userId_ = value;
         onChanged();
         return this;
@@ -3235,66 +5070,89 @@ public final class CloudManagerAlarm {
         getSenderEmailBytes();
 
     /**
-     * <code>required string sender_password = 2;</code>
-     */
-    boolean hasSenderPassword();
-    /**
-     * <code>required string sender_password = 2;</code>
-     */
-    java.lang.String getSenderPassword();
-    /**
-     * <code>required string sender_password = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getSenderPasswordBytes();
-
-    /**
-     * <code>required string smtp_address = 3;</code>
+     * <code>required string smtp_address = 2;</code>
      */
     boolean hasSmtpAddress();
     /**
-     * <code>required string smtp_address = 3;</code>
+     * <code>required string smtp_address = 2;</code>
      */
     java.lang.String getSmtpAddress();
     /**
-     * <code>required string smtp_address = 3;</code>
+     * <code>required string smtp_address = 2;</code>
      */
     com.google.protobuf.ByteString
         getSmtpAddressBytes();
 
     /**
-     * <code>required uint32 smtp_port = 4;</code>
+     * <code>required uint32 smtp_port = 3;</code>
      */
     boolean hasSmtpPort();
     /**
-     * <code>required uint32 smtp_port = 4;</code>
+     * <code>required uint32 smtp_port = 3;</code>
      */
     int getSmtpPort();
 
     /**
-     * <code>required bool is_ssl_encrypt_enabled = 5;</code>
+     * <code>required bool is_ssl_encrypt_enabled = 4;</code>
      */
     boolean hasIsSslEncryptEnabled();
     /**
-     * <code>required bool is_ssl_encrypt_enabled = 5;</code>
+     * <code>required bool is_ssl_encrypt_enabled = 4;</code>
      */
     boolean getIsSslEncryptEnabled();
 
     /**
-     * <code>repeated string receiver_emails = 6;</code>
+     * <code>required bool is_smtp_authentication = 5;</code>
+     */
+    boolean hasIsSmtpAuthentication();
+    /**
+     * <code>required bool is_smtp_authentication = 5;</code>
+     */
+    boolean getIsSmtpAuthentication();
+
+    /**
+     * <code>required string smtp_user_id = 6;</code>
+     */
+    boolean hasSmtpUserId();
+    /**
+     * <code>required string smtp_user_id = 6;</code>
+     */
+    java.lang.String getSmtpUserId();
+    /**
+     * <code>required string smtp_user_id = 6;</code>
+     */
+    com.google.protobuf.ByteString
+        getSmtpUserIdBytes();
+
+    /**
+     * <code>required string smtp_password = 7;</code>
+     */
+    boolean hasSmtpPassword();
+    /**
+     * <code>required string smtp_password = 7;</code>
+     */
+    java.lang.String getSmtpPassword();
+    /**
+     * <code>required string smtp_password = 7;</code>
+     */
+    com.google.protobuf.ByteString
+        getSmtpPasswordBytes();
+
+    /**
+     * <code>repeated string receiver_emails = 8;</code>
      */
     com.google.protobuf.ProtocolStringList
         getReceiverEmailsList();
     /**
-     * <code>repeated string receiver_emails = 6;</code>
+     * <code>repeated string receiver_emails = 8;</code>
      */
     int getReceiverEmailsCount();
     /**
-     * <code>repeated string receiver_emails = 6;</code>
+     * <code>repeated string receiver_emails = 8;</code>
      */
     java.lang.String getReceiverEmails(int index);
     /**
-     * <code>repeated string receiver_emails = 6;</code>
+     * <code>repeated string receiver_emails = 8;</code>
      */
     com.google.protobuf.ByteString
         getReceiverEmailsBytes(int index);
@@ -3360,30 +5218,41 @@ public final class CloudManagerAlarm {
             case 18: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
-              senderPassword_ = bs;
+              smtpAddress_ = bs;
               break;
             }
-            case 26: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 24: {
               bitField0_ |= 0x00000004;
-              smtpAddress_ = bs;
+              smtpPort_ = input.readUInt32();
               break;
             }
             case 32: {
               bitField0_ |= 0x00000008;
-              smtpPort_ = input.readUInt32();
+              isSslEncryptEnabled_ = input.readBool();
               break;
             }
             case 40: {
               bitField0_ |= 0x00000010;
-              isSslEncryptEnabled_ = input.readBool();
+              isSmtpAuthentication_ = input.readBool();
               break;
             }
             case 50: {
               com.google.protobuf.ByteString bs = input.readBytes();
-              if (!((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+              bitField0_ |= 0x00000020;
+              smtpUserId_ = bs;
+              break;
+            }
+            case 58: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000040;
+              smtpPassword_ = bs;
+              break;
+            }
+            case 66: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              if (!((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
                 receiverEmails_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000020;
+                mutable_bitField0_ |= 0x00000080;
               }
               receiverEmails_.add(bs);
               break;
@@ -3396,7 +5265,7 @@ public final class CloudManagerAlarm {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
           receiverEmails_ = receiverEmails_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -3473,58 +5342,16 @@ public final class CloudManagerAlarm {
       }
     }
 
-    public static final int SENDER_PASSWORD_FIELD_NUMBER = 2;
-    private java.lang.Object senderPassword_;
+    public static final int SMTP_ADDRESS_FIELD_NUMBER = 2;
+    private java.lang.Object smtpAddress_;
     /**
-     * <code>required string sender_password = 2;</code>
+     * <code>required string smtp_address = 2;</code>
      */
-    public boolean hasSenderPassword() {
+    public boolean hasSmtpAddress() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required string sender_password = 2;</code>
-     */
-    public java.lang.String getSenderPassword() {
-      java.lang.Object ref = senderPassword_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          senderPassword_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string sender_password = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getSenderPasswordBytes() {
-      java.lang.Object ref = senderPassword_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        senderPassword_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int SMTP_ADDRESS_FIELD_NUMBER = 3;
-    private java.lang.Object smtpAddress_;
-    /**
-     * <code>required string smtp_address = 3;</code>
-     */
-    public boolean hasSmtpAddress() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    /**
-     * <code>required string smtp_address = 3;</code>
+     * <code>required string smtp_address = 2;</code>
      */
     public java.lang.String getSmtpAddress() {
       java.lang.Object ref = smtpAddress_;
@@ -3541,7 +5368,7 @@ public final class CloudManagerAlarm {
       }
     }
     /**
-     * <code>required string smtp_address = 3;</code>
+     * <code>required string smtp_address = 2;</code>
      */
     public com.google.protobuf.ByteString
         getSmtpAddressBytes() {
@@ -3557,59 +5384,158 @@ public final class CloudManagerAlarm {
       }
     }
 
-    public static final int SMTP_PORT_FIELD_NUMBER = 4;
+    public static final int SMTP_PORT_FIELD_NUMBER = 3;
     private int smtpPort_;
     /**
-     * <code>required uint32 smtp_port = 4;</code>
+     * <code>required uint32 smtp_port = 3;</code>
      */
     public boolean hasSmtpPort() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required uint32 smtp_port = 4;</code>
+     * <code>required uint32 smtp_port = 3;</code>
      */
     public int getSmtpPort() {
       return smtpPort_;
     }
 
-    public static final int IS_SSL_ENCRYPT_ENABLED_FIELD_NUMBER = 5;
+    public static final int IS_SSL_ENCRYPT_ENABLED_FIELD_NUMBER = 4;
     private boolean isSslEncryptEnabled_;
     /**
-     * <code>required bool is_ssl_encrypt_enabled = 5;</code>
+     * <code>required bool is_ssl_encrypt_enabled = 4;</code>
      */
     public boolean hasIsSslEncryptEnabled() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>required bool is_ssl_encrypt_enabled = 5;</code>
+     * <code>required bool is_ssl_encrypt_enabled = 4;</code>
      */
     public boolean getIsSslEncryptEnabled() {
       return isSslEncryptEnabled_;
     }
 
-    public static final int RECEIVER_EMAILS_FIELD_NUMBER = 6;
+    public static final int IS_SMTP_AUTHENTICATION_FIELD_NUMBER = 5;
+    private boolean isSmtpAuthentication_;
+    /**
+     * <code>required bool is_smtp_authentication = 5;</code>
+     */
+    public boolean hasIsSmtpAuthentication() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>required bool is_smtp_authentication = 5;</code>
+     */
+    public boolean getIsSmtpAuthentication() {
+      return isSmtpAuthentication_;
+    }
+
+    public static final int SMTP_USER_ID_FIELD_NUMBER = 6;
+    private java.lang.Object smtpUserId_;
+    /**
+     * <code>required string smtp_user_id = 6;</code>
+     */
+    public boolean hasSmtpUserId() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>required string smtp_user_id = 6;</code>
+     */
+    public java.lang.String getSmtpUserId() {
+      java.lang.Object ref = smtpUserId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          smtpUserId_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string smtp_user_id = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSmtpUserIdBytes() {
+      java.lang.Object ref = smtpUserId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        smtpUserId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SMTP_PASSWORD_FIELD_NUMBER = 7;
+    private java.lang.Object smtpPassword_;
+    /**
+     * <code>required string smtp_password = 7;</code>
+     */
+    public boolean hasSmtpPassword() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>required string smtp_password = 7;</code>
+     */
+    public java.lang.String getSmtpPassword() {
+      java.lang.Object ref = smtpPassword_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          smtpPassword_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string smtp_password = 7;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSmtpPasswordBytes() {
+      java.lang.Object ref = smtpPassword_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        smtpPassword_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int RECEIVER_EMAILS_FIELD_NUMBER = 8;
     private com.google.protobuf.LazyStringList receiverEmails_;
     /**
-     * <code>repeated string receiver_emails = 6;</code>
+     * <code>repeated string receiver_emails = 8;</code>
      */
     public com.google.protobuf.ProtocolStringList
         getReceiverEmailsList() {
       return receiverEmails_;
     }
     /**
-     * <code>repeated string receiver_emails = 6;</code>
+     * <code>repeated string receiver_emails = 8;</code>
      */
     public int getReceiverEmailsCount() {
       return receiverEmails_.size();
     }
     /**
-     * <code>repeated string receiver_emails = 6;</code>
+     * <code>repeated string receiver_emails = 8;</code>
      */
     public java.lang.String getReceiverEmails(int index) {
       return receiverEmails_.get(index);
     }
     /**
-     * <code>repeated string receiver_emails = 6;</code>
+     * <code>repeated string receiver_emails = 8;</code>
      */
     public com.google.protobuf.ByteString
         getReceiverEmailsBytes(int index) {
@@ -3618,10 +5544,12 @@ public final class CloudManagerAlarm {
 
     private void initFields() {
       senderEmail_ = "";
-      senderPassword_ = "";
       smtpAddress_ = "";
       smtpPort_ = 0;
       isSslEncryptEnabled_ = false;
+      isSmtpAuthentication_ = false;
+      smtpUserId_ = "";
+      smtpPassword_ = "";
       receiverEmails_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
     private byte memoizedIsInitialized = -1;
@@ -3631,10 +5559,6 @@ public final class CloudManagerAlarm {
       if (isInitialized == 0) return false;
 
       if (!hasSenderEmail()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasSenderPassword()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -3650,6 +5574,18 @@ public final class CloudManagerAlarm {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasIsSmtpAuthentication()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasSmtpUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasSmtpPassword()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -3661,19 +5597,25 @@ public final class CloudManagerAlarm {
         output.writeBytes(1, getSenderEmailBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getSenderPasswordBytes());
+        output.writeBytes(2, getSmtpAddressBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getSmtpAddressBytes());
+        output.writeUInt32(3, smtpPort_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeUInt32(4, smtpPort_);
+        output.writeBool(4, isSslEncryptEnabled_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeBool(5, isSslEncryptEnabled_);
+        output.writeBool(5, isSmtpAuthentication_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeBytes(6, getSmtpUserIdBytes());
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeBytes(7, getSmtpPasswordBytes());
       }
       for (int i = 0; i < receiverEmails_.size(); i++) {
-        output.writeBytes(6, receiverEmails_.getByteString(i));
+        output.writeBytes(8, receiverEmails_.getByteString(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -3690,19 +5632,27 @@ public final class CloudManagerAlarm {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getSenderPasswordBytes());
+          .computeBytesSize(2, getSmtpAddressBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getSmtpAddressBytes());
+          .computeUInt32Size(3, smtpPort_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(4, smtpPort_);
+          .computeBoolSize(4, isSslEncryptEnabled_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(5, isSslEncryptEnabled_);
+          .computeBoolSize(5, isSmtpAuthentication_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, getSmtpUserIdBytes());
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(7, getSmtpPasswordBytes());
       }
       {
         int dataSize = 0;
@@ -3832,16 +5782,20 @@ public final class CloudManagerAlarm {
         super.clear();
         senderEmail_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
-        senderPassword_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
         smtpAddress_ = "";
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000002);
         smtpPort_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000004);
         isSslEncryptEnabled_ = false;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        isSmtpAuthentication_ = false;
         bitField0_ = (bitField0_ & ~0x00000010);
-        receiverEmails_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        smtpUserId_ = "";
         bitField0_ = (bitField0_ & ~0x00000020);
+        smtpPassword_ = "";
+        bitField0_ = (bitField0_ & ~0x00000040);
+        receiverEmails_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
 
@@ -3877,22 +5831,30 @@ public final class CloudManagerAlarm {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.senderPassword_ = senderPassword_;
+        result.smtpAddress_ = smtpAddress_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.smtpAddress_ = smtpAddress_;
+        result.smtpPort_ = smtpPort_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.smtpPort_ = smtpPort_;
+        result.isSslEncryptEnabled_ = isSslEncryptEnabled_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
-        result.isSslEncryptEnabled_ = isSslEncryptEnabled_;
-        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        result.isSmtpAuthentication_ = isSmtpAuthentication_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.smtpUserId_ = smtpUserId_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.smtpPassword_ = smtpPassword_;
+        if (((bitField0_ & 0x00000080) == 0x00000080)) {
           receiverEmails_ = receiverEmails_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000080);
         }
         result.receiverEmails_ = receiverEmails_;
         result.bitField0_ = to_bitField0_;
@@ -3916,13 +5878,8 @@ public final class CloudManagerAlarm {
           senderEmail_ = other.senderEmail_;
           onChanged();
         }
-        if (other.hasSenderPassword()) {
-          bitField0_ |= 0x00000002;
-          senderPassword_ = other.senderPassword_;
-          onChanged();
-        }
         if (other.hasSmtpAddress()) {
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000002;
           smtpAddress_ = other.smtpAddress_;
           onChanged();
         }
@@ -3932,10 +5889,23 @@ public final class CloudManagerAlarm {
         if (other.hasIsSslEncryptEnabled()) {
           setIsSslEncryptEnabled(other.getIsSslEncryptEnabled());
         }
+        if (other.hasIsSmtpAuthentication()) {
+          setIsSmtpAuthentication(other.getIsSmtpAuthentication());
+        }
+        if (other.hasSmtpUserId()) {
+          bitField0_ |= 0x00000020;
+          smtpUserId_ = other.smtpUserId_;
+          onChanged();
+        }
+        if (other.hasSmtpPassword()) {
+          bitField0_ |= 0x00000040;
+          smtpPassword_ = other.smtpPassword_;
+          onChanged();
+        }
         if (!other.receiverEmails_.isEmpty()) {
           if (receiverEmails_.isEmpty()) {
             receiverEmails_ = other.receiverEmails_;
-            bitField0_ = (bitField0_ & ~0x00000020);
+            bitField0_ = (bitField0_ & ~0x00000080);
           } else {
             ensureReceiverEmailsIsMutable();
             receiverEmails_.addAll(other.receiverEmails_);
@@ -3951,10 +5921,6 @@ public final class CloudManagerAlarm {
           
           return false;
         }
-        if (!hasSenderPassword()) {
-          
-          return false;
-        }
         if (!hasSmtpAddress()) {
           
           return false;
@@ -3964,6 +5930,18 @@ public final class CloudManagerAlarm {
           return false;
         }
         if (!hasIsSslEncryptEnabled()) {
+          
+          return false;
+        }
+        if (!hasIsSmtpAuthentication()) {
+          
+          return false;
+        }
+        if (!hasSmtpUserId()) {
+          
+          return false;
+        }
+        if (!hasSmtpPassword()) {
           
           return false;
         }
@@ -4065,91 +6043,15 @@ public final class CloudManagerAlarm {
         return this;
       }
 
-      private java.lang.Object senderPassword_ = "";
+      private java.lang.Object smtpAddress_ = "";
       /**
-       * <code>required string sender_password = 2;</code>
+       * <code>required string smtp_address = 2;</code>
        */
-      public boolean hasSenderPassword() {
+      public boolean hasSmtpAddress() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required string sender_password = 2;</code>
-       */
-      public java.lang.String getSenderPassword() {
-        java.lang.Object ref = senderPassword_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            senderPassword_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>required string sender_password = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getSenderPasswordBytes() {
-        java.lang.Object ref = senderPassword_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          senderPassword_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string sender_password = 2;</code>
-       */
-      public Builder setSenderPassword(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        senderPassword_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string sender_password = 2;</code>
-       */
-      public Builder clearSenderPassword() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        senderPassword_ = getDefaultInstance().getSenderPassword();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string sender_password = 2;</code>
-       */
-      public Builder setSenderPasswordBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        senderPassword_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object smtpAddress_ = "";
-      /**
-       * <code>required string smtp_address = 3;</code>
-       */
-      public boolean hasSmtpAddress() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      /**
-       * <code>required string smtp_address = 3;</code>
+       * <code>required string smtp_address = 2;</code>
        */
       public java.lang.String getSmtpAddress() {
         java.lang.Object ref = smtpAddress_;
@@ -4166,7 +6068,7 @@ public final class CloudManagerAlarm {
         }
       }
       /**
-       * <code>required string smtp_address = 3;</code>
+       * <code>required string smtp_address = 2;</code>
        */
       public com.google.protobuf.ByteString
           getSmtpAddressBytes() {
@@ -4182,36 +6084,36 @@ public final class CloudManagerAlarm {
         }
       }
       /**
-       * <code>required string smtp_address = 3;</code>
+       * <code>required string smtp_address = 2;</code>
        */
       public Builder setSmtpAddress(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
+  bitField0_ |= 0x00000002;
         smtpAddress_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string smtp_address = 3;</code>
+       * <code>required string smtp_address = 2;</code>
        */
       public Builder clearSmtpAddress() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000002);
         smtpAddress_ = getDefaultInstance().getSmtpAddress();
         onChanged();
         return this;
       }
       /**
-       * <code>required string smtp_address = 3;</code>
+       * <code>required string smtp_address = 2;</code>
        */
       public Builder setSmtpAddressBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
+  bitField0_ |= 0x00000002;
         smtpAddress_ = value;
         onChanged();
         return this;
@@ -4219,31 +6121,31 @@ public final class CloudManagerAlarm {
 
       private int smtpPort_ ;
       /**
-       * <code>required uint32 smtp_port = 4;</code>
+       * <code>required uint32 smtp_port = 3;</code>
        */
       public boolean hasSmtpPort() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required uint32 smtp_port = 4;</code>
+       * <code>required uint32 smtp_port = 3;</code>
        */
       public int getSmtpPort() {
         return smtpPort_;
       }
       /**
-       * <code>required uint32 smtp_port = 4;</code>
+       * <code>required uint32 smtp_port = 3;</code>
        */
       public Builder setSmtpPort(int value) {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000004;
         smtpPort_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required uint32 smtp_port = 4;</code>
+       * <code>required uint32 smtp_port = 3;</code>
        */
       public Builder clearSmtpPort() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000004);
         smtpPort_ = 0;
         onChanged();
         return this;
@@ -4251,71 +6153,255 @@ public final class CloudManagerAlarm {
 
       private boolean isSslEncryptEnabled_ ;
       /**
-       * <code>required bool is_ssl_encrypt_enabled = 5;</code>
+       * <code>required bool is_ssl_encrypt_enabled = 4;</code>
        */
       public boolean hasIsSslEncryptEnabled() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>required bool is_ssl_encrypt_enabled = 5;</code>
+       * <code>required bool is_ssl_encrypt_enabled = 4;</code>
        */
       public boolean getIsSslEncryptEnabled() {
         return isSslEncryptEnabled_;
       }
       /**
-       * <code>required bool is_ssl_encrypt_enabled = 5;</code>
+       * <code>required bool is_ssl_encrypt_enabled = 4;</code>
        */
       public Builder setIsSslEncryptEnabled(boolean value) {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000008;
         isSslEncryptEnabled_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required bool is_ssl_encrypt_enabled = 5;</code>
+       * <code>required bool is_ssl_encrypt_enabled = 4;</code>
        */
       public Builder clearIsSslEncryptEnabled() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000008);
         isSslEncryptEnabled_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean isSmtpAuthentication_ ;
+      /**
+       * <code>required bool is_smtp_authentication = 5;</code>
+       */
+      public boolean hasIsSmtpAuthentication() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>required bool is_smtp_authentication = 5;</code>
+       */
+      public boolean getIsSmtpAuthentication() {
+        return isSmtpAuthentication_;
+      }
+      /**
+       * <code>required bool is_smtp_authentication = 5;</code>
+       */
+      public Builder setIsSmtpAuthentication(boolean value) {
+        bitField0_ |= 0x00000010;
+        isSmtpAuthentication_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required bool is_smtp_authentication = 5;</code>
+       */
+      public Builder clearIsSmtpAuthentication() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        isSmtpAuthentication_ = false;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object smtpUserId_ = "";
+      /**
+       * <code>required string smtp_user_id = 6;</code>
+       */
+      public boolean hasSmtpUserId() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>required string smtp_user_id = 6;</code>
+       */
+      public java.lang.String getSmtpUserId() {
+        java.lang.Object ref = smtpUserId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            smtpUserId_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string smtp_user_id = 6;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSmtpUserIdBytes() {
+        java.lang.Object ref = smtpUserId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          smtpUserId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string smtp_user_id = 6;</code>
+       */
+      public Builder setSmtpUserId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        smtpUserId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string smtp_user_id = 6;</code>
+       */
+      public Builder clearSmtpUserId() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        smtpUserId_ = getDefaultInstance().getSmtpUserId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string smtp_user_id = 6;</code>
+       */
+      public Builder setSmtpUserIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        smtpUserId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object smtpPassword_ = "";
+      /**
+       * <code>required string smtp_password = 7;</code>
+       */
+      public boolean hasSmtpPassword() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      /**
+       * <code>required string smtp_password = 7;</code>
+       */
+      public java.lang.String getSmtpPassword() {
+        java.lang.Object ref = smtpPassword_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            smtpPassword_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string smtp_password = 7;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSmtpPasswordBytes() {
+        java.lang.Object ref = smtpPassword_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          smtpPassword_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string smtp_password = 7;</code>
+       */
+      public Builder setSmtpPassword(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000040;
+        smtpPassword_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string smtp_password = 7;</code>
+       */
+      public Builder clearSmtpPassword() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        smtpPassword_ = getDefaultInstance().getSmtpPassword();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string smtp_password = 7;</code>
+       */
+      public Builder setSmtpPasswordBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000040;
+        smtpPassword_ = value;
         onChanged();
         return this;
       }
 
       private com.google.protobuf.LazyStringList receiverEmails_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureReceiverEmailsIsMutable() {
-        if (!((bitField0_ & 0x00000020) == 0x00000020)) {
+        if (!((bitField0_ & 0x00000080) == 0x00000080)) {
           receiverEmails_ = new com.google.protobuf.LazyStringArrayList(receiverEmails_);
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000080;
          }
       }
       /**
-       * <code>repeated string receiver_emails = 6;</code>
+       * <code>repeated string receiver_emails = 8;</code>
        */
       public com.google.protobuf.ProtocolStringList
           getReceiverEmailsList() {
         return receiverEmails_.getUnmodifiableView();
       }
       /**
-       * <code>repeated string receiver_emails = 6;</code>
+       * <code>repeated string receiver_emails = 8;</code>
        */
       public int getReceiverEmailsCount() {
         return receiverEmails_.size();
       }
       /**
-       * <code>repeated string receiver_emails = 6;</code>
+       * <code>repeated string receiver_emails = 8;</code>
        */
       public java.lang.String getReceiverEmails(int index) {
         return receiverEmails_.get(index);
       }
       /**
-       * <code>repeated string receiver_emails = 6;</code>
+       * <code>repeated string receiver_emails = 8;</code>
        */
       public com.google.protobuf.ByteString
           getReceiverEmailsBytes(int index) {
         return receiverEmails_.getByteString(index);
       }
       /**
-       * <code>repeated string receiver_emails = 6;</code>
+       * <code>repeated string receiver_emails = 8;</code>
        */
       public Builder setReceiverEmails(
           int index, java.lang.String value) {
@@ -4328,7 +6414,7 @@ public final class CloudManagerAlarm {
         return this;
       }
       /**
-       * <code>repeated string receiver_emails = 6;</code>
+       * <code>repeated string receiver_emails = 8;</code>
        */
       public Builder addReceiverEmails(
           java.lang.String value) {
@@ -4341,7 +6427,7 @@ public final class CloudManagerAlarm {
         return this;
       }
       /**
-       * <code>repeated string receiver_emails = 6;</code>
+       * <code>repeated string receiver_emails = 8;</code>
        */
       public Builder addAllReceiverEmails(
           java.lang.Iterable<java.lang.String> values) {
@@ -4352,16 +6438,16 @@ public final class CloudManagerAlarm {
         return this;
       }
       /**
-       * <code>repeated string receiver_emails = 6;</code>
+       * <code>repeated string receiver_emails = 8;</code>
        */
       public Builder clearReceiverEmails() {
         receiverEmails_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000080);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated string receiver_emails = 6;</code>
+       * <code>repeated string receiver_emails = 8;</code>
        */
       public Builder addReceiverEmailsBytes(
           com.google.protobuf.ByteString value) {
@@ -4396,6 +6482,11 @@ public final class CloudManagerAlarm {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_RemoveDataArkRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_UpdateDataArkRequest_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_UpdateDataArkRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_UpdateEmailAlarmRequest_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -4426,23 +6517,98 @@ public final class CloudManagerAlarm {
     java.lang.String[] descriptorData = {
       "\n\027cloudmanagerAlarm.proto\"\037\n\021AddDataArkR" +
       "equest\022\n\n\002id\030\001 \002(\t\"\"\n\024RemoveDataArkReque" +
-      "st\022\n\n\002id\030\001 \002(\t\"6\n\027UpdateEmailAlarmReques" +
-      "t\022\n\n\002id\030\001 \002(\r\022\017\n\007user_id\030\002 \002(\t\"=\n\027Create" +
-      "EmailAlarmRequest\022\021\n\tconfig_id\030\001 \002(\r\022\017\n\007" +
-      "user_id\030\002 \002(\t\"=\n\027DeleteEmailAlarmRequest" +
-      "\022\021\n\tconfig_id\030\001 \002(\r\022\017\n\007user_id\030\002 \002(\t\"\252\001\n" +
-      "\027VerifyEmailAlarmRequest\022\024\n\014sender_email" +
-      "\030\001 \002(\t\022\027\n\017sender_password\030\002 \002(\t\022\024\n\014smtp_" +
-      "address\030\003 \002(\t\022\021\n\tsmtp_port\030\004 \002(\r\022\036\n\026is_s",
-      "sl_encrypt_enabled\030\005 \002(\010\022\027\n\017receiver_ema" +
-      "ils\030\006 \003(\t*\323\001\n\007Command\022\027\n\021Command_HeartBe" +
-      "at\020\330\247\005\022\027\n\022Command_AddDataArk\020\315\001\022\032\n\025Comma" +
-      "nd_RemoveDataArk\020\316\001\022\035\n\030Command_UpdateEma" +
-      "ilAlarm\020\365\003\022\035\n\030Command_CreateEmailAlarm\020\366" +
-      "\003\022\035\n\030Command_DeleteEmailAlarm\020\367\003\022\035\n\030Comm" +
-      "and_VerifyEmailAlarm\020\370\003*8\n\tErrorCode\022\025\n\021" +
-      "ErrorCode_Success\020\000\022\024\n\020ErrorCode_Failed\020" +
-      "\001* \n\007Version\022\021\n\rVersion_Value\020\001\032\002\020\001B)\n\024c" +
+      "st\022\n\n\002id\030\001 \002(\t\"<\n\024UpdateDataArkRequest\022\n" +
+      "\n\002id\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\n\n\002ip\030\003 \002(\t\"*\n\027" +
+      "UpdateEmailAlarmRequest\022\017\n\007user_id\030\001 \002(\t" +
+      "\"*\n\027CreateEmailAlarmRequest\022\017\n\007user_id\030\001" +
+      " \002(\t\"*\n\027DeleteEmailAlarmRequest\022\017\n\007user_" +
+      "id\030\001 \002(\t\"\336\001\n\027VerifyEmailAlarmRequest\022\024\n\014" +
+      "sender_email\030\001 \002(\t\022\024\n\014smtp_address\030\002 \002(\t" +
+      "\022\021\n\tsmtp_port\030\003 \002(\r\022\036\n\026is_ssl_encrypt_en",
+      "abled\030\004 \002(\010\022\036\n\026is_smtp_authentication\030\005 " +
+      "\002(\010\022\024\n\014smtp_user_id\030\006 \002(\t\022\025\n\rsmtp_passwo" +
+      "rd\030\007 \002(\t\022\027\n\017receiver_emails\030\010 \003(\t*\263\n\n\007Co" +
+      "mmand\022\027\n\021Command_HeartBeat\020\330\247\005\022\030\n\024Comman" +
+      "d_GetPublicKey\020\000\022\035\n\031Command_LoginCloudMa" +
+      "nager\020\001\022\023\n\017Command_SendDek\020\002\022\027\n\023Command_" +
+      "GetOverview\020d\022\037\n\033Command_GetDataArkExcep" +
+      "tion\020e\022\036\n\032Command_GetClientException\020f\022&" +
+      "\n\"Command_GetVirtualMachineException\020g\022\030" +
+      "\n\023Command_GetDataArks\020\310\001\022\035\n\030Command_GetD",
+      "ataArkDetail\020\311\001\022\037\n\032Command_CreateDataArk" +
+      "Group\020\312\001\022\037\n\032Command_DeleteDataArkGroup\020\313" +
+      "\001\022\037\n\032Command_UpdateDataArkGroup\020\314\001\022\027\n\022Co" +
+      "mmand_AddDataArk\020\315\001\022\032\n\025Command_RemoveDat" +
+      "aArk\020\316\001\022\032\n\025Command_UpdateDataArk\020\317\001\022\033\n\026C" +
+      "ommand_MigrateDataArk\020\320\001\022\037\n\032Command_AddD" +
+      "isasterDataArk\020\321\001\022\"\n\035Command_RemoveDisas" +
+      "terDataArk\020\322\001\022\027\n\022Command_GetClients\020\323\001\022\026" +
+      "\n\021Command_AddClient\020\324\001\022\031\n\024Command_Remove" +
+      "Client\020\325\001\022\025\n\020Command_GetUsers\020\254\002\022\034\n\027Comm",
+      "and_CreateUserGroup\020\255\002\022\034\n\027Command_Delete" +
+      "UserGroup\020\256\002\022\034\n\027Command_UpdateUserGroup\020" +
+      "\257\002\022\035\n\030Command_MigrateUserGroup\020\260\002\022\027\n\022Com" +
+      "mand_CreateUser\020\261\002\022\027\n\022Command_DeleteUser" +
+      "\020\262\002\022\037\n\032Command_UpdateUserPassword\020\263\002\022\036\n\031" +
+      "Command_ResetUserPassword\020\264\002\022\027\n\022Command_" +
+      "UpdateUser\020\265\002\022\031\n\024Command_GetUserQuota\020\266\002" +
+      "\022\034\n\027Command_UpdateUserQuota\020\267\002\022 \n\033Comman" +
+      "d_UpdateUserUsedQuota\020\270\002\022\030\n\023Command_Migr" +
+      "ateUser\020\271\002\022\031\n\024Command_GetAlarmLogs\020\220\003\022$\n",
+      "\037Command_UpdateAlarmLogProcessed\020\221\003\022\033\n\026C" +
+      "ommand_DeleteAlarmLog\020\222\003\022\035\n\030Command_GetO" +
+      "perationLogs\020\223\003\022\032\n\025Command_GetEmailAlarm" +
+      "\020\364\003\022\035\n\030Command_UpdateEmailAlarm\020\365\003\022\035\n\030Co" +
+      "mmand_CreateEmailAlarm\020\366\003\022\035\n\030Command_Del" +
+      "eteEmailAlarm\020\367\003\022\035\n\030Command_VerifyEmailA" +
+      "larm\020\370\003*\317\t\n\tErrorCode\022\025\n\021ErrorCode_Succe" +
+      "ss\020\000\022\024\n\020ErrorCode_Failed\020\001\022\033\n\027ErrorCode_" +
+      "ConnectFailed\020\n\022\030\n\024ErrorCode_SendFailed\020" +
+      "\013\022\033\n\027ErrorCode_ReceiveFailed\020\014\022#\n\037ErrorC",
+      "ode_UnrecognizedOperation\020\r\022\"\n\036ErrorCode" +
+      "_EnqueueCommandFailed\020\016\022\"\n\036ErrorCode_Deq" +
+      "ueueCommandFailed\020\017\022\033\n\027ErrorCode_Paramet" +
+      "rError\020\024\022\035\n\031ErrorCode_SerializeFailed\020\025\022" +
+      "\037\n\033ErrorCode_DeserializeFailed\020\026\022\036\n\032Erro" +
+      "rcode_PermissionDenied\020\027\022#\n\037ErrorCode_Co" +
+      "nnectDatabaseFailed\020\030\022#\n\037ErrorCode_Opera" +
+      "teDatabaseFailed\020\031\022\033\n\027ErrorCode_AlreadyL" +
+      "ogged\020<\022\'\n\"ErrorCode_CreateDataArkGroupF" +
+      "ailed\020\310\001\022#\n\036ErrorCode_DataArkGroupExiste",
+      "nt\020\311\001\022\'\n\"ErrorCode_DeleteDataArkGroupFai" +
+      "led\020\312\001\022\'\n\"ErrorCode_UpdateDataArkGroupFa" +
+      "iled\020\313\001\022\037\n\032ErrorCode_AddDataArkFailed\020\314\001" +
+      "\022\"\n\035ErrorCode_RemoveDataArkFailed\020\315\001\022\"\n\035" +
+      "ErrorCode_UpdateDataArkFailed\020\316\001\022 \n\033Erro" +
+      "rCode_UserGroupExistent\020\254\002\022#\n\036ErrorCode_" +
+      "UserGroupNonexistent\020\255\002\022\033\n\026ErrorCode_Use" +
+      "rExistent\020\256\002\022\036\n\031ErrorCode_UserNonexisten" +
+      "t\020\257\002\022\"\n\035ErrorCode_UserPasswordUnmatch\020\260\002" +
+      "\022\037\n\032ErrorCode_CreateUserFailed\020\261\002\022\037\n\032Err",
+      "orCode_DeleteUserFailed\020\262\002\022$\n\037ErrorCode_" +
+      "AlarmAddDataArkFailed\020\220N\022\'\n\"ErrorCode_Al" +
+      "armRemoveDataArkFailed\020\221N\022*\n%ErrorCode_A" +
+      "larmUpdateEmailAlarmFailed\020\222N\022*\n%ErrorCo" +
+      "de_AlarmCreateEmailAlarmFailed\020\223N\022*\n%Err" +
+      "orCode_AlarmDeleteEmailAlarmFailed\020\224N\022*\n" +
+      "%ErrorCode_AlarmVerifyEmailAlarmFailed\020\225" +
+      "N*\361\003\n\tException\022\021\n\rException_Tmp\020\000\022\035\n\031Ex" +
+      "ception_ClientLocalLost\020\001\022\036\n\032Exception_C" +
+      "lientTargetLost\020\002\022(\n$Exception_ClientCre",
+      "ateSnapshotFailed\020\003\022\033\n\027Exception_VmwareC" +
+      "btDrop\020\004\022\033\n\027Exception_ClientOffline\020\005\022\034\n" +
+      "\030Exception_VcenterOffline\020\006\022\031\n\025Exception" +
+      "_NodeOffline\020\007\022\030\n\024Exception_AllOffline\020\010" +
+      "\022#\n\037Exception_StreamerPoolException\020\t\022\035\n" +
+      "\031Exception_StreamerOffline\020\n\022$\n Exceptio" +
+      "n_ClientAutoExpandFailed\020\013\022\'\n#Exception_" +
+      "ClientSnapshotMergeFailed\020\014\022\037\n\033Exception" +
+      "_OracleStorageDrop\020\r\022\'\n#Exception_Disast" +
+      "erReplicationFailed\020\016*\211\001\n\nClientType\022\025\n\021",
+      "ClientType_Single\020\000\022#\n\037ClientType_Vmware" +
+      "VirtualMachine\020\001\022\023\n\017ClientType_Mscs\020\002\022\022\n" +
+      "\016ClientType_Rac\020\003\022\026\n\022ClientType_Vcenter\020" +
+      "\004* \n\007Version\022\021\n\rVersion_Value\020\001\032\002\020\001B)\n\024c" +
       "n.infocore.protobufB\021CloudManagerAlarm"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
@@ -4469,30 +6635,36 @@ public final class CloudManagerAlarm {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_RemoveDataArkRequest_descriptor,
         new java.lang.String[] { "Id", });
-    internal_static_UpdateEmailAlarmRequest_descriptor =
+    internal_static_UpdateDataArkRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_UpdateDataArkRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_UpdateDataArkRequest_descriptor,
+        new java.lang.String[] { "Id", "Name", "Ip", });
+    internal_static_UpdateEmailAlarmRequest_descriptor =
+      getDescriptor().getMessageTypes().get(3);
     internal_static_UpdateEmailAlarmRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_UpdateEmailAlarmRequest_descriptor,
-        new java.lang.String[] { "Id", "UserId", });
+        new java.lang.String[] { "UserId", });
     internal_static_CreateEmailAlarmRequest_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_CreateEmailAlarmRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_CreateEmailAlarmRequest_descriptor,
-        new java.lang.String[] { "ConfigId", "UserId", });
+        new java.lang.String[] { "UserId", });
     internal_static_DeleteEmailAlarmRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_DeleteEmailAlarmRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_DeleteEmailAlarmRequest_descriptor,
-        new java.lang.String[] { "ConfigId", "UserId", });
+        new java.lang.String[] { "UserId", });
     internal_static_VerifyEmailAlarmRequest_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_VerifyEmailAlarmRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_VerifyEmailAlarmRequest_descriptor,
-        new java.lang.String[] { "SenderEmail", "SenderPassword", "SmtpAddress", "SmtpPort", "IsSslEncryptEnabled", "ReceiverEmails", });
+        new java.lang.String[] { "SenderEmail", "SmtpAddress", "SmtpPort", "IsSslEncryptEnabled", "IsSmtpAuthentication", "SmtpUserId", "SmtpPassword", "ReceiverEmails", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

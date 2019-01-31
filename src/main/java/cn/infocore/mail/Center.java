@@ -2,10 +2,8 @@ package cn.infocore.mail;
 
 import java.sql.SQLException;
 import java.util.List;
-
 import cn.infocore.entity.Email_alarm;
 import cn.infocore.entity.Fault;
-import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
 
 public interface Center {
 	//添加所有邮件服务

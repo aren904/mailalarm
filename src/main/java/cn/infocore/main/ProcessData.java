@@ -1,27 +1,23 @@
 package cn.infocore.main;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
+import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
-
 import cn.infocore.entity.Client_;
 import cn.infocore.entity.Data_ark;
 import cn.infocore.entity.Fault;
 import cn.infocore.entity.Virtual_machine;
 import cn.infocore.mail.MailCenterRestry;
 import cn.infocore.protobuf.StmStreamerDrManage.Client;
-import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
 import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
 import cn.infocore.protobuf.StmStreamerDrManage.Streamer;
 import cn.infocore.protobuf.StmStreamerDrManage.Vcent;
 import cn.infocore.protobuf.StmStreamerDrManage.Vmware;
-import cn.infocore.utils.DBUtils;
 import cn.infocore.utils.MyDataSource;
 
 //解析数据，拦截，触发报警，写数据库等操作
@@ -74,148 +70,102 @@ public class ProcessData implements Runnable{
 	
 	//更新data_ark
 	private void updateData_ark(Data_ark data_ark) {
-		String sql="update data_ark set name=?,ips=?,total_capacity=?,used_capacity=?,exceptions=? where id=?";
+		logger.info("Start update data ark in database.");
+		QueryRunner qr=new QueryRunner();
+		String sql="update data_ark set name=?,ip=?,total_capacity=?,used_capacity=?,exceptions=?,total_oracle_capacity=? where id=?";
 		Object[] param= {data_ark.getName(),data_ark.getIp(),data_ark.getTotal_cap(),data_ark.getUsed_cap(),
-				data_ark.getExcept(),data_ark.getId()};
+				data_ark.getExcept(),data_ark.getTotal_oracle_capacity(),data_ark.getId()};
 		Connection conn=MyDataSource.getConnection();
-		DBUtils.executUpdate(conn, sql, param);
+		try {
+			qr.update(conn, sql, param);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			MyDataSource.close(conn);
+		}
+		logger.info("Updare data ark in database finished.");
 	}
 	
 	
 	//更新client
 	private void updateClient(List<Client_> list){
-		/*批量更新
-		 * UPDATE categories SET
-    			display_order = CASE id
-        			WHEN 1 THEN 3
-        			WHEN 2 THEN 4
-        			WHEN 3 THEN 5
-    			END,
-    			title = CASE id
-        			WHEN 1 THEN 'New Title 1'
-        			WHEN 2 THEN 'New Title 2'
-        			WHEN 3 THEN 'New Title 3'
-    			END
-			WHERE id IN (1,2,3)
-		 */
+		logger.info("Start update client in database.");
 		Connection connection=MyDataSource.getConnection();
-		PreparedStatement statement=null;
-		try {
-			boolean auto=connection.getAutoCommit();
-			connection.setAutoCommit(false);
-			String sql="update client set type=?,name=?,ips=?,execeptions=? where id=?";
-			statement=connection.prepareStatement(sql);
-			for (Client_ client_:list) {
-				statement.setObject(1, client_.getType());
-				statement.setObject(2, client_.getName());
-				statement.setObject(3, client_.getIps());
-				statement.setObject(4, client_.getExcept());
-				statement.setObject(5, client_.getId());
-				//statement.setObject(6, client_.getData_ark_id());
-				statement.addBatch();
-			}
-			statement.executeBatch();
-			connection.commit();
-			connection.setAutoCommit(auto);
-		} catch (Exception e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}finally {
-			if (connection!=null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+		QueryRunner qr=new QueryRunner();
+		String sql="update client set type=?,name=?,ips=?,execeptions=? where id=?";
+		int size=list.size();
+		Object[][] param=new Object[size][];
+		for (int i=0;i<size;i++) {
+			Client_ c=list.get(i);
+			param[i]=new Object[5];
+			param[i][0]=c.getType();
+			param[i][1]=c.getName();
+			param[i][2]=c.getIps();
+			param[i][3]=c.getExcept();
+			param[i][4]=c.getId();
 		}
-		
+		try {
+			qr.batch(connection, sql,param);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			MyDataSource.close(connection);
+		}
+		logger.info("Client update in database successed.");
 	}
 	
 	//更新VC
 	private void updateVcenter(List<Client_> list) {
+		logger.info("Start update VCenter..");
 		Connection connection=MyDataSource.getConnection();
-		PreparedStatement statement=null;
-		try {
-			boolean auto=connection.getAutoCommit();
-			connection.setAutoCommit(false);
-			String sql="update vcenter set name=?,ips=?,exceptions=? where id=?";
-			statement=connection.prepareStatement(sql);
-			for (Client_ client_:list) {
-				if (client_.getType()==ClientType.VC) {
-					statement.setObject(1, client_.getName());
-					statement.setObject(2, client_.getIps());
-					statement.setObject(3, client_.getExcept());
-					statement.setObject(4, client_.getId());
-					statement.addBatch();
-				}
-			}
-			statement.executeBatch();
-			connection.commit();
-			connection.setAutoCommit(auto);
-		} catch (Exception e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}finally {
-			if (connection!=null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+		QueryRunner qr=new QueryRunner();
+		String sql="update vcenter set name=?,ips=?,exceptions=? where id=?";
+		int size=list.size();
+		Object[][] param=new Object[size][];
+		for (int i=0;i<size;i++) {
+			Client_ c_=list.get(i);
+			param[i]=new Object[4];
+			param[i][0]=c_.getName();
+			param[i][1]=c_.getIps();
+			param[i][2]=c_.getExcept();
+			param[i][3]=c_.getId();
 		}
-		
-		
+		try {
+			qr.batch(connection, sql, param);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			MyDataSource.close(connection);
+		}
+		logger.info("Finished update VCenter.");
 	}
 	
 	//更新虚拟机，不管用户，只在乎是不是同样的VCenter
 	private void updateVirtualMachine(List<Virtual_machine> vmlist) {
+		logger.info("Start update virtual machine.");
 		Connection connection=MyDataSource.getConnection();
-		PreparedStatement statement=null;
-		try {
-			boolean auto=connection.getAutoCommit();
-			connection.setAutoCommit(false);
-			String sql="update virtual_machine set name=?,path=?,exceptions=? where id=? and vcenter_id=?";
-			statement=connection.prepareStatement(sql);
-			for (Virtual_machine vm:vmlist) {
-				statement.setObject(1, vm.getName());
-				statement.setObject(2, vm.getPath());
-				statement.setObject(3, vm.getExcept());
-				statement.setObject(4, vm.getId());
-				statement.setObject(5, vm.getVcenter_id());
-				statement.addBatch();
-			}
-			statement.executeBatch();
-			connection.commit();
-			connection.setAutoCommit(auto);
-		} catch (Exception e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}finally {
-			if (connection!=null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+		QueryRunner qr=new QueryRunner();
+		String sql="update virtual_machine set name=?,path=?,exceptions=? where id=? and vcenter_id=?";
+		int size=vmlist.size();
+		Object[][] param=new Object[size][];
+		for (int i=0;i<size;i++) {
+			Virtual_machine vm=vmlist.get(i);
+			param[i]=new Object[5];
+			param[i][0]=vm.getName();
+			param[i][1]=vm.getPath();
+			param[i][2]=vm.getExcept();
+			param[i][3]=vm.getId();
+			param[i][4]=vm.getVcenter_id();
 		}
+		try {
+			qr.batch(connection, sql,param);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			MyDataSource.close(connection);
+		}
+		logger.info("Finished update virtual machine in database.");
 	}
 	//调试使用
 	private void logHeartbeat(GetServerInfoReturn hrt) {
@@ -235,6 +185,7 @@ public class ProcessData implements Runnable{
 		data_ark.setName(streamer.getName());
 		data_ark.setTotal_cap(streamer.getTotal());
 		data_ark.setUsed_cap(streamer.getUsed());
+		data_ark.setTotal_oracle_capacity(streamer.getOracleVol());
 		List<Fault> data_ark_fault_list=new LinkedList<Fault>();
 		for (FaultType f:streamer.getStreamerStateList()) {
 			Fault mFault=new Fault();
@@ -248,7 +199,6 @@ public class ProcessData implements Runnable{
 			faults.add(mFault);
 		}
 		data_ark.setFaults(data_ark_fault_list);
-		data_ark.setUpdate_timestamp(now);
 		//Data_ark封装完毕
 		
 		//开始封装有代理客户端Client
