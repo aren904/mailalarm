@@ -58,7 +58,7 @@ public class MailSender {
 		String[] e = config.getExcept().split(";");
 		for (String string : e) {
 			// 如果该用户已经添加这个异常
-			if (string.equals(fault.getType().toString())) {
+			if (string.equals(Integer.toString(fault.getType()))) {
 				// 是否开启限制
 				String key = fault.getData_ark_id() + fault.getTarget() + fault.getType();
 				if (config.getEnabled() == 0) {

@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 import cn.infocore.entity.Email_alarm;
 import cn.infocore.entity.Fault;
 import cn.infocore.entity.Quota;
-import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 import cn.infocore.utils.Email_logHandler;
 import cn.infocore.utils.MyDataSource;
 import cn.infocore.utils.QuotaHandler;
@@ -97,35 +96,23 @@ public class MailCenterRestry implements Center{
 
 
 	public void notifyCenter(Fault... list_fault) throws SQLException {
-		//1.通过对应的用户，找到对应的邮件报警配置，就不用通知所有的用户了
-		//2.如果对应的用户没有设置邮件报警，则跳过
-		/*for (Map.Entry<String, MailSender> entry:this.list.entrySet()) {
-			entry.getValue().send(protobuf);
-		}*/
-		/*String user=protobuf.getUuid();
-		MailSender sender=null;
-		if (this.list.containsKey(user)) {
-			sender=this.list.get(user);
-			//sender.s
-		}*/
+		logger.info("Start NotifyCenetr inject mailsender.");
 		String sql=null;
 		Connection connection=MyDataSource.getConnection();
 		for (Fault fault:list_fault) {
 				sql="insert into alarm_log(timestamp,processed,exeception,data_ark_id,data_ark_name,data_ark_ip,target,last_alarm_timestamp) values(?,?,?,?,?,?,?) on duplicate key"
 				+ " update timestamp=values(?),processed=values(?)";
 				Object[] condition = {fault.getTimestamp(),0,fault.getType(),fault.getData_ark_id(),fault.getData_ark_name(),
-					fault.getData_ark_ip(),fault.getTarget(),0L,fault.getTimestamp(),fault.getType()==FaultType.NORMAL?1:0};
+					fault.getData_ark_ip(),fault.getTarget(),0L,fault.getTimestamp(),fault.getType()==0?1:0};
 				QueryRunner qr=new QueryRunner();
 				qr.execute(connection, sql, condition);
-				//DBUtils.executUpdate(connection, sql, condition);
-				if (fault.getType()!=FaultType.NORMAL) {
+				if (fault.getType()!=0) {
 					for (MailSender mailSender:this.list.values()) {
 						Email_alarm email_alarm=mailSender.getConfig();
 						sql="select * from quota where user_id=? and data_ark_id=?";
 						Object[] param= {email_alarm.getUser_id(),fault.getData_ark_id()};
 						QueryRunner qRunner=new QueryRunner();
 						List<Quota> quotas=qRunner.query(connection, sql, new QuotaHandler(), param);
-						//ResultSet resultSet=DBUtils.executQuery(connection, sql, param);
 						if (!quotas.isEmpty()) {
 							mailSender.judge(fault);						
 						}

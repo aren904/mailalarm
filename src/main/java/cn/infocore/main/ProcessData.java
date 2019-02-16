@@ -51,19 +51,25 @@ public class ProcessData implements Runnable{
 			vmList=new LinkedList<Virtual_machine>();
 			parse(hrt);
 			updateData_ark(data_ark);
-			updateClient(clientList);
-			updateVcenter(clientList);
-			updateVirtualMachine(vmList);
-			
+			//判断是否为空，避免空指针异常抛出
+			if (clientList!=null&&clientList.size()>0) {
+				updateClient(clientList);
+				updateVcenter(clientList);
+			}
+			if (vmList!=null&&vmList.size()>0) {
+				updateVirtualMachine(vmList);
+			}
 			//2.拦截，报警过滤,查询数据库，如果数据库中存在这条错误，
 			//则检查是否勾选多久发送一次，当前的时间-上次更新时间
 			try {
-				Fault[] faults_array=new Fault[faults.size()];
-				MailCenterRestry.getInstance().notifyCenter(faults.toArray(faults_array));
+				if (faults.size()>0) {
+					Fault[] faults_array=new Fault[faults.size()];
+					MailCenterRestry.getInstance().notifyCenter(faults.toArray(faults_array));
+				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e);
 			}
+			logger.info("Heartbeat recived and parsed successed,wait next.");
 		}
 		
 	}
@@ -83,7 +89,7 @@ public class ProcessData implements Runnable{
 		}finally {
 			MyDataSource.close(conn);
 		}
-		logger.info("Updare data ark in database finished.");
+		logger.info("Update data ark in database finished.");
 	}
 	
 	
@@ -133,7 +139,6 @@ public class ProcessData implements Runnable{
 		try {
 			qr.batch(connection, sql, param);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			MyDataSource.close(connection);
@@ -190,7 +195,7 @@ public class ProcessData implements Runnable{
 		for (FaultType f:streamer.getStreamerStateList()) {
 			Fault mFault=new Fault();
 			mFault.setTimestamp(now);
-			mFault.setType(f);
+			mFault.setType(f.getNumber());
 			mFault.setData_ark_id(data_ark.getId());
 			mFault.setData_ark_name(data_ark.getName());
 			mFault.setData_ark_ip(data_ark.getIp());
@@ -214,7 +219,7 @@ public class ProcessData implements Runnable{
 				for (FaultType f:client.getClientStateList()) {
 					Fault fault=new Fault();
 					fault.setTimestamp(now);
-					fault.setType(f);
+					fault.setType(f.getNumber());
 					fault.setData_ark_id(data_ark.getId());
 					fault.setData_ark_name(data_ark.getName());
 					fault.setData_ark_ip(data_ark.getIp());
@@ -223,7 +228,7 @@ public class ProcessData implements Runnable{
 					faults.add(fault);
 				}
 				tmp.setfList(client_fault_list);
-				tmp.setType(client.getType());
+				tmp.setType(client.getType().getNumber());
 				tmp.setData_ark_id(data_ark.getId());
 				clientList.add(tmp);
 			}
@@ -232,52 +237,57 @@ public class ProcessData implements Runnable{
 		
 		//开始封装无代理客户端
 		List<Vcent> vList=hrt.getVcentsList();
-		for (Vcent vcent:vList) {
-			Client_ tmp=new Client_();
-			tmp.setId(vcent.getVcUuid());
-			tmp.setName(vcent.getVcName());
-			tmp.setIps(vcent.getVcIp());
-			List<Fault> v_list_faults=new LinkedList<Fault>();
-			for (FaultType fault:vcent.getVcentStateList()) {
-				Fault fault2=new Fault();
-				fault2.setTimestamp(now);
-				fault2.setType(fault);
-				fault2.setData_ark_id(data_ark.getId());
-				fault2.setData_ark_name(data_ark.getName());
-				fault2.setData_ark_ip(data_ark.getIp());
-				fault2.setTarget(vcent.getVcName());
-				v_list_faults.add(fault2);
-				faults.add(fault2);
-			}
-			tmp.setfList(v_list_faults);
-			tmp.setType(vcent.getType());
-			tmp.setData_ark_id(data_ark.getId());
-			clientList.add(tmp);
-			//顺便封装虚拟机
-			for (Vmware vmware:vcent.getClientsList()) {
-				Virtual_machine vm=new Virtual_machine();
-				vm.setId(vmware.getId());
-				vm.setName(vmware.getName());
-				//vm.setAlias("null");
-				vm.setPath(vmware.getPath());
-				List<Fault> vmware_list_faults=new LinkedList<Fault>();
-				for (FaultType faultType:vmware.getVmwareStateList()) {
-					Fault fault=new Fault();
-					fault.setTimestamp(now);
-					fault.setType(faultType);
-					fault.setData_ark_id(data_ark.getId());
-					fault.setData_ark_name(data_ark.getName());
-					fault.setData_ark_ip(data_ark.getIp());
-					fault.setTarget(vmware.getName());
-					vmware_list_faults.add(fault);
-					faults.add(fault);
+		if (vList!=null&&vList.size()>0) {
+			for (Vcent vcent:vList) {
+				Client_ tmp=new Client_();
+				tmp.setId(vcent.getVcUuid());
+				tmp.setName(vcent.getVcName());
+				tmp.setIps(vcent.getVcIp());
+				List<Fault> v_list_faults=new LinkedList<Fault>();
+				for (FaultType fault:vcent.getVcentStateList()) {
+					Fault fault2=new Fault();
+					fault2.setTimestamp(now);
+					fault2.setType(fault.getNumber());
+					fault2.setData_ark_id(data_ark.getId());
+					fault2.setData_ark_name(data_ark.getName());
+					fault2.setData_ark_ip(data_ark.getIp());
+					fault2.setTarget(vcent.getVcName());
+					v_list_faults.add(fault2);
+					faults.add(fault2);
 				}
-				vm.setFaults(vmware_list_faults);
-				vm.setVcenter_id(vcent.getVcUuid());
-				vm.setData_ark_id(data_ark.getId());
-				vmList.add(vm);
+				tmp.setfList(v_list_faults);
+				tmp.setType(vcent.getType().getNumber());
+				tmp.setData_ark_id(data_ark.getId());
+				clientList.add(tmp);
+				//顺便封装虚拟机
+				List<Vmware> vmwareList=vcent.getClientsList();
+				if (vmwareList!=null&&vmwareList.size()>0) {
+					for (Vmware vmware:vmwareList) {
+						Virtual_machine vm=new Virtual_machine();
+						vm.setId(vmware.getId());
+						vm.setName(vmware.getName());
+						//vm.setAlias("null");
+						vm.setPath(vmware.getPath());
+						List<Fault> vmware_list_faults=new LinkedList<Fault>();
+						for (FaultType faultType:vmware.getVmwareStateList()) {
+							Fault fault=new Fault();
+							fault.setTimestamp(now);
+							fault.setType(faultType.getNumber());
+							fault.setData_ark_id(data_ark.getId());
+							fault.setData_ark_name(data_ark.getName());
+							fault.setData_ark_ip(data_ark.getIp());
+							fault.setTarget(vmware.getName());
+							vmware_list_faults.add(fault);
+							faults.add(fault);
+						}
+						vm.setFaults(vmware_list_faults);
+						vm.setVcenter_id(vcent.getVcUuid());
+						vm.setData_ark_id(data_ark.getId());
+						vmList.add(vm);
+					}
+				}
+				//虚拟机封装结束
 			}
-			//虚拟机封装结束
 		}
 		//封装结束
 	}

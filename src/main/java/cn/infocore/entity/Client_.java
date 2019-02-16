@@ -2,8 +2,6 @@ package cn.infocore.entity;
 
 import java.util.List;
 
-import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
-
 public class Client_ {
 	//客户端id
 	private String id;
@@ -19,7 +17,7 @@ public class Client_ {
 	private List<Fault> fList;
 	
 	//客户端类型
-	private ClientType type;
+	private int type;
 	//对应Data_ark中的id字段，是外健
 	private String data_ark_id;
 	
@@ -47,11 +45,11 @@ public class Client_ {
 	}
 
 
-	public ClientType getType() {
+	public int getType() {
 		return type;
 	}
 
-	public void setType(ClientType type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 

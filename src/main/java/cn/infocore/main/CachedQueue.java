@@ -2,6 +2,7 @@ package cn.infocore.main;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+
 import org.apache.log4j.Logger;
 
 import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
@@ -33,19 +34,16 @@ public class CachedQueue {
 		try {
 			this.queue.put(hrt);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 	}
 	
 	public GetServerInfoReturn getOutFromQueue() {
 		GetServerInfoReturn s=null;
-		
 		try {
 			s=this.queue.take();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 		return s;
 	}

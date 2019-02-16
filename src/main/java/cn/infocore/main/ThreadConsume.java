@@ -28,16 +28,13 @@ public class ThreadConsume extends Thread{
 	
 	
 	public void run() {
-		// TODO Auto-generated method stub
-		
 		GetServerInfoReturn hrt=null;
 		while(true) {
 			hrt=CachedQueue.getInstance().getOutFromQueue();
-			
-			if (hrt!=null) {
-				logger.info("Start deal heartbeat..");
+			/*if (hrt!=null) {
 				logger.info(hrt);
-			}
+			}*/
+			logger.info("Start deal heartbeat..");
 			consumePool.execute(new ProcessData(hrt));
 			
 		}

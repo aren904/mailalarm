@@ -40,10 +40,11 @@ public class ThreadInformation extends Thread{
 			logger.info("ThreadInformation start.....");
 			while(true) {
 				Socket socket=server.accept();
+				logger.info("Recived information...");
 				pool.execute(new DealInformation(socket));
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error("Exception happened:"+e);
 		}finally {
 			try {
 				server.close();

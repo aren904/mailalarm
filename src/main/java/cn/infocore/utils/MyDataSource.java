@@ -10,7 +10,6 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class MyDataSource {
 	private static final Logger logger = Logger.getLogger(MyDataSource.class.getName());
-
 	// 通过标识名来创建相应连接池
 	private static ComboPooledDataSource dataSource = new ComboPooledDataSource("mysql");
 

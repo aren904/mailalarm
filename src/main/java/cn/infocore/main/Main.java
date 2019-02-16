@@ -29,6 +29,7 @@ public class Main {
 		consum.start();
 		logger.info("Consum is start....");
 		
+		
 		information.start();
 		logger.info("Information is start....");
 		

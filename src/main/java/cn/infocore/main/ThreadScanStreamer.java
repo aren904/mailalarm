@@ -9,7 +9,6 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 import cn.infocore.entity.Fault;
 import cn.infocore.mail.MailCenterRestry;
-import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 import cn.infocore.utils.MyDataSource;
 
 //从DataArkList中取出，每隔一段时间ping一次，保证在线
@@ -78,10 +77,11 @@ public class ThreadScanStreamer extends Thread {
 		// true 在线 false 离线
 		long now = System.currentTimeMillis() / 1000;
 		if (!online) {
+			logger.warn("The data ark which ip:"+ip+"is offline...");
 			//如果离线，触发邮件报警
 			Fault fault = new Fault();
 			fault.setTimestamp(now);
-			fault.setType(FaultType.STREAMER_OFFLINE);
+			fault.setType(10);
 			fault.setData_ark_id(uuid);
 			fault.setData_ark_name("null");
 			fault.setData_ark_ip(ip);

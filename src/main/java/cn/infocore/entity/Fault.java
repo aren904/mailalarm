@@ -1,12 +1,11 @@
 package cn.infocore.entity;
 
-import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 
 public class Fault {
 	//时间戳
 	private long timestamp;
 	//异常类型
-	private FaultType type;
+	private int type;
 	//数据方舟id
 	private String data_ark_id;
 	//数据方舟名字
@@ -22,10 +21,10 @@ public class Fault {
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
-	public FaultType getType() {
+	public int getType() {
 		return type;
 	}
-	public void setType(FaultType type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 	public String getData_ark_id() {

@@ -19,7 +19,6 @@ public class DealSocket implements Runnable{
 	
 	
 	public void run() {
-		// TODO Auto-generated method stub
 		int ioret;
 		InputStream in=null;
 		OutputStream out=null;
@@ -43,14 +42,15 @@ public class DealSocket implements Runnable{
 			ioret=in.read(buffer, 0, buffer.length);
 			if (ioret!=buffer.length) {
 				logger.error(fmt("Failed to receive Protobuf"));
+				return;
 			}
 			logger.info("Received heartbeat from data_ark.");
 			GetServerInfoReturn hrt=GetServerInfoReturn.parseFrom(buffer);
 			//转化protobuf,放入阻塞队列
 			CachedQueue.getInstance().addIntoQueue(hrt);
 			header.setErrorCode(0);
-			/*byte[] resp=header.toByteArray();
-			out.write(resp, 0, resp.length);*/
+			byte[] resp=header.toByteArray();
+			out.write(resp, 0, resp.length);
 			logger.info("Response heartbeat successed..");
 			
 		} catch (Exception e) {

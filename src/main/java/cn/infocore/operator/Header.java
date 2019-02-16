@@ -3,7 +3,6 @@ package cn.infocore.operator;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
-
 import org.apache.log4j.Logger;
 
 
@@ -196,7 +195,7 @@ public class Header {
 	
 	
 
-	/*public byte[] toByteArray () {
+	public byte[] toByteArray () {
 		
 		byte[] header = new byte[STREAMER_HEADER_LENGTH];
 		
@@ -204,35 +203,35 @@ public class Header {
 				.put(STREAMER_VERSION_CODE).array();
 		System.arraycopy(baVersion, 0, header, 0, 2);
 		
-		byte[] baMsgType = ByteBuffer.allocate(2)
+		/*byte[] baMsgType = ByteBuffer.allocate(2)
 				.put(this.dataType).array();
-		System.arraycopy(baMsgType, 0, header, 1, 1);
+		System.arraycopy(baMsgType, 0, header, 2, 2);*/
 
-		if (this.returnStatus != null) {
+		/*if (this.returnStatus != null) {
 			byte[] baReturnStatus = ByteBuffer.allocate(2)
 					.putShort(this.returnStatus.getShort()).array();
-			System.arraycopy(baReturnStatus, 0, header, 2, 2);
-		}
+			System.arraycopy(baReturnStatus, 0, header, 4, 2);
+		}*/
 
-		byte[] baFlags = ByteBuffer.allocate(2)
+		/*byte[] baFlags = ByteBuffer.allocate(2)
 				.putShort(this.flags).array();
-		System.arraycopy(baFlags, 0, header, 4, 2);
+		System.arraycopy(baFlags, 0, header, 6, 2);*/
 		
 		byte[] baFrom = ByteBuffer.allocate(2)
-				.putInt(this.command).array();
-		System.arraycopy(baFrom, 0, header, 6, 4);
+				.putInt(this.errorCode).array();
+		System.arraycopy(baFrom, 0, header, 12, 4);
 		
-		if (this.operation != null) {
+		/*if (this.operation != null) {
 			byte[] baOperation = ByteBuffer.allocate(4)
 					.putInt(this.operation.getValue()).array();
 			System.arraycopy(baOperation, 0, header, 8, 4);
-		}
+		}*/
 
-		byte[] baLength = ByteBuffer.allocate(4)
+		/*byte[] baLength = ByteBuffer.allocate(4)
 				.putInt(this.dataLength).array();
-		System.arraycopy(baLength, 0, header, 14, 4);
+		System.arraycopy(baLength, 0, header, 14, 4);*/
 		
 		//logger.debug("StreamerHeader dumped to binary array.");
 		return header;
-	}*/
+	}
 }
