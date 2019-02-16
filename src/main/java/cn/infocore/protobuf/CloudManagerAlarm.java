@@ -38,157 +38,171 @@ public final class CloudManagerAlarm {
      */
     Command_SendDek(3, 2),
     /**
+     * <code>Command_LogoutCloudManager = 3;</code>
+     */
+    Command_LogoutCloudManager(4, 3),
+    /**
      * <code>Command_GetOverview = 100;</code>
+     *
+     * <pre>
+     *Command_GetDataArkException = 101;
+     *Command_GetClientException = 102;
+     *Command_GetVirtualMachineException = 103;
+     * </pre>
      */
-    Command_GetOverview(4, 100),
-    /**
-     * <code>Command_GetDataArkException = 101;</code>
-     */
-    Command_GetDataArkException(5, 101),
-    /**
-     * <code>Command_GetClientException = 102;</code>
-     */
-    Command_GetClientException(6, 102),
-    /**
-     * <code>Command_GetVirtualMachineException = 103;</code>
-     */
-    Command_GetVirtualMachineException(7, 103),
+    Command_GetOverview(5, 100),
     /**
      * <code>Command_GetDataArks = 200;</code>
      */
-    Command_GetDataArks(8, 200),
+    Command_GetDataArks(6, 200),
     /**
-     * <code>Command_GetDataArkDetail = 201;</code>
+     * <code>Command_GetDataArkResource = 201;</code>
      */
-    Command_GetDataArkDetail(9, 201),
+    Command_GetDataArkResource(7, 201),
     /**
      * <code>Command_CreateDataArkGroup = 202;</code>
      */
-    Command_CreateDataArkGroup(10, 202),
+    Command_CreateDataArkGroup(8, 202),
     /**
      * <code>Command_DeleteDataArkGroup = 203;</code>
      */
-    Command_DeleteDataArkGroup(11, 203),
+    Command_DeleteDataArkGroup(9, 203),
     /**
      * <code>Command_UpdateDataArkGroup = 204;</code>
      */
-    Command_UpdateDataArkGroup(12, 204),
+    Command_UpdateDataArkGroup(10, 204),
     /**
      * <code>Command_AddDataArk = 205;</code>
      */
-    Command_AddDataArk(13, 205),
+    Command_AddDataArk(11, 205),
     /**
      * <code>Command_RemoveDataArk = 206;</code>
      */
-    Command_RemoveDataArk(14, 206),
+    Command_RemoveDataArk(12, 206),
     /**
      * <code>Command_UpdateDataArk = 207;</code>
      */
-    Command_UpdateDataArk(15, 207),
+    Command_UpdateDataArk(13, 207),
     /**
      * <code>Command_MigrateDataArk = 208;</code>
      */
-    Command_MigrateDataArk(16, 208),
+    Command_MigrateDataArk(14, 208),
     /**
      * <code>Command_AddDisasterDataArk = 209;</code>
      */
-    Command_AddDisasterDataArk(17, 209),
+    Command_AddDisasterDataArk(15, 209),
     /**
      * <code>Command_RemoveDisasterDataArk = 210;</code>
      */
-    Command_RemoveDisasterDataArk(18, 210),
+    Command_RemoveDisasterDataArk(16, 210),
     /**
      * <code>Command_GetClients = 211;</code>
      */
-    Command_GetClients(19, 211),
+    Command_GetClients(17, 211),
     /**
      * <code>Command_AddClient = 212;</code>
      */
-    Command_AddClient(20, 212),
+    Command_AddClient(18, 212),
     /**
-     * <code>Command_RemoveClient = 213;</code>
+     * <code>Command_AddVcenter = 213;</code>
      */
-    Command_RemoveClient(21, 213),
+    Command_AddVcenter(19, 213),
+    /**
+     * <code>Command_AddVmwareVirtualMachine = 214;</code>
+     */
+    Command_AddVmwareVirtualMachine(20, 214),
+    /**
+     * <code>Command_RemoveClient = 215;</code>
+     */
+    Command_RemoveClient(21, 215),
+    /**
+     * <code>Command_RemoveVcenter = 216;</code>
+     */
+    Command_RemoveVcenter(22, 216),
+    /**
+     * <code>Command_RemoveVmwareVirtualMachine = 217;</code>
+     */
+    Command_RemoveVmwareVirtualMachine(23, 217),
     /**
      * <code>Command_GetUsers = 300;</code>
      */
-    Command_GetUsers(22, 300),
+    Command_GetUsers(24, 300),
     /**
      * <code>Command_CreateUserGroup = 301;</code>
      */
-    Command_CreateUserGroup(23, 301),
+    Command_CreateUserGroup(25, 301),
     /**
      * <code>Command_DeleteUserGroup = 302;</code>
      */
-    Command_DeleteUserGroup(24, 302),
+    Command_DeleteUserGroup(26, 302),
     /**
      * <code>Command_UpdateUserGroup = 303;</code>
      */
-    Command_UpdateUserGroup(25, 303),
+    Command_UpdateUserGroup(27, 303),
     /**
      * <code>Command_MigrateUserGroup = 304;</code>
      */
-    Command_MigrateUserGroup(26, 304),
+    Command_MigrateUserGroup(28, 304),
     /**
      * <code>Command_CreateUser = 305;</code>
      */
-    Command_CreateUser(27, 305),
+    Command_CreateUser(29, 305),
     /**
      * <code>Command_DeleteUser = 306;</code>
      */
-    Command_DeleteUser(28, 306),
+    Command_DeleteUser(30, 306),
     /**
      * <code>Command_UpdateUserPassword = 307;</code>
      */
-    Command_UpdateUserPassword(29, 307),
+    Command_UpdateUserPassword(31, 307),
     /**
      * <code>Command_ResetUserPassword = 308;</code>
      */
-    Command_ResetUserPassword(30, 308),
+    Command_ResetUserPassword(32, 308),
     /**
      * <code>Command_UpdateUser = 309;</code>
      */
-    Command_UpdateUser(31, 309),
+    Command_UpdateUser(33, 309),
     /**
      * <code>Command_GetUserQuota = 310;</code>
      */
-    Command_GetUserQuota(32, 310),
+    Command_GetUserQuota(34, 310),
     /**
      * <code>Command_UpdateUserQuota = 311;</code>
      */
-    Command_UpdateUserQuota(33, 311),
+    Command_UpdateUserQuota(35, 311),
     /**
      * <code>Command_UpdateUserUsedQuota = 312;</code>
      */
-    Command_UpdateUserUsedQuota(34, 312),
+    Command_UpdateUserUsedQuota(36, 312),
     /**
      * <code>Command_MigrateUser = 313;</code>
      */
-    Command_MigrateUser(35, 313),
+    Command_MigrateUser(37, 313),
     /**
      * <code>Command_GetAlarmLogs = 400;</code>
      */
-    Command_GetAlarmLogs(36, 400),
+    Command_GetAlarmLogs(38, 400),
     /**
      * <code>Command_UpdateAlarmLogProcessed = 401;</code>
      */
-    Command_UpdateAlarmLogProcessed(37, 401),
+    Command_UpdateAlarmLogProcessed(39, 401),
     /**
      * <code>Command_DeleteAlarmLog = 402;</code>
      */
-    Command_DeleteAlarmLog(38, 402),
+    Command_DeleteAlarmLog(40, 402),
     /**
      * <code>Command_GetOperationLogs = 403;</code>
      */
-    Command_GetOperationLogs(39, 403),
+    Command_GetOperationLogs(41, 403),
     /**
      * <code>Command_GetEmailAlarm = 500;</code>
      */
-    Command_GetEmailAlarm(40, 500),
+    Command_GetEmailAlarm(42, 500),
     /**
      * <code>Command_UpdateEmailAlarm = 501;</code>
      */
-    Command_UpdateEmailAlarm(41, 501),
+    Command_UpdateEmailAlarm(43, 501),
     /**
      * <code>Command_CreateEmailAlarm = 502;</code>
      *
@@ -196,7 +210,7 @@ public final class CloudManagerAlarm {
      * 报警模块用
      * </pre>
      */
-    Command_CreateEmailAlarm(42, 502),
+    Command_CreateEmailAlarm(44, 502),
     /**
      * <code>Command_DeleteEmailAlarm = 503;</code>
      *
@@ -204,11 +218,11 @@ public final class CloudManagerAlarm {
      * 报警模块用
      * </pre>
      */
-    Command_DeleteEmailAlarm(43, 503),
+    Command_DeleteEmailAlarm(45, 503),
     /**
      * <code>Command_VerifyEmailAlarm = 504;</code>
      */
-    Command_VerifyEmailAlarm(44, 504),
+    Command_VerifyEmailAlarm(46, 504),
     ;
 
     /**
@@ -232,29 +246,27 @@ public final class CloudManagerAlarm {
      */
     public static final int Command_SendDek_VALUE = 2;
     /**
+     * <code>Command_LogoutCloudManager = 3;</code>
+     */
+    public static final int Command_LogoutCloudManager_VALUE = 3;
+    /**
      * <code>Command_GetOverview = 100;</code>
+     *
+     * <pre>
+     *Command_GetDataArkException = 101;
+     *Command_GetClientException = 102;
+     *Command_GetVirtualMachineException = 103;
+     * </pre>
      */
     public static final int Command_GetOverview_VALUE = 100;
-    /**
-     * <code>Command_GetDataArkException = 101;</code>
-     */
-    public static final int Command_GetDataArkException_VALUE = 101;
-    /**
-     * <code>Command_GetClientException = 102;</code>
-     */
-    public static final int Command_GetClientException_VALUE = 102;
-    /**
-     * <code>Command_GetVirtualMachineException = 103;</code>
-     */
-    public static final int Command_GetVirtualMachineException_VALUE = 103;
     /**
      * <code>Command_GetDataArks = 200;</code>
      */
     public static final int Command_GetDataArks_VALUE = 200;
     /**
-     * <code>Command_GetDataArkDetail = 201;</code>
+     * <code>Command_GetDataArkResource = 201;</code>
      */
-    public static final int Command_GetDataArkDetail_VALUE = 201;
+    public static final int Command_GetDataArkResource_VALUE = 201;
     /**
      * <code>Command_CreateDataArkGroup = 202;</code>
      */
@@ -300,9 +312,25 @@ public final class CloudManagerAlarm {
      */
     public static final int Command_AddClient_VALUE = 212;
     /**
-     * <code>Command_RemoveClient = 213;</code>
+     * <code>Command_AddVcenter = 213;</code>
      */
-    public static final int Command_RemoveClient_VALUE = 213;
+    public static final int Command_AddVcenter_VALUE = 213;
+    /**
+     * <code>Command_AddVmwareVirtualMachine = 214;</code>
+     */
+    public static final int Command_AddVmwareVirtualMachine_VALUE = 214;
+    /**
+     * <code>Command_RemoveClient = 215;</code>
+     */
+    public static final int Command_RemoveClient_VALUE = 215;
+    /**
+     * <code>Command_RemoveVcenter = 216;</code>
+     */
+    public static final int Command_RemoveVcenter_VALUE = 216;
+    /**
+     * <code>Command_RemoveVmwareVirtualMachine = 217;</code>
+     */
+    public static final int Command_RemoveVmwareVirtualMachine_VALUE = 217;
     /**
      * <code>Command_GetUsers = 300;</code>
      */
@@ -413,12 +441,10 @@ public final class CloudManagerAlarm {
         case 0: return Command_GetPublicKey;
         case 1: return Command_LoginCloudManager;
         case 2: return Command_SendDek;
+        case 3: return Command_LogoutCloudManager;
         case 100: return Command_GetOverview;
-        case 101: return Command_GetDataArkException;
-        case 102: return Command_GetClientException;
-        case 103: return Command_GetVirtualMachineException;
         case 200: return Command_GetDataArks;
-        case 201: return Command_GetDataArkDetail;
+        case 201: return Command_GetDataArkResource;
         case 202: return Command_CreateDataArkGroup;
         case 203: return Command_DeleteDataArkGroup;
         case 204: return Command_UpdateDataArkGroup;
@@ -430,7 +456,11 @@ public final class CloudManagerAlarm {
         case 210: return Command_RemoveDisasterDataArk;
         case 211: return Command_GetClients;
         case 212: return Command_AddClient;
-        case 213: return Command_RemoveClient;
+        case 213: return Command_AddVcenter;
+        case 214: return Command_AddVmwareVirtualMachine;
+        case 215: return Command_RemoveClient;
+        case 216: return Command_RemoveVcenter;
+        case 217: return Command_RemoveVmwareVirtualMachine;
         case 300: return Command_GetUsers;
         case 301: return Command_CreateUserGroup;
         case 302: return Command_DeleteUserGroup;
@@ -615,141 +645,265 @@ public final class CloudManagerAlarm {
      */
     ErrorCode_OperateDatabaseFailed(13, 25),
     /**
-     * <code>ErrorCode_AlreadyLogged = 60;</code>
+     * <code>ErrorCode_AlreadyLogged = 1000;</code>
      *
      * <pre>
-     * 已经登录
+     * 已经登录，不能重复登录
      * </pre>
      */
-    ErrorCode_AlreadyLogged(14, 60),
+    ErrorCode_AlreadyLogged(14, 1000),
     /**
-     * <code>ErrorCode_CreateDataArkGroupFailed = 200;</code>
+     * <code>ErrorCode_DataArkGroupExistent = 1001;</code>
      */
-    ErrorCode_CreateDataArkGroupFailed(15, 200),
+    ErrorCode_DataArkGroupExistent(15, 1001),
     /**
-     * <code>ErrorCode_DataArkGroupExistent = 201;</code>
-     */
-    ErrorCode_DataArkGroupExistent(16, 201),
-    /**
-     * <code>ErrorCode_DeleteDataArkGroupFailed = 202;</code>
-     */
-    ErrorCode_DeleteDataArkGroupFailed(17, 202),
-    /**
-     * <code>ErrorCode_UpdateDataArkGroupFailed = 203;</code>
-     */
-    ErrorCode_UpdateDataArkGroupFailed(18, 203),
-    /**
-     * <code>ErrorCode_AddDataArkFailed = 204;</code>
-     */
-    ErrorCode_AddDataArkFailed(19, 204),
-    /**
-     * <code>ErrorCode_RemoveDataArkFailed = 205;</code>
-     */
-    ErrorCode_RemoveDataArkFailed(20, 205),
-    /**
-     * <code>ErrorCode_UpdateDataArkFailed = 206;</code>
-     */
-    ErrorCode_UpdateDataArkFailed(21, 206),
-    /**
-     * <code>ErrorCode_UserGroupExistent = 300;</code>
+     * <code>ErrorCode_UserGroupExistent = 1002;</code>
      *
      * <pre>
      * 已存在用户组
      * </pre>
      */
-    ErrorCode_UserGroupExistent(22, 300),
+    ErrorCode_UserGroupExistent(16, 1002),
     /**
-     * <code>ErrorCode_UserGroupNonexistent = 301;</code>
+     * <code>ErrorCode_UserGroupNonexistent = 1003;</code>
      *
      * <pre>
      * 不存在用户组
      * </pre>
      */
-    ErrorCode_UserGroupNonexistent(23, 301),
+    ErrorCode_UserGroupNonexistent(17, 1003),
     /**
-     * <code>ErrorCode_UserExistent = 302;</code>
-     */
-    ErrorCode_UserExistent(24, 302),
-    /**
-     * <code>ErrorCode_UserNonexistent = 303;</code>
+     * <code>ErrorCode_UserExistent = 1004;</code>
      *
      * <pre>
-     * 用户不存在
+     * 已存在用户
      * </pre>
      */
-    ErrorCode_UserNonexistent(25, 303),
+    ErrorCode_UserExistent(18, 1004),
     /**
-     * <code>ErrorCode_UserPasswordUnmatch = 304;</code>
+     * <code>ErrorCode_UserNonexistent = 1005;</code>
+     *
+     * <pre>
+     * 不存在用户
+     * </pre>
+     */
+    ErrorCode_UserNonexistent(19, 1005),
+    /**
+     * <code>ErrorCode_UserPasswordUnmatch = 1006;</code>
      *
      * <pre>
      * 用户密码不匹配
      * </pre>
      */
-    ErrorCode_UserPasswordUnmatch(26, 304),
+    ErrorCode_UserPasswordUnmatch(20, 1006),
     /**
-     * <code>ErrorCode_CreateUserFailed = 305;</code>
+     * <code>ErrorCode_UserOnline = 1007;</code>
      *
      * <pre>
-     * 创建用户失败
+     * 删除用户失败，用户在线
      * </pre>
      */
-    ErrorCode_CreateUserFailed(27, 305),
+    ErrorCode_UserOnline(21, 1007),
     /**
-     * <code>ErrorCode_DeleteUserFailed = 306;</code>
+     * <code>ErrorCode_GetPublicKeyFailed = 10000;</code>
+     */
+    ErrorCode_GetPublicKeyFailed(22, 10000),
+    /**
+     * <code>ErrorCode_LoginCloudManagerFailed = 10001;</code>
+     */
+    ErrorCode_LoginCloudManagerFailed(23, 10001),
+    /**
+     * <code>ErrorCode_SendDekFailed = 10002;</code>
+     */
+    ErrorCode_SendDekFailed(24, 10002),
+    /**
+     * <code>ErrorCode_LogoutCloudManagerFailed = 10003;</code>
+     */
+    ErrorCode_LogoutCloudManagerFailed(25, 10003),
+    /**
+     * <code>ErrorCode_GetOverviewFailed = 10100;</code>
+     */
+    ErrorCode_GetOverviewFailed(26, 10100),
+    /**
+     * <code>ErrorCode_GetDataArksFailed = 10200;</code>
+     */
+    ErrorCode_GetDataArksFailed(27, 10200),
+    /**
+     * <code>ErrorCode_GetDataArkResourceFailed = 10201;</code>
+     */
+    ErrorCode_GetDataArkResourceFailed(28, 10201),
+    /**
+     * <code>ErrorCode_CreateDataArkGroupFailed = 10202;</code>
+     */
+    ErrorCode_CreateDataArkGroupFailed(29, 10202),
+    /**
+     * <code>ErrorCode_DeleteDataArkGroupFailed = 10203;</code>
+     */
+    ErrorCode_DeleteDataArkGroupFailed(30, 10203),
+    /**
+     * <code>ErrorCode_UpdateDataArkGroupFailed = 10204;</code>
+     */
+    ErrorCode_UpdateDataArkGroupFailed(31, 10204),
+    /**
+     * <code>ErrorCode_AddDataArkFailed = 10205;</code>
+     */
+    ErrorCode_AddDataArkFailed(32, 10205),
+    /**
+     * <code>ErrorCode_RemoveDataArkFailed = 10206;</code>
+     */
+    ErrorCode_RemoveDataArkFailed(33, 10206),
+    /**
+     * <code>ErrorCode_UpdateDataArkFailed = 10207;</code>
+     */
+    ErrorCode_UpdateDataArkFailed(34, 10207),
+    /**
+     * <code>ErrorCode_MigrateDataArkFailed = 10208;</code>
+     */
+    ErrorCode_MigrateDataArkFailed(35, 10208),
+    /**
+     * <code>ErrorCode_AddDisasterDataArkFailed = 10209;</code>
+     */
+    ErrorCode_AddDisasterDataArkFailed(36, 10209),
+    /**
+     * <code>ErrorCode_RemoveDisasterDataArkFailed = 10210;</code>
+     */
+    ErrorCode_RemoveDisasterDataArkFailed(37, 10210),
+    /**
+     * <code>ErrorCode_GetClientsFailed = 10211;</code>
+     */
+    ErrorCode_GetClientsFailed(38, 10211),
+    /**
+     * <code>ErrorCode_AddClientFailed = 10212;</code>
+     */
+    ErrorCode_AddClientFailed(39, 10212),
+    /**
+     * <code>ErrorCode_AddVcenterFailed = 10213;</code>
+     */
+    ErrorCode_AddVcenterFailed(40, 10213),
+    /**
+     * <code>ErrorCode_AddVmwareVirtualMachineFailed = 10214;</code>
+     */
+    ErrorCode_AddVmwareVirtualMachineFailed(41, 10214),
+    /**
+     * <code>ErrorCode_RemoveClientFailed = 10215;</code>
+     */
+    ErrorCode_RemoveClientFailed(42, 10215),
+    /**
+     * <code>ErrorCode_RemoveVcenterFailed = 10216;</code>
+     */
+    ErrorCode_RemoveVcenterFailed(43, 10216),
+    /**
+     * <code>ErrorCode_RemoveVmwareVirtualMachineFailed = 10217;</code>
+     */
+    ErrorCode_RemoveVmwareVirtualMachineFailed(44, 10217),
+    /**
+     * <code>ErrorCode_GetUsersFailed = 10300;</code>
+     */
+    ErrorCode_GetUsersFailed(45, 10300),
+    /**
+     * <code>ErrorCode_CreateUserGroupFailed = 10301;</code>
+     */
+    ErrorCode_CreateUserGroupFailed(46, 10301),
+    /**
+     * <code>ErrorCode_DeleteUserGroupFailed = 10302;</code>
+     */
+    ErrorCode_DeleteUserGroupFailed(47, 10302),
+    /**
+     * <code>ErrorCode_UpdateUserGroupFailed = 10303;</code>
+     */
+    ErrorCode_UpdateUserGroupFailed(48, 10303),
+    /**
+     * <code>ErrorCode_MigrateUserGroupFailed = 10304;</code>
+     */
+    ErrorCode_MigrateUserGroupFailed(49, 10304),
+    /**
+     * <code>ErrorCode_CreateUserFailed = 10305;</code>
+     */
+    ErrorCode_CreateUserFailed(50, 10305),
+    /**
+     * <code>ErrorCode_DeleteUserFailed = 10306;</code>
+     */
+    ErrorCode_DeleteUserFailed(51, 10306),
+    /**
+     * <code>ErrorCode_UpdateUserPasswordFailed = 10307;</code>
+     */
+    ErrorCode_UpdateUserPasswordFailed(52, 10307),
+    /**
+     * <code>ErrorCode_ResetUserPasswordFailed = 10308;</code>
+     */
+    ErrorCode_ResetUserPasswordFailed(53, 10308),
+    /**
+     * <code>ErrorCode_UpdateUserFailed = 10309;</code>
+     */
+    ErrorCode_UpdateUserFailed(54, 10309),
+    /**
+     * <code>ErrorCode_GetUserQuotaFailed = 10310;</code>
+     */
+    ErrorCode_GetUserQuotaFailed(55, 10310),
+    /**
+     * <code>ErrorCode_UpdateUserQuotaFailed = 10311;</code>
+     */
+    ErrorCode_UpdateUserQuotaFailed(56, 10311),
+    /**
+     * <code>ErrorCode_UpdateUserUsedQuotaFailed = 10312;</code>
+     */
+    ErrorCode_UpdateUserUsedQuotaFailed(57, 10312),
+    /**
+     * <code>ErrorCode_MigrateUserFailed = 10313;</code>
+     */
+    ErrorCode_MigrateUserFailed(58, 10313),
+    /**
+     * <code>ErrorCode_CreateUserQuotaFailed = 10314;</code>
+     */
+    ErrorCode_CreateUserQuotaFailed(59, 10314),
+    /**
+     * <code>ErrorCode_DeleteUserQuotaFailed = 10315;</code>
+     */
+    ErrorCode_DeleteUserQuotaFailed(60, 10315),
+    /**
+     * <code>ErrorCode_GetAlarmLogsFailed = 10400;</code>
+     */
+    ErrorCode_GetAlarmLogsFailed(61, 10400),
+    /**
+     * <code>ErrorCode_UpdateAlarmLogProcessedFailed = 10401;</code>
+     */
+    ErrorCode_UpdateAlarmLogProcessedFailed(62, 10401),
+    /**
+     * <code>ErrorCode_DeleteAlarmLogFailed = 10402;</code>
+     */
+    ErrorCode_DeleteAlarmLogFailed(63, 10402),
+    /**
+     * <code>ErrorCode_GetOperationLogsFailed = 10403;</code>
+     */
+    ErrorCode_GetOperationLogsFailed(64, 10403),
+    /**
+     * <code>ErrorCode_GetEmailAlarmFailed = 10500;</code>
+     */
+    ErrorCode_GetEmailAlarmFailed(65, 10500),
+    /**
+     * <code>ErrorCode_UpdateEmailAlarmFailed = 10501;</code>
+     */
+    ErrorCode_UpdateEmailAlarmFailed(66, 10501),
+    /**
+     * <code>ErrorCode_CreateEmailAlarmFailed = 10502;</code>
      *
      * <pre>
-     * 删除用户失败
+     * 报警模块用
      * </pre>
      */
-    ErrorCode_DeleteUserFailed(28, 306),
+    ErrorCode_CreateEmailAlarmFailed(67, 10502),
     /**
-     * <code>ErrorCode_AlarmAddDataArkFailed = 10000;</code>
+     * <code>ErrorCode_DeleteEmailAlarmFailed = 10503;</code>
      *
      * <pre>
-     * 报警模块添加数据方舟失败
+     * 报警模块用
      * </pre>
      */
-    ErrorCode_AlarmAddDataArkFailed(29, 10000),
+    ErrorCode_DeleteEmailAlarmFailed(68, 10503),
     /**
-     * <code>ErrorCode_AlarmRemoveDataArkFailed = 10001;</code>
-     *
-     * <pre>
-     * 报警模块移除数据方舟失败
-     * </pre>
+     * <code>ErrorCode_VerifyEmailAlarmFailed = 10504;</code>
      */
-    ErrorCode_AlarmRemoveDataArkFailed(30, 10001),
-    /**
-     * <code>ErrorCode_AlarmUpdateEmailAlarmFailed = 10002;</code>
-     *
-     * <pre>
-     * 报警模块更新邮件报警失败
-     * </pre>
-     */
-    ErrorCode_AlarmUpdateEmailAlarmFailed(31, 10002),
-    /**
-     * <code>ErrorCode_AlarmCreateEmailAlarmFailed = 10003;</code>
-     *
-     * <pre>
-     * 报警模块创建邮件报警失败
-     * </pre>
-     */
-    ErrorCode_AlarmCreateEmailAlarmFailed(32, 10003),
-    /**
-     * <code>ErrorCode_AlarmDeleteEmailAlarmFailed = 10004;</code>
-     *
-     * <pre>
-     * 报警模块删除邮件报警失败
-     * </pre>
-     */
-    ErrorCode_AlarmDeleteEmailAlarmFailed(33, 10004),
-    /**
-     * <code>ErrorCode_AlarmVerifyEmailAlarmFailed = 10005;</code>
-     *
-     * <pre>
-     * 报警模块验证邮件报警失败
-     * </pre>
-     */
-    ErrorCode_AlarmVerifyEmailAlarmFailed(34, 10005),
+    ErrorCode_VerifyEmailAlarmFailed(69, 10504),
     ;
 
     /**
@@ -857,141 +1011,265 @@ public final class CloudManagerAlarm {
      */
     public static final int ErrorCode_OperateDatabaseFailed_VALUE = 25;
     /**
-     * <code>ErrorCode_AlreadyLogged = 60;</code>
+     * <code>ErrorCode_AlreadyLogged = 1000;</code>
      *
      * <pre>
-     * 已经登录
+     * 已经登录，不能重复登录
      * </pre>
      */
-    public static final int ErrorCode_AlreadyLogged_VALUE = 60;
+    public static final int ErrorCode_AlreadyLogged_VALUE = 1000;
     /**
-     * <code>ErrorCode_CreateDataArkGroupFailed = 200;</code>
+     * <code>ErrorCode_DataArkGroupExistent = 1001;</code>
      */
-    public static final int ErrorCode_CreateDataArkGroupFailed_VALUE = 200;
+    public static final int ErrorCode_DataArkGroupExistent_VALUE = 1001;
     /**
-     * <code>ErrorCode_DataArkGroupExistent = 201;</code>
-     */
-    public static final int ErrorCode_DataArkGroupExistent_VALUE = 201;
-    /**
-     * <code>ErrorCode_DeleteDataArkGroupFailed = 202;</code>
-     */
-    public static final int ErrorCode_DeleteDataArkGroupFailed_VALUE = 202;
-    /**
-     * <code>ErrorCode_UpdateDataArkGroupFailed = 203;</code>
-     */
-    public static final int ErrorCode_UpdateDataArkGroupFailed_VALUE = 203;
-    /**
-     * <code>ErrorCode_AddDataArkFailed = 204;</code>
-     */
-    public static final int ErrorCode_AddDataArkFailed_VALUE = 204;
-    /**
-     * <code>ErrorCode_RemoveDataArkFailed = 205;</code>
-     */
-    public static final int ErrorCode_RemoveDataArkFailed_VALUE = 205;
-    /**
-     * <code>ErrorCode_UpdateDataArkFailed = 206;</code>
-     */
-    public static final int ErrorCode_UpdateDataArkFailed_VALUE = 206;
-    /**
-     * <code>ErrorCode_UserGroupExistent = 300;</code>
+     * <code>ErrorCode_UserGroupExistent = 1002;</code>
      *
      * <pre>
      * 已存在用户组
      * </pre>
      */
-    public static final int ErrorCode_UserGroupExistent_VALUE = 300;
+    public static final int ErrorCode_UserGroupExistent_VALUE = 1002;
     /**
-     * <code>ErrorCode_UserGroupNonexistent = 301;</code>
+     * <code>ErrorCode_UserGroupNonexistent = 1003;</code>
      *
      * <pre>
      * 不存在用户组
      * </pre>
      */
-    public static final int ErrorCode_UserGroupNonexistent_VALUE = 301;
+    public static final int ErrorCode_UserGroupNonexistent_VALUE = 1003;
     /**
-     * <code>ErrorCode_UserExistent = 302;</code>
-     */
-    public static final int ErrorCode_UserExistent_VALUE = 302;
-    /**
-     * <code>ErrorCode_UserNonexistent = 303;</code>
+     * <code>ErrorCode_UserExistent = 1004;</code>
      *
      * <pre>
-     * 用户不存在
+     * 已存在用户
      * </pre>
      */
-    public static final int ErrorCode_UserNonexistent_VALUE = 303;
+    public static final int ErrorCode_UserExistent_VALUE = 1004;
     /**
-     * <code>ErrorCode_UserPasswordUnmatch = 304;</code>
+     * <code>ErrorCode_UserNonexistent = 1005;</code>
+     *
+     * <pre>
+     * 不存在用户
+     * </pre>
+     */
+    public static final int ErrorCode_UserNonexistent_VALUE = 1005;
+    /**
+     * <code>ErrorCode_UserPasswordUnmatch = 1006;</code>
      *
      * <pre>
      * 用户密码不匹配
      * </pre>
      */
-    public static final int ErrorCode_UserPasswordUnmatch_VALUE = 304;
+    public static final int ErrorCode_UserPasswordUnmatch_VALUE = 1006;
     /**
-     * <code>ErrorCode_CreateUserFailed = 305;</code>
+     * <code>ErrorCode_UserOnline = 1007;</code>
      *
      * <pre>
-     * 创建用户失败
+     * 删除用户失败，用户在线
      * </pre>
      */
-    public static final int ErrorCode_CreateUserFailed_VALUE = 305;
+    public static final int ErrorCode_UserOnline_VALUE = 1007;
     /**
-     * <code>ErrorCode_DeleteUserFailed = 306;</code>
+     * <code>ErrorCode_GetPublicKeyFailed = 10000;</code>
+     */
+    public static final int ErrorCode_GetPublicKeyFailed_VALUE = 10000;
+    /**
+     * <code>ErrorCode_LoginCloudManagerFailed = 10001;</code>
+     */
+    public static final int ErrorCode_LoginCloudManagerFailed_VALUE = 10001;
+    /**
+     * <code>ErrorCode_SendDekFailed = 10002;</code>
+     */
+    public static final int ErrorCode_SendDekFailed_VALUE = 10002;
+    /**
+     * <code>ErrorCode_LogoutCloudManagerFailed = 10003;</code>
+     */
+    public static final int ErrorCode_LogoutCloudManagerFailed_VALUE = 10003;
+    /**
+     * <code>ErrorCode_GetOverviewFailed = 10100;</code>
+     */
+    public static final int ErrorCode_GetOverviewFailed_VALUE = 10100;
+    /**
+     * <code>ErrorCode_GetDataArksFailed = 10200;</code>
+     */
+    public static final int ErrorCode_GetDataArksFailed_VALUE = 10200;
+    /**
+     * <code>ErrorCode_GetDataArkResourceFailed = 10201;</code>
+     */
+    public static final int ErrorCode_GetDataArkResourceFailed_VALUE = 10201;
+    /**
+     * <code>ErrorCode_CreateDataArkGroupFailed = 10202;</code>
+     */
+    public static final int ErrorCode_CreateDataArkGroupFailed_VALUE = 10202;
+    /**
+     * <code>ErrorCode_DeleteDataArkGroupFailed = 10203;</code>
+     */
+    public static final int ErrorCode_DeleteDataArkGroupFailed_VALUE = 10203;
+    /**
+     * <code>ErrorCode_UpdateDataArkGroupFailed = 10204;</code>
+     */
+    public static final int ErrorCode_UpdateDataArkGroupFailed_VALUE = 10204;
+    /**
+     * <code>ErrorCode_AddDataArkFailed = 10205;</code>
+     */
+    public static final int ErrorCode_AddDataArkFailed_VALUE = 10205;
+    /**
+     * <code>ErrorCode_RemoveDataArkFailed = 10206;</code>
+     */
+    public static final int ErrorCode_RemoveDataArkFailed_VALUE = 10206;
+    /**
+     * <code>ErrorCode_UpdateDataArkFailed = 10207;</code>
+     */
+    public static final int ErrorCode_UpdateDataArkFailed_VALUE = 10207;
+    /**
+     * <code>ErrorCode_MigrateDataArkFailed = 10208;</code>
+     */
+    public static final int ErrorCode_MigrateDataArkFailed_VALUE = 10208;
+    /**
+     * <code>ErrorCode_AddDisasterDataArkFailed = 10209;</code>
+     */
+    public static final int ErrorCode_AddDisasterDataArkFailed_VALUE = 10209;
+    /**
+     * <code>ErrorCode_RemoveDisasterDataArkFailed = 10210;</code>
+     */
+    public static final int ErrorCode_RemoveDisasterDataArkFailed_VALUE = 10210;
+    /**
+     * <code>ErrorCode_GetClientsFailed = 10211;</code>
+     */
+    public static final int ErrorCode_GetClientsFailed_VALUE = 10211;
+    /**
+     * <code>ErrorCode_AddClientFailed = 10212;</code>
+     */
+    public static final int ErrorCode_AddClientFailed_VALUE = 10212;
+    /**
+     * <code>ErrorCode_AddVcenterFailed = 10213;</code>
+     */
+    public static final int ErrorCode_AddVcenterFailed_VALUE = 10213;
+    /**
+     * <code>ErrorCode_AddVmwareVirtualMachineFailed = 10214;</code>
+     */
+    public static final int ErrorCode_AddVmwareVirtualMachineFailed_VALUE = 10214;
+    /**
+     * <code>ErrorCode_RemoveClientFailed = 10215;</code>
+     */
+    public static final int ErrorCode_RemoveClientFailed_VALUE = 10215;
+    /**
+     * <code>ErrorCode_RemoveVcenterFailed = 10216;</code>
+     */
+    public static final int ErrorCode_RemoveVcenterFailed_VALUE = 10216;
+    /**
+     * <code>ErrorCode_RemoveVmwareVirtualMachineFailed = 10217;</code>
+     */
+    public static final int ErrorCode_RemoveVmwareVirtualMachineFailed_VALUE = 10217;
+    /**
+     * <code>ErrorCode_GetUsersFailed = 10300;</code>
+     */
+    public static final int ErrorCode_GetUsersFailed_VALUE = 10300;
+    /**
+     * <code>ErrorCode_CreateUserGroupFailed = 10301;</code>
+     */
+    public static final int ErrorCode_CreateUserGroupFailed_VALUE = 10301;
+    /**
+     * <code>ErrorCode_DeleteUserGroupFailed = 10302;</code>
+     */
+    public static final int ErrorCode_DeleteUserGroupFailed_VALUE = 10302;
+    /**
+     * <code>ErrorCode_UpdateUserGroupFailed = 10303;</code>
+     */
+    public static final int ErrorCode_UpdateUserGroupFailed_VALUE = 10303;
+    /**
+     * <code>ErrorCode_MigrateUserGroupFailed = 10304;</code>
+     */
+    public static final int ErrorCode_MigrateUserGroupFailed_VALUE = 10304;
+    /**
+     * <code>ErrorCode_CreateUserFailed = 10305;</code>
+     */
+    public static final int ErrorCode_CreateUserFailed_VALUE = 10305;
+    /**
+     * <code>ErrorCode_DeleteUserFailed = 10306;</code>
+     */
+    public static final int ErrorCode_DeleteUserFailed_VALUE = 10306;
+    /**
+     * <code>ErrorCode_UpdateUserPasswordFailed = 10307;</code>
+     */
+    public static final int ErrorCode_UpdateUserPasswordFailed_VALUE = 10307;
+    /**
+     * <code>ErrorCode_ResetUserPasswordFailed = 10308;</code>
+     */
+    public static final int ErrorCode_ResetUserPasswordFailed_VALUE = 10308;
+    /**
+     * <code>ErrorCode_UpdateUserFailed = 10309;</code>
+     */
+    public static final int ErrorCode_UpdateUserFailed_VALUE = 10309;
+    /**
+     * <code>ErrorCode_GetUserQuotaFailed = 10310;</code>
+     */
+    public static final int ErrorCode_GetUserQuotaFailed_VALUE = 10310;
+    /**
+     * <code>ErrorCode_UpdateUserQuotaFailed = 10311;</code>
+     */
+    public static final int ErrorCode_UpdateUserQuotaFailed_VALUE = 10311;
+    /**
+     * <code>ErrorCode_UpdateUserUsedQuotaFailed = 10312;</code>
+     */
+    public static final int ErrorCode_UpdateUserUsedQuotaFailed_VALUE = 10312;
+    /**
+     * <code>ErrorCode_MigrateUserFailed = 10313;</code>
+     */
+    public static final int ErrorCode_MigrateUserFailed_VALUE = 10313;
+    /**
+     * <code>ErrorCode_CreateUserQuotaFailed = 10314;</code>
+     */
+    public static final int ErrorCode_CreateUserQuotaFailed_VALUE = 10314;
+    /**
+     * <code>ErrorCode_DeleteUserQuotaFailed = 10315;</code>
+     */
+    public static final int ErrorCode_DeleteUserQuotaFailed_VALUE = 10315;
+    /**
+     * <code>ErrorCode_GetAlarmLogsFailed = 10400;</code>
+     */
+    public static final int ErrorCode_GetAlarmLogsFailed_VALUE = 10400;
+    /**
+     * <code>ErrorCode_UpdateAlarmLogProcessedFailed = 10401;</code>
+     */
+    public static final int ErrorCode_UpdateAlarmLogProcessedFailed_VALUE = 10401;
+    /**
+     * <code>ErrorCode_DeleteAlarmLogFailed = 10402;</code>
+     */
+    public static final int ErrorCode_DeleteAlarmLogFailed_VALUE = 10402;
+    /**
+     * <code>ErrorCode_GetOperationLogsFailed = 10403;</code>
+     */
+    public static final int ErrorCode_GetOperationLogsFailed_VALUE = 10403;
+    /**
+     * <code>ErrorCode_GetEmailAlarmFailed = 10500;</code>
+     */
+    public static final int ErrorCode_GetEmailAlarmFailed_VALUE = 10500;
+    /**
+     * <code>ErrorCode_UpdateEmailAlarmFailed = 10501;</code>
+     */
+    public static final int ErrorCode_UpdateEmailAlarmFailed_VALUE = 10501;
+    /**
+     * <code>ErrorCode_CreateEmailAlarmFailed = 10502;</code>
      *
      * <pre>
-     * 删除用户失败
+     * 报警模块用
      * </pre>
      */
-    public static final int ErrorCode_DeleteUserFailed_VALUE = 306;
+    public static final int ErrorCode_CreateEmailAlarmFailed_VALUE = 10502;
     /**
-     * <code>ErrorCode_AlarmAddDataArkFailed = 10000;</code>
+     * <code>ErrorCode_DeleteEmailAlarmFailed = 10503;</code>
      *
      * <pre>
-     * 报警模块添加数据方舟失败
+     * 报警模块用
      * </pre>
      */
-    public static final int ErrorCode_AlarmAddDataArkFailed_VALUE = 10000;
+    public static final int ErrorCode_DeleteEmailAlarmFailed_VALUE = 10503;
     /**
-     * <code>ErrorCode_AlarmRemoveDataArkFailed = 10001;</code>
-     *
-     * <pre>
-     * 报警模块移除数据方舟失败
-     * </pre>
+     * <code>ErrorCode_VerifyEmailAlarmFailed = 10504;</code>
      */
-    public static final int ErrorCode_AlarmRemoveDataArkFailed_VALUE = 10001;
-    /**
-     * <code>ErrorCode_AlarmUpdateEmailAlarmFailed = 10002;</code>
-     *
-     * <pre>
-     * 报警模块更新邮件报警失败
-     * </pre>
-     */
-    public static final int ErrorCode_AlarmUpdateEmailAlarmFailed_VALUE = 10002;
-    /**
-     * <code>ErrorCode_AlarmCreateEmailAlarmFailed = 10003;</code>
-     *
-     * <pre>
-     * 报警模块创建邮件报警失败
-     * </pre>
-     */
-    public static final int ErrorCode_AlarmCreateEmailAlarmFailed_VALUE = 10003;
-    /**
-     * <code>ErrorCode_AlarmDeleteEmailAlarmFailed = 10004;</code>
-     *
-     * <pre>
-     * 报警模块删除邮件报警失败
-     * </pre>
-     */
-    public static final int ErrorCode_AlarmDeleteEmailAlarmFailed_VALUE = 10004;
-    /**
-     * <code>ErrorCode_AlarmVerifyEmailAlarmFailed = 10005;</code>
-     *
-     * <pre>
-     * 报警模块验证邮件报警失败
-     * </pre>
-     */
-    public static final int ErrorCode_AlarmVerifyEmailAlarmFailed_VALUE = 10005;
+    public static final int ErrorCode_VerifyEmailAlarmFailed_VALUE = 10504;
 
 
     public final int getNumber() { return value; }
@@ -1012,27 +1290,62 @@ public final class CloudManagerAlarm {
         case 23: return Errorcode_PermissionDenied;
         case 24: return ErrorCode_ConnectDatabaseFailed;
         case 25: return ErrorCode_OperateDatabaseFailed;
-        case 60: return ErrorCode_AlreadyLogged;
-        case 200: return ErrorCode_CreateDataArkGroupFailed;
-        case 201: return ErrorCode_DataArkGroupExistent;
-        case 202: return ErrorCode_DeleteDataArkGroupFailed;
-        case 203: return ErrorCode_UpdateDataArkGroupFailed;
-        case 204: return ErrorCode_AddDataArkFailed;
-        case 205: return ErrorCode_RemoveDataArkFailed;
-        case 206: return ErrorCode_UpdateDataArkFailed;
-        case 300: return ErrorCode_UserGroupExistent;
-        case 301: return ErrorCode_UserGroupNonexistent;
-        case 302: return ErrorCode_UserExistent;
-        case 303: return ErrorCode_UserNonexistent;
-        case 304: return ErrorCode_UserPasswordUnmatch;
-        case 305: return ErrorCode_CreateUserFailed;
-        case 306: return ErrorCode_DeleteUserFailed;
-        case 10000: return ErrorCode_AlarmAddDataArkFailed;
-        case 10001: return ErrorCode_AlarmRemoveDataArkFailed;
-        case 10002: return ErrorCode_AlarmUpdateEmailAlarmFailed;
-        case 10003: return ErrorCode_AlarmCreateEmailAlarmFailed;
-        case 10004: return ErrorCode_AlarmDeleteEmailAlarmFailed;
-        case 10005: return ErrorCode_AlarmVerifyEmailAlarmFailed;
+        case 1000: return ErrorCode_AlreadyLogged;
+        case 1001: return ErrorCode_DataArkGroupExistent;
+        case 1002: return ErrorCode_UserGroupExistent;
+        case 1003: return ErrorCode_UserGroupNonexistent;
+        case 1004: return ErrorCode_UserExistent;
+        case 1005: return ErrorCode_UserNonexistent;
+        case 1006: return ErrorCode_UserPasswordUnmatch;
+        case 1007: return ErrorCode_UserOnline;
+        case 10000: return ErrorCode_GetPublicKeyFailed;
+        case 10001: return ErrorCode_LoginCloudManagerFailed;
+        case 10002: return ErrorCode_SendDekFailed;
+        case 10003: return ErrorCode_LogoutCloudManagerFailed;
+        case 10100: return ErrorCode_GetOverviewFailed;
+        case 10200: return ErrorCode_GetDataArksFailed;
+        case 10201: return ErrorCode_GetDataArkResourceFailed;
+        case 10202: return ErrorCode_CreateDataArkGroupFailed;
+        case 10203: return ErrorCode_DeleteDataArkGroupFailed;
+        case 10204: return ErrorCode_UpdateDataArkGroupFailed;
+        case 10205: return ErrorCode_AddDataArkFailed;
+        case 10206: return ErrorCode_RemoveDataArkFailed;
+        case 10207: return ErrorCode_UpdateDataArkFailed;
+        case 10208: return ErrorCode_MigrateDataArkFailed;
+        case 10209: return ErrorCode_AddDisasterDataArkFailed;
+        case 10210: return ErrorCode_RemoveDisasterDataArkFailed;
+        case 10211: return ErrorCode_GetClientsFailed;
+        case 10212: return ErrorCode_AddClientFailed;
+        case 10213: return ErrorCode_AddVcenterFailed;
+        case 10214: return ErrorCode_AddVmwareVirtualMachineFailed;
+        case 10215: return ErrorCode_RemoveClientFailed;
+        case 10216: return ErrorCode_RemoveVcenterFailed;
+        case 10217: return ErrorCode_RemoveVmwareVirtualMachineFailed;
+        case 10300: return ErrorCode_GetUsersFailed;
+        case 10301: return ErrorCode_CreateUserGroupFailed;
+        case 10302: return ErrorCode_DeleteUserGroupFailed;
+        case 10303: return ErrorCode_UpdateUserGroupFailed;
+        case 10304: return ErrorCode_MigrateUserGroupFailed;
+        case 10305: return ErrorCode_CreateUserFailed;
+        case 10306: return ErrorCode_DeleteUserFailed;
+        case 10307: return ErrorCode_UpdateUserPasswordFailed;
+        case 10308: return ErrorCode_ResetUserPasswordFailed;
+        case 10309: return ErrorCode_UpdateUserFailed;
+        case 10310: return ErrorCode_GetUserQuotaFailed;
+        case 10311: return ErrorCode_UpdateUserQuotaFailed;
+        case 10312: return ErrorCode_UpdateUserUsedQuotaFailed;
+        case 10313: return ErrorCode_MigrateUserFailed;
+        case 10314: return ErrorCode_CreateUserQuotaFailed;
+        case 10315: return ErrorCode_DeleteUserQuotaFailed;
+        case 10400: return ErrorCode_GetAlarmLogsFailed;
+        case 10401: return ErrorCode_UpdateAlarmLogProcessedFailed;
+        case 10402: return ErrorCode_DeleteAlarmLogFailed;
+        case 10403: return ErrorCode_GetOperationLogsFailed;
+        case 10500: return ErrorCode_GetEmailAlarmFailed;
+        case 10501: return ErrorCode_UpdateEmailAlarmFailed;
+        case 10502: return ErrorCode_CreateEmailAlarmFailed;
+        case 10503: return ErrorCode_DeleteEmailAlarmFailed;
+        case 10504: return ErrorCode_VerifyEmailAlarmFailed;
         default: return null;
       }
     }
@@ -6527,89 +6840,123 @@ public final class CloudManagerAlarm {
       "\022\021\n\tsmtp_port\030\003 \002(\r\022\036\n\026is_ssl_encrypt_en",
       "abled\030\004 \002(\010\022\036\n\026is_smtp_authentication\030\005 " +
       "\002(\010\022\024\n\014smtp_user_id\030\006 \002(\t\022\025\n\rsmtp_passwo" +
-      "rd\030\007 \002(\t\022\027\n\017receiver_emails\030\010 \003(\t*\263\n\n\007Co" +
+      "rd\030\007 \002(\t\022\027\n\017receiver_emails\030\010 \003(\t*\360\n\n\007Co" +
       "mmand\022\027\n\021Command_HeartBeat\020\330\247\005\022\030\n\024Comman" +
       "d_GetPublicKey\020\000\022\035\n\031Command_LoginCloudMa" +
-      "nager\020\001\022\023\n\017Command_SendDek\020\002\022\027\n\023Command_" +
-      "GetOverview\020d\022\037\n\033Command_GetDataArkExcep" +
-      "tion\020e\022\036\n\032Command_GetClientException\020f\022&" +
-      "\n\"Command_GetVirtualMachineException\020g\022\030" +
-      "\n\023Command_GetDataArks\020\310\001\022\035\n\030Command_GetD",
-      "ataArkDetail\020\311\001\022\037\n\032Command_CreateDataArk" +
-      "Group\020\312\001\022\037\n\032Command_DeleteDataArkGroup\020\313" +
-      "\001\022\037\n\032Command_UpdateDataArkGroup\020\314\001\022\027\n\022Co" +
-      "mmand_AddDataArk\020\315\001\022\032\n\025Command_RemoveDat" +
-      "aArk\020\316\001\022\032\n\025Command_UpdateDataArk\020\317\001\022\033\n\026C" +
-      "ommand_MigrateDataArk\020\320\001\022\037\n\032Command_AddD" +
-      "isasterDataArk\020\321\001\022\"\n\035Command_RemoveDisas" +
-      "terDataArk\020\322\001\022\027\n\022Command_GetClients\020\323\001\022\026" +
-      "\n\021Command_AddClient\020\324\001\022\031\n\024Command_Remove" +
-      "Client\020\325\001\022\025\n\020Command_GetUsers\020\254\002\022\034\n\027Comm",
-      "and_CreateUserGroup\020\255\002\022\034\n\027Command_Delete" +
-      "UserGroup\020\256\002\022\034\n\027Command_UpdateUserGroup\020" +
-      "\257\002\022\035\n\030Command_MigrateUserGroup\020\260\002\022\027\n\022Com" +
-      "mand_CreateUser\020\261\002\022\027\n\022Command_DeleteUser" +
-      "\020\262\002\022\037\n\032Command_UpdateUserPassword\020\263\002\022\036\n\031" +
-      "Command_ResetUserPassword\020\264\002\022\027\n\022Command_" +
-      "UpdateUser\020\265\002\022\031\n\024Command_GetUserQuota\020\266\002" +
-      "\022\034\n\027Command_UpdateUserQuota\020\267\002\022 \n\033Comman" +
-      "d_UpdateUserUsedQuota\020\270\002\022\030\n\023Command_Migr" +
-      "ateUser\020\271\002\022\031\n\024Command_GetAlarmLogs\020\220\003\022$\n",
-      "\037Command_UpdateAlarmLogProcessed\020\221\003\022\033\n\026C" +
-      "ommand_DeleteAlarmLog\020\222\003\022\035\n\030Command_GetO" +
-      "perationLogs\020\223\003\022\032\n\025Command_GetEmailAlarm" +
-      "\020\364\003\022\035\n\030Command_UpdateEmailAlarm\020\365\003\022\035\n\030Co" +
-      "mmand_CreateEmailAlarm\020\366\003\022\035\n\030Command_Del" +
-      "eteEmailAlarm\020\367\003\022\035\n\030Command_VerifyEmailA" +
-      "larm\020\370\003*\317\t\n\tErrorCode\022\025\n\021ErrorCode_Succe" +
-      "ss\020\000\022\024\n\020ErrorCode_Failed\020\001\022\033\n\027ErrorCode_" +
-      "ConnectFailed\020\n\022\030\n\024ErrorCode_SendFailed\020" +
-      "\013\022\033\n\027ErrorCode_ReceiveFailed\020\014\022#\n\037ErrorC",
-      "ode_UnrecognizedOperation\020\r\022\"\n\036ErrorCode" +
-      "_EnqueueCommandFailed\020\016\022\"\n\036ErrorCode_Deq" +
-      "ueueCommandFailed\020\017\022\033\n\027ErrorCode_Paramet" +
-      "rError\020\024\022\035\n\031ErrorCode_SerializeFailed\020\025\022" +
-      "\037\n\033ErrorCode_DeserializeFailed\020\026\022\036\n\032Erro" +
-      "rcode_PermissionDenied\020\027\022#\n\037ErrorCode_Co" +
-      "nnectDatabaseFailed\020\030\022#\n\037ErrorCode_Opera" +
-      "teDatabaseFailed\020\031\022\033\n\027ErrorCode_AlreadyL" +
-      "ogged\020<\022\'\n\"ErrorCode_CreateDataArkGroupF" +
-      "ailed\020\310\001\022#\n\036ErrorCode_DataArkGroupExiste",
-      "nt\020\311\001\022\'\n\"ErrorCode_DeleteDataArkGroupFai" +
-      "led\020\312\001\022\'\n\"ErrorCode_UpdateDataArkGroupFa" +
-      "iled\020\313\001\022\037\n\032ErrorCode_AddDataArkFailed\020\314\001" +
-      "\022\"\n\035ErrorCode_RemoveDataArkFailed\020\315\001\022\"\n\035" +
-      "ErrorCode_UpdateDataArkFailed\020\316\001\022 \n\033Erro" +
-      "rCode_UserGroupExistent\020\254\002\022#\n\036ErrorCode_" +
-      "UserGroupNonexistent\020\255\002\022\033\n\026ErrorCode_Use" +
-      "rExistent\020\256\002\022\036\n\031ErrorCode_UserNonexisten" +
-      "t\020\257\002\022\"\n\035ErrorCode_UserPasswordUnmatch\020\260\002" +
-      "\022\037\n\032ErrorCode_CreateUserFailed\020\261\002\022\037\n\032Err",
-      "orCode_DeleteUserFailed\020\262\002\022$\n\037ErrorCode_" +
-      "AlarmAddDataArkFailed\020\220N\022\'\n\"ErrorCode_Al" +
-      "armRemoveDataArkFailed\020\221N\022*\n%ErrorCode_A" +
-      "larmUpdateEmailAlarmFailed\020\222N\022*\n%ErrorCo" +
-      "de_AlarmCreateEmailAlarmFailed\020\223N\022*\n%Err" +
-      "orCode_AlarmDeleteEmailAlarmFailed\020\224N\022*\n" +
-      "%ErrorCode_AlarmVerifyEmailAlarmFailed\020\225" +
-      "N*\361\003\n\tException\022\021\n\rException_Tmp\020\000\022\035\n\031Ex" +
-      "ception_ClientLocalLost\020\001\022\036\n\032Exception_C" +
-      "lientTargetLost\020\002\022(\n$Exception_ClientCre",
-      "ateSnapshotFailed\020\003\022\033\n\027Exception_VmwareC" +
-      "btDrop\020\004\022\033\n\027Exception_ClientOffline\020\005\022\034\n" +
-      "\030Exception_VcenterOffline\020\006\022\031\n\025Exception" +
-      "_NodeOffline\020\007\022\030\n\024Exception_AllOffline\020\010" +
-      "\022#\n\037Exception_StreamerPoolException\020\t\022\035\n" +
-      "\031Exception_StreamerOffline\020\n\022$\n Exceptio" +
-      "n_ClientAutoExpandFailed\020\013\022\'\n#Exception_" +
-      "ClientSnapshotMergeFailed\020\014\022\037\n\033Exception" +
-      "_OracleStorageDrop\020\r\022\'\n#Exception_Disast" +
-      "erReplicationFailed\020\016*\211\001\n\nClientType\022\025\n\021",
-      "ClientType_Single\020\000\022#\n\037ClientType_Vmware" +
-      "VirtualMachine\020\001\022\023\n\017ClientType_Mscs\020\002\022\022\n" +
-      "\016ClientType_Rac\020\003\022\026\n\022ClientType_Vcenter\020" +
-      "\004* \n\007Version\022\021\n\rVersion_Value\020\001\032\002\020\001B)\n\024c" +
-      "n.infocore.protobufB\021CloudManagerAlarm"
+      "nager\020\001\022\023\n\017Command_SendDek\020\002\022\036\n\032Command_" +
+      "LogoutCloudManager\020\003\022\027\n\023Command_GetOverv" +
+      "iew\020d\022\030\n\023Command_GetDataArks\020\310\001\022\037\n\032Comma" +
+      "nd_GetDataArkResource\020\311\001\022\037\n\032Command_Crea" +
+      "teDataArkGroup\020\312\001\022\037\n\032Command_DeleteDataA",
+      "rkGroup\020\313\001\022\037\n\032Command_UpdateDataArkGroup" +
+      "\020\314\001\022\027\n\022Command_AddDataArk\020\315\001\022\032\n\025Command_" +
+      "RemoveDataArk\020\316\001\022\032\n\025Command_UpdateDataAr" +
+      "k\020\317\001\022\033\n\026Command_MigrateDataArk\020\320\001\022\037\n\032Com" +
+      "mand_AddDisasterDataArk\020\321\001\022\"\n\035Command_Re" +
+      "moveDisasterDataArk\020\322\001\022\027\n\022Command_GetCli" +
+      "ents\020\323\001\022\026\n\021Command_AddClient\020\324\001\022\027\n\022Comma" +
+      "nd_AddVcenter\020\325\001\022$\n\037Command_AddVmwareVir" +
+      "tualMachine\020\326\001\022\031\n\024Command_RemoveClient\020\327" +
+      "\001\022\032\n\025Command_RemoveVcenter\020\330\001\022\'\n\"Command",
+      "_RemoveVmwareVirtualMachine\020\331\001\022\025\n\020Comman" +
+      "d_GetUsers\020\254\002\022\034\n\027Command_CreateUserGroup" +
+      "\020\255\002\022\034\n\027Command_DeleteUserGroup\020\256\002\022\034\n\027Com" +
+      "mand_UpdateUserGroup\020\257\002\022\035\n\030Command_Migra" +
+      "teUserGroup\020\260\002\022\027\n\022Command_CreateUser\020\261\002\022" +
+      "\027\n\022Command_DeleteUser\020\262\002\022\037\n\032Command_Upda" +
+      "teUserPassword\020\263\002\022\036\n\031Command_ResetUserPa" +
+      "ssword\020\264\002\022\027\n\022Command_UpdateUser\020\265\002\022\031\n\024Co" +
+      "mmand_GetUserQuota\020\266\002\022\034\n\027Command_UpdateU" +
+      "serQuota\020\267\002\022 \n\033Command_UpdateUserUsedQuo",
+      "ta\020\270\002\022\030\n\023Command_MigrateUser\020\271\002\022\031\n\024Comma" +
+      "nd_GetAlarmLogs\020\220\003\022$\n\037Command_UpdateAlar" +
+      "mLogProcessed\020\221\003\022\033\n\026Command_DeleteAlarmL" +
+      "og\020\222\003\022\035\n\030Command_GetOperationLogs\020\223\003\022\032\n\025" +
+      "Command_GetEmailAlarm\020\364\003\022\035\n\030Command_Upda" +
+      "teEmailAlarm\020\365\003\022\035\n\030Command_CreateEmailAl" +
+      "arm\020\366\003\022\035\n\030Command_DeleteEmailAlarm\020\367\003\022\035\n" +
+      "\030Command_VerifyEmailAlarm\020\370\003*\325\023\n\tErrorCo" +
+      "de\022\025\n\021ErrorCode_Success\020\000\022\024\n\020ErrorCode_F" +
+      "ailed\020\001\022\033\n\027ErrorCode_ConnectFailed\020\n\022\030\n\024",
+      "ErrorCode_SendFailed\020\013\022\033\n\027ErrorCode_Rece" +
+      "iveFailed\020\014\022#\n\037ErrorCode_UnrecognizedOpe" +
+      "ration\020\r\022\"\n\036ErrorCode_EnqueueCommandFail" +
+      "ed\020\016\022\"\n\036ErrorCode_DequeueCommandFailed\020\017" +
+      "\022\033\n\027ErrorCode_ParametrError\020\024\022\035\n\031ErrorCo" +
+      "de_SerializeFailed\020\025\022\037\n\033ErrorCode_Deseri" +
+      "alizeFailed\020\026\022\036\n\032Errorcode_PermissionDen" +
+      "ied\020\027\022#\n\037ErrorCode_ConnectDatabaseFailed" +
+      "\020\030\022#\n\037ErrorCode_OperateDatabaseFailed\020\031\022" +
+      "\034\n\027ErrorCode_AlreadyLogged\020\350\007\022#\n\036ErrorCo",
+      "de_DataArkGroupExistent\020\351\007\022 \n\033ErrorCode_" +
+      "UserGroupExistent\020\352\007\022#\n\036ErrorCode_UserGr" +
+      "oupNonexistent\020\353\007\022\033\n\026ErrorCode_UserExist" +
+      "ent\020\354\007\022\036\n\031ErrorCode_UserNonexistent\020\355\007\022\"" +
+      "\n\035ErrorCode_UserPasswordUnmatch\020\356\007\022\031\n\024Er" +
+      "rorCode_UserOnline\020\357\007\022!\n\034ErrorCode_GetPu" +
+      "blicKeyFailed\020\220N\022&\n!ErrorCode_LoginCloud" +
+      "ManagerFailed\020\221N\022\034\n\027ErrorCode_SendDekFai" +
+      "led\020\222N\022\'\n\"ErrorCode_LogoutCloudManagerFa" +
+      "iled\020\223N\022 \n\033ErrorCode_GetOverviewFailed\020\364",
+      "N\022 \n\033ErrorCode_GetDataArksFailed\020\330O\022\'\n\"E" +
+      "rrorCode_GetDataArkResourceFailed\020\331O\022\'\n\"" +
+      "ErrorCode_CreateDataArkGroupFailed\020\332O\022\'\n" +
+      "\"ErrorCode_DeleteDataArkGroupFailed\020\333O\022\'" +
+      "\n\"ErrorCode_UpdateDataArkGroupFailed\020\334O\022" +
+      "\037\n\032ErrorCode_AddDataArkFailed\020\335O\022\"\n\035Erro" +
+      "rCode_RemoveDataArkFailed\020\336O\022\"\n\035ErrorCod" +
+      "e_UpdateDataArkFailed\020\337O\022#\n\036ErrorCode_Mi" +
+      "grateDataArkFailed\020\340O\022\'\n\"ErrorCode_AddDi" +
+      "sasterDataArkFailed\020\341O\022*\n%ErrorCode_Remo",
+      "veDisasterDataArkFailed\020\342O\022\037\n\032ErrorCode_" +
+      "GetClientsFailed\020\343O\022\036\n\031ErrorCode_AddClie" +
+      "ntFailed\020\344O\022\037\n\032ErrorCode_AddVcenterFaile" +
+      "d\020\345O\022,\n\'ErrorCode_AddVmwareVirtualMachin" +
+      "eFailed\020\346O\022!\n\034ErrorCode_RemoveClientFail" +
+      "ed\020\347O\022\"\n\035ErrorCode_RemoveVcenterFailed\020\350" +
+      "O\022/\n*ErrorCode_RemoveVmwareVirtualMachin" +
+      "eFailed\020\351O\022\035\n\030ErrorCode_GetUsersFailed\020\274" +
+      "P\022$\n\037ErrorCode_CreateUserGroupFailed\020\275P\022" +
+      "$\n\037ErrorCode_DeleteUserGroupFailed\020\276P\022$\n",
+      "\037ErrorCode_UpdateUserGroupFailed\020\277P\022%\n E" +
+      "rrorCode_MigrateUserGroupFailed\020\300P\022\037\n\032Er" +
+      "rorCode_CreateUserFailed\020\301P\022\037\n\032ErrorCode" +
+      "_DeleteUserFailed\020\302P\022\'\n\"ErrorCode_Update" +
+      "UserPasswordFailed\020\303P\022&\n!ErrorCode_Reset" +
+      "UserPasswordFailed\020\304P\022\037\n\032ErrorCode_Updat" +
+      "eUserFailed\020\305P\022!\n\034ErrorCode_GetUserQuota" +
+      "Failed\020\306P\022$\n\037ErrorCode_UpdateUserQuotaFa" +
+      "iled\020\307P\022(\n#ErrorCode_UpdateUserUsedQuota" +
+      "Failed\020\310P\022 \n\033ErrorCode_MigrateUserFailed",
+      "\020\311P\022$\n\037ErrorCode_CreateUserQuotaFailed\020\312" +
+      "P\022$\n\037ErrorCode_DeleteUserQuotaFailed\020\313P\022" +
+      "!\n\034ErrorCode_GetAlarmLogsFailed\020\240Q\022,\n\'Er" +
+      "rorCode_UpdateAlarmLogProcessedFailed\020\241Q" +
+      "\022#\n\036ErrorCode_DeleteAlarmLogFailed\020\242Q\022%\n" +
+      " ErrorCode_GetOperationLogsFailed\020\243Q\022\"\n\035" +
+      "ErrorCode_GetEmailAlarmFailed\020\204R\022%\n Erro" +
+      "rCode_UpdateEmailAlarmFailed\020\205R\022%\n Error" +
+      "Code_CreateEmailAlarmFailed\020\206R\022%\n ErrorC" +
+      "ode_DeleteEmailAlarmFailed\020\207R\022%\n ErrorCo",
+      "de_VerifyEmailAlarmFailed\020\210R*\361\003\n\tExcepti" +
+      "on\022\021\n\rException_Tmp\020\000\022\035\n\031Exception_Clien" +
+      "tLocalLost\020\001\022\036\n\032Exception_ClientTargetLo" +
+      "st\020\002\022(\n$Exception_ClientCreateSnapshotFa" +
+      "iled\020\003\022\033\n\027Exception_VmwareCbtDrop\020\004\022\033\n\027E" +
+      "xception_ClientOffline\020\005\022\034\n\030Exception_Vc" +
+      "enterOffline\020\006\022\031\n\025Exception_NodeOffline\020" +
+      "\007\022\030\n\024Exception_AllOffline\020\010\022#\n\037Exception" +
+      "_StreamerPoolException\020\t\022\035\n\031Exception_St" +
+      "reamerOffline\020\n\022$\n Exception_ClientAutoE",
+      "xpandFailed\020\013\022\'\n#Exception_ClientSnapsho" +
+      "tMergeFailed\020\014\022\037\n\033Exception_OracleStorag" +
+      "eDrop\020\r\022\'\n#Exception_DisasterReplication" +
+      "Failed\020\016*\211\001\n\nClientType\022\025\n\021ClientType_Si" +
+      "ngle\020\000\022#\n\037ClientType_VmwareVirtualMachin" +
+      "e\020\001\022\023\n\017ClientType_Mscs\020\002\022\022\n\016ClientType_R" +
+      "ac\020\003\022\026\n\022ClientType_Vcenter\020\004* \n\007Version\022" +
+      "\021\n\rVersion_Value\020\001\032\002\020\001B)\n\024cn.infocore.pr" +
+      "otobufB\021CloudManagerAlarm"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

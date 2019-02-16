@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import cn.infocore.entity.Email_alarm;
 import cn.infocore.mail.MailCenterRestry;
 import cn.infocore.mail.MailSender;
-import cn.infocore.operator.Header;
+import cn.infocore.operator.InforHeader;
 import cn.infocore.protobuf.CloudManagerAlarm.AddDataArkRequest;
 import cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest;
 import cn.infocore.protobuf.CloudManagerAlarm.RemoveDataArkRequest;
@@ -41,14 +41,14 @@ public class DealInformation implements Runnable {
 		try {
 			in = socket.getInputStream();
 			out = socket.getOutputStream();
-			byte[] header = new byte[Header.STREAMER_HEADER_LENGTH];
-			ioret = this.in.read(header, 0, Header.STREAMER_HEADER_LENGTH);
-			if (ioret != Header.STREAMER_HEADER_LENGTH) {
+			byte[] header = new byte[InforHeader.INFOR_HEADER_LENGTH];
+			ioret = this.in.read(header, 0, InforHeader.INFOR_HEADER_LENGTH);
+			if (ioret != InforHeader.INFOR_HEADER_LENGTH) {
 				logger.error(fmt("Failed to recived header,[%d] byte(s) expected,but [%d] is recevied.",
-						Header.STREAMER_HEADER_LENGTH, ioret));
+						InforHeader.INFOR_HEADER_LENGTH, ioret));
 				return;
 			}
-			Header myHeader = new Header();
+			InforHeader myHeader = new InforHeader();
 			myHeader.parseByteArray(header);
 			logger.info("Successed recived heartbeat from qiangge.");
 			int opCode = myHeader.getCommand();
@@ -72,13 +72,25 @@ public class DealInformation implements Runnable {
 			logger.info("Successed recived information.");
 
 		} catch (Exception e) {
-			logger.error("Failed to recived on DealInformation.");
+			logger.error("Failed to recived on DealInformation.",e);
+		}finally {
+			try {
+				if (this.in!=null) {
+					this.in.close();
+				}
+				if (this.out!=null) {
+					this.out.close();
+				}
+				this.socket.close();
+			} catch (Exception e2) {
+				logger.error("IO Exception occured while closing socket.", e2);
+			}
 		}
 
 	}
 
 	// 添加数据方舟
-	private void addDataArk(Header header) throws Exception {
+	private void addDataArk(InforHeader header) throws Exception {
 		logger.info("Recived addDataArk command.");
 		if (header == null) {
 			return;
@@ -113,7 +125,7 @@ public class DealInformation implements Runnable {
 	}
 
 	// 删除数据方舟
-	private void removeDataArk(Header header) throws IOException {
+	private void removeDataArk(InforHeader header) throws IOException {
 		if (header == null) {
 			return;
 		}
@@ -137,7 +149,7 @@ public class DealInformation implements Runnable {
 	}
 
 	// 更新数据方舟
-	private void updateDataArk(Header header) throws IOException {
+	private void updateDataArk(InforHeader header) throws IOException {
 		if (header == null) {
 			return;
 		}
@@ -162,7 +174,7 @@ public class DealInformation implements Runnable {
 	}
 
 	// 添加邮件报警配置
-	private void createEmailAlarm(Header header) throws IOException {
+	private void createEmailAlarm(InforHeader header) throws IOException {
 		if (header == null) {
 			return;
 		}
@@ -181,12 +193,13 @@ public class DealInformation implements Runnable {
 			return;
 		}
 		String name = request.getUserId();
+		header.setErrorCode(0);
 		MailCenterRestry.getInstance().addMailService(name);
 		logger.info("Add email alarm user successed.");
 	}
 
 	// 更新邮件报警配置,其实可以和上面同用一个接口
-	private void updateEmailAlarm(Header header) throws IOException {
+	private void updateEmailAlarm(InforHeader header) throws IOException {
 		if (header == null) {
 			return;
 		}
@@ -205,12 +218,13 @@ public class DealInformation implements Runnable {
 			return;
 		}
 		String name = request.getUserId();
+		header.setErrorCode(0);
 		MailCenterRestry.getInstance().addMailService(name);
 		logger.info("Update email alarm user successed.");
 	}
 
 	// 测试邮件报警配置
-	private void verifyEmailAlarm(Header header) throws IOException {
+	private void verifyEmailAlarm(InforHeader header) throws IOException {
 		if (header == null)
 			return;
 		if (header.getCommand() != 504) {
@@ -222,6 +236,7 @@ public class DealInformation implements Runnable {
 		ioret = in.read(buffer, 0, buffer.length);
 		if (ioret != buffer.length)
 			return;
+		header.setErrorCode(0);
 		VerifyEmailAlarmRequest request = VerifyEmailAlarmRequest.parseFrom(buffer);
 		if (request == null)
 			return;

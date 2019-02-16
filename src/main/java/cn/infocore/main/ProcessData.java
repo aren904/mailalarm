@@ -70,8 +70,9 @@ public class ProcessData implements Runnable{
 				logger.error(e);
 			}
 			logger.info("Heartbeat recived and parsed successed,wait next.");
+		}else {
+			logger.info("The data ark uuid:"+hrt.getUuid()+" is not in Cache or Database,refused it!!!");
 		}
-		
 	}
 	
 	//更新data_ark

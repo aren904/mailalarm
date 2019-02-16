@@ -14,23 +14,25 @@ enum Command {
   Command_GetPublicKey = 0;
   Command_LoginCloudManager = 1;
   Command_SendDek = 2;
+  Command_LogoutCloudManager = 3;
 
   /* login end */
   /* overview begin */
 
   Command_GetOverview = 100;
-  Command_GetDataArkException = 101;
-  Command_GetClientException = 102;
-  Command_GetVirtualMachineException = 103;
+  //Command_GetDataArkException = 101;
+  //Command_GetClientException = 102;
+  //Command_GetVirtualMachineException = 103;
 
   /* overview end */
   /* data ark management begin */
 
   Command_GetDataArks = 200;
-  Command_GetDataArkDetail = 201;
+  Command_GetDataArkResource = 201;
   Command_CreateDataArkGroup = 202;
   Command_DeleteDataArkGroup = 203;
   Command_UpdateDataArkGroup = 204;
+  
   Command_AddDataArk = 205;
   Command_RemoveDataArk = 206;
   Command_UpdateDataArk = 207;
@@ -39,7 +41,11 @@ enum Command {
   Command_RemoveDisasterDataArk = 210;
   Command_GetClients = 211;
   Command_AddClient = 212;
-  Command_RemoveClient = 213;
+  Command_AddVcenter = 213;
+  Command_AddVmwareVirtualMachine = 214;
+  Command_RemoveClient = 215;
+  Command_RemoveVcenter = 216;
+  Command_RemoveVmwareVirtualMachine = 217;
 
   /* data ark management end */
   /* user management begin*/
@@ -97,31 +103,86 @@ enum ErrorCode {
   ErrorCode_ConnectDatabaseFailed = 24;  // 连接数据库失败
   ErrorCode_OperateDatabaseFailed = 25;  // 执行数据库命令失败
 
-  ErrorCode_AlreadyLogged = 60;  // 已经登录
 
-  ErrorCode_CreateDataArkGroupFailed = 200;
-  ErrorCode_DataArkGroupExistent = 201;
-  ErrorCode_DeleteDataArkGroupFailed = 202;
-  ErrorCode_UpdateDataArkGroupFailed = 203;
-  ErrorCode_AddDataArkFailed = 204;
-  ErrorCode_RemoveDataArkFailed = 205;
-  ErrorCode_UpdateDataArkFailed = 206;
+  ErrorCode_AlreadyLogged = 1000;  // 已经登录，不能重复登录
+  ErrorCode_DataArkGroupExistent = 1001;
+  ErrorCode_UserGroupExistent = 1002;  // 已存在用户组
+  ErrorCode_UserGroupNonexistent = 1003;  // 不存在用户组
+  ErrorCode_UserExistent = 1004;  // 已存在用户
+  ErrorCode_UserNonexistent = 1005;  // 不存在用户
+  ErrorCode_UserPasswordUnmatch = 1006;  // 用户密码不匹配
+  ErrorCode_UserOnline = 1007;  // 删除用户失败，用户在线
 
-  ErrorCode_UserGroupExistent = 300;  // 已存在用户组
-  ErrorCode_UserGroupNonexistent = 301;  // 不存在用户组
-  ErrorCode_UserExistent = 302;
-  ErrorCode_UserNonexistent = 303;  // 用户不存在
-  ErrorCode_UserPasswordUnmatch = 304;  // 用户密码不匹配
-  ErrorCode_CreateUserFailed = 305;  // 创建用户失败
-  ErrorCode_DeleteUserFailed = 306;  // 删除用户失败
-  // TODO(shen.zhiqiang): ErrorCode.
+  /* login begin */
 
-  ErrorCode_AlarmAddDataArkFailed = 10000;  // 报警模块添加数据方舟失败
-  ErrorCode_AlarmRemoveDataArkFailed = 10001;  // 报警模块移除数据方舟失败
-  ErrorCode_AlarmUpdateEmailAlarmFailed = 10002;  // 报警模块更新邮件报警失败
-  ErrorCode_AlarmCreateEmailAlarmFailed = 10003;  // 报警模块创建邮件报警失败
-  ErrorCode_AlarmDeleteEmailAlarmFailed = 10004;  // 报警模块删除邮件报警失败
-  ErrorCode_AlarmVerifyEmailAlarmFailed = 10005;  // 报警模块验证邮件报警失败
+  ErrorCode_GetPublicKeyFailed = 10000;
+  ErrorCode_LoginCloudManagerFailed = 10001;
+  ErrorCode_SendDekFailed = 10002;
+  ErrorCode_LogoutCloudManagerFailed = 10003;
+  
+  ErrorCode_GetOverviewFailed = 10100;
+
+  /* overview end */
+  /* data ark management begin */
+
+  ErrorCode_GetDataArksFailed = 10200;
+  ErrorCode_GetDataArkResourceFailed = 10201;
+  ErrorCode_CreateDataArkGroupFailed = 10202;
+  ErrorCode_DeleteDataArkGroupFailed = 10203;
+  ErrorCode_UpdateDataArkGroupFailed = 10204;
+  ErrorCode_AddDataArkFailed = 10205;
+  ErrorCode_RemoveDataArkFailed = 10206;
+  ErrorCode_UpdateDataArkFailed = 10207;
+  ErrorCode_MigrateDataArkFailed = 10208;
+  ErrorCode_AddDisasterDataArkFailed = 10209;
+  ErrorCode_RemoveDisasterDataArkFailed = 10210;
+  ErrorCode_GetClientsFailed = 10211;
+  ErrorCode_AddClientFailed = 10212;
+  ErrorCode_AddVcenterFailed = 10213;
+  ErrorCode_AddVmwareVirtualMachineFailed = 10214;
+  
+  ErrorCode_RemoveClientFailed = 10215;
+  ErrorCode_RemoveVcenterFailed = 10216;
+  ErrorCode_RemoveVmwareVirtualMachineFailed = 10217;
+
+  /* data ark management end */
+  /* user management begin*/
+
+  ErrorCode_GetUsersFailed = 10300;
+  ErrorCode_CreateUserGroupFailed = 10301;
+  ErrorCode_DeleteUserGroupFailed = 10302;
+  ErrorCode_UpdateUserGroupFailed = 10303;
+  ErrorCode_MigrateUserGroupFailed = 10304;
+  ErrorCode_CreateUserFailed = 10305;
+  ErrorCode_DeleteUserFailed = 10306;
+  ErrorCode_UpdateUserPasswordFailed = 10307;
+  ErrorCode_ResetUserPasswordFailed = 10308;
+  ErrorCode_UpdateUserFailed = 10309;
+  ErrorCode_GetUserQuotaFailed = 10310;
+  ErrorCode_UpdateUserQuotaFailed = 10311;
+  ErrorCode_UpdateUserUsedQuotaFailed = 10312;
+  ErrorCode_MigrateUserFailed = 10313;
+  
+  ErrorCode_CreateUserQuotaFailed = 10314;
+  ErrorCode_DeleteUserQuotaFailed = 10315;
+
+  /* user management end */
+  /* log begin */
+
+  ErrorCode_GetAlarmLogsFailed = 10400;
+  ErrorCode_UpdateAlarmLogProcessedFailed = 10401;
+  ErrorCode_DeleteAlarmLogFailed = 10402;
+  ErrorCode_GetOperationLogsFailed = 10403;
+
+  /* log end */
+  /* system begin */
+
+  ErrorCode_GetEmailAlarmFailed = 10500;
+  ErrorCode_UpdateEmailAlarmFailed = 10501;
+  ErrorCode_CreateEmailAlarmFailed = 10502;  // 报警模块用
+  ErrorCode_DeleteEmailAlarmFailed = 10503;  // 报警模块用
+  ErrorCode_VerifyEmailAlarmFailed = 10504;
+  
 }
 
 enum Exception {

@@ -29,7 +29,8 @@ public class MailSender {
 		this.config=config;
 		final Properties properties = new Properties();
 		properties.put("mail.smtp.auth", config.getSmtp_authentication() == (byte)0 ? "false" : "true");//
-		properties.put("mail.debug", "true");
+		//properties.put("mail.debug", "true");
+		properties.put("mail.debug", "false");
 		properties.put("mail.smtp.host", config.getSmtp_address());
 		properties.put("mail.transport.protocol", "smtp");//
 		//properties.put("mail.smtp.port", config.getSmtp_port());
