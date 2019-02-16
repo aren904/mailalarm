@@ -130,10 +130,9 @@ public class MailSender {
 			transport.close();
 			logger.info("Mail send successed...");
 		} catch (AddressException e) {
-			System.out.println(e);
-			e.printStackTrace();
+			logger.error(e);
 		} catch (MessagingException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 }

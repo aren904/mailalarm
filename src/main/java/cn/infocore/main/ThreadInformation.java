@@ -16,7 +16,7 @@ public class ThreadInformation extends Thread{
 	private ExecutorService pool;
 	
 	private ThreadInformation() {
-		pool=Executors.newCachedThreadPool();
+		pool=Executors.newFixedThreadPool(10);
 	}
 	
 	public static ThreadInformation getInstance() {
@@ -49,8 +49,7 @@ public class ThreadInformation extends Thread{
 			try {
 				server.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e);
 			}			
 		}
 	}

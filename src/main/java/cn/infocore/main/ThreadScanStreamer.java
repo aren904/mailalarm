@@ -54,7 +54,7 @@ public class ThreadScanStreamer extends Thread {
 				Thread.sleep(sleeptime);
 
 			} catch (Exception e) {
-				// TODO: handle exception
+				logger.error("Error happened when scan data ark is offline.");
 			}
 		}
 	}
@@ -89,8 +89,7 @@ public class ThreadScanStreamer extends Thread {
 			try {
 				MailCenterRestry.getInstance().notifyCenter(fault);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e);
 			}
 		}
 		Connection connection=MyDataSource.getConnection();
@@ -100,7 +99,7 @@ public class ThreadScanStreamer extends Thread {
 		try {
 			qr.update(connection,sql, param);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		MyDataSource.close(connection);
 	}

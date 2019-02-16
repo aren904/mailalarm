@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import cn.infocore.operator.Header;
 import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
+import cn.infocore.utils.Utils;
 
 public class DealSocket implements Runnable{
 	private static final Logger logger=Logger.getLogger(DealSocket.class);
@@ -28,33 +29,33 @@ public class DealSocket implements Runnable{
 			byte[] h=new byte[Header.STREAMER_HEADER_LENGTH];
 			ioret=in.read(h,0,Header.STREAMER_HEADER_LENGTH);
 			if (ioret!=Header.STREAMER_HEADER_LENGTH) {
-				logger.error(fmt("Failed to recived header,[%d] byte(s) expected,but [%d] is recevied.",Header.STREAMER_HEADER_LENGTH,ioret));
+				logger.error(Utils.fmt("Failed to recived header,[%d] byte(s) expected,but [%d] is recevied.",Header.STREAMER_HEADER_LENGTH,ioret));
 				return;
 			}
 			Header header=new Header();
 			header.parseByteArray(h);
 			if (header.getCommand()!=87000) {
-				logger.error(fmt("Incorrect command"));
+				logger.error(Utils.fmt("Incorrect command"));
 				return;
 			}
 			
 			byte[] buffer=new byte[header.getDataLength()];
 			ioret=in.read(buffer, 0, buffer.length);
 			if (ioret!=buffer.length) {
-				logger.error(fmt("Failed to receive Protobuf"));
+				logger.error(Utils.fmt("Failed to receive Protobuf"));
 				return;
 			}
 			logger.info("Received heartbeat from data_ark.");
 			GetServerInfoReturn hrt=GetServerInfoReturn.parseFrom(buffer);
 			//转化protobuf,放入阻塞队列
 			CachedQueue.getInstance().addIntoQueue(hrt);
-			header.setErrorCode(0);
+			/*header.setErrorCode(0);
 			byte[] resp=header.toByteArray();
-			out.write(resp, 0, resp.length);
+			out.write(resp, 0, resp.length);*/
 			logger.info("Response heartbeat successed..");
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error("DealSocket failed."+e);
 		}finally {
 			try {
 				if (in!=null)
@@ -63,11 +64,9 @@ public class DealSocket implements Runnable{
 					out.close();
 				this.socket.close();
 			} catch (Exception e2) {
-				// TODO: handle exception
+				logger.error(e2);
 			}
 		}
 	}
-	private static String fmt(String fmt,Object...obj) {
-		return String.format(fmt, obj);
-	}
+	
 }

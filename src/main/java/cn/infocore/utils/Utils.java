@@ -3,6 +3,11 @@ package cn.infocore.utils;
 
 public class Utils {
 
+	
+	public static String fmt(String fmt,Object...obj) {
+		return String.format(fmt, obj);
+	}
+	
 	// 获取异常等级
 	public static String getAlarmInformationClass(int faultType) {
 		String ret = "";

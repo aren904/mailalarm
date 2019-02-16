@@ -16,7 +16,7 @@ public class ThreadHeartbeat extends Thread{
 	private ExecutorService threadPool;
 	
 	private ThreadHeartbeat() {
-		threadPool=Executors.newCachedThreadPool();
+		threadPool=Executors.newFixedThreadPool(50);
 	}
 	
 	public static ThreadHeartbeat getInstance() {
@@ -49,8 +49,7 @@ public class ThreadHeartbeat extends Thread{
 			try {
 				serverSocket.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e);
 			}
 		}
 		

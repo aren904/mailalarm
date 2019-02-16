@@ -12,7 +12,7 @@ public class ThreadConsume extends Thread{
 	private ExecutorService consumePool;
 	
 	private ThreadConsume() {
-		consumePool=Executors.newCachedThreadPool();
+		consumePool=Executors.newFixedThreadPool(50);
 	}
 	
 	public static ThreadConsume getInstance() {
@@ -31,12 +31,8 @@ public class ThreadConsume extends Thread{
 		GetServerInfoReturn hrt=null;
 		while(true) {
 			hrt=CachedQueue.getInstance().getOutFromQueue();
-			/*if (hrt!=null) {
-				logger.info(hrt);
-			}*/
 			logger.info("Start deal heartbeat..");
 			consumePool.execute(new ProcessData(hrt));
-			
 		}
 		
 	}
