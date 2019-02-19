@@ -22,14 +22,18 @@ enum FaultType{
     VWARE_CBT_DROP = 4;              //CBT异常
     CLIENT_OFFLINE = 5;              //客户端离线
     VCENTER_OFFLINE = 6;             //VCENTER离线
-    EXIST_OFFLINE  = 7;              //集群/rac节点或实例离线
-    ALL_OFFLINE = 8;                 //集群/rac离线
+    CLUSTER_NODE_EXIST_OFFLINE = 7;  //集群节点或实例离线
+    CLUSTER_NODE_OFFLINE = 8;			 //集群离线
     STREAMER_POOL_DISABLE = 9;       //存储池异常
     STREAMER_OFFLINE = 10;           //Streamer离线
     CLIENT_AUTO_EXPAND_FAILED = 11;  //自动扩容失败
     CLIENT_SNAP_MERGE_FAILED = 12;   //快照合并失败
     ORACLE_STORAGE_DROP = 13;        //oracle备份空间异常
     DR_COPY_FAILED = 14;             //容灾复制失败
+    RAC_NODE_EXIST_OFFLINE = 15;     //RAC节点离线
+    RAC_NODE_OFFLINE = 16;           //RAC节点全部离线
+    RAC_INSTANCE_EXIST_OFFLINE = 17; //RAC实例离线
+    RAC_INSTANCE_OFFLINE = 18;       //RAC实例全部离线
 
 }
 

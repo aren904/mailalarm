@@ -6,7 +6,7 @@ public class Email_alarm {
 	//是否开启邮件报警
 	private byte enabled;
 	//已经添加的异常 ; 分隔
-	private String except;
+	private String exceptions;
 	//是否启用限制：同一告警事件在 limit_suppress_time  
 	private byte limit_enabled;
 	//时间范围内只发送一封邮件
@@ -31,11 +31,31 @@ public class Email_alarm {
 	private String smtp_user_id;
 	
 	//smtp password
-	private String stmp_password;
+	private String smtp_password;
 	
 	
 	//对应User的id字段，是外健
 	private String user_id;
+
+
+	public String getExceptions() {
+		return exceptions;
+	}
+
+
+	public void setExceptions(String exceptions) {
+		this.exceptions = exceptions;
+	}
+
+
+	public String getSmtp_password() {
+		return smtp_password;
+	}
+
+
+	public void setSmtp_password(String smtp_password) {
+		this.smtp_password = smtp_password;
+	}
 
 
 	public byte getSmtp_authentication() {
@@ -58,14 +78,7 @@ public class Email_alarm {
 	}
 
 
-	public String getStmp_password() {
-		return stmp_password;
-	}
-
-
-	public void setStmp_password(String stmp_password) {
-		this.stmp_password = stmp_password;
-	}
+	
 
 
 	public int getId() {
@@ -88,14 +101,7 @@ public class Email_alarm {
 	}
 
 
-	public String getExcept() {
-		return except;
-	}
-
-
-	public void setExcept(String except) {
-		this.except = except;
-	}
+	
 
 
 	public byte getLimit_enabled() {

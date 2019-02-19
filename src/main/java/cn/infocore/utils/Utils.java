@@ -14,15 +14,19 @@ public class Utils {
 		switch (faultType) {
 		case 1:
 		case 2:
-		case 5:
-		case 13:
 		case 4:
+		case 5:
 		case 6:
-		case 14:
-		case 10:
 		case 7:
 		case 8:
 		case 9:
+		case 10:
+		case 13:
+		case 14:
+		case 15:
+		case 16:
+		case 17:
+		case 18:
 			ret = "故障";
 			break;
 		case 3:
@@ -63,10 +67,10 @@ public class Utils {
 			ret = "VCenter离线";
 			break;
 		case 7:
-			ret = "集群/rac节点或实例离线";
+			ret = "集群节点或实例存在离线";
 			break;
 		case 8:
-			ret = "集群/rac离线";
+			ret = "集群全部离线";
 			break;
 		case 9:
 			ret = "存储池异常";
@@ -86,7 +90,17 @@ public class Utils {
 		case 14:
 			ret = "容灾复制失败";
 			break;
-
+		case 15:
+			ret="RAC节点存在离线";
+			break;
+		case 16:
+			ret="RAC节点全部离线";
+			break;
+		case 17:
+			ret="RAC实例存在离线";
+		case 18:
+			ret="RAC实例全部离线";
+			break;
 		default:
 			ret = "未知异常";
 			break;

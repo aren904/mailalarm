@@ -7,10 +7,8 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.mail.Address;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.log4j.Logger;
@@ -45,7 +43,19 @@ public class MailSender {
 		});*/
 		s=Session.getInstance(properties);
 		message = new MimeMessage(s);
-
+		try {
+			Address from = new InternetAddress(config.getSender_email());
+			message.setFrom(from);
+			
+			// 设置收件人邮箱,这里是多个收件人
+			String[] recv = config.getReceiver_emails().split(";");
+			for (String r : recv) {
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(r));
+			}
+		} catch (Exception e) {
+			logger.error(e);
+		}
+		
 	}
 
 	public Email_alarm getConfig() {
@@ -53,25 +63,33 @@ public class MailSender {
 	}
 
 	// 逻辑处理
-	public void judge(Fault fault) {
+	public void judge(Fault fault,String user) {
 
 		long now = System.currentTimeMillis() / 1000;
-		String[] e = config.getExcept().split(";");
+		String[] e = config.getExceptions().split(";");
 		for (String string : e) {
 			// 如果该用户已经添加这个异常
 			if (string.equals(Integer.toString(fault.getType()))) {
 				// 是否开启限制
-				String key = fault.getData_ark_id() + fault.getTarget() + fault.getType();
+				String key = user+fault.getData_ark_id() + fault.getTarget() + fault.getType();
 				if (config.getEnabled() == 0) {
 					// 未开启,直接发送异常邮件
-					send(fault);
+					try {
+						send(fault);
+					} catch (Exception e1) {
+						logger.error(e1);
+					}
 					howOfen.put(key, now);// 保存一下发送的时间戳
 				} else {
 					// 已经开启
 					long split = config.getLimit_suppress_time();
 					//初始map
-					if (howOfen.get(key)==null||howOfen.get(key) + split >= now) {
-						send(fault);
+					if (howOfen.get(key)==null||howOfen.get(key) + split <= now) {
+						try {
+							send(fault);
+						} catch (Exception e1) {
+							logger.error(e1);
+						}
 						howOfen.put(key, now);// 保存一下发送的时间戳
 					}
 				}
@@ -85,14 +103,14 @@ public class MailSender {
 	public void send(Fault fault) {
 		try {
 			// 发件人
-			Address from = new InternetAddress(config.getSender_email());
+			/*Address from = new InternetAddress(config.getSender_email());
 			message.setFrom(from);
-
+			
 			// 设置收件人邮箱,这里是多个收件人
 			String[] recv = config.getReceiver_emails().split(";");
 			for (String r : recv) {
 				message.addRecipient(Message.RecipientType.TO, new InternetAddress(r));
-			}
+			}*/
 			// 邮件标题
 			/*
 			 * 格式 主题:云容灾管理平台告警信息 
@@ -113,11 +131,11 @@ public class MailSender {
 				builder.append(fault.getData_ark_name());
 				builder.append("(" + fault.getData_ark_ip() + ")"+fault.getTarget()+Utils.getAlarmInformationType(fault.getType())+"\n");
 				builder.append("\t告警等级:" + Utils.getAlarmInformationClass(fault.getType())+"\n");
-				String time = new SimpleDateFormat("yyyy/MM/dd hh:mm").format(new Date(fault.getTimestamp()));
+				String time = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(fault.getTimestamp()*1000);
 				builder.append("\t告警时间:" + time+"\n");
 				builder.append("\t对应数据方舟:" + fault.getData_ark_name()+"\n");
-				builder.append("\t对应告警对象:" + fault.getTarget()+"\n\n");
-				builder.append("\t此致\n\t敬礼!\n\n");
+				builder.append("\t对应告警对象:" + fault.getTarget()+"\n");
+				//builder.append("\t此致\n\t敬礼!\n\n");
 			}else {
 				builder.append("这是一封来自数据方舟统一管理平台的测试邮件!");
 			}
@@ -125,14 +143,13 @@ public class MailSender {
 			message.setSentDate(new Date());
 			//message.saveChanges();
 			Transport transport = s.getTransport();
-			transport.connect(config.getSmtp_user_id(), config.getStmp_password());
+			transport.connect(config.getSmtp_user_id(), config.getSmtp_password());
 			// 发送
 			transport.sendMessage(message, message.getAllRecipients());
 			transport.close();
 			logger.info("Mail send successed...");
-		} catch (AddressException e) {
-			logger.error(e);
-		} catch (MessagingException e) {
+			
+		} catch (Exception e) {
 			logger.error(e);
 		}
 	}

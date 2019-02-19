@@ -19,6 +19,7 @@ import cn.infocore.protobuf.StmStreamerDrManage.Streamer;
 import cn.infocore.protobuf.StmStreamerDrManage.Vcent;
 import cn.infocore.protobuf.StmStreamerDrManage.Vmware;
 import cn.infocore.utils.MyDataSource;
+import cn.infocore.handler.NameHandler;
 
 //解析数据，拦截，触发报警，写数据库等操作
 public class ProcessData implements Runnable{
@@ -43,7 +44,10 @@ public class ProcessData implements Runnable{
 		//1.解析protobuf
 		//如果过来的数据方舟心跳的uuid不再内存维护链表中，扔掉....
 		Set<String> uSet=DataArkList.getInstance().getData_ark_list().keySet();
+		long now = System.currentTimeMillis() / 1000;
 		if (uSet.contains(hrt.getUuid())) {
+			//把所有心跳过来的时间更新到HeartCache,做这个是为了检测数据方舟离线的.
+			HeartCache.getInstance().addHeartCache(hrt.getUuid(), now);
 			logger.info("Recived heartbeat from data ark,and data ark is on the data_ark_list,data ark uuid:"+hrt.getUuid());
 			//初始化
 			data_ark=new Data_ark();
@@ -79,8 +83,8 @@ public class ProcessData implements Runnable{
 	private void updateData_ark(Data_ark data_ark) {
 		logger.info("Start update data ark in database.");
 		QueryRunner qr=new QueryRunner();
-		String sql="update data_ark set name=?,ip=?,total_capacity=?,used_capacity=?,exceptions=?,total_oracle_capacity=? where id=?";
-		Object[] param= {data_ark.getName(),data_ark.getIp(),data_ark.getTotal_cap(),data_ark.getUsed_cap(),
+		String sql="update data_ark set ip=?,total_capacity=?,used_capacity=?,exceptions=?,total_oracle_capacity=? where id=?";
+		Object[] param= {data_ark.getIp(),data_ark.getTotal_cap(),data_ark.getUsed_cap(),
 				data_ark.getExcept(),data_ark.getTotal_oracle_capacity(),data_ark.getId()};
 		Connection conn=MyDataSource.getConnection();
 		try {
@@ -99,7 +103,7 @@ public class ProcessData implements Runnable{
 		logger.info("Start update client in database.");
 		Connection connection=MyDataSource.getConnection();
 		QueryRunner qr=new QueryRunner();
-		String sql="update client set type=?,name=?,ips=?,execeptions=? where id=?";
+		String sql="update client set type=?,name=?,ips=?,execptions=? where id=?";
 		int size=list.size();
 		Object[][] param=new Object[size][];
 		for (int i=0;i<size;i++) {
@@ -178,17 +182,32 @@ public class ProcessData implements Runnable{
 		logger.info("From data ark heartbeat:");
 		logger.info(hrt.toString());
 	}
-	
+	//获取对应数据方舟的名称
+	private String getDataArkNmae(String uuid) {
+		Connection connection=MyDataSource.getConnection();
+		QueryRunner q=new QueryRunner();
+		String sql="select name from data_ark where id=?";
+		Object[] param= {uuid};
+		String name="";
+		try {
+			name=q.query(connection, sql, new NameHandler(), param);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			MyDataSource.close(connection);
+		}
+		return name;
+	}
 	
 	private void parse(GetServerInfoReturn hrt){
 		//把心跳过来的异常信息全部先封装起来		
 		long now=System.currentTimeMillis()/1000;
 		//开始封装Data_ark
-		data_ark.setId(hrt.getUuid());
+		String uuid=hrt.getUuid();
+		data_ark.setId(uuid);
 		Streamer streamer=hrt.getServer();
-		//data_ark.setName();
 		data_ark.setIp(streamer.getIp());
-		data_ark.setName(streamer.getName());
+		data_ark.setName(getDataArkNmae(uuid));
 		data_ark.setTotal_cap(streamer.getTotal());
 		data_ark.setUsed_cap(streamer.getUsed());
 		data_ark.setTotal_oracle_capacity(streamer.getOracleVol());

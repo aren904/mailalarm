@@ -44,7 +44,7 @@ public class ThreadHeartbeat extends Thread{
 			}
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}finally {
 			try {
 				serverSocket.close();

@@ -49,9 +49,9 @@ public class DealSocket implements Runnable{
 			GetServerInfoReturn hrt=GetServerInfoReturn.parseFrom(buffer);
 			//转化protobuf,放入阻塞队列
 			CachedQueue.getInstance().addIntoQueue(hrt);
-			/*header.setErrorCode(0);
+			header.setErrorCode(0);
 			byte[] resp=header.toByteArray();
-			out.write(resp, 0, resp.length);*/
+			out.write(resp, 0, resp.length);
 			logger.info("Response heartbeat successed..");
 			
 		} catch (Exception e) {

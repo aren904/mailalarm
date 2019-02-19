@@ -1,21 +1,19 @@
 package cn.infocore.main;
 
-import java.io.IOException;
-import java.net.InetAddress;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
+import cn.infocore.entity.Data_ark;
 import cn.infocore.entity.Fault;
 import cn.infocore.mail.MailCenterRestry;
+import cn.infocore.handler.DataArkHandler;
 import cn.infocore.utils.MyDataSource;
 
-//从DataArkList中取出，每隔一段时间ping一次，保证在线
 public class ThreadScanStreamer extends Thread {
 	private static final Logger logger = Logger.getLogger(ThreadScanStreamer.class);
-	private static final long sleeptime = 3 * 60 * 1000;
-
+	private static final long split=3*60;
 	private static volatile ThreadScanStreamer instance = null;
 
 	public ThreadScanStreamer() {
@@ -35,67 +33,73 @@ public class ThreadScanStreamer extends Thread {
 
 	@Override
 	public void run() {
-		Map<String, String> map = null;
-		while (true) {
-			try {
-				map = DataArkList.getInstance().getData_ark_list();
-				if (map.size()>0) {
-					logger.info("Successed get data ark list.");
-					for (Map.Entry<String, String> entry : map.entrySet()) {
-						String uuid = entry.getKey();
-						String ip = entry.getValue();
-						boolean connected = checkOffLine(ip);
-						updateOffLine(uuid, ip, connected);
+		Map<String, Long> map=null;
+		while(true) {
+			logger.info("Start Scanner data ark offline is or not....");
+			map=HeartCache.getInstance().getAllCacheList();
+			if (map.size()>0) {
+				for (Map.Entry<String, Long> entry:map.entrySet()) {
+					String uuid=entry.getKey();
+					long time=entry.getValue();
+					long now = System.currentTimeMillis() / 1000;
+					if (now-time>split) {
+						//当前时间-最后更新的时间>3分钟,认为掉线
+						logger.info("uuid:"+uuid+" is offline,update database.");
+						updateOffLine(uuid,false);
+					}else {
+						updateOffLine(uuid,true);
 					}
-				}else {
-					logger.warn("Failed to get data ark list.");
+					
 				}
-				logger.info("ThreadScanStreamer sleep 3 minutes.");
-				Thread.sleep(sleeptime);
-
-			} catch (Exception e) {
-				logger.error("Error happened when scan data ark is offline.");
 			}
-		}
-	}
-
-	// 检查是否掉线
-	private boolean checkOffLine(String ip) {
-		boolean status = false;
-		if (ip != null) {
 			try {
-				status = InetAddress.getByName(ip).isReachable(1000);
-			} catch (IOException e) {
-				return status;
+				Thread.sleep(split*1000);
+			} catch (InterruptedException e) {
+				logger.error("ThreadScanStreamer interupted...",e);
 			}
 		}
-		return status;
 	}
 
+	
 	// 更新数据库中是否离线的标志
-	private void updateOffLine(String uuid, String ip, boolean online) {
+	private void updateOffLine(String uuid, boolean online) {
 		// true 在线 false 离线
 		long now = System.currentTimeMillis() / 1000;
+		Connection connection=MyDataSource.getConnection();
+		String sql="";
+		QueryRunner qr=new QueryRunner();
 		if (!online) {
-			logger.warn("The data ark which ip:"+ip+"is offline...");
+			logger.warn("The data ark which uuid:"+uuid+"is offline...");
 			//如果离线，触发邮件报警
 			Fault fault = new Fault();
 			fault.setTimestamp(now);
 			fault.setType(10);
 			fault.setData_ark_id(uuid);
-			fault.setData_ark_name("null");
-			fault.setData_ark_ip(ip);
-			fault.setTarget("null");
+			sql="select * from data_ark where id=?";
+			Object[] param1= {uuid};
+			Data_ark data_ark=null;
+			try {
+				data_ark=qr.query(connection, sql, new DataArkHandler(), param1);
+			} catch (SQLException e1) {
+				logger.error(e1);
+			}
+			if (data_ark==null) {
+				fault.setData_ark_name("null");
+				fault.setData_ark_ip("null");
+				fault.setTarget("null");
+			}else {
+				fault.setData_ark_name(data_ark.getName());
+				fault.setData_ark_ip(data_ark.getIp());
+				fault.setTarget(data_ark.getName());
+			}
 			try {
 				MailCenterRestry.getInstance().notifyCenter(fault);
 			} catch (SQLException e) {
 				logger.error(e);
 			}
 		}
-		Connection connection=MyDataSource.getConnection();
-		String sql = "update data_ark set exceptions=? where id=?";
-		Object[] param = { online ? "10" : "0", uuid };
-		QueryRunner qr=new QueryRunner();
+		sql = "update data_ark set exceptions=? where id=?";
+		Object[] param = { online ? null : "10", uuid };
 		try {
 			qr.update(connection,sql, param);
 		} catch (SQLException e) {

@@ -9,33 +9,36 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 import cn.infocore.entity.UUid_ip;
 import cn.infocore.utils.MyDataSource;
-import cn.infocore.utils.UUid_ipHandler;
+import cn.infocore.handler.UUid_ipHandler;
 
 
 //内存中维护的数据方舟的列表,顺便初始化维护数据方舟心跳的单例queue
 public class DataArkList {
 	private static final Logger logger=Logger.getLogger(DataArkList.class);
 	private static volatile DataArkList instance=null;
-	private Connection connection=null;
 	//维护的数据方舟的uuid-->ip列表
 	private Map<String,String> data_ark_list=new ConcurrentHashMap<String, String>();
 	
 	private DataArkList() {
 		logger.info("Init,Start get all data ark from database.");
-		connection=MyDataSource.getConnection();
+		Connection connection=MyDataSource.getConnection();
 		//初始的时候，先从数据库中获取一次
 		String sql="select id,ip from data_ark";
 		QueryRunner qr=new QueryRunner();
 		List<UUid_ip> lIps=null;
 		try {
 			lIps=qr.query(connection, sql, new UUid_ipHandler());
+			for (UUid_ip uid_ip:lIps) {
+				this.data_ark_list.put(uid_ip.getUuid(), uid_ip.getIp());
+				//同时初始化维护数据方舟掉线的列表
+				HeartCache.getInstance().addHeartCache(uid_ip.getUuid(), 0L);
+			}
+			logger.info("Successed to get data ark,count:"+this.data_ark_list.size());
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e);
+		}finally {
+			MyDataSource.close(connection);
 		}
-		for (UUid_ip uid_ip:lIps) {
-			this.data_ark_list.put(uid_ip.getUuid(), uid_ip.getIp());
-		}
-		logger.info("Successed to get data ark,count:"+this.data_ark_list.size());
 	}
 	
 	public static DataArkList getInstance() {

@@ -179,21 +179,21 @@ public final class StmStreamerDrManage {
      */
     VCENTER_OFFLINE(6, 6),
     /**
-     * <code>EXIST_OFFLINE = 7;</code>
+     * <code>CLUSTER_NODE_EXIST_OFFLINE = 7;</code>
      *
      * <pre>
-     *集群/rac节点或实例离线
+     *集群节点或实例离线
      * </pre>
      */
-    EXIST_OFFLINE(7, 7),
+    CLUSTER_NODE_EXIST_OFFLINE(7, 7),
     /**
-     * <code>ALL_OFFLINE = 8;</code>
+     * <code>CLUSTER_NODE_OFFLINE = 8;</code>
      *
      * <pre>
-     *集群/rac离线
+     *集群离线
      * </pre>
      */
-    ALL_OFFLINE(8, 8),
+    CLUSTER_NODE_OFFLINE(8, 8),
     /**
      * <code>STREAMER_POOL_DISABLE = 9;</code>
      *
@@ -242,6 +242,38 @@ public final class StmStreamerDrManage {
      * </pre>
      */
     DR_COPY_FAILED(14, 14),
+    /**
+     * <code>RAC_NODE_EXIST_OFFLINE = 15;</code>
+     *
+     * <pre>
+     *RAC节点离线
+     * </pre>
+     */
+    RAC_NODE_EXIST_OFFLINE(15, 15),
+    /**
+     * <code>RAC_NODE_OFFLINE = 16;</code>
+     *
+     * <pre>
+     *RAC节点全部离线
+     * </pre>
+     */
+    RAC_NODE_OFFLINE(16, 16),
+    /**
+     * <code>RAC_INSTANCE_EXIST_OFFLINE = 17;</code>
+     *
+     * <pre>
+     *RAC实例离线
+     * </pre>
+     */
+    RAC_INSTANCE_EXIST_OFFLINE(17, 17),
+    /**
+     * <code>RAC_INSTANCE_OFFLINE = 18;</code>
+     *
+     * <pre>
+     *RAC实例全部离线
+     * </pre>
+     */
+    RAC_INSTANCE_OFFLINE(18, 18),
     ;
 
     /**
@@ -297,21 +329,21 @@ public final class StmStreamerDrManage {
      */
     public static final int VCENTER_OFFLINE_VALUE = 6;
     /**
-     * <code>EXIST_OFFLINE = 7;</code>
+     * <code>CLUSTER_NODE_EXIST_OFFLINE = 7;</code>
      *
      * <pre>
-     *集群/rac节点或实例离线
+     *集群节点或实例离线
      * </pre>
      */
-    public static final int EXIST_OFFLINE_VALUE = 7;
+    public static final int CLUSTER_NODE_EXIST_OFFLINE_VALUE = 7;
     /**
-     * <code>ALL_OFFLINE = 8;</code>
+     * <code>CLUSTER_NODE_OFFLINE = 8;</code>
      *
      * <pre>
-     *集群/rac离线
+     *集群离线
      * </pre>
      */
-    public static final int ALL_OFFLINE_VALUE = 8;
+    public static final int CLUSTER_NODE_OFFLINE_VALUE = 8;
     /**
      * <code>STREAMER_POOL_DISABLE = 9;</code>
      *
@@ -360,6 +392,38 @@ public final class StmStreamerDrManage {
      * </pre>
      */
     public static final int DR_COPY_FAILED_VALUE = 14;
+    /**
+     * <code>RAC_NODE_EXIST_OFFLINE = 15;</code>
+     *
+     * <pre>
+     *RAC节点离线
+     * </pre>
+     */
+    public static final int RAC_NODE_EXIST_OFFLINE_VALUE = 15;
+    /**
+     * <code>RAC_NODE_OFFLINE = 16;</code>
+     *
+     * <pre>
+     *RAC节点全部离线
+     * </pre>
+     */
+    public static final int RAC_NODE_OFFLINE_VALUE = 16;
+    /**
+     * <code>RAC_INSTANCE_EXIST_OFFLINE = 17;</code>
+     *
+     * <pre>
+     *RAC实例离线
+     * </pre>
+     */
+    public static final int RAC_INSTANCE_EXIST_OFFLINE_VALUE = 17;
+    /**
+     * <code>RAC_INSTANCE_OFFLINE = 18;</code>
+     *
+     * <pre>
+     *RAC实例全部离线
+     * </pre>
+     */
+    public static final int RAC_INSTANCE_OFFLINE_VALUE = 18;
 
 
     public final int getNumber() { return value; }
@@ -373,14 +437,18 @@ public final class StmStreamerDrManage {
         case 4: return VWARE_CBT_DROP;
         case 5: return CLIENT_OFFLINE;
         case 6: return VCENTER_OFFLINE;
-        case 7: return EXIST_OFFLINE;
-        case 8: return ALL_OFFLINE;
+        case 7: return CLUSTER_NODE_EXIST_OFFLINE;
+        case 8: return CLUSTER_NODE_OFFLINE;
         case 9: return STREAMER_POOL_DISABLE;
         case 10: return STREAMER_OFFLINE;
         case 11: return CLIENT_AUTO_EXPAND_FAILED;
         case 12: return CLIENT_SNAP_MERGE_FAILED;
         case 13: return ORACLE_STORAGE_DROP;
         case 14: return DR_COPY_FAILED;
+        case 15: return RAC_NODE_EXIST_OFFLINE;
+        case 16: return RAC_NODE_OFFLINE;
+        case 17: return RAC_INSTANCE_EXIST_OFFLINE;
+        case 18: return RAC_INSTANCE_OFFLINE;
         default: return null;
       }
     }
@@ -6650,17 +6718,20 @@ public final class StmStreamerDrManage {
       "erver\030\002 \002(\0132\t.Streamer\022\030\n\007clients\030\003 \003(\0132" +
       "\007.Client\022\026\n\006vcents\030\004 \003(\0132\006.Vcent*?\n\nClie" +
       "ntType\022\n\n\006SINGLE\020\000\022\n\n\006VMWARE\020\001\022\010\n\004MSCS\020\002" +
-      "\022\007\n\003RAC\020\003\022\006\n\002VC\020\004*\335\002\n\tFaultType\022\n\n\006NORMA" +
+      "\022\007\n\003RAC\020\003\022\006\n\002VC\020\004*\337\003\n\tFaultType\022\n\n\006NORMA" +
       "L\020\000\022\025\n\021CLIENT_LOCAL_LOST\020\001\022\023\n\017CLIENT_DST" +
       "_LOST\020\002\022\034\n\030CLIENT_CREATE_SNAP_AILED\020\003\022\022\n",
       "\016VWARE_CBT_DROP\020\004\022\022\n\016CLIENT_OFFLINE\020\005\022\023\n" +
-      "\017VCENTER_OFFLINE\020\006\022\021\n\rEXIST_OFFLINE\020\007\022\017\n" +
-      "\013ALL_OFFLINE\020\010\022\031\n\025STREAMER_POOL_DISABLE\020" +
-      "\t\022\024\n\020STREAMER_OFFLINE\020\n\022\035\n\031CLIENT_AUTO_E" +
-      "XPAND_FAILED\020\013\022\034\n\030CLIENT_SNAP_MERGE_FAIL" +
-      "ED\020\014\022\027\n\023ORACLE_STORAGE_DROP\020\r\022\022\n\016DR_COPY" +
-      "_FAILED\020\016B+\n\024cn.infocore.protobufB\023StmSt" +
-      "reamerDrManage"
+      "\017VCENTER_OFFLINE\020\006\022\036\n\032CLUSTER_NODE_EXIST" +
+      "_OFFLINE\020\007\022\030\n\024CLUSTER_NODE_OFFLINE\020\010\022\031\n\025" +
+      "STREAMER_POOL_DISABLE\020\t\022\024\n\020STREAMER_OFFL" +
+      "INE\020\n\022\035\n\031CLIENT_AUTO_EXPAND_FAILED\020\013\022\034\n\030" +
+      "CLIENT_SNAP_MERGE_FAILED\020\014\022\027\n\023ORACLE_STO" +
+      "RAGE_DROP\020\r\022\022\n\016DR_COPY_FAILED\020\016\022\032\n\026RAC_N" +
+      "ODE_EXIST_OFFLINE\020\017\022\024\n\020RAC_NODE_OFFLINE\020" +
+      "\020\022\036\n\032RAC_INSTANCE_EXIST_OFFLINE\020\021\022\030\n\024RAC" +
+      "_INSTANCE_OFFLINE\020\022B+\n\024cn.infocore.proto",
+      "bufB\023StmStreamerDrManage"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

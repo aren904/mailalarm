@@ -1,4 +1,4 @@
-package cn.infocore.utils;
+package cn.infocore.handler;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -76,7 +76,7 @@ public class InforHeader {
 		logger.info("[Command]: " + this.command);
 		logger.info("[ErrorCode]: " + this.errorCode);
 		logger.info("[Data length]: " + this.dataLength);
-		logger.info("[Flags]:"+this.flags1);
+		logger.info("[Flags1]:"+this.flags1);
 	}
 	
 	public boolean parseByteArray(byte[] ba) {
@@ -100,17 +100,25 @@ public class InforHeader {
 		byte[] baFlags=Arrays.copyOfRange(ba, 4, 6);
 		this.flags=ByteBuffer.wrap(baFlags).order(ByteOrder.LITTLE_ENDIAN).getShort();
 		
+		
 		byte[] baCommand=Arrays.copyOfRange(ba, 6, 10);
 		this.command=ByteBuffer.wrap(baCommand).order(ByteOrder.LITTLE_ENDIAN).getInt();
+		
 		
 		byte[] baerrorCode=Arrays.copyOfRange(ba, 10, 14);
 		this.errorCode=ByteBuffer.wrap(baerrorCode).order(ByteOrder.LITTLE_ENDIAN).getInt();
 		
+		
+		
 		byte[] baLength = Arrays.copyOfRange(ba, 14, 18);
 		this.dataLength = ByteBuffer.wrap(baLength).order(ByteOrder.LITTLE_ENDIAN).getInt();
 		
+	
+		
 		byte[] baFlags1 = Arrays.copyOfRange(ba, 18, 26);
 		this.flags1 = ByteBuffer.wrap(baFlags1).order(ByteOrder.LITTLE_ENDIAN).getLong();
+		
+	
 		logger.info("Create Info Header by little endian parsing binary array.");
 		logMe();
 		return true;
@@ -120,39 +128,41 @@ public byte[] toByteArray () {
 		
 		byte[] header = new byte[INFOR_HEADER_LENGTH];
 	
-		byte[] baVersion = ByteBuffer.allocate(1)
+		byte[] baVersion = ByteBuffer.allocate(1).order(ByteOrder.LITTLE_ENDIAN)
 				.put(INFOR_HEADER_VERSION).array();
 		System.arraycopy(baVersion, 0, header, 0, 1);
 		
-		byte[] baMsgType = ByteBuffer.allocate(1)
+		byte[] baMsgType = ByteBuffer.allocate(1).order(ByteOrder.LITTLE_ENDIAN)
 				.put(this.dataType).array();
 		System.arraycopy(baMsgType, 0, header, 1, 1);
 
-		byte[] baDirection=ByteBuffer.allocate(2)
+		byte[] baDirection=ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN)
 				.putShort(this.direction).array();
 		System.arraycopy(baDirection, 0, header, 2, 2);
 		
-		byte[] baFlags=ByteBuffer.allocate(2)
+		byte[] baFlags=ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN)
 				.putShort(this.flags).array();
 		System.arraycopy(baFlags, 0, header, 4, 2);
 		
-		byte[] baCommand=ByteBuffer.allocate(4)
+		byte[] baCommand=ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN)
 				.putInt(this.command).array();
 		System.arraycopy(baCommand, 0, header, 6, 4);
 		
-		byte[] baerrorCode=ByteBuffer.allocate(4).
-				putInt(this.errorCode).array();
+		
+		byte[] baerrorCode=ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN)
+				.putInt(this.errorCode).array();
 		System.arraycopy(baerrorCode, 0, header, 10, 4);
 		
-		byte[] baLength=ByteBuffer.allocate(4)
+		byte[] baLength=ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN)
 				.putInt(0).array();
 		System.arraycopy(baLength, 0, header, 14, 4);
 		
-		byte[] baFlags1=ByteBuffer.allocate(8)
+		
+		byte[] baFlags1=ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN)
 				.putLong(this.flags1).array();
 		System.arraycopy(baFlags1, 0, header, 18, 8);
 		
-		logger.debug("InforHeader dumped to binary array.");
+		logger.info("InforHeader dumped to binary array.");
 		return header;
 	}
 	

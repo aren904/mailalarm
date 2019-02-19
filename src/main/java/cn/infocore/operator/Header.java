@@ -8,8 +8,7 @@ import org.apache.log4j.Logger;
 
 
 public class Header {
-	//public static final short STREAMER_FROM_VMWARE = 9;
-	public static final byte STREAMER_VERSION_CODE = 1;
+	public static final short STREAMER_VERSION_CODE = 1;
 	public static final int STREAMER_HEADER_LENGTH = 20;
 	private static final Logger logger = Logger.getLogger(Header.class);
 	private short version;
@@ -119,42 +118,6 @@ public class Header {
 		this.dataLength = dataLength;
 	}
 
-
-	/*public boolean parseByteArray (byte[] ba) {
-		if (ba == null) {
-			logger.info("byte[] is null");
-			return false;
-		}
-		if (ba.length != STREAMER_HEADER_LENGTH) {
-			logger.info("Length is wrong");
-			return false;
-		}
-		
-		byte[] baVersion = Arrays.copyOfRange(ba, 0, 1);
-		this.version = ByteBuffer.wrap(baVersion).order(ByteOrder.BIG_ENDIAN).get();
-		
-		byte[] baMsgType = Arrays.copyOfRange(ba, 1, 2);
-		this.dataType = ByteBuffer.wrap(baMsgType).order(ByteOrder.BIG_ENDIAN).get();
-		
-		byte[] baReturnStatus = Arrays.copyOfRange(ba, 2, 4);
-		this.direction =ByteBuffer.wrap(baReturnStatus).order(ByteOrder.BIG_ENDIAN).getShort(); 
-		
-		byte[] baFlags = Arrays.copyOfRange(ba, 4, 6);
-		this.flags = ByteBuffer.wrap(baFlags).order(ByteOrder.BIG_ENDIAN).getShort();
-		
-		byte[] baFrom = Arrays.copyOfRange(ba, 6, 10);
-		this.command = ByteBuffer.wrap(baFrom).order(ByteOrder.BIG_ENDIAN).getInt();
-		
-		byte[] baOperation = Arrays.copyOfRange(ba, 10, 14);
-		this.errorCode = ByteBuffer.wrap(baOperation).order(ByteOrder.BIG_ENDIAN).getInt(); 
-		
-		byte[] baLength = Arrays.copyOfRange(ba, 14, 18);
-		this.dataLength = ByteBuffer.wrap(baLength).order(ByteOrder.BIG_ENDIAN).getInt();
-		
-		logger.info("Create Header by big endian  parsing binary array.");
-		logMe();
-		return true;
-	}*/
 	
 	
 	public boolean parseByteArray (byte[] ba) {
@@ -167,8 +130,10 @@ public class Header {
 			return false;
 		}
 		
-		byte[] baVersion = Arrays.copyOfRange(ba, 0, 2);
-		this.version = ByteBuffer.wrap(baVersion).order(ByteOrder.LITTLE_ENDIAN).getShort();
+		/*byte[] baVersion = Arrays.copyOfRange(ba, 0, 2);
+		this.version = ByteBuffer.wrap(baVersion).order(ByteOrder.LITTLE_ENDIAN).getShort();*/
+		byte[] baVersion = Arrays.copyOfRange(ba, 0, 1);
+		this.version = ByteBuffer.wrap(baVersion).order(ByteOrder.LITTLE_ENDIAN).get();
 		
 		byte[] baMsgType = Arrays.copyOfRange(ba, 2, 4);
 		this.dataType = ByteBuffer.wrap(baMsgType).order(ByteOrder.LITTLE_ENDIAN).getShort();
@@ -200,38 +165,36 @@ public class Header {
 		byte[] header = new byte[STREAMER_HEADER_LENGTH];
 		
 		byte[] baVersion = ByteBuffer.allocate(2)
-				.put(STREAMER_VERSION_CODE).array();
+				.putShort(STREAMER_VERSION_CODE).array();
 		System.arraycopy(baVersion, 0, header, 0, 2);
 		
-		/*byte[] baMsgType = ByteBuffer.allocate(2)
-				.put(this.dataType).array();
-		System.arraycopy(baMsgType, 0, header, 2, 2);*/
-
-		/*if (this.returnStatus != null) {
-			byte[] baReturnStatus = ByteBuffer.allocate(2)
-					.putShort(this.returnStatus.getShort()).array();
-			System.arraycopy(baReturnStatus, 0, header, 4, 2);
-		}*/
-
-		/*byte[] baFlags = ByteBuffer.allocate(2)
-				.putShort(this.flags).array();
-		System.arraycopy(baFlags, 0, header, 6, 2);*/
+		byte[] baDatatype=ByteBuffer.allocate(2)
+				.putShort(this.dataType).array();
+		System.arraycopy(baDatatype, 0, header, 2, 2);
 		
-		byte[] baFrom = ByteBuffer.allocate(2)
+		byte[] baDirection=ByteBuffer.allocate(2)
+				.putShort(this.direction).array();
+		System.arraycopy(baDirection, 0, header, 4, 2);
+		
+		byte[] baFlags=ByteBuffer.allocate(2)
+				.putShort(this.flags).array();
+		System.arraycopy(baFlags, 0, header, 6, 2);
+		
+		byte[] baCommand=ByteBuffer.allocate(4)
+				.putInt(this.command).array();
+		System.arraycopy(baCommand, 0, header, 8, 4);
+				
+		
+		byte[] baFrom = ByteBuffer.allocate(4)
 				.putInt(this.errorCode).array();
 		System.arraycopy(baFrom, 0, header, 12, 4);
 		
-		/*if (this.operation != null) {
-			byte[] baOperation = ByteBuffer.allocate(4)
-					.putInt(this.operation.getValue()).array();
-			System.arraycopy(baOperation, 0, header, 8, 4);
-		}*/
 
-		/*byte[] baLength = ByteBuffer.allocate(4)
-				.putInt(this.dataLength).array();
-		System.arraycopy(baLength, 0, header, 14, 4);*/
+		byte[] baLength = ByteBuffer.allocate(4)
+				.putInt(0).array();
+		System.arraycopy(baLength, 0, header, 16, 4);
 		
-		//logger.debug("StreamerHeader dumped to binary array.");
+		logger.debug("Header dumped to binary array.");
 		return header;
 	}
 }

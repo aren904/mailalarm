@@ -1,51 +1,33 @@
 package cn.infocore.utils;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import org.apache.commons.dbutils.QueryRunner;
-
-
+import cn.infocore.operator.InforHeader;
 
 public class Main {
 	public static void main(String[] args) {
+		InforHeader inforHeader=new InforHeader();
+		inforHeader.setVersion((byte)1);
+		inforHeader.setDataType((byte)0);
+		inforHeader.setDirection((short)0);
+		inforHeader.setFlags((short)0);
+		inforHeader.setCommand(504);
+		inforHeader.setErrorCode(100000);
+		inforHeader.setDataLength(100);
+		inforHeader.setFlags1(10000);
 		
-		Connection connection=MyDataSource.getConnection();
-		if (connection==null) {
-			System.out.println("Failed");
-		}
-		System.out.println("Connected success");
-		/*String sql="insert into alarm_log values(?,?,?,?,?,?,?,?,?)";
-		Object[] param= {null,System.currentTimeMillis()/1000,0,12,"data_ark_id","data_ark_name",
-				"192.168.1.1","data_ark_id",System.currentTimeMillis()/1000};
-		DBUtils.executUpdate(connection, sql, param);
-		MyDataSource.close(connection);
-		System.out.println("OK");*/
+		byte[] parse=inforHeader.toByteArray();
+		/*for (byte b:parse) {
+			System.out.println(Byte.toString(b));
+		}*/
 		
-		long before=System.currentTimeMillis()/1000;
-		QueryRunner qr=new QueryRunner();
-		String sql="insert into alarm_log values(?,?,?,?,?,?,?,?,?)";
-	
-		Object[][] param=new Object[10][];
-		for (int i=0;i<10;i++) {
-			param[i]=new Object[9];
-			param[i][0]=null;
-			param[i][1]=System.currentTimeMillis()/1000;
-			param[i][2]=0;
-			param[i][3]=i+12;
-			param[i][4]="data_ark_id"+i;
-			param[i][5]="data_ark_name"+i;
-			param[i][6]="192.168.1."+i;
-			param[i][7]="target-"+i;
-			param[i][8]=System.currentTimeMillis()/1000;
-		}
-		try {
-			qr.batch(connection, sql, param);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			MyDataSource.close(connection);
-		}
-		System.out.println("用时:"+(System.currentTimeMillis()/1000-before));
+		InforHeader inforHeader2=new InforHeader();
+		inforHeader2.parseByteArray(parse);
+		System.out.println(inforHeader2.getVersion());
+		System.out.println(inforHeader2.getDataType());
+		System.err.println(inforHeader2.getDirection());
+		System.out.println(inforHeader2.getFlags());
+		System.out.println(inforHeader2.getCommand());
+		System.out.println(inforHeader2.getErrorCode());
+		System.out.println(inforHeader2.getDataLength());
+		System.out.println(inforHeader2.getFlags1());
 	}
 }
