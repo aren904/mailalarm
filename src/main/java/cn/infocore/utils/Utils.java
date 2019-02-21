@@ -12,26 +12,32 @@ public class Utils {
 	public static String getAlarmInformationClass(int faultType) {
 		String ret = "";
 		switch (faultType) {
-		case 1:
-		case 2:
-		case 4:
+		
+		
 		case 5:
 		case 6:
-		case 7:
 		case 8:
 		case 9:
 		case 10:
 		case 13:
 		case 14:
-		case 15:
 		case 16:
 		case 17:
 		case 18:
+		case 19:
 			ret = "故障";
 			break;
+		case 1:
+		case 2:
 		case 3:
+		case 4:
+		case 7:
 		case 11:
 		case 12:
+		case 15:
+		case 20:
+		case 21:
+		case 22:
 			ret = "警告";
 			break;
 		default:
@@ -49,25 +55,25 @@ public class Utils {
 			ret = "用于调试，正常指令";
 			break;
 		case 1:
-			ret = "本地目标丢失";
+			ret = "本地丢失";
 			break;
 		case 2:
 			ret = "目标丢失";
 			break;
 		case 3:
-			ret = "任务计划创建快照点失败";
+			ret = "VMWare任务计划创建快照点失败";
 			break;
 		case 4:
 			ret = "CBT异常";
 			break;
 		case 5:
-			ret = "客户端离线";
+			ret = "普通客户端离线";
 			break;
 		case 6:
 			ret = "VCenter离线";
 			break;
 		case 7:
-			ret = "集群节点或实例存在离线";
+			ret = "集群节点存在离线";
 			break;
 		case 8:
 			ret = "集群全部离线";
@@ -101,6 +107,14 @@ public class Utils {
 		case 18:
 			ret="RAC实例全部离线";
 			break;
+		case 19:
+			ret="虚拟机离线";
+		case 20:
+			ret="普通客户端创建快照点失败";
+		case 21:
+			ret="RAC客户端创建快照点失败";
+		case 22:
+			ret="容灾端服务离线";
 		default:
 			ret = "未知异常";
 			break;

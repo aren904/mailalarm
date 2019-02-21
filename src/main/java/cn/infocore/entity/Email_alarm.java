@@ -24,6 +24,9 @@ public class Email_alarm {
 	//收件人
 	private String receiver_emails;
 	
+	//该发件人的权限等级
+	private int privilege_level;
+	
 	//是否启用身份验证
 	private byte smtp_authentication;
 	
@@ -36,6 +39,16 @@ public class Email_alarm {
 	
 	//对应User的id字段，是外健
 	private String user_id;
+
+
+	public int getPrivilege_level() {
+		return privilege_level;
+	}
+
+
+	public void setPrivilege_level(int privilege_level) {
+		this.privilege_level = privilege_level;
+	}
 
 
 	public String getExceptions() {

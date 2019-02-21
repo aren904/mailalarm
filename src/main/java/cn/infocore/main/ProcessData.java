@@ -278,6 +278,9 @@ public class ProcessData implements Runnable{
 				tmp.setfList(v_list_faults);
 				tmp.setType(vcent.getType().getNumber());
 				tmp.setData_ark_id(data_ark.getId());
+				if (clientList==null) {
+					clientList=new LinkedList<Client_>();
+				}
 				clientList.add(tmp);
 				//顺便封装虚拟机
 				List<Vmware> vmwareList=vcent.getClientsList();

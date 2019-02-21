@@ -34,6 +34,10 @@ enum FaultType{
     RAC_NODE_OFFLINE = 16;           //RAC节点全部离线
     RAC_INSTANCE_EXIST_OFFLINE = 17; //RAC实例离线
     RAC_INSTANCE_OFFLINE = 18;       //RAC实例全部离线
+    VMWARE_OFFLINE = 19;				 //虚拟机离线
+    CLIENT_CREATESNAP_FAILD = 20;    //普通客户端创建快照点失败
+    RAC_CREATE_SNAP_FAILED = 21;     //RAC客户端创建快照点失败
+    DR_SERVER_OFFLINE = 22;          //容灾服务离线 
 
 }
 

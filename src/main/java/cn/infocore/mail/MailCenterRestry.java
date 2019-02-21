@@ -26,7 +26,9 @@ public class MailCenterRestry implements Center {
 		// 初始的时候，先从数据库中获取一次
 		logger.info("Start collect mail config from database.");
 		QueryRunner qr = new QueryRunner();
-		String sql = "select * from email_alarm";
+		String sql = "select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,sender_password,smtp_address,"
+				+ "smtp_port,smtp_authentication,smtp_user_id,smtp_password,ssl_encrypt,receiver_emails,privilege_level "
+				+ "from email_alarm,user where email_alarm.user_id=user.id";
 		List<Email_alarm> eList = null;
 		try {
 			eList = qr.query(connection, sql, new BeanListHandler<Email_alarm>(Email_alarm.class));
@@ -72,15 +74,22 @@ public class MailCenterRestry implements Center {
 		// 通过查数据库，添加到本地，自己构造MailSender对象
 		Connection connection = MyDataSource.getConnection();
 		// 初始的时候，先从数据库中获取一次
-		String sql = "select * from email_alarm where user_id=?";
+		
+		String sql="select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,sender_password,smtp_address," + 
+				"smtp_port,smtp_authentication,smtp_user_id,smtp_password,ssl_encrypt,receiver_emails,privilege_level " + 
+				"from email_alarm,user where email_alarm.user_id=user.id and email_alarm.user_id=?";
 		QueryRunner qr = new QueryRunner();
 		Object[] para = { name };
 		List<Email_alarm> elList = null;
 		try {
 			elList = qr.query(connection, sql, new BeanListHandler<Email_alarm>(Email_alarm.class), para);
 			for (Email_alarm email_alarm : elList) {
-				if (email_alarm.getEnabled() == (byte) 0)
+				if (email_alarm.getEnabled() == (byte) 0) {
+					if (this.list.containsKey(name)) {
+						this.list.remove(name);
+					}
 					continue;
+				}
 				this.list.put(name, new MailSender(email_alarm));
 			}
 		} catch (SQLException e) {
@@ -102,18 +111,26 @@ public class MailCenterRestry implements Center {
 		String sql = null;
 		Connection connection = MyDataSource.getConnection();
 		for (Fault fault : list_fault) {
-			sql = "insert into alarm_log values(null,?,?,?,?,?,?,?,?) on duplicate key"
-					+ " update timestamp=?,processed=?";
-			Object[] condition = { fault.getTimestamp(), 0, fault.getType(), fault.getData_ark_id(),
-					fault.getData_ark_name(), fault.getData_ark_ip(), fault.getTarget(), 0L, fault.getTimestamp(),
-					fault.getType() == 0 ? 1 : 0 };
+			Object[] condition=null;
+			if (fault.getType()==0) {
+				sql="update alarm_log set processed=1,timestamp=? where data_ark_id=? and target=?";
+				condition= new Object[]{fault.getTimestamp(),fault.getData_ark_id(),fault.getTarget()};
+			}else {
+				sql = "insert into alarm_log values(null,?,?,?,?,?,?,?,?) on duplicate key"
+						+ " update timestamp=?,processed=0";
+				condition=new Object[] {fault.getTimestamp(),0,fault.getType(),fault.getData_ark_id(),
+						fault.getData_ark_name(), fault.getData_ark_ip(), fault.getTarget(),0L,fault.getTimestamp()};
+			}
+			
 			QueryRunner qr = new QueryRunner();
 			qr.execute(connection, sql, condition);
 			if (fault.getType() != 0) {
 				for (Map.Entry<String, MailSender> entry:this.list.entrySet()) {
 					String user=entry.getKey();
 					MailSender mailSender=entry.getValue();
-					if (user.equalsIgnoreCase("admin")||user.equalsIgnoreCase("root")) {
+					//判断是否属于管理员用户
+					Email_alarm conf=mailSender.getConfig();
+					if (conf.getPrivilege_level()==0||conf.getPrivilege_level()==1) {
 						mailSender.judge(fault,user);
 						logger.info("admin or root user start judge...");
 					}else {
@@ -134,6 +151,8 @@ public class MailCenterRestry implements Center {
 		MyDataSource.close(connection);
 	}
 
+
+	
 	public void updateMailService(String name, Email_alarm sender) {
 		// 同理，查询数据库，更新
 		// this.list.put(name, sender);
