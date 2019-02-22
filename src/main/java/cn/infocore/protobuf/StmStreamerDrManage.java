@@ -274,6 +274,38 @@ public final class StmStreamerDrManage {
      * </pre>
      */
     RAC_INSTANCE_OFFLINE(18, 18),
+    /**
+     * <code>VMWARE_OFFLINE = 19;</code>
+     *
+     * <pre>
+     *虚拟机离线
+     * </pre>
+     */
+    VMWARE_OFFLINE(19, 19),
+    /**
+     * <code>CLIENT_CREATESNAP_FAILD = 20;</code>
+     *
+     * <pre>
+     *普通客户端创建快照点失败
+     * </pre>
+     */
+    CLIENT_CREATESNAP_FAILD(20, 20),
+    /**
+     * <code>RAC_CREATE_SNAP_FAILED = 21;</code>
+     *
+     * <pre>
+     *RAC客户端创建快照点失败
+     * </pre>
+     */
+    RAC_CREATE_SNAP_FAILED(21, 21),
+    /**
+     * <code>DR_SERVER_OFFLINE = 22;</code>
+     *
+     * <pre>
+     *容灾服务离线 
+     * </pre>
+     */
+    DR_SERVER_OFFLINE(22, 22),
     ;
 
     /**
@@ -424,6 +456,38 @@ public final class StmStreamerDrManage {
      * </pre>
      */
     public static final int RAC_INSTANCE_OFFLINE_VALUE = 18;
+    /**
+     * <code>VMWARE_OFFLINE = 19;</code>
+     *
+     * <pre>
+     *虚拟机离线
+     * </pre>
+     */
+    public static final int VMWARE_OFFLINE_VALUE = 19;
+    /**
+     * <code>CLIENT_CREATESNAP_FAILD = 20;</code>
+     *
+     * <pre>
+     *普通客户端创建快照点失败
+     * </pre>
+     */
+    public static final int CLIENT_CREATESNAP_FAILD_VALUE = 20;
+    /**
+     * <code>RAC_CREATE_SNAP_FAILED = 21;</code>
+     *
+     * <pre>
+     *RAC客户端创建快照点失败
+     * </pre>
+     */
+    public static final int RAC_CREATE_SNAP_FAILED_VALUE = 21;
+    /**
+     * <code>DR_SERVER_OFFLINE = 22;</code>
+     *
+     * <pre>
+     *容灾服务离线 
+     * </pre>
+     */
+    public static final int DR_SERVER_OFFLINE_VALUE = 22;
 
 
     public final int getNumber() { return value; }
@@ -449,6 +513,10 @@ public final class StmStreamerDrManage {
         case 16: return RAC_NODE_OFFLINE;
         case 17: return RAC_INSTANCE_EXIST_OFFLINE;
         case 18: return RAC_INSTANCE_OFFLINE;
+        case 19: return VMWARE_OFFLINE;
+        case 20: return CLIENT_CREATESNAP_FAILD;
+        case 21: return RAC_CREATE_SNAP_FAILED;
+        case 22: return DR_SERVER_OFFLINE;
         default: return null;
       }
     }
@@ -6718,7 +6786,7 @@ public final class StmStreamerDrManage {
       "erver\030\002 \002(\0132\t.Streamer\022\030\n\007clients\030\003 \003(\0132" +
       "\007.Client\022\026\n\006vcents\030\004 \003(\0132\006.Vcent*?\n\nClie" +
       "ntType\022\n\n\006SINGLE\020\000\022\n\n\006VMWARE\020\001\022\010\n\004MSCS\020\002" +
-      "\022\007\n\003RAC\020\003\022\006\n\002VC\020\004*\337\003\n\tFaultType\022\n\n\006NORMA" +
+      "\022\007\n\003RAC\020\003\022\006\n\002VC\020\004*\303\004\n\tFaultType\022\n\n\006NORMA" +
       "L\020\000\022\025\n\021CLIENT_LOCAL_LOST\020\001\022\023\n\017CLIENT_DST" +
       "_LOST\020\002\022\034\n\030CLIENT_CREATE_SNAP_AILED\020\003\022\022\n",
       "\016VWARE_CBT_DROP\020\004\022\022\n\016CLIENT_OFFLINE\020\005\022\023\n" +
@@ -6730,8 +6798,11 @@ public final class StmStreamerDrManage {
       "RAGE_DROP\020\r\022\022\n\016DR_COPY_FAILED\020\016\022\032\n\026RAC_N" +
       "ODE_EXIST_OFFLINE\020\017\022\024\n\020RAC_NODE_OFFLINE\020" +
       "\020\022\036\n\032RAC_INSTANCE_EXIST_OFFLINE\020\021\022\030\n\024RAC" +
-      "_INSTANCE_OFFLINE\020\022B+\n\024cn.infocore.proto",
-      "bufB\023StmStreamerDrManage"
+      "_INSTANCE_OFFLINE\020\022\022\022\n\016VMWARE_OFFLINE\020\023\022",
+      "\033\n\027CLIENT_CREATESNAP_FAILD\020\024\022\032\n\026RAC_CREA" +
+      "TE_SNAP_FAILED\020\025\022\025\n\021DR_SERVER_OFFLINE\020\026B" +
+      "+\n\024cn.infocore.protobufB\023StmStreamerDrMa" +
+      "nage"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

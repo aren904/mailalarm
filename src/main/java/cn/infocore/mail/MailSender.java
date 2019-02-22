@@ -100,8 +100,8 @@ public class MailSender {
 	/**
 	 * 发送邮件
 	 */
-	public void send(Fault fault) {
-		try {
+	public void send(Fault fault) throws Exception{
+		//try {
 			// 发件人
 			/*Address from = new InternetAddress(config.getSender_email());
 			message.setFrom(from);
@@ -149,8 +149,8 @@ public class MailSender {
 			transport.close();
 			logger.info("Mail send successed...");
 			
-		} catch (Exception e) {
+		/*} catch (Exception e) {
 			logger.error(e);
-		}
+		}*/
 	}
 }

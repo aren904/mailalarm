@@ -108,13 +108,17 @@ public class Utils {
 			ret="RAC实例全部离线";
 			break;
 		case 19:
-			ret="虚拟机离线";
+			ret="VMWare虚拟机离线";
+			break;
 		case 20:
 			ret="普通客户端创建快照点失败";
+			break;
 		case 21:
 			ret="RAC客户端创建快照点失败";
+			break;
 		case 22:
-			ret="容灾端服务离线";
+			ret="容灾端服务异常";
+			break;
 		default:
 			ret = "未知异常";
 			break;

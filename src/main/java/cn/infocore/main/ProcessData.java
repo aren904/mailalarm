@@ -282,6 +282,18 @@ public class ProcessData implements Runnable{
 					clientList=new LinkedList<Client_>();
 				}
 				clientList.add(tmp);
+				//如果VC的异常是离线，则不用封装虚拟机以及虚拟机的异常
+				boolean offline=false;
+				for (FaultType ft:vcent.getVcentStateList()) {
+					if (ft==FaultType.VCENTER_OFFLINE) {
+						offline=true;
+						break;
+					}
+				}
+				if (offline) {
+					continue;
+				}
+				
 				//顺便封装虚拟机
 				List<Vmware> vmwareList=vcent.getClientsList();
 				if (vmwareList!=null&&vmwareList.size()>0) {

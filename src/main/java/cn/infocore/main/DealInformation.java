@@ -260,7 +260,7 @@ public class DealInformation implements Runnable {
 	}
 
 	// 测试邮件报警配置
-	private void verifyEmailAlarm(VerifyEmailAlarmRequest request){
+	private void verifyEmailAlarm(VerifyEmailAlarmRequest request) throws Exception{
 		Email_alarm email = new Email_alarm();
 		email.setSender_email(request.getSenderEmail());
 		email.setSmtp_address(request.getSmtpAddress());
