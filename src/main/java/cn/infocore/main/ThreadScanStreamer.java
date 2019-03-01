@@ -14,21 +14,17 @@ import cn.infocore.utils.MyDataSource;
 public class ThreadScanStreamer extends Thread {
 	private static final Logger logger = Logger.getLogger(ThreadScanStreamer.class);
 	private static final long split=3*60;
-	private static volatile ThreadScanStreamer instance = null;
 
 	public ThreadScanStreamer() {
 		logger.info("Init Data ark offline listener thread.");
 	}
 
+	private static class ThreadScanStreamerHolder{
+		public static ThreadScanStreamer instance=new ThreadScanStreamer();
+	}
+	
 	public static ThreadScanStreamer getInstance() {
-		if (instance == null) {
-			synchronized (ThreadScanStreamer.class) {
-				if (instance == null) {
-					instance = new ThreadScanStreamer();
-				}
-			}
-		}
-		return instance;
+		return ThreadScanStreamerHolder.instance;
 	}
 
 	@Override

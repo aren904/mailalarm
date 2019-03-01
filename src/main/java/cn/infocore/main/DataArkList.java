@@ -15,7 +15,6 @@ import cn.infocore.handler.UUid_ipHandler;
 //内存中维护的数据方舟的列表,顺便初始化维护数据方舟心跳的单例queue
 public class DataArkList {
 	private static final Logger logger=Logger.getLogger(DataArkList.class);
-	private static volatile DataArkList instance=null;
 	//维护的数据方舟的uuid-->ip列表
 	private Map<String,String> data_ark_list=new ConcurrentHashMap<String, String>();
 	
@@ -40,16 +39,13 @@ public class DataArkList {
 			MyDataSource.close(connection);
 		}
 	}
+	private static class DataArkListHolder{
+		public static DataArkList instance=new DataArkList();
+	}
+	
 	
 	public static DataArkList getInstance() {
-		if (instance==null) {
-			synchronized (DataArkList.class) {
-				if (instance==null) {
-					instance=new DataArkList();
-				}
-			}
-		}
-		return instance;
+		return DataArkListHolder.instance;
 	}
 	
 	//添加

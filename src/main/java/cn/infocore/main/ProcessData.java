@@ -63,8 +63,7 @@ public class ProcessData implements Runnable{
 			if (vmList!=null&&vmList.size()>0) {
 				updateVirtualMachine(vmList);
 			}
-			//2.拦截，报警过滤,查询数据库，如果数据库中存在这条错误，
-			//则检查是否勾选多久发送一次，当前的时间-上次更新时间
+			//所有异常通知邮件发送中心
 			try {
 				if (faults.size()>0) {
 					Fault[] faults_array=new Fault[faults.size()];

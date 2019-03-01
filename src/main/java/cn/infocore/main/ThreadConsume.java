@@ -8,21 +8,19 @@ import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
 
 public class ThreadConsume extends Thread{
 	private static final Logger logger = Logger.getLogger(ThreadConsume.class);
-	private static volatile ThreadConsume instance=null;
 	private ExecutorService consumePool;
 	
 	private ThreadConsume() {
 		consumePool=Executors.newFixedThreadPool(50);
 	}
 	
+	private static class ThreadConsumeHolder{
+		public static ThreadConsume instance=new ThreadConsume();
+	}
+	
+	
 	public static ThreadConsume getInstance() {
-		if (instance==null) {
-			synchronized (ThreadConsume.class) {
-				if (instance==null)
-				instance=new ThreadConsume();
-			}
-		}
-		return instance;
+		return ThreadConsumeHolder.instance;
 	}
 	
 	

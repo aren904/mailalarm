@@ -11,7 +11,6 @@ import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
 public class CachedQueue {
 	private static final Logger logger = Logger.getLogger(CachedQueue.class);
 	private static final int CAP=100;
-	private static volatile CachedQueue instance=null;
 	
 	private   BlockingQueue<GetServerInfoReturn>  queue;
 	
@@ -19,15 +18,13 @@ public class CachedQueue {
 		queue=new ArrayBlockingQueue<GetServerInfoReturn>(CAP);
 	}
 	
+	private static class CacheQueueHolder{
+		public static CachedQueue instance=new CachedQueue();
+	}
+	
+	
 	public static CachedQueue getInstance() {
-		if (instance==null) {
-			synchronized (CachedQueue.class) {
-				if (instance==null) {
-					instance=new CachedQueue();
-				}
-			}
-		}
-		return instance;
+		return CacheQueueHolder.instance;
 	}
 	
 	public void addIntoQueue(GetServerInfoReturn hrt) {

@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 //接收来自强哥的通知
 public class ThreadInformation extends Thread{
 	private static final Logger logger=Logger.getLogger(ThreadInformation.class);
-	private static volatile ThreadInformation instance=null;
 	private static final int C_PORT=23334;
 	private ExecutorService pool;
 	
@@ -19,20 +18,15 @@ public class ThreadInformation extends Thread{
 		pool=Executors.newFixedThreadPool(10);
 	}
 	
+	private static class ThreadInformationHolder{
+		public static ThreadInformation instance=new ThreadInformation();
+	}
+	
 	public static ThreadInformation getInstance() {
-		if (instance==null) {
-			synchronized (ThreadInformation.class) {
-				if (instance==null) {
-					instance=new ThreadInformation();
-				}
-			}
-		}
-		
-		return instance;
+		return ThreadInformationHolder.instance;
 	}
 	
 	//测试邮件通过把config直接传递过来，不需要读取数据库
-	
 	public void run() {
 		ServerSocket server=null;
 		try {

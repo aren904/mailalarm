@@ -12,23 +12,18 @@ public class ThreadHeartbeat extends Thread{
 
 	private static final Logger logger=Logger.getLogger(ThreadHeartbeat.class);
 	private static final int PORT=23335;
-	private static volatile ThreadHeartbeat instance=null;
 	private ExecutorService threadPool;
 	
 	private ThreadHeartbeat() {
 		threadPool=Executors.newFixedThreadPool(50);
 	}
 	
+	private static class ThreadHeartbeatHolder{
+		public static ThreadHeartbeat instance=new ThreadHeartbeat();
+	}
+	
 	public static ThreadHeartbeat getInstance() {
-		if (instance==null) {
-			synchronized (ThreadHeartbeat.class) {
-				if (instance==null) {
-					instance=new ThreadHeartbeat();
-				}
-			}
-		}
-		return instance;
-		
+		return ThreadHeartbeatHolder.instance;
 	}
 	
 	

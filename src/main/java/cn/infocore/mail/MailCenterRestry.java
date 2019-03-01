@@ -17,7 +17,6 @@ import cn.infocore.handler.QuotaHandler;
 //内存中维护的邮件注册列表
 public class MailCenterRestry implements Center {
 	private static final Logger logger = Logger.getLogger(MailCenterRestry.class);
-	private static volatile MailCenterRestry instance = null;
 	private Map<String, MailSender> list = null;// 必须线程安全
 
 	private MailCenterRestry() {
@@ -50,15 +49,12 @@ public class MailCenterRestry implements Center {
 		}
 	}
 
+	private static class MailCenterRestryHolder{
+		public static MailCenterRestry instance=new MailCenterRestry();
+	}
+	
 	public static MailCenterRestry getInstance() {
-		if (instance == null) {
-			synchronized (MailCenterRestry.class) {
-				if (instance == null) {
-					instance = new MailCenterRestry();
-				}
-			}
-		}
-		return instance;
+		return MailCenterRestryHolder.instance;
 	}
 
 	public void addAllMailService(List<Email_alarm> l) {
@@ -116,9 +112,9 @@ public class MailCenterRestry implements Center {
 				sql="update alarm_log set processed=1,timestamp=? where data_ark_id=? and target=?";
 				condition= new Object[]{fault.getTimestamp(),fault.getData_ark_id(),fault.getTarget()};
 			}else {
-				sql = "insert into alarm_log values(null,?,?,?,?,?,?,?,?) on duplicate key"
+				sql = "insert into alarm_log values(null,?,?,?,?,?,?,?,?,?) on duplicate key"
 						+ " update timestamp=?,processed=0";
-				condition=new Object[] {fault.getTimestamp(),0,fault.getType(),fault.getData_ark_id(),
+				condition=new Object[] {fault.getTimestamp(),0,0,fault.getType(),fault.getData_ark_id(),
 						fault.getData_ark_name(), fault.getData_ark_ip(), fault.getTarget(),0L,fault.getTimestamp()};
 			}
 			

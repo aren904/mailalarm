@@ -91,21 +91,22 @@ public class Utils {
 			ret = "快照合并失败";
 			break;
 		case 13:
-			ret = "oracle备份空间异常";
+			ret = "Oracle备份空间异常";
 			break;
 		case 14:
 			ret = "容灾复制失败";
 			break;
 		case 15:
-			ret="RAC节点存在离线";
+			ret="Oracle客户端存在节点离线";
 			break;
 		case 16:
-			ret="RAC节点全部离线";
+			ret="Oracle客户端所有节点离线";
 			break;
 		case 17:
-			ret="RAC实例存在离线";
+			ret="Oracle客户端存在实例离线";
+			break;
 		case 18:
-			ret="RAC实例全部离线";
+			ret="Oracle客户端所有实例离线";
 			break;
 		case 19:
 			ret="VMWare虚拟机离线";
@@ -114,7 +115,7 @@ public class Utils {
 			ret="普通客户端创建快照点失败";
 			break;
 		case 21:
-			ret="RAC客户端创建快照点失败";
+			ret="Oracle客户端创建快照点失败";
 			break;
 		case 22:
 			ret="容灾端服务异常";
