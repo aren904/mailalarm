@@ -50,6 +50,12 @@ public class Data_ark {
 
 	public void setFaults(List<Fault> faults) {
 		this.faults = faults;
+		StringBuilder string=new StringBuilder();
+		for (Fault fault:faults) {
+			string.append(Integer.toString(fault.getType()));
+			//string.append(";");
+		}
+		setExcept(string.toString());
 	}
 
 	public String getUser_id() {

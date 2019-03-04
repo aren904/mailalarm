@@ -38,6 +38,12 @@ public class Client_ {
 
 	public void setfList(List<Fault> fList) {
 		this.fList = fList;
+		StringBuilder string=new StringBuilder();
+		for (Fault fault:fList) {
+			string.append(Integer.toString(fault.getType()));
+			//string.append(";");
+		}
+		setExcept(string.toString());
 	}
 
 	public String getName() {

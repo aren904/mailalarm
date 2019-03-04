@@ -26,6 +26,13 @@ public class Virtual_machine {
 	}
 	public void setFaults(List<Fault> faults) {
 		this.faults = faults;
+		StringBuilder string=new StringBuilder();
+		for (Fault fault:faults) {
+			string.append(Integer.toString(fault.getType()));
+			//string.append(";");
+		}
+		setExcept(string.toString());
+		
 	}
 	public String getId() {
 		return id;
