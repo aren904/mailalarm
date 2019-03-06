@@ -15,6 +15,18 @@ public class Fault {
 	//数据方舟名或客户端名
 	private String target;
 	
+	//所属用户名
+	private String user_id;
+	
+	
+	
+	
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 	public long getTimestamp() {
 		return timestamp;
 	}

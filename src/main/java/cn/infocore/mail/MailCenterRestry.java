@@ -109,13 +109,13 @@ public class MailCenterRestry implements Center {
 		for (Fault fault : list_fault) {
 			Object[] condition=null;
 			if (fault.getType()==0) {
-				sql="update alarm_log set processed=1,timestamp=? where data_ark_id=? and target=?";
-				condition= new Object[]{fault.getTimestamp(),fault.getData_ark_id(),fault.getTarget()};
+				sql="update alarm_log set user_id=?,processed=1,timestamp=? where data_ark_id=? and target=?";
+				condition= new Object[]{fault.getUser_id(),fault.getTimestamp(),fault.getData_ark_id(),fault.getTarget()};
 			}else {
-				sql = "insert into alarm_log values(null,?,?,?,?,?,?,?,?,?) on duplicate key"
-						+ " update timestamp=?,processed=0";
+				sql = "insert into alarm_log values(null,?,?,?,?,?,?,?,?,?,?) on duplicate key"
+						+ " update user_id=?,timestamp=?,processed=0";
 				condition=new Object[] {fault.getTimestamp(),0,0,fault.getType(),fault.getData_ark_id(),
-						fault.getData_ark_name(), fault.getData_ark_ip(), fault.getTarget(),0L,fault.getTimestamp()};
+						fault.getData_ark_name(), fault.getData_ark_ip(), fault.getTarget(),0L,fault.getUser_id(),fault.getUser_id(),fault.getTimestamp()};
 			}
 			
 			QueryRunner qr = new QueryRunner();

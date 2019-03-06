@@ -41,8 +41,9 @@ public class Client_ {
 		StringBuilder string=new StringBuilder();
 		for (Fault fault:fList) {
 			string.append(Integer.toString(fault.getType()));
-			//string.append(";");
+			string.append(";");
 		}
+		string.deleteCharAt(string.length()-1);
 		setExcept(string.toString());
 	}
 

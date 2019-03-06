@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import cn.infocore.entity.Client_;
 import cn.infocore.entity.Data_ark;
 import cn.infocore.entity.Fault;
+import cn.infocore.entity.Vcenter;
 import cn.infocore.entity.Virtual_machine;
 import cn.infocore.mail.MailCenterRestry;
 import cn.infocore.protobuf.StmStreamerDrManage.Client;
@@ -20,6 +21,7 @@ import cn.infocore.protobuf.StmStreamerDrManage.Vcent;
 import cn.infocore.protobuf.StmStreamerDrManage.Vmware;
 import cn.infocore.utils.MyDataSource;
 import cn.infocore.handler.NameHandler;
+import cn.infocore.handler.User_idHandler;
 
 //解析数据，拦截，触发报警，写数据库等操作
 public class ProcessData implements Runnable{
@@ -31,7 +33,7 @@ public class ProcessData implements Runnable{
 	private Data_ark data_ark;
 	private List<Fault> faults;
 	private List<Virtual_machine> vmList;
-//	private List<Vcenter> vcList;
+	private List<Vcenter> vcList;
 	
 	public ProcessData(GetServerInfoReturn hrt) {
 		this.hrt=hrt;
@@ -58,7 +60,9 @@ public class ProcessData implements Runnable{
 			//判断是否为空，避免空指针异常抛出
 			if (clientList!=null&&clientList.size()>0) {
 				updateClient(clientList);
-				updateVcenter(clientList);
+			}
+			if (vcList!=null&&vcList.size()>0) {
+				updateVcenter(vcList);
 			}
 			if (vmList!=null&&vmList.size()>0) {
 				updateVirtualMachine(vmList);
@@ -125,20 +129,20 @@ public class ProcessData implements Runnable{
 	}
 	
 	//更新VC
-	private void updateVcenter(List<Client_> list) {
+	private void updateVcenter(List<Vcenter> list) {
 		logger.info("Start update VCenter..");
 		Connection connection=MyDataSource.getConnection();
 		QueryRunner qr=new QueryRunner();
-		String sql="update vcenter set name=?,ips=?,exceptions=? where id=?";
+		String sql="update vcenter set name=?,ips=?,exceptions=? where vcenter_id=?";
 		int size=list.size();
 		Object[][] param=new Object[size][];
 		for (int i=0;i<size;i++) {
-			Client_ c_=list.get(i);
+			Vcenter v=list.get(i);
 			param[i]=new Object[4];
-			param[i][0]=c_.getName();
-			param[i][1]=c_.getIps();
-			param[i][2]=c_.getExcept();
-			param[i][3]=c_.getId();
+			param[i][0]=v.getName();
+			param[i][1]=v.getIps();
+			param[i][2]=v.getExcep();
+			param[i][3]=v.getId();
 		}
 		try {
 			qr.batch(connection, sql, param);
@@ -198,6 +202,50 @@ public class ProcessData implements Runnable{
 		return name;
 	}
 	
+	private String getUserByConfirmedUUID(String uuid,int type) {
+		/*
+		 * type
+		 * 0:数据方舟
+		 * 1:客户端
+		 * 2:Vcenter
+		 * 3:虚拟机
+		 */
+		Connection connection=MyDataSource.getConnection();
+		QueryRunner q=new QueryRunner();
+		Object[] param= {uuid};
+		String result="";
+		String sql="";
+		switch(type) {
+			case 0:
+				sql="select user_id from data_ark where id=?";
+				break;
+			case 1:
+				sql="select user_id from client where id=?";
+				break;
+			case 2:
+				sql="select user_id from vcenter where vcenter_id=?";
+				break;
+			case 3:
+				sql="select user_id from virtual_machine where id=?";
+				break;
+			default:
+				sql=null;
+				break;
+		}
+		if (sql==null) {
+			return result;
+		}
+		try {
+			result=q.query(connection, sql, new User_idHandler(), param);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			MyDataSource.close(connection);
+		}
+		return result;
+	}
+	
+	
 	private void parse(GetServerInfoReturn hrt){
 		//把心跳过来的异常信息全部先封装起来		
 		long now=System.currentTimeMillis()/1000;
@@ -210,10 +258,12 @@ public class ProcessData implements Runnable{
 		data_ark.setTotal_cap(streamer.getTotal());
 		data_ark.setUsed_cap(streamer.getUsed());
 		data_ark.setTotal_oracle_capacity(streamer.getOracleVol());
+		String user_id=getUserByConfirmedUUID(uuid, 0);
 		List<Fault> data_ark_fault_list=new LinkedList<Fault>();
 		for (FaultType f:streamer.getStreamerStateList()) {
 			Fault mFault=new Fault();
 			mFault.setTimestamp(now);
+			mFault.setUser_id(user_id);
 			mFault.setType(f.getNumber());
 			mFault.setData_ark_id(data_ark.getId());
 			mFault.setData_ark_name(data_ark.getName());
@@ -234,10 +284,12 @@ public class ProcessData implements Runnable{
 				tmp.setId(client.getId());
 				tmp.setName(client.getName());
 				tmp.setIps(client.getIp());
+				String user_id1=getUserByConfirmedUUID(client.getId(),1);
 				List<Fault> client_fault_list=new LinkedList<Fault>();
 				for (FaultType f:client.getClientStateList()) {
 					Fault fault=new Fault();
 					fault.setTimestamp(now);
+					fault.setUser_id(user_id1);
 					fault.setType(f.getNumber());
 					fault.setData_ark_id(data_ark.getId());
 					fault.setData_ark_name(data_ark.getName());
@@ -257,15 +309,18 @@ public class ProcessData implements Runnable{
 		//开始封装无代理客户端
 		List<Vcent> vList=hrt.getVcentsList();
 		if (vList!=null&&vList.size()>0) {
+			vcList=new LinkedList<Vcenter>();
 			for (Vcent vcent:vList) {
-				Client_ tmp=new Client_();
-				tmp.setId(vcent.getVcUuid());
-				tmp.setName(vcent.getVcName());
-				tmp.setIps(vcent.getVcIp());
+				Vcenter vcenter=new Vcenter();
+				vcenter.setId(vcent.getVcUuid());
+				vcenter.setName(vcent.getVcName());
+				vcenter.setIps(vcent.getVcIp());
+				String user_id2=getUserByConfirmedUUID(vcent.getVcUuid(), 2);
 				List<Fault> v_list_faults=new LinkedList<Fault>();
 				for (FaultType fault:vcent.getVcentStateList()) {
 					Fault fault2=new Fault();
 					fault2.setTimestamp(now);
+					fault2.setUser_id(user_id2);
 					fault2.setType(fault.getNumber());
 					fault2.setData_ark_id(data_ark.getId());
 					fault2.setData_ark_name(data_ark.getName());
@@ -274,13 +329,8 @@ public class ProcessData implements Runnable{
 					v_list_faults.add(fault2);
 					faults.add(fault2);
 				}
-				tmp.setfList(v_list_faults);
-				tmp.setType(vcent.getType().getNumber());
-				tmp.setData_ark_id(data_ark.getId());
-				if (clientList==null) {
-					clientList=new LinkedList<Client_>();
-				}
-				clientList.add(tmp);
+				vcenter.setFaults(v_list_faults);
+				vcList.add(vcenter);
 				//如果VC的异常是离线，则不用封装虚拟机以及虚拟机的异常
 				boolean offline=false;
 				for (FaultType ft:vcent.getVcentStateList()) {
@@ -300,12 +350,13 @@ public class ProcessData implements Runnable{
 						Virtual_machine vm=new Virtual_machine();
 						vm.setId(vmware.getId());
 						vm.setName(vmware.getName());
-						//vm.setAlias("null");
 						vm.setPath(vmware.getPath());
+						String user_id3=getUserByConfirmedUUID(vmware.getId(), 3);
 						List<Fault> vmware_list_faults=new LinkedList<Fault>();
 						for (FaultType faultType:vmware.getVmwareStateList()) {
 							Fault fault=new Fault();
 							fault.setTimestamp(now);
+							fault.setUser_id(user_id3);
 							fault.setType(faultType.getNumber());
 							fault.setData_ark_id(data_ark.getId());
 							fault.setData_ark_name(data_ark.getName());

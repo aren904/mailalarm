@@ -53,8 +53,9 @@ public class Data_ark {
 		StringBuilder string=new StringBuilder();
 		for (Fault fault:faults) {
 			string.append(Integer.toString(fault.getType()));
-			//string.append(";");
+			string.append(";");
 		}
+		string.deleteCharAt(string.length()-1);
 		setExcept(string.toString());
 	}
 

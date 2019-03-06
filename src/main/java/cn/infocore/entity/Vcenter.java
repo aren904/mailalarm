@@ -1,5 +1,7 @@
 package cn.infocore.entity;
 
+import java.util.List;
+
 public class Vcenter {
 
 	//vc的id
@@ -10,6 +12,27 @@ public class Vcenter {
 	private String ips;
 	//vc的异常
 	private String excep;
+	
+	private List<Fault> faults;
+	
+	
+	
+	
+	public List<Fault> getFaults() {
+		return faults;
+	}
+	public void setFaults(List<Fault> faults) {
+		this.faults = faults;
+		StringBuilder string=new StringBuilder();
+		for (Fault fault:faults) {
+			string.append(Integer.toString(fault.getType()));
+			string.append(";");
+		}
+		string.deleteCharAt(string.length()-1);
+		setExcep(string.toString());
+		
+		
+	}
 	public String getId() {
 		return id;
 	}

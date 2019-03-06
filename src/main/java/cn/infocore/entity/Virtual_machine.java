@@ -5,7 +5,6 @@ import java.util.List;
 public class Virtual_machine {
 	private String id;
 	private String name;
-	//private String alias;
 	private String path;
 	private String except;
 	private List<Fault> faults;
@@ -29,8 +28,9 @@ public class Virtual_machine {
 		StringBuilder string=new StringBuilder();
 		for (Fault fault:faults) {
 			string.append(Integer.toString(fault.getType()));
-			//string.append(";");
+			string.append(";");
 		}
+		string.deleteCharAt(string.length()-1);
 		setExcept(string.toString());
 		
 	}
