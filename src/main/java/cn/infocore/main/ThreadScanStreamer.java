@@ -83,10 +83,12 @@ public class ThreadScanStreamer extends Thread {
 				fault.setData_ark_name("null");
 				fault.setData_ark_ip("null");
 				fault.setTarget("null");
+				fault.setUser_id("null");
 			}else {
 				fault.setData_ark_name(data_ark.getName());
 				fault.setData_ark_ip(data_ark.getIp());
 				fault.setTarget(data_ark.getName());
+				fault.setUser_id(data_ark.getUser_id());
 			}
 			try {
 				MailCenterRestry.getInstance().notifyCenter(fault);

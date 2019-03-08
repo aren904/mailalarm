@@ -15,6 +15,7 @@ public class DataArkHandler implements ResultSetHandler<Data_ark>{
 			data_ark=new Data_ark();
 			data_ark.setName(rs.getString("name"));
 			data_ark.setIp(rs.getString("ip"));
+			data_ark.setUser_id(rs.getString("user_id"));
 		}
 		return data_ark;
 
