@@ -217,7 +217,7 @@ public class ProcessData implements Runnable{
 		String sql="";
 		switch(type) {
 			case 0:
-				sql="select user_id from data_ark where id=?";
+				sql="select user_id from quota where data_ark_id=?";
 				break;
 			case 1:
 				sql="select user_id from client where id=?";

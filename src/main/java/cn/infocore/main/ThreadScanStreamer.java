@@ -71,7 +71,7 @@ public class ThreadScanStreamer extends Thread {
 			fault.setTimestamp(now);
 			fault.setType(10);
 			fault.setData_ark_id(uuid);
-			sql="select * from data_ark where id=?";
+			sql="select d.name,d.ip,q.user_id from data_ark as d,quota as q where d.id=q.data_ark_id and q.data_ark_id=?";
 			Object[] param1= {uuid};
 			Data_ark data_ark=null;
 			try {
