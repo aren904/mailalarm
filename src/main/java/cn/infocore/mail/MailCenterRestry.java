@@ -109,8 +109,8 @@ public class MailCenterRestry implements Center {
 		for (Fault fault : list_fault) {
 			Object[] condition=null;
 			if (fault.getType()==0) {
-				sql="update alarm_log set user_id=?,processed=1,timestamp=? where data_ark_id=? and target=?";
-				condition= new Object[]{fault.getUser_id(),fault.getTimestamp(),fault.getData_ark_id(),fault.getTarget()};
+				sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target=?";
+				condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getTarget()};
 			}else {
 				sql = "insert into alarm_log values(null,?,?,?,?,?,?,?,?,?,?) on duplicate key"
 						+ " update user_id=?,timestamp=?,processed=0";
