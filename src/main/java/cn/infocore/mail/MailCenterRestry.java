@@ -141,7 +141,7 @@ public class MailCenterRestry implements Center {
 								//查询该user_id是否和报警客户端存在关系
 								QueryRunner qclent = new QueryRunner();
 								String sql1="select count(*) from client where user_id? and data_ark_id=? and id=?";
-								Object[] param1= {user,fault.getData_ark_id(),fault.getClient_id()};
+								Object[] param1= {fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id()};
 								Long count =qclent.query(connection,sql1,new ScalarHandler<Long>(),param1);
 								if(count.intValue()==1){
 									mailSender.judge(fault,user);
