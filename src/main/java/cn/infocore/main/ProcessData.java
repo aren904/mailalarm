@@ -159,17 +159,17 @@ public class ProcessData implements Runnable{
 		logger.info("Start update virtual machine.");
 		Connection connection=MyDataSource.getConnection();
 		QueryRunner qr=new QueryRunner();
-		String sql="update virtual_machine set name=?,path=?,exceptions=? where id=? and vcenter_id=?";
+		String sql="update virtual_machine set name=?,path=?,exceptions=? where id=?";
 		int size=vmlist.size();
 		Object[][] param=new Object[size][];
 		for (int i=0;i<size;i++) {
 			Virtual_machine vm=vmlist.get(i);
-			param[i]=new Object[5];
+			param[i]=new Object[4];
 			param[i][0]=vm.getName();
 			param[i][1]=vm.getPath();
 			param[i][2]=vm.getExcept();
 			param[i][3]=vm.getId();
-			param[i][4]=vm.getVcenter_id();
+			//param[i][4]=vm.getVcenter_id();
 		}
 		try {
 			qr.batch(connection, sql,param);
