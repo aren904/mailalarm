@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.log4j.Logger;
 import cn.infocore.entity.Email_alarm;
 import cn.infocore.entity.Fault;
@@ -135,7 +136,19 @@ public class MailCenterRestry implements Center {
 						QueryRunner qRunner = new QueryRunner();
 						List<Quota> quotas = qRunner.query(connection, sql, new QuotaHandler(), param);
 						if (!quotas.isEmpty()) {
-							mailSender.judge(fault,user);
+							//2019年3月11日18:04:13 朱伟添加
+							if(fault.getClient_type().intValue()==1){
+								//查询该user_id是否和报警客户端存在关系
+								QueryRunner qclent = new QueryRunner();
+								String sql1="select count(*) from client where user_id? and data_ark_id=? and id=?";
+								Object[] param1= {user,fault.getData_ark_id(),fault.getClient_id()};
+								Long count =qclent.query(connection,sql1,new ScalarHandler<Long>(),param1);
+								if(count.intValue()==1){
+									mailSender.judge(fault,user);
+								}
+							}else{
+								mailSender.judge(fault,user);
+							}
 							logger.info("commom user start judge...");
 						}else {
 							logger.warn("email_alarm table has not user_id:"+user+" and data_ark_id:"+fault.getData_ark_id());
@@ -146,7 +159,6 @@ public class MailCenterRestry implements Center {
 		}
 		MyDataSource.close(connection);
 	}
-
 
 	
 	public void updateMailService(String name, Email_alarm sender) {

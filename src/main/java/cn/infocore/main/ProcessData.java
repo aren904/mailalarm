@@ -269,6 +269,7 @@ public class ProcessData implements Runnable{
 			mFault.setData_ark_name(data_ark.getName());
 			mFault.setData_ark_ip(data_ark.getIp());
 			mFault.setTarget(data_ark.getName());
+			mFault.setClient_type(0);//2019年3月11日18:04:13 朱伟添加
 			data_ark_fault_list.add(mFault);
 			faults.add(mFault);
 		}
@@ -295,6 +296,8 @@ public class ProcessData implements Runnable{
 					fault.setData_ark_name(data_ark.getName());
 					fault.setData_ark_ip(data_ark.getIp());
 					fault.setTarget(client.getName());
+                    fault.setClient_type(1);//2019年3月11日18:04:13 朱伟添加
+                    fault.setClient_id(client.getId());//2019年3月11日18:04:13 朱伟添加
 					client_fault_list.add(fault);
 					faults.add(fault);
 				}
@@ -326,6 +329,8 @@ public class ProcessData implements Runnable{
 					fault2.setData_ark_name(data_ark.getName());
 					fault2.setData_ark_ip(data_ark.getIp());
 					fault2.setTarget(vcent.getVcName());
+                    fault2.setClient_type(1);//2019年3月11日18:04:13 朱伟添加
+                    fault2.setClient_id(vcent.getVcUuid());//2019年3月11日18:04:13 朱伟添加
 					v_list_faults.add(fault2);
 					faults.add(fault2);
 				}
@@ -362,6 +367,7 @@ public class ProcessData implements Runnable{
 							fault.setData_ark_name(data_ark.getName());
 							fault.setData_ark_ip(data_ark.getIp());
 							fault.setTarget(vmware.getName());
+							fault.setClient_type(1);
 							vmware_list_faults.add(fault);
 							faults.add(fault);
 						}

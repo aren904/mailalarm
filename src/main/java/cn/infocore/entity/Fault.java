@@ -17,7 +17,10 @@ public class Fault {
 	
 	//所属用户名
 	private String user_id;
-	
+	//2019年3月11日18:04:13 朱伟添加
+	private Integer Client_type;//0 数据方舟 1.客户端
+	//客户端ID //2019年3月11日18:04:13 朱伟添加
+	private String Client_id;
 	
 	
 	
@@ -64,6 +67,19 @@ public class Fault {
 		this.target = target;
 	}
 
-	
-	
+	public Integer getClient_type() {
+		return Client_type;
+	}
+
+	public void setClient_type(Integer client_type) {
+		Client_type = client_type;
+	}
+
+	public String getClient_id() {
+		return Client_id;
+	}
+
+	public void setClient_id(String client_id) {
+		Client_id = client_id;
+	}
 }
