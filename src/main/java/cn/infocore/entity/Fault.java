@@ -18,7 +18,7 @@ public class Fault {
 	//所属用户名
 	private String user_id;
 	//2019年3月11日18:04:13 朱伟添加
-	private Integer Client_type;//0 数据方舟 1.客户端
+	private Integer Client_type;//0 数据方舟 1.客户端 2.虚拟机
 	//客户端ID //2019年3月11日18:04:13 朱伟添加
 	private String Client_id;
 	

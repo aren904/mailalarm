@@ -137,12 +137,9 @@ public class MailCenterRestry implements Center {
 						List<Quota> quotas = qRunner.query(connection, sql, new QuotaHandler(), param);
 						if (!quotas.isEmpty()) {
 							//2019年3月11日18:04:13 朱伟添加
-							if(fault.getClient_type().intValue()==1){
+							if(fault.getClient_type().intValue()==1||fault.getClient_type().intValue()==2){
 								//查询该user_id是否和报警客户端存在关系
-								QueryRunner qclent = new QueryRunner();
-								String sql1="select count(*) from client where user_id? and data_ark_id=? and id=?";
-								Object[] param1= {fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id()};
-								Long count =qclent.query(connection,sql1,new ScalarHandler<Long>(),param1);
+								Long count =findArkIdAndUserIdAndId(connection,fault);
 								if(count.intValue()==1){
 									mailSender.judge(fault,user);
 								}
@@ -159,7 +156,24 @@ public class MailCenterRestry implements Center {
 		}
 		MyDataSource.close(connection);
 	}
-
+	protected Long findArkIdAndUserIdAndId(Connection connection,Fault fault){
+		QueryRunner qclent = new QueryRunner();
+		String sql="";
+		if(fault.getClient_type()==1){
+			sql="select count(*) from client where user_id? and data_ark_id=? and id=?";
+		}else if(fault.getClient_type()==2){
+			sql="select count(*) from virtual_machine where user_id? and data_ark_id=? and id=?";
+		}
+		Object[] param1= {fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id()};
+		try {
+			Long count = qclent.query(connection,sql,new ScalarHandler<Long>(),param1);
+			return count;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.error(e);
+		}
+		return null;
+	}
 	
 	public void updateMailService(String name, Email_alarm sender) {
 		// 同理，查询数据库，更新

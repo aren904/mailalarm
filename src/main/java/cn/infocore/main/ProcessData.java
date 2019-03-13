@@ -367,7 +367,7 @@ public class ProcessData implements Runnable{
 							fault.setData_ark_name(data_ark.getName());
 							fault.setData_ark_ip(data_ark.getIp());
 							fault.setTarget(vmware.getName());
-							fault.setClient_type(1);
+							fault.setClient_type(2);
 							vmware_list_faults.add(fault);
 							faults.add(fault);
 						}
