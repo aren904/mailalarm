@@ -15,7 +15,7 @@ public class ThreadHeartbeat extends Thread{
 	private ExecutorService threadPool;
 	
 	private ThreadHeartbeat() {
-		threadPool=Executors.newFixedThreadPool(50);
+		threadPool=Executors.newCachedThreadPool();
 	}
 	
 	private static class ThreadHeartbeatHolder{

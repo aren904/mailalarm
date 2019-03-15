@@ -2,6 +2,7 @@ package cn.infocore.main;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
@@ -58,7 +59,7 @@ public class ThreadScanStreamer extends Thread {
 
 	
 	// 更新数据库中是否离线的标志
-	private void updateOffLine(String uuid, boolean online) {
+	public static void updateOffLine(String uuid, boolean online) {
 		// true 在线 false 离线
 		long now = System.currentTimeMillis() / 1000;
 		Connection connection=MyDataSource.getConnection();
@@ -71,11 +72,18 @@ public class ThreadScanStreamer extends Thread {
 			fault.setTimestamp(now);
 			fault.setType(10);
 			fault.setData_ark_id(uuid);
+			fault.setClient_type(0);
 			sql="select d.name,d.ip,q.user_id from data_ark as d,quota as q where d.id=q.data_ark_id and q.data_ark_id=?";
+			String sql1="select name,user_id,ip from data_ark where id=?";
 			Object[] param1= {uuid};
 			Data_ark data_ark=null;
+			Data_ark adminData_ark=null;
 			try {
 				data_ark=qr.query(connection, sql, new DataArkHandler(), param1);
+				adminData_ark=qr.query(connection, sql1, new DataArkHandler(), param1);
+				if(data_ark==null&&adminData_ark!=null){
+					data_ark=adminData_ark;
+				}
 			} catch (SQLException e1) {
 				logger.error(e1);
 			}
@@ -105,5 +113,4 @@ public class ThreadScanStreamer extends Thread {
 		}
 		MyDataSource.close(connection);
 	}
-
 }

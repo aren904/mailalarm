@@ -146,7 +146,7 @@ public class DealInformation implements Runnable {
 				}
 			}
 			break;
-			
+
 		case 502:
 			try {
 				CreateEmailAlarmRequest request = CreateEmailAlarmRequest.parseFrom(buffer);
@@ -184,7 +184,7 @@ public class DealInformation implements Runnable {
 				}
 			}
 			break;
-			
+
 		case 504:
 			try {
 				VerifyEmailAlarmRequest request = VerifyEmailAlarmRequest.parseFrom(buffer);

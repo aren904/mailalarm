@@ -15,7 +15,7 @@ public class ThreadInformation extends Thread{
 	private ExecutorService pool;
 	
 	private ThreadInformation() {
-		pool=Executors.newFixedThreadPool(10);
+		pool=Executors.newCachedThreadPool();
 	}
 	
 	private static class ThreadInformationHolder{

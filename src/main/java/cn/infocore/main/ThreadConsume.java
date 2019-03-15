@@ -11,7 +11,7 @@ public class ThreadConsume extends Thread{
 	private ExecutorService consumePool;
 	
 	private ThreadConsume() {
-		consumePool=Executors.newFixedThreadPool(50);
+		consumePool=Executors.newCachedThreadPool();
 	}
 	
 	private static class ThreadConsumeHolder{

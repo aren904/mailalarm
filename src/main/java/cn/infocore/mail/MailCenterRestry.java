@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import cn.infocore.entity.Data_ark;
+import cn.infocore.handler.DataArkHandler;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
@@ -139,7 +142,7 @@ public class MailCenterRestry implements Center {
 							//2019年3月11日18:04:13 朱伟添加
 							if(fault.getClient_type().intValue()==1||fault.getClient_type().intValue()==2){
 								//查询该user_id是否和报警客户端存在关系
-								Long count =findArkIdAndUserIdAndId(connection,fault);
+								Long count =findArkIdAndUserIdAndId(connection,fault,user);
 								if(count.intValue()==1){
 									mailSender.judge(fault,user);
 								}
@@ -156,7 +159,7 @@ public class MailCenterRestry implements Center {
 		}
 		MyDataSource.close(connection);
 	}
-	protected Long findArkIdAndUserIdAndId(Connection connection,Fault fault){
+	protected Long findArkIdAndUserIdAndId(Connection connection,Fault fault,String user){
 		QueryRunner qclent = new QueryRunner();
 		String sql="";
 		if(fault.getClient_type()==1){
@@ -164,7 +167,7 @@ public class MailCenterRestry implements Center {
 		}else if(fault.getClient_type()==2){
 			sql="select count(*) from virtual_machine where user_id? and data_ark_id=? and id=?";
 		}
-		Object[] param1= {fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id()};
+		Object[] param1= {user,fault.getData_ark_id(),fault.getClient_id()};
 		try {
 			Long count = qclent.query(connection,sql,new ScalarHandler<Long>(),param1);
 			return count;
@@ -179,4 +182,5 @@ public class MailCenterRestry implements Center {
 		// 同理，查询数据库，更新
 		// this.list.put(name, sender);
 	}
+
 }
