@@ -1,30 +1,29 @@
 package cn.infocore.main;
 
+import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
+import org.apache.log4j.Logger;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
-
-import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
-
-public class ThreadConsume extends Thread{
-	private static final Logger logger = Logger.getLogger(ThreadConsume.class);
+public class ThreadConsume2 extends Thread{
+	private static final Logger logger = Logger.getLogger(ThreadConsume2.class);
 	private ThreadPoolExecutor consumePool;
-	
-	private ThreadConsume() {
+
+	private ThreadConsume2() {
 		consumePool= (ThreadPoolExecutor) Executors.newFixedThreadPool(50);
 		consumePool.setKeepAliveTime(10, TimeUnit.SECONDS);
 		consumePool.allowCoreThreadTimeOut(true);
 	}
 	
 	private static class ThreadConsumeHolder{
-		public static ThreadConsume instance=new ThreadConsume();
+		public static ThreadConsume2 instance=new ThreadConsume2();
 	}
 	
 	
-	public static ThreadConsume getInstance() {
+	public static ThreadConsume2 getInstance() {
 		return ThreadConsumeHolder.instance;
 	}
 	

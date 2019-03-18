@@ -5,6 +5,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.log4j.Logger;
 
 
@@ -12,10 +15,12 @@ import org.apache.log4j.Logger;
 public class ThreadInformation extends Thread{
 	private static final Logger logger=Logger.getLogger(ThreadInformation.class);
 	private static final int C_PORT=23334;
-	private ExecutorService pool;
+	private ThreadPoolExecutor pool;
 	
 	private ThreadInformation() {
-		pool=Executors.newCachedThreadPool();
+		pool= (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
+		pool.setKeepAliveTime(10, TimeUnit.SECONDS);
+		pool.allowCoreThreadTimeOut(true);
 	}
 	
 	private static class ThreadInformationHolder{

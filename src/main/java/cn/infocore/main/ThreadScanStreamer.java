@@ -76,33 +76,32 @@ public class ThreadScanStreamer extends Thread {
 			sql="select d.name,d.ip,q.user_id from data_ark as d,quota as q where d.id=q.data_ark_id and q.data_ark_id=?";
 			String sql1="select name,user_id,ip from data_ark where id=?";
 			Object[] param1= {uuid};
-			Data_ark data_ark=null;
-			Data_ark adminData_ark=null;
 			try {
-				data_ark=qr.query(connection, sql, new DataArkHandler(), param1);
-				adminData_ark=qr.query(connection, sql1, new DataArkHandler(), param1);
+				Data_ark data_ark=qr.query(connection, sql, new DataArkHandler(), param1);
+				Data_ark adminData_ark=qr.query(connection, sql1, new DataArkHandler(), param1);
 				if(data_ark==null&&adminData_ark!=null){
 					data_ark=adminData_ark;
 				}
+				if (data_ark==null) {
+					fault.setData_ark_name("null");
+					fault.setData_ark_ip("null");
+					fault.setTarget("null");
+					fault.setUser_id("null");
+				}else {
+					fault.setData_ark_name(data_ark.getName());
+					fault.setData_ark_ip(data_ark.getIp());
+					fault.setTarget(data_ark.getName());
+					fault.setUser_id(data_ark.getUser_id());
+				}
+				try {
+					MailCenterRestry.getInstance().notifyCenter(fault);
+				} catch (SQLException e) {
+					logger.error(e);
+				}
 			} catch (SQLException e1) {
-				logger.error(e1);
+				logger.error("ThreadScanStreamer:"+e1);
 			}
-			if (data_ark==null) {
-				fault.setData_ark_name("null");
-				fault.setData_ark_ip("null");
-				fault.setTarget("null");
-				fault.setUser_id("null");
-			}else {
-				fault.setData_ark_name(data_ark.getName());
-				fault.setData_ark_ip(data_ark.getIp());
-				fault.setTarget(data_ark.getName());
-				fault.setUser_id(data_ark.getUser_id());
-			}
-			try {
-				MailCenterRestry.getInstance().notifyCenter(fault);
-			} catch (SQLException e) {
-				logger.error(e);
-			}
+
 		}
 		sql = "update data_ark set exceptions=? where id=?";
 		Object[] param = { online ? null : "10", uuid };

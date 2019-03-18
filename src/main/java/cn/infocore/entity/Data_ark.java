@@ -1,5 +1,6 @@
 package cn.infocore.entity;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 public class Data_ark {
@@ -127,8 +128,23 @@ public class Data_ark {
 	public void setData_ark_group_id(int data_ark_group_id) {
 		this.data_ark_group_id = data_ark_group_id;
 	}
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		Field[] fields = this.getClass().getDeclaredFields();
+		for(Field iField : fields) {
+			sb.append(iField.getName());
+			sb.append("=");
+			try {
+				sb.append(iField.get(this));
+			}catch(IllegalArgumentException e) {
+				e.printStackTrace();
+			}catch(IllegalAccessException e) {
+				e.printStackTrace();
+			}
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
 }

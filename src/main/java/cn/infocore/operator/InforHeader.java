@@ -163,6 +163,7 @@ public byte[] toByteArray () {
 		System.arraycopy(baFlags1, 0, header, 18, 8);
 		
 		logger.info("InforHeader dumped to binary array.");
+		logMe();
 		return header;
 	}
 	

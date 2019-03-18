@@ -241,7 +241,7 @@ public class DealInformation implements Runnable {
 	// 更新数据方舟
 	private void updateDataArk(UpdateDataArkRequest request){
 		// 使用添加接口
-		DataArkList.getInstance().addDataArk(request.getId(), request.getIp());
+		DataArkList.getInstance().addDataArk(request.getId(), request.getId());
 		logger.info("Update data ark successed.");
 	}
 

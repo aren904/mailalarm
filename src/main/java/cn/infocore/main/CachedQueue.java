@@ -2,6 +2,7 @@ package cn.infocore.main;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import org.apache.log4j.Logger;
 
@@ -15,7 +16,7 @@ public class CachedQueue {
 	private   BlockingQueue<GetServerInfoReturn>  queue;
 	
 	private CachedQueue() {
-		queue=new ArrayBlockingQueue<GetServerInfoReturn>(CAP);
+		queue=new LinkedBlockingQueue<GetServerInfoReturn>();
 	}
 	
 	private static class CacheQueueHolder{

@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
@@ -12,10 +14,12 @@ public class ThreadHeartbeat extends Thread{
 
 	private static final Logger logger=Logger.getLogger(ThreadHeartbeat.class);
 	private static final int PORT=23335;
-	private ExecutorService threadPool;
+	private ThreadPoolExecutor threadPool;
 	
 	private ThreadHeartbeat() {
-		threadPool=Executors.newCachedThreadPool();
+		threadPool= (ThreadPoolExecutor) Executors.newFixedThreadPool(50);
+		threadPool.setKeepAliveTime(10, TimeUnit.SECONDS);
+		threadPool.allowCoreThreadTimeOut(true);
 	}
 	
 	private static class ThreadHeartbeatHolder{

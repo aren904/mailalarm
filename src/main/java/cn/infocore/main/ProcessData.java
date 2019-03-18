@@ -2,9 +2,8 @@ package cn.infocore.main;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 import cn.infocore.entity.Client_;
@@ -85,13 +84,20 @@ public class ProcessData implements Runnable{
 	//更新data_ark
 	private void updateData_ark(Data_ark data_ark) {
 		logger.info("Start update data ark in database.");
-		QueryRunner qr=new QueryRunner();
-		String sql="update data_ark set ip=?,total_capacity=?,used_capacity=?,exceptions=?,total_oracle_capacity=? where id=?";
-		Object[] param= {data_ark.getIp(),data_ark.getTotal_cap(),data_ark.getUsed_cap(),
-				data_ark.getExcept(),data_ark.getTotal_oracle_capacity(),data_ark.getId()};
 		Connection conn=MyDataSource.getConnection();
 		try {
-			qr.update(conn, sql, param);
+			QueryRunner qr=new QueryRunner();
+			String sql="update data_ark set total_capacity=?,used_capacity=?,exceptions=?,total_oracle_capacity=? where id=?";
+			if(data_ark.getIp()!=null&&data_ark.getIp()!=""){
+				Object[] param={data_ark.getTotal_cap(),data_ark.getUsed_cap(),
+						data_ark.getExcept(),data_ark.getTotal_oracle_capacity(),data_ark.getIp(),data_ark.getId()};
+				sql="update data_ark set total_capacity=?,used_capacity=?,exceptions=?,total_oracle_capacity=?,ip=? where id=?";
+				qr.update(conn, sql, param);
+			}else{
+				Object[] param= {data_ark.getTotal_cap(),data_ark.getUsed_cap(),
+						data_ark.getExcept(),data_ark.getTotal_oracle_capacity(),data_ark.getId()};
+				qr.update(conn, sql, param);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -99,8 +105,7 @@ public class ProcessData implements Runnable{
 		}
 		logger.info("Update data ark in database finished.");
 	}
-	
-	
+
 	//更新client
 	private void updateClient(List<Client_> list){
 		logger.info("Start update client in database.");
@@ -108,18 +113,46 @@ public class ProcessData implements Runnable{
 		QueryRunner qr=new QueryRunner();
 		String sql="update client set type=?,name=?,ips=?,execptions=? where id=?";
 		int size=list.size();
-		Object[][] param=new Object[size][];
+        int paramSize=0;
+		for (int i = 0; i < list.size(); i++) {
+			Client_ c= list.get(i);
+			if(c.getIps()!=null&&c.getIps()!=""){
+				paramSize++;
+			}
+		}
+		Object[][] param=new Object[paramSize][];
+		Object[][] param1=new Object[size-paramSize][];
+		int j=0;
 		for (int i=0;i<size;i++) {
 			Client_ c=list.get(i);
-			param[i]=new Object[5];
-			param[i][0]=c.getType();
-			param[i][1]=c.getName();
-			param[i][2]=c.getIps();
-			param[i][3]=c.getExcept();
-			param[i][4]=c.getId();
+			if(c.getIps()!=null&&c.getIps()!=""){
+                param[j]=new Object[5];
+                param[j][0]=c.getType();
+                param[j][1]=c.getName();
+                param[j][2]=c.getIps();
+                param[j][3]=c.getExcept();
+                param[j][4]=c.getId();
+                j++;
+            }
+		}
+		int k=0;
+		for (int i=0;i<size;i++) {
+			Client_ c=list.get(i);
+			if(c.getIps()==null||c.getIps()==""){
+				param1[k]=new Object[4];
+				param1[k][0]=c.getType();
+				param1[k][1]=c.getName();
+				param1[k][2]=c.getExcept();
+				param1[k][3]=c.getId();
+				k++;
+			}
 		}
 		try {
 			qr.batch(connection, sql,param);
+			if(param1.length>0){
+                sql="update client set type=?,name=?,execptions=? where id=?";
+                qr.batch(connection, sql,param1);
+            }
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -133,19 +166,46 @@ public class ProcessData implements Runnable{
 		logger.info("Start update VCenter..");
 		Connection connection=MyDataSource.getConnection();
 		QueryRunner qr=new QueryRunner();
-		String sql="update vcenter set name=?,ips=?,exceptions=? where vcenter_id=?";
+		String sql="update vcenter set name=?,exceptions=? where vcenter_id=?";
 		int size=list.size();
-		Object[][] param=new Object[size][];
-		for (int i=0;i<size;i++) {
-			Vcenter v=list.get(i);
-			param[i]=new Object[4];
-			param[i][0]=v.getName();
-			param[i][1]=v.getIps();
-			param[i][2]=v.getExcep();
-			param[i][3]=v.getId();
+		int paramSize=0;
+		for (int i = 0; i < list.size(); i++) {
+			Vcenter c= list.get(i);
+			if(c.getIps()!=null&&c.getIps()!=""){
+				paramSize++;
+			}
 		}
+		Object[][] param=new Object[paramSize][];
+        Object[][] param1=new Object[size-paramSize][];
+		int j=0;
+        for (int i=0;i<size;i++) {
+			Vcenter v=list.get(i);
+			if(v.getIps()!=null&&v.getIps()!=""){
+                param[j]=new Object[4];
+                param[j][0]=v.getName();
+                param[j][1]=v.getIps();
+                param[j][2]=v.getExcep();
+                param[j][3]=v.getId();
+                j++;
+            }
+		}
+        int k=0;
+        for(int i=0;i<size;i++){
+			Vcenter v=list.get(i);
+			if(v.getIps()==null||v.getIps()==""){
+				param1[k]=new Object[3];
+				param1[k][0]=v.getName();
+				param1[k][1]=v.getExcep();
+				param1[k][2]=v.getId();
+				k++;
+			}
+		}
+
 		try {
 			qr.batch(connection, sql, param);
+			if(param1.length>0){
+
+            }
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -153,7 +213,8 @@ public class ProcessData implements Runnable{
 		}
 		logger.info("Finished update VCenter.");
 	}
-	
+
+
 	//更新虚拟机，不管用户，只在乎是不是同样的VCenter
 	private void updateVirtualMachine(List<Virtual_machine> vmlist) {
 		logger.info("Start update virtual machine.");

@@ -28,7 +28,7 @@ public class DataArkList {
 		try {
 			lIps=qr.query(connection, sql, new UUid_ipHandler());
 			for (UUid_ip uid_ip:lIps) {
-				this.data_ark_list.put(uid_ip.getUuid(), uid_ip.getIp());
+				this.data_ark_list.put(uid_ip.getUuid(),uid_ip.getIp());
 				//同时初始化维护数据方舟掉线的列表
 				HeartCache.getInstance().addHeartCache(uid_ip.getUuid(), 0L);
 			}
