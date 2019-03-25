@@ -1,41 +1,32 @@
 package cn.infocore.main;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.*;
-
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.log4j.Logger;
-import cn.infocore.entity.Client_;
-import cn.infocore.entity.Data_ark;
-import cn.infocore.entity.Fault;
-import cn.infocore.entity.Vcenter;
-import cn.infocore.entity.Virtual_machine;
-import cn.infocore.mail.MailCenterRestry;
-import cn.infocore.protobuf.StmStreamerDrManage.Client;
-import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
-import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
-import cn.infocore.protobuf.StmStreamerDrManage.Streamer;
-import cn.infocore.protobuf.StmStreamerDrManage.Vcent;
-import cn.infocore.protobuf.StmStreamerDrManage.Vmware;
-import cn.infocore.utils.MyDataSource;
+import cn.infocore.entity.*;
 import cn.infocore.handler.NameHandler;
 import cn.infocore.handler.User_idHandler;
+import cn.infocore.mail.MailCenterRestry;
+import cn.infocore.protobuf.StmStreamerDrManage.*;
+import cn.infocore.utils.MyDataSource;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.log4j.Logger;
+
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 //解析数据，拦截，触发报警，写数据库等操作
-@Deprecated
-public class ProcessData implements Runnable{
+public class InfoProcessData{
 
-	private static final Logger logger=Logger.getLogger(ProcessData.class);
+	private static final Logger logger=Logger.getLogger(InfoProcessData.class);
 	private GetServerInfoReturn hrt;
-	
+
 	private List<Client_> clientList;
 	private Data_ark data_ark;
 	private List<Fault> faults;
 	private List<Virtual_machine> vmList;
 	private List<Vcenter> vcList;
-	
-	public ProcessData(GetServerInfoReturn hrt) {
+
+	public InfoProcessData(GetServerInfoReturn hrt) {
 		this.hrt=hrt;
 	}
 	
@@ -76,11 +67,16 @@ public class ProcessData implements Runnable{
 			} catch (SQLException e) {
 				logger.error(e);
 			}
+			hrt.toBuilder().clear();
+			hrt.toBuilder().clearClients();
+			hrt.toBuilder().clearServer();
+			hrt.toBuilder().clearUuid();
+			hrt.toBuilder().clearVcents();
 			logger.info("Heartbeat recived and parsed successed,wait next.");
 		}else {
 			logger.info("The data ark uuid:"+hrt.getUuid()+" is not in Cache or Database,refused it!!!");
 		}
-		hrt=null;
+
 	}
 	
 	//更新data_ark
@@ -90,7 +86,7 @@ public class ProcessData implements Runnable{
 		try {
 			QueryRunner qr=MyDataSource.getQueryRunner();
 			String sql="update data_ark set total_capacity=?,used_capacity=?,exceptions=?,total_oracle_capacity=? where id=?";
-			if(data_ark.getIp()!=null&&data_ark.getIp()!=""){
+			if(data_ark.getIp()!=null&&data_ark.getIp()!=""&&data_ark.getIp().length()>0){
 				Object[] param={data_ark.getTotal_cap(),data_ark.getUsed_cap(),
 						data_ark.getExcept(),data_ark.getTotal_oracle_capacity(),data_ark.getIp(),data_ark.getId()};
 				sql="update data_ark set total_capacity=?,used_capacity=?,exceptions=?,total_oracle_capacity=?,ip=? where id=?";
@@ -118,7 +114,7 @@ public class ProcessData implements Runnable{
         int paramSize=0;
 		for (int i = 0; i < list.size(); i++) {
 			Client_ c= list.get(i);
-			if(c.getIps()!=null&&c.getIps()!=""){
+			if(c.getIps()!=null&&c.getIps()!=""&&c.getIps().length()>0){
 				paramSize++;
 			}
 		}
@@ -127,7 +123,7 @@ public class ProcessData implements Runnable{
 		int j=0;
 		for (int i=0;i<size;i++) {
 			Client_ c=list.get(i);
-			if(c.getIps()!=null&&c.getIps()!=""){
+			if(c.getIps()!=null&&c.getIps()!=""&&c.getIps().length()>0){
                 param[j]=new Object[5];
                 param[j][0]=c.getType();
                 param[j][1]=c.getName();
@@ -140,7 +136,7 @@ public class ProcessData implements Runnable{
 		int k=0;
 		for (int i=0;i<size;i++) {
 			Client_ c=list.get(i);
-			if(c.getIps()==null||c.getIps()==""){
+			if(c.getIps()==null||c.getIps()==""||c.getIps().length()==0){
 				param1[k]=new Object[4];
 				param1[k][0]=c.getType();
 				param1[k][1]=c.getName();
@@ -149,11 +145,12 @@ public class ProcessData implements Runnable{
 				k++;
 			}
 		}
+
 		try {
 			qr.batch(sql,param);
 			if(param1.length>0){
                 sql="update client set type=?,name=?,execptions=? where id=?";
-                qr.batch( sql,param1);
+                qr.batch(sql,param1);
             }
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -181,7 +178,7 @@ public class ProcessData implements Runnable{
 		int j=0;
         for (int i=0;i<size;i++) {
 			Vcenter v=list.get(i);
-			if(v.getIps()!=null&&v.getIps()!=""){
+			if(v.getIps()!=null&&v.getIps()!=""&&v.getIps().length()>0){
                 param[j]=new Object[4];
                 param[j][0]=v.getName();
                 param[j][1]=v.getIps();
@@ -193,7 +190,7 @@ public class ProcessData implements Runnable{
         int k=0;
         for(int i=0;i<size;i++){
 			Vcenter v=list.get(i);
-			if(v.getIps()==null||v.getIps()==""){
+			if(v.getIps()==null||v.getIps()==""||v.getIps().length()==0){
 				param1[k]=new Object[3];
 				param1[k][0]=v.getName();
 				param1[k][1]=v.getExcep();
@@ -430,8 +427,8 @@ public class ProcessData implements Runnable{
 							fault.setData_ark_name(data_ark.getName());
 							fault.setData_ark_ip(data_ark.getIp());
 							fault.setTarget(vmware.getName());
-							fault.setClient_id(vmware.getId());
 							fault.setClient_type(2);
+							fault.setClient_id(vmware.getId());
 							vmware_list_faults.add(fault);
 							faults.add(fault);
 						}

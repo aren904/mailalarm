@@ -1,0 +1,4 @@
+ps:先要停止服务在去换包
+ps:以管理员身份打开 dos窗口 执行下面的任务
+安装:mailalarm-0.0.2-jar-with-dependencies.exe install
+卸载:mailalarm-0.0.2-jar-with-dependencies.exe unistall

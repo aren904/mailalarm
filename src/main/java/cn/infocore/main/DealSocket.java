@@ -4,8 +4,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import cn.infocore.protobuf.StmStreamerDrManage;
 import org.apache.log4j.Logger;
-
 import cn.infocore.operator.Header;
 import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
 import cn.infocore.utils.Utils;
@@ -30,30 +30,37 @@ public class DealSocket implements Runnable{
 			ioret=in.read(h,0,Header.STREAMER_HEADER_LENGTH);
 			if (ioret!=Header.STREAMER_HEADER_LENGTH) {
 				logger.error(Utils.fmt("Failed to recived header,[%d] byte(s) expected,but [%d] is recevied.",Header.STREAMER_HEADER_LENGTH,ioret));
-				return;
+				throw new Exception();
 			}
 			Header header=new Header();
 			header.parseByteArray(h);
 			if (header.getCommand()!=87000) {
 				logger.error(Utils.fmt("Incorrect command"));
-				return;
+				throw new Exception();
 			}
 			
 			byte[] buffer=new byte[header.getDataLength()];
 			ioret=in.read(buffer, 0, buffer.length);
 			if (ioret!=buffer.length) {
 				logger.error(Utils.fmt("Failed to receive Protobuf"));
-				return;
+				throw new Exception();
 			}
 			logger.info("Received heartbeat from data_ark.");
-			GetServerInfoReturn hrt=GetServerInfoReturn.parseFrom(buffer);
+/*			GetServerInfoReturn hrt=GetServerInfoReturn.parseFrom(buffer);*/
 			//转化protobuf,放入阻塞队列
-			CachedQueue.getInstance().addIntoQueue(hrt);
+			//CachedQueue.getInstance().addIntoQueue(GetServerInfoReturn.parseFrom(buffer.clone()));
 			header.setErrorCode(0);
 			byte[] resp=header.toByteArray();
 			out.write(resp, 0, resp.length);
+			out.flush();
+			GetServerInfoReturn hrt=GetServerInfoReturn.parseFrom(buffer);
+			new InfoProcessData(hrt).run();
+			hrt.toBuilder().clear();
+			hrt.toBuilder().clearClients();
+			hrt.toBuilder().clearServer();
+			hrt.toBuilder().clearUuid();
+			hrt.toBuilder().clearVcents();
 			logger.info("Response heartbeat successed..");
-			
 		} catch (Exception e) {
 			logger.error("DealSocket failed."+e);
 		}finally {

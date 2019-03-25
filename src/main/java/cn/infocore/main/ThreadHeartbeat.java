@@ -3,10 +3,7 @@ package cn.infocore.main;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 import org.apache.log4j.Logger;
 
@@ -17,8 +14,7 @@ public class ThreadHeartbeat extends Thread{
 	private ThreadPoolExecutor threadPool;
 	
 	private ThreadHeartbeat() {
-		threadPool= (ThreadPoolExecutor) Executors.newFixedThreadPool(50);
-		threadPool.setKeepAliveTime(10, TimeUnit.SECONDS);
+		threadPool=  new ThreadPoolExecutor(100,500,1,TimeUnit.SECONDS,new ArrayBlockingQueue<Runnable>(500),new ThreadPoolExecutor.CallerRunsPolicy());
 		threadPool.allowCoreThreadTimeOut(true);
 	}
 	

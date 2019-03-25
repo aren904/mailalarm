@@ -46,7 +46,7 @@ public class MailSender {
 		try {
 			Address from = new InternetAddress(config.getSender_email());
 			message.setFrom(from);
-			
+
 			// 设置收件人邮箱,这里是多个收件人
 			String[] recv = config.getReceiver_emails().split(";");
 			for (String r : recv) {
@@ -55,7 +55,7 @@ public class MailSender {
 		} catch (Exception e) {
 			logger.error(e);
 		}
-		
+
 	}
 
 	public Email_alarm getConfig() {

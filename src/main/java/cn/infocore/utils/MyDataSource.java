@@ -5,13 +5,14 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class MyDataSource {
 	private static final Logger logger = Logger.getLogger(MyDataSource.class.getName());
 	// 通过标识名来创建相应连接池
-	private static ComboPooledDataSource dataSource = new ComboPooledDataSource("mysql");
+	private static DataSource  dataSource = new ComboPooledDataSource("mysql");
 
 	// 从连接池中取用一个连接
 	public static Connection getConnection() {
@@ -39,5 +40,9 @@ public class MyDataSource {
 	//获取数据源
 	public static DataSource getDataSource() {
 		return dataSource;
+	}
+	public static QueryRunner getQueryRunner(){
+		QueryRunner query=new QueryRunner(dataSource);
+		return query;
 	}
 }

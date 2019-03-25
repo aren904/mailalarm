@@ -1,21 +1,18 @@
 package cn.infocore.main;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 import org.apache.log4j.Logger;
 
 import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
 
+@Deprecated
 public class ThreadConsume extends Thread{
 	private static final Logger logger = Logger.getLogger(ThreadConsume.class);
 	private ThreadPoolExecutor consumePool;
 	
 	private ThreadConsume() {
-		consumePool= (ThreadPoolExecutor) Executors.newFixedThreadPool(50);
-		consumePool.setKeepAliveTime(10, TimeUnit.SECONDS);
+		consumePool=new ThreadPoolExecutor(50,100,1,TimeUnit.SECONDS,new ArrayBlockingQueue<Runnable>(100));
 		consumePool.allowCoreThreadTimeOut(true);
 	}
 	
@@ -37,7 +34,7 @@ public class ThreadConsume extends Thread{
 			logger.info("Start deal heartbeat..");
 			consumePool.execute(new ProcessData(hrt));
 		}
-		
+
 	}
 	
 }

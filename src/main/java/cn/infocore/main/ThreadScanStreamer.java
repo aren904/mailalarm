@@ -62,9 +62,8 @@ public class ThreadScanStreamer extends Thread {
 	public static void updateOffLine(String uuid, boolean online) {
 		// true 在线 false 离线
 		long now = System.currentTimeMillis() / 1000;
-		Connection connection=MyDataSource.getConnection();
 		String sql="";
-		QueryRunner qr=new QueryRunner();
+		QueryRunner qr=MyDataSource.getQueryRunner();
 		if (!online) {
 			logger.warn("The data ark which uuid:"+uuid+"is offline...");
 			//如果离线，触发邮件报警
@@ -77,8 +76,8 @@ public class ThreadScanStreamer extends Thread {
 			String sql1="select name,user_id,ip from data_ark where id=?";
 			Object[] param1= {uuid};
 			try {
-				Data_ark data_ark=qr.query(connection, sql, new DataArkHandler(), param1);
-				Data_ark adminData_ark=qr.query(connection, sql1, new DataArkHandler(), param1);
+				Data_ark data_ark=qr.query(sql, new DataArkHandler(), param1);
+				Data_ark adminData_ark=qr.query(sql1, new DataArkHandler(), param1);
 				if(data_ark==null&&adminData_ark!=null){
 					data_ark=adminData_ark;
 				}
@@ -106,10 +105,10 @@ public class ThreadScanStreamer extends Thread {
 		sql = "update data_ark set exceptions=? where id=?";
 		Object[] param = { online ? null : "10", uuid };
 		try {
-			qr.update(connection,sql, param);
+			qr.update(sql, param);
 		} catch (SQLException e) {
 			logger.error(e);
 		}
-		MyDataSource.close(connection);
+		//MyDataSource.close(connection);
 	}
 }

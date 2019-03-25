@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
@@ -213,21 +212,22 @@ public class DealInformation implements Runnable {
 	private void addDataArk(AddDataArkRequest request){
 		
 		String uuid = request.getId();
-		Connection conn = MyDataSource.getConnection();
 		logger.info("Need to add data ark id:" + uuid);
 		String ip = "";
 		String sql = "select ip from data_ark where id=?";
 		Object[] param = { uuid };
-		QueryRunner qr = new QueryRunner();
+		QueryRunner qr = MyDataSource.getQueryRunner();
 		try {
-			ip = qr.query(conn,sql, new StringHandler(), param);
+			ip = qr.query(sql, new StringHandler(), param);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		MyDataSource.close(conn);
+		//MyDataSource.close(conn);
 		logger.info("Need to add data ark ip:" + ip);
 		DataArkList.getInstance().addDataArk(uuid, ip);
 		logger.info("Add data ark successed.");
+		request.toBuilder().clear();
+		request.toBuilder().clearId();
 	}
 
 	// 删除数据方舟
@@ -236,6 +236,8 @@ public class DealInformation implements Runnable {
 		DataArkList.getInstance().removeDataArk(uuid);
 		//同时删除掉线的缓存
 		HeartCache.getInstance().removeHeartCache(uuid);
+		request.toBuilder().clear();
+		request.toBuilder().clearId();
 	}
 
 	// 更新数据方舟
@@ -243,6 +245,8 @@ public class DealInformation implements Runnable {
 		// 使用添加接口
 		DataArkList.getInstance().addDataArk(request.getId(), request.getId());
 		logger.info("Update data ark successed.");
+		request.toBuilder().clear();
+		request.toBuilder().clearId();
 	}
 
 	// 添加邮件报警配置
@@ -250,6 +254,8 @@ public class DealInformation implements Runnable {
 		String name = request.getUserId();
 		MailCenterRestry.getInstance().addMailService(name);
 		logger.info("Add email alarm user successed.");
+		request.toBuilder().clear();
+		request.toBuilder().clearUserId();
 	}
 
 	// 更新邮件报警配置,其实可以和上面同用一个接口
@@ -257,6 +263,8 @@ public class DealInformation implements Runnable {
 		String name = request.getUserId();
 		MailCenterRestry.getInstance().addMailService(name);
 		logger.info("Update email alarm user successed.");
+		request.toBuilder().clear();
+		request.toBuilder().clearUserId();
 	}
 
 	// 测试邮件报警配置
@@ -276,5 +284,7 @@ public class DealInformation implements Runnable {
 		}
 		email.setReceiver_emails(builder.toString());
 		new MailSender(email).send(null);
+		request.toBuilder().clear();
 	}
+
 }

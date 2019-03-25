@@ -23,13 +23,15 @@ public class Header {
 	
 	
 	public void logMe () {
-		logger.info("[version]: " + (int) this.version);
-		logger.info("[dataType]: " +  (int)this.dataType);
-		logger.info("[direction]:"+this.direction);
-		logger.info("[Flags]: " + this.flags);
-		logger.info("[Command]: " + this.command);
-		logger.info("[ErrorCode]: " + this.errorCode);
-		logger.info("[Data length]: " + this.dataLength);
+		logger.info(String.format("[version]:%s [dataType]:%s [direction]:%s [Flags]:%s [Command]:%s [ErrorCode]:%s [Data length]:%s",
+				(int) this.version,
+				(int)this.dataType,
+				this.direction,
+				this.flags,
+				this.command,
+				this.errorCode,
+				this.dataLength
+		));
 	}
 	
 

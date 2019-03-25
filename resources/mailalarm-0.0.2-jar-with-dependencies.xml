@@ -1,0 +1,8 @@
+﻿<configuration>
+     <id>mailalarm</id>
+     <name>mailalarm</name>
+     <description>This is mailalarm service.</description>
+     <!-- java环境变量 -->
+     <executable>java</executable>
+     <arguments>-jar "C:\Program Files (x86)\Enterprise Information Management\CloudManager\Server\mailalarm-0.0.2-jar-with-dependencies.jar"</arguments>
+</configuration>

@@ -1,21 +1,20 @@
 package cn.infocore.main;
 
 
+
 import org.apache.log4j.Logger;
 
 public class Main {
 	
 	private static final Logger logger=Logger.getLogger(Main.class);
 	
-	public static final ThreadConsume consum;
-	public static final ThreadConsume2 consum2;
+	//public static final ThreadConsume consum;
 	public static final ThreadInformation information;
 	public static final ThreadHeartbeat heartbeat;
 	public static final ThreadScanStreamer scan;
 	
 	static {
-		consum=ThreadConsume.getInstance();
-		consum2=ThreadConsume2.getInstance();
+		//consum=ThreadConsume.getInstance();
 		information=ThreadInformation.getInstance();
 		heartbeat=ThreadHeartbeat.getInstance();
 		scan=ThreadScanStreamer.getInstance();
@@ -26,10 +25,8 @@ public class Main {
 		logger.info("Start CloudManager....");
 		heartbeat.start();
 		logger.info("Heartbeat is start....");
-		consum.start();
-		consum2.start();
+		//consum.start();
 		//logger.info("Consum is start....");
-
 		information.start();
 		logger.info("Information is start....");
 		
@@ -37,12 +34,10 @@ public class Main {
 		logger.info("Scan is start...");
 		
 		try {
-			consum.join();
-			consum2.join();
-			scan.join();
 			heartbeat.join();
-			//aio.join();
 			information.join();
+			//consum.join();
+			scan.join();
 			logger.info("CloudManager is stoped...");
 		} catch (Exception e) {
 			logger.warn("Failed occured...");
@@ -52,5 +47,5 @@ public class Main {
 		
 		
 	}
-	
+
 }

@@ -20,13 +20,12 @@ public class DataArkList {
 	
 	private DataArkList() {
 		logger.info("Init,Start get all data ark from database.");
-		Connection connection=MyDataSource.getConnection();
 		//初始的时候，先从数据库中获取一次
 		String sql="select id,ip from data_ark";
-		QueryRunner qr=new QueryRunner();
+		QueryRunner qr=MyDataSource.getQueryRunner();
 		List<UUid_ip> lIps=null;
 		try {
-			lIps=qr.query(connection, sql, new UUid_ipHandler());
+			lIps=qr.query( sql, new UUid_ipHandler());
 			for (UUid_ip uid_ip:lIps) {
 				this.data_ark_list.put(uid_ip.getUuid(),uid_ip.getIp());
 				//同时初始化维护数据方舟掉线的列表
@@ -36,7 +35,7 @@ public class DataArkList {
 		} catch (SQLException e) {
 			logger.error(e);
 		}finally {
-			MyDataSource.close(connection);
+			//MyDataSource.close(connection);
 		}
 	}
 	private static class DataArkListHolder{

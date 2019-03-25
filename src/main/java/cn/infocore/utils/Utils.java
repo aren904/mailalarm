@@ -1,6 +1,7 @@
 package cn.infocore.utils;
 
 
+
 public class Utils {
 
 	
@@ -126,4 +127,5 @@ public class Utils {
 		}
 		return ret;
 	}
+
 }

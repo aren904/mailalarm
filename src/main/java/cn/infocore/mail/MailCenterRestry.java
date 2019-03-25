@@ -25,16 +25,15 @@ public class MailCenterRestry implements Center {
 
 	private MailCenterRestry() {
 		this.list = new ConcurrentHashMap<String, MailSender>();
-		Connection connection = MyDataSource.getConnection();
 		// 初始的时候，先从数据库中获取一次
 		logger.info("Start collect mail config from database.");
-		QueryRunner qr = new QueryRunner();
+		QueryRunner qr = MyDataSource.getQueryRunner();
 		String sql = "select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,sender_password,smtp_address,"
 				+ "smtp_port,smtp_authentication,smtp_user_id,smtp_password,ssl_encrypt,receiver_emails,privilege_level "
 				+ "from email_alarm,user where email_alarm.user_id=user.id";
 		List<Email_alarm> eList = null;
 		try {
-			eList = qr.query(connection, sql, new BeanListHandler<Email_alarm>(Email_alarm.class));
+			eList = qr.query(sql, new BeanListHandler<Email_alarm>(Email_alarm.class));
 			if (eList.size() > 0) {
 				logger.info("Get mail config count:" + eList.size());
 				for (Email_alarm eAlarm : eList) {
@@ -49,7 +48,7 @@ public class MailCenterRestry implements Center {
 		} catch (SQLException e) {
 			logger.error(e);
 		} finally {
-			MyDataSource.close(connection);
+			//MyDataSource.close(connection);
 		}
 	}
 
@@ -72,17 +71,16 @@ public class MailCenterRestry implements Center {
 	// 更新邮件配置还是使用该接口
 	public void addMailService(String name) {
 		// 通过查数据库，添加到本地，自己构造MailSender对象
-		Connection connection = MyDataSource.getConnection();
 		// 初始的时候，先从数据库中获取一次
 		
 		String sql="select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,sender_password,smtp_address," + 
 				"smtp_port,smtp_authentication,smtp_user_id,smtp_password,ssl_encrypt,receiver_emails,privilege_level " + 
 				"from email_alarm,user where email_alarm.user_id=user.id and email_alarm.user_id=?";
-		QueryRunner qr = new QueryRunner();
+		QueryRunner qr = MyDataSource.getQueryRunner();
 		Object[] para = { name };
 		List<Email_alarm> elList = null;
 		try {
-			elList = qr.query(connection, sql, new BeanListHandler<Email_alarm>(Email_alarm.class), para);
+			elList = qr.query( sql, new BeanListHandler<Email_alarm>(Email_alarm.class), para);
 			for (Email_alarm email_alarm : elList) {
 				if (email_alarm.getEnabled() == (byte) 0) {
 					if (this.list.containsKey(name)) {
@@ -95,7 +93,7 @@ public class MailCenterRestry implements Center {
 		} catch (SQLException e) {
 			logger.error("addMailService.", e);
 		} finally {
-			MyDataSource.close(connection);
+			//MyDataSource.close(connection);
 		}
 	}
 
@@ -109,12 +107,12 @@ public class MailCenterRestry implements Center {
 	public void notifyCenter(Fault... list_fault) throws SQLException {
 		logger.info("Start NotifyCenetr inject mailsender.");
 		String sql = null;
-		Connection connection = MyDataSource.getConnection();
 		for (Fault fault : list_fault) {
 			Object[] condition=null;
 			if (fault.getType()==0) {
 				sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target=?";
 				condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getTarget()};
+				//logger.error(fault.getUser_id()+" "+fault.getData_ark_id()+" "+fault.getTarget());
 			}else {
 				sql = "insert into alarm_log values(null,?,?,?,?,?,?,?,?,?,?) on duplicate key"
 						+ " update user_id=?,timestamp=?,processed=0";
@@ -122,8 +120,8 @@ public class MailCenterRestry implements Center {
 						fault.getData_ark_name(), fault.getData_ark_ip(), fault.getTarget(),0L,fault.getUser_id(),fault.getUser_id(),fault.getTimestamp()};
 			}
 			
-			QueryRunner qr = new QueryRunner();
-			qr.execute(connection, sql, condition);
+			QueryRunner qr = MyDataSource.getQueryRunner();
+			qr.execute( sql, condition);
 			if (fault.getType() != 0) {
 				for (Map.Entry<String, MailSender> entry:this.list.entrySet()) {
 					String user=entry.getKey();
@@ -136,13 +134,13 @@ public class MailCenterRestry implements Center {
 					}else {
 						sql = "select * from quota where user_id=? and data_ark_id=?";
 						Object[] param= {user,fault.getData_ark_id()};
-						QueryRunner qRunner = new QueryRunner();
-						List<Quota> quotas = qRunner.query(connection, sql, new QuotaHandler(), param);
+						QueryRunner qRunner = MyDataSource.getQueryRunner();
+						List<Quota> quotas = qRunner.query( sql, new QuotaHandler(), param);
 						if (!quotas.isEmpty()) {
 							//2019年3月11日18:04:13 朱伟添加
 							if(fault.getClient_type().intValue()==1||fault.getClient_type().intValue()==2){
 								//查询该user_id是否和报警客户端存在关系
-								Long count =findArkIdAndUserIdAndId(connection,fault,user);
+								Long count =findArkIdAndUserIdAndId(fault,user);
 								if(count.intValue()==1){
 									mailSender.judge(fault,user);
 								}
@@ -157,19 +155,19 @@ public class MailCenterRestry implements Center {
 				}
 			}
 		}
-		MyDataSource.close(connection);
+		//MyDataSource.close(connection);
 	}
-	protected Long findArkIdAndUserIdAndId(Connection connection,Fault fault,String user){
-		QueryRunner qclent = new QueryRunner();
+	protected Long findArkIdAndUserIdAndId(Fault fault,String user){
+		QueryRunner qclent = MyDataSource.getQueryRunner();
 		String sql="";
 		if(fault.getClient_type()==1){
-			sql="select count(*) from client where user_id? and data_ark_id=? and id=?";
+			sql="select count(*) from client where user_id=? and data_ark_id=? and id=?";
 		}else if(fault.getClient_type()==2){
-			sql="select count(*) from virtual_machine where user_id? and data_ark_id=? and id=?";
+			sql="select count(*) from virtual_machine where user_id=? and data_ark_id=? and id=?";
 		}
 		Object[] param1= {user,fault.getData_ark_id(),fault.getClient_id()};
 		try {
-			Long count = qclent.query(connection,sql,new ScalarHandler<Long>(),param1);
+			Long count = qclent.query(sql,new ScalarHandler<Long>(),param1);
 			return count;
 		} catch (SQLException e) {
 			e.printStackTrace();
