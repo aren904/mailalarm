@@ -151,7 +151,6 @@ public class InfoProcessData{
                 sql="update client set type=?,name=?,execptions=? where id=?";
                 qr.batch(sql,param1);
             }
-			logger.error(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

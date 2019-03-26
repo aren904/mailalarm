@@ -17,7 +17,19 @@ public class DealSocket implements Runnable{
 	public DealSocket(Socket socket) {
 		this.socket=socket;
 	}
-	
+
+	public Header getHeaderObj(){
+		Header header=new Header();
+		header.setCommand(87000);
+		header.setVersion((short) 1);
+		header.setFlags((short) 0);
+		header.setDataType((short) 0);
+		header.setDataLength(0);
+		header.setErrorCode(1);
+		header.setDirection((short) 0);
+		return header;
+	}
+
 	
 	public void run() {
 		int ioret;
@@ -30,20 +42,22 @@ public class DealSocket implements Runnable{
 			ioret=in.read(h,0,Header.STREAMER_HEADER_LENGTH);
 			if (ioret!=Header.STREAMER_HEADER_LENGTH) {
 				logger.error(Utils.fmt("Failed to recived header,[%d] byte(s) expected,but [%d] is recevied.",Header.STREAMER_HEADER_LENGTH,ioret));
+				Header header=getHeaderObj();
+				byte[] resp=header.toByteArray();
+				out.write(resp, 0, resp.length);
+				out.flush();
 				throw new Exception();
 			}
 			Header header=new Header();
 			header.parseByteArray(h);
 			if (header.getCommand()!=87000) {
 				logger.error(Utils.fmt("Incorrect command"));
-				throw new Exception();
 			}
 			
 			byte[] buffer=new byte[header.getDataLength()];
 			ioret=in.read(buffer, 0, buffer.length);
 			if (ioret!=buffer.length) {
 				logger.error(Utils.fmt("Failed to receive Protobuf"));
-				throw new Exception();
 			}
 			logger.info("Received heartbeat from data_ark.");
 /*			GetServerInfoReturn hrt=GetServerInfoReturn.parseFrom(buffer);*/
