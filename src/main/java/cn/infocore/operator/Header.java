@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 
 public class Header {
+
 	public static final short STREAMER_VERSION_CODE = 1;
 	public static final int STREAMER_HEADER_LENGTH = 20;
 	private static final Logger logger = Logger.getLogger(Header.class);
@@ -131,7 +132,7 @@ public class Header {
 			logger.info("Length is wrong");
 			return false;
 		}
-		
+
 		/*byte[] baVersion = Arrays.copyOfRange(ba, 0, 2);
 		this.version = ByteBuffer.wrap(baVersion).order(ByteOrder.LITTLE_ENDIAN).getShort();*/
 		byte[] baVersion = Arrays.copyOfRange(ba, 0, 1);
@@ -163,9 +164,8 @@ public class Header {
 	
 
 	public byte[] toByteArray () {
-		
 		byte[] header = new byte[STREAMER_HEADER_LENGTH];
-		
+
 		byte[] baVersion = ByteBuffer.allocate(2)
 				.putShort(STREAMER_VERSION_CODE).array();
 		System.arraycopy(baVersion, 0, header, 0, 2);

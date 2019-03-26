@@ -32,7 +32,6 @@ public class InfoProcessData{
 	
 	
 	public void run() {
-		
 		logHeartbeat(hrt);
 		//1.解析protobuf
 		//如果过来的数据方舟心跳的uuid不再内存维护链表中，扔掉....
@@ -152,6 +151,7 @@ public class InfoProcessData{
                 sql="update client set type=?,name=?,execptions=? where id=?";
                 qr.batch(sql,param1);
             }
+			logger.error(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -169,7 +169,7 @@ public class InfoProcessData{
 		int paramSize=0;
 		for (int i = 0; i < list.size(); i++) {
 			Vcenter c= list.get(i);
-			if(c.getIps()!=null&&c.getIps()!=""){
+			if(c.getIps()!=null&&c.getIps()!=""&&c.getIps().length()>0){
 				paramSize++;
 			}
 		}
