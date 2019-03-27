@@ -11,6 +11,9 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import cn.hutool.cache.CacheUtil;
+import cn.hutool.cache.impl.TimedCache;
 import org.apache.log4j.Logger;
 import cn.infocore.entity.Email_alarm;
 import cn.infocore.entity.Fault;
@@ -19,6 +22,7 @@ import cn.infocore.utils.Utils;
 public class MailSender {
 	private static final Logger logger=Logger.getLogger(MailSender.class);
 	private static Map<String, Long> howOfen=new ConcurrentHashMap<String, Long>();// 内存维护的发送间隔时间
+	private static TimedCache<String,String> timedCache=CacheUtil.newTimedCache(10*60*1000);
 	private Email_alarm config;
 	private MimeMessage message;
 	private Session s;
@@ -84,7 +88,9 @@ public class MailSender {
 					// 已经开启
 					long split = config.getLimit_suppress_time();
 					//初始map
-					if (howOfen.get(key)==null||howOfen.get(key) + split <= now) {
+
+					if ((howOfen.get(key)==null||howOfen.get(key) + split <= now)&&timedCache.get(key,false)==null) {
+						timedCache.put(key,key);
 						try {
 							send(fault);
 						} catch (Exception e1) {

@@ -103,7 +103,7 @@ public class ThreadScanStreamer extends Thread {
 
 		}
 		sql = "update data_ark set exceptions=? where id=?";
-		Object[] param = { online ? null : "10", uuid };
+		Object[] param = { online ? "0" : "10", uuid };
 		try {
 			qr.update(sql, param);
 		} catch (SQLException e) {
