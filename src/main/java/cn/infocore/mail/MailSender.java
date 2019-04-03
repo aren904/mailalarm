@@ -22,7 +22,7 @@ import cn.infocore.utils.Utils;
 public class MailSender {
 	private static final Logger logger=Logger.getLogger(MailSender.class);
 	private static Map<String, Long> howOfen=new ConcurrentHashMap<String, Long>();// 内存维护的发送间隔时间
-	private static TimedCache<String,String> timedCache=CacheUtil.newTimedCache(10*60*1000);
+	private static TimedCache<String,String> timedCache=CacheUtil.newTimedCache(10*60*1000); //缓存时间为10min
 	private Email_alarm config;
 	private MimeMessage message;
 	private Session s;
@@ -68,13 +68,12 @@ public class MailSender {
 
 	// 逻辑处理
 	public void judge(Fault fault,String user) {
-
 		long now = System.currentTimeMillis() / 1000;
 		String[] e = config.getExceptions().split(";");
 		for (String string : e) {
 			// 如果该用户已经添加这个异常
 			if (string.equals(Integer.toString(fault.getType()))) {
-				// 是否开启限制
+				// 是否开启限制同一时间内只发送一封邮件
 				String key = user+fault.getData_ark_id() + fault.getTarget() + fault.getType();
 				if (config.getEnabled() == 0) {
 					// 未开启,直接发送异常邮件
@@ -87,8 +86,8 @@ public class MailSender {
 				} else {
 					// 已经开启
 					long split = config.getLimit_suppress_time();
-					//初始map
-
+					
+					//初始map,未添加过或者指定时间内未添加过
 					if ((howOfen.get(key)==null||howOfen.get(key) + split <= now)&&timedCache.get(key,false)==null) {
 						timedCache.put(key,key);
 						try {

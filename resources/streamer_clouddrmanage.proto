@@ -1,9 +1,7 @@
-
 //package StmStreamerDrManage;
 
 option java_package = "cn.infocore.protobuf";
 option java_outer_classname = "StmStreamerDrManage";
-
 
 enum ClientType{
     SINGLE = 0;
@@ -11,6 +9,7 @@ enum ClientType{
     MSCS = 2;
     RAC = 3;
     VC = 4;
+    AIX=5;
 }
 
 //备份的错误类型
@@ -37,14 +36,15 @@ enum FaultType{
     VMWARE_OFFLINE = 19;				 //虚拟机离线
     CLIENT_CREATESNAP_FAILD = 20;    //普通客户端创建快照点失败
     RAC_CREATE_SNAP_FAILED = 21;     //RAC客户端创建快照点失败
-    DR_SERVER_OFFLINE = 22;          //容灾服务离线 
-
+    DR_SERVER_OFFLINE = 22;          //容灾服务离线
+    STREAMER_POOL_ALMOST_FULL = 23;   //存储池已超过阈值
+    STREAMER_CLIENT_DISK_OFFLINE = 24;//映射的盘离线(用于AIX客户端) 
 }
 
 //服务器信息
 message Streamer{
-	 required string ip = 1; 
-	 required string name = 2;
+	required string ip = 1; 
+	required string name = 2;
     required uint64 total = 3;
     required uint64 used = 4;
     repeated FaultType Streamer_state = 5;

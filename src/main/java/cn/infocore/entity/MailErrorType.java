@@ -25,7 +25,6 @@ public enum MailErrorType {
 	//主机离线
 	MAIL_HOST_OFFLINE_ERR(11);
 	
-	
 	private int value;
 	
 	private MailErrorType(int value) {

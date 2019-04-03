@@ -27,12 +27,9 @@ public class Data_ark {
 	//数据方舟的用户密码
 	private String user_password;
 	
-	
 	//对应Data_ark_group中的id字段，是外健
 	private int data_ark_group_id;
 
-	
-	
 	public long getTotal_oracle_capacity() {
 		return total_oracle_capacity;
 	}
@@ -49,6 +46,10 @@ public class Data_ark {
 		return faults;
 	}
 
+	/**
+	 * 转字符串保存到数据库
+	 * @param faults
+	 */
 	public void setFaults(List<Fault> faults) {
 		this.faults = faults;
 		StringBuilder string=new StringBuilder();

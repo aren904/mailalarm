@@ -50,6 +50,7 @@ public class DealInformation implements Runnable {
 						InforHeader.INFOR_HEADER_LENGTH, ioret));
 				return;
 			}
+			
 			InforHeader myHeader = new InforHeader();
 			myHeader.parseByteArray(header);
 			logger.info("Successed recived heartbeat from qiangge.");
@@ -107,7 +108,6 @@ public class DealInformation implements Runnable {
 				}
 			}
 			break;
-			
 		case 206:
 			try {
 				RemoveDataArkRequest request = RemoveDataArkRequest.parseFrom(buffer);
@@ -145,7 +145,6 @@ public class DealInformation implements Runnable {
 				}
 			}
 			break;
-
 		case 502:
 			try {
 				CreateEmailAlarmRequest request = CreateEmailAlarmRequest.parseFrom(buffer);
@@ -164,7 +163,6 @@ public class DealInformation implements Runnable {
 				}
 			}
 			break;
-			
 		case 501:
 			try {
 				UpdateEmailAlarmRequest request=UpdateEmailAlarmRequest.parseFrom(buffer);
@@ -183,7 +181,6 @@ public class DealInformation implements Runnable {
 				}
 			}
 			break;
-
 		case 504:
 			try {
 				VerifyEmailAlarmRequest request = VerifyEmailAlarmRequest.parseFrom(buffer);
@@ -202,7 +199,6 @@ public class DealInformation implements Runnable {
 				}
 			}
 			break;
-		
 			default:logger.error("Unknown Operation Code:"+command);break;
 		}
 		
@@ -210,7 +206,6 @@ public class DealInformation implements Runnable {
 	
 	// 添加数据方舟
 	private void addDataArk(AddDataArkRequest request){
-		
 		String uuid = request.getId();
 		logger.info("Need to add data ark id:" + uuid);
 		String ip = "";

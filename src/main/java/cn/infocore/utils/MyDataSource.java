@@ -37,10 +37,12 @@ public class MyDataSource {
 			}
 		}
 	}
+	
 	//获取数据源
 	public static DataSource getDataSource() {
 		return dataSource;
 	}
+	
 	public static QueryRunner getQueryRunner(){
 		QueryRunner query=new QueryRunner(dataSource);
 		return query;

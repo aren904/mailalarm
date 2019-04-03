@@ -18,11 +18,10 @@ public class Virtual_machine {
 	//对应User的id字段，外健
 	private String user_id;
 	
-	
-	
 	public List<Fault> getFaults() {
 		return faults;
 	}
+	
 	public void setFaults(List<Fault> faults) {
 		this.faults = faults;
 		StringBuilder string=new StringBuilder();
@@ -32,23 +31,28 @@ public class Virtual_machine {
 		}
 		string.deleteCharAt(string.length()-1);
 		setExcept(string.toString());
-		
 	}
+	
 	public String getId() {
 		return id;
 	}
+	
 	public String getPath() {
 		return path;
 	}
+	
 	public void setPath(String path) {
 		this.path = path;
 	}
+	
 	public void setId(String id) {
 		this.id = id;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -56,29 +60,33 @@ public class Virtual_machine {
 	public String getExcept() {
 		return except;
 	}
+	
 	public void setExcept(String except) {
 		this.except = except;
 	}
+	
 	public String getVcenter_id() {
 		return vcenter_id;
 	}
+	
 	public void setVcenter_id(String vcenter_id) {
 		this.vcenter_id = vcenter_id;
 	}
+	
 	public String getData_ark_id() {
 		return data_ark_id;
 	}
+	
 	public void setData_ark_id(String data_ark_id) {
 		this.data_ark_id = data_ark_id;
 	}
+	
 	public String getUser_id() {
 		return user_id;
 	}
+	
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
-	
-	
-	
 	
 }

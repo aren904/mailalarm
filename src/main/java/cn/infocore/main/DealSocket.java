@@ -4,8 +4,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-import cn.infocore.protobuf.StmStreamerDrManage;
 import org.apache.log4j.Logger;
+
 import cn.infocore.operator.Header;
 import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
 import cn.infocore.utils.Utils;
@@ -29,8 +29,10 @@ public class DealSocket implements Runnable{
 		header.setDirection((short) 0);
 		return header;
 	}
-
 	
+	/**
+	 * 定义需求，收到指令后需要恢复streamer服务端
+	 */
 	public void run() {
 		int ioret;
 		InputStream in=null;
@@ -48,10 +50,16 @@ public class DealSocket implements Runnable{
 				out.flush();
 				throw new Exception();
 			}
+			
 			Header header=new Header();
 			header.parseByteArray(h);
 			if (header.getCommand()!=87000) {
 				logger.error(Utils.fmt("Incorrect command"));
+				header.setErrorCode(1);
+				byte[] resp=header.toByteArray();
+				out.write(resp, 0, resp.length);
+				out.flush();
+				throw new Exception();
 			}
 			
 			byte[] buffer=new byte[header.getDataLength()];
@@ -60,15 +68,18 @@ public class DealSocket implements Runnable{
 				logger.error(Utils.fmt("Failed to receive Protobuf"));
 			}
 			logger.info("Received heartbeat from data_ark.");
-/*			GetServerInfoReturn hrt=GetServerInfoReturn.parseFrom(buffer);*/
+            /*GetServerInfoReturn hrt=GetServerInfoReturn.parseFrom(buffer);*/
 			//转化protobuf,放入阻塞队列
 			//CachedQueue.getInstance().addIntoQueue(GetServerInfoReturn.parseFrom(buffer.clone()));
 			header.setErrorCode(0);
 			byte[] resp=header.toByteArray();
 			out.write(resp, 0, resp.length);
 			out.flush();
+			
 			GetServerInfoReturn hrt=GetServerInfoReturn.parseFrom(buffer);
 			new InfoProcessData(hrt).run();
+			
+			//清理内存
 			hrt.toBuilder().clear();
 			hrt.toBuilder().clearClients();
 			hrt.toBuilder().clearServer();

@@ -1,15 +1,15 @@
 package cn.infocore.main;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Map;
+
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
+
 import cn.infocore.entity.Data_ark;
 import cn.infocore.entity.Fault;
-import cn.infocore.mail.MailCenterRestry;
 import cn.infocore.handler.DataArkHandler;
+import cn.infocore.mail.MailCenterRestry;
 import cn.infocore.utils.MyDataSource;
 
 public class ThreadScanStreamer extends Thread {
@@ -46,7 +46,6 @@ public class ThreadScanStreamer extends Thread {
 					}else {
 						updateOffLine(uuid,true);
 					}
-					
 				}
 			}
 			try {
@@ -81,6 +80,7 @@ public class ThreadScanStreamer extends Thread {
 				if(data_ark==null&&adminData_ark!=null){
 					data_ark=adminData_ark;
 				}
+				
 				if (data_ark==null) {
 					fault.setData_ark_name("null");
 					fault.setData_ark_ip("null");
@@ -92,6 +92,7 @@ public class ThreadScanStreamer extends Thread {
 					fault.setTarget(data_ark.getName());
 					fault.setUser_id(data_ark.getUser_id());
 				}
+				
 				try {
 					MailCenterRestry.getInstance().notifyCenter(fault);
 				} catch (SQLException e) {
@@ -100,8 +101,9 @@ public class ThreadScanStreamer extends Thread {
 			} catch (SQLException e1) {
 				logger.error("ThreadScanStreamer:"+e1);
 			}
-
 		}
+		
+		//更新数据库数据方舟的状态
 		sql = "update data_ark set exceptions=? where id=?";
 		Object[] param = { online ? "0" : "10", uuid };
 		try {

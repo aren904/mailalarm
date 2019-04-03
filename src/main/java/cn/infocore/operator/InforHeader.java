@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import org.apache.log4j.Logger;
 
+//云平台交互头信息
 public class InforHeader {
 	private static final Logger logger=Logger.getLogger(InforHeader.class);
 	public static final int INFOR_HEADER_LENGTH=26;

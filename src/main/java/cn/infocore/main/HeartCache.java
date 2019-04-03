@@ -20,26 +20,22 @@ public class HeartCache {
 		public static HeartCache instance=new HeartCache();
 	}
 	
-	
 	public static HeartCache getInstance() {
 		return HeartCacheHolder.instance;
 	}
 	
-	
-	
-	
 	public synchronized void addHeartCache(String uuid,Long time) {
 		cache.put(uuid, time);
 	}
+	
 	//移除
 	public synchronized void removeHeartCache(String uuid) {
 		cache.remove(uuid);
 	}
+	
 	//获取所有
 	public synchronized Map<String,Long> getAllCacheList() {
 		return cache;
 	}
-	
-	
 	
 }

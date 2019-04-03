@@ -1,22 +1,24 @@
 package cn.infocore.mail;
 
-import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import cn.infocore.entity.Data_ark;
-import cn.infocore.handler.DataArkHandler;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.log4j.Logger;
+
 import cn.infocore.entity.Email_alarm;
 import cn.infocore.entity.Fault;
 import cn.infocore.entity.Quota;
-import cn.infocore.utils.MyDataSource;
+import cn.infocore.handler.ExceptHandler;
 import cn.infocore.handler.QuotaHandler;
+import cn.infocore.utils.MyDataSource;
 
 //内存中维护的邮件注册列表
 public class MailCenterRestry implements Center {
@@ -72,7 +74,6 @@ public class MailCenterRestry implements Center {
 	public void addMailService(String name) {
 		// 通过查数据库，添加到本地，自己构造MailSender对象
 		// 初始的时候，先从数据库中获取一次
-		
 		String sql="select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,sender_password,smtp_address," + 
 				"smtp_port,smtp_authentication,smtp_user_id,smtp_password,ssl_encrypt,receiver_emails,privilege_level " + 
 				"from email_alarm,user where email_alarm.user_id=user.id and email_alarm.user_id=?";
@@ -110,18 +111,63 @@ public class MailCenterRestry implements Center {
 		for (Fault fault : list_fault) {
 			Object[] condition=null;
 			if (fault.getType()==0) {
+				//1.confirm all alarm log for target.
 				sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target=?";
 				condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getTarget()};
 				//logger.error(fault.getUser_id()+" "+fault.getData_ark_id()+" "+fault.getTarget());
 			}else {
-				sql = "insert into alarm_log values(null,?,?,?,?,?,?,?,?,?,?) on duplicate key"
-						+ " update user_id=?,timestamp=?,processed=0";
-				condition=new Object[] {fault.getTimestamp(),0,0,fault.getType(),fault.getData_ark_id(),
-						fault.getData_ark_name(), fault.getData_ark_ip(), fault.getTarget(),0L,fault.getUser_id(),fault.getUser_id(),fault.getTimestamp()};
+				//add by wxx,for one fault to other fault and not confirm.
+				//current error
+				List<String> currentErrors=new ArrayList<String>();
+				if(fault.getClient_type()==0){
+					sql="select exceptions from data_ark where id=?";
+				}else if(fault.getClient_type()==1){
+					sql="select exceptions from client where id=?";
+				}else if(fault.getClient_type()==2){
+					sql="select exceptions from vcenter where id=?";
+				}else if(fault.getClient_type()==3){
+					sql="select exceptions from virtual_machine where id=?";
+				}
+				
+				Object[] para={fault.getData_ark_id()};
+				QueryRunner qr = MyDataSource.getQueryRunner();
+				String excepts="";
+				try {
+					excepts=qr.query(sql, new ExceptHandler(), para);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+				//current error
+				currentErrors.addAll(Arrays.asList(excepts.split(";")));
+				
+				sql="select * from alarm_log where data_ark_id=? and target=?";
+				Object[] para2 = {fault.getData_ark_id(),fault.getTarget()};
+				QueryRunner qr2 = MyDataSource.getQueryRunner();
+				//db error
+				List<Integer> dbErrors = qr2.query( sql, new ColumnListHandler<Integer>("type"), para2);
+				for(Integer type:dbErrors){
+					if(!currentErrors.contains(String.valueOf(type))){
+						//2.current not contains db,confirm it.
+						sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target=?";
+						condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getTarget()};
+					}
+				}
+				
+				for(String type:currentErrors){
+					if(!dbErrors.contains(Integer.parseInt(type))){
+						//3.current is new,insert it.
+						sql = "insert into alarm_log values(null,?,?,?,?,?,?,?,?,?,?) on duplicate key"
+								+ " update user_id=?,timestamp=?,processed=0";
+						condition=new Object[] {fault.getTimestamp(),0,0,fault.getType(),fault.getData_ark_id(),
+								fault.getData_ark_name(), fault.getData_ark_ip(), fault.getTarget(),0L,fault.getUser_id(),fault.getUser_id(),fault.getTimestamp()};
+					}
+				}
 			}
 			
 			QueryRunner qr = MyDataSource.getQueryRunner();
 			qr.execute( sql, condition);
+			
 			if (fault.getType() != 0) {
 				for (Map.Entry<String, MailSender> entry:this.list.entrySet()) {
 					String user=entry.getKey();
@@ -139,7 +185,7 @@ public class MailCenterRestry implements Center {
 						if (!quotas.isEmpty()) {
 							//2019年3月11日18:04:13 朱伟添加
 							if(fault.getClient_type().intValue()==1||fault.getClient_type().intValue()==2){
-								//查询该user_id是否和报警客户端存在关系
+								//查询该user_id是否和报警客户端存在关系，即该客户端是否是该用户添加过，添加过则给该用户发送报警邮件
 								Long count =findArkIdAndUserIdAndId(fault,user);
 								if(count.intValue()==1){
 									mailSender.judge(fault,user);
@@ -157,6 +203,7 @@ public class MailCenterRestry implements Center {
 		}
 		//MyDataSource.close(connection);
 	}
+	
 	protected Long findArkIdAndUserIdAndId(Fault fault,String user){
 		QueryRunner qclent = MyDataSource.getQueryRunner();
 		String sql="";

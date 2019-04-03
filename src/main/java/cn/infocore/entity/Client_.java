@@ -5,7 +5,7 @@ import java.util.List;
 public class Client_ {
 	//客户端id
 	private String id;
-	//名称
+	//名称：计算机名称
 	private String name;
 	//别名
 	private String alias;
@@ -16,7 +16,7 @@ public class Client_ {
 	
 	private List<Fault> fList;
 	
-	//客户端类型
+	//客户端类型 SINGLE = 0;VMWARE = 1;MSCS = 2;RAC = 3;VC = 4;
 	private int type;
 	//对应Data_ark中的id字段，是外健
 	private String data_ark_id;
@@ -50,7 +50,6 @@ public class Client_ {
 	public String getName() {
 		return name;
 	}
-
 
 	public int getType() {
 		return type;
@@ -103,9 +102,5 @@ public class Client_ {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
-	
-	
-	
-	
 	
 }

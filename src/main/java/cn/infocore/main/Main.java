@@ -1,17 +1,14 @@
 package cn.infocore.main;
 
-
-
 import org.apache.log4j.Logger;
 
 public class Main {
-	
-	private static final Logger logger=Logger.getLogger(Main.class);
-	
 	//public static final ThreadConsume consum;
 	public static final ThreadInformation information;
 	public static final ThreadHeartbeat heartbeat;
 	public static final ThreadScanStreamer scan;
+	
+	private static final Logger logger=Logger.getLogger(Main.class);
 	
 	static {
 		//consum=ThreadConsume.getInstance();
@@ -44,8 +41,6 @@ public class Main {
 		}finally {
 			System.exit(0);
 		}
-		
-		
 	}
 
 }

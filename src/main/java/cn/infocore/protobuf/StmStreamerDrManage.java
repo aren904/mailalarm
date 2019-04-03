@@ -147,13 +147,13 @@ public final class StmStreamerDrManage {
      */
     CLIENT_DST_LOST(2, 2),
     /**
-     * <code>CLIENT_CREATE_SNAP_AILED = 3;</code>
+     * <code>VMWARE_CREATE_SNAP_FAILED = 3;</code>
      *
      * <pre>
-     *任务计划创建快照点失败(暂时不考虑普通客户端)
+     *vmware任务计划创建快照点失败
      * </pre>
      */
-    CLIENT_CREATE_SNAP_AILED(3, 3),
+    VMWARE_CREATE_SNAP_FAILED(3, 3),
     /**
      * <code>VWARE_CBT_DROP = 4;</code>
      *
@@ -166,7 +166,7 @@ public final class StmStreamerDrManage {
      * <code>CLIENT_OFFLINE = 5;</code>
      *
      * <pre>
-     *客户端离线
+     *普通客户端离线
      * </pre>
      */
     CLIENT_OFFLINE(5, 5),
@@ -187,13 +187,13 @@ public final class StmStreamerDrManage {
      */
     CLUSTER_NODE_EXIST_OFFLINE(7, 7),
     /**
-     * <code>CLUSTER_NODE_OFFLINE = 8;</code>
+     * <code>CLUSTER_NODE_ALL_OFFLINE = 8;</code>
      *
      * <pre>
      *集群离线
      * </pre>
      */
-    CLUSTER_NODE_OFFLINE(8, 8),
+    CLUSTER_NODE_ALL_OFFLINE(8, 8),
     /**
      * <code>STREAMER_POOL_DISABLE = 9;</code>
      *
@@ -251,13 +251,13 @@ public final class StmStreamerDrManage {
      */
     RAC_NODE_EXIST_OFFLINE(15, 15),
     /**
-     * <code>RAC_NODE_OFFLINE = 16;</code>
+     * <code>RAC_NODE_ALL_OFFLINE = 16;</code>
      *
      * <pre>
      *RAC节点全部离线
      * </pre>
      */
-    RAC_NODE_OFFLINE(16, 16),
+    RAC_NODE_ALL_OFFLINE(16, 16),
     /**
      * <code>RAC_INSTANCE_EXIST_OFFLINE = 17;</code>
      *
@@ -267,13 +267,13 @@ public final class StmStreamerDrManage {
      */
     RAC_INSTANCE_EXIST_OFFLINE(17, 17),
     /**
-     * <code>RAC_INSTANCE_OFFLINE = 18;</code>
+     * <code>RAC_INSTANCE_ALL_OFFLINE = 18;</code>
      *
      * <pre>
      *RAC实例全部离线
      * </pre>
      */
-    RAC_INSTANCE_OFFLINE(18, 18),
+    RAC_INSTANCE_ALL_OFFLINE(18, 18),
     /**
      * <code>VMWARE_OFFLINE = 19;</code>
      *
@@ -283,18 +283,18 @@ public final class StmStreamerDrManage {
      */
     VMWARE_OFFLINE(19, 19),
     /**
-     * <code>CLIENT_CREATESNAP_FAILD = 20;</code>
+     * <code>CLIENT_CREATE_SNAP_FAILED = 20;</code>
      *
      * <pre>
-     *普通客户端创建快照点失败
+     *普通客户端创建快照点失败 
      * </pre>
      */
-    CLIENT_CREATESNAP_FAILD(20, 20),
+    CLIENT_CREATE_SNAP_FAILED(20, 20),
     /**
      * <code>RAC_CREATE_SNAP_FAILED = 21;</code>
      *
      * <pre>
-     *RAC客户端创建快照点失败
+     *Rac客户端创建快照点失败 
      * </pre>
      */
     RAC_CREATE_SNAP_FAILED(21, 21),
@@ -306,6 +306,22 @@ public final class StmStreamerDrManage {
      * </pre>
      */
     DR_SERVER_OFFLINE(22, 22),
+    /**
+     * <code>STREAMER_POOL_ALMOST_FULL = 23;</code>
+     *
+     * <pre>
+     *存储池已超过阈值
+     * </pre>
+     */
+    STREAMER_POOL_ALMOST_FULL(23, 23),
+    /**
+     * <code>STREAMER_CLIENT_DISK_OFFLINE = 24;</code>
+     *
+     * <pre>
+     *映射的盘离线(用于AIX客户端)
+     * </pre>
+     */
+    STREAMER_CLIENT_DISK_OFFLINE(24, 24),
     ;
 
     /**
@@ -329,13 +345,13 @@ public final class StmStreamerDrManage {
      */
     public static final int CLIENT_DST_LOST_VALUE = 2;
     /**
-     * <code>CLIENT_CREATE_SNAP_AILED = 3;</code>
+     * <code>VMWARE_CREATE_SNAP_FAILED = 3;</code>
      *
      * <pre>
-     *任务计划创建快照点失败(暂时不考虑普通客户端)
+     *vmware任务计划创建快照点失败
      * </pre>
      */
-    public static final int CLIENT_CREATE_SNAP_AILED_VALUE = 3;
+    public static final int VMWARE_CREATE_SNAP_FAILED_VALUE = 3;
     /**
      * <code>VWARE_CBT_DROP = 4;</code>
      *
@@ -348,7 +364,7 @@ public final class StmStreamerDrManage {
      * <code>CLIENT_OFFLINE = 5;</code>
      *
      * <pre>
-     *客户端离线
+     *普通客户端离线
      * </pre>
      */
     public static final int CLIENT_OFFLINE_VALUE = 5;
@@ -369,13 +385,13 @@ public final class StmStreamerDrManage {
      */
     public static final int CLUSTER_NODE_EXIST_OFFLINE_VALUE = 7;
     /**
-     * <code>CLUSTER_NODE_OFFLINE = 8;</code>
+     * <code>CLUSTER_NODE_ALL_OFFLINE = 8;</code>
      *
      * <pre>
      *集群离线
      * </pre>
      */
-    public static final int CLUSTER_NODE_OFFLINE_VALUE = 8;
+    public static final int CLUSTER_NODE_ALL_OFFLINE_VALUE = 8;
     /**
      * <code>STREAMER_POOL_DISABLE = 9;</code>
      *
@@ -433,13 +449,13 @@ public final class StmStreamerDrManage {
      */
     public static final int RAC_NODE_EXIST_OFFLINE_VALUE = 15;
     /**
-     * <code>RAC_NODE_OFFLINE = 16;</code>
+     * <code>RAC_NODE_ALL_OFFLINE = 16;</code>
      *
      * <pre>
      *RAC节点全部离线
      * </pre>
      */
-    public static final int RAC_NODE_OFFLINE_VALUE = 16;
+    public static final int RAC_NODE_ALL_OFFLINE_VALUE = 16;
     /**
      * <code>RAC_INSTANCE_EXIST_OFFLINE = 17;</code>
      *
@@ -449,13 +465,13 @@ public final class StmStreamerDrManage {
      */
     public static final int RAC_INSTANCE_EXIST_OFFLINE_VALUE = 17;
     /**
-     * <code>RAC_INSTANCE_OFFLINE = 18;</code>
+     * <code>RAC_INSTANCE_ALL_OFFLINE = 18;</code>
      *
      * <pre>
      *RAC实例全部离线
      * </pre>
      */
-    public static final int RAC_INSTANCE_OFFLINE_VALUE = 18;
+    public static final int RAC_INSTANCE_ALL_OFFLINE_VALUE = 18;
     /**
      * <code>VMWARE_OFFLINE = 19;</code>
      *
@@ -465,18 +481,18 @@ public final class StmStreamerDrManage {
      */
     public static final int VMWARE_OFFLINE_VALUE = 19;
     /**
-     * <code>CLIENT_CREATESNAP_FAILD = 20;</code>
+     * <code>CLIENT_CREATE_SNAP_FAILED = 20;</code>
      *
      * <pre>
-     *普通客户端创建快照点失败
+     *普通客户端创建快照点失败 
      * </pre>
      */
-    public static final int CLIENT_CREATESNAP_FAILD_VALUE = 20;
+    public static final int CLIENT_CREATE_SNAP_FAILED_VALUE = 20;
     /**
      * <code>RAC_CREATE_SNAP_FAILED = 21;</code>
      *
      * <pre>
-     *RAC客户端创建快照点失败
+     *Rac客户端创建快照点失败 
      * </pre>
      */
     public static final int RAC_CREATE_SNAP_FAILED_VALUE = 21;
@@ -488,6 +504,22 @@ public final class StmStreamerDrManage {
      * </pre>
      */
     public static final int DR_SERVER_OFFLINE_VALUE = 22;
+    /**
+     * <code>STREAMER_POOL_ALMOST_FULL = 23;</code>
+     *
+     * <pre>
+     *存储池已超过阈值
+     * </pre>
+     */
+    public static final int STREAMER_POOL_ALMOST_FULL_VALUE = 23;
+    /**
+     * <code>STREAMER_CLIENT_DISK_OFFLINE = 24;</code>
+     *
+     * <pre>
+     *映射的盘离线(用于AIX客户端)
+     * </pre>
+     */
+    public static final int STREAMER_CLIENT_DISK_OFFLINE_VALUE = 24;
 
 
     public final int getNumber() { return value; }
@@ -497,12 +529,12 @@ public final class StmStreamerDrManage {
         case 0: return NORMAL;
         case 1: return CLIENT_LOCAL_LOST;
         case 2: return CLIENT_DST_LOST;
-        case 3: return CLIENT_CREATE_SNAP_AILED;
+        case 3: return VMWARE_CREATE_SNAP_FAILED;
         case 4: return VWARE_CBT_DROP;
         case 5: return CLIENT_OFFLINE;
         case 6: return VCENTER_OFFLINE;
         case 7: return CLUSTER_NODE_EXIST_OFFLINE;
-        case 8: return CLUSTER_NODE_OFFLINE;
+        case 8: return CLUSTER_NODE_ALL_OFFLINE;
         case 9: return STREAMER_POOL_DISABLE;
         case 10: return STREAMER_OFFLINE;
         case 11: return CLIENT_AUTO_EXPAND_FAILED;
@@ -510,13 +542,15 @@ public final class StmStreamerDrManage {
         case 13: return ORACLE_STORAGE_DROP;
         case 14: return DR_COPY_FAILED;
         case 15: return RAC_NODE_EXIST_OFFLINE;
-        case 16: return RAC_NODE_OFFLINE;
+        case 16: return RAC_NODE_ALL_OFFLINE;
         case 17: return RAC_INSTANCE_EXIST_OFFLINE;
-        case 18: return RAC_INSTANCE_OFFLINE;
+        case 18: return RAC_INSTANCE_ALL_OFFLINE;
         case 19: return VMWARE_OFFLINE;
-        case 20: return CLIENT_CREATESNAP_FAILD;
+        case 20: return CLIENT_CREATE_SNAP_FAILED;
         case 21: return RAC_CREATE_SNAP_FAILED;
         case 22: return DR_SERVER_OFFLINE;
+        case 23: return STREAMER_POOL_ALMOST_FULL;
+        case 24: return STREAMER_CLIENT_DISK_OFFLINE;
         default: return null;
       }
     }
@@ -639,6 +673,15 @@ public final class StmStreamerDrManage {
      * <code>required uint64 oracle_vol = 6;</code>
      */
     long getOracleVol();
+
+    /**
+     * <code>required uint64 max_clients = 7;</code>
+     */
+    boolean hasMaxClients();
+    /**
+     * <code>required uint64 max_clients = 7;</code>
+     */
+    long getMaxClients();
   }
   /**
    * Protobuf type {@code Streamer}
@@ -754,6 +797,11 @@ public final class StmStreamerDrManage {
             case 48: {
               bitField0_ |= 0x00000010;
               oracleVol_ = input.readUInt64();
+              break;
+            }
+            case 56: {
+              bitField0_ |= 0x00000020;
+              maxClients_ = input.readUInt64();
               break;
             }
           }
@@ -949,6 +997,21 @@ public final class StmStreamerDrManage {
       return oracleVol_;
     }
 
+    public static final int MAX_CLIENTS_FIELD_NUMBER = 7;
+    private long maxClients_;
+    /**
+     * <code>required uint64 max_clients = 7;</code>
+     */
+    public boolean hasMaxClients() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>required uint64 max_clients = 7;</code>
+     */
+    public long getMaxClients() {
+      return maxClients_;
+    }
+
     private void initFields() {
       ip_ = "";
       name_ = "";
@@ -956,6 +1019,7 @@ public final class StmStreamerDrManage {
       used_ = 0L;
       streamerState_ = java.util.Collections.emptyList();
       oracleVol_ = 0L;
+      maxClients_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -983,6 +1047,10 @@ public final class StmStreamerDrManage {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasMaxClients()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -1007,6 +1075,9 @@ public final class StmStreamerDrManage {
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         output.writeUInt64(6, oracleVol_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeUInt64(7, maxClients_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1045,6 +1116,10 @@ public final class StmStreamerDrManage {
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(6, oracleVol_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(7, maxClients_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1179,6 +1254,8 @@ public final class StmStreamerDrManage {
         bitField0_ = (bitField0_ & ~0x00000010);
         oracleVol_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000020);
+        maxClients_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
 
@@ -1232,6 +1309,10 @@ public final class StmStreamerDrManage {
           to_bitField0_ |= 0x00000010;
         }
         result.oracleVol_ = oracleVol_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.maxClients_ = maxClients_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1277,6 +1358,9 @@ public final class StmStreamerDrManage {
         if (other.hasOracleVol()) {
           setOracleVol(other.getOracleVol());
         }
+        if (other.hasMaxClients()) {
+          setMaxClients(other.getMaxClients());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -1299,6 +1383,10 @@ public final class StmStreamerDrManage {
           return false;
         }
         if (!hasOracleVol()) {
+          
+          return false;
+        }
+        if (!hasMaxClients()) {
           
           return false;
         }
@@ -1644,6 +1732,38 @@ public final class StmStreamerDrManage {
         return this;
       }
 
+      private long maxClients_ ;
+      /**
+       * <code>required uint64 max_clients = 7;</code>
+       */
+      public boolean hasMaxClients() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      /**
+       * <code>required uint64 max_clients = 7;</code>
+       */
+      public long getMaxClients() {
+        return maxClients_;
+      }
+      /**
+       * <code>required uint64 max_clients = 7;</code>
+       */
+      public Builder setMaxClients(long value) {
+        bitField0_ |= 0x00000040;
+        maxClients_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 max_clients = 7;</code>
+       */
+      public Builder clearMaxClients() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        maxClients_ = 0L;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:Streamer)
     }
 
@@ -1727,7 +1847,7 @@ public final class StmStreamerDrManage {
    * Protobuf type {@code Client}
    *
    * <pre>
-   *有代理客户端 实体机
+   *有代理客户端
    * </pre>
    */
   public static final class Client extends
@@ -2213,7 +2333,7 @@ public final class StmStreamerDrManage {
      * Protobuf type {@code Client}
      *
      * <pre>
-     *有代理客户端 实体机
+     *有代理客户端
      * </pre>
      */
     public static final class Builder extends
@@ -2816,7 +2936,7 @@ public final class StmStreamerDrManage {
    * Protobuf type {@code Vmware}
    *
    * <pre>
-   *无代理客户端 虚拟机
+   *无代理客户端
    * </pre>
    */
   public static final class Vmware extends
@@ -3302,7 +3422,7 @@ public final class StmStreamerDrManage {
      * Protobuf type {@code Vmware}
      *
      * <pre>
-     *无代理客户端 虚拟机
+     *无代理客户端
      * </pre>
      */
     public static final class Builder extends
@@ -6769,40 +6889,42 @@ public final class StmStreamerDrManage {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\034streamer_clouddrmanage.proto\"y\n\010Stream" +
-      "er\022\n\n\002ip\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\r\n\005total\030\003 " +
-      "\002(\004\022\014\n\004used\030\004 \002(\004\022\"\n\016Streamer_state\030\005 \003(" +
-      "\0162\n.FaultType\022\022\n\noracle_vol\030\006 \002(\004\"k\n\006Cli" +
-      "ent\022\n\n\002id\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\n\n\002ip\030\003 \002(" +
-      "\t\022\031\n\004type\030\004 \002(\0162\013.ClientType\022 \n\014Client_s" +
-      "tate\030\005 \003(\0162\n.FaultType\"m\n\006Vmware\022\n\n\002id\030\001" +
-      " \002(\t\022\014\n\004name\030\002 \002(\t\022\031\n\004type\030\003 \002(\0162\013.Clien" +
-      "tType\022\014\n\004path\030\004 \002(\t\022 \n\014Vmware_state\030\005 \003(" +
-      "\0162\n.FaultType\"\216\001\n\005Vcent\022\017\n\007vc_name\030\001 \002(\t",
-      "\022\017\n\007vc_uuid\030\002 \002(\t\022\r\n\005vc_ip\030\003 \002(\t\022\037\n\013Vcen" +
-      "t_state\030\004 \003(\0162\n.FaultType\022\030\n\007clients\030\005 \003" +
-      "(\0132\007.Vmware\022\031\n\004type\030\006 \002(\0162\013.ClientType\"p" +
-      "\n\023GetServerInfoReturn\022\014\n\004uuid\030\001 \002(\t\022\031\n\006s" +
-      "erver\030\002 \002(\0132\t.Streamer\022\030\n\007clients\030\003 \003(\0132" +
-      "\007.Client\022\026\n\006vcents\030\004 \003(\0132\006.Vcent*?\n\nClie" +
-      "ntType\022\n\n\006SINGLE\020\000\022\n\n\006VMWARE\020\001\022\010\n\004MSCS\020\002" +
-      "\022\007\n\003RAC\020\003\022\006\n\002VC\020\004*\303\004\n\tFaultType\022\n\n\006NORMA" +
-      "L\020\000\022\025\n\021CLIENT_LOCAL_LOST\020\001\022\023\n\017CLIENT_DST" +
-      "_LOST\020\002\022\034\n\030CLIENT_CREATE_SNAP_AILED\020\003\022\022\n",
-      "\016VWARE_CBT_DROP\020\004\022\022\n\016CLIENT_OFFLINE\020\005\022\023\n" +
-      "\017VCENTER_OFFLINE\020\006\022\036\n\032CLUSTER_NODE_EXIST" +
-      "_OFFLINE\020\007\022\030\n\024CLUSTER_NODE_OFFLINE\020\010\022\031\n\025" +
-      "STREAMER_POOL_DISABLE\020\t\022\024\n\020STREAMER_OFFL" +
-      "INE\020\n\022\035\n\031CLIENT_AUTO_EXPAND_FAILED\020\013\022\034\n\030" +
-      "CLIENT_SNAP_MERGE_FAILED\020\014\022\027\n\023ORACLE_STO" +
-      "RAGE_DROP\020\r\022\022\n\016DR_COPY_FAILED\020\016\022\032\n\026RAC_N" +
-      "ODE_EXIST_OFFLINE\020\017\022\024\n\020RAC_NODE_OFFLINE\020" +
-      "\020\022\036\n\032RAC_INSTANCE_EXIST_OFFLINE\020\021\022\030\n\024RAC" +
-      "_INSTANCE_OFFLINE\020\022\022\022\n\016VMWARE_OFFLINE\020\023\022",
-      "\033\n\027CLIENT_CREATESNAP_FAILD\020\024\022\032\n\026RAC_CREA" +
-      "TE_SNAP_FAILED\020\025\022\025\n\021DR_SERVER_OFFLINE\020\026B" +
-      "+\n\024cn.infocore.protobufB\023StmStreamerDrMa" +
-      "nage"
+      "\n\034streamer_clouddrmanage.proto\"\216\001\n\010Strea" +
+      "mer\022\n\n\002ip\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\r\n\005total\030\003" +
+      " \002(\004\022\014\n\004used\030\004 \002(\004\022\"\n\016Streamer_state\030\005 \003" +
+      "(\0162\n.FaultType\022\022\n\noracle_vol\030\006 \002(\004\022\023\n\013ma" +
+      "x_clients\030\007 \002(\004\"k\n\006Client\022\n\n\002id\030\001 \002(\t\022\014\n" +
+      "\004name\030\002 \002(\t\022\n\n\002ip\030\003 \002(\t\022\031\n\004type\030\004 \002(\0162\013." +
+      "ClientType\022 \n\014Client_state\030\005 \003(\0162\n.Fault" +
+      "Type\"m\n\006Vmware\022\n\n\002id\030\001 \002(\t\022\014\n\004name\030\002 \002(\t" +
+      "\022\031\n\004type\030\003 \002(\0162\013.ClientType\022\014\n\004path\030\004 \002(" +
+      "\t\022 \n\014Vmware_state\030\005 \003(\0162\n.FaultType\"\216\001\n\005",
+      "Vcent\022\017\n\007vc_name\030\001 \002(\t\022\017\n\007vc_uuid\030\002 \002(\t\022" +
+      "\r\n\005vc_ip\030\003 \002(\t\022\037\n\013Vcent_state\030\004 \003(\0162\n.Fa" +
+      "ultType\022\030\n\007clients\030\005 \003(\0132\007.Vmware\022\031\n\004typ" +
+      "e\030\006 \002(\0162\013.ClientType\"p\n\023GetServerInfoRet" +
+      "urn\022\014\n\004uuid\030\001 \002(\t\022\031\n\006server\030\002 \002(\0132\t.Stre" +
+      "amer\022\030\n\007clients\030\003 \003(\0132\007.Client\022\026\n\006vcents" +
+      "\030\004 \003(\0132\006.Vcent*?\n\nClientType\022\n\n\006SINGLE\020\000" +
+      "\022\n\n\006VMWARE\020\001\022\010\n\004MSCS\020\002\022\007\n\003RAC\020\003\022\006\n\002VC\020\004*" +
+      "\223\005\n\tFaultType\022\n\n\006NORMAL\020\000\022\025\n\021CLIENT_LOCA" +
+      "L_LOST\020\001\022\023\n\017CLIENT_DST_LOST\020\002\022\035\n\031VMWARE_",
+      "CREATE_SNAP_FAILED\020\003\022\022\n\016VWARE_CBT_DROP\020\004" +
+      "\022\022\n\016CLIENT_OFFLINE\020\005\022\023\n\017VCENTER_OFFLINE\020" +
+      "\006\022\036\n\032CLUSTER_NODE_EXIST_OFFLINE\020\007\022\034\n\030CLU" +
+      "STER_NODE_ALL_OFFLINE\020\010\022\031\n\025STREAMER_POOL" +
+      "_DISABLE\020\t\022\024\n\020STREAMER_OFFLINE\020\n\022\035\n\031CLIE" +
+      "NT_AUTO_EXPAND_FAILED\020\013\022\034\n\030CLIENT_SNAP_M" +
+      "ERGE_FAILED\020\014\022\027\n\023ORACLE_STORAGE_DROP\020\r\022\022" +
+      "\n\016DR_COPY_FAILED\020\016\022\032\n\026RAC_NODE_EXIST_OFF" +
+      "LINE\020\017\022\030\n\024RAC_NODE_ALL_OFFLINE\020\020\022\036\n\032RAC_" +
+      "INSTANCE_EXIST_OFFLINE\020\021\022\034\n\030RAC_INSTANCE",
+      "_ALL_OFFLINE\020\022\022\022\n\016VMWARE_OFFLINE\020\023\022\035\n\031CL" +
+      "IENT_CREATE_SNAP_FAILED\020\024\022\032\n\026RAC_CREATE_" +
+      "SNAP_FAILED\020\025\022\025\n\021DR_SERVER_OFFLINE\020\026\022\035\n\031" +
+      "STREAMER_POOL_ALMOST_FULL\020\027\022 \n\034STREAMER_" +
+      "CLIENT_DISK_OFFLINE\020\030B+\n\024cn.infocore.pro" +
+      "tobufB\023StmStreamerDrManage"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -6821,7 +6943,7 @@ public final class StmStreamerDrManage {
     internal_static_Streamer_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Streamer_descriptor,
-        new java.lang.String[] { "Ip", "Name", "Total", "Used", "StreamerState", "OracleVol", });
+        new java.lang.String[] { "Ip", "Name", "Total", "Used", "StreamerState", "OracleVol", "MaxClients", });
     internal_static_Client_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_Client_fieldAccessorTable = new

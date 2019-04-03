@@ -8,10 +8,9 @@ import java.util.concurrent.*;
 import org.apache.log4j.Logger;
 
 public class ThreadHeartbeat extends Thread{
-
-	private static final Logger logger=Logger.getLogger(ThreadHeartbeat.class);
 	private static final int PORT=23335;
 	private ThreadPoolExecutor threadPool;
+	private static final Logger logger=Logger.getLogger(ThreadHeartbeat.class);
 	
 	private ThreadHeartbeat() {
 		threadPool=  new ThreadPoolExecutor(100,500,1,TimeUnit.SECONDS,new ArrayBlockingQueue<Runnable>(500),new ThreadPoolExecutor.CallerRunsPolicy());
@@ -26,7 +25,6 @@ public class ThreadHeartbeat extends Thread{
 		return ThreadHeartbeatHolder.instance;
 	}
 	
-	
 	public void run() {
 		ServerSocket serverSocket=null;
 		try {
@@ -37,7 +35,6 @@ public class ThreadHeartbeat extends Thread{
 				logger.info("Received a heartbeat from data ark...");
 				threadPool.execute(new DealSocket(socket));
 			}
-			
 		} catch (Exception e) {
 			
 		}finally {

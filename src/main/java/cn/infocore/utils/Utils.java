@@ -1,10 +1,6 @@
 package cn.infocore.utils;
 
-
-
 public class Utils {
-
-	
 	public static String fmt(String fmt,Object...obj) {
 		return String.format(fmt, obj);
 	}
@@ -13,37 +9,41 @@ public class Utils {
 	public static String getAlarmInformationClass(int faultType) {
 		String ret = "";
 		switch (faultType) {
-		
-		
-		case 5:
-		case 6:
-		case 8:
-		case 9:
-		case 10:
-		case 13:
-		case 14:
-		case 16:
-		case 17:
-		case 18:
-		case 19:
-			ret = "故障";
-			break;
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 7:
-		case 11:
-		case 12:
-		case 15:
-		case 20:
-		case 21:
-		case 22:
-			ret = "警告";
-			break;
-		default:
-			ret = "正常";
-			break;
+			case 5:
+			case 6:
+			case 8:
+			case 9:
+			case 10:
+			case 13:
+			case 14:
+			case 16:
+			case 17:
+			case 18:
+			case 19:
+				ret = "故障";
+				break;
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 7:
+			case 11:
+			case 12:
+			case 15:
+			case 20:
+			case 21:
+			case 22:
+				ret = "警告";
+				break;
+			case 23:
+				ret = "警告";
+				break;
+			case 24:
+				ret = "警告";
+				break;
+			default:
+				ret = "正常";
+				break;
 		}
 		return ret;
 	}
@@ -120,6 +120,12 @@ public class Utils {
 			break;
 		case 22:
 			ret="容灾端服务异常";
+			break;
+		case 23:
+			ret="存储池已超过阈值";
+			break;
+		case 24:
+			ret="映射的盘离线(用于AIX客户端)";
 			break;
 		default:
 			ret = "未知异常";

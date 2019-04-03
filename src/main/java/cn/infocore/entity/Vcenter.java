@@ -15,12 +15,10 @@ public class Vcenter {
 	
 	private List<Fault> faults;
 	
-	
-	
-	
 	public List<Fault> getFaults() {
 		return faults;
 	}
+	
 	public void setFaults(List<Fault> faults) {
 		this.faults = faults;
 		StringBuilder string=new StringBuilder();
@@ -30,34 +28,38 @@ public class Vcenter {
 		}
 		string.deleteCharAt(string.length()-1);
 		setExcep(string.toString());
-		
-		
 	}
+	
 	public String getId() {
 		return id;
 	}
+	
 	public void setId(String id) {
 		this.id = id;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public String getIps() {
 		return ips;
 	}
+	
 	public void setIps(String ips) {
 		this.ips = ips;
 	}
+	
 	public String getExcep() {
 		return excep;
 	}
+	
 	public void setExcep(String excep) {
 		this.excep = excep;
 	}
-	
-	
 	
 }

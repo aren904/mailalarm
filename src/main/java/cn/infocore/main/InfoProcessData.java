@@ -1,18 +1,28 @@
 package cn.infocore.main;
 
-import cn.infocore.entity.*;
-import cn.infocore.handler.NameHandler;
-import cn.infocore.handler.User_idHandler;
-import cn.infocore.mail.MailCenterRestry;
-import cn.infocore.protobuf.StmStreamerDrManage.*;
-import cn.infocore.utils.MyDataSource;
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.log4j.Logger;
-
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.log4j.Logger;
+
+import cn.infocore.entity.Client_;
+import cn.infocore.entity.Data_ark;
+import cn.infocore.entity.Fault;
+import cn.infocore.entity.Vcenter;
+import cn.infocore.entity.Virtual_machine;
+import cn.infocore.handler.NameHandler;
+import cn.infocore.handler.User_idHandler;
+import cn.infocore.mail.MailCenterRestry;
+import cn.infocore.protobuf.StmStreamerDrManage.Client;
+import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
+import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
+import cn.infocore.protobuf.StmStreamerDrManage.Streamer;
+import cn.infocore.protobuf.StmStreamerDrManage.Vcent;
+import cn.infocore.protobuf.StmStreamerDrManage.Vmware;
+import cn.infocore.utils.MyDataSource;
 
 //解析数据，拦截，触发报警，写数据库等操作
 public class InfoProcessData{
@@ -30,9 +40,9 @@ public class InfoProcessData{
 		this.hrt=hrt;
 	}
 	
-	
 	public void run() {
 		logHeartbeat(hrt);
+		
 		//1.解析protobuf
 		//如果过来的数据方舟心跳的uuid不再内存维护链表中，扔掉....
 		Set<String> uSet=DataArkList.getInstance().getData_ark_list().keySet();
@@ -41,6 +51,7 @@ public class InfoProcessData{
 			//把所有心跳过来的时间更新到HeartCache,做这个是为了检测数据方舟离线的.
 			HeartCache.getInstance().addHeartCache(hrt.getUuid(), now);
 			logger.info("Recived heartbeat from data ark,and data ark is on the data_ark_list,data ark uuid:"+hrt.getUuid());
+			
 			//初始化
 			data_ark=new Data_ark();
 			faults=new LinkedList<Fault>();
@@ -57,6 +68,7 @@ public class InfoProcessData{
 			if (vmList!=null&&vmList.size()>0) {
 				updateVirtualMachine(vmList);
 			}
+			
 			//所有异常通知邮件发送中心
 			try {
 				if (faults.size()>0) {
@@ -66,6 +78,8 @@ public class InfoProcessData{
 			} catch (SQLException e) {
 				logger.error(e);
 			}
+			
+			//为什么又要释放一次？？？
 			hrt.toBuilder().clear();
 			hrt.toBuilder().clearClients();
 			hrt.toBuilder().clearServer();
@@ -244,8 +258,9 @@ public class InfoProcessData{
 		logger.info("From data ark heartbeat:");
 		logger.info(hrt.toString());
 	}
+	
 	//获取对应数据方舟的名称
-	private String getDataArkNmae(String uuid) {
+	private String getDataArkName(String uuid) {
 		//Connection connection=MyDataSource.getConnection();
 		QueryRunner q=MyDataSource.getQueryRunner();
 		String sql="select name from data_ark where id=?";
@@ -261,14 +276,10 @@ public class InfoProcessData{
 		return name;
 	}
 	
+	/*
+	 * type 0:数据方舟 ，1:客户端，2:Vcenter，3:虚拟机
+	 */
 	private String getUserByConfirmedUUID(String uuid,int type) {
-		/*
-		 * type
-		 * 0:数据方舟
-		 * 1:客户端
-		 * 2:Vcenter
-		 * 3:虚拟机
-		 */
 		//Connection connection=MyDataSource.getConnection();
 		QueryRunner q=MyDataSource.getQueryRunner();
 		Object[] param= {uuid};
@@ -304,7 +315,6 @@ public class InfoProcessData{
 		return result;
 	}
 	
-	
 	private void parse(GetServerInfoReturn hrt){
 		//把心跳过来的异常信息全部先封装起来		
 		long now=System.currentTimeMillis()/1000;
@@ -313,10 +323,11 @@ public class InfoProcessData{
 		data_ark.setId(uuid);
 		Streamer streamer=hrt.getServer();
 		data_ark.setIp(streamer.getIp());
-		data_ark.setName(getDataArkNmae(uuid));
+		data_ark.setName(getDataArkName(uuid));
 		data_ark.setTotal_cap(streamer.getTotal());
 		data_ark.setUsed_cap(streamer.getUsed());
 		data_ark.setTotal_oracle_capacity(streamer.getOracleVol());
+		
 		String user_id=getUserByConfirmedUUID(uuid, 0);
 		List<Fault> data_ark_fault_list=new LinkedList<Fault>();
 		for (FaultType f:streamer.getStreamerStateList()) {
@@ -442,6 +453,4 @@ public class InfoProcessData{
 		}
 		//封装结束
 	}
-	
-
 }
