@@ -18,8 +18,10 @@ H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\entity\Data_ark.ja
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\handler\DataArkHandler.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\entity\Fault.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\CachedQueue.java
+H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\Test.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\ThreadInformation.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\operator\InforHeader.java
+H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\MySnmpCache.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\mail\MailCenterRestry.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\protobuf\CloudManagerAlarm.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\ThreadScanStreamer.java
@@ -27,12 +29,16 @@ H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\entity\Client_.jav
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\InfoProcessData.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\entity\Virtual_machine.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\handler\UUid_ipHandler.java
+H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\MultiThreadedTrapReceiver.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\ThreadHeartbeat.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\mail\MailSender.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\entity\Quota.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\mail\Center.java
+H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\handler\ExceptHandler.java
+H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\SnmpTrapSender.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\utils\TxQueryRunner.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\handler\User_idHandler.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\entity\Alarm_log.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\ProcessData.java
+H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\entity\MySnmp.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\operator\Header.java

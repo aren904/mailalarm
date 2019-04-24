@@ -1,6 +1,5 @@
-syntax = "proto2";
-
-package InfoCore.Streamer.Proto.CloudManagerAlarm;
+option java_package = "cn.infocore.protobuf";
+option java_outer_classname = "CloudManagerAlarm";
 
 /* enum begin */
 
@@ -20,6 +19,12 @@ enum Command {
   /* overview begin */
 
   Command_GetOverview = 100;
+  Command_GetDataArkReport = 101;
+  Command_GetUserReport = 102;
+  Command_GetBackupReport = 103;
+  Command_ExportDataArkReport = 104;  // 仅用于记录操作日志，不作为接口指令
+  Command_ExportUserReport = 105;  // 仅用于记录操作日志，不作为接口指令
+  Command_ExportBackupReport = 106;  // 仅用于记录操作日志，不作为接口指令
 
   /* overview end */
   /* data ark management begin */
@@ -29,9 +34,11 @@ enum Command {
   Command_CreateDataArkGroup = 202;
   Command_DeleteDataArkGroup = 203;
   Command_UpdateDataArkGroup = 204;
+  //for alarm
   Command_AddDataArk = 205;
   Command_RemoveDataArk = 206;
   Command_UpdateDataArk = 207;
+  
   Command_MigrateDataArk = 208;
   Command_AddDisasterDataArk = 209;
   Command_RemoveDisasterDataArk = 210;
@@ -52,6 +59,16 @@ enum Command {
   Command_AddDiskBackup = 225;
   Command_UpdateDiskBackup = 226;
   Command_RemoveDiskBackup = 227;
+  Command_GetDisasterClients = 228;
+  Command_AddDisasterDiskBackup = 229;
+  Command_UpdateDisasterDiskBackup = 230;
+  Command_RemoveDisasterDiskBackup = 231;
+  Command_AddDiskBackupStraight = 232;
+  Command_GetDisasterDataArks = 233;
+  Command_GetUserResourceForTransfer = 234;
+  Command_TransferUserResource = 235;
+  Command_AddDisasterFileBackup = 236;
+  Command_RemoveDisasterFileBackup = 237;
 
   /* data ark management end */
   /* user management begin*/
@@ -88,10 +105,15 @@ enum Command {
   /* system begin */
 
   Command_GetEmailAlarm = 500;
+  //for alarm
   Command_UpdateEmailAlarm = 501;
   Command_CreateEmailAlarm = 502;  // 报警模块用
-  Command_DeleteEmailAlarm = 503;  // 报警模块用
   Command_VerifyEmailAlarm = 504;
+  Command_DeleteEmailAlarm = 503;  // 报警模块用
+  
+  //add by wxx 2019/04/04
+  Command_GetSnmp = 505;
+  Command_UpdateSnmp = 506;
 
   /* system end */
 
@@ -99,7 +121,10 @@ enum Command {
 
   Command_ManageDataArk = 600;  // 管理数据方舟，仅用于记录操作日志，不作为接口指令
   Command_ExportDataArkLog = 601;  // 导出数据方舟日志，即导出 streamer server 上的日志，仅用于记录操作日志，不作为接口指令
-
+  Command_CommitTransaction = 602;
+  Command_RollbackTransaction = 603;
+  Command_ProcessTransactionGroup = 604;
+  
   /* other end */
 }
 
@@ -123,7 +148,8 @@ enum ErrorCode {
   ErrorCode_OperateDatabaseFailed = 25;  // 执行数据库命令失败
   ErrorCode_OperationNotStart = 26;  // 操作未开始（用于一个请求同时执行多个操作）
   ErrorCode_OperationUndid = 27;  // 操作被撤销（用于一个请求同时执行多个操作，其中一个操作失败导致之前成功的操作全部被撤销）
-
+  ErrorCode_TransactionNonexistent = 28;  // 不存在事务
+  
   ErrorCode_DataArkGroupCloudManagerNonexistent = 1000;  // 数据方舟组管理平台不存在
 
   ErrorCode_DataArkGroupDataCenterExistent = 1010;  // 数据方舟组数据中心已存在
@@ -171,6 +197,10 @@ enum ErrorCode {
   ErrorCode_DiskBackupNonexistent = 1084; // 不存在磁盘备份
   ErrorCode_EmailAlarmExistent = 1085;  // 存在邮件报警设置
   ErrorCode_EmailAlarmNonexistent = 1086;  // 不存在邮件报警设置
+  ErrorCode_DisasterDiskBackupExistent = 1087;  // 存在容灾磁盘备份，即不存在容灾关系
+  ErrorCode_DisasterDiskBackupNonexistent = 1088; // 不存在容灾磁盘备份，即不存在容灾关系
+  ErrorCode_DisasterFileBackupExistent = 1089;  // 存在容灾文件备份，即不存在容灾关系
+  ErrorCode_DisasterFileBackupNonexistent = 1090; // 不存在容灾文件备份，即不存在容灾关系
 
   ErrorCode_RequestToAlarmServiceFailed = 1100;  // 发送请求给邮件报警服务失败
 
@@ -186,6 +216,9 @@ enum ErrorCode {
   /* overview begin */
 
   ErrorCode_GetOverviewFailed = 10100;
+  ErrorCode_GetDataArkReportFailed = 10101;
+  ErrorCode_GetUserReportFailed = 10102;
+  ErrorCode_GetBackupReportFailed = 10103;
 
   /* overview end */
   /* data ark management begin */
@@ -216,6 +249,16 @@ enum ErrorCode {
   ErrorCode_AddDiskBackupFailed = 10225;
   ErrorCode_UpdateDiskBackupFailed = 10226;
   ErrorCode_RemoveDiskBackupFailed = 10227;
+  ErrorCode_GetDisasterClientsFailed = 10228;
+  ErrorCode_AddDisasterDiskBackupFailed = 10229;
+  ErrorCode_UpdateDisasterDiskBackupFailed = 10230;
+  ErrorCode_RemoveDisasterDiskBackupFailed = 10231;
+  ErrorCode_AddDiskBackupStraightFailed = 10232;
+  ErrorCode_GetDisasterDataArksFailed = 10233;
+  ErrorCode_GetUserResourceForTransferFailed = 10234;
+  ErrorCode_TransferUserResourceFailed = 10235;
+  ErrorCode_AddDisasterFileBackupFailed = 10236;
+  ErrorCode_RemoveDisasterFileBackupFailed = 10237;
 
   /* data ark management end */
   /* user management begin*/
@@ -255,6 +298,10 @@ enum ErrorCode {
   ErrorCode_CreateEmailAlarmFailed = 10502;  // 报警模块用
   ErrorCode_DeleteEmailAlarmFailed = 10503;  // 报警模块用
   ErrorCode_VerifyEmailAlarmFailed = 10504;
+ 
+  //add by wxx 2019/04/04
+  ErrorCode_GetSnmp = 10505;
+  ErrorCode_UpdateSnmp = 10506;
 
   /* system end */
 }
@@ -283,6 +330,10 @@ enum Exception {
   Exception_ClientCreateSnapshotFailed = 20;  // 普通客户端创建快照点失败
   Exception_RacCreateSnapshotFailed = 21;     // Rac 客户端创建快照点失败
   Exception_DisasterServerOffline = 22;       // 容灾服务离线
+  
+  //add by wxx 2019/04/04
+  Exception_StreamerPoolExceededThreshold = 23;  // 存储池超过阈值
+  Exception_AixDiskOffline = 24;              // 映射给 AIX 的磁盘离线
 }
 
 enum ClientType {
@@ -291,18 +342,43 @@ enum ClientType {
   ClientType_Mscs = 2;
   ClientType_Rac = 3;
   ClientType_Vcenter = 4;
+  //add by wxx 2019/04/04
+  ClientType_AIX = 5;
 }
 
+//add by wxx 2019/04/04
 enum DataArkGroupType {
   DataArkGroupType_CloudManager = 0;  // 管理平台
   DataArkGroupType_DataCenter = 1;  // 数据中心
   DataArkGroupType_ResourcePool = 2;  // 资源池
 }
 
+//add by wxx 2019/04/04
 enum UserPrivilegeLevel {
   UserPrivilegeLevel_Root = 0;
   UserPrivilegeLevel_Admin = 1;
   UserPrivilegeLevel_User = 2;
+  UserPrivilegeLevel_Auditor = 3;  // 审计员
+}
+
+//add by wxx 2019/04/04
+enum SnmpVersion {
+  SnmpVersion_V1 = 0;
+  SnmpVersion_V2c = 1;
+  SnmpVersion_V3 = 2;
+}
+
+enum SnmpAuthenticationProtocol {
+  SnmpAuthenticationProtocol_HMAC_MD5 = 0;
+  SnmpAuthenticationProtocol_SHA = 1;
+}
+
+enum SnmpPrivacyProtocol {
+  SnmpPrivacyProtocol_DES = 0;
+  SnmpPrivacyProtocol_3DES = 1;
+  SnmpPrivacyProtocol_AES128 = 2;
+  SnmpPrivacyProtocol_AES192 = 3;
+  SnmpPrivacyProtocol_AES256 = 4;
 }
 
 /* common end */

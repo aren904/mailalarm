@@ -199,6 +199,24 @@ public class DealInformation implements Runnable {
 				}
 			}
 			break;
+		case 506:
+			//add by wxx 2019/04/16,update snmp
+			try {
+				MySnmpCache.getInstance().updateMySnmp();
+				header.setErrorCode(0);
+			} catch (Exception e) {
+				logger.error(e);
+				header.setErrorCode(ErrorCode.ErrorCode_UpdateSnmp_VALUE);
+			}finally {
+				byte[] resp=header.toByteArray();
+				try {
+					out.write(resp, 0, resp.length);
+					logger.info("Successed recived information.");
+				} catch (IOException e1) {
+					logger.error(e1);
+				}
+			}
+			break;
 			default:logger.error("Unknown Operation Code:"+command);break;
 		}
 		

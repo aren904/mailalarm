@@ -12,7 +12,7 @@ import cn.infocore.entity.UUid_ip;
 import cn.infocore.handler.UUid_ipHandler;
 import cn.infocore.utils.MyDataSource;
 
-//内存中维护的数据方舟的列表,顺便初始化维护数据方舟心跳的单例queue
+//内存中维护的数据方舟的列表<uuid,ip>,顺便初始化维护数据方舟心跳的单例queue
 public class DataArkList {
 	private static final Logger logger=Logger.getLogger(DataArkList.class);
 	//维护的数据方舟的uuid-->ip列表

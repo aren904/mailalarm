@@ -79,7 +79,7 @@ public class InfoProcessData{
 				logger.error(e);
 			}
 			
-			//为什么又要释放一次？？？
+			//为什么又要释放一次
 			hrt.toBuilder().clear();
 			hrt.toBuilder().clearClients();
 			hrt.toBuilder().clearServer();

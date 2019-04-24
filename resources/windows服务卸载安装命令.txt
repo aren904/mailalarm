@@ -1,4 +1,4 @@
-ps:ÏÈÒªÍ£Ö¹·şÎñÔÚÈ¥»»°ü
-ps:ÒÔ¹ÜÀíÔ±Éí·İ´ò¿ª dos´°¿Ú Ö´ĞĞÏÂÃæµÄÈÎÎñ
-°²×°:mailalarm-0.0.2-jar-with-dependencies.exe install
-Ğ¶ÔØ:mailalarm-0.0.2-jar-with-dependencies.exe unistall
+ps:å…ˆè¦åœæ­¢æœåŠ¡åœ¨å»æ¢åŒ…
+ps:ä»¥ç®¡ç†å‘˜èº«ä»½æ‰“å¼€ dosçª—å£ æ‰§è¡Œä¸‹é¢çš„ä»»åŠ¡
+å®‰è£…:mailalarm-0.0.2-jar-with-dependencies.exe install
+å¸è½½:mailalarm-0.0.2-jar-with-dependencies.exe unistall

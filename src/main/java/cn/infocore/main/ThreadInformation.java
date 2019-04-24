@@ -51,5 +51,4 @@ public class ThreadInformation extends Thread{
 		}
 	}
 
-	
 }

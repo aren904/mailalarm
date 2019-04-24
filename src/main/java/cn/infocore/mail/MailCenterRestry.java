@@ -140,12 +140,22 @@ public class MailCenterRestry implements Center {
 				
 				//current error
 				currentErrors.addAll(Arrays.asList(excepts.split(";")));
+				logger.info("Current error size:"+currentErrors.size()+","+currentErrors.toString());
 				
-				sql="select * from alarm_log where data_ark_id=? and target=?";
+				//not confirm error
+				sql="select * from alarm_log where data_ark_id=? and target=? and processed=0";
 				Object[] para2 = {fault.getData_ark_id(),fault.getTarget()};
 				QueryRunner qr2 = MyDataSource.getQueryRunner();
 				//db error
-				List<Integer> dbErrors = qr2.query( sql, new ColumnListHandler<Integer>("type"), para2);
+				logger.info("para2:"+para2.length+","+para2[0]+","+para2[1]);
+				List<Integer> dbErrors=new ArrayList<Integer>();
+				try {
+					dbErrors.addAll(qr2.query( sql, new ColumnListHandler<Integer>("exeception"), para2));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				logger.info("DB error size:"+dbErrors.size()+","+dbErrors.toString());
+				
 				for(Integer type:dbErrors){
 					if(!currentErrors.contains(String.valueOf(type))){
 						//2.current not contains db,confirm it.

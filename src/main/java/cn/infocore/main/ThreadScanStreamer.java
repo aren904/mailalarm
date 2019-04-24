@@ -12,6 +12,9 @@ import cn.infocore.handler.DataArkHandler;
 import cn.infocore.mail.MailCenterRestry;
 import cn.infocore.utils.MyDataSource;
 
+/**
+ * 检测streamer服务端状态
+ */
 public class ThreadScanStreamer extends Thread {
 	private static final Logger logger = Logger.getLogger(ThreadScanStreamer.class);
 	private static final long split=3*60;
@@ -43,11 +46,15 @@ public class ThreadScanStreamer extends Thread {
 						//当前时间-最后更新的时间>3分钟,认为掉线
 						logger.info("uuid:"+uuid+" is offline,update database.");
 						updateOffLine(uuid,false);
+						//每3分钟发送一次Trap
+						logger.info("Sender snmp server alarm.");
+						SnmpTrapSender.run();
 					}else {
 						updateOffLine(uuid,true);
 					}
 				}
 			}
+			
 			try {
 				Thread.sleep(split*1000);
 			} catch (InterruptedException e) {
@@ -55,7 +62,6 @@ public class ThreadScanStreamer extends Thread {
 			}
 		}
 	}
-
 	
 	// 更新数据库中是否离线的标志
 	public static void updateOffLine(String uuid, boolean online) {
