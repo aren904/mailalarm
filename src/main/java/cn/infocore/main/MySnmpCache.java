@@ -28,12 +28,12 @@ public class MySnmpCache {
 			//MyDataSource.close(connection);
 		}
 		/*this.snmp=new MySnmp();
-		snmp.setStation_ip("192.168.23.71");
-		snmp.setStation_name("station");
-		snmp.setStation_port(163);
+		snmp.setStation_ip("192.168.3.223");
+		snmp.setStation_name("fygManger");
+		snmp.setStation_port(162);
 		snmp.setWrite_community_name("public");
 		snmp.setVersion(1);
-		snmp.setTimeout_ms(10000);
+		snmp.setTimeout_ms(100);
 		snmp.setUpdate_version(3);*/
 		logMe();
 	}

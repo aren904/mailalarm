@@ -12,10 +12,12 @@ H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\entity\UUid_ip.jav
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\utils\Utils.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\protobuf\StmStreamerDrManage.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\handler\NameHandler.java
+H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\handler\ExecptHandler.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\ThreadConsume.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\DealSocket.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\entity\Data_ark.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\handler\DataArkHandler.java
+H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\handler\DataArk2Handler.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\entity\Fault.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\CachedQueue.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\Test.java
@@ -29,7 +31,6 @@ H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\entity\Client_.jav
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\InfoProcessData.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\entity\Virtual_machine.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\handler\UUid_ipHandler.java
-H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\MultiThreadedTrapReceiver.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\main\ThreadHeartbeat.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\mail\MailSender.java
 H:\workspace\CloudManager\mailalarm\src\main\java\cn\infocore\entity\Quota.java

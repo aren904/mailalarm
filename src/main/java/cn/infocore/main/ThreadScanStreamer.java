@@ -48,7 +48,7 @@ public class ThreadScanStreamer extends Thread {
 						updateOffLine(uuid,false);
 						//每3分钟发送一次Trap
 						logger.info("Sender snmp server alarm.");
-						SnmpTrapSender.run();
+						SnmpTrapSender.run(uuid);
 					}else {
 						updateOffLine(uuid,true);
 					}

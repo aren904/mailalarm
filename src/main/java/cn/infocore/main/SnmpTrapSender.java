@@ -1,8 +1,10 @@
 package cn.infocore.main;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Vector;
 
+import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
@@ -12,13 +14,17 @@ import org.snmp4j.event.ResponseEvent;
 import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.smi.Address;
 import org.snmp4j.smi.GenericAddress;
+import org.snmp4j.smi.Integer32;
 import org.snmp4j.smi.OID;
 import org.snmp4j.smi.OctetString;
 import org.snmp4j.smi.UdpAddress;
 import org.snmp4j.smi.VariableBinding;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
 
+import cn.infocore.entity.Data_ark;
 import cn.infocore.entity.MySnmp;
+import cn.infocore.handler.DataArk2Handler;
+import cn.infocore.utils.MyDataSource;
 
 public class SnmpTrapSender {
 	private Snmp snmp = null;
@@ -31,18 +37,30 @@ public class SnmpTrapSender {
 		return String.format("[SnmpTrapSender:] " + format, objs);
 	}
 	
-	public static void run(){
+	public static void run(String uuid){
 		SnmpTrapSender poc = new SnmpTrapSender();
 		MySnmp mySnmp=MySnmpCache.getInstance().getMySnmp();
 		
 		try {
+			logger.info(fmt("Get target streamer from DB."));
+			String sql = "select id,name,ip from data_ark where id=?";
+			Object[] param = { uuid };
+			QueryRunner qr = MyDataSource.getQueryRunner();
+			Data_ark data_ark=null;
+			try {
+				data_ark = qr.query(sql, new DataArk2Handler(), param);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			logger.info(fmt("Target streamer info[Id:%s][IP:%s][Name:%s].",data_ark.getId(),data_ark.getIp(),data_ark.getName()));
+			
 			logger.info(fmt("Start to init target[Name:%s][IP:%s][Port:%s] info.",
 					mySnmp.getStation_name(),mySnmp.getStation_ip(),mySnmp.getStation_port()));
 			poc.init(mySnmp);
 			
 			logger.info(fmt("Send trap for streamer offline."));
 			//poc.sendV2cTrap(mySnmp);
-			ResponseEvent respEvnt = poc.sendV2cTrap(mySnmp);
+			ResponseEvent respEvnt = poc.sendV2cTrap(mySnmp,data_ark);
 			
 			// 解析Response
 			if (respEvnt != null && respEvnt.getResponse() != null) {
@@ -59,7 +77,7 @@ public class SnmpTrapSender {
 	}
 	
 	public static void main(String[] args) {
-		run();
+		run("1111");
 	}
 	
 	/**
@@ -67,13 +85,13 @@ public class SnmpTrapSender {
 	 * @return
 	 * @throws IOException 
 	 */
-	public ResponseEvent sendV2cTrap(MySnmp mySnmp) throws IOException {
+	public ResponseEvent sendV2cTrap(MySnmp mySnmp,Data_ark data_ark) throws IOException {
 		PDU pdu = new PDU();
-		pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.4"),new OctetString("ifcServerName")));  
-		pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3"),new OctetString("ifcServerId")));  
-		pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.2"),new OctetString("ifcServerIp")));  
-		pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.5"),new OctetString("ifcServerState")));  
-		pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.3.1"),new OctetString("ifcAlarmOfServer")));  
+		pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.4.0"),new OctetString(data_ark.getName())));  
+		pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3.0"),new OctetString(data_ark.getId())));  
+		pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.2.0"),new OctetString(data_ark.getIp())));  
+		pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.5.0"),new Integer32(10)));  //离线告警状态是10
+		pdu.add(new VariableBinding(new OID("1.3.6.1.6.3.1.1.4.1.0"),new OID("1.3.6.1.4.1.35371.1.3.1"))); //ifcAlarmOfServer 
 		pdu.setType(PDU.TRAP);
 		
 		// 设置管理端对象

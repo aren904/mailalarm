@@ -17,6 +17,7 @@ import cn.infocore.entity.Email_alarm;
 import cn.infocore.entity.Fault;
 import cn.infocore.entity.Quota;
 import cn.infocore.handler.ExceptHandler;
+import cn.infocore.handler.ExecptHandler;
 import cn.infocore.handler.QuotaHandler;
 import cn.infocore.utils.MyDataSource;
 
@@ -108,8 +109,9 @@ public class MailCenterRestry implements Center {
 	public void notifyCenter(Fault... list_fault) throws SQLException {
 		logger.info("Start NotifyCenetr inject mailsender.");
 		String sql = null;
+		Object[] condition=null;
+		
 		for (Fault fault : list_fault) {
-			Object[] condition=null;
 			if (fault.getType()==0) {
 				//1.confirm all alarm log for target.
 				sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target=?";
@@ -119,45 +121,53 @@ public class MailCenterRestry implements Center {
 				//add by wxx,for one fault to other fault and not confirm.
 				//current error
 				List<String> currentErrors=new ArrayList<String>();
-				if(fault.getClient_type()==0){
-					sql="select exceptions from data_ark where id=?";
-				}else if(fault.getClient_type()==1){
-					sql="select exceptions from client where id=?";
-				}else if(fault.getClient_type()==2){
-					sql="select exceptions from vcenter where id=?";
-				}else if(fault.getClient_type()==3){
-					sql="select exceptions from virtual_machine where id=?";
-				}
-				
-				Object[] para={fault.getData_ark_id()};
+				condition=new Object[]{fault.getData_ark_id(),fault.getClient_id()};
 				QueryRunner qr = MyDataSource.getQueryRunner();
 				String excepts="";
-				try {
-					excepts=qr.query(sql, new ExceptHandler(), para);
-				} catch (SQLException e) {
-					e.printStackTrace();
+				
+				//注意这里名称不一致，需要特殊处理
+				logger.info("Current error condition:"+condition.length+","+condition[0]+","+condition[1]);
+				if(fault.getClient_type()==0){
+					sql="select exceptions from data_ark where data_ark_id=? and id=?";
+					excepts=qr.query(sql, new ExceptHandler(), condition);
+				}else if(fault.getClient_type()==1){
+					sql="select execptions from client where data_ark_id=? and id=?";
+					excepts=qr.query(sql, new ExecptHandler(), condition);
+				}else if(fault.getClient_type()==2){
+					sql="select exceptions from vcenter where data_ark_id=? and id=?";
+					excepts=qr.query(sql, new ExceptHandler(), condition);
+				}else if(fault.getClient_type()==3){
+					sql="select exceptions from virtual_machine where data_ark_id=? and id=?";
+					excepts=qr.query(sql, new ExceptHandler(), condition);
 				}
 				
 				//current error
-				currentErrors.addAll(Arrays.asList(excepts.split(";")));
-				logger.info("Current error size:"+currentErrors.size()+","+currentErrors.toString());
+				logger.info("excepts:"+excepts);
+				if(excepts!=""&&excepts!=null){
+					currentErrors.addAll(Arrays.asList(excepts.split(";")));
+				}
+				
+				logger.info("Current error size:"+currentErrors.size()+",fault type:"+fault.getClient_type());
+				for(String ex:currentErrors){
+					logger.info("Current error:"+ex);
+				}
 				
 				//not confirm error
 				sql="select * from alarm_log where data_ark_id=? and target=? and processed=0";
-				Object[] para2 = {fault.getData_ark_id(),fault.getTarget()};
-				QueryRunner qr2 = MyDataSource.getQueryRunner();
+				condition=new Object[]{fault.getData_ark_id(),fault.getTarget()};
 				//db error
-				logger.info("para2:"+para2.length+","+para2[0]+","+para2[1]);
-				List<Integer> dbErrors=new ArrayList<Integer>();
-				try {
-					dbErrors.addAll(qr2.query( sql, new ColumnListHandler<Integer>("exeception"), para2));
-				} catch (Exception e) {
-					e.printStackTrace();
+				logger.info("DB error condition:"+condition.length+","+condition[0]+","+condition[1]);
+				qr = MyDataSource.getQueryRunner();
+				List<Integer> dbErrors=qr.query(sql, new ColumnListHandler<Integer>("exeception"),condition);
+				logger.info("DB error size:"+dbErrors.size());
+				for(Integer ex:dbErrors){
+					logger.info("DB error:"+ex);
 				}
-				logger.info("DB error size:"+dbErrors.size()+","+dbErrors.toString());
 				
+				logger.info("start to compare current and db errors.");
 				for(Integer type:dbErrors){
 					if(!currentErrors.contains(String.valueOf(type))){
+						logger.info("current not contains db,confirm it:"+type);
 						//2.current not contains db,confirm it.
 						sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target=?";
 						condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getTarget()};
@@ -166,6 +176,7 @@ public class MailCenterRestry implements Center {
 				
 				for(String type:currentErrors){
 					if(!dbErrors.contains(Integer.parseInt(type))){
+						logger.info("current is new,insert it:"+type);
 						//3.current is new,insert it.
 						sql = "insert into alarm_log values(null,?,?,?,?,?,?,?,?,?,?) on duplicate key"
 								+ " update user_id=?,timestamp=?,processed=0";
@@ -176,7 +187,7 @@ public class MailCenterRestry implements Center {
 			}
 			
 			QueryRunner qr = MyDataSource.getQueryRunner();
-			qr.execute( sql, condition);
+			qr.execute(sql, condition);
 			
 			if (fault.getType() != 0) {
 				for (Map.Entry<String, MailSender> entry:this.list.entrySet()) {
