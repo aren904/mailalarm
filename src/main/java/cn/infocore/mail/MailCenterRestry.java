@@ -121,14 +121,20 @@ public class MailCenterRestry implements Center {
 				//add by wxx,for one fault to other fault and not confirm.
 				//current error
 				List<String> currentErrors=new ArrayList<String>();
-				condition=new Object[]{fault.getData_ark_id(),fault.getClient_id()};
 				QueryRunner qr = MyDataSource.getQueryRunner();
 				String excepts="";
 				
-				//注意这里名称不一致，需要特殊处理
-				logger.info("Current error condition:"+condition.length+","+condition[0]+","+condition[1]);
 				if(fault.getClient_type()==0){
-					sql="select exceptions from data_ark where data_ark_id=? and id=?";
+					condition=new Object[]{fault.getClient_id()};
+					logger.info("Current error condition:"+condition.length+","+condition[0]+",client type:"+fault.getClient_type());
+				}else{
+					condition=new Object[]{fault.getData_ark_id(),fault.getClient_id()};
+					logger.info("Current error condition:"+condition.length+","+condition[0]+","+condition[1]+",client type:"+fault.getClient_type());
+				}
+				
+				//注意这里名称不一致，需要特殊处理
+				if(fault.getClient_type()==0){
+					sql="select exceptions from data_ark where id=?";
 					excepts=qr.query(sql, new ExceptHandler(), condition);
 				}else if(fault.getClient_type()==1){
 					sql="select execptions from client where data_ark_id=? and id=?";

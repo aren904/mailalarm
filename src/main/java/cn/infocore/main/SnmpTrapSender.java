@@ -2,7 +2,8 @@ package cn.infocore.main;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
@@ -37,30 +38,37 @@ public class SnmpTrapSender {
 		return String.format("[SnmpTrapSender:] " + format, objs);
 	}
 	
-	public static void run(String uuid){
+	public static void run(List<String> uuids){
 		SnmpTrapSender poc = new SnmpTrapSender();
 		MySnmp mySnmp=MySnmpCache.getInstance().getMySnmp();
 		
 		try {
-			logger.info(fmt("Get target streamer from DB."));
-			String sql = "select id,name,ip from data_ark where id=?";
-			Object[] param = { uuid };
-			QueryRunner qr = MyDataSource.getQueryRunner();
-			Data_ark data_ark=null;
-			try {
-				data_ark = qr.query(sql, new DataArk2Handler(), param);
-			} catch (SQLException e) {
-				e.printStackTrace();
+			logger.info(fmt("Get target streamer from DB,total size:"+uuids.size()));
+			List<Data_ark> data_arks=new ArrayList<Data_ark>();
+			for(String uuid:uuids){
+				String sql = "select id,name,ip from data_ark where id=?";
+				Object[] param = { uuid };
+				QueryRunner qr = MyDataSource.getQueryRunner();
+				Data_ark data_ark=null;
+				try {
+					data_ark = qr.query(sql, new DataArk2Handler(), param);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+				logger.info(fmt("Target streamer info[Id:%s][IP:%s][Name:%s].",data_ark.getId(),data_ark.getIp(),data_ark.getName()));
+				if(data_ark!=null){
+					data_arks.add(data_ark);
+				}
 			}
-			logger.info(fmt("Target streamer info[Id:%s][IP:%s][Name:%s].",data_ark.getId(),data_ark.getIp(),data_ark.getName()));
 			
 			logger.info(fmt("Start to init target[Name:%s][IP:%s][Port:%s] info.",
 					mySnmp.getStation_name(),mySnmp.getStation_ip(),mySnmp.getStation_port()));
 			poc.init(mySnmp);
 			
 			logger.info(fmt("Send trap for streamer offline."));
-			//poc.sendV2cTrap(mySnmp);
-			ResponseEvent respEvnt = poc.sendV2cTrap(mySnmp,data_ark);
+			poc.sendV2cTrap(mySnmp,data_arks);
+			/*ResponseEvent respEvnt = poc.sendV2cTrap(mySnmp,data_arks);
 			
 			// 解析Response
 			if (respEvnt != null && respEvnt.getResponse() != null) {
@@ -70,14 +78,14 @@ public class SnmpTrapSender {
 					logger.info(fmt("Response VariableBinding[OID:%s][Variable:%s].",
 							recVB.getOid().toString(),recVB.getVariable().toString()));
 				}
-			}
+			}*/
 		} catch (Exception e) {
 			logger.fatal(fmt("SnmpTrapSender error"), e);
 		}
 	}
 	
 	public static void main(String[] args) {
-		run("1111");
+		//run("1111");
 	}
 	
 	/**
@@ -85,12 +93,15 @@ public class SnmpTrapSender {
 	 * @return
 	 * @throws IOException 
 	 */
-	public ResponseEvent sendV2cTrap(MySnmp mySnmp,Data_ark data_ark) throws IOException {
+	public ResponseEvent sendV2cTrap(MySnmp mySnmp,List<Data_ark> data_arks) throws IOException {
 		PDU pdu = new PDU();
-		pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.4.0"),new OctetString(data_ark.getName())));  
-		pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3.0"),new OctetString(data_ark.getId())));  
-		pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.2.0"),new OctetString(data_ark.getIp())));  
-		pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.5.0"),new Integer32(10)));  //离线告警状态是10
+		for(int i=0;i<data_arks.size();i++){
+			Data_ark data_ark=data_arks.get(i);
+			pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.4."+i),new OctetString(data_ark.getName())));  
+			pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3."+i),new OctetString(data_ark.getId())));  
+			pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.2."+i),new OctetString(data_ark.getIp())));  
+			pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.5."+i),new Integer32(10)));  //离线告警状态是10
+		}
 		pdu.add(new VariableBinding(new OID("1.3.6.1.6.3.1.1.4.1.0"),new OID("1.3.6.1.4.1.35371.1.3.1"))); //ifcAlarmOfServer 
 		pdu.setType(PDU.TRAP);
 		

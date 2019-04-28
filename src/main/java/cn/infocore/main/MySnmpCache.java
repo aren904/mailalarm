@@ -35,7 +35,7 @@ public class MySnmpCache {
 		snmp.setVersion(1);
 		snmp.setTimeout_ms(100);
 		snmp.setUpdate_version(3);*/
-		logMe();
+		this.logMe();
 	}
 	
 	private static class MySnmpHolder{
@@ -48,7 +48,7 @@ public class MySnmpCache {
 	
 	//更新：即需要重新到数据库查询
 	public void updateMySnmp() {
-		logger.info("Start to get new snmp[Name]:"+snmp.getStation_ip()+",[Port:]"+snmp.getStation_port());
+		logger.info("Start to update snmp[Name]:"+snmp.getStation_ip()+",[Port:]"+snmp.getStation_port());
 		new MySnmpCache();
 	}
 	
@@ -57,13 +57,13 @@ public class MySnmpCache {
 	}
 	
 	public void logMe(){
-		logger.debug("-----Current Snmp Info-----");
-		logger.debug("Station IP:"+this.snmp.getStation_ip());
-		logger.debug("Station Name:"+this.snmp.getStation_name());
-		logger.debug("Station Port:"+this.snmp.getStation_port());
-		logger.debug("Read Community Name:"+this.snmp.getRead_community_name());
-		logger.debug("Timeout ms:"+this.snmp.getTimeout_ms());
-		logger.debug("Version:"+this.snmp.getVersion());
+		logger.info("-----Current Snmp Info-----");
+		logger.info("Station IP:"+this.snmp.getStation_ip());
+		logger.info("Station Name:"+this.snmp.getStation_name());
+		logger.info("Station Port:"+this.snmp.getStation_port());
+		logger.info("Read Community Name:"+this.snmp.getRead_community_name());
+		logger.info("Timeout ms:"+this.snmp.getTimeout_ms());
+		logger.info("Version:"+this.snmp.getVersion());
 		logger.debug("Update Version:"+this.snmp.getUpdate_version());
 	}
 }

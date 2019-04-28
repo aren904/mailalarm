@@ -1,6 +1,8 @@
 package cn.infocore.main;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.dbutils.QueryRunner;
@@ -34,9 +36,13 @@ public class ThreadScanStreamer extends Thread {
 	@Override
 	public void run() {
 		Map<String, Long> map=null;
+		List<String> uuids=null;
+		DataArkList.getInstance(); //for all streamer offline and start service not getcache
+		
 		while(true) {
-			logger.info("Start Scanner data ark offline is or not....");
 			map=HeartCache.getInstance().getAllCacheList();
+			logger.info("Start Scanner data ark offline is or not....data_ark size:"+map.size());
+			uuids=new ArrayList<String>();
 			if (map.size()>0) {
 				for (Map.Entry<String, Long> entry:map.entrySet()) {
 					String uuid=entry.getKey();
@@ -47,12 +53,15 @@ public class ThreadScanStreamer extends Thread {
 						logger.info("uuid:"+uuid+" is offline,update database.");
 						updateOffLine(uuid,false);
 						//每3分钟发送一次Trap
-						logger.info("Sender snmp server alarm.");
-						SnmpTrapSender.run(uuid);
+						logger.info("Collect offline streamer:"+uuid);
+						uuids.add(uuid);
 					}else {
 						updateOffLine(uuid,true);
 					}
 				}
+				
+				logger.info("Sender snmp server alarm.");
+				SnmpTrapSender.run(uuids);
 			}
 			
 			try {

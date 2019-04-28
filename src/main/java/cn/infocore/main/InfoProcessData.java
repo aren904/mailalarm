@@ -340,6 +340,7 @@ public class InfoProcessData{
 			mFault.setData_ark_ip(data_ark.getIp());
 			mFault.setTarget(data_ark.getName());
 			mFault.setClient_type(0);//2019年3月11日18:04:13 朱伟添加
+			mFault.setClient_id(uuid); //add by wxx
 			data_ark_fault_list.add(mFault);
 			faults.add(mFault);
 		}
