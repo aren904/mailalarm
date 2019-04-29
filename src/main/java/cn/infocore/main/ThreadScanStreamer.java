@@ -60,8 +60,10 @@ public class ThreadScanStreamer extends Thread {
 					}
 				}
 				
-				logger.info("Sender snmp server alarm.");
-				SnmpTrapSender.run(uuids);
+				if(uuids.size()>0){
+					logger.info("Sender snmp server alarm.");
+					SnmpTrapSender.run(uuids);
+				}
 			}
 			
 			try {
@@ -78,6 +80,16 @@ public class ThreadScanStreamer extends Thread {
 		long now = System.currentTimeMillis() / 1000;
 		String sql="";
 		QueryRunner qr=MyDataSource.getQueryRunner();
+		
+		//更新数据库数据方舟的状态
+		sql = "update data_ark set exceptions=? where id=?";
+		Object[] param = { online ? "0" : "10", uuid };
+		try {
+			qr.update(sql, param);
+		} catch (SQLException e) {
+			logger.error(e);
+		}
+				
 		if (!online) {
 			logger.warn("The data ark which uuid:"+uuid+"is offline...");
 			//如果离线，触发邮件报警
@@ -101,11 +113,15 @@ public class ThreadScanStreamer extends Thread {
 					fault.setData_ark_ip("null");
 					fault.setTarget("null");
 					fault.setUser_id("null");
+					fault.setClient_id("null");
+					fault.setData_ark_id("null");
 				}else {
 					fault.setData_ark_name(data_ark.getName());
 					fault.setData_ark_ip(data_ark.getIp());
 					fault.setTarget(data_ark.getName());
 					fault.setUser_id(data_ark.getUser_id());
+					fault.setClient_id(uuid); //add by wxx
+					fault.setData_ark_id(uuid);
 				}
 				
 				try {
@@ -118,14 +134,6 @@ public class ThreadScanStreamer extends Thread {
 			}
 		}
 		
-		//更新数据库数据方舟的状态
-		sql = "update data_ark set exceptions=? where id=?";
-		Object[] param = { online ? "0" : "10", uuid };
-		try {
-			qr.update(sql, param);
-		} catch (SQLException e) {
-			logger.error(e);
-		}
 		//MyDataSource.close(connection);
 	}
 }

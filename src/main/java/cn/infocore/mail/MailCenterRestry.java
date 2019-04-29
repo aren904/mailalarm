@@ -148,15 +148,10 @@ public class MailCenterRestry implements Center {
 				}
 				
 				//current error
-				logger.info("excepts:"+excepts);
 				if(excepts!=""&&excepts!=null){
 					currentErrors.addAll(Arrays.asList(excepts.split(";")));
 				}
-				
-				logger.info("Current error size:"+currentErrors.size()+",fault type:"+fault.getClient_type());
-				for(String ex:currentErrors){
-					logger.info("Current error:"+ex);
-				}
+				logger.info("Current error size:"+currentErrors.size()+",fault type:"+fault.getClient_type()+","+currentErrors.toString());
 				
 				//not confirm error
 				sql="select * from alarm_log where data_ark_id=? and target=? and processed=0";
@@ -165,10 +160,7 @@ public class MailCenterRestry implements Center {
 				logger.info("DB error condition:"+condition.length+","+condition[0]+","+condition[1]);
 				qr = MyDataSource.getQueryRunner();
 				List<Integer> dbErrors=qr.query(sql, new ColumnListHandler<Integer>("exeception"),condition);
-				logger.info("DB error size:"+dbErrors.size());
-				for(Integer ex:dbErrors){
-					logger.info("DB error:"+ex);
-				}
+				logger.info("DB error size:"+dbErrors.size()+","+dbErrors.toString());
 				
 				logger.info("start to compare current and db errors.");
 				for(Integer type:dbErrors){
@@ -181,7 +173,7 @@ public class MailCenterRestry implements Center {
 				}
 				
 				for(String type:currentErrors){
-					if(!dbErrors.contains(Integer.parseInt(type))){
+					if(!dbErrors.contains(Integer.parseInt(type))&&Integer.parseInt(type)!=0){ //insert error
 						logger.info("current is new,insert it:"+type);
 						//3.current is new,insert it.
 						sql = "insert into alarm_log values(null,?,?,?,?,?,?,?,?,?,?) on duplicate key"

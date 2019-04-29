@@ -39,11 +39,11 @@ public class SnmpTrapSender {
 	}
 	
 	public static void run(List<String> uuids){
+		logger.info(fmt("Get target streamer from DB,total size:"+uuids.size()));
+		
 		SnmpTrapSender poc = new SnmpTrapSender();
 		MySnmp mySnmp=MySnmpCache.getInstance().getMySnmp();
-		
 		try {
-			logger.info(fmt("Get target streamer from DB,total size:"+uuids.size()));
 			List<Data_ark> data_arks=new ArrayList<Data_ark>();
 			for(String uuid:uuids){
 				String sql = "select id,name,ip from data_ark where id=?";
