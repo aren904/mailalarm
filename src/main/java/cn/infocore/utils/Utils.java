@@ -41,6 +41,7 @@ public class Utils {
 			case 24:
 				ret = "警告";
 				break;
+			case 25:
 			default:
 				ret = "正常";
 				break;
@@ -126,6 +127,9 @@ public class Utils {
 			break;
 		case 24:
 			ret="映射的盘离线(用于AIX客户端)";
+			break;
+		case 25:
+			ret="VMWARE同步数据失败";
 			break;
 		default:
 			ret = "未知异常";

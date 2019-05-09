@@ -331,6 +331,14 @@ public final class StmStreamerDrManage {
      * </pre>
      */
     STREAMER_CLIENT_DISK_OFFLINE(24, 24),
+    /**
+     * <code>VMWARE_INIT_MIRROR_FAILED = 25;</code>
+     *
+     * <pre>
+     *vmware同步数据失败
+     * </pre>
+     */
+    VMWARE_INIT_MIRROR_FAILED(25, 25),
     ;
 
     /**
@@ -529,6 +537,14 @@ public final class StmStreamerDrManage {
      * </pre>
      */
     public static final int STREAMER_CLIENT_DISK_OFFLINE_VALUE = 24;
+    /**
+     * <code>VMWARE_INIT_MIRROR_FAILED = 25;</code>
+     *
+     * <pre>
+     *vmware同步数据失败
+     * </pre>
+     */
+    public static final int VMWARE_INIT_MIRROR_FAILED_VALUE = 25;
 
 
     public final int getNumber() { return value; }
@@ -560,6 +576,7 @@ public final class StmStreamerDrManage {
         case 22: return DR_SERVER_OFFLINE;
         case 23: return STREAMER_POOL_ALMOST_FULL;
         case 24: return STREAMER_CLIENT_DISK_OFFLINE;
+        case 25: return VMWARE_INIT_MIRROR_FAILED;
         default: return null;
       }
     }
@@ -6829,7 +6846,7 @@ public final class StmStreamerDrManage {
       "erver\030\002 \002(\0132\t.Streamer\022\030\n\007clients\030\003 \003(\0132" +
       "\007.Client\022\026\n\006vcents\030\004 \003(\0132\006.Vcent*H\n\nClie" +
       "ntType\022\n\n\006SINGLE\020\000\022\n\n\006VMWARE\020\001\022\010\n\004MSCS\020\002" +
-      "\022\007\n\003RAC\020\003\022\006\n\002VC\020\004\022\007\n\003AIX\020\005*\204\005\n\tFaultType" +
+      "\022\007\n\003RAC\020\003\022\006\n\002VC\020\004\022\007\n\003AIX\020\005*\243\005\n\tFaultType" +
       "\022\n\n\006NORMAL\020\000\022\025\n\021CLIENT_LOCAL_LOST\020\001\022\023\n\017C" +
       "LIENT_DST_LOST\020\002\022\034\n\030CLIENT_CREATE_SNAP_A",
       "ILED\020\003\022\022\n\016VWARE_CBT_DROP\020\004\022\022\n\016CLIENT_OFF" +
@@ -6845,8 +6862,9 @@ public final class StmStreamerDrManage {
       "FFLINE\020\023\022\033\n\027CLIENT_CREATESNAP_FAILD\020\024\022\032\n" +
       "\026RAC_CREATE_SNAP_FAILED\020\025\022\025\n\021DR_SERVER_O" +
       "FFLINE\020\026\022\035\n\031STREAMER_POOL_ALMOST_FULL\020\027\022" +
-      " \n\034STREAMER_CLIENT_DISK_OFFLINE\020\030B+\n\024cn." +
-      "infocore.protobufB\023StmStreamerDrManage"
+      " \n\034STREAMER_CLIENT_DISK_OFFLINE\020\030\022\035\n\031VMW" +
+      "ARE_INIT_MIRROR_FAILED\020\031B+\n\024cn.infocore." +
+      "protobufB\023StmStreamerDrManage"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
