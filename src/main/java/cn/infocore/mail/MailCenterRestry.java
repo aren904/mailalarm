@@ -107,11 +107,12 @@ public class MailCenterRestry implements Center {
 	}
 
 	public void notifyCenter(Fault... list_fault) throws SQLException {
-		logger.info("Start NotifyCenetr inject mailsender.");
+		logger.info("Start NotifyCenetr inject mailsender,size:"+list_fault.length);
 		String sql = null;
 		Object[] condition=null;
 		
 		for (Fault fault : list_fault) {
+			logger.info("Fault type:"+fault.getType()+",target:"+fault.getTarget());
 			if (fault.getType()==0) {
 				//1.confirm all alarm log for target.
 				sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target=?";
@@ -140,7 +141,7 @@ public class MailCenterRestry implements Center {
 					sql="select execptions from client where data_ark_id=? and id=?";
 					excepts=qr.query(sql, new ExecptHandler(), condition);
 				}else if(fault.getClient_type()==2){
-					sql="select exceptions from vcenter where data_ark_id=? and id=?";
+					sql="select exceptions from vcenter where data_ark_id=? and vcenter_id=?";
 					excepts=qr.query(sql, new ExceptHandler(), condition);
 				}else if(fault.getClient_type()==3){
 					sql="select exceptions from virtual_machine where data_ark_id=? and id=?";
@@ -167,15 +168,15 @@ public class MailCenterRestry implements Center {
 					if(!currentErrors.contains(String.valueOf(type))){
 						logger.info("current not contains db,confirm it:"+type);
 						//2.current not contains db,confirm it.
-						sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target=?";
-						condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getTarget()};
+						sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target=? and exeception=?";
+						condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getTarget(),type};
 					}
 				}
 				
 				for(String type:currentErrors){
 					if(!dbErrors.contains(Integer.parseInt(type))&&Integer.parseInt(type)!=0){ //insert error
 						logger.info("current is new,insert it:"+type);
-						//3.current is new,insert it.
+						//3.current is new,insert/update it.
 						sql = "insert into alarm_log values(null,?,?,?,?,?,?,?,?,?,?) on duplicate key"
 								+ " update user_id=?,timestamp=?,processed=0";
 						condition=new Object[] {fault.getTimestamp(),0,0,fault.getType(),fault.getData_ark_id(),
@@ -183,6 +184,9 @@ public class MailCenterRestry implements Center {
 					}
 				}
 			}
+			
+			//update alarm_log set user_id='qsy2',processed=1 where data_ark_id='75ba94df-b238-4095-a422-c3b494b7478d' and target='qsyrac11g';
+			//insert into alarm_log values(null,'1557487983',0,0,15,'75ba94df-b238-4095-a422-c3b494b7478d','111方舟测试','192.168.1.17','qsyrac11g','0','qsy2') on duplicate key update user_id='qsy2',timestamp='1557487983',processed=0
 			
 			QueryRunner qr = MyDataSource.getQueryRunner();
 			qr.execute(sql, condition);

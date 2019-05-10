@@ -21,19 +21,19 @@ public class MySnmpCache {
 		QueryRunner qr=MyDataSource.getQueryRunner();
 		try {
 			this.snmp=qr.query(sql,new BeanHandler<MySnmp>(MySnmp.class));
-			logger.info("Successed to get snmp[Name]:"+snmp.getStation_ip()+",[Port:]"+snmp.getStation_port());
+			logger.info("Successed to get snmp[Name:]"+snmp.getStation_name()+"[IP]:"+snmp.getStation_ip()+",[Port:]"+snmp.getStation_port());
 		} catch (SQLException e) {
 			logger.error(e);
 		}finally {
 			//MyDataSource.close(connection);
 		}
 		/*this.snmp=new MySnmp();
-		snmp.setStation_ip("192.168.3.223");
-		snmp.setStation_name("fygManger");
+		snmp.setStation_ip("192.168.11.206");
+		snmp.setStation_name(" ");
 		snmp.setStation_port(162);
 		snmp.setWrite_community_name("public");
 		snmp.setVersion(1);
-		snmp.setTimeout_ms(100);
+		snmp.setTimeout_ms(1001);
 		snmp.setUpdate_version(3);*/
 		this.logMe();
 	}
@@ -48,8 +48,8 @@ public class MySnmpCache {
 	
 	//更新：即需要重新到数据库查询
 	public void updateMySnmp() {
-		logger.info("Start to update snmp[Name]:"+snmp.getStation_ip()+",[Port:]"+snmp.getStation_port());
-		new MySnmpCache();
+		logger.info("Start to update snmp[Name:]"+snmp.getStation_name()+"[IP]:"+snmp.getStation_ip()+",[Port:]"+snmp.getStation_port());
+		 MySnmpHolder.instance=new MySnmpCache();
 	}
 	
 	public synchronized MySnmp getMySnmp() {

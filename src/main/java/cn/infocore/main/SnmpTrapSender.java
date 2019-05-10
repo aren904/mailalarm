@@ -66,7 +66,7 @@ public class SnmpTrapSender {
 					mySnmp.getStation_name(),mySnmp.getStation_ip(),mySnmp.getStation_port()));
 			poc.init(mySnmp);
 			
-			logger.info(fmt("Send trap for streamer offline."));
+			logger.info(fmt("Send trap。。。"));
 			poc.sendV2cTrap(mySnmp,data_arks);
 			/*ResponseEvent respEvnt = poc.sendV2cTrap(mySnmp,data_arks);
 			
@@ -85,7 +85,9 @@ public class SnmpTrapSender {
 	}
 	
 	public static void main(String[] args) {
-		//run("1111");
+		/*List<String> uuids=new ArrayList<String>();
+		uuids.add("1afd73ca-b219-4fe9-9156-4de6d61aff77");
+		run(uuids);*/
 	}
 	
 	/**
@@ -123,6 +125,7 @@ public class SnmpTrapSender {
 			target.setVersion(SnmpConstants.version3); 
 		}
 		
+		logger.info(fmt("Start to send trap for streamer offline."));
 		// send pdu
 		return snmp.send(pdu, target);
 	}

@@ -400,7 +400,7 @@ public class InfoProcessData{
 					fault2.setData_ark_name(data_ark.getName());
 					fault2.setData_ark_ip(data_ark.getIp());
 					fault2.setTarget(vcent.getVcName());
-                    fault2.setClient_type(1);//2019年3月11日18:04:13 朱伟添加
+                    fault2.setClient_type(2);//2019年3月11日18:04:13 朱伟添加
                     fault2.setClient_id(vcent.getVcUuid());//2019年3月11日18:04:13 朱伟添加
 					v_list_faults.add(fault2);
 					faults.add(fault2);
@@ -438,7 +438,7 @@ public class InfoProcessData{
 							fault.setData_ark_name(data_ark.getName());
 							fault.setData_ark_ip(data_ark.getIp());
 							fault.setTarget(vmware.getName());
-							fault.setClient_type(2);
+							fault.setClient_type(3);
 							fault.setClient_id(vmware.getId());
 							vmware_list_faults.add(fault);
 							faults.add(fault);
