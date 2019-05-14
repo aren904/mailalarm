@@ -14,6 +14,8 @@ public class Client_ {
 	//客户端所有的异常,以 ; 分隔
 	private String except;
 	
+	private String system_Version;
+	
 	private List<Fault> fList;
 	
 	//客户端类型 SINGLE = 0;VMWARE = 1;MSCS = 2;RAC = 3;VC = 4; AIX=5;
@@ -102,5 +104,12 @@ public class Client_ {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
-	
+
+	public String getSystem_Version() {
+		return system_Version;
+	}
+
+	public void setSystem_Version(String system_Version) {
+		this.system_Version = system_Version;
+	}
 }

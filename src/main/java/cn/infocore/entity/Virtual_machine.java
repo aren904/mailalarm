@@ -18,6 +18,8 @@ public class Virtual_machine {
 	//对应User的id字段，外健
 	private String user_id;
 	
+	private String system_Version;
+	
 	public List<Fault> getFaults() {
 		return faults;
 	}
@@ -33,6 +35,14 @@ public class Virtual_machine {
 		setExcept(string.toString());
 	}
 	
+	public String getSystem_Version() {
+		return system_Version;
+	}
+
+	public void setSystem_Version(String system_Version) {
+		this.system_Version = system_Version;
+	}
+
 	public String getId() {
 		return id;
 	}

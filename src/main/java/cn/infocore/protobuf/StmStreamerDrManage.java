@@ -1782,6 +1782,20 @@ public final class StmStreamerDrManage {
      * <code>repeated .FaultType Client_state = 5;</code>
      */
     cn.infocore.protobuf.StmStreamerDrManage.FaultType getClientState(int index);
+
+    /**
+     * <code>optional string System_Version = 6;</code>
+     */
+    boolean hasSystemVersion();
+    /**
+     * <code>optional string System_Version = 6;</code>
+     */
+    java.lang.String getSystemVersion();
+    /**
+     * <code>optional string System_Version = 6;</code>
+     */
+    com.google.protobuf.ByteString
+        getSystemVersionBytes();
   }
   /**
    * Protobuf type {@code Client}
@@ -1899,6 +1913,12 @@ public final class StmStreamerDrManage {
                 }
               }
               input.popLimit(oldLimit);
+              break;
+            }
+            case 50: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000010;
+              systemVersion_ = bs;
               break;
             }
           }
@@ -2106,12 +2126,55 @@ public final class StmStreamerDrManage {
       return clientState_.get(index);
     }
 
+    public static final int SYSTEM_VERSION_FIELD_NUMBER = 6;
+    private java.lang.Object systemVersion_;
+    /**
+     * <code>optional string System_Version = 6;</code>
+     */
+    public boolean hasSystemVersion() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional string System_Version = 6;</code>
+     */
+    public java.lang.String getSystemVersion() {
+      java.lang.Object ref = systemVersion_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          systemVersion_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string System_Version = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSystemVersionBytes() {
+      java.lang.Object ref = systemVersion_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        systemVersion_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       id_ = "";
       name_ = "";
       ip_ = "";
       type_ = cn.infocore.protobuf.StmStreamerDrManage.ClientType.SINGLE;
       clientState_ = java.util.Collections.emptyList();
+      systemVersion_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -2157,6 +2220,9 @@ public final class StmStreamerDrManage {
       for (int i = 0; i < clientState_.size(); i++) {
         output.writeEnum(5, clientState_.get(i).getNumber());
       }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBytes(6, getSystemVersionBytes());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -2190,6 +2256,10 @@ public final class StmStreamerDrManage {
         }
         size += dataSize;
         size += 1 * clientState_.size();
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, getSystemVersionBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2322,6 +2392,8 @@ public final class StmStreamerDrManage {
         bitField0_ = (bitField0_ & ~0x00000008);
         clientState_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000010);
+        systemVersion_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -2371,6 +2443,10 @@ public final class StmStreamerDrManage {
           bitField0_ = (bitField0_ & ~0x00000010);
         }
         result.clientState_ = clientState_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.systemVersion_ = systemVersion_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2413,6 +2489,11 @@ public final class StmStreamerDrManage {
             ensureClientStateIsMutable();
             clientState_.addAll(other.clientState_);
           }
+          onChanged();
+        }
+        if (other.hasSystemVersion()) {
+          bitField0_ |= 0x00000020;
+          systemVersion_ = other.systemVersion_;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -2793,6 +2874,82 @@ public final class StmStreamerDrManage {
         return this;
       }
 
+      private java.lang.Object systemVersion_ = "";
+      /**
+       * <code>optional string System_Version = 6;</code>
+       */
+      public boolean hasSystemVersion() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>optional string System_Version = 6;</code>
+       */
+      public java.lang.String getSystemVersion() {
+        java.lang.Object ref = systemVersion_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            systemVersion_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string System_Version = 6;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSystemVersionBytes() {
+        java.lang.Object ref = systemVersion_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          systemVersion_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string System_Version = 6;</code>
+       */
+      public Builder setSystemVersion(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        systemVersion_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string System_Version = 6;</code>
+       */
+      public Builder clearSystemVersion() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        systemVersion_ = getDefaultInstance().getSystemVersion();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string System_Version = 6;</code>
+       */
+      public Builder setSystemVersionBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        systemVersion_ = value;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:Client)
     }
 
@@ -2871,6 +3028,20 @@ public final class StmStreamerDrManage {
      * <code>repeated .FaultType Vmware_state = 5;</code>
      */
     cn.infocore.protobuf.StmStreamerDrManage.FaultType getVmwareState(int index);
+
+    /**
+     * <code>required string System_Version = 6;</code>
+     */
+    boolean hasSystemVersion();
+    /**
+     * <code>required string System_Version = 6;</code>
+     */
+    java.lang.String getSystemVersion();
+    /**
+     * <code>required string System_Version = 6;</code>
+     */
+    com.google.protobuf.ByteString
+        getSystemVersionBytes();
   }
   /**
    * Protobuf type {@code Vmware}
@@ -2988,6 +3159,12 @@ public final class StmStreamerDrManage {
                 }
               }
               input.popLimit(oldLimit);
+              break;
+            }
+            case 50: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000010;
+              systemVersion_ = bs;
               break;
             }
           }
@@ -3195,12 +3372,55 @@ public final class StmStreamerDrManage {
       return vmwareState_.get(index);
     }
 
+    public static final int SYSTEM_VERSION_FIELD_NUMBER = 6;
+    private java.lang.Object systemVersion_;
+    /**
+     * <code>required string System_Version = 6;</code>
+     */
+    public boolean hasSystemVersion() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>required string System_Version = 6;</code>
+     */
+    public java.lang.String getSystemVersion() {
+      java.lang.Object ref = systemVersion_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          systemVersion_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string System_Version = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSystemVersionBytes() {
+      java.lang.Object ref = systemVersion_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        systemVersion_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       id_ = "";
       name_ = "";
       type_ = cn.infocore.protobuf.StmStreamerDrManage.ClientType.SINGLE;
       path_ = "";
       vmwareState_ = java.util.Collections.emptyList();
+      systemVersion_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -3221,6 +3441,10 @@ public final class StmStreamerDrManage {
         return false;
       }
       if (!hasPath()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasSystemVersion()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -3245,6 +3469,9 @@ public final class StmStreamerDrManage {
       }
       for (int i = 0; i < vmwareState_.size(); i++) {
         output.writeEnum(5, vmwareState_.get(i).getNumber());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBytes(6, getSystemVersionBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -3279,6 +3506,10 @@ public final class StmStreamerDrManage {
         }
         size += dataSize;
         size += 1 * vmwareState_.size();
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, getSystemVersionBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3411,6 +3642,8 @@ public final class StmStreamerDrManage {
         bitField0_ = (bitField0_ & ~0x00000008);
         vmwareState_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000010);
+        systemVersion_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -3460,6 +3693,10 @@ public final class StmStreamerDrManage {
           bitField0_ = (bitField0_ & ~0x00000010);
         }
         result.vmwareState_ = vmwareState_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.systemVersion_ = systemVersion_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -3504,6 +3741,11 @@ public final class StmStreamerDrManage {
           }
           onChanged();
         }
+        if (other.hasSystemVersion()) {
+          bitField0_ |= 0x00000020;
+          systemVersion_ = other.systemVersion_;
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -3522,6 +3764,10 @@ public final class StmStreamerDrManage {
           return false;
         }
         if (!hasPath()) {
+          
+          return false;
+        }
+        if (!hasSystemVersion()) {
           
           return false;
         }
@@ -3878,6 +4124,82 @@ public final class StmStreamerDrManage {
       public Builder clearVmwareState() {
         vmwareState_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000010);
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object systemVersion_ = "";
+      /**
+       * <code>required string System_Version = 6;</code>
+       */
+      public boolean hasSystemVersion() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>required string System_Version = 6;</code>
+       */
+      public java.lang.String getSystemVersion() {
+        java.lang.Object ref = systemVersion_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            systemVersion_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string System_Version = 6;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSystemVersionBytes() {
+        java.lang.Object ref = systemVersion_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          systemVersion_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string System_Version = 6;</code>
+       */
+      public Builder setSystemVersion(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        systemVersion_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string System_Version = 6;</code>
+       */
+      public Builder clearSystemVersion() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        systemVersion_ = getDefaultInstance().getSystemVersion();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string System_Version = 6;</code>
+       */
+      public Builder setSystemVersionBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        systemVersion_ = value;
         onChanged();
         return this;
       }
@@ -6832,39 +7154,40 @@ public final class StmStreamerDrManage {
       "\n\034streamer_clouddrmanage.proto\"y\n\010Stream" +
       "er\022\n\n\002ip\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\r\n\005total\030\003 " +
       "\002(\004\022\014\n\004used\030\004 \002(\004\022\"\n\016Streamer_state\030\005 \003(" +
-      "\0162\n.FaultType\022\022\n\noracle_vol\030\006 \002(\004\"k\n\006Cli" +
-      "ent\022\n\n\002id\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\n\n\002ip\030\003 \002(" +
-      "\t\022\031\n\004type\030\004 \002(\0162\013.ClientType\022 \n\014Client_s" +
-      "tate\030\005 \003(\0162\n.FaultType\"m\n\006Vmware\022\n\n\002id\030\001" +
-      " \002(\t\022\014\n\004name\030\002 \002(\t\022\031\n\004type\030\003 \002(\0162\013.Clien" +
-      "tType\022\014\n\004path\030\004 \002(\t\022 \n\014Vmware_state\030\005 \003(" +
-      "\0162\n.FaultType\"\216\001\n\005Vcent\022\017\n\007vc_name\030\001 \002(\t",
-      "\022\017\n\007vc_uuid\030\002 \002(\t\022\r\n\005vc_ip\030\003 \002(\t\022\037\n\013Vcen" +
-      "t_state\030\004 \003(\0162\n.FaultType\022\030\n\007clients\030\005 \003" +
-      "(\0132\007.Vmware\022\031\n\004type\030\006 \002(\0162\013.ClientType\"p" +
-      "\n\023GetServerInfoReturn\022\014\n\004uuid\030\001 \002(\t\022\031\n\006s" +
-      "erver\030\002 \002(\0132\t.Streamer\022\030\n\007clients\030\003 \003(\0132" +
-      "\007.Client\022\026\n\006vcents\030\004 \003(\0132\006.Vcent*H\n\nClie" +
-      "ntType\022\n\n\006SINGLE\020\000\022\n\n\006VMWARE\020\001\022\010\n\004MSCS\020\002" +
-      "\022\007\n\003RAC\020\003\022\006\n\002VC\020\004\022\007\n\003AIX\020\005*\243\005\n\tFaultType" +
-      "\022\n\n\006NORMAL\020\000\022\025\n\021CLIENT_LOCAL_LOST\020\001\022\023\n\017C" +
-      "LIENT_DST_LOST\020\002\022\034\n\030CLIENT_CREATE_SNAP_A",
-      "ILED\020\003\022\022\n\016VWARE_CBT_DROP\020\004\022\022\n\016CLIENT_OFF" +
-      "LINE\020\005\022\023\n\017VCENTER_OFFLINE\020\006\022\036\n\032CLUSTER_N" +
-      "ODE_EXIST_OFFLINE\020\007\022\030\n\024CLUSTER_NODE_OFFL" +
-      "INE\020\010\022\031\n\025STREAMER_POOL_DISABLE\020\t\022\024\n\020STRE" +
-      "AMER_OFFLINE\020\n\022\035\n\031CLIENT_AUTO_EXPAND_FAI" +
-      "LED\020\013\022\034\n\030CLIENT_SNAP_MERGE_FAILED\020\014\022\027\n\023O" +
-      "RACLE_STORAGE_DROP\020\r\022\022\n\016DR_COPY_FAILED\020\016" +
-      "\022\032\n\026RAC_NODE_EXIST_OFFLINE\020\017\022\024\n\020RAC_NODE" +
-      "_OFFLINE\020\020\022\036\n\032RAC_INSTANCE_EXIST_OFFLINE" +
-      "\020\021\022\030\n\024RAC_INSTANCE_OFFLINE\020\022\022\022\n\016VMWARE_O",
-      "FFLINE\020\023\022\033\n\027CLIENT_CREATESNAP_FAILD\020\024\022\032\n" +
-      "\026RAC_CREATE_SNAP_FAILED\020\025\022\025\n\021DR_SERVER_O" +
-      "FFLINE\020\026\022\035\n\031STREAMER_POOL_ALMOST_FULL\020\027\022" +
-      " \n\034STREAMER_CLIENT_DISK_OFFLINE\020\030\022\035\n\031VMW" +
-      "ARE_INIT_MIRROR_FAILED\020\031B+\n\024cn.infocore." +
-      "protobufB\023StmStreamerDrManage"
+      "\0162\n.FaultType\022\022\n\noracle_vol\030\006 \002(\004\"\203\001\n\006Cl" +
+      "ient\022\n\n\002id\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\n\n\002ip\030\003 \002" +
+      "(\t\022\031\n\004type\030\004 \002(\0162\013.ClientType\022 \n\014Client_" +
+      "state\030\005 \003(\0162\n.FaultType\022\026\n\016System_Versio" +
+      "n\030\006 \001(\t\"\205\001\n\006Vmware\022\n\n\002id\030\001 \002(\t\022\014\n\004name\030\002" +
+      " \002(\t\022\031\n\004type\030\003 \002(\0162\013.ClientType\022\014\n\004path\030" +
+      "\004 \002(\t\022 \n\014Vmware_state\030\005 \003(\0162\n.FaultType\022",
+      "\026\n\016System_Version\030\006 \002(\t\"\216\001\n\005Vcent\022\017\n\007vc_" +
+      "name\030\001 \002(\t\022\017\n\007vc_uuid\030\002 \002(\t\022\r\n\005vc_ip\030\003 \002" +
+      "(\t\022\037\n\013Vcent_state\030\004 \003(\0162\n.FaultType\022\030\n\007c" +
+      "lients\030\005 \003(\0132\007.Vmware\022\031\n\004type\030\006 \002(\0162\013.Cl" +
+      "ientType\"p\n\023GetServerInfoReturn\022\014\n\004uuid\030" +
+      "\001 \002(\t\022\031\n\006server\030\002 \002(\0132\t.Streamer\022\030\n\007clie" +
+      "nts\030\003 \003(\0132\007.Client\022\026\n\006vcents\030\004 \003(\0132\006.Vce" +
+      "nt*H\n\nClientType\022\n\n\006SINGLE\020\000\022\n\n\006VMWARE\020\001" +
+      "\022\010\n\004MSCS\020\002\022\007\n\003RAC\020\003\022\006\n\002VC\020\004\022\007\n\003AIX\020\005*\243\005\n" +
+      "\tFaultType\022\n\n\006NORMAL\020\000\022\025\n\021CLIENT_LOCAL_L",
+      "OST\020\001\022\023\n\017CLIENT_DST_LOST\020\002\022\034\n\030CLIENT_CRE" +
+      "ATE_SNAP_AILED\020\003\022\022\n\016VWARE_CBT_DROP\020\004\022\022\n\016" +
+      "CLIENT_OFFLINE\020\005\022\023\n\017VCENTER_OFFLINE\020\006\022\036\n" +
+      "\032CLUSTER_NODE_EXIST_OFFLINE\020\007\022\030\n\024CLUSTER" +
+      "_NODE_OFFLINE\020\010\022\031\n\025STREAMER_POOL_DISABLE" +
+      "\020\t\022\024\n\020STREAMER_OFFLINE\020\n\022\035\n\031CLIENT_AUTO_" +
+      "EXPAND_FAILED\020\013\022\034\n\030CLIENT_SNAP_MERGE_FAI" +
+      "LED\020\014\022\027\n\023ORACLE_STORAGE_DROP\020\r\022\022\n\016DR_COP" +
+      "Y_FAILED\020\016\022\032\n\026RAC_NODE_EXIST_OFFLINE\020\017\022\024" +
+      "\n\020RAC_NODE_OFFLINE\020\020\022\036\n\032RAC_INSTANCE_EXI",
+      "ST_OFFLINE\020\021\022\030\n\024RAC_INSTANCE_OFFLINE\020\022\022\022" +
+      "\n\016VMWARE_OFFLINE\020\023\022\033\n\027CLIENT_CREATESNAP_" +
+      "FAILD\020\024\022\032\n\026RAC_CREATE_SNAP_FAILED\020\025\022\025\n\021D" +
+      "R_SERVER_OFFLINE\020\026\022\035\n\031STREAMER_POOL_ALMO" +
+      "ST_FULL\020\027\022 \n\034STREAMER_CLIENT_DISK_OFFLIN" +
+      "E\020\030\022\035\n\031VMWARE_INIT_MIRROR_FAILED\020\031B+\n\024cn" +
+      ".infocore.protobufB\023StmStreamerDrManage"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -6889,13 +7212,13 @@ public final class StmStreamerDrManage {
     internal_static_Client_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Client_descriptor,
-        new java.lang.String[] { "Id", "Name", "Ip", "Type", "ClientState", });
+        new java.lang.String[] { "Id", "Name", "Ip", "Type", "ClientState", "SystemVersion", });
     internal_static_Vmware_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_Vmware_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Vmware_descriptor,
-        new java.lang.String[] { "Id", "Name", "Type", "Path", "VmwareState", });
+        new java.lang.String[] { "Id", "Name", "Type", "Path", "VmwareState", "SystemVersion", });
     internal_static_Vcent_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_Vcent_fieldAccessorTable = new
