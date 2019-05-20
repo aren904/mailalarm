@@ -43,44 +43,48 @@ public class SnmpTrapSender {
 		
 		SnmpTrapSender poc = new SnmpTrapSender();
 		MySnmp mySnmp=MySnmpCache.getInstance().getMySnmp();
-		try {
-			List<Data_ark> data_arks=new ArrayList<Data_ark>();
-			for(String uuid:uuids){
-				String sql = "select id,name,ip from data_ark where id=?";
-				Object[] param = { uuid };
-				QueryRunner qr = MyDataSource.getQueryRunner();
-				Data_ark data_ark=null;
-				try {
-					data_ark = qr.query(sql, new DataArk2Handler(), param);
-				} catch (SQLException e) {
-					e.printStackTrace();
+		
+		//不空且启用了
+		if(mySnmp!=null&&mySnmp.getEnabled()==1){
+			try {
+				List<Data_ark> data_arks=new ArrayList<Data_ark>();
+				for(String uuid:uuids){
+					String sql = "select id,name,ip from data_ark where id=?";
+					Object[] param = { uuid };
+					QueryRunner qr = MyDataSource.getQueryRunner();
+					Data_ark data_ark=null;
+					try {
+						data_ark = qr.query(sql, new DataArk2Handler(), param);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					
+					logger.info(fmt("Target streamer info[Id:%s][IP:%s][Name:%s].",data_ark.getId(),data_ark.getIp(),data_ark.getName()));
+					if(data_ark!=null){
+						data_arks.add(data_ark);
+					}
 				}
 				
-				logger.info(fmt("Target streamer info[Id:%s][IP:%s][Name:%s].",data_ark.getId(),data_ark.getIp(),data_ark.getName()));
-				if(data_ark!=null){
-					data_arks.add(data_ark);
-				}
+				logger.info(fmt("Start to init target[Name:%s][IP:%s][Port:%s] info.",
+						mySnmp.getStation_name(),mySnmp.getStation_ip(),mySnmp.getStation_port()));
+				poc.init(mySnmp);
+				
+				logger.info(fmt("Send trap。。。"));
+				poc.sendV2cTrap(mySnmp,data_arks);
+				/*ResponseEvent respEvnt = poc.sendV2cTrap(mySnmp,data_arks);
+				
+				// 解析Response
+				if (respEvnt != null && respEvnt.getResponse() != null) {
+					Vector<VariableBinding> recVBs = (Vector<VariableBinding>) respEvnt.getResponse().getVariableBindings();
+					for (int i = 0; i < recVBs.size(); i++) {
+						VariableBinding recVB = recVBs.elementAt(i);
+						logger.info(fmt("Response VariableBinding[OID:%s][Variable:%s].",
+								recVB.getOid().toString(),recVB.getVariable().toString()));
+					}
+				}*/
+			} catch (Exception e) {
+				logger.fatal(fmt("SnmpTrapSender error"), e);
 			}
-			
-			logger.info(fmt("Start to init target[Name:%s][IP:%s][Port:%s] info.",
-					mySnmp.getStation_name(),mySnmp.getStation_ip(),mySnmp.getStation_port()));
-			poc.init(mySnmp);
-			
-			logger.info(fmt("Send trap。。。"));
-			poc.sendV2cTrap(mySnmp,data_arks);
-			/*ResponseEvent respEvnt = poc.sendV2cTrap(mySnmp,data_arks);
-			
-			// 解析Response
-			if (respEvnt != null && respEvnt.getResponse() != null) {
-				Vector<VariableBinding> recVBs = (Vector<VariableBinding>) respEvnt.getResponse().getVariableBindings();
-				for (int i = 0; i < recVBs.size(); i++) {
-					VariableBinding recVB = recVBs.elementAt(i);
-					logger.info(fmt("Response VariableBinding[OID:%s][Variable:%s].",
-							recVB.getOid().toString(),recVB.getVariable().toString()));
-				}
-			}*/
-		} catch (Exception e) {
-			logger.fatal(fmt("SnmpTrapSender error"), e);
 		}
 	}
 	

@@ -1,4 +1,5 @@
 //package StmStreamerDrManage;
+syntax = "proto2";
 
 option java_package = "cn.infocore.protobuf";
 option java_outer_classname = "StmStreamerDrManage";
@@ -9,7 +10,7 @@ enum ClientType{
     MSCS = 2;
     RAC = 3;
     VC = 4;
-    AIX=5;
+    AIX = 5;
 }
 
 //备份的错误类型
@@ -17,59 +18,61 @@ enum FaultType{
     NORMAL = 0;                      
     CLIENT_LOCAL_LOST = 1;           //本地丢失
     CLIENT_DST_LOST = 2;             //目标丢失
-    CLIENT_CREATE_SNAP_AILED = 3;    //任务计划创建快照点失败(暂时不考虑普通客户端)
-    VWARE_CBT_DROP = 4;              //CBT异常
-    CLIENT_OFFLINE = 5;              //客户端离线
+    VMWARE_CREATE_SNAP_FAILED = 3;   //vmware任务计划创建快照点失败
+    VMWARE_CBT_DROP = 4;              //CBT异常
+    CLIENT_OFFLINE = 5;              //普通客户端离线
     VCENTER_OFFLINE = 6;             //VCENTER离线
-    CLUSTER_NODE_EXIST_OFFLINE = 7;  //集群节点或实例离线
-    CLUSTER_NODE_OFFLINE = 8;			 //集群离线
+    CLUSTER_NODE_EXIST_OFFLINE  = 7; //集群节点或实例离线
+    CLUSTER_NODE_ALL_OFFLINE = 8;    //集群离线
     STREAMER_POOL_DISABLE = 9;       //存储池异常
     STREAMER_OFFLINE = 10;           //Streamer离线
     CLIENT_AUTO_EXPAND_FAILED = 11;  //自动扩容失败
     CLIENT_SNAP_MERGE_FAILED = 12;   //快照合并失败
     ORACLE_STORAGE_DROP = 13;        //oracle备份空间异常
     DR_COPY_FAILED = 14;             //容灾复制失败
-    RAC_NODE_EXIST_OFFLINE = 15;     //RAC节点离线
-    RAC_NODE_OFFLINE = 16;           //RAC节点全部离线
-    RAC_INSTANCE_EXIST_OFFLINE = 17; //RAC实例离线
-    RAC_INSTANCE_OFFLINE = 18;       //RAC实例全部离线
-    VMWARE_OFFLINE = 19;				 //虚拟机离线
-    CLIENT_CREATESNAP_FAILD = 20;    //普通客户端创建快照点失败
-    RAC_CREATE_SNAP_FAILED = 21;     //RAC客户端创建快照点失败
-    DR_SERVER_OFFLINE = 22;          //容灾服务离线
+    RAC_NODE_EXIST_OFFLINE  = 15;     //RAC节点离线
+    RAC_NODE_ALL_OFFLINE = 16;        //RAC节点全部离线
+    RAC_INSTANCE_EXIST_OFFLINE  = 17; //RAC实例离线
+    RAC_INSTANCE_ALL_OFFLINE = 18;    //RAC实例全部离线
+    VMWARE_OFFLINE = 19;              //虚拟机离线
+    CLIENT_CREATE_SNAP_FAILED = 20;   //普通客户端创建快照点失败 
+    RAC_CREATE_SNAP_FAILED = 21;      //Rac客户端创建快照点失败 
+    DR_SERVER_OFFLINE = 22;            //容灾服务离线 
     STREAMER_POOL_ALMOST_FULL = 23;   //存储池已超过阈值
-    STREAMER_CLIENT_DISK_OFFLINE = 24;//映射的盘离线(用于AIX客户端) 
+    STREAMER_CLIENT_DISK_OFFLINE = 24;//映射的盘离线(用于AIX客户端)
     VMWARE_INIT_MIRROR_FAILED = 25;   //vmware同步数据失败
 }
 
 //服务器信息
 message Streamer{
 	required string ip = 1; 
-	required string name = 2;
+    required string name = 2;
     required uint64 total = 3;
     required uint64 used = 4;
     repeated FaultType Streamer_state = 5;
     required uint64 oracle_vol = 6;
+    required uint64 max_clients = 7;
 }
 
-//有代理客户端 实体机
+//有代理客户端
 message Client{
     required string id = 1;
     required string name = 2;
-    required string ip = 3;
+    optional string ip = 3;
     required ClientType type = 4;
     repeated FaultType Client_state = 5;
-    optional string System_Version=6;
+    optional string System_Version =6; 
 }
 
-//无代理客户端 虚拟机
+//无代理客户端
 message Vmware{
     required string id = 1;
     required string name = 2;
     required ClientType type = 3;
     required string path =4; 
     repeated FaultType Vmware_state = 5;
-    required string System_Version=6;
+    required int32 System_Version =6; 
+
 }
 
 //Vcent的信息
@@ -78,7 +81,7 @@ message Vcent{
     required string vc_uuid = 2;
     required string vc_ip = 3;
     repeated FaultType Vcent_state = 4;
-    repeated Vmware clients = 5;
+    repeated Vmware clients = 5;   
     required ClientType type = 6;
 }
 

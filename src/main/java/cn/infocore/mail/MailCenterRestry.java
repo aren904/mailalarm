@@ -155,7 +155,7 @@ public class MailCenterRestry implements Center {
 				logger.info("Current error size:"+currentErrors.size()+",fault type:"+fault.getClient_type()+","+currentErrors.toString());
 				
 				//not confirm error
-				sql="select * from alarm_log where data_ark_id=? and target=? and processed=0";
+				sql="select * from alarm_log where data_ark_id=? and binary target=? and processed=0";
 				condition=new Object[]{fault.getData_ark_id(),fault.getTarget()};
 				//db error
 				logger.info("DB error condition:"+condition.length+","+condition[0]+","+condition[1]);
@@ -184,9 +184,6 @@ public class MailCenterRestry implements Center {
 					}
 				}
 			}
-			
-			//update alarm_log set user_id='qsy2',processed=1 where data_ark_id='75ba94df-b238-4095-a422-c3b494b7478d' and target='qsyrac11g';
-			//insert into alarm_log values(null,'1557487983',0,0,15,'75ba94df-b238-4095-a422-c3b494b7478d','111方舟测试','192.168.1.17','qsyrac11g','0','qsy2') on duplicate key update user_id='qsy2',timestamp='1557487983',processed=0
 			
 			QueryRunner qr = MyDataSource.getQueryRunner();
 			qr.execute(sql, condition);

@@ -9,6 +9,7 @@ public class MySnmp {
 	private String write_community_name;//写团体名
 	private long timeout_ms;//超时时间
 	private int update_version;//最后一次更新版本
+	private int enabled;//0表示禁用
 	
 	public String getStation_ip() {
 		return station_ip;
@@ -57,6 +58,12 @@ public class MySnmp {
 	}
 	public void setUpdate_version(int update_version) {
 		this.update_version = update_version;
+	}
+	public int getEnabled() {
+		return enabled;
+	}
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
 	}
 	
 }

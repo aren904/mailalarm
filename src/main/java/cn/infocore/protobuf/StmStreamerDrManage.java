@@ -156,26 +156,26 @@ public final class StmStreamerDrManage {
      */
     CLIENT_DST_LOST(2, 2),
     /**
-     * <code>CLIENT_CREATE_SNAP_AILED = 3;</code>
+     * <code>VMWARE_CREATE_SNAP_FAILED = 3;</code>
      *
      * <pre>
-     *任务计划创建快照点失败(暂时不考虑普通客户端)
+     *vmware任务计划创建快照点失败
      * </pre>
      */
-    CLIENT_CREATE_SNAP_AILED(3, 3),
+    VMWARE_CREATE_SNAP_FAILED(3, 3),
     /**
-     * <code>VWARE_CBT_DROP = 4;</code>
+     * <code>VMWARE_CBT_DROP = 4;</code>
      *
      * <pre>
      *CBT异常
      * </pre>
      */
-    VWARE_CBT_DROP(4, 4),
+    VMWARE_CBT_DROP(4, 4),
     /**
      * <code>CLIENT_OFFLINE = 5;</code>
      *
      * <pre>
-     *客户端离线
+     *普通客户端离线
      * </pre>
      */
     CLIENT_OFFLINE(5, 5),
@@ -196,13 +196,13 @@ public final class StmStreamerDrManage {
      */
     CLUSTER_NODE_EXIST_OFFLINE(7, 7),
     /**
-     * <code>CLUSTER_NODE_OFFLINE = 8;</code>
+     * <code>CLUSTER_NODE_ALL_OFFLINE = 8;</code>
      *
      * <pre>
      *集群离线
      * </pre>
      */
-    CLUSTER_NODE_OFFLINE(8, 8),
+    CLUSTER_NODE_ALL_OFFLINE(8, 8),
     /**
      * <code>STREAMER_POOL_DISABLE = 9;</code>
      *
@@ -260,13 +260,13 @@ public final class StmStreamerDrManage {
      */
     RAC_NODE_EXIST_OFFLINE(15, 15),
     /**
-     * <code>RAC_NODE_OFFLINE = 16;</code>
+     * <code>RAC_NODE_ALL_OFFLINE = 16;</code>
      *
      * <pre>
      *RAC节点全部离线
      * </pre>
      */
-    RAC_NODE_OFFLINE(16, 16),
+    RAC_NODE_ALL_OFFLINE(16, 16),
     /**
      * <code>RAC_INSTANCE_EXIST_OFFLINE = 17;</code>
      *
@@ -276,13 +276,13 @@ public final class StmStreamerDrManage {
      */
     RAC_INSTANCE_EXIST_OFFLINE(17, 17),
     /**
-     * <code>RAC_INSTANCE_OFFLINE = 18;</code>
+     * <code>RAC_INSTANCE_ALL_OFFLINE = 18;</code>
      *
      * <pre>
      *RAC实例全部离线
      * </pre>
      */
-    RAC_INSTANCE_OFFLINE(18, 18),
+    RAC_INSTANCE_ALL_OFFLINE(18, 18),
     /**
      * <code>VMWARE_OFFLINE = 19;</code>
      *
@@ -292,18 +292,18 @@ public final class StmStreamerDrManage {
      */
     VMWARE_OFFLINE(19, 19),
     /**
-     * <code>CLIENT_CREATESNAP_FAILD = 20;</code>
+     * <code>CLIENT_CREATE_SNAP_FAILED = 20;</code>
      *
      * <pre>
-     *普通客户端创建快照点失败
+     *普通客户端创建快照点失败 
      * </pre>
      */
-    CLIENT_CREATESNAP_FAILD(20, 20),
+    CLIENT_CREATE_SNAP_FAILED(20, 20),
     /**
      * <code>RAC_CREATE_SNAP_FAILED = 21;</code>
      *
      * <pre>
-     *RAC客户端创建快照点失败
+     *Rac客户端创建快照点失败 
      * </pre>
      */
     RAC_CREATE_SNAP_FAILED(21, 21),
@@ -311,7 +311,7 @@ public final class StmStreamerDrManage {
      * <code>DR_SERVER_OFFLINE = 22;</code>
      *
      * <pre>
-     *容灾服务离线
+     *容灾服务离线 
      * </pre>
      */
     DR_SERVER_OFFLINE(22, 22),
@@ -327,7 +327,7 @@ public final class StmStreamerDrManage {
      * <code>STREAMER_CLIENT_DISK_OFFLINE = 24;</code>
      *
      * <pre>
-     *映射的盘离线(用于AIX客户端) 
+     *映射的盘离线(用于AIX客户端)
      * </pre>
      */
     STREAMER_CLIENT_DISK_OFFLINE(24, 24),
@@ -362,26 +362,26 @@ public final class StmStreamerDrManage {
      */
     public static final int CLIENT_DST_LOST_VALUE = 2;
     /**
-     * <code>CLIENT_CREATE_SNAP_AILED = 3;</code>
+     * <code>VMWARE_CREATE_SNAP_FAILED = 3;</code>
      *
      * <pre>
-     *任务计划创建快照点失败(暂时不考虑普通客户端)
+     *vmware任务计划创建快照点失败
      * </pre>
      */
-    public static final int CLIENT_CREATE_SNAP_AILED_VALUE = 3;
+    public static final int VMWARE_CREATE_SNAP_FAILED_VALUE = 3;
     /**
-     * <code>VWARE_CBT_DROP = 4;</code>
+     * <code>VMWARE_CBT_DROP = 4;</code>
      *
      * <pre>
      *CBT异常
      * </pre>
      */
-    public static final int VWARE_CBT_DROP_VALUE = 4;
+    public static final int VMWARE_CBT_DROP_VALUE = 4;
     /**
      * <code>CLIENT_OFFLINE = 5;</code>
      *
      * <pre>
-     *客户端离线
+     *普通客户端离线
      * </pre>
      */
     public static final int CLIENT_OFFLINE_VALUE = 5;
@@ -402,13 +402,13 @@ public final class StmStreamerDrManage {
      */
     public static final int CLUSTER_NODE_EXIST_OFFLINE_VALUE = 7;
     /**
-     * <code>CLUSTER_NODE_OFFLINE = 8;</code>
+     * <code>CLUSTER_NODE_ALL_OFFLINE = 8;</code>
      *
      * <pre>
      *集群离线
      * </pre>
      */
-    public static final int CLUSTER_NODE_OFFLINE_VALUE = 8;
+    public static final int CLUSTER_NODE_ALL_OFFLINE_VALUE = 8;
     /**
      * <code>STREAMER_POOL_DISABLE = 9;</code>
      *
@@ -466,13 +466,13 @@ public final class StmStreamerDrManage {
      */
     public static final int RAC_NODE_EXIST_OFFLINE_VALUE = 15;
     /**
-     * <code>RAC_NODE_OFFLINE = 16;</code>
+     * <code>RAC_NODE_ALL_OFFLINE = 16;</code>
      *
      * <pre>
      *RAC节点全部离线
      * </pre>
      */
-    public static final int RAC_NODE_OFFLINE_VALUE = 16;
+    public static final int RAC_NODE_ALL_OFFLINE_VALUE = 16;
     /**
      * <code>RAC_INSTANCE_EXIST_OFFLINE = 17;</code>
      *
@@ -482,13 +482,13 @@ public final class StmStreamerDrManage {
      */
     public static final int RAC_INSTANCE_EXIST_OFFLINE_VALUE = 17;
     /**
-     * <code>RAC_INSTANCE_OFFLINE = 18;</code>
+     * <code>RAC_INSTANCE_ALL_OFFLINE = 18;</code>
      *
      * <pre>
      *RAC实例全部离线
      * </pre>
      */
-    public static final int RAC_INSTANCE_OFFLINE_VALUE = 18;
+    public static final int RAC_INSTANCE_ALL_OFFLINE_VALUE = 18;
     /**
      * <code>VMWARE_OFFLINE = 19;</code>
      *
@@ -498,18 +498,18 @@ public final class StmStreamerDrManage {
      */
     public static final int VMWARE_OFFLINE_VALUE = 19;
     /**
-     * <code>CLIENT_CREATESNAP_FAILD = 20;</code>
+     * <code>CLIENT_CREATE_SNAP_FAILED = 20;</code>
      *
      * <pre>
-     *普通客户端创建快照点失败
+     *普通客户端创建快照点失败 
      * </pre>
      */
-    public static final int CLIENT_CREATESNAP_FAILD_VALUE = 20;
+    public static final int CLIENT_CREATE_SNAP_FAILED_VALUE = 20;
     /**
      * <code>RAC_CREATE_SNAP_FAILED = 21;</code>
      *
      * <pre>
-     *RAC客户端创建快照点失败
+     *Rac客户端创建快照点失败 
      * </pre>
      */
     public static final int RAC_CREATE_SNAP_FAILED_VALUE = 21;
@@ -517,7 +517,7 @@ public final class StmStreamerDrManage {
      * <code>DR_SERVER_OFFLINE = 22;</code>
      *
      * <pre>
-     *容灾服务离线
+     *容灾服务离线 
      * </pre>
      */
     public static final int DR_SERVER_OFFLINE_VALUE = 22;
@@ -533,7 +533,7 @@ public final class StmStreamerDrManage {
      * <code>STREAMER_CLIENT_DISK_OFFLINE = 24;</code>
      *
      * <pre>
-     *映射的盘离线(用于AIX客户端) 
+     *映射的盘离线(用于AIX客户端)
      * </pre>
      */
     public static final int STREAMER_CLIENT_DISK_OFFLINE_VALUE = 24;
@@ -554,12 +554,12 @@ public final class StmStreamerDrManage {
         case 0: return NORMAL;
         case 1: return CLIENT_LOCAL_LOST;
         case 2: return CLIENT_DST_LOST;
-        case 3: return CLIENT_CREATE_SNAP_AILED;
-        case 4: return VWARE_CBT_DROP;
+        case 3: return VMWARE_CREATE_SNAP_FAILED;
+        case 4: return VMWARE_CBT_DROP;
         case 5: return CLIENT_OFFLINE;
         case 6: return VCENTER_OFFLINE;
         case 7: return CLUSTER_NODE_EXIST_OFFLINE;
-        case 8: return CLUSTER_NODE_OFFLINE;
+        case 8: return CLUSTER_NODE_ALL_OFFLINE;
         case 9: return STREAMER_POOL_DISABLE;
         case 10: return STREAMER_OFFLINE;
         case 11: return CLIENT_AUTO_EXPAND_FAILED;
@@ -567,11 +567,11 @@ public final class StmStreamerDrManage {
         case 13: return ORACLE_STORAGE_DROP;
         case 14: return DR_COPY_FAILED;
         case 15: return RAC_NODE_EXIST_OFFLINE;
-        case 16: return RAC_NODE_OFFLINE;
+        case 16: return RAC_NODE_ALL_OFFLINE;
         case 17: return RAC_INSTANCE_EXIST_OFFLINE;
-        case 18: return RAC_INSTANCE_OFFLINE;
+        case 18: return RAC_INSTANCE_ALL_OFFLINE;
         case 19: return VMWARE_OFFLINE;
-        case 20: return CLIENT_CREATESNAP_FAILD;
+        case 20: return CLIENT_CREATE_SNAP_FAILED;
         case 21: return RAC_CREATE_SNAP_FAILED;
         case 22: return DR_SERVER_OFFLINE;
         case 23: return STREAMER_POOL_ALMOST_FULL;
@@ -699,6 +699,15 @@ public final class StmStreamerDrManage {
      * <code>required uint64 oracle_vol = 6;</code>
      */
     long getOracleVol();
+
+    /**
+     * <code>required uint64 max_clients = 7;</code>
+     */
+    boolean hasMaxClients();
+    /**
+     * <code>required uint64 max_clients = 7;</code>
+     */
+    long getMaxClients();
   }
   /**
    * Protobuf type {@code Streamer}
@@ -814,6 +823,11 @@ public final class StmStreamerDrManage {
             case 48: {
               bitField0_ |= 0x00000010;
               oracleVol_ = input.readUInt64();
+              break;
+            }
+            case 56: {
+              bitField0_ |= 0x00000020;
+              maxClients_ = input.readUInt64();
               break;
             }
           }
@@ -1009,6 +1023,21 @@ public final class StmStreamerDrManage {
       return oracleVol_;
     }
 
+    public static final int MAX_CLIENTS_FIELD_NUMBER = 7;
+    private long maxClients_;
+    /**
+     * <code>required uint64 max_clients = 7;</code>
+     */
+    public boolean hasMaxClients() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>required uint64 max_clients = 7;</code>
+     */
+    public long getMaxClients() {
+      return maxClients_;
+    }
+
     private void initFields() {
       ip_ = "";
       name_ = "";
@@ -1016,6 +1045,7 @@ public final class StmStreamerDrManage {
       used_ = 0L;
       streamerState_ = java.util.Collections.emptyList();
       oracleVol_ = 0L;
+      maxClients_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1043,6 +1073,10 @@ public final class StmStreamerDrManage {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasMaxClients()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -1067,6 +1101,9 @@ public final class StmStreamerDrManage {
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         output.writeUInt64(6, oracleVol_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeUInt64(7, maxClients_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1105,6 +1142,10 @@ public final class StmStreamerDrManage {
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(6, oracleVol_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(7, maxClients_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1239,6 +1280,8 @@ public final class StmStreamerDrManage {
         bitField0_ = (bitField0_ & ~0x00000010);
         oracleVol_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000020);
+        maxClients_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
 
@@ -1292,6 +1335,10 @@ public final class StmStreamerDrManage {
           to_bitField0_ |= 0x00000010;
         }
         result.oracleVol_ = oracleVol_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.maxClients_ = maxClients_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1337,6 +1384,9 @@ public final class StmStreamerDrManage {
         if (other.hasOracleVol()) {
           setOracleVol(other.getOracleVol());
         }
+        if (other.hasMaxClients()) {
+          setMaxClients(other.getMaxClients());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -1359,6 +1409,10 @@ public final class StmStreamerDrManage {
           return false;
         }
         if (!hasOracleVol()) {
+          
+          return false;
+        }
+        if (!hasMaxClients()) {
           
           return false;
         }
@@ -1704,6 +1758,38 @@ public final class StmStreamerDrManage {
         return this;
       }
 
+      private long maxClients_ ;
+      /**
+       * <code>required uint64 max_clients = 7;</code>
+       */
+      public boolean hasMaxClients() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      /**
+       * <code>required uint64 max_clients = 7;</code>
+       */
+      public long getMaxClients() {
+        return maxClients_;
+      }
+      /**
+       * <code>required uint64 max_clients = 7;</code>
+       */
+      public Builder setMaxClients(long value) {
+        bitField0_ |= 0x00000040;
+        maxClients_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 max_clients = 7;</code>
+       */
+      public Builder clearMaxClients() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        maxClients_ = 0L;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:Streamer)
     }
 
@@ -1748,15 +1834,15 @@ public final class StmStreamerDrManage {
         getNameBytes();
 
     /**
-     * <code>required string ip = 3;</code>
+     * <code>optional string ip = 3;</code>
      */
     boolean hasIp();
     /**
-     * <code>required string ip = 3;</code>
+     * <code>optional string ip = 3;</code>
      */
     java.lang.String getIp();
     /**
-     * <code>required string ip = 3;</code>
+     * <code>optional string ip = 3;</code>
      */
     com.google.protobuf.ByteString
         getIpBytes();
@@ -1801,7 +1887,7 @@ public final class StmStreamerDrManage {
    * Protobuf type {@code Client}
    *
    * <pre>
-   *有代理客户端 实体机
+   *有代理客户端
    * </pre>
    */
   public static final class Client extends
@@ -2051,13 +2137,13 @@ public final class StmStreamerDrManage {
     public static final int IP_FIELD_NUMBER = 3;
     private java.lang.Object ip_;
     /**
-     * <code>required string ip = 3;</code>
+     * <code>optional string ip = 3;</code>
      */
     public boolean hasIp() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required string ip = 3;</code>
+     * <code>optional string ip = 3;</code>
      */
     public java.lang.String getIp() {
       java.lang.Object ref = ip_;
@@ -2074,7 +2160,7 @@ public final class StmStreamerDrManage {
       }
     }
     /**
-     * <code>required string ip = 3;</code>
+     * <code>optional string ip = 3;</code>
      */
     public com.google.protobuf.ByteString
         getIpBytes() {
@@ -2187,10 +2273,6 @@ public final class StmStreamerDrManage {
         return false;
       }
       if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasIp()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -2343,7 +2425,7 @@ public final class StmStreamerDrManage {
      * Protobuf type {@code Client}
      *
      * <pre>
-     *有代理客户端 实体机
+     *有代理客户端
      * </pre>
      */
     public static final class Builder extends
@@ -2506,10 +2588,6 @@ public final class StmStreamerDrManage {
           return false;
         }
         if (!hasName()) {
-          
-          return false;
-        }
-        if (!hasIp()) {
           
           return false;
         }
@@ -2693,13 +2771,13 @@ public final class StmStreamerDrManage {
 
       private java.lang.Object ip_ = "";
       /**
-       * <code>required string ip = 3;</code>
+       * <code>optional string ip = 3;</code>
        */
       public boolean hasIp() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required string ip = 3;</code>
+       * <code>optional string ip = 3;</code>
        */
       public java.lang.String getIp() {
         java.lang.Object ref = ip_;
@@ -2716,7 +2794,7 @@ public final class StmStreamerDrManage {
         }
       }
       /**
-       * <code>required string ip = 3;</code>
+       * <code>optional string ip = 3;</code>
        */
       public com.google.protobuf.ByteString
           getIpBytes() {
@@ -2732,7 +2810,7 @@ public final class StmStreamerDrManage {
         }
       }
       /**
-       * <code>required string ip = 3;</code>
+       * <code>optional string ip = 3;</code>
        */
       public Builder setIp(
           java.lang.String value) {
@@ -2745,7 +2823,7 @@ public final class StmStreamerDrManage {
         return this;
       }
       /**
-       * <code>required string ip = 3;</code>
+       * <code>optional string ip = 3;</code>
        */
       public Builder clearIp() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -2754,7 +2832,7 @@ public final class StmStreamerDrManage {
         return this;
       }
       /**
-       * <code>required string ip = 3;</code>
+       * <code>optional string ip = 3;</code>
        */
       public Builder setIpBytes(
           com.google.protobuf.ByteString value) {
@@ -3030,24 +3108,19 @@ public final class StmStreamerDrManage {
     cn.infocore.protobuf.StmStreamerDrManage.FaultType getVmwareState(int index);
 
     /**
-     * <code>required string System_Version = 6;</code>
+     * <code>required int32 System_Version = 6;</code>
      */
     boolean hasSystemVersion();
     /**
-     * <code>required string System_Version = 6;</code>
+     * <code>required int32 System_Version = 6;</code>
      */
-    java.lang.String getSystemVersion();
-    /**
-     * <code>required string System_Version = 6;</code>
-     */
-    com.google.protobuf.ByteString
-        getSystemVersionBytes();
+    int getSystemVersion();
   }
   /**
    * Protobuf type {@code Vmware}
    *
    * <pre>
-   *无代理客户端 虚拟机
+   *无代理客户端
    * </pre>
    */
   public static final class Vmware extends
@@ -3161,10 +3234,9 @@ public final class StmStreamerDrManage {
               input.popLimit(oldLimit);
               break;
             }
-            case 50: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 48: {
               bitField0_ |= 0x00000010;
-              systemVersion_ = bs;
+              systemVersion_ = input.readInt32();
               break;
             }
           }
@@ -3373,45 +3445,18 @@ public final class StmStreamerDrManage {
     }
 
     public static final int SYSTEM_VERSION_FIELD_NUMBER = 6;
-    private java.lang.Object systemVersion_;
+    private int systemVersion_;
     /**
-     * <code>required string System_Version = 6;</code>
+     * <code>required int32 System_Version = 6;</code>
      */
     public boolean hasSystemVersion() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>required string System_Version = 6;</code>
+     * <code>required int32 System_Version = 6;</code>
      */
-    public java.lang.String getSystemVersion() {
-      java.lang.Object ref = systemVersion_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          systemVersion_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string System_Version = 6;</code>
-     */
-    public com.google.protobuf.ByteString
-        getSystemVersionBytes() {
-      java.lang.Object ref = systemVersion_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        systemVersion_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getSystemVersion() {
+      return systemVersion_;
     }
 
     private void initFields() {
@@ -3420,7 +3465,7 @@ public final class StmStreamerDrManage {
       type_ = cn.infocore.protobuf.StmStreamerDrManage.ClientType.SINGLE;
       path_ = "";
       vmwareState_ = java.util.Collections.emptyList();
-      systemVersion_ = "";
+      systemVersion_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -3471,7 +3516,7 @@ public final class StmStreamerDrManage {
         output.writeEnum(5, vmwareState_.get(i).getNumber());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeBytes(6, getSystemVersionBytes());
+        output.writeInt32(6, systemVersion_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -3509,7 +3554,7 @@ public final class StmStreamerDrManage {
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(6, getSystemVersionBytes());
+          .computeInt32Size(6, systemVersion_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3593,7 +3638,7 @@ public final class StmStreamerDrManage {
      * Protobuf type {@code Vmware}
      *
      * <pre>
-     *无代理客户端 虚拟机
+     *无代理客户端
      * </pre>
      */
     public static final class Builder extends
@@ -3642,7 +3687,7 @@ public final class StmStreamerDrManage {
         bitField0_ = (bitField0_ & ~0x00000008);
         vmwareState_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000010);
-        systemVersion_ = "";
+        systemVersion_ = 0;
         bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
@@ -3742,9 +3787,7 @@ public final class StmStreamerDrManage {
           onChanged();
         }
         if (other.hasSystemVersion()) {
-          bitField0_ |= 0x00000020;
-          systemVersion_ = other.systemVersion_;
-          onChanged();
+          setSystemVersion(other.getSystemVersion());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -4128,78 +4171,34 @@ public final class StmStreamerDrManage {
         return this;
       }
 
-      private java.lang.Object systemVersion_ = "";
+      private int systemVersion_ ;
       /**
-       * <code>required string System_Version = 6;</code>
+       * <code>required int32 System_Version = 6;</code>
        */
       public boolean hasSystemVersion() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>required string System_Version = 6;</code>
+       * <code>required int32 System_Version = 6;</code>
        */
-      public java.lang.String getSystemVersion() {
-        java.lang.Object ref = systemVersion_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            systemVersion_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public int getSystemVersion() {
+        return systemVersion_;
       }
       /**
-       * <code>required string System_Version = 6;</code>
+       * <code>required int32 System_Version = 6;</code>
        */
-      public com.google.protobuf.ByteString
-          getSystemVersionBytes() {
-        java.lang.Object ref = systemVersion_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          systemVersion_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string System_Version = 6;</code>
-       */
-      public Builder setSystemVersion(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000020;
+      public Builder setSystemVersion(int value) {
+        bitField0_ |= 0x00000020;
         systemVersion_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string System_Version = 6;</code>
+       * <code>required int32 System_Version = 6;</code>
        */
       public Builder clearSystemVersion() {
         bitField0_ = (bitField0_ & ~0x00000020);
-        systemVersion_ = getDefaultInstance().getSystemVersion();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string System_Version = 6;</code>
-       */
-      public Builder setSystemVersionBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000020;
-        systemVersion_ = value;
+        systemVersion_ = 0;
         onChanged();
         return this;
       }
@@ -7151,43 +7150,44 @@ public final class StmStreamerDrManage {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\034streamer_clouddrmanage.proto\"y\n\010Stream" +
-      "er\022\n\n\002ip\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\r\n\005total\030\003 " +
-      "\002(\004\022\014\n\004used\030\004 \002(\004\022\"\n\016Streamer_state\030\005 \003(" +
-      "\0162\n.FaultType\022\022\n\noracle_vol\030\006 \002(\004\"\203\001\n\006Cl" +
-      "ient\022\n\n\002id\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\n\n\002ip\030\003 \002" +
-      "(\t\022\031\n\004type\030\004 \002(\0162\013.ClientType\022 \n\014Client_" +
-      "state\030\005 \003(\0162\n.FaultType\022\026\n\016System_Versio" +
-      "n\030\006 \001(\t\"\205\001\n\006Vmware\022\n\n\002id\030\001 \002(\t\022\014\n\004name\030\002" +
-      " \002(\t\022\031\n\004type\030\003 \002(\0162\013.ClientType\022\014\n\004path\030" +
-      "\004 \002(\t\022 \n\014Vmware_state\030\005 \003(\0162\n.FaultType\022",
-      "\026\n\016System_Version\030\006 \002(\t\"\216\001\n\005Vcent\022\017\n\007vc_" +
-      "name\030\001 \002(\t\022\017\n\007vc_uuid\030\002 \002(\t\022\r\n\005vc_ip\030\003 \002" +
-      "(\t\022\037\n\013Vcent_state\030\004 \003(\0162\n.FaultType\022\030\n\007c" +
-      "lients\030\005 \003(\0132\007.Vmware\022\031\n\004type\030\006 \002(\0162\013.Cl" +
-      "ientType\"p\n\023GetServerInfoReturn\022\014\n\004uuid\030" +
-      "\001 \002(\t\022\031\n\006server\030\002 \002(\0132\t.Streamer\022\030\n\007clie" +
-      "nts\030\003 \003(\0132\007.Client\022\026\n\006vcents\030\004 \003(\0132\006.Vce" +
-      "nt*H\n\nClientType\022\n\n\006SINGLE\020\000\022\n\n\006VMWARE\020\001" +
-      "\022\010\n\004MSCS\020\002\022\007\n\003RAC\020\003\022\006\n\002VC\020\004\022\007\n\003AIX\020\005*\243\005\n" +
-      "\tFaultType\022\n\n\006NORMAL\020\000\022\025\n\021CLIENT_LOCAL_L",
-      "OST\020\001\022\023\n\017CLIENT_DST_LOST\020\002\022\034\n\030CLIENT_CRE" +
-      "ATE_SNAP_AILED\020\003\022\022\n\016VWARE_CBT_DROP\020\004\022\022\n\016" +
-      "CLIENT_OFFLINE\020\005\022\023\n\017VCENTER_OFFLINE\020\006\022\036\n" +
-      "\032CLUSTER_NODE_EXIST_OFFLINE\020\007\022\030\n\024CLUSTER" +
-      "_NODE_OFFLINE\020\010\022\031\n\025STREAMER_POOL_DISABLE" +
-      "\020\t\022\024\n\020STREAMER_OFFLINE\020\n\022\035\n\031CLIENT_AUTO_" +
-      "EXPAND_FAILED\020\013\022\034\n\030CLIENT_SNAP_MERGE_FAI" +
-      "LED\020\014\022\027\n\023ORACLE_STORAGE_DROP\020\r\022\022\n\016DR_COP" +
-      "Y_FAILED\020\016\022\032\n\026RAC_NODE_EXIST_OFFLINE\020\017\022\024" +
-      "\n\020RAC_NODE_OFFLINE\020\020\022\036\n\032RAC_INSTANCE_EXI",
-      "ST_OFFLINE\020\021\022\030\n\024RAC_INSTANCE_OFFLINE\020\022\022\022" +
-      "\n\016VMWARE_OFFLINE\020\023\022\033\n\027CLIENT_CREATESNAP_" +
-      "FAILD\020\024\022\032\n\026RAC_CREATE_SNAP_FAILED\020\025\022\025\n\021D" +
-      "R_SERVER_OFFLINE\020\026\022\035\n\031STREAMER_POOL_ALMO" +
-      "ST_FULL\020\027\022 \n\034STREAMER_CLIENT_DISK_OFFLIN" +
-      "E\020\030\022\035\n\031VMWARE_INIT_MIRROR_FAILED\020\031B+\n\024cn" +
-      ".infocore.protobufB\023StmStreamerDrManage"
+      "\n\034streamer_clouddrmanage.proto\"\216\001\n\010Strea" +
+      "mer\022\n\n\002ip\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\r\n\005total\030\003" +
+      " \002(\004\022\014\n\004used\030\004 \002(\004\022\"\n\016Streamer_state\030\005 \003" +
+      "(\0162\n.FaultType\022\022\n\noracle_vol\030\006 \002(\004\022\023\n\013ma" +
+      "x_clients\030\007 \002(\004\"\203\001\n\006Client\022\n\n\002id\030\001 \002(\t\022\014" +
+      "\n\004name\030\002 \002(\t\022\n\n\002ip\030\003 \001(\t\022\031\n\004type\030\004 \002(\0162\013" +
+      ".ClientType\022 \n\014Client_state\030\005 \003(\0162\n.Faul" +
+      "tType\022\026\n\016System_Version\030\006 \001(\t\"\205\001\n\006Vmware" +
+      "\022\n\n\002id\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\031\n\004type\030\003 \002(\016" +
+      "2\013.ClientType\022\014\n\004path\030\004 \002(\t\022 \n\014Vmware_st",
+      "ate\030\005 \003(\0162\n.FaultType\022\026\n\016System_Version\030" +
+      "\006 \002(\005\"\216\001\n\005Vcent\022\017\n\007vc_name\030\001 \002(\t\022\017\n\007vc_u" +
+      "uid\030\002 \002(\t\022\r\n\005vc_ip\030\003 \002(\t\022\037\n\013Vcent_state\030" +
+      "\004 \003(\0162\n.FaultType\022\030\n\007clients\030\005 \003(\0132\007.Vmw" +
+      "are\022\031\n\004type\030\006 \002(\0162\013.ClientType\"p\n\023GetSer" +
+      "verInfoReturn\022\014\n\004uuid\030\001 \002(\t\022\031\n\006server\030\002 " +
+      "\002(\0132\t.Streamer\022\030\n\007clients\030\003 \003(\0132\007.Client" +
+      "\022\026\n\006vcents\030\004 \003(\0132\006.Vcent*H\n\nClientType\022\n" +
+      "\n\006SINGLE\020\000\022\n\n\006VMWARE\020\001\022\010\n\004MSCS\020\002\022\007\n\003RAC\020" +
+      "\003\022\006\n\002VC\020\004\022\007\n\003AIX\020\005*\263\005\n\tFaultType\022\n\n\006NORM",
+      "AL\020\000\022\025\n\021CLIENT_LOCAL_LOST\020\001\022\023\n\017CLIENT_DS" +
+      "T_LOST\020\002\022\035\n\031VMWARE_CREATE_SNAP_FAILED\020\003\022" +
+      "\023\n\017VMWARE_CBT_DROP\020\004\022\022\n\016CLIENT_OFFLINE\020\005" +
+      "\022\023\n\017VCENTER_OFFLINE\020\006\022\036\n\032CLUSTER_NODE_EX" +
+      "IST_OFFLINE\020\007\022\034\n\030CLUSTER_NODE_ALL_OFFLIN" +
+      "E\020\010\022\031\n\025STREAMER_POOL_DISABLE\020\t\022\024\n\020STREAM" +
+      "ER_OFFLINE\020\n\022\035\n\031CLIENT_AUTO_EXPAND_FAILE" +
+      "D\020\013\022\034\n\030CLIENT_SNAP_MERGE_FAILED\020\014\022\027\n\023ORA" +
+      "CLE_STORAGE_DROP\020\r\022\022\n\016DR_COPY_FAILED\020\016\022\032" +
+      "\n\026RAC_NODE_EXIST_OFFLINE\020\017\022\030\n\024RAC_NODE_A",
+      "LL_OFFLINE\020\020\022\036\n\032RAC_INSTANCE_EXIST_OFFLI" +
+      "NE\020\021\022\034\n\030RAC_INSTANCE_ALL_OFFLINE\020\022\022\022\n\016VM" +
+      "WARE_OFFLINE\020\023\022\035\n\031CLIENT_CREATE_SNAP_FAI" +
+      "LED\020\024\022\032\n\026RAC_CREATE_SNAP_FAILED\020\025\022\025\n\021DR_" +
+      "SERVER_OFFLINE\020\026\022\035\n\031STREAMER_POOL_ALMOST" +
+      "_FULL\020\027\022 \n\034STREAMER_CLIENT_DISK_OFFLINE\020" +
+      "\030\022\035\n\031VMWARE_INIT_MIRROR_FAILED\020\031B+\n\024cn.i" +
+      "nfocore.protobufB\023StmStreamerDrManage"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -7206,7 +7206,7 @@ public final class StmStreamerDrManage {
     internal_static_Streamer_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Streamer_descriptor,
-        new java.lang.String[] { "Ip", "Name", "Total", "Used", "StreamerState", "OracleVol", });
+        new java.lang.String[] { "Ip", "Name", "Total", "Used", "StreamerState", "OracleVol", "MaxClients", });
     internal_static_Client_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_Client_fieldAccessorTable = new

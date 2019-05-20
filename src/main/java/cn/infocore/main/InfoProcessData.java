@@ -99,16 +99,16 @@ public class InfoProcessData{
 		try {
 			QueryRunner qr=MyDataSource.getQueryRunner();
 			String sql="update data_ark set total_capacity=?,used_capacity=?,exceptions=?,total_oracle_capacity=? where id=?";
-			if(data_ark.getIp()!=null&&data_ark.getIp()!=""&&data_ark.getIp().length()>0){
+			/*if(data_ark.getIp()!=null&&data_ark.getIp()!=""&&data_ark.getIp().length()>0){
 				Object[] param={data_ark.getTotal_cap(),data_ark.getUsed_cap(),
 						data_ark.getExcept(),data_ark.getTotal_oracle_capacity(),data_ark.getIp(),data_ark.getId()};
 				sql="update data_ark set total_capacity=?,used_capacity=?,exceptions=?,total_oracle_capacity=?,ip=? where id=?";
 				qr.update(sql, param);
-			}else{
+			}else{*/
 				Object[] param= {data_ark.getTotal_cap(),data_ark.getUsed_cap(),
 						data_ark.getExcept(),data_ark.getTotal_oracle_capacity(),data_ark.getId()};
 				qr.update(sql, param);
-			}
+			//}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -243,7 +243,13 @@ public class InfoProcessData{
 			param[i][0]=vm.getName();
 			param[i][1]=vm.getPath();
 			param[i][2]=vm.getExcept();
-			param[i][3]=vm.getSystem_Version();
+			String version="UnKnown";
+			if(vm.getSystem_Version()==0){
+				version="Linux";
+			}else if(vm.getSystem_Version()==1){
+				version="Windows";
+			}
+			param[i][3]=version;
 			param[i][4]=vm.getId();
 			//param[i][4]=vm.getVcenter_id();
 		}
