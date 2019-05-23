@@ -115,7 +115,7 @@ public class MailCenterRestry implements Center {
 			logger.info("Fault type:"+fault.getType()+",target:"+fault.getTarget());
 			if (fault.getType()==0) {
 				//1.confirm all alarm log for target.
-				sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target=?";
+				sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target=? and exeception!=3 and exeception!=25";
 				condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getTarget()};
 				//logger.error(fault.getUser_id()+" "+fault.getData_ark_id()+" "+fault.getTarget());
 			}else {
@@ -168,8 +168,12 @@ public class MailCenterRestry implements Center {
 					if(!currentErrors.contains(String.valueOf(type))){
 						logger.info("current not contains db,confirm it:"+type);
 						//2.current not contains db,confirm it.
-						sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target=? and exeception=?";
-						condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getTarget(),type};
+						if(type==3||type==25){
+							logger.info("VM error not need to confirm.");
+						}else{
+							sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target=? and exeception=?";
+							condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getTarget(),type};
+						}
 					}
 				}
 				
