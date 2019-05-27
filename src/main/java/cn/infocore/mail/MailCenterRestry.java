@@ -207,8 +207,8 @@ public class MailCenterRestry implements Center {
 						QueryRunner qRunner = MyDataSource.getQueryRunner();
 						List<Quota> quotas = qRunner.query( sql, new QuotaHandler(), param);
 						if (!quotas.isEmpty()) {
-							//2019年3月11日18:04:13 朱伟添加
-							if(fault.getClient_type().intValue()==1||fault.getClient_type().intValue()==2){
+							//包括客户端，VC，虚拟机
+							if(fault.getClient_type().intValue()==1||fault.getClient_type().intValue()==2||fault.getClient_type().intValue()==3){
 								//查询该user_id是否和报警客户端存在关系，即该客户端是否是该用户添加过，添加过则给该用户发送报警邮件
 								Long count =findArkIdAndUserIdAndId(fault,user);
 								if(count.intValue()==1){
@@ -234,6 +234,8 @@ public class MailCenterRestry implements Center {
 		if(fault.getClient_type()==1){
 			sql="select count(*) from client where user_id=? and data_ark_id=? and id=?";
 		}else if(fault.getClient_type()==2){
+			sql="select count(*) from vcenter where user_id=? and data_ark_id=? and id=?";
+		}else if(fault.getClient_type()==3){
 			sql="select count(*) from virtual_machine where user_id=? and data_ark_id=? and id=?";
 		}
 		Object[] param1= {user,fault.getData_ark_id(),fault.getClient_id()};

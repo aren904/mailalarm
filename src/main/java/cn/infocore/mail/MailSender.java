@@ -144,7 +144,7 @@ public class MailSender {
 				builder.append("尊敬的用户,您好:\n");
 				builder.append("\t数据方舟统一管理平台发现告警信息:");
 				builder.append(fault.getData_ark_name());
-				builder.append("(" + fault.getData_ark_ip() + ")"+fault.getTarget()+Utils.getAlarmInformationType(fault.getType())+"\n");
+				builder.append("(" + fault.getData_ark_ip() + ")"+fault.getTarget()+" "+Utils.getAlarmInformationType(fault.getType())+"\n");
 				builder.append("\t告警等级:" + Utils.getAlarmInformationClass(fault.getType())+"\n");
 				String time = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(fault.getTimestamp()*1000);
 				builder.append("\t告警时间:" + time+"\n");
