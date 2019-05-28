@@ -77,7 +77,7 @@ public class MailSender {
 		
 		long now = System.currentTimeMillis() / 1000;
 		String[] e = config.getExceptions().split(";");
-		logger.info("exception:"+config.getExceptions()+",fault type:"+fault.getType()+",enabled:"+config.getEnabled());
+		logger.info("----------------Userid:"+config.getUser_id()+",exception:"+config.getExceptions()+",fault type:"+fault.getType()+",enabled:"+config.getEnabled());
 		for (String string : e) {
 			// 如果该用户已经添加这个异常
 			if (string.equals(Integer.toString(fault.getType()))) {
@@ -89,7 +89,7 @@ public class MailSender {
 						logger.info("Not enabled,send email:"+fault.getTarget()+","+fault.getType());
 						send(fault);
 					} catch (Exception e1) {
-						logger.error(e1);
+						logger.error(user+":"+e1);
 					}
 					howOfen.put(key, now);// 保存一下发送的时间戳
 				} else {
@@ -103,7 +103,7 @@ public class MailSender {
 							logger.info("Enabled,send email:"+fault.getTarget()+","+fault.getType());
 							send(fault);
 						} catch (Exception e1) {
-							logger.error(e1);
+							logger.error(user+":"+e1);
 						}
 						howOfen.put(key, now);// 保存一下发送的时间戳
 					}

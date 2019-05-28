@@ -107,12 +107,12 @@ public class MailCenterRestry implements Center {
 	}
 
 	public void notifyCenter(Fault... list_fault) throws SQLException {
-		logger.info("Start NotifyCenetr inject mailsender,size:"+list_fault.length);
+		logger.info("Start NotifyCenetr inject mailsender,size:"+list_fault.length+",list size:"+list.size());
 		String sql = null;
 		Object[] condition=null;
 		
 		for (Fault fault : list_fault) {
-			logger.info("Fault type:"+fault.getType()+",target:"+fault.getTarget()+",userId:"+fault.getUser_id()+",target_id:"+fault.getClient_id());
+			logger.info("----------UserId:"+fault.getUser_id()+",faultType:"+fault.getType()+",target:"+fault.getTarget()+",target_id:"+fault.getClient_id());
 			if (fault.getType()==0) {
 				//1.confirm all alarm log for target.
 				sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target_id=? and exeception!=3 and exeception!=25";
@@ -158,10 +158,9 @@ public class MailCenterRestry implements Center {
 				sql="select * from alarm_log where data_ark_id=? and binary target=? and target_id=? and processed=0";
 				condition=new Object[]{fault.getData_ark_id(),fault.getTarget(),fault.getClient_id()};
 				//db error
-				logger.info("DB error condition:"+condition.length+","+condition[0]+","+condition[1]);
 				qr = MyDataSource.getQueryRunner();
 				List<Integer> dbErrors=qr.query(sql, new ColumnListHandler<Integer>("exeception"),condition);
-				logger.info("DB error size:"+dbErrors.size()+","+dbErrors.toString());
+				logger.info("DB error condition:"+condition[0]+","+condition[1]+"DB error:"+dbErrors.toString());
 				
 				logger.info("start to compare current and db errors.");
 				for(Integer type:dbErrors){
@@ -200,7 +199,7 @@ public class MailCenterRestry implements Center {
 					Email_alarm conf=mailSender.getConfig();
 					if (conf.getPrivilege_level()==0||conf.getPrivilege_level()==1) {
 						mailSender.judge(fault,user);
-						logger.info("admin or root user start judge...");
+						logger.info(user+" admin or root user start judge...");
 					}else {
 						sql = "select * from quota where user_id=? and data_ark_id=?";
 						Object[] param= {user,fault.getData_ark_id()};
@@ -217,7 +216,7 @@ public class MailCenterRestry implements Center {
 							}else{
 								mailSender.judge(fault,user);
 							}
-							logger.info("commom user start judge...");
+							logger.info(user+" commom user start judge...");
 						}else {
 							logger.warn("email_alarm table has not user_id:"+user+" and data_ark_id:"+fault.getData_ark_id());
 						}
