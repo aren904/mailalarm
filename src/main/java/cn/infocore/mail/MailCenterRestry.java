@@ -112,11 +112,11 @@ public class MailCenterRestry implements Center {
 		Object[] condition=null;
 		
 		for (Fault fault : list_fault) {
-			logger.info("Fault type:"+fault.getType()+",target:"+fault.getTarget());
+			logger.info("Fault type:"+fault.getType()+",target:"+fault.getTarget()+",userId:"+fault.getUser_id()+",target_id:"+fault.getClient_id());
 			if (fault.getType()==0) {
 				//1.confirm all alarm log for target.
-				sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target=? and exeception!=3 and exeception!=25";
-				condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getTarget()};
+				sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target_id=? and exeception!=3 and exeception!=25";
+				condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id()};
 				//logger.error(fault.getUser_id()+" "+fault.getData_ark_id()+" "+fault.getTarget());
 			}else {
 				//add by wxx,for one fault to other fault and not confirm.
@@ -155,8 +155,8 @@ public class MailCenterRestry implements Center {
 				logger.info("Current error size:"+currentErrors.size()+",fault type:"+fault.getClient_type()+","+currentErrors.toString());
 				
 				//not confirm error
-				sql="select * from alarm_log where data_ark_id=? and binary target=? and processed=0";
-				condition=new Object[]{fault.getData_ark_id(),fault.getTarget()};
+				sql="select * from alarm_log where data_ark_id=? and binary target=? and target_id=? and processed=0";
+				condition=new Object[]{fault.getData_ark_id(),fault.getTarget(),fault.getClient_id()};
 				//db error
 				logger.info("DB error condition:"+condition.length+","+condition[0]+","+condition[1]);
 				qr = MyDataSource.getQueryRunner();
@@ -171,8 +171,8 @@ public class MailCenterRestry implements Center {
 						if(type==3||type==25){
 							logger.info("VM error not need to confirm.");
 						}else{
-							sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target=? and exeception=?";
-							condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getTarget(),type};
+							sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target_id=? and exeception=?";
+							condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id(),type};
 						}
 					}
 				}
@@ -183,8 +183,8 @@ public class MailCenterRestry implements Center {
 						//3.current is new,insert/update it.
 						sql = "insert into alarm_log values(null,?,?,?,?,?,?,?,?,?,?) on duplicate key"
 								+ " update user_id=?,timestamp=?,processed=0";
-						condition=new Object[] {fault.getTimestamp(),0,0,fault.getType(),fault.getData_ark_id(),
-								fault.getData_ark_name(), fault.getData_ark_ip(), fault.getTarget(),0L,fault.getUser_id(),fault.getUser_id(),fault.getTimestamp()};
+						condition=new Object[] {fault.getTimestamp(),0,fault.getType(),fault.getData_ark_id(),
+								fault.getData_ark_name(), fault.getData_ark_ip(),fault.getClient_id(),fault.getTarget(),0L,fault.getUser_id(),fault.getUser_id(),fault.getTimestamp()};
 					}
 				}
 			}
