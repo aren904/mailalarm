@@ -13,6 +13,9 @@ public class Vcenter {
 	//vc的异常
 	private String excep;
 	
+	//对应Data_ark中的id字段，是外健
+	private String data_ark_id;
+	
 	private List<Fault> faults;
 	
 	public List<Fault> getFaults() {
@@ -60,6 +63,14 @@ public class Vcenter {
 	
 	public void setExcep(String excep) {
 		this.excep = excep;
+	}
+
+	public String getData_ark_id() {
+		return data_ark_id;
+	}
+
+	public void setData_ark_id(String data_ark_id) {
+		this.data_ark_id = data_ark_id;
 	}
 	
 }

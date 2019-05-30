@@ -2,14 +2,18 @@ package cn.infocore.main;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 
+import cn.infocore.entity.Client_;
 import cn.infocore.entity.Data_ark;
 import cn.infocore.entity.Fault;
+import cn.infocore.entity.Vcenter;
+import cn.infocore.entity.Virtual_machine;
 import cn.infocore.handler.DataArkHandler;
 import cn.infocore.mail.MailCenterRestry;
 import cn.infocore.utils.MyDataSource;
@@ -124,11 +128,10 @@ public class ThreadScanStreamer extends Thread {
 					fault.setData_ark_id(uuid);
 				}
 				
-				try {
-					MailCenterRestry.getInstance().notifyCenter(fault);
-				} catch (SQLException e) {
-					logger.error(e);
-				}
+				List<Client_> clientList=new LinkedList<Client_>();
+				List<Vcenter> vcList=new LinkedList<Vcenter>();
+				List<Virtual_machine> vmList=new LinkedList<Virtual_machine>();
+				MailCenterRestry.getInstance().notifyCenter(data_ark,clientList,vcList,vmList,fault);
 			} catch (SQLException e1) {
 				logger.error("ThreadScanStreamer:"+e1);
 			}

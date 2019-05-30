@@ -69,14 +69,9 @@ public class ProcessData implements Runnable{
 			if (vmList!=null&&vmList.size()>0) {
 				updateVirtualMachine(vmList);
 			}
-			//所有异常通知邮件发送中心
-			try {
-				if (faults.size()>0) {
-					Fault[] faults_array=new Fault[faults.size()];
-					MailCenterRestry.getInstance().notifyCenter(faults.toArray(faults_array));
-				}
-			} catch (SQLException e) {
-				logger.error(e);
+			if (faults.size()>0) {
+				Fault[] faults_array=new Fault[faults.size()];
+				//MailCenterRestry.getInstance().notifyCenter(faults.toArray(faults_array));
 			}
 			logger.info("Heartbeat recived and parsed successed,wait next.");
 		}else {

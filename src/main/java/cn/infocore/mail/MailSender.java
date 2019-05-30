@@ -70,6 +70,7 @@ public class MailSender {
 
 	// 逻辑处理
 	public void judge(Fault fault,String user) {
+		logger.info("----------Userid:"+user+",exception:"+config.getExceptions()+",fault type:"+fault.getType()+",enabled:"+config.getEnabled()+",target:"+fault.getTarget());
 		if(config.getEnabled()==0){
 			logger.info("Not need send email,for config is not enabled.");
 			return;
@@ -77,7 +78,6 @@ public class MailSender {
 		
 		long now = System.currentTimeMillis() / 1000;
 		String[] e = config.getExceptions().split(";");
-		logger.info("----------------Userid:"+config.getUser_id()+",exception:"+config.getExceptions()+",fault type:"+fault.getType()+",enabled:"+config.getEnabled());
 		for (String string : e) {
 			// 如果该用户已经添加这个异常
 			if (string.equals(Integer.toString(fault.getType()))) {
@@ -86,7 +86,7 @@ public class MailSender {
 				if (config.getLimit_enabled() == 0) {
 					// 未开启,直接发送异常邮件
 					try {
-						logger.info("Not enabled,send email:"+fault.getTarget()+","+fault.getType());
+						logger.info(user+" not enabled limit,send email:"+fault.getTarget()+","+fault.getType());
 						send(fault);
 					} catch (Exception e1) {
 						logger.error(user+":"+e1);
@@ -100,7 +100,7 @@ public class MailSender {
 					if ((howOfen.get(key)==null||howOfen.get(key) + split <= now)&&timedCache.get(key,false)==null) {
 						timedCache.put(key,key);
 						try {
-							logger.info("Enabled,send email:"+fault.getTarget()+","+fault.getType());
+							logger.info(user+" enabled limit,send email:"+fault.getTarget()+","+fault.getType());
 							send(fault);
 						} catch (Exception e1) {
 							logger.error(user+":"+e1);

@@ -2,8 +2,13 @@ package cn.infocore.mail;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import cn.infocore.entity.Client_;
+import cn.infocore.entity.Data_ark;
 import cn.infocore.entity.Email_alarm;
 import cn.infocore.entity.Fault;
+import cn.infocore.entity.Vcenter;
+import cn.infocore.entity.Virtual_machine;
 
 public interface Center {
 	//添加所有邮件服务
@@ -18,5 +23,5 @@ public interface Center {
 	void updateMailService(String name,Email_alarm sender);
 	
 	//通知
-	void notifyCenter (Fault... list_fault) throws SQLException;
+	void notifyCenter (Data_ark data_ark,List<Client_> clientList,List<Vcenter> vcList,List<Virtual_machine> vmList,Fault... list_fault) throws SQLException;
 }

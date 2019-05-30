@@ -55,6 +55,8 @@ public class InfoProcessData{
 			//初始化
 			data_ark=new Data_ark();
 			faults=new LinkedList<Fault>();
+			clientList=new LinkedList<Client_>();
+			vcList=new LinkedList<Vcenter>();
 			vmList=new LinkedList<Virtual_machine>();
 			parse(hrt);
 			updateData_ark(data_ark);
@@ -69,14 +71,9 @@ public class InfoProcessData{
 				updateVirtualMachine(vmList);
 			}
 			
-			//所有异常通知邮件发送中心
-			try {
-				if (faults.size()>0) {
-					Fault[] faults_array=new Fault[faults.size()];
-					MailCenterRestry.getInstance().notifyCenter(faults.toArray(faults_array));
-				}
-			} catch (SQLException e) {
-				logger.error(e);
+			if (faults.size()>0) {
+				Fault[] faults_array=new Fault[faults.size()];
+				MailCenterRestry.getInstance().notifyCenter(data_ark,clientList,vcList,vmList,faults.toArray(faults_array));
 			}
 			
 			//为什么又要释放一次
@@ -285,35 +282,60 @@ public class InfoProcessData{
 		return name;
 	}
 	
-	/*
-	 * type 0:数据方舟 ，1:客户端，2:Vcenter，3:虚拟机
-	 */
-	private String getUserByConfirmedUUID(String uuid,int type) {
+	//获取数据方舟的userid
+	private String getUserIdByDataArk(String uuid) {
+		QueryRunner q=MyDataSource.getQueryRunner();
+		Object[] param=new Object[]{uuid};
+		String result="";
+		String sql="select user_id from quota where data_ark_id=?";
+		try {
+			result=q.query(sql, new User_idHandler(), param);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			//MyDataSource.close(connection);
+		}
+		return result;
+	}
+	
+	//获取普通客户端的userid
+	private String getUserIdByClient(String clientId) {
+		QueryRunner q=MyDataSource.getQueryRunner();
+		Object[] param=new Object[]{clientId};
+		String result="";
+		String sql="select user_id from client where id=?";
+		try {
+			result=q.query(sql, new User_idHandler(), param);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			//MyDataSource.close(connection);
+		}
+		return result;
+	}
+	
+	//获取vc的userid，注意vc会被不同streamer添加
+	private String getUserIdByVcent(String vcId,String data_ark_id) {
+		QueryRunner q=MyDataSource.getQueryRunner();
+		Object[] param=new Object[]{vcId,data_ark_id};
+		String result="";
+		String sql="select user_id from vcenter where vcenter_id=? and data_ark_id=?";
+		try {
+			result=q.query(sql, new User_idHandler(), param);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			//MyDataSource.close(connection);
+		}
+		return result;
+	}
+	
+	private String getUserIdByVM(String uuid,String data_ark_id) {
 		//Connection connection=MyDataSource.getConnection();
 		QueryRunner q=MyDataSource.getQueryRunner();
-		Object[] param= {uuid};
+		Object[] param=new Object[]{uuid,data_ark_id};
+		String sql="select user_id from virtual_machine where id=? and data_ark_id=?";
 		String result="";
-		String sql="";
-		switch(type) {
-			case 0:
-				sql="select user_id from quota where data_ark_id=?";
-				break;
-			case 1:
-				sql="select user_id from client where id=?";
-				break;
-			case 2:
-				sql="select user_id from vcenter where vcenter_id=?";
-				break;
-			case 3:
-				sql="select user_id from virtual_machine where id=?";
-				break;
-			default:
-				sql=null;
-				break;
-		}
-		if (sql==null) {
-			return result;
-		}
 		try {
 			result=q.query(sql, new User_idHandler(), param);
 		} catch (SQLException e) {
@@ -337,7 +359,7 @@ public class InfoProcessData{
 		data_ark.setUsed_cap(streamer.getUsed());
 		data_ark.setTotal_oracle_capacity(streamer.getOracleVol());
 		
-		String user_id=getUserByConfirmedUUID(uuid, 0);
+		String user_id=getUserIdByDataArk(uuid);
 		List<Fault> data_ark_fault_list=new LinkedList<Fault>();
 		for (FaultType f:streamer.getStreamerStateList()) {
 			Fault mFault=new Fault();
@@ -359,7 +381,6 @@ public class InfoProcessData{
 		//开始封装有代理客户端Client
 		List<Client> cList=hrt.getClientsList();
 		if (cList!=null&&cList.size()>0) {
-			clientList=new LinkedList<Client_>();
 			for (Client client:cList) {
 				Client_ tmp=new Client_();
 				tmp.setId(client.getId());
@@ -367,7 +388,7 @@ public class InfoProcessData{
 				tmp.setIps(client.getIp());
 				//add by wxx 2019/05/13
 				tmp.setSystem_Version(client.getSystemVersion());
-				String user_id1=getUserByConfirmedUUID(client.getId(),1);
+				String user_id1=getUserIdByClient(client.getId());
 				List<Fault> client_fault_list=new LinkedList<Fault>();
 				for (FaultType f:client.getClientStateList()) {
 					Fault fault=new Fault();
@@ -394,13 +415,12 @@ public class InfoProcessData{
 		//开始封装无代理客户端
 		List<Vcent> vList=hrt.getVcentsList();
 		if (vList!=null&&vList.size()>0) {
-			vcList=new LinkedList<Vcenter>();
 			for (Vcent vcent:vList) {
 				Vcenter vcenter=new Vcenter();
 				vcenter.setId(vcent.getVcUuid());
 				vcenter.setName(vcent.getVcName());
 				vcenter.setIps(vcent.getVcIp());
-				String user_id2=getUserByConfirmedUUID(vcent.getVcUuid(), 2);
+				String user_id2=getUserIdByVcent(vcent.getVcUuid(),data_ark.getId());
 				List<Fault> v_list_faults=new LinkedList<Fault>();
 				for (FaultType fault:vcent.getVcentStateList()) {
 					Fault fault2=new Fault();
@@ -417,6 +437,7 @@ public class InfoProcessData{
 					faults.add(fault2);
 				}
 				vcenter.setFaults(v_list_faults);
+				vcenter.setData_ark_id(data_ark.getId());
 				vcList.add(vcenter);
 				//如果VC的异常是离线，则不用封装虚拟机以及虚拟机的异常
 				boolean offline=false;
@@ -440,7 +461,7 @@ public class InfoProcessData{
 						vm.setPath(vmware.getPath());
 						//add by wxx 2019/05/13
 						vm.setSystem_Version(vmware.getSystemVersion());
-						String user_id3=getUserByConfirmedUUID(vmware.getId(), 3);
+						String user_id3=getUserIdByVM(vmware.getId(), data_ark.getId());
 						List<Fault> vmware_list_faults=new LinkedList<Fault>();
 						for (FaultType faultType:vmware.getVmwareStateList()) {
 							Fault fault=new Fault();
