@@ -97,6 +97,7 @@ public class ThreadScanStreamer extends Thread {
 		if (!online) {
 			logger.warn("The data ark which uuid:"+uuid+"is offline...");
 			//如果离线，触发邮件报警
+			List<Fault> data_ark_fault_list=new LinkedList<Fault>();
 			Fault fault = new Fault();
 			fault.setTimestamp(now);
 			fault.setType(10);
@@ -128,6 +129,8 @@ public class ThreadScanStreamer extends Thread {
 					fault.setData_ark_id(uuid);
 				}
 				
+				data_ark_fault_list.add(fault);
+				data_ark.setFaults(data_ark_fault_list);
 				List<Client_> clientList=new LinkedList<Client_>();
 				List<Vcenter> vcList=new LinkedList<Vcenter>();
 				List<Virtual_machine> vmList=new LinkedList<Virtual_machine>();
