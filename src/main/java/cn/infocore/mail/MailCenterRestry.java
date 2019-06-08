@@ -218,10 +218,10 @@ public class MailCenterRestry implements Center {
 				qr.execute(sql, condition);
 				
 				if (fault.getType() != 0) {
-					if(!this.list.containsKey(fault.getUser_id())){
+					/*if(!this.list.containsKey(fault.getUser_id())){
 						logger.info(fault.getUser_id()+" not set email.");
 						continue;
-					}
+					}*/
 					
 					for (Map.Entry<String, MailSender> entry:this.list.entrySet()) {
 						String user=entry.getKey();

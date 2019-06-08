@@ -72,7 +72,7 @@ public class MailSender {
 	public void judge(Fault fault,String user) {
 		logger.info("----------Userid:"+user+",exception:"+config.getExceptions()+",fault type:"+fault.getType()+",enabled:"+config.getEnabled()+",target:"+fault.getTarget());
 		if(config.getEnabled()==0){
-			logger.info("Not need send email,for config is not enabled.");
+			logger.info(user+" not need send email,for config is not enabled.");
 			return;
 		}
 		

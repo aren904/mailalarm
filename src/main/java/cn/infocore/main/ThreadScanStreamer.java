@@ -1,6 +1,5 @@
 package cn.infocore.main;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,36 +43,41 @@ public class ThreadScanStreamer extends Thread {
 		DataArkList.getInstance(); //for all streamer offline and start service not getcache
 		
 		while(true) {
-			map=HeartCache.getInstance().getAllCacheList();
-			logger.info("Start Scanner data ark offline is or not....data_ark size:"+map.size());
-			uuids=new ArrayList<String>();
-			if (map.size()>0) {
-				for (Map.Entry<String, Long> entry:map.entrySet()) {
-					String uuid=entry.getKey();
-					long time=entry.getValue();
-					long now = System.currentTimeMillis() / 1000;
-					if (now-time>split) {
-						//当前时间-最后更新的时间>3分钟,认为掉线
-						logger.info("uuid:"+uuid+" is offline,update database.");
-						updateOffLine(uuid,false);
-						//每3分钟发送一次Trap
-						logger.info("Collect offline streamer:"+uuid);
-						uuids.add(uuid);
-					}else {
-						updateOffLine(uuid,true);
+			try {
+				map=HeartCache.getInstance().getAllCacheList();
+				logger.info("Start Scanner data ark offline is or not....data_ark size:"+map.size());
+				uuids=new ArrayList<String>();
+				if (map.size()>0) {
+					for (Map.Entry<String, Long> entry:map.entrySet()) {
+						String uuid=entry.getKey();
+						long time=entry.getValue();
+						long now = System.currentTimeMillis() / 1000;
+						if (now-time>split) {
+							//当前时间-最后更新的时间>3分钟,认为掉线
+							logger.info("uuid:"+uuid+" is offline,update database.");
+							updateOffLine(uuid,false);
+							//每3分钟发送一次Trap
+							logger.info("Collect offline streamer:"+uuid);
+							uuids.add(uuid);
+						}else {
+							logger.info("uuid:"+uuid+" is online,update database.");
+							updateOffLine(uuid,true);
+						}
+					}
+					
+					if(uuids.size()>0){
+						logger.info("Sender snmp server alarm.");
+						SnmpTrapSender.run(uuids);
 					}
 				}
 				
-				if(uuids.size()>0){
-					logger.info("Sender snmp server alarm.");
-					SnmpTrapSender.run(uuids);
+				try {
+					Thread.sleep(split*1000);
+				} catch (InterruptedException e) {
+					logger.error("ThreadScanStreamer interupted...",e);
 				}
-			}
-			
-			try {
-				Thread.sleep(split*1000);
-			} catch (InterruptedException e) {
-				logger.error("ThreadScanStreamer interupted...",e);
+			} catch (Exception e) {
+				logger.error("ThreadScanStreamer:"+e);
 			}
 		}
 	}
@@ -90,7 +94,7 @@ public class ThreadScanStreamer extends Thread {
 		Object[] param = { online ? "0" : "10", uuid };
 		try {
 			qr.update(sql, param);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			logger.error(e);
 		}
 				
@@ -135,7 +139,7 @@ public class ThreadScanStreamer extends Thread {
 				List<Vcenter> vcList=new LinkedList<Vcenter>();
 				List<Virtual_machine> vmList=new LinkedList<Virtual_machine>();
 				MailCenterRestry.getInstance().notifyCenter(data_ark,clientList,vcList,vmList,fault);
-			} catch (SQLException e1) {
+			} catch (Exception e1) {
 				logger.error("ThreadScanStreamer:"+e1);
 			}
 		}
