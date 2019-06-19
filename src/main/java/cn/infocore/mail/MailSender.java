@@ -116,7 +116,7 @@ public class MailSender {
 	 * 发送邮件
 	 */
 	public void send(Fault fault) throws Exception{
-		//try {
+		try {
 			// 发件人
 			/*Address from = new InternetAddress(config.getSender_email());
 			message.setFrom(from);
@@ -158,14 +158,17 @@ public class MailSender {
 			message.setSentDate(new Date());
 			//message.saveChanges();
 			Transport transport = s.getTransport();
+			logger.info("Start sending mail to "+config.getSmtp_user_id());
+
 			transport.connect(config.getSmtp_user_id(), config.getSmtp_password());
 			// 发送
 			transport.sendMessage(message, message.getAllRecipients());
 			transport.close();
-			logger.info("Mail send successed...");
+			logger.info("Mail send successed.user :" +config.getSmtp_user_id());
 			
-		/*} catch (Exception e) {
-			logger.error(e);
-		}*/
+		} catch (Exception e) {
+			String msg = "mail sent failed";
+			logger.error(msg,e);
+		}
 	}
 }

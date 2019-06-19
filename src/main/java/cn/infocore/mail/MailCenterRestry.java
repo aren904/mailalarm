@@ -119,8 +119,11 @@ public class MailCenterRestry implements Center {
 				logger.info("-----------Userid:"+fault.getUser_id()+",faultType:"+fault.getType()+",target:"+fault.getTarget()+",data_ark ip:"+fault.getData_ark_ip()+",client_id:"+fault.getClient_id());
 				if (fault.getType()==0) {
 					//1.confirm all alarm log for target.
-					sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target_id=? and exeception!=3 and exeception!=25";
-					condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id()};
+					//remove user id update TODO
+					//sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target_id=? and exeception!=3 and exeception!=25";
+					sql="update alarm_log set processed=1 where data_ark_id=? and target_id=? and exeception!=3 and exeception!=25";
+					//condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id()};
+					condition= new Object[]{fault.getData_ark_id(),fault.getClient_id()};
 					//logger.error(fault.getUser_id()+" "+fault.getData_ark_id()+" "+fault.getTarget());
 				}else {
 					//add by wxx,for one fault to other fault and not confirm.
@@ -196,8 +199,11 @@ public class MailCenterRestry implements Center {
 							if(type==3||type==25){
 								logger.info("VM error not need to confirm.");
 							}else{
-								sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target_id=? and exeception=?";
-								condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id(),type};
+								//remove user id update TODO
+								//sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target_id=? and exeception=?";
+								sql="update alarm_log set processed=1 where data_ark_id=? and target_id=? and exeception=?";
+								//condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id(),type};
+								condition= new Object[]{fault.getData_ark_id(),fault.getClient_id(),type};
 							}
 						}
 					}

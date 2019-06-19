@@ -20,10 +20,13 @@ import cn.infocore.utils.MyDataSource;
 /**
  * 检测streamer服务端状态
  */
-public class ThreadScanStreamer extends Thread {
+public class ThreadScanStreamer implements Runnable {
 	private static final Logger logger = Logger.getLogger(ThreadScanStreamer.class);
 	private static final long split=3*60;
+	//private static final long split=30;
+	//	Long timestamp = System.currentTimeMillis();
 
+	//	Long stp = 5000L; 
 	public ThreadScanStreamer() {
 		logger.info("Init Data ark offline listener thread.");
 	}

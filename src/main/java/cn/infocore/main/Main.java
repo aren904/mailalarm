@@ -6,15 +6,16 @@ public class Main {
 	//public static final ThreadConsume consum;
 	public static final ThreadInformation information;
 	public static final ThreadHeartbeat heartbeat;
-	public static final ThreadScanStreamer scan;
-	
+	//public static final ThreadScanStreamer scan;
+	protected static final  ThreadScanPoolService scanService; 
 	private static final Logger logger=Logger.getLogger(Main.class);
 	
 	static {
 		//consum=ThreadConsume.getInstance();
 		information=ThreadInformation.getInstance();
 		heartbeat=ThreadHeartbeat.getInstance();
-		scan=ThreadScanStreamer.getInstance();
+		//scan=ThreadScanStreamer.getInstance();
+		scanService= new ThreadScanPoolService();
 	}
 	
 	//主函数入口
@@ -27,14 +28,17 @@ public class Main {
 		information.start();
 		logger.info("Information is start....");
 		
-		scan.start();
+		
+
+		scanService.start();		
+		//scan.start();
 		logger.info("Scan is start...");
 		
 		try {
 			heartbeat.join();
 			information.join();
 			//consum.join();
-			scan.join();
+			//scan.join();
 			logger.info("CloudManager is stoped...");
 		} catch (Exception e) {
 			logger.warn("Failed occured...");
