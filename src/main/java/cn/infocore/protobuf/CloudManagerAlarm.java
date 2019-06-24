@@ -379,24 +379,16 @@ public final class CloudManagerAlarm {
     Command_UpdateEmailAlarm(72, 501),
     /**
      * <code>Command_CreateEmailAlarm = 502;</code>
-     *
-     * <pre>
-     * 报警模块用
-     * </pre>
      */
     Command_CreateEmailAlarm(73, 502),
     /**
+     * <code>Command_DeleteEmailAlarm = 503;</code>
+     */
+    Command_DeleteEmailAlarm(74, 503),
+    /**
      * <code>Command_VerifyEmailAlarm = 504;</code>
      */
-    Command_VerifyEmailAlarm(74, 504),
-    /**
-     * <code>Command_DeleteEmailAlarm = 503;</code>
-     *
-     * <pre>
-     * 报警模块用
-     * </pre>
-     */
-    Command_DeleteEmailAlarm(75, 503),
+    Command_VerifyEmailAlarm(75, 504),
     /**
      * <code>Command_GetSnmp = 505;</code>
      *
@@ -801,24 +793,16 @@ public final class CloudManagerAlarm {
     public static final int Command_UpdateEmailAlarm_VALUE = 501;
     /**
      * <code>Command_CreateEmailAlarm = 502;</code>
-     *
-     * <pre>
-     * 报警模块用
-     * </pre>
      */
     public static final int Command_CreateEmailAlarm_VALUE = 502;
+    /**
+     * <code>Command_DeleteEmailAlarm = 503;</code>
+     */
+    public static final int Command_DeleteEmailAlarm_VALUE = 503;
     /**
      * <code>Command_VerifyEmailAlarm = 504;</code>
      */
     public static final int Command_VerifyEmailAlarm_VALUE = 504;
-    /**
-     * <code>Command_DeleteEmailAlarm = 503;</code>
-     *
-     * <pre>
-     * 报警模块用
-     * </pre>
-     */
-    public static final int Command_DeleteEmailAlarm_VALUE = 503;
     /**
      * <code>Command_GetSnmp = 505;</code>
      *
@@ -939,8 +923,8 @@ public final class CloudManagerAlarm {
         case 500: return Command_GetEmailAlarm;
         case 501: return Command_UpdateEmailAlarm;
         case 502: return Command_CreateEmailAlarm;
-        case 504: return Command_VerifyEmailAlarm;
         case 503: return Command_DeleteEmailAlarm;
+        case 504: return Command_VerifyEmailAlarm;
         case 505: return Command_GetSnmp;
         case 506: return Command_UpdateSnmp;
         case 600: return Command_ManageDataArk;
@@ -1456,7 +1440,7 @@ public final class CloudManagerAlarm {
      * <code>ErrorCode_DisasterDiskBackupExistent = 1087;</code>
      *
      * <pre>
-     * 存在容灾磁盘备份，即不存在容灾关系
+     * 存在容灾磁盘备份，即存在容灾关系
      * </pre>
      */
     ErrorCode_DisasterDiskBackupExistent(57, 1087),
@@ -1472,7 +1456,7 @@ public final class CloudManagerAlarm {
      * <code>ErrorCode_DisasterFileBackupExistent = 1089;</code>
      *
      * <pre>
-     * 存在容灾文件备份，即不存在容灾关系
+     * 存在容灾文件备份，即存在容灾关系
      * </pre>
      */
     ErrorCode_DisasterFileBackupExistent(59, 1089),
@@ -1789,17 +1773,17 @@ public final class CloudManagerAlarm {
      */
     ErrorCode_VerifyEmailAlarmFailed(130, 10504),
     /**
-     * <code>ErrorCode_GetSnmp = 10505;</code>
+     * <code>ErrorCode_GetSnmpFailed = 10505;</code>
      *
      * <pre>
-     *add by wxx 2019/04/04
+     *update by xsz.x 2019/06/20
      * </pre>
      */
-    ErrorCode_GetSnmp(131, 10505),
+    ErrorCode_GetSnmpFailed(131, 10505),
     /**
-     * <code>ErrorCode_UpdateSnmp = 10506;</code>
+     * <code>ErrorCode_UpdateSnmpFailed = 10506;</code>
      */
-    ErrorCode_UpdateSnmp(132, 10506),
+    ErrorCode_UpdateSnmpFailed(132, 10506),
     ;
 
     /**
@@ -2254,7 +2238,7 @@ public final class CloudManagerAlarm {
      * <code>ErrorCode_DisasterDiskBackupExistent = 1087;</code>
      *
      * <pre>
-     * 存在容灾磁盘备份，即不存在容灾关系
+     * 存在容灾磁盘备份，即存在容灾关系
      * </pre>
      */
     public static final int ErrorCode_DisasterDiskBackupExistent_VALUE = 1087;
@@ -2270,7 +2254,7 @@ public final class CloudManagerAlarm {
      * <code>ErrorCode_DisasterFileBackupExistent = 1089;</code>
      *
      * <pre>
-     * 存在容灾文件备份，即不存在容灾关系
+     * 存在容灾文件备份，即存在容灾关系
      * </pre>
      */
     public static final int ErrorCode_DisasterFileBackupExistent_VALUE = 1089;
@@ -2587,17 +2571,17 @@ public final class CloudManagerAlarm {
      */
     public static final int ErrorCode_VerifyEmailAlarmFailed_VALUE = 10504;
     /**
-     * <code>ErrorCode_GetSnmp = 10505;</code>
+     * <code>ErrorCode_GetSnmpFailed = 10505;</code>
      *
      * <pre>
-     *add by wxx 2019/04/04
+     *update by xsz.x 2019/06/20
      * </pre>
      */
-    public static final int ErrorCode_GetSnmp_VALUE = 10505;
+    public static final int ErrorCode_GetSnmpFailed_VALUE = 10505;
     /**
-     * <code>ErrorCode_UpdateSnmp = 10506;</code>
+     * <code>ErrorCode_UpdateSnmpFailed = 10506;</code>
      */
-    public static final int ErrorCode_UpdateSnmp_VALUE = 10506;
+    public static final int ErrorCode_UpdateSnmpFailed_VALUE = 10506;
 
 
     public final int getNumber() { return value; }
@@ -2735,8 +2719,8 @@ public final class CloudManagerAlarm {
         case 10502: return ErrorCode_CreateEmailAlarmFailed;
         case 10503: return ErrorCode_DeleteEmailAlarmFailed;
         case 10504: return ErrorCode_VerifyEmailAlarmFailed;
-        case 10505: return ErrorCode_GetSnmp;
-        case 10506: return ErrorCode_UpdateSnmp;
+        case 10505: return ErrorCode_GetSnmpFailed;
+        case 10506: return ErrorCode_UpdateSnmpFailed;
         default: return null;
       }
     }
@@ -2993,6 +2977,14 @@ public final class CloudManagerAlarm {
      * </pre>
      */
     Exception_AixDiskOffline(24, 24),
+    /**
+     * <code>Exception_VmwareInitMirrorFailed = 25;</code>
+     *
+     * <pre>
+     * VMware 同步数据失败
+     * </pre>
+     */
+    Exception_VmwareInitMirrorFailed(25, 25),
     ;
 
     /**
@@ -3195,6 +3187,14 @@ public final class CloudManagerAlarm {
      * </pre>
      */
     public static final int Exception_AixDiskOffline_VALUE = 24;
+    /**
+     * <code>Exception_VmwareInitMirrorFailed = 25;</code>
+     *
+     * <pre>
+     * VMware 同步数据失败
+     * </pre>
+     */
+    public static final int Exception_VmwareInitMirrorFailed_VALUE = 25;
 
 
     public final int getNumber() { return value; }
@@ -3226,6 +3226,7 @@ public final class CloudManagerAlarm {
         case 22: return Exception_DisasterServerOffline;
         case 23: return Exception_StreamerPoolExceededThreshold;
         case 24: return Exception_AixDiskOffline;
+        case 25: return Exception_VmwareInitMirrorFailed;
         default: return null;
       }
     }
@@ -8778,13 +8779,13 @@ public final class CloudManagerAlarm {
       "mand_InsertOperationLog\020\226\003\022\032\n\025Command_Ge" +
       "tEmailAlarm\020\364\003\022\035\n\030Command_UpdateEmailAla" +
       "rm\020\365\003\022\035\n\030Command_CreateEmailAlarm\020\366\003\022\035\n\030" +
-      "Command_VerifyEmailAlarm\020\370\003\022\035\n\030Command_D" +
-      "eleteEmailAlarm\020\367\003\022\024\n\017Command_GetSnmp\020\371\003" +
+      "Command_DeleteEmailAlarm\020\367\003\022\035\n\030Command_V" +
+      "erifyEmailAlarm\020\370\003\022\024\n\017Command_GetSnmp\020\371\003" +
       "\022\027\n\022Command_UpdateSnmp\020\372\003\022\032\n\025Command_Man" +
       "ageDataArk\020\330\004\022\035\n\030Command_ExportDataArkLo" +
       "g\020\331\004\022\036\n\031Command_CommitTransaction\020\332\004\022 \n\033" +
       "Command_RollbackTransaction\020\333\004\022$\n\037Comman" +
-      "d_ProcessTransactionGroup\020\334\004*\210(\n\tErrorCo",
+      "d_ProcessTransactionGroup\020\334\004*\224(\n\tErrorCo",
       "de\022\025\n\021ErrorCode_Success\020\000\022\024\n\020ErrorCode_F" +
       "ailed\020\001\022\033\n\027ErrorCode_ConnectFailed\020\n\022\030\n\024" +
       "ErrorCode_SendFailed\020\013\022\033\n\027ErrorCode_Rece" +
@@ -8911,53 +8912,54 @@ public final class CloudManagerAlarm {
       "rCode_UpdateEmailAlarmFailed\020\205R\022%\n Error" +
       "Code_CreateEmailAlarmFailed\020\206R\022%\n ErrorC" +
       "ode_DeleteEmailAlarmFailed\020\207R\022%\n ErrorCo" +
-      "de_VerifyEmailAlarmFailed\020\210R\022\026\n\021ErrorCod" +
-      "e_GetSnmp\020\211R\022\031\n\024ErrorCode_UpdateSnmp\020\212R*" +
-      "\206\007\n\tException\022\024\n\020Exception_Normal\020\000\022\035\n\031E" +
-      "xception_ClientLocalLost\020\001\022\036\n\032Exception_",
-      "ClientTargetLost\020\002\022(\n$Exception_VmwareCr" +
-      "eateSnapshotFailed\020\003\022\033\n\027Exception_Vmware" +
-      "CbtDrop\020\004\022\033\n\027Exception_ClientOffline\020\005\022\034" +
-      "\n\030Exception_VcenterOffline\020\006\022%\n!Exceptio" +
-      "n_ClusterNodeExistOffline\020\007\022#\n\037Exception" +
-      "_ClusterNodeAllOffline\020\010\022\"\n\036Exception_St" +
-      "reamerPoolDisabled\020\t\022\035\n\031Exception_Stream" +
-      "erOffline\020\n\022$\n Exception_ClientAutoExpan" +
-      "dFailed\020\013\022\'\n#Exception_ClientSnapshotMer" +
-      "geFailed\020\014\022\037\n\033Exception_OracleStorageDro",
-      "p\020\r\022\'\n#Exception_DisasterReplicationFail" +
-      "ed\020\016\022!\n\035Exception_RacNodeExistOffline\020\017\022" +
-      "\037\n\033Exception_RacNodeAllOffline\020\020\022%\n!Exce" +
-      "ption_RacInstanceExistOffline\020\021\022#\n\037Excep" +
-      "tion_RacInstanceAllOffline\020\022\022)\n%Exceptio" +
-      "n_VmwareVirtualMachineOffline\020\023\022(\n$Excep" +
-      "tion_ClientCreateSnapshotFailed\020\024\022%\n!Exc" +
-      "eption_RacCreateSnapshotFailed\020\025\022#\n\037Exce" +
-      "ption_DisasterServerOffline\020\026\022+\n\'Excepti" +
-      "on_StreamerPoolExceededThreshold\020\027\022\034\n\030Ex",
-      "ception_AixDiskOffline\020\030*\235\001\n\nClientType\022" +
-      "\025\n\021ClientType_Single\020\000\022#\n\037ClientType_Vmw" +
-      "areVirtualMachine\020\001\022\023\n\017ClientType_Mscs\020\002" +
-      "\022\022\n\016ClientType_Rac\020\003\022\026\n\022ClientType_Vcent" +
-      "er\020\004\022\022\n\016ClientType_AIX\020\005*y\n\020DataArkGroup" +
-      "Type\022!\n\035DataArkGroupType_CloudManager\020\000\022" +
-      "\037\n\033DataArkGroupType_DataCenter\020\001\022!\n\035Data" +
-      "ArkGroupType_ResourcePool\020\002*\214\001\n\022UserPriv" +
-      "ilegeLevel\022\033\n\027UserPrivilegeLevel_Root\020\000\022" +
-      "\034\n\030UserPrivilegeLevel_Admin\020\001\022\033\n\027UserPri",
-      "vilegeLevel_User\020\002\022\036\n\032UserPrivilegeLevel" +
-      "_Auditor\020\003*J\n\013SnmpVersion\022\022\n\016SnmpVersion" +
-      "_V1\020\000\022\023\n\017SnmpVersion_V2c\020\001\022\022\n\016SnmpVersio" +
-      "n_V3\020\002*i\n\032SnmpAuthenticationProtocol\022\'\n#" +
-      "SnmpAuthenticationProtocol_HMAC_MD5\020\000\022\"\n" +
-      "\036SnmpAuthenticationProtocol_SHA\020\001*\260\001\n\023Sn" +
-      "mpPrivacyProtocol\022\033\n\027SnmpPrivacyProtocol" +
-      "_DES\020\000\022\034\n\030SnmpPrivacyProtocol_3DES\020\001\022\036\n\032" +
-      "SnmpPrivacyProtocol_AES128\020\002\022\036\n\032SnmpPriv" +
-      "acyProtocol_AES192\020\003\022\036\n\032SnmpPrivacyProto",
-      "col_AES256\020\004* \n\007Version\022\021\n\rVersion_Value" +
-      "\020\001\032\002\020\001B)\n\024cn.infocore.protobufB\021CloudMan" +
-      "agerAlarm"
+      "de_VerifyEmailAlarmFailed\020\210R\022\034\n\027ErrorCod" +
+      "e_GetSnmpFailed\020\211R\022\037\n\032ErrorCode_UpdateSn" +
+      "mpFailed\020\212R*\254\007\n\tException\022\024\n\020Exception_N" +
+      "ormal\020\000\022\035\n\031Exception_ClientLocalLost\020\001\022\036",
+      "\n\032Exception_ClientTargetLost\020\002\022(\n$Except" +
+      "ion_VmwareCreateSnapshotFailed\020\003\022\033\n\027Exce" +
+      "ption_VmwareCbtDrop\020\004\022\033\n\027Exception_Clien" +
+      "tOffline\020\005\022\034\n\030Exception_VcenterOffline\020\006" +
+      "\022%\n!Exception_ClusterNodeExistOffline\020\007\022" +
+      "#\n\037Exception_ClusterNodeAllOffline\020\010\022\"\n\036" +
+      "Exception_StreamerPoolDisabled\020\t\022\035\n\031Exce" +
+      "ption_StreamerOffline\020\n\022$\n Exception_Cli" +
+      "entAutoExpandFailed\020\013\022\'\n#Exception_Clien" +
+      "tSnapshotMergeFailed\020\014\022\037\n\033Exception_Orac",
+      "leStorageDrop\020\r\022\'\n#Exception_DisasterRep" +
+      "licationFailed\020\016\022!\n\035Exception_RacNodeExi" +
+      "stOffline\020\017\022\037\n\033Exception_RacNodeAllOffli" +
+      "ne\020\020\022%\n!Exception_RacInstanceExistOfflin" +
+      "e\020\021\022#\n\037Exception_RacInstanceAllOffline\020\022" +
+      "\022)\n%Exception_VmwareVirtualMachineOfflin" +
+      "e\020\023\022(\n$Exception_ClientCreateSnapshotFai" +
+      "led\020\024\022%\n!Exception_RacCreateSnapshotFail" +
+      "ed\020\025\022#\n\037Exception_DisasterServerOffline\020" +
+      "\026\022+\n\'Exception_StreamerPoolExceededThres",
+      "hold\020\027\022\034\n\030Exception_AixDiskOffline\020\030\022$\n " +
+      "Exception_VmwareInitMirrorFailed\020\031*\235\001\n\nC" +
+      "lientType\022\025\n\021ClientType_Single\020\000\022#\n\037Clie" +
+      "ntType_VmwareVirtualMachine\020\001\022\023\n\017ClientT" +
+      "ype_Mscs\020\002\022\022\n\016ClientType_Rac\020\003\022\026\n\022Client" +
+      "Type_Vcenter\020\004\022\022\n\016ClientType_AIX\020\005*y\n\020Da" +
+      "taArkGroupType\022!\n\035DataArkGroupType_Cloud" +
+      "Manager\020\000\022\037\n\033DataArkGroupType_DataCenter" +
+      "\020\001\022!\n\035DataArkGroupType_ResourcePool\020\002*\214\001" +
+      "\n\022UserPrivilegeLevel\022\033\n\027UserPrivilegeLev",
+      "el_Root\020\000\022\034\n\030UserPrivilegeLevel_Admin\020\001\022" +
+      "\033\n\027UserPrivilegeLevel_User\020\002\022\036\n\032UserPriv" +
+      "ilegeLevel_Auditor\020\003*J\n\013SnmpVersion\022\022\n\016S" +
+      "nmpVersion_V1\020\000\022\023\n\017SnmpVersion_V2c\020\001\022\022\n\016" +
+      "SnmpVersion_V3\020\002*i\n\032SnmpAuthenticationPr" +
+      "otocol\022\'\n#SnmpAuthenticationProtocol_HMA" +
+      "C_MD5\020\000\022\"\n\036SnmpAuthenticationProtocol_SH" +
+      "A\020\001*\260\001\n\023SnmpPrivacyProtocol\022\033\n\027SnmpPriva" +
+      "cyProtocol_DES\020\000\022\034\n\030SnmpPrivacyProtocol_" +
+      "3DES\020\001\022\036\n\032SnmpPrivacyProtocol_AES128\020\002\022\036",
+      "\n\032SnmpPrivacyProtocol_AES192\020\003\022\036\n\032SnmpPr" +
+      "ivacyProtocol_AES256\020\004* \n\007Version\022\021\n\rVer" +
+      "sion_Value\020\001\032\002\020\001B)\n\024cn.infocore.protobuf" +
+      "B\021CloudManagerAlarm"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

@@ -206,7 +206,7 @@ public class DealInformation implements Runnable {
 				header.setErrorCode(0);
 			} catch (Exception e) {
 				logger.error(e);
-				header.setErrorCode(ErrorCode.ErrorCode_UpdateSnmp_VALUE);
+				header.setErrorCode(ErrorCode.ErrorCode_UpdateSnmpFailed_VALUE);
 			}finally {
 				byte[] resp=header.toByteArray();
 				try {

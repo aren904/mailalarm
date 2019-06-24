@@ -12,8 +12,10 @@ enum Command {
   Command_LoginCloudManager = 1;
   Command_SendDek = 2;
   Command_LogoutCloudManager = 3;
-  Command_VerifyUser = 4;  // 验证用户（即验证当前用户是当前用户）
-  Command_ConsoleHeartbeatsToCloudManager = 5;  // 控制台给 Cloud Manager 的心跳
+     // 验证用户（即验证当前用户是当前用户）
+  Command_VerifyUser = 4; 
+  // 控制台给 Cloud Manager 的心跳
+  Command_ConsoleHeartbeatsToCloudManager = 5;
 
   /* login end */
   /* overview begin */
@@ -38,7 +40,6 @@ enum Command {
   Command_AddDataArk = 205;
   Command_RemoveDataArk = 206;
   Command_UpdateDataArk = 207;
-  
   Command_MigrateDataArk = 208;
   Command_AddDisasterDataArk = 209;
   Command_RemoveDisasterDataArk = 210;
@@ -107,9 +108,9 @@ enum Command {
   Command_GetEmailAlarm = 500;
   //for alarm
   Command_UpdateEmailAlarm = 501;
-  Command_CreateEmailAlarm = 502;  // 报警模块用
+  Command_CreateEmailAlarm = 502;
+  Command_DeleteEmailAlarm = 503;
   Command_VerifyEmailAlarm = 504;
-  Command_DeleteEmailAlarm = 503;  // 报警模块用
   
   //add by wxx 2019/04/04
   Command_GetSnmp = 505;
@@ -197,9 +198,9 @@ enum ErrorCode {
   ErrorCode_DiskBackupNonexistent = 1084; // 不存在磁盘备份
   ErrorCode_EmailAlarmExistent = 1085;  // 存在邮件报警设置
   ErrorCode_EmailAlarmNonexistent = 1086;  // 不存在邮件报警设置
-  ErrorCode_DisasterDiskBackupExistent = 1087;  // 存在容灾磁盘备份，即不存在容灾关系
+    ErrorCode_DisasterDiskBackupExistent = 1087;  // 存在容灾磁盘备份，即存在容灾关系
   ErrorCode_DisasterDiskBackupNonexistent = 1088; // 不存在容灾磁盘备份，即不存在容灾关系
-  ErrorCode_DisasterFileBackupExistent = 1089;  // 存在容灾文件备份，即不存在容灾关系
+    ErrorCode_DisasterFileBackupExistent = 1089;  // 存在容灾文件备份，即存在容灾关系
   ErrorCode_DisasterFileBackupNonexistent = 1090; // 不存在容灾文件备份，即不存在容灾关系
 
   ErrorCode_RequestToAlarmServiceFailed = 1100;  // 发送请求给邮件报警服务失败
@@ -299,9 +300,9 @@ enum ErrorCode {
   ErrorCode_DeleteEmailAlarmFailed = 10503;  // 报警模块用
   ErrorCode_VerifyEmailAlarmFailed = 10504;
  
-  //add by wxx 2019/04/04
-  ErrorCode_GetSnmp = 10505;
-  ErrorCode_UpdateSnmp = 10506;
+  //update by xsz.x 2019/06/20
+  ErrorCode_GetSnmpFailed = 10505;
+  ErrorCode_UpdateSnmpFailed = 10506;
 
   /* system end */
 }
@@ -334,6 +335,8 @@ enum Exception {
   //add by wxx 2019/04/04
   Exception_StreamerPoolExceededThreshold = 23;  // 存储池超过阈值
   Exception_AixDiskOffline = 24;              // 映射给 AIX 的磁盘离线
+    Exception_VmwareInitMirrorFailed = 25;      // VMware 同步数据失败
+
 }
 
 enum ClientType {
