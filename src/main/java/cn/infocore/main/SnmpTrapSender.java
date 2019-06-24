@@ -58,7 +58,6 @@ public class SnmpTrapSender {
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
-					
 					logger.info(fmt("Target streamer info[Id:%s][IP:%s][Name:%s].",data_ark.getId(),data_ark.getIp(),data_ark.getName()));
 					if(data_ark!=null){
 						data_arks.add(data_ark);

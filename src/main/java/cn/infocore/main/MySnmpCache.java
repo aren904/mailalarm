@@ -35,7 +35,11 @@ public class MySnmpCache {
 		snmp.setVersion(1);
 		snmp.setTimeout_ms(1001);
 		snmp.setUpdate_version(3);*/
-		this.logMe();
+		if (this.snmp!=null) {
+			this.logMe();
+		}else {
+			logger.info("snmp is not set");
+		}
 	}
 	
 	private static class MySnmpHolder{
@@ -43,6 +47,7 @@ public class MySnmpCache {
 	}
 	
 	public static MySnmpCache getInstance() {
+		
 		return MySnmpHolder.instance;
 	}
 	
@@ -53,6 +58,13 @@ public class MySnmpCache {
 	}
 	
 	public synchronized MySnmp getMySnmp() {
+		if (snmp!= null) {
+			try {
+				logger.info("Prepare to send snmp. name: " +snmp.getStation_name() +"uri:"+snmp.getStation_ip()+":"+snmp.getStation_port()+ ",enabled:"+snmp.getEnabled());
+			} catch (NullPointerException e) {
+				logger.info("snmp settings error");
+			}
+		}
 		return this.snmp;
 	}
 	

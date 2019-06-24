@@ -210,8 +210,9 @@ public class DealInformation implements Runnable {
 			}finally {
 				byte[] resp=header.toByteArray();
 				try {
+					logger.info("response info for updating MySnmp.");
 					out.write(resp, 0, resp.length);
-					logger.info("Successed recived information.");
+					logger.info("processed update MySnmp.");
 				} catch (IOException e1) {
 					logger.error(e1);
 				}

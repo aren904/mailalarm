@@ -29,7 +29,7 @@ public class ThreadScanPoolService   extends Thread {
 		init();
 		try {
 			startService();
-			logger.info("ScanService is start....");
+			logger.info("ScanService is starting....");
 		} catch (InterruptedException e) {
 			logger.error("scan thread interrupted",e);
 

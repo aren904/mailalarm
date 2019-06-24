@@ -47,6 +47,7 @@ public class Test {
 		MySnmpCache.getInstance().updateMySnmp();
 		mySnmp=MySnmpCache.getInstance().getMySnmp();
 		System.out.println(mySnmp.getStation_name());*/
+		
 		GetServerInfoReturn.Builder get=GetServerInfoReturn.newBuilder();
 		Streamer.Builder s=Streamer.newBuilder();
 		s.setIp("192.168.1.13");
