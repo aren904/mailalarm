@@ -37,7 +37,7 @@ enum FaultType{
     VMWARE_OFFLINE = 19;              //虚拟机离线
     CLIENT_CREATE_SNAP_FAILED = 20;   //普通客户端创建快照点失败 
     RAC_CREATE_SNAP_FAILED = 21;      //Rac客户端创建快照点失败 
-    DR_SERVER_OFFLINE = 22;            //容灾服务离线 
+    DR_SERVER_OFFLINE = 22;            //容灾服务离线  
     STREAMER_POOL_ALMOST_FULL = 23;   //存储池已超过阈值
     STREAMER_CLIENT_DISK_OFFLINE = 24;//映射的盘离线(用于AIX客户端)
     VMWARE_INIT_MIRROR_FAILED = 25;   //vmware同步数据失败

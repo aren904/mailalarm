@@ -47,7 +47,6 @@ public class MySnmpCache {
 	}
 	
 	public static MySnmpCache getInstance() {
-		
 		return MySnmpHolder.instance;
 	}
 	

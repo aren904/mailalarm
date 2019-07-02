@@ -146,7 +146,6 @@ public class ThreadScanStreamer implements Runnable {
 				logger.error("ThreadScanStreamer:"+e1);
 			}
 		}
-		
 		//MyDataSource.close(connection);
 	}
 }

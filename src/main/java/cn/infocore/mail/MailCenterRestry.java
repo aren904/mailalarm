@@ -209,11 +209,14 @@ public class MailCenterRestry implements Center {
 					}
 					
 					for(String type:currentErrors){
+						//
 						if(!dbErrors.contains(Integer.parseInt(type))&&Integer.parseInt(type)!=0){ //insert error
 							logger.info(fault.getUser_id()+","+fault.getData_ark_ip()+" current is new,insert it:"+type);
 							//3.current is new,insert/update it.
-							sql = "insert into alarm_log(timestamp,processed,exeception,data_ark_id,data_ark_name,data_ark_ip,target_id,target,last_alarm_timestamp,user_id) values(?,?,?,?,?,?,?,?,?,?) on duplicate key"
-									+ " update user_id=?,timestamp=?,processed=0";
+//							sql = "insert into alarm_log(timestamp,processed,exeception,data_ark_id,data_ark_name,data_ark_ip,target_id,target,last_alarm_timestamp,user_id) values(?,?,?,?,?,?,?,?,?,?) on duplicate key"
+//									+ " update user_id=?,timestamp=?,processed=0";
+							//bug#6198->solved:insert a new record even if a processed record exists; 
+							sql = "insert into alarm_log(timestamp,processed,exeception,data_ark_id,data_ark_name,data_ark_ip,target_id,target,last_alarm_timestamp,user_id) values(?,?,?,?,?,?,?,?,?,?)" ;
 							condition=new Object[] {fault.getTimestamp(),0,fault.getType(),fault.getData_ark_id(),
 									fault.getData_ark_name(), fault.getData_ark_ip(),fault.getClient_id(),fault.getTarget(),0L,fault.getUser_id(),fault.getUser_id(),fault.getTimestamp()};
 						}

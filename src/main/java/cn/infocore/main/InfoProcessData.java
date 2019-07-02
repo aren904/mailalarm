@@ -171,7 +171,7 @@ public class InfoProcessData{
 		}
 		logger.info("Client update in database successed.");
 	}
-	
+
 	//更新VC
 	private void updateVcenter(List<Vcenter> list) {
 		logger.info("Start update VCenter..");
@@ -253,6 +253,7 @@ public class InfoProcessData{
 		try {
 			qr.batch(sql,param);
 		} catch (SQLException e) {
+			logger.error("update virtual_machine failed",e);
 			e.printStackTrace();
 		}finally {
 			//MyDataSource.close(connection);

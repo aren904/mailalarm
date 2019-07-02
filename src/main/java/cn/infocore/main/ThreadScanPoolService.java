@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 
 public class ThreadScanPoolService   extends Thread {
 
-	volatile boolean flag;
+	volatile boolean flag = false;
 	private ThreadPoolExecutor pool;
 	private Long snapTime = 5000L;
 	
@@ -17,10 +17,11 @@ public class ThreadScanPoolService   extends Thread {
 	
 	
 	public ThreadScanPoolService init() {
-		pool = new ThreadPoolExecutor(1, 1, 10, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(1));
-		
-		pool.allowCoreThreadTimeOut(true);
-		flag = true;
+		if (!flag) {
+			flag = true;			
+			pool = new ThreadPoolExecutor(1, 1, 10, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(1));
+			pool.allowCoreThreadTimeOut(true);
+		}
 		return this;
 	}
 	
@@ -46,7 +47,6 @@ public class ThreadScanPoolService   extends Thread {
 			}
 			Thread.sleep(snapTime);
 		}
-		
 	}
 	
 }
