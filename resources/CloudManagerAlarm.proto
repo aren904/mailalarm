@@ -16,6 +16,7 @@ enum Command {
   Command_VerifyUser = 4; 
   // 控制台给 Cloud Manager 的心跳
   Command_ConsoleHeartbeatsToCloudManager = 5;
+    Command_ForceLoginCloudManager = 6;
 
   /* login end */
   /* overview begin */
@@ -26,8 +27,10 @@ enum Command {
   Command_GetBackupReport = 103;
   Command_ExportDataArkReport = 104;  // 仅用于记录操作日志，不作为接口指令
   Command_ExportUserReport = 105;  // 仅用于记录操作日志，不作为接口指令
-  Command_ExportBackupReport = 106;  // 仅用于记录操作日志，不作为接口指令
-
+  Command_ExportBackupReport = 106;  // 仅用于记录操作日志，不作为接口指令  
+  Command_GetOverviewDataArks = 107;
+  Command_GetOverviewClients = 108;
+  Command_GetOverviewVmwareVirtualMachines = 109;
   /* overview end */
   /* data ark management begin */
 
@@ -70,6 +73,7 @@ enum Command {
   Command_TransferUserResource = 235;
   Command_AddDisasterFileBackup = 236;
   Command_RemoveDisasterFileBackup = 237;
+  Command_AddVcenterExt = 238;
 
   /* data ark management end */
   /* user management begin*/
@@ -144,13 +148,15 @@ enum ErrorCode {
   ErrorCode_ParameterError = 20;  // 参数错误
   ErrorCode_SerializeFailed = 21;  // 序列化失败，格式不对
   ErrorCode_DeserializeFailed = 22;  // 反序列化失败，格式不对
-  Errorcode_PermissionDenied = 23;  // 没有权限
+  ErrorCode_PermissionDenied = 23;  // 没有权限
   ErrorCode_ConnectDatabaseFailed = 24;  // 连接数据库失败
   ErrorCode_OperateDatabaseFailed = 25;  // 执行数据库命令失败
   ErrorCode_OperationNotStart = 26;  // 操作未开始（用于一个请求同时执行多个操作）
   ErrorCode_OperationUndid = 27;  // 操作被撤销（用于一个请求同时执行多个操作，其中一个操作失败导致之前成功的操作全部被撤销）
   ErrorCode_TransactionNonexistent = 28;  // 不存在事务
-  
+  ErrorCode_TransactionExistent = 29;  // 存在事务
+  ErrorCode_OperationAborted = 30;  // 操作被终止
+  ErrorCode_PerformingOperation = 31;  // 正在执行操作  
   ErrorCode_DataArkGroupCloudManagerNonexistent = 1000;  // 数据方舟组管理平台不存在
 
   ErrorCode_DataArkGroupDataCenterExistent = 1010;  // 数据方舟组数据中心已存在
@@ -180,7 +186,8 @@ enum ErrorCode {
   ErrorCode_UserOnline = 1060;  // 用户在线（用于限制对在线用户执行操作的场景）
   ErrorCode_UserAlreadyLogged = 1061;  // 用户已经登录（用于不能重复登录）
   // ErrorCode_UserLoginTimeout = 1062;  // 用户长时间未操作
-
+  ErrorCode_UserLongTimeNoInteraction = 1062;  // 用户长时间未操作
+  ErrorCode_UserLoginElsewhere = 1063;  // 用户在其他地方登录
   ErrorCode_QuotaExistent = 1070;  // 用户存在配额（导致删除用户失败等）
   ErrorCode_QuotaNonexistent = 1071;  // 不存在配额（导致添加客户端失败等）
   ErrorCode_QuotaNotEnough = 1072;  // 配额不够（导致添加客户端失败等）
@@ -212,7 +219,7 @@ enum ErrorCode {
   ErrorCode_SendDekFailed = 10002;
   ErrorCode_LogoutCloudManagerFailed = 10003;
   ErrorCode_VerifyUserFailed = 10004;
-
+  ErrorCode_ForceLoginCloudManagerFailed = 10006;
   /* login end */
   /* overview begin */
 
@@ -220,7 +227,9 @@ enum ErrorCode {
   ErrorCode_GetDataArkReportFailed = 10101;
   ErrorCode_GetUserReportFailed = 10102;
   ErrorCode_GetBackupReportFailed = 10103;
-
+  ErrorCode_GetOverviewDataArksFailed = 10107;
+  ErrorCode_GetOverviewClientsFailed = 10108;
+  ErrorCode_GetOverviewVmwareVirtualMachinesFailed = 10109;
   /* overview end */
   /* data ark management begin */
 
@@ -260,7 +269,7 @@ enum ErrorCode {
   ErrorCode_TransferUserResourceFailed = 10235;
   ErrorCode_AddDisasterFileBackupFailed = 10236;
   ErrorCode_RemoveDisasterFileBackupFailed = 10237;
-
+  ErrorCode_AddVcenterExtFailed = 10238;
   /* data ark management end */
   /* user management begin*/
 
@@ -336,7 +345,7 @@ enum Exception {
   Exception_StreamerPoolExceededThreshold = 23;  // 存储池超过阈值
   Exception_AixDiskOffline = 24;              // 映射给 AIX 的磁盘离线
     Exception_VmwareInitMirrorFailed = 25;      // VMware 同步数据失败
-
+  Exception_VmwareSnapshotSizeIsZero = 26;    // 在线虚拟机创建快照点数据异常
 }
 
 enum ClientType {
@@ -388,7 +397,7 @@ enum SnmpPrivacyProtocol {
 
 enum Version {
   option allow_alias = true;
-  Version_Value = 1;
+  Version_Value = 3;
 }
 
 /* enum end */
