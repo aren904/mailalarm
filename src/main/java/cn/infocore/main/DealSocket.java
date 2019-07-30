@@ -87,6 +87,7 @@ public class DealSocket implements Runnable{
 			hrt.toBuilder().clearVcents();
 			logger.info("Response heartbeat successed..");
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error("DealSocket failed."+e);
 		}finally {
 			try {

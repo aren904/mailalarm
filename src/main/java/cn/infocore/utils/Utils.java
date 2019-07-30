@@ -131,6 +131,9 @@ public class Utils {
 		case 25:
 			ret="VMWARE同步数据失败";
 			break;
+		case 26:
+			ret="在线虚拟机创建快照点数据异常";
+			break;
 		default:
 			ret = "未知异常";
 			break;

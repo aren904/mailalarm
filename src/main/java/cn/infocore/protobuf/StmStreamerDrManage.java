@@ -311,7 +311,7 @@ public final class StmStreamerDrManage {
      * <code>DR_SERVER_OFFLINE = 22;</code>
      *
      * <pre>
-     *容灾服务离线 
+     *容灾服务离线  
      * </pre>
      */
     DR_SERVER_OFFLINE(22, 22),
@@ -339,6 +339,14 @@ public final class StmStreamerDrManage {
      * </pre>
      */
     VMWARE_INIT_MIRROR_FAILED(25, 25),
+    /**
+     * <code>VMWARE_SNAPSHOT_POINT_SIZE_IS_ZERO = 26;</code>
+     *
+     * <pre>
+     *在线虚拟机创建快照点数据异常
+     * </pre>
+     */
+    VMWARE_SNAPSHOT_POINT_SIZE_IS_ZERO(26, 26),
     ;
 
     /**
@@ -517,7 +525,7 @@ public final class StmStreamerDrManage {
      * <code>DR_SERVER_OFFLINE = 22;</code>
      *
      * <pre>
-     *容灾服务离线 
+     *容灾服务离线  
      * </pre>
      */
     public static final int DR_SERVER_OFFLINE_VALUE = 22;
@@ -545,6 +553,14 @@ public final class StmStreamerDrManage {
      * </pre>
      */
     public static final int VMWARE_INIT_MIRROR_FAILED_VALUE = 25;
+    /**
+     * <code>VMWARE_SNAPSHOT_POINT_SIZE_IS_ZERO = 26;</code>
+     *
+     * <pre>
+     *在线虚拟机创建快照点数据异常
+     * </pre>
+     */
+    public static final int VMWARE_SNAPSHOT_POINT_SIZE_IS_ZERO_VALUE = 26;
 
 
     public final int getNumber() { return value; }
@@ -577,6 +593,7 @@ public final class StmStreamerDrManage {
         case 23: return STREAMER_POOL_ALMOST_FULL;
         case 24: return STREAMER_CLIENT_DISK_OFFLINE;
         case 25: return VMWARE_INIT_MIRROR_FAILED;
+        case 26: return VMWARE_SNAPSHOT_POINT_SIZE_IS_ZERO;
         default: return null;
       }
     }
@@ -7169,7 +7186,7 @@ public final class StmStreamerDrManage {
       "\002(\0132\t.Streamer\022\030\n\007clients\030\003 \003(\0132\007.Client" +
       "\022\026\n\006vcents\030\004 \003(\0132\006.Vcent*H\n\nClientType\022\n" +
       "\n\006SINGLE\020\000\022\n\n\006VMWARE\020\001\022\010\n\004MSCS\020\002\022\007\n\003RAC\020" +
-      "\003\022\006\n\002VC\020\004\022\007\n\003AIX\020\005*\263\005\n\tFaultType\022\n\n\006NORM",
+      "\003\022\006\n\002VC\020\004\022\007\n\003AIX\020\005*\333\005\n\tFaultType\022\n\n\006NORM",
       "AL\020\000\022\025\n\021CLIENT_LOCAL_LOST\020\001\022\023\n\017CLIENT_DS" +
       "T_LOST\020\002\022\035\n\031VMWARE_CREATE_SNAP_FAILED\020\003\022" +
       "\023\n\017VMWARE_CBT_DROP\020\004\022\022\n\016CLIENT_OFFLINE\020\005" +
@@ -7186,7 +7203,8 @@ public final class StmStreamerDrManage {
       "LED\020\024\022\032\n\026RAC_CREATE_SNAP_FAILED\020\025\022\025\n\021DR_" +
       "SERVER_OFFLINE\020\026\022\035\n\031STREAMER_POOL_ALMOST" +
       "_FULL\020\027\022 \n\034STREAMER_CLIENT_DISK_OFFLINE\020" +
-      "\030\022\035\n\031VMWARE_INIT_MIRROR_FAILED\020\031B+\n\024cn.i" +
+      "\030\022\035\n\031VMWARE_INIT_MIRROR_FAILED\020\031\022&\n\"VMWA" +
+      "RE_SNAPSHOT_POINT_SIZE_IS_ZERO\020\032B+\n\024cn.i" +
       "nfocore.protobufB\023StmStreamerDrManage"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =

@@ -21,6 +21,7 @@ import cn.infocore.entity.Quota;
 import cn.infocore.entity.Vcenter;
 import cn.infocore.entity.Virtual_machine;
 import cn.infocore.handler.QuotaHandler;
+import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
 import cn.infocore.utils.MyDataSource;
 
 //内存中维护的邮件注册列表
@@ -117,11 +118,11 @@ public class MailCenterRestry implements Center {
 		for (Fault fault : list_fault) {
 			try {
 				logger.info("-----------Userid:"+fault.getUser_id()+",faultType:"+fault.getType()+",target:"+fault.getTarget()+",data_ark ip:"+fault.getData_ark_ip()+",client_id:"+fault.getClient_id());
-				if (fault.getType()==0) {
+				if (fault.getType()==ClientType.SINGLE_VALUE) {
 					//1.confirm all alarm log for target.
 					//remove user id update TODO
 					//sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target_id=? and exeception!=3 and exeception!=25";
-					sql="update alarm_log set processed=1 where data_ark_id=? and target_id=? and exeception!=3 and exeception!=25";
+					sql="update alarm_log set processed=1 where data_ark_id=? and target_id=? and exeception!=3 and exeception!=25 and exeception!=26";
 					//condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id()};
 					condition= new Object[]{fault.getData_ark_id(),fault.getClient_id()};
 					//logger.error(fault.getUser_id()+" "+fault.getData_ark_id()+" "+fault.getTarget());
@@ -141,12 +142,12 @@ public class MailCenterRestry implements Center {
 					}*/
 					
 					//注意这里名称不一致，需要特殊处理
-					if(fault.getClient_type()==0){
+					if(fault.getClient_type()==ClientType.SINGLE_VALUE){
 						/*sql="select exceptions from data_ark where id=?";
 						excepts=qr.query(sql, new ExceptHandler(), condition);*/
 						
 						excepts=data_ark.getExcept();
-					}else if(fault.getClient_type()==1){
+					}else if(fault.getClient_type()==ClientType.VMWARE_VALUE){
 						/*sql="select execptions from client where data_ark_id=? and id=?";
 						excepts=qr.query(sql, new ExecptHandler(), condition);*/
 						for(Client_ c:clientList){
@@ -155,7 +156,7 @@ public class MailCenterRestry implements Center {
 								break;
 							}
 						}
-					}else if(fault.getClient_type()==2){
+					}else if(fault.getClient_type()==ClientType.MSCS_VALUE){
 						/*sql="select exceptions from vcenter where data_ark_id=? and vcenter_id=?";
 						excepts=qr.query(sql, new ExceptHandler(), condition);*/
 						
@@ -165,7 +166,7 @@ public class MailCenterRestry implements Center {
 								break;
 							}
 						}
-					}else if(fault.getClient_type()==3){
+					}else if(fault.getClient_type()==ClientType.RAC_VALUE){
 						for(Virtual_machine vm:vmList){
 							if(fault.getData_ark_id().equals(vm.getData_ark_id())&&fault.getClient_id().equals(vm.getId())){
 								excepts=vm.getExcept();
@@ -183,7 +184,11 @@ public class MailCenterRestry implements Center {
 					}
 					logger.info("Current error size:"+currentErrors.size()+",fault type:"+fault.getClient_type()+","+currentErrors.toString());
 					
+					
 					//not confirm error
+					
+					
+					
 					sql="select * from alarm_log where data_ark_id=? and binary target=? and target_id=? and processed=0";
 					condition=new Object[]{fault.getData_ark_id(),fault.getTarget(),fault.getClient_id()};
 					//db error
@@ -209,16 +214,17 @@ public class MailCenterRestry implements Center {
 					}
 					
 					for(String type:currentErrors){
-						//
 						if(!dbErrors.contains(Integer.parseInt(type))&&Integer.parseInt(type)!=0){ //insert error
 							logger.info(fault.getUser_id()+","+fault.getData_ark_ip()+" current is new,insert it:"+type);
 							//3.current is new,insert/update it.
-//							sql = "insert into alarm_log(timestamp,processed,exeception,data_ark_id,data_ark_name,data_ark_ip,target_id,target,last_alarm_timestamp,user_id) values(?,?,?,?,?,?,?,?,?,?) on duplicate key"
-//									+ " update user_id=?,timestamp=?,processed=0";
-							//bug#6198->solved:insert a new record even if a processed record exists; 
+							
+							
+							
+							//sql = "insert into alarm_log(timestamp,processed,exeception,data_ark_id,data_ark_name,data_ark_ip,target_id,target,last_alarm_timestamp,user_id) values(?,?,?,?,?,?,?,?,?,?) on duplicate key"
+							//		+ " update user_id=?,timestamp=?,processed=0";
 							sql = "insert into alarm_log(timestamp,processed,exeception,data_ark_id,data_ark_name,data_ark_ip,target_id,target,last_alarm_timestamp,user_id) values(?,?,?,?,?,?,?,?,?,?)" ;
-							condition=new Object[] {fault.getTimestamp(),0,fault.getType(),fault.getData_ark_id(),
-									fault.getData_ark_name(), fault.getData_ark_ip(),fault.getClient_id(),fault.getTarget(),0L,fault.getUser_id(),fault.getUser_id(),fault.getTimestamp()};
+							condition=new Object[] {fault.getTimestamp(),0L,fault.getType(),fault.getData_ark_id(),
+									fault.getData_ark_name(), fault.getData_ark_ip(),fault.getClient_id(),fault.getTarget(),0L,fault.getUser_id()};
 						}
 					}
 				}
@@ -290,6 +296,8 @@ public class MailCenterRestry implements Center {
 		}
 		return null;
 	}
+	
+
 	
 	public void updateMailService(String name, Email_alarm sender) {
 		// 同理，查询数据库，更新

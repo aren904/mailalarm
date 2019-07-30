@@ -41,6 +41,8 @@ enum FaultType{
     STREAMER_POOL_ALMOST_FULL = 23;   //存储池已超过阈值
     STREAMER_CLIENT_DISK_OFFLINE = 24;//映射的盘离线(用于AIX客户端)
     VMWARE_INIT_MIRROR_FAILED = 25;   //vmware同步数据失败
+    VMWARE_SNAPSHOT_POINT_SIZE_IS_ZERO = 26;  //在线虚拟机创建快照点数据异常
+    
 }
 
 //服务器信息
