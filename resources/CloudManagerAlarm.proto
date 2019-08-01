@@ -157,6 +157,8 @@ enum ErrorCode {
   ErrorCode_TransactionExistent = 29;  // 存在事务
   ErrorCode_OperationAborted = 30;  // 操作被终止
   ErrorCode_PerformingOperation = 31;  // 正在执行操作  
+  ErrorCode_TargetUserLockOccupied = 32;  // 表示当前操作的目标用户是临界资源，已经被其他操作占用，需要重新发送请求
+
   ErrorCode_DataArkGroupCloudManagerNonexistent = 1000;  // 数据方舟组管理平台不存在
 
   ErrorCode_DataArkGroupDataCenterExistent = 1010;  // 数据方舟组数据中心已存在
@@ -185,7 +187,6 @@ enum ErrorCode {
 
   ErrorCode_UserOnline = 1060;  // 用户在线（用于限制对在线用户执行操作的场景）
   ErrorCode_UserAlreadyLogged = 1061;  // 用户已经登录（用于不能重复登录）
-  // ErrorCode_UserLoginTimeout = 1062;  // 用户长时间未操作
   ErrorCode_UserLongTimeNoInteraction = 1062;  // 用户长时间未操作
   ErrorCode_UserLoginElsewhere = 1063;  // 用户在其他地方登录
   ErrorCode_QuotaExistent = 1070;  // 用户存在配额（导致删除用户失败等）
