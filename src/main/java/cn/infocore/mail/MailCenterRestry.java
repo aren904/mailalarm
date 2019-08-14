@@ -54,14 +54,14 @@ public class MailCenterRestry implements Center {
 		} catch (SQLException e) {
 			logger.error(e);
 		} finally {
-			//MyDataSource.close(connection);
+			// MyDataSource.close(connection);
 		}
 	}
 
-	private static class MailCenterRestryHolder{
-		public static MailCenterRestry instance=new MailCenterRestry();
+	private static class MailCenterRestryHolder {
+		public static MailCenterRestry instance = new MailCenterRestry();
 	}
-	
+
 	public static MailCenterRestry getInstance() {
 		return MailCenterRestryHolder.instance;
 	}
@@ -78,14 +78,14 @@ public class MailCenterRestry implements Center {
 	public void addMailService(String name) {
 		// 通过查数据库，添加到本地，自己构造MailSender对象
 		// 初始的时候，先从数据库中获取一次
-		String sql="select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,sender_password,smtp_address," + 
-				"smtp_port,smtp_authentication,smtp_user_id,smtp_password,ssl_encrypt,receiver_emails,privilege_level " + 
-				"from email_alarm,user where email_alarm.user_id=user.id and email_alarm.user_id=?";
+		String sql = "select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,sender_password,smtp_address,"
+				+ "smtp_port,smtp_authentication,smtp_user_id,smtp_password,ssl_encrypt,receiver_emails,privilege_level "
+				+ "from email_alarm,user where email_alarm.user_id=user.id and email_alarm.user_id=?";
 		QueryRunner qr = MyDataSource.getQueryRunner();
 		Object[] para = { name };
 		List<Email_alarm> elList = null;
 		try {
-			elList = qr.query( sql, new BeanListHandler<Email_alarm>(Email_alarm.class), para);
+			elList = qr.query(sql, new BeanListHandler<Email_alarm>(Email_alarm.class), para);
 			for (Email_alarm email_alarm : elList) {
 				if (email_alarm.getEnabled() == (byte) 0) {
 					if (this.list.containsKey(name)) {
@@ -98,7 +98,7 @@ public class MailCenterRestry implements Center {
 		} catch (SQLException e) {
 			logger.error("addMailService.", e);
 		} finally {
-			//MyDataSource.close(connection);
+			// MyDataSource.close(connection);
 		}
 	}
 
@@ -109,186 +109,217 @@ public class MailCenterRestry implements Center {
 		}
 	}
 
-	public void notifyCenter(Data_ark data_ark,List<Client_> clientList,List<Vcenter> vcList,List<Virtual_machine> vmList,Fault... list_fault){
-		logger.info("Start NotifyCenetr inject mailsender,size:"+list_fault.length+",list size:"+list.size()+",data_ark:"+data_ark.getIp()
-				+",client size:"+clientList.size()+",vcenter size:"+vcList.size()+",vm size:"+vmList.size());
+	public void notifyCenter(Data_ark data_ark, List<Client_> clientList, List<Vcenter> vcList,
+			List<Virtual_machine> vmList, Fault... list_fault) {
+		logger.info("Start NotifyCenetr inject mailsender,size:" + list_fault.length + ",list size:" + list.size()
+				+ ",data_ark:" + data_ark.getIp() + ",client size:" + clientList.size() + ",vcenter size:"
+				+ vcList.size() + ",vm size:" + vmList.size());
 		String sql = null;
-		Object[] condition=null;
-		
+		Object[] condition = null;
+
 		for (Fault fault : list_fault) {
 			try {
-				logger.info("-----------Userid:"+fault.getUser_id()+",faultType:"+fault.getType()+",target:"+fault.getTarget()+",data_ark ip:"+fault.getData_ark_ip()+",client_id:"+fault.getClient_id());
-				if (fault.getType()==ClientType.SINGLE_VALUE) {
-					//1.confirm all alarm log for target.
-					//remove user id update TODO
-					//sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target_id=? and exeception!=3 and exeception!=25";
-					sql="update alarm_log set processed=1 where data_ark_id=? and target_id=? and exeception!=3 and exeception!=25 and exeception!=26";
-					//condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id()};
-					condition= new Object[]{fault.getData_ark_id(),fault.getClient_id()};
-					//logger.error(fault.getUser_id()+" "+fault.getData_ark_id()+" "+fault.getTarget());
-				}else {
-					//add by wxx,for one fault to other fault and not confirm.
-					//current error
-					List<String> currentErrors=new ArrayList<String>();
+				logger.info("-----------Userid:" + fault.getUser_id() + ",faultType:" + fault.getType() + ",target:"
+						+ fault.getTarget() + ",data_ark ip:" + fault.getData_ark_ip() + ",client_id:"
+						+ fault.getClient_id());
+				if (fault.getType() == ClientType.SINGLE_VALUE) {
+					// 1.confirm all alarm log for target.
+					// remove user id update TODO
+					// sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and
+					// target_id=? and exeception!=3 and exeception!=25";
+					sql = "update alarm_log set processed=1 where data_ark_id=? and target_id=? and exeception!=3 and exeception!=25 and exeception!=26";
+					// condition= new
+					// Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id()};
+					condition = new Object[] { fault.getData_ark_id(), fault.getClient_id() };
+					// logger.error(fault.getUser_id()+" "+fault.getData_ark_id()+"
+					// "+fault.getTarget());
+				} else {
+					// add by wxx,for one fault to other fault and not confirm.
+					// current error
+					List<String> currentErrors = new ArrayList<String>();
 					QueryRunner qr = MyDataSource.getQueryRunner();
-					String excepts="";
-					
-					/*if(fault.getClient_type()==0){
-						condition=new Object[]{fault.getClient_id()};
-						logger.info("Current error condition:"+condition.length+","+condition[0]+",client type:"+fault.getClient_type());
-					}else{
-						condition=new Object[]{fault.getData_ark_id(),fault.getClient_id()};
-						logger.info("Current error condition:"+condition.length+","+condition[0]+","+condition[1]+",client type:"+fault.getClient_type());
-					}*/
-					
-					//注意这里名称不一致，需要特殊处理
-					if(fault.getClient_type()==ClientType.SINGLE_VALUE){
-						/*sql="select exceptions from data_ark where id=?";
-						excepts=qr.query(sql, new ExceptHandler(), condition);*/
-						
-						excepts=data_ark.getExcept();
-					}else if(fault.getClient_type()==ClientType.VMWARE_VALUE){
-						/*sql="select execptions from client where data_ark_id=? and id=?";
-						excepts=qr.query(sql, new ExecptHandler(), condition);*/
-						for(Client_ c:clientList){
-							if(fault.getData_ark_id().equals(c.getData_ark_id())&&fault.getClient_id().equals(c.getId())){
-								excepts=c.getExcept();
+					String excepts = "";
+
+					/*
+					 * if(fault.getClient_type()==0){ condition=new Object[]{fault.getClient_id()};
+					 * logger.info("Current error condition:"+condition.length+","+condition[0]
+					 * +",client type:"+fault.getClient_type()); }else{ condition=new
+					 * Object[]{fault.getData_ark_id(),fault.getClient_id()};
+					 * logger.info("Current error condition:"+condition.length+","+condition[0]+","+
+					 * condition[1]+",client type:"+fault.getClient_type()); }
+					 */
+
+					// 注意这里名称不一致，需要特殊处理
+					if (fault.getClient_type() == ClientType.SINGLE_VALUE) {
+						/*
+						 * sql="select exceptions from data_ark where id=?"; excepts=qr.query(sql, new
+						 * ExceptHandler(), condition);
+						 */
+
+						excepts = data_ark.getExcept();
+					} else if (fault.getClient_type() == ClientType.VMWARE_VALUE) {
+						/*
+						 * sql="select execptions from client where data_ark_id=? and id=?";
+						 * excepts=qr.query(sql, new ExecptHandler(), condition);
+						 */
+						for (Client_ c : clientList) {
+							if (fault.getData_ark_id().equals(c.getData_ark_id())
+									&& fault.getClient_id().equals(c.getId())) {
+								excepts = c.getExcept();
 								break;
 							}
 						}
-					}else if(fault.getClient_type()==ClientType.MSCS_VALUE){
-						/*sql="select exceptions from vcenter where data_ark_id=? and vcenter_id=?";
-						excepts=qr.query(sql, new ExceptHandler(), condition);*/
-						
-						for(Vcenter vc:vcList){
-							if(fault.getData_ark_id().equals(vc.getData_ark_id())&&fault.getClient_id().equals(vc.getId())){
-								excepts=vc.getExcep();
+					} else if (fault.getClient_type() == ClientType.MSCS_VALUE) {
+						/*
+						 * sql="select exceptions from vcenter where data_ark_id=? and vcenter_id=?";
+						 * excepts=qr.query(sql, new ExceptHandler(), condition);
+						 */
+
+						for (Vcenter vc : vcList) {
+							if (fault.getData_ark_id().equals(vc.getData_ark_id())
+									&& fault.getClient_id().equals(vc.getId())) {
+								excepts = vc.getExcep();
 								break;
 							}
 						}
-					}else if(fault.getClient_type()==ClientType.RAC_VALUE){
-						for(Virtual_machine vm:vmList){
-							if(fault.getData_ark_id().equals(vm.getData_ark_id())&&fault.getClient_id().equals(vm.getId())){
-								excepts=vm.getExcept();
+					} else if (fault.getClient_type() == ClientType.RAC_VALUE) {
+						for (Virtual_machine vm : vmList) {
+							if (fault.getData_ark_id().equals(vm.getData_ark_id())
+									&& fault.getClient_id().equals(vm.getId())) {
+								excepts = vm.getExcept();
 								break;
 							}
 						}
-						
-						//sql="select exceptions from virtual_machine where data_ark_id=? and id=?";
-						//excepts=qr.query(sql, new ExceptHandler(), condition);
+
+						// sql="select exceptions from virtual_machine where data_ark_id=? and id=?";
+						// excepts=qr.query(sql, new ExceptHandler(), condition);
 					}
-					
-					//current error
-					if(excepts!=""&&excepts!=null){
+
+					// current error
+					if (excepts != "" && excepts != null) {
 						currentErrors.addAll(Arrays.asList(excepts.split(";")));
 					}
-					logger.info("Current error size:"+currentErrors.size()+",fault type:"+fault.getClient_type()+","+currentErrors.toString());
-					
-					
-					//not confirm error
-					
-					
-					
-					sql="select * from alarm_log where data_ark_id=? and binary target=? and target_id=? and processed=0";
-					condition=new Object[]{fault.getData_ark_id(),fault.getTarget(),fault.getClient_id()};
-					//db error
+					logger.info("Current error size:" + currentErrors.size() + ",fault type:" + fault.getClient_type()
+							+ "," + currentErrors.toString());
+
+					// not confirm error
+
+					sql = "select * from alarm_log where data_ark_id=? and binary target=? and target_id=? and processed=0";
+					condition = new Object[] { fault.getData_ark_id(), fault.getTarget(), fault.getClient_id() };
+					// db error
 					qr = MyDataSource.getQueryRunner();
-					List<Integer> dbErrors=qr.query(sql, new ColumnListHandler<Integer>("exeception"),condition);
-					logger.info("DB error condition:"+condition[0]+","+condition[1]+"DB error:"+dbErrors.toString());
-					
+					List<Integer> dbErrors = qr.query(sql, new ColumnListHandler<Integer>("exeception"), condition);
+					logger.info("DB error condition:" + condition[0] + "," + condition[1] + "DB error:"
+							+ dbErrors.toString());
+
 					logger.info("start to compare current and db errors.");
-					for(Integer type:dbErrors){
-						if(!currentErrors.contains(String.valueOf(type))){
-							logger.info(fault.getUser_id()+","+fault.getData_ark_ip()+" current not contains db,confirm it:"+type);
-							//2.current not contains db,confirm it.
-							if(type==3||type==25){
+					for (Integer type : dbErrors) {
+						if (!currentErrors.contains(String.valueOf(type))) {
+							logger.info(fault.getUser_id() + "," + fault.getData_ark_ip()
+									+ " current not contains db,confirm it:" + type);
+							// 2.current not contains db,confirm it.
+							if (type == 3 || type == 25 || type == 26) {
+
 								logger.info("VM error not need to confirm.");
-							}else{
-								//remove user id update TODO
-								//sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and target_id=? and exeception=?";
-								sql="update alarm_log set processed=1 where data_ark_id=? and target_id=? and exeception=?";
-								//condition= new Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id(),type};
-								condition= new Object[]{fault.getData_ark_id(),fault.getClient_id(),type};
+							} else {
+								// remove user id update TODO
+								// sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and
+								// target_id=? and exeception=?";
+								sql = "update alarm_log set processed=1 where data_ark_id=? and target_id=? and exeception=?";
+								// condition= new
+								// Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id(),type};
+								condition = new Object[] { fault.getData_ark_id(), fault.getClient_id(), type };
 							}
 						}
 					}
-					
-					for(String type:currentErrors){
-						if(!dbErrors.contains(Integer.parseInt(type))&&Integer.parseInt(type)!=0){ //insert error
-							logger.info(fault.getUser_id()+","+fault.getData_ark_ip()+" current is new,insert it:"+type);
-							//3.current is new,insert/update it.
-							
-							
-							
-							//sql = "insert into alarm_log(timestamp,processed,exeception,data_ark_id,data_ark_name,data_ark_ip,target_id,target,last_alarm_timestamp,user_id) values(?,?,?,?,?,?,?,?,?,?) on duplicate key"
-							//		+ " update user_id=?,timestamp=?,processed=0";
-							sql = "insert into alarm_log(timestamp,processed,exeception,data_ark_id,data_ark_name,data_ark_ip,target_id,target,last_alarm_timestamp,user_id) values(?,?,?,?,?,?,?,?,?,?)" ;
-							condition=new Object[] {fault.getTimestamp(),0L,fault.getType(),fault.getData_ark_id(),
-									fault.getData_ark_name(), fault.getData_ark_ip(),fault.getClient_id(),fault.getTarget(),0L,fault.getUser_id()};
+
+					for (String type : currentErrors) {
+						
+						if (!dbErrors.contains(Integer.parseInt(type)) && Integer.parseInt(type) != 0) { // insert error
+							logger.info(fault.getUser_id() + "," + fault.getData_ark_ip() + " current is new,insert it:"
+									+ type);
+							// 3.current is new,insert/update it.
+
+							// sql = "insert into
+							// alarm_log(timestamp,processed,exeception,data_ark_id,data_ark_name,data_ark_ip,target_id,target,last_alarm_timestamp,user_id)
+							// values(?,?,?,?,?,?,?,?,?,?) on duplicate key"
+							// + " update user_id=?,timestamp=?,processed=0";
+							sql = "insert into alarm_log(timestamp,processed,exeception,data_ark_id,data_ark_name,data_ark_ip,target_id,target,last_alarm_timestamp,user_id) values(?,?,?,?,?,?,?,?,?,?)";
+							condition = new Object[] { fault.getTimestamp(), 0L, fault.getType(),
+									fault.getData_ark_id(), fault.getData_ark_name(), fault.getData_ark_ip(),
+									fault.getClient_id(), fault.getTarget(), 0L, fault.getUser_id() };
+						}else if (dbErrors.contains(Integer.parseInt(type)) && (Integer.parseInt(type) == 3||Integer.parseInt(type) == 25||Integer.parseInt(type) == 26)) {
+							//bug#777 ->update time for snapshot error
+							sql = "update alarm_log set timestamp=? where data_ark_id=? and target_id=? and exeception=? and processed=0";
+							condition = new Object[] { fault.getTimestamp(),fault.getData_ark_id(), fault.getClient_id(), type };
 						}
+						
+
 					}
 				}
-				
+
 				QueryRunner qr = MyDataSource.getQueryRunner();
 				qr.execute(sql, condition);
-				
+
 				if (fault.getType() != 0) {
-					/*if(!this.list.containsKey(fault.getUser_id())){
-						logger.info(fault.getUser_id()+" not set email.");
-						continue;
-					}*/
-					
-					for (Map.Entry<String, MailSender> entry:this.list.entrySet()) {
-						String user=entry.getKey();
-						MailSender mailSender=entry.getValue();
-						//判断是否属于管理员用户
-						Email_alarm conf=mailSender.getConfig();
-						if (conf.getPrivilege_level()==0||conf.getPrivilege_level()==1) {
-							mailSender.judge(fault,user);
-							logger.info(user+" admin or root user start judge...");
-						}else {
+					/*
+					 * if(!this.list.containsKey(fault.getUser_id())){
+					 * logger.info(fault.getUser_id()+" not set email."); continue; }
+					 */
+
+					for (Map.Entry<String, MailSender> entry : this.list.entrySet()) {
+						String user = entry.getKey();
+						MailSender mailSender = entry.getValue();
+						// 判断是否属于管理员用户
+						Email_alarm conf = mailSender.getConfig();
+						if (conf.getPrivilege_level() == 0 || conf.getPrivilege_level() == 1) {
+							mailSender.judge(fault, user);
+							logger.info(user + " admin or root user start judge...");
+						} else {
 							sql = "select * from quota where user_id=? and data_ark_id=?";
-							Object[] param= {user,fault.getData_ark_id()};
+							Object[] param = { user, fault.getData_ark_id() };
 							QueryRunner qRunner = MyDataSource.getQueryRunner();
-							List<Quota> quotas = qRunner.query( sql, new QuotaHandler(), param);
+							List<Quota> quotas = qRunner.query(sql, new QuotaHandler(), param);
 							if (!quotas.isEmpty()) {
-								//包括客户端，VC，虚拟机
-								if(fault.getClient_type().intValue()==1||fault.getClient_type().intValue()==2||fault.getClient_type().intValue()==3){
-									//查询该user_id是否和报警客户端存在关系，即该客户端是否是该用户添加过，添加过则给该用户发送报警邮件
-									Long count =findArkIdAndUserIdAndId(fault,user);
-									if(count.intValue()==1){
-										mailSender.judge(fault,user);
+								// 包括客户端，VC，虚拟机
+								if (fault.getClient_type().intValue() == 1 || fault.getClient_type().intValue() == 2
+										|| fault.getClient_type().intValue() == 3) {
+									// 查询该user_id是否和报警客户端存在关系，即该客户端是否是该用户添加过，添加过则给该用户发送报警邮件
+									Long count = findArkIdAndUserIdAndId(fault, user);
+									if (count.intValue() == 1) {
+										mailSender.judge(fault, user);
 									}
-								}else{
-									mailSender.judge(fault,user);
+								} else {
+									mailSender.judge(fault, user);
 								}
-								logger.info(user+" commom user start judge...");
-							}else {
-								logger.warn("email_alarm table has not user_id:"+user+" and data_ark_id:"+fault.getData_ark_id());
+								logger.info(user + " commom user start judge...");
+							} else {
+								logger.warn("email_alarm table has not user_id:" + user + " and data_ark_id:"
+										+ fault.getData_ark_id());
 							}
 						}
 					}
 				}
 			} catch (Exception e) {
-				logger.error(fault.getUser_id()+":"+e);
+				logger.error(fault.getUser_id() + ":" + e);
 			}
 		}
-		//MyDataSource.close(connection);
+		// MyDataSource.close(connection);
 	}
-	
-	protected Long findArkIdAndUserIdAndId(Fault fault,String user){
+
+	protected Long findArkIdAndUserIdAndId(Fault fault, String user) {
 		QueryRunner qclent = MyDataSource.getQueryRunner();
-		String sql="";
-		if(fault.getClient_type()==1){
-			sql="select count(*) from client where user_id=? and data_ark_id=? and id=?";
-		}else if(fault.getClient_type()==2){
-			sql="select count(*) from vcenter where user_id=? and data_ark_id=? and id=?";
-		}else if(fault.getClient_type()==3){
-			sql="select count(*) from virtual_machine where user_id=? and data_ark_id=? and id=?";
+		String sql = "";
+		if (fault.getClient_type() == 1) {
+			sql = "select count(*) from client where user_id=? and data_ark_id=? and id=?";
+		} else if (fault.getClient_type() == 2) {
+			sql = "select count(*) from vcenter where user_id=? and data_ark_id=? and id=?";
+		} else if (fault.getClient_type() == 3) {
+			sql = "select count(*) from virtual_machine where user_id=? and data_ark_id=? and id=?";
 		}
-		Object[] param1= {user,fault.getData_ark_id(),fault.getClient_id()};
+		Object[] param1 = { user, fault.getData_ark_id(), fault.getClient_id() };
 		try {
-			Long count = qclent.query(sql,new ScalarHandler<Long>(),param1);
+			Long count = qclent.query(sql, new ScalarHandler<Long>(), param1);
 			return count;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -296,9 +327,7 @@ public class MailCenterRestry implements Center {
 		}
 		return null;
 	}
-	
 
-	
 	public void updateMailService(String name, Email_alarm sender) {
 		// 同理，查询数据库，更新
 		// this.list.put(name, sender);
