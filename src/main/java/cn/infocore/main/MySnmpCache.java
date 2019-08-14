@@ -17,7 +17,7 @@ public class MySnmpCache {
 	private  boolean inited = false;
 
 	private MySnmpCache() {
-		init();
+		
 	}
 
 	private MySnmpCache init() {
