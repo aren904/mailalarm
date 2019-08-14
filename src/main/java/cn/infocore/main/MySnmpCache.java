@@ -1,6 +1,5 @@
 package cn.infocore.main;
 
-import java.sql.SQLException;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -22,7 +21,7 @@ public class MySnmpCache {
 	}
 
 	private MySnmpCache init() {
-		if (this.inited == false) {
+		if (this.inited == false||snmp ==null) {
 
 			String sql = "select * from snmp";
 			QueryRunner qr = MyDataSource.getQueryRunner();
@@ -30,7 +29,7 @@ public class MySnmpCache {
 				this.snmp = qr.query(sql, new BeanHandler<MySnmp>(MySnmp.class));
 				logger.info("Successed to get snmp[Name:]" + snmp.getStation_name() + "[IP]:" + snmp.getStation_ip()
 						+ ",[Port:]" + snmp.getStation_port());
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				logger.error(e);
 			} finally {
 				// MyDataSource.close(connection);
@@ -43,7 +42,12 @@ public class MySnmpCache {
 			 */
 			if (this.snmp != null) {
 				this.inited = true;
-				this.logMe();
+				try {
+					this.logMe();
+				} catch (Exception e) {
+					// ignore
+				}
+				
 			} else {
 				logger.info("snmp is not set");
 			}

@@ -12,7 +12,7 @@
 	<!--配置连接池mysql -->
 	<named-config name="mysql">
 		<property name="driverClass">com.mysql.cj.jdbc.Driver</property>
-		<property name="jdbcUrl">jdbc:mysql://localhost:3306/scmp?serverTimezone=UTC&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;useSSL=false</property>
+		<property name="jdbcUrl">jdbc:mysql://localhost:3307/scmp?serverTimezone=UTC&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;useSSL=false</property>
 		<property name="user">root</property>
 		<property name="password">vUZgC3bR+.b9MhfA</property>
 		<!-- <property name="jdbcUrl">jdbc:mysql://localhost:3306/cm_db?serverTimezone=UTC&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;useSSL=false</property>

@@ -35,6 +35,7 @@ E:\Home\eclipse\base\mailalarm\src\main\java\cn\infocore\main\CachedQueue.java
 E:\Home\eclipse\base\mailalarm\src\main\java\cn\infocore\main\ThreadHeartbeat.java
 E:\Home\eclipse\base\mailalarm\src\main\java\cn\infocore\main\DealInformation.java
 E:\Home\eclipse\base\mailalarm\src\main\java\cn\infocore\entity\Email_alarm.java
+E:\Home\eclipse\base\mailalarm\src\main\java\cn\infocore\dao\AlarmLogDAO.java
 E:\Home\eclipse\base\mailalarm\src\main\java\cn\infocore\entity\UUid_ip.java
 E:\Home\eclipse\base\mailalarm\src\main\java\cn\infocore\utils\MyDataSource.java
 E:\Home\eclipse\base\mailalarm\src\main\java\cn\infocore\main\DealSocket.java
