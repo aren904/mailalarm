@@ -74,7 +74,7 @@ enum Command {
   Command_AddDisasterFileBackup = 236;
   Command_RemoveDisasterFileBackup = 237;
   Command_AddVcenterExt = 238;
-
+  Command_AddDisasterDataArkExt = 239;
   /* data ark management end */
   /* user management begin*/
 
@@ -144,7 +144,8 @@ enum ErrorCode {
   ErrorCode_EnqueueCommandFailed = 14;  // 添加命令到队列失败
   ErrorCode_DequeueCommandFailed = 15;  // 从队里移除命令失败
   ErrorCode_NetworkException = 16;  // 网络异常
-
+  ErrorCode_UnsupportedOperation = 17;  // 未支持的操作
+  ErrorCode_InvalidOperation = 18;  // 无效的操作
   ErrorCode_ParameterError = 20;  // 参数错误
   ErrorCode_SerializeFailed = 21;  // 序列化失败，格式不对
   ErrorCode_DeserializeFailed = 22;  // 反序列化失败，格式不对
@@ -271,6 +272,7 @@ enum ErrorCode {
   ErrorCode_AddDisasterFileBackupFailed = 10236;
   ErrorCode_RemoveDisasterFileBackupFailed = 10237;
   ErrorCode_AddVcenterExtFailed = 10238;
+  ErrorCode_AddDisasterDataArkExtFailed = 10239;
   /* data ark management end */
   /* user management begin*/
 
