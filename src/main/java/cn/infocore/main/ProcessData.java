@@ -110,7 +110,7 @@ public class ProcessData implements Runnable{
 		logger.info("Start update client in database.");
 		//Connection connection=MyDataSource.getConnection();
 		QueryRunner qr=MyDataSource.getQueryRunner();
-		String sql="update client set type=?,name=?,ips=?,execptions=? where id=?";
+		String sql="update client set type=?,name=?,ips=?,exceptions=? where id=?";
 		int size=list.size();
         int paramSize=0;
 		for (int i = 0; i < list.size(); i++) {
@@ -149,7 +149,7 @@ public class ProcessData implements Runnable{
 		try {
 			qr.batch(sql,param);
 			if(param1.length>0){
-                sql="update client set type=?,name=?,execptions=? where id=?";
+                sql="update client set type=?,name=?,exceptions=? where id=?";
                 qr.batch( sql,param1);
             }
 		} catch (SQLException e) {

@@ -20,7 +20,7 @@ public class AlarmLogDAO {
 		QueryRunner qr = MyDataSource.getQueryRunner();
 		List<Integer> dbErrors;
 		try {
-			dbErrors = qr.query(sql, new ColumnListHandler<Integer>("exeception"),condition);
+			dbErrors = qr.query(sql, new ColumnListHandler<Integer>("exception"),condition);
 		} catch (SQLException e) {
 			logger.warn(e);
 			return null;

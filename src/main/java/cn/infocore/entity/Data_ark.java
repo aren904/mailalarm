@@ -30,6 +30,36 @@ public class Data_ark {
 	//对应Data_ark_group中的id字段，是外健
 	private int data_ark_group_id;
 
+	private long total_rds_capacity;
+	
+	public long getTotal_rds_capacity() {
+		return total_rds_capacity;
+	}
+
+	public void setTotal_rds_capacity(long total_rds_capacity) {
+		this.total_rds_capacity = total_rds_capacity;
+	}
+
+	public int getRds_endpoint_updated_version() {
+		return rds_endpoint_updated_version;
+	}
+
+	public void setRds_endpoint_updated_version(int rds_endpoint_updated_version) {
+		this.rds_endpoint_updated_version = rds_endpoint_updated_version;
+	}
+
+	public int getOss_endpoint_updated_version() {
+		return oss_endpoint_updated_version;
+	}
+
+	public void setOss_endpoint_updated_version(int oss_endpoint_updated_version) {
+		this.oss_endpoint_updated_version = oss_endpoint_updated_version;
+	}
+
+	private int rds_endpoint_updated_version;
+	
+	private int oss_endpoint_updated_version;
+	
 	public long getTotal_oracle_capacity() {
 		return total_oracle_capacity;
 	}

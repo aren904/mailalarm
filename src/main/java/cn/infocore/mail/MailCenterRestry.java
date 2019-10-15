@@ -127,7 +127,7 @@ public class MailCenterRestry implements Center {
 					// remove user id update TODO
 					// sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and
 					// target_id=? and exeception!=3 and exeception!=25";
-					sql = "update alarm_log set processed=1 where data_ark_id=? and target_id=? and exeception!=3 and exeception!=25 and exeception!=26";
+					sql = "update alarm_log set processed=1 where data_ark_id=? and target_id=? and exception!=3 and exeception!=25 and exeception!=26";
 					// condition= new
 					// Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id()};
 					condition = new Object[] { fault.getData_ark_id(), fault.getClient_id() };
@@ -159,7 +159,7 @@ public class MailCenterRestry implements Center {
 						excepts = data_ark.getExcept();
 					} else if (fault.getClient_type() == ClientType.VMWARE_VALUE) {
 						/*
-						 * sql="select execptions from client where data_ark_id=? and id=?";
+						 * sql="select exceptions from client where data_ark_id=? and id=?";
 						 * excepts=qr.query(sql, new ExecptHandler(), condition);
 						 */
 						for (Client_ c : clientList) {
@@ -208,7 +208,7 @@ public class MailCenterRestry implements Center {
 					condition = new Object[] { fault.getData_ark_id(), fault.getTarget(), fault.getClient_id() };
 					// db error
 					qr = MyDataSource.getQueryRunner();
-					List<Integer> dbErrors = qr.query(sql, new ColumnListHandler<Integer>("exeception"), condition);
+					List<Integer> dbErrors = qr.query(sql, new ColumnListHandler<Integer>("exception"), condition);
 					logger.info("DB error condition:" + condition[0] + "," + condition[1] + "DB error:"
 							+ dbErrors.toString());
 
@@ -225,7 +225,7 @@ public class MailCenterRestry implements Center {
 								// remove user id update TODO
 								// sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and
 								// target_id=? and exeception=?";
-								sql = "update alarm_log set processed=1 where data_ark_id=? and target_id=? and exeception=?";
+								sql = "update alarm_log set processed=1 where data_ark_id=? and target_id=? and exception=?";
 								// condition= new
 								// Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id(),type};
 								condition = new Object[] { fault.getData_ark_id(), fault.getClient_id(), type };
@@ -244,13 +244,13 @@ public class MailCenterRestry implements Center {
 							// alarm_log(timestamp,processed,exeception,data_ark_id,data_ark_name,data_ark_ip,target_id,target,last_alarm_timestamp,user_id)
 							// values(?,?,?,?,?,?,?,?,?,?) on duplicate key"
 							// + " update user_id=?,timestamp=?,processed=0";
-							sql = "insert into alarm_log(timestamp,processed,exeception,data_ark_id,data_ark_name,data_ark_ip,target_id,target,last_alarm_timestamp,user_id) values(?,?,?,?,?,?,?,?,?,?)";
+							sql = "insert into alarm_log(timestamp,processed,exception,data_ark_id,data_ark_name,data_ark_ip,target_id,target,last_alarm_timestamp,user_id) values(?,?,?,?,?,?,?,?,?,?)";
 							condition = new Object[] { fault.getTimestamp(), 0L, fault.getType(),
 									fault.getData_ark_id(), fault.getData_ark_name(), fault.getData_ark_ip(),
 									fault.getClient_id(), fault.getTarget(), 0L, fault.getUser_id() };
 						}else if (dbErrors.contains(Integer.parseInt(type)) && (Integer.parseInt(type) == 3||Integer.parseInt(type) == 25||Integer.parseInt(type) == 26)) {
 							//bug#777 ->update time for snapshot error
-							sql = "update alarm_log set timestamp=? where data_ark_id=? and target_id=? and exeception=? and processed=0";
+							sql = "update alarm_log set timestamp=? where data_ark_id=? and target_id=? and exception=? and processed=0";
 							condition = new Object[] { fault.getTimestamp(),fault.getData_ark_id(), fault.getClient_id(), type };
 						}
 						

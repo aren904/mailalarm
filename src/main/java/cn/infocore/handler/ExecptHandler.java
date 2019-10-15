@@ -12,7 +12,7 @@ public class ExecptHandler implements ResultSetHandler<String>{
 	public String handle(ResultSet rs) throws SQLException {
 		String name="";
 		while(rs.next()) {
-			name=rs.getString("execptions");
+			name=rs.getString("exceptions");
 		}
 		return name;
 	}

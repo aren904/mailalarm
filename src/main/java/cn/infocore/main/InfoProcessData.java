@@ -128,7 +128,7 @@ public class InfoProcessData {
 		logger.info("Start update client in database.");
 		// Connection connection=MyDataSource.getConnection();
 		QueryRunner qr = MyDataSource.getQueryRunner();
-		String sql = "update client set type=?,name=?,ips=?,execptions=?,operating_system=? where id=?";
+		String sql = "update client set type=?,name=?,ips=?,exceptions=?,operating_system=? where id=?";
 		int size = list.size();
 		int paramSize = 0;
 		for (int i = 0; i < list.size(); i++) {
@@ -170,7 +170,7 @@ public class InfoProcessData {
 		try {
 			qr.batch(sql, param);
 			if (param1.length > 0) {
-				sql = "update client set type=?,name=?,execptions=?,operating_system=? where id=?";
+				sql = "update client set type=?,name=?,exceptions=?,operating_system=? where id=?";
 				qr.batch(sql, param1);
 			}
 		} catch (SQLException e) {
@@ -426,6 +426,7 @@ public class InfoProcessData {
 				tmp.setId(client.getId());
 				tmp.setName(client.getName());
 				tmp.setIps(client.getIp());
+				//client.get
 				// add by wxx 2019/05/13
 				tmp.setSystem_Version(client.getSystemVersion());
 				String user_id1 = getUserIdByClient(client.getId());

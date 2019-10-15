@@ -25,10 +25,26 @@ public class Client_ {
 	
 	//对应User中的id字段，是外健
 	private String user_id;
+	
+	private Integer host_type;
+	
+	public Integer getHost_type() {
+		return host_type;
+	}
+
+
+
+	public void setHost_type(Integer host_type) {
+		this.host_type = host_type;
+	}
+
+
 
 	public String getId() {
 		return id;
 	}
+	
+	
 	
 	public void setId(String id) {
 		this.id = id;
