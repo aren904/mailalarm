@@ -128,7 +128,9 @@ public class InfoProcessData {
 		logger.info("Start update client in database.");
 		// Connection connection=MyDataSource.getConnection();
 		QueryRunner qr = MyDataSource.getQueryRunner();
-		String sql = "update client set type=?,name=?,ips=?,exceptions=?,operating_system=? where id=?";
+		//String sql = "update client set type=?,name=?,ips=?,exceptions=?,operating_system=? where id=?";
+
+		String sql = "update client set name=?,ips=?,exceptions=?,operating_system=? where id=?";
 		int size = list.size();
 		int paramSize = 0;
 		for (int i = 0; i < list.size(); i++) {
@@ -144,12 +146,12 @@ public class InfoProcessData {
 			Client_ c = list.get(i);
 			if (c.getIps() != null && c.getIps() != "" && c.getIps().length() > 0) {
 				param[j] = new Object[6];
-				param[j][0] = c.getType();
-				param[j][1] = c.getName();
-				param[j][2] = c.getIps();
-				param[j][3] = c.getExcept();
-				param[j][4] = c.getSystem_Version();
-				param[j][5] = c.getId();
+				//param[j][0] = c.getType();
+				param[j][0] = c.getName();
+				param[j][1] = c.getIps();
+				param[j][2] = c.getExcept();
+				param[j][3] = c.getSystem_Version();
+				param[j][4] = c.getId();
 				j++;
 			}
 		}
@@ -158,11 +160,11 @@ public class InfoProcessData {
 			Client_ c = list.get(i);
 			if (c.getIps() == null || c.getIps() == "" || c.getIps().length() == 0) {
 				param1[k] = new Object[5];
-				param1[k][0] = c.getType();
-				param1[k][1] = c.getName();
-				param1[k][2] = c.getExcept();
-				param1[k][3] = c.getSystem_Version();
-				param1[k][4] = c.getId();
+				//param1[k][0] = c.getType();
+				param1[k][0] = c.getName();
+				param1[k][1] = c.getExcept();
+				param1[k][2] = c.getSystem_Version();
+				param1[k][3] = c.getId();
 				k++;
 			}
 		}
@@ -170,7 +172,9 @@ public class InfoProcessData {
 		try {
 			qr.batch(sql, param);
 			if (param1.length > 0) {
-				sql = "update client set type=?,name=?,exceptions=?,operating_system=? where id=?";
+				//sql = "update client set type=?,name=?,exceptions=?,operating_system=? where id=?";
+
+				sql = "update client set name=?,exceptions=?,operating_system=? where id=?";
 				qr.batch(sql, param1);
 			}
 		} catch (SQLException e) {

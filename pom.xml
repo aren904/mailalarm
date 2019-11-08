@@ -56,16 +56,19 @@
 			<version>4.5.2</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/commons-dbutils/commons-dbutils -->
 		<dependency>
 			<groupId>commons-dbutils</groupId>
 			<artifactId>commons-dbutils</artifactId>
 			<version>1.7</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis <dependency> 
-			<groupId>org.mybatis</groupId> <artifactId>mybatis</artifactId> <version>3.5.0</version> 
-			</dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<version>2.2.1.RELEASE</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -79,6 +82,8 @@
 			<version>2.6.3</version>
 			<scope>compile</scope>
 		</dependency>
+
+
 	</dependencies>
 
 	<build>

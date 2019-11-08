@@ -127,7 +127,7 @@ public class MailCenterRestry implements Center {
 					// remove user id update TODO
 					// sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and
 					// target_id=? and exeception!=3 and exeception!=25";
-					sql = "update alarm_log set processed=1 where data_ark_id=? and target_id=? and exception!=3 and exeception!=25 and exeception!=26";
+					sql = "update alarm_log set processed=1 where data_ark_id=? and target_id=? and exception!=3 and exception!=25 and exeception!=26";
 					// condition= new
 					// Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id()};
 					condition = new Object[] { fault.getData_ark_id(), fault.getClient_id() };
