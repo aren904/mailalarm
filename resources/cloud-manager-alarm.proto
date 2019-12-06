@@ -1,0 +1,533 @@
+option java_package = "cn.infocore.protobuf";
+option java_outer_classname = "CloudManagerAlarm";
+
+/* common begin */
+
+/* enum begin */
+
+enum Command {
+    /* login begin */
+
+    Command_GetPublicKey = 0;
+    Command_LoginCloudManager = 1;
+    Command_SendDek = 2;
+    Command_LogoutCloudManager = 3;
+    Command_VerifyUser = 4;
+    Command_ConsoleHeartbeatsToCloudManager = 5;
+    Command_ForceLoginCloudManager = 6;
+
+    /* login end */
+
+    /* overview begin */
+
+    Command_GetOverview = 100;
+    Command_GetDataArkReport = 101;
+    Command_GetUserReport = 102;
+    Command_GetBackupReport = 103;
+    Command_ExportDataArkReport = 104;  // 仅用于记录操作日志，不作为接口指令
+    Command_ExportUserReport = 105;  // 仅用于记录操作日志，不作为接口指令
+    Command_ExportBackupReport = 106;  // 仅用于记录操作日志，不作为接口指令
+    Command_GetOverviewDataArks = 107;
+    Command_GetOverviewClients = 108;
+    Command_GetOverviewVmwareVirtualMachines = 109;
+    Command_GetOverviewCloudHost = 110;
+
+    /* overview end */
+
+    /* data ark management begin */
+
+    Command_GetDataArks = 200;
+    Command_GetDataArkResource = 201;
+    Command_CreateDataArkGroup = 202;
+    Command_DeleteDataArkGroup = 203;
+    Command_UpdateDataArkGroup = 204;
+    Command_AddDataArk = 205;
+    Command_RemoveDataArk = 206;
+    Command_UpdateDataArk = 207;
+    Command_MigrateDataArk = 208;
+    Command_AddDisasterDataArk = 209;
+    Command_RemoveDisasterDataArk = 210;
+    Command_GetClients = 211;
+    Command_AddClient = 212;
+    Command_AddVcenter = 213;
+    Command_AddVmwareVirtualMachine = 214;
+    Command_RemoveClient = 215;
+    Command_RemoveVcenter = 216;
+    Command_RemoveVmwareVirtualMachine = 217;
+    Command_UpdateDataArkGroup_CloudManager = 218;  // 仅用于记录操作日志，不作为接口指令
+    Command_CreateDataArkGroup_DataCenter = 219;  // 仅用于记录操作日志，不作为接口指令
+    Command_DeleteDataArkGroup_DataCenter = 220;  // 仅用于记录操作日志，不作为接口指令
+    Command_UpdateDataArkGroup_DataCenter = 221;  // 仅用于记录操作日志，不作为接口指令
+    Command_CreateDataArkGroup_ResourcePool = 222;  // 仅用于记录操作日志，不作为接口指令
+    Command_DeleteDataArkGroup_ResourcePool = 223;  // 仅用于记录操作日志，不作为接口指令
+    Command_UpdateDataArkGroup_ResourcePool = 224;  // 仅用于记录操作日志，不作为接口指令
+    Command_AddDiskBackup = 225;
+    Command_UpdateDiskBackup = 226;
+    Command_RemoveDiskBackup = 227;
+    Command_GetDisasterClients = 228;
+    Command_AddDisasterDiskBackup = 229;
+    Command_UpdateDisasterDiskBackup = 230;
+    Command_RemoveDisasterDiskBackup = 231;
+    Command_AddDiskBackupStraight = 232;
+    Command_GetDisasterDataArks = 233;
+    Command_GetUserResourceForTransfer = 234;
+    Command_TransferUserResource = 235;
+    Command_AddDisasterRac = 236;
+    Command_RemoveDisasterRac = 237;
+    Command_AddVcenterExt = 238;
+    Command_AddDisasterDataArkExt = 239;
+    Command_CreateClientGroup = 240;
+    Command_UpdateClientGroup = 241;
+    Command_DeleteClientGroup = 242;
+    Command_MigrateClient = 243;
+    Command_UpdateClientHostType = 244;
+    Command_AddRds = 245;
+    Command_AddRdsExt = 246;
+    Command_RemoveRds = 247;
+    Command_AddRdsInstance = 248;
+    Command_RemoveRdsInstance = 249;
+    Command_AddDisasterRdsInstance = 250;
+    Command_RemoveDisasterRdsInstance = 251;
+    Command_UpdateAkskForRds = 252;
+    Command_UpdateDownloadScheduleForRdsInstance = 253;  // 仅用于记录操作日志，不作为接口指令
+
+    /* data ark management end */
+
+    /* user management begin*/
+
+    Command_GetUsers = 300;
+    Command_CreateUserGroup = 301;
+    Command_DeleteUserGroup = 302;
+    Command_UpdateUserGroup = 303;
+    Command_MigrateUserGroup = 304;
+    Command_CreateUser = 305;
+    Command_DeleteUser = 306;
+    Command_UpdateUserPassword = 307;
+    Command_ResetUserPassword = 308;
+    Command_UpdateUser = 309;
+    Command_GetUserQuota = 310;
+    Command_UpdateUserQuota = 311;
+    // 312 废弃
+    Command_MigrateUser = 313;
+    // 314 占用
+    // 315 占用
+
+    /* user management end */
+
+    /* log begin */
+
+    Command_GetAlarmLogs = 400;
+    Command_UpdateAlarmLogProcessed = 401;
+    Command_DeleteAlarmLog = 402;
+    Command_GetOperationLogs = 403;
+    Command_UpdateAlarmLogProcessed_Processed = 404;  // 标记已处理，仅用于记录操作日志，不作为接口指令
+    Command_UpdateAlarmLogProcessed_Unprocessed = 405;  // 标记未处理，仅用于记录操作日志，不作为接口指令
+    Command_InsertOperationLog = 406;
+
+    /* log end */
+
+    /* system begin */
+
+    Command_GetEmailAlarm = 500;
+    Command_UpdateEmailAlarm = 501;
+    Command_CreateEmailAlarm = 502;
+    Command_DeleteEmailAlarm = 503;
+    Command_VerifyEmailAlarm = 504;
+    Command_GetSnmp = 505;
+    Command_UpdateSnmp = 506;
+    Command_GetCloudServiceEndpoint = 507;
+    Command_UpdateRdsEndpoint = 508;
+    Command_UpdateOssEndpoint = 509;
+
+    /* system end */
+
+    /* other begin */
+
+    Command_ManageDataArk = 600;  // 管理数据方舟，仅用于记录操作日志，不作为接口指令
+    Command_ExportDataArkLog = 601;  // 导出数据方舟日志，即导出 streamer server 上的日志，仅用于记录操作日志，不作为接口指令
+    Command_CommitTransaction = 602;
+    Command_RollbackTransaction = 603;
+    Command_ProcessTransactionGroup = 604;
+
+    /* other end */
+}
+
+enum ErrorCode {
+    ErrorCode_Success = 0;
+    ErrorCode_Failed = 1;
+
+    ErrorCode_ConnectFailed = 10;  // 连接失败
+    ErrorCode_SendFailed = 11;  // 发送失败
+    ErrorCode_ReceiveFailed = 12;  // 接收失败
+    ErrorCode_UnrecognizedOperation = 13;  // 未识别的操作
+    ErrorCode_EnqueueCommandFailed = 14;  // 添加命令到队列失败
+    ErrorCode_DequeueCommandFailed = 15;  // 从队里移除命令失败
+    ErrorCode_NetworkException = 16;  // 网络异常
+    ErrorCode_UnsupportedOperation = 17;  // 未支持的操作
+    ErrorCode_InvalidOperation = 18;  // 无效的操作
+
+    ErrorCode_ParameterError = 20;  // 参数错误
+    ErrorCode_SerializeFailed = 21;  // 序列化失败，格式不对
+    ErrorCode_DeserializeFailed = 22;  // 反序列化失败，格式不对
+    ErrorCode_PermissionDenied = 23;  // 没有权限
+    ErrorCode_ConnectDatabaseFailed = 24;  // 连接数据库失败
+    ErrorCode_OperateDatabaseFailed = 25;  // 执行数据库命令失败
+    ErrorCode_OperationNotStart = 26;  // 操作未开始（用于一个请求同时执行多个操作）
+    ErrorCode_OperationUndid = 27;  // 操作被撤销（用于一个请求同时执行多个操作，其中一个操作失败导致之前成功的操作全部被撤销）
+    ErrorCode_TransactionNonexistent = 28;  // 不存在事务
+    ErrorCode_TransactionExistent = 29;  // 存在事务
+    ErrorCode_OperationAborted = 30;  // 操作被终止
+    ErrorCode_PerformingOperation = 31;  // 正在执行操作
+    ErrorCode_TargetUserLockOccupied = 32;  // 表示当前操作的目标用户是临界资源，已经被其他操作占用，需要重新发送请求
+
+    ErrorCode_DataArkGroupCloudManagerNonexistent = 1000;  // 数据方舟组管理平台不存在
+
+    ErrorCode_DataArkGroupDataCenterExistent = 1010;  // 数据方舟组数据中心已存在
+    ErrorCode_DataArkGroupDataCenterNonexistent = 1011;  // 数据方舟组数据中心不存在
+    ErrorCode_DataArkGroupDataCenterSameName = 1012;  // 数据方舟组数据中心重名
+
+    ErrorCode_DataArkGroupResourcePoolExistent = 1020;  // 数据方舟组资源池已存在
+    ErrorCode_DataArkGroupResourcePoolNonexistent = 1021;  // 数据方舟组资源池不存在
+    ErrorCode_DataArkGroupResourcePoolSameName = 1022;  // 数据方舟组资源池重名
+
+    ErrorCode_DataArkExistent = 1030;  // 数据方舟已存在
+    ErrorCode_DataArkNonexistent = 1031;  // 数据方舟不存在
+    ErrorCode_DataArkSameName = 1032;  // 数据方舟重名
+
+    ErrorCode_UserGroupExistent = 1040;  // 用户组已存在
+    ErrorCode_UserGroupNonexistent = 1041;  // 用户组不存在
+    ErrorCode_UserGroupSameName = 1042;  // 用户组重名
+    ErrorCode_TargetUserGroupNonexistent = 1043;  // 目标用户组不存在
+
+    ErrorCode_UserExistent = 1050;  // 在用户已存
+    ErrorCode_UserNonexistent = 1051;  // 用户不存在
+    ErrorCode_UserSameID = 1052;  // 用户重 ID
+    ErrorCode_UserSameDisplayName = 1053;  // 用户重显示名
+    ErrorCode_UserPasswordUnmatch = 1054;  // 用户密码不匹配
+    ErrorCode_UserNewPasswordSameToOld = 1055;  // 用户新密码和旧密码一致
+
+    ErrorCode_UserOnline = 1060;  // 用户在线（用于限制对在线用户执行操作的场景）
+    ErrorCode_UserAlreadyLogged = 1061;  // 用户已经登录（用于不能重复登录）
+    ErrorCode_UserLongTimeNoInteraction = 1062;  // 用户长时间未操作
+    ErrorCode_UserLoginElsewhere = 1063;  // 用户在其他地方登录
+
+    ErrorCode_QuotaExistent = 1070;  // 用户存在配额（导致删除用户失败等）
+    ErrorCode_QuotaNonexistent = 1071;  // 不存在配额（导致添加客户端失败等）
+    ErrorCode_QuotaNotEnough = 1072;  // 配额不够（导致添加客户端失败等）
+    ErrorCode_ProductionDataArkExistent = 1073;  // 存在生产数据方舟（导致删除数据方舟失败等）
+    ErrorCode_ProductionDataArkNonexistent = 1074;  // 不存在生产数据方舟（导致添加容灾数据方舟失败等）
+    ErrorCode_DisasterDataArkExistent = 1075;  // 存在容灾数据方舟（导致删除数据方舟失败，重复添加容灾数据方舟等）
+    ErrorCode_DisasterDataArkNonexistent = 1076;  // 不存在容灾数据方舟（导致添加容灾数据方舟失败等）
+    ErrorCode_ClientExistent = 1077;  // 存在客户端
+    ErrorCode_ClientNonexistent = 1078;  // 不存在客户端
+    ErrorCode_VcenterExistent = 1079;  // 存在 vCenter
+    ErrorCode_VcenterNonexistent = 1080;  // 不存在 vCenter
+    ErrorCode_VmwareVirtualMachineExistent = 1081;  // 存在 vmware virtual machine
+    ErrorCode_VmwareVirtualMachineNonexistent = 1082;  // 不存在 vmware virtual machine
+    ErrorCode_DiskBackupExistent = 1083;  // 存在磁盘备份
+    ErrorCode_DiskBackupNonexistent = 1084; // 不存在磁盘备份
+    ErrorCode_EmailAlarmExistent = 1085;  // 存在邮件报警设置
+    ErrorCode_EmailAlarmNonexistent = 1086;  // 不存在邮件报警设置
+    ErrorCode_DisasterDiskBackupExistent = 1087;  // 存在容灾磁盘备份，即存在容灾关系
+    ErrorCode_DisasterDiskBackupNonexistent = 1088;  // 不存在容灾磁盘备份，即不存在容灾关系
+    ErrorCode_DisasterRacExistent = 1089;  // 存在容灾 RAC，即存在容灾关系
+    ErrorCode_DisasterRacNonexistent = 1090;  // 不存在容灾 RAC，即不存在容灾关系
+    ErrorCode_DisasterRdsInstanceExistent = 1091;  // 存在容灾 RDS 实例，即存在容灾关系
+    ErrorCode_DisasterRdsInstanceNonexistent = 1092;  // 不存在容灾 RDS 实例，即存在容灾关系
+    ErrorCode_RdsExistent = 1093;  // 存在 RDS
+    ErrorCode_RdsNonexistent = 1094;  // 不存在 RDS
+    ErrorCode_RdsInstanceExistent = 1095;  // 存在 RDS 实例
+    ErrorCode_RdsInstanceNonexistent = 1096;  // 不存在 RDS 实例
+
+    ErrorCode_RequestToAlarmServiceFailed = 1100;  // 发送请求给邮件报警服务失败
+
+    ErrorCode_ClientGroupExistent = 1110;  // 已存在客户端组
+    ErrorCode_ClientGroupNonexistent = 1111;  // 不存在客户端组
+    ErrorCode_ClientGroupSameName = 1112;  // 客户端组重名
+
+    /* login begin */
+
+    ErrorCode_GetPublicKeyFailed = 10000;
+    ErrorCode_LoginCloudManagerFailed = 10001;
+    ErrorCode_SendDekFailed = 10002;
+    ErrorCode_LogoutCloudManagerFailed = 10003;
+    ErrorCode_VerifyUserFailed = 10004;
+    ErrorCode_ForceLoginCloudManagerFailed = 10006;
+
+    /* login end */
+
+    /* overview begin */
+
+    ErrorCode_GetOverviewFailed = 10100;
+    ErrorCode_GetDataArkReportFailed = 10101;
+    ErrorCode_GetUserReportFailed = 10102;
+    ErrorCode_GetBackupReportFailed = 10103;
+    ErrorCode_GetOverviewDataArksFailed = 10107;
+    ErrorCode_GetOverviewClientsFailed = 10108;
+    ErrorCode_GetOverviewVmwareVirtualMachinesFailed = 10109;
+    ErrorCode_GetOverviewCloudHostFailed = 10110;
+
+    /* overview end */
+
+    /* data ark management begin */
+
+    ErrorCode_GetDataArksFailed = 10200;
+    ErrorCode_GetDataArkResourceFailed = 10201;
+    // 10202~10204 废弃
+    ErrorCode_AddDataArkFailed = 10205;
+    ErrorCode_RemoveDataArkFailed = 10206;
+    ErrorCode_UpdateDataArkFailed = 10207;
+    ErrorCode_MigrateDataArkFailed = 10208;
+    ErrorCode_AddDisasterDataArkFailed = 10209;
+    ErrorCode_RemoveDisasterDataArkFailed = 10210;
+    ErrorCode_GetClientsFailed = 10211;
+    ErrorCode_AddClientFailed = 10212;
+    ErrorCode_AddVcenterFailed = 10213;
+    ErrorCode_AddVmwareVirtualMachineFailed = 10214;
+    ErrorCode_RemoveClientFailed = 10215;
+    ErrorCode_RemoveVcenterFailed = 10216;
+    ErrorCode_RemoveVmwareVirtualMachineFailed = 10217;
+    ErrorCode_CreateDataArkGroupDataCenterFailed = 10218;
+    ErrorCode_CreateDataArkGroupResourcePoolFailed = 10219;
+    ErrorCode_DeleteDataArkGroupDataCenterFailed = 10220;
+    ErrorCode_DeleteDataArkGroupResourcePoolFailed = 10221;
+    ErrorCode_UpdateDataArkGroupCloudManagerFailed = 10222;
+    ErrorCode_UpdateDataArkGroupDataCenterFailed = 10223;
+    ErrorCode_UpdateDataArkGroupResourcePoolFailed = 10224;
+    ErrorCode_AddDiskBackupFailed = 10225;
+    ErrorCode_UpdateDiskBackupFailed = 10226;
+    ErrorCode_RemoveDiskBackupFailed = 10227;
+    ErrorCode_GetDisasterClientsFailed = 10228;
+    ErrorCode_AddDisasterDiskBackupFailed = 10229;
+    ErrorCode_UpdateDisasterDiskBackupFailed = 10230;
+    ErrorCode_RemoveDisasterDiskBackupFailed = 10231;
+    ErrorCode_AddDiskBackupStraightFailed = 10232;
+    ErrorCode_GetDisasterDataArksFailed = 10233;
+    ErrorCode_GetUserResourceForTransferFailed = 10234;
+    ErrorCode_TransferUserResourceFailed = 10235;
+    ErrorCode_AddDisasterRacFailed = 10236;
+    ErrorCode_RemoveDisasterRacFailed = 10237;
+    ErrorCode_AddVcenterExtFailed = 10238;
+    ErrorCode_AddDisasterDataArkExtFailed = 10239;
+    ErrorCode_CreateClientGroupFailed = 10240;
+    ErrorCode_UpdateClientGroupFailed = 10241;
+    ErrorCode_DeleteClientGroupFailed = 10242;
+    ErrorCode_MigrateClientFailed = 10243;
+    ErrorCode_UpdateClientHostTypeFailed = 10244;
+    ErrorCode_AddRdsFailed = 10245;
+    ErrorCode_AddRdsExtFailed = 10246;
+    ErrorCode_RemoveRdsFailed = 10247;
+    ErrorCode_AddRdsInstanceFailed = 10248;
+    ErrorCode_RemoveRdsInstanceFailed = 10249;
+    ErrorCode_AddDisasterRdsInstanceFailed = 10250;
+    ErrorCode_RemoveDisasterRdsInstanceFailed = 10251;
+    ErrorCode_UpdateAkskForRdsFailed = 10252;
+
+    /* data ark management end */
+
+    /* user management begin*/
+
+    ErrorCode_GetUsersFailed = 10300;
+    ErrorCode_CreateUserGroupFailed = 10301;
+    ErrorCode_DeleteUserGroupFailed = 10302;
+    ErrorCode_UpdateUserGroupFailed = 10303;
+    ErrorCode_MigrateUserGroupFailed = 10304;
+    ErrorCode_CreateUserFailed = 10305;
+    ErrorCode_DeleteUserFailed = 10306;
+    ErrorCode_UpdateUserPasswordFailed = 10307;
+    ErrorCode_ResetUserPasswordFailed = 10308;
+    ErrorCode_UpdateUserFailed = 10309;
+    ErrorCode_GetUserQuotaFailed = 10310;
+    ErrorCode_UpdateUserQuotaFailed = 10311;
+    // 10312 废弃
+    ErrorCode_MigrateUserFailed = 10313;
+    ErrorCode_CreateUserQuotaFailed = 10314;
+    ErrorCode_DeleteUserQuotaFailed = 10315;
+
+    /* user management end */
+
+    /* log begin */
+
+    ErrorCode_GetAlarmLogsFailed = 10400;
+    // 10401 废弃
+    ErrorCode_DeleteAlarmLogFailed = 10402;
+    ErrorCode_GetOperationLogsFailed = 10403;
+    ErrorCode_UpdateAlarmLogProcessed_ProcessedFailed = 10404;
+    ErrorCode_UpdateAlarmLogProcessed_UnprocessedFailed = 10405;
+
+    /* log end */
+
+    /* system begin */
+
+    ErrorCode_GetEmailAlarmFailed = 10500;
+    ErrorCode_UpdateEmailAlarmFailed = 10501;
+    ErrorCode_CreateEmailAlarmFailed = 10502;  // 报警模块用
+    ErrorCode_DeleteEmailAlarmFailed = 10503;  // 报警模块用
+    ErrorCode_VerifyEmailAlarmFailed = 10504;
+    ErrorCode_GetSnmpFailed = 10505;
+    ErrorCode_UpdateSnmpFailed = 10506;
+    ErrorCode_GetCloudServiceEndpointFailed = 10507;
+    ErrorCode_UpdateRdsEndpointFailed = 10508;
+    ErrorCode_UpdateOssEndpointFailed = 10509;
+
+    /* system end */
+}
+
+enum Exception {
+    Exception_Normal = 0;                       // 正常
+    Exception_ClientLocalLost = 1;              // 备份异常—本地丢失
+    Exception_ClientTargetLost = 2;             // 备份异常—目标丢失
+    Exception_VmwareCreateSnapshotFailed = 3;   // VMware虚拟机任务计划快照点创建失败
+    Exception_VmwareCbtDrop = 4;                // CBT 异常
+    Exception_ClientOffline = 5;                // 普通客户端离线
+    Exception_VcenterOffline = 6;               // vCenter 离线
+    Exception_ClusterNodeExistOffline = 7;      // 集群节点部分离线
+    Exception_ClusterNodeAllOffline = 8;        // 集群节点全部离线
+    Exception_StreamerPoolDisabled = 9;         // 存储池异常
+    Exception_StreamerOffline = 10;             // Streamer 服务器离线
+    Exception_ClientAutoExpandFailed = 11;      // 自动扩容失败
+    Exception_ClientSnapshotMergeFailed = 12;   // 快照合并失败
+    Exception_OracleStorageDrop = 13;           // Oracle 备份空间异常
+    Exception_DisasterReplicationFailed = 14;   // 容灾复制失败
+    Exception_RacNodeExistOffline = 15;         // RAC节点存在离线
+    Exception_RacNodeAllOffline = 16;           // RAC节点全部离线
+    Exception_RacInstanceExistOffline = 17;     // RAC实例离线
+    Exception_RacInstanceAllOffline = 18;       // RAC实例全部离线
+    Exception_VmwareVirtualMachineOffline = 19;  // Vmware 虚拟机离线
+    Exception_ClientCreateSnapshotFailed = 20;  // 普通客户端创建快照点失败
+    Exception_RacCreateSnapshotFailed = 21;     // Rac 客户端创建快照点失败
+    Exception_DisasterServerOffline = 22;       // 容灾服务离线
+    Exception_StreamerPoolExceededThreshold = 23;  // 存储池超过阈值
+    Exception_AixDiskOffline = 24;              // 映射给 AIX 的磁盘离线
+    Exception_VmwareInitMirrorFailed = 25;      // VMware 同步数据失败
+    Exception_VmwareSnapshotSizeIsZero = 26;    // 在线虚拟机创建快照点数据异常
+    Exception_FileSingleCreateSnapshotFailed = 27;  // 文件级备份客户端任务计划创建快照点失败
+    Exception_FileSingleOffline = 28;  // 文件级备份客户端离线
+    Exception_FileSingleLocalLost = 29;  // 文件级备份客户端异常-本地丢失
+    Exception_FileSingleTargetLost = 30;  // 文件级备份客户端异常-目标丢失
+    Exception_RdsInstanceBackupPointDownloadFailed = 31;  // RDS 实例备份点下载失败
+    Exception_RdsInstanceOffline = 32;  // RDS 实例离线
+    Exception_RdsStorageDrop = 33;  // RDS 备份空间异常
+    Exception_RdsAkskChanged = 34;  // RDS AK/SK变更
+    Exception_RdsClientOffline = 35;  // RDS客户端离线
+    Exception_RdsBackupServiceOffline = 36;  // RDS备份模块服务异常
+}
+
+enum ClientType {
+    ClientType_Single = 0;
+    ClientType_VmwareVirtualMachine = 1;
+    ClientType_Mscs = 2;
+    ClientType_Rac = 3;
+    ClientType_Vcenter = 4;
+    ClientType_AIX = 5;
+    ClientType_FileSingle = 11;
+    ClientType_Rds = 12;
+    ClientType_RdsInstance = 13;
+}
+
+/* 客户端主机属性，用于区别安装在 ecs 上还是普通主机上 */
+enum ClientHostType {
+    ClientHostType_Normal = 0;
+    ClientHostType_Ecs = 1;
+}
+
+enum DataArkGroupType {
+    DataArkGroupType_CloudManager = 0;  // 管理平台
+    DataArkGroupType_DataCenter = 1;  // 数据中心
+    DataArkGroupType_ResourcePool = 2;  // 资源池
+}
+
+enum UserPrivilegeLevel {
+    UserPrivilegeLevel_Root = 0;
+    UserPrivilegeLevel_Admin = 1;
+    UserPrivilegeLevel_User = 2;
+    UserPrivilegeLevel_Auditor = 3;  // 审计员
+}
+
+enum SnmpVersion {
+    SnmpVersion_V1 = 0;
+    SnmpVersion_V2c = 1;
+    SnmpVersion_V3 = 2;
+}
+
+enum SnmpAuthenticationProtocol {
+    SnmpAuthenticationProtocol_HMAC_MD5 = 0;
+    SnmpAuthenticationProtocol_SHA = 1;
+}
+
+enum SnmpPrivacyProtocol {
+    SnmpPrivacyProtocol_DES = 0;
+    SnmpPrivacyProtocol_3DES = 1;
+    SnmpPrivacyProtocol_AES128 = 2;
+    SnmpPrivacyProtocol_AES192 = 3;
+    SnmpPrivacyProtocol_AES256 = 4;
+}
+
+enum Version {
+    option allow_alias = true;
+    Version_Value = 3;
+}
+
+/* enum end */
+
+/* message begin */
+
+/* message end */
+
+/* common end */
+
+/* enum begin */
+
+/* enum end */
+
+/* message begin */
+/* data ark management begin */
+
+/* Command_AddDataArk */
+message AddDataArkRequest {
+    required string id = 1;  // data ark id
+}
+
+/* Command_RemoveDataArk */
+message RemoveDataArkRequest {
+    required string id = 1;  // data ark id
+}
+
+/* Command_UpdateDataArk */
+message UpdateDataArkRequest {
+    required string id = 1;  // data ark id
+}
+
+/* data ark management end */
+
+/* system begin */
+
+/* Command_UpdateEmailAlarm */
+message UpdateEmailAlarmRequest {
+    required string user_id = 1;  // 所属用户 ID
+}
+
+/* Command_CreateEmailAlarm */
+message CreateEmailAlarmRequest {
+    required string user_id = 1;  // 所属用户 ID
+}
+
+/* Command_DeleteEmailAlarm */
+message DeleteEmailAlarmRequest {
+    required string user_id = 1;  // 所属用户 ID
+}
+
+/* Command_VerifyEmailAlarm */
+message VerifyEmailAlarmRequest {
+    required string sender_email = 1;
+    required string smtp_address = 2;
+    required uint32 smtp_port = 3;
+    required bool is_ssl_encrypt_enabled = 4;
+    required bool is_smtp_authentication = 5;
+    required string smtp_user_id = 6;
+    required string smtp_password = 7;
+    repeated string receiver_emails = 8;
+}
+
+/* system end */
+/* message end */

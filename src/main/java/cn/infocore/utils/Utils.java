@@ -20,6 +20,9 @@ public class Utils {
 			case 17:
 			case 18:
 			case 19:
+			case 32:
+			case 36:
+			
 				ret = "故障";
 				break;
 			case 1:
@@ -33,6 +36,11 @@ public class Utils {
 			case 20:
 			case 21:
 			case 22:
+			case 31:
+			case 33:
+			case 34:
+			case 35:
+				
 				ret = "警告";
 				break;
 			case 23:
@@ -133,6 +141,24 @@ public class Utils {
 			break;
 		case 26:
 			ret="在线虚拟机创建快照点数据异常";
+			break;
+		case 31:
+			ret="RDS实例备份点下载失败";
+			break;
+		case 32:
+			ret="RDS实例离线";
+			break;
+		case 33:
+			ret="RDS备份空间异常";
+			break;
+		case 34:
+			ret="云平台ak/sk变更";
+			break;
+		case 35:
+			ret="RDS客户端离线";
+			break;
+		case 36:
+			ret="RDS备份模块服务异常";
 			break;
 		default:
 			ret = "未知异常";

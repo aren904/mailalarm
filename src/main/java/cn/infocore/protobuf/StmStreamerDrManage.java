@@ -378,7 +378,7 @@ public final class StmStreamerDrManage {
      * <code>FILE_SINGLE_CREATE_TARGET_FAILED = 27;</code>
      *
      * <pre>
-     * 文件大力客户端任务计划创建快照点失败
+     * 文件级备份客户端任务计划创建快照点失败
      * </pre>
      */
     FILE_SINGLE_CREATE_TARGET_FAILED(27, 27),
@@ -386,7 +386,7 @@ public final class StmStreamerDrManage {
      * <code>FILE_SINGLE_OFFLINE = 28;</code>
      *
      * <pre>
-     * 文件代理客户端离线
+     * 文件级备份客户端离线
      * </pre>
      */
     FILE_SINGLE_OFFLINE(28, 28),
@@ -394,7 +394,7 @@ public final class StmStreamerDrManage {
      * <code>FILE_SINGLE_LOCAL_LOST = 29;</code>
      *
      * <pre>
-     * 文件袋里客户端本地丢失
+     * 文件级备份客户端本地丢失
      * </pre>
      */
     FILE_SINGLE_LOCAL_LOST(29, 29),
@@ -402,7 +402,7 @@ public final class StmStreamerDrManage {
      * <code>FILE_SINGLE_TARGET_LOST = 30;</code>
      *
      * <pre>
-     * 文件袋里客户端目标丢失
+     * 文件级备份客户端目标丢失
      * </pre>
      */
     FILE_SINGLE_TARGET_LOST(30, 30),
@@ -430,6 +430,30 @@ public final class StmStreamerDrManage {
      * </pre>
      */
     RDS_STORAGE_DROP(33, 33),
+    /**
+     * <code>RDS_AKSK_CHANGED = 34;</code>
+     *
+     * <pre>
+     * ak/sk变更
+     * </pre>
+     */
+    RDS_AKSK_CHANGED(34, 34),
+    /**
+     * <code>RDS_CLIENT_OFFLINE = 35;</code>
+     *
+     * <pre>
+     * rds客户端离线
+     * </pre>
+     */
+    RDS_CLIENT_OFFLINE(35, 35),
+    /**
+     * <code>RDS_BACKUP_SERVICE_OFFLINE = 36;</code>
+     *
+     * <pre>
+     * rds备份模块服务异常
+     * </pre>
+     */
+    RDS_BACKUP_SERVICE_OFFLINE(36, 36),
     ;
 
     /**
@@ -648,7 +672,7 @@ public final class StmStreamerDrManage {
      * <code>FILE_SINGLE_CREATE_TARGET_FAILED = 27;</code>
      *
      * <pre>
-     * 文件大力客户端任务计划创建快照点失败
+     * 文件级备份客户端任务计划创建快照点失败
      * </pre>
      */
     public static final int FILE_SINGLE_CREATE_TARGET_FAILED_VALUE = 27;
@@ -656,7 +680,7 @@ public final class StmStreamerDrManage {
      * <code>FILE_SINGLE_OFFLINE = 28;</code>
      *
      * <pre>
-     * 文件代理客户端离线
+     * 文件级备份客户端离线
      * </pre>
      */
     public static final int FILE_SINGLE_OFFLINE_VALUE = 28;
@@ -664,7 +688,7 @@ public final class StmStreamerDrManage {
      * <code>FILE_SINGLE_LOCAL_LOST = 29;</code>
      *
      * <pre>
-     * 文件袋里客户端本地丢失
+     * 文件级备份客户端本地丢失
      * </pre>
      */
     public static final int FILE_SINGLE_LOCAL_LOST_VALUE = 29;
@@ -672,7 +696,7 @@ public final class StmStreamerDrManage {
      * <code>FILE_SINGLE_TARGET_LOST = 30;</code>
      *
      * <pre>
-     * 文件袋里客户端目标丢失
+     * 文件级备份客户端目标丢失
      * </pre>
      */
     public static final int FILE_SINGLE_TARGET_LOST_VALUE = 30;
@@ -700,6 +724,30 @@ public final class StmStreamerDrManage {
      * </pre>
      */
     public static final int RDS_STORAGE_DROP_VALUE = 33;
+    /**
+     * <code>RDS_AKSK_CHANGED = 34;</code>
+     *
+     * <pre>
+     * ak/sk变更
+     * </pre>
+     */
+    public static final int RDS_AKSK_CHANGED_VALUE = 34;
+    /**
+     * <code>RDS_CLIENT_OFFLINE = 35;</code>
+     *
+     * <pre>
+     * rds客户端离线
+     * </pre>
+     */
+    public static final int RDS_CLIENT_OFFLINE_VALUE = 35;
+    /**
+     * <code>RDS_BACKUP_SERVICE_OFFLINE = 36;</code>
+     *
+     * <pre>
+     * rds备份模块服务异常
+     * </pre>
+     */
+    public static final int RDS_BACKUP_SERVICE_OFFLINE_VALUE = 36;
 
 
     public final int getNumber() { return value; }
@@ -740,6 +788,9 @@ public final class StmStreamerDrManage {
         case 31: return RDS_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED;
         case 32: return RDS_INSTANCE_OFFLINE;
         case 33: return RDS_STORAGE_DROP;
+        case 34: return RDS_AKSK_CHANGED;
+        case 35: return RDS_CLIENT_OFFLINE;
+        case 36: return RDS_BACKUP_SERVICE_OFFLINE;
         default: return null;
       }
     }
@@ -871,6 +922,15 @@ public final class StmStreamerDrManage {
      * <code>required uint64 max_clients = 7;</code>
      */
     long getMaxClients();
+
+    /**
+     * <code>required uint64 rds_vol = 8;</code>
+     */
+    boolean hasRdsVol();
+    /**
+     * <code>required uint64 rds_vol = 8;</code>
+     */
+    long getRdsVol();
   }
   /**
    * Protobuf type {@code Streamer}
@@ -991,6 +1051,11 @@ public final class StmStreamerDrManage {
             case 56: {
               bitField0_ |= 0x00000020;
               maxClients_ = input.readUInt64();
+              break;
+            }
+            case 64: {
+              bitField0_ |= 0x00000040;
+              rdsVol_ = input.readUInt64();
               break;
             }
           }
@@ -1201,6 +1266,21 @@ public final class StmStreamerDrManage {
       return maxClients_;
     }
 
+    public static final int RDS_VOL_FIELD_NUMBER = 8;
+    private long rdsVol_;
+    /**
+     * <code>required uint64 rds_vol = 8;</code>
+     */
+    public boolean hasRdsVol() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>required uint64 rds_vol = 8;</code>
+     */
+    public long getRdsVol() {
+      return rdsVol_;
+    }
+
     private void initFields() {
       ip_ = "";
       name_ = "";
@@ -1209,6 +1289,7 @@ public final class StmStreamerDrManage {
       streamerState_ = java.util.Collections.emptyList();
       oracleVol_ = 0L;
       maxClients_ = 0L;
+      rdsVol_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1240,6 +1321,10 @@ public final class StmStreamerDrManage {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasRdsVol()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -1267,6 +1352,9 @@ public final class StmStreamerDrManage {
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         output.writeUInt64(7, maxClients_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeUInt64(8, rdsVol_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1309,6 +1397,10 @@ public final class StmStreamerDrManage {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(7, maxClients_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(8, rdsVol_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1445,6 +1537,8 @@ public final class StmStreamerDrManage {
         bitField0_ = (bitField0_ & ~0x00000020);
         maxClients_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000040);
+        rdsVol_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
 
@@ -1502,6 +1596,10 @@ public final class StmStreamerDrManage {
           to_bitField0_ |= 0x00000020;
         }
         result.maxClients_ = maxClients_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.rdsVol_ = rdsVol_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1550,6 +1648,9 @@ public final class StmStreamerDrManage {
         if (other.hasMaxClients()) {
           setMaxClients(other.getMaxClients());
         }
+        if (other.hasRdsVol()) {
+          setRdsVol(other.getRdsVol());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -1576,6 +1677,10 @@ public final class StmStreamerDrManage {
           return false;
         }
         if (!hasMaxClients()) {
+          
+          return false;
+        }
+        if (!hasRdsVol()) {
           
           return false;
         }
@@ -1949,6 +2054,38 @@ public final class StmStreamerDrManage {
       public Builder clearMaxClients() {
         bitField0_ = (bitField0_ & ~0x00000040);
         maxClients_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long rdsVol_ ;
+      /**
+       * <code>required uint64 rds_vol = 8;</code>
+       */
+      public boolean hasRdsVol() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      /**
+       * <code>required uint64 rds_vol = 8;</code>
+       */
+      public long getRdsVol() {
+        return rdsVol_;
+      }
+      /**
+       * <code>required uint64 rds_vol = 8;</code>
+       */
+      public Builder setRdsVol(long value) {
+        bitField0_ |= 0x00000080;
+        rdsVol_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 rds_vol = 8;</code>
+       */
+      public Builder clearRdsVol() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        rdsVol_ = 0L;
         onChanged();
         return this;
       }
@@ -9899,59 +10036,61 @@ public final class StmStreamerDrManage {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\034streamer_clouddrmanage.proto\"\216\001\n\010Strea" +
+      "\n\034streamer_clouddrmanage.proto\"\237\001\n\010Strea" +
       "mer\022\n\n\002ip\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\r\n\005total\030\003" +
       " \002(\004\022\014\n\004used\030\004 \002(\004\022\"\n\016Streamer_state\030\005 \003" +
       "(\0162\n.FaultType\022\022\n\noracle_vol\030\006 \002(\004\022\023\n\013ma" +
-      "x_clients\030\007 \002(\004\"\203\001\n\006Client\022\n\n\002id\030\001 \002(\t\022\014" +
-      "\n\004name\030\002 \002(\t\022\n\n\002ip\030\003 \001(\t\022\031\n\004type\030\004 \002(\0162\013" +
-      ".ClientType\022 \n\014Client_state\030\005 \003(\0162\n.Faul" +
-      "tType\022\026\n\016System_Version\030\006 \001(\t\"\205\001\n\006Vmware" +
-      "\022\n\n\002id\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\031\n\004type\030\003 \002(\016" +
-      "2\013.ClientType\022\014\n\004path\030\004 \002(\t\022 \n\014Vmware_st",
-      "ate\030\005 \003(\0162\n.FaultType\022\026\n\016System_Version\030" +
-      "\006 \002(\005\"\216\001\n\005Vcent\022\017\n\007vc_name\030\001 \002(\t\022\017\n\007vc_u" +
-      "uid\030\002 \002(\t\022\r\n\005vc_ip\030\003 \002(\t\022\037\n\013Vcent_state\030" +
-      "\004 \003(\0162\n.FaultType\022\030\n\007clients\030\005 \003(\0132\007.Vmw" +
-      "are\022\031\n\004type\030\006 \002(\0162\013.ClientType\"d\n\017RdsIns" +
-      "tanceInfo\022\014\n\004name\030\001 \002(\t\022\014\n\004uuid\030\002 \002(\t\022\031\n" +
-      "\004type\030\003 \002(\0162\013.ClientType\022\032\n\006status\030\004 \003(\016" +
-      "2\n.FaultType\"\205\001\n\007RdsInfo\022\014\n\004name\030\001 \002(\t\022\014" +
-      "\n\004uuid\030\002 \002(\t\022\031\n\004type\030\003 \002(\0162\013.ClientType\022" +
-      "\032\n\006status\030\004 \003(\0162\n.FaultType\022\'\n\rinstance_",
-      "list\030\005 \003(\0132\020.RdsInstanceInfo\"\217\001\n\023GetServ" +
-      "erInfoReturn\022\014\n\004uuid\030\001 \002(\t\022\031\n\006server\030\002 \002" +
-      "(\0132\t.Streamer\022\030\n\007clients\030\003 \003(\0132\007.Client\022" +
-      "\026\n\006vcents\030\004 \003(\0132\006.Vcent\022\035\n\013rds_clients\030\005" +
-      " \003(\0132\010.RdsInfo*r\n\nClientType\022\n\n\006SINGLE\020\000" +
-      "\022\n\n\006VMWARE\020\001\022\010\n\004MSCS\020\002\022\007\n\003RAC\020\003\022\006\n\002VC\020\004\022" +
-      "\007\n\003AIX\020\005\022\016\n\nFileSingle\020\013\022\007\n\003Rds\020\014\022\017\n\013Rds" +
-      "Instance\020\r*\262\007\n\tFaultType\022\n\n\006NORMAL\020\000\022\025\n\021" +
-      "CLIENT_LOCAL_LOST\020\001\022\023\n\017CLIENT_DST_LOST\020\002" +
-      "\022\035\n\031VMWARE_CREATE_SNAP_FAILED\020\003\022\023\n\017VMWAR",
-      "E_CBT_DROP\020\004\022\022\n\016CLIENT_OFFLINE\020\005\022\023\n\017VCEN" +
-      "TER_OFFLINE\020\006\022\036\n\032CLUSTER_NODE_EXIST_OFFL" +
-      "INE\020\007\022\034\n\030CLUSTER_NODE_ALL_OFFLINE\020\010\022\031\n\025S" +
-      "TREAMER_POOL_DISABLE\020\t\022\024\n\020STREAMER_OFFLI" +
-      "NE\020\n\022\035\n\031CLIENT_AUTO_EXPAND_FAILED\020\013\022\034\n\030C" +
-      "LIENT_SNAP_MERGE_FAILED\020\014\022\027\n\023ORACLE_STOR" +
-      "AGE_DROP\020\r\022\022\n\016DR_COPY_FAILED\020\016\022\032\n\026RAC_NO" +
-      "DE_EXIST_OFFLINE\020\017\022\030\n\024RAC_NODE_ALL_OFFLI" +
-      "NE\020\020\022\036\n\032RAC_INSTANCE_EXIST_OFFLINE\020\021\022\034\n\030" +
-      "RAC_INSTANCE_ALL_OFFLINE\020\022\022\022\n\016VMWARE_OFF",
-      "LINE\020\023\022\035\n\031CLIENT_CREATE_SNAP_FAILED\020\024\022\032\n" +
-      "\026RAC_CREATE_SNAP_FAILED\020\025\022\025\n\021DR_SERVER_O" +
-      "FFLINE\020\026\022\035\n\031STREAMER_POOL_ALMOST_FULL\020\027\022" +
-      " \n\034STREAMER_CLIENT_DISK_OFFLINE\020\030\022\035\n\031VMW" +
-      "ARE_INIT_MIRROR_FAILED\020\031\022&\n\"VMWARE_SNAPS" +
-      "HOT_POINT_SIZE_IS_ZERO\020\032\022$\n FILE_SINGLE_" +
-      "CREATE_TARGET_FAILED\020\033\022\027\n\023FILE_SINGLE_OF" +
-      "FLINE\020\034\022\032\n\026FILE_SINGLE_LOCAL_LOST\020\035\022\033\n\027F" +
-      "ILE_SINGLE_TARGET_LOST\020\036\022-\n)RDS_INSTANCE" +
-      "_BACKUP_POINT_DOWNLOAD_FAILED\020\037\022\030\n\024RDS_I",
-      "NSTANCE_OFFLINE\020 \022\024\n\020RDS_STORAGE_DROP\020!B" +
-      "+\n\024cn.infocore.protobufB\023StmStreamerDrMa" +
-      "nage"
+      "x_clients\030\007 \002(\004\022\017\n\007rds_vol\030\010 \002(\004\"\203\001\n\006Cli" +
+      "ent\022\n\n\002id\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\n\n\002ip\030\003 \001(" +
+      "\t\022\031\n\004type\030\004 \002(\0162\013.ClientType\022 \n\014Client_s" +
+      "tate\030\005 \003(\0162\n.FaultType\022\026\n\016System_Version" +
+      "\030\006 \001(\t\"\205\001\n\006Vmware\022\n\n\002id\030\001 \002(\t\022\014\n\004name\030\002 " +
+      "\002(\t\022\031\n\004type\030\003 \002(\0162\013.ClientType\022\014\n\004path\030\004",
+      " \002(\t\022 \n\014Vmware_state\030\005 \003(\0162\n.FaultType\022\026" +
+      "\n\016System_Version\030\006 \002(\005\"\216\001\n\005Vcent\022\017\n\007vc_n" +
+      "ame\030\001 \002(\t\022\017\n\007vc_uuid\030\002 \002(\t\022\r\n\005vc_ip\030\003 \002(" +
+      "\t\022\037\n\013Vcent_state\030\004 \003(\0162\n.FaultType\022\030\n\007cl" +
+      "ients\030\005 \003(\0132\007.Vmware\022\031\n\004type\030\006 \002(\0162\013.Cli" +
+      "entType\"d\n\017RdsInstanceInfo\022\014\n\004name\030\001 \002(\t" +
+      "\022\014\n\004uuid\030\002 \002(\t\022\031\n\004type\030\003 \002(\0162\013.ClientTyp" +
+      "e\022\032\n\006status\030\004 \003(\0162\n.FaultType\"\205\001\n\007RdsInf" +
+      "o\022\014\n\004name\030\001 \002(\t\022\014\n\004uuid\030\002 \002(\t\022\031\n\004type\030\003 " +
+      "\002(\0162\013.ClientType\022\032\n\006status\030\004 \003(\0162\n.Fault",
+      "Type\022\'\n\rinstance_list\030\005 \003(\0132\020.RdsInstanc" +
+      "eInfo\"\217\001\n\023GetServerInfoReturn\022\014\n\004uuid\030\001 " +
+      "\002(\t\022\031\n\006server\030\002 \002(\0132\t.Streamer\022\030\n\007client" +
+      "s\030\003 \003(\0132\007.Client\022\026\n\006vcents\030\004 \003(\0132\006.Vcent" +
+      "\022\035\n\013rds_clients\030\005 \003(\0132\010.RdsInfo*r\n\nClien" +
+      "tType\022\n\n\006SINGLE\020\000\022\n\n\006VMWARE\020\001\022\010\n\004MSCS\020\002\022" +
+      "\007\n\003RAC\020\003\022\006\n\002VC\020\004\022\007\n\003AIX\020\005\022\016\n\nFileSingle\020" +
+      "\013\022\007\n\003Rds\020\014\022\017\n\013RdsInstance\020\r*\200\010\n\tFaultTyp" +
+      "e\022\n\n\006NORMAL\020\000\022\025\n\021CLIENT_LOCAL_LOST\020\001\022\023\n\017" +
+      "CLIENT_DST_LOST\020\002\022\035\n\031VMWARE_CREATE_SNAP_",
+      "FAILED\020\003\022\023\n\017VMWARE_CBT_DROP\020\004\022\022\n\016CLIENT_" +
+      "OFFLINE\020\005\022\023\n\017VCENTER_OFFLINE\020\006\022\036\n\032CLUSTE" +
+      "R_NODE_EXIST_OFFLINE\020\007\022\034\n\030CLUSTER_NODE_A" +
+      "LL_OFFLINE\020\010\022\031\n\025STREAMER_POOL_DISABLE\020\t\022" +
+      "\024\n\020STREAMER_OFFLINE\020\n\022\035\n\031CLIENT_AUTO_EXP" +
+      "AND_FAILED\020\013\022\034\n\030CLIENT_SNAP_MERGE_FAILED" +
+      "\020\014\022\027\n\023ORACLE_STORAGE_DROP\020\r\022\022\n\016DR_COPY_F" +
+      "AILED\020\016\022\032\n\026RAC_NODE_EXIST_OFFLINE\020\017\022\030\n\024R" +
+      "AC_NODE_ALL_OFFLINE\020\020\022\036\n\032RAC_INSTANCE_EX" +
+      "IST_OFFLINE\020\021\022\034\n\030RAC_INSTANCE_ALL_OFFLIN",
+      "E\020\022\022\022\n\016VMWARE_OFFLINE\020\023\022\035\n\031CLIENT_CREATE" +
+      "_SNAP_FAILED\020\024\022\032\n\026RAC_CREATE_SNAP_FAILED" +
+      "\020\025\022\025\n\021DR_SERVER_OFFLINE\020\026\022\035\n\031STREAMER_PO" +
+      "OL_ALMOST_FULL\020\027\022 \n\034STREAMER_CLIENT_DISK" +
+      "_OFFLINE\020\030\022\035\n\031VMWARE_INIT_MIRROR_FAILED\020" +
+      "\031\022&\n\"VMWARE_SNAPSHOT_POINT_SIZE_IS_ZERO\020" +
+      "\032\022$\n FILE_SINGLE_CREATE_TARGET_FAILED\020\033\022" +
+      "\027\n\023FILE_SINGLE_OFFLINE\020\034\022\032\n\026FILE_SINGLE_" +
+      "LOCAL_LOST\020\035\022\033\n\027FILE_SINGLE_TARGET_LOST\020" +
+      "\036\022-\n)RDS_INSTANCE_BACKUP_POINT_DOWNLOAD_",
+      "FAILED\020\037\022\030\n\024RDS_INSTANCE_OFFLINE\020 \022\024\n\020RD" +
+      "S_STORAGE_DROP\020!\022\024\n\020RDS_AKSK_CHANGED\020\"\022\026" +
+      "\n\022RDS_CLIENT_OFFLINE\020#\022\036\n\032RDS_BACKUP_SER" +
+      "VICE_OFFLINE\020$B+\n\024cn.infocore.protobufB\023" +
+      "StmStreamerDrManage"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -9970,7 +10109,7 @@ public final class StmStreamerDrManage {
     internal_static_Streamer_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Streamer_descriptor,
-        new java.lang.String[] { "Ip", "Name", "Total", "Used", "StreamerState", "OracleVol", "MaxClients", });
+        new java.lang.String[] { "Ip", "Name", "Total", "Used", "StreamerState", "OracleVol", "MaxClients", "RdsVol", });
     internal_static_Client_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_Client_fieldAccessorTable = new

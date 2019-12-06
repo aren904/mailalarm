@@ -54,7 +54,7 @@ public class Client_ {
 		return fList;
 	}
 
-	public void setfList(List<Fault> fList) {
+	public void setFaultList(List<Fault> fList) {
 		this.fList = fList;
 		StringBuilder string=new StringBuilder();
 		for (Fault fault:fList) {

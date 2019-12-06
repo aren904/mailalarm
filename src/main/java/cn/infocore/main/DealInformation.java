@@ -9,7 +9,6 @@ import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 import cn.infocore.entity.Email_alarm;
-import cn.infocore.mail.MailCenterRestry;
 import cn.infocore.mail.MailSender;
 import cn.infocore.operator.InforHeader;
 import cn.infocore.protobuf.CloudManagerAlarm.AddDataArkRequest;
@@ -19,6 +18,7 @@ import cn.infocore.protobuf.CloudManagerAlarm.RemoveDataArkRequest;
 import cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest;
 import cn.infocore.protobuf.CloudManagerAlarm.UpdateEmailAlarmRequest;
 import cn.infocore.protobuf.CloudManagerAlarm.VerifyEmailAlarmRequest;
+import cn.infocore.service.impl.MailServiceImpl;
 import cn.infocore.utils.MyDataSource;
 import cn.infocore.handler.StringHandler;
 import cn.infocore.utils.Utils;
@@ -266,7 +266,7 @@ public class DealInformation implements Runnable {
 	// 添加邮件报警配置
 	private void createEmailAlarm(CreateEmailAlarmRequest request){
 		String name = request.getUserId();
-		MailCenterRestry.getInstance().addMailService(name);
+		MailServiceImpl.getInstance().addMailService(name);
 		logger.info("Add email alarm user successed.");
 		request.toBuilder().clear();
 		request.toBuilder().clearUserId();
@@ -275,7 +275,7 @@ public class DealInformation implements Runnable {
 	// 更新邮件报警配置,其实可以和上面同用一个接口
 	private void updateEmailAlarm(UpdateEmailAlarmRequest request){
 		String name = request.getUserId();
-		MailCenterRestry.getInstance().addMailService(name);
+		MailServiceImpl.getInstance().addMailService(name);
 		logger.info("Update email alarm user successed.");
 		request.toBuilder().clear();
 		request.toBuilder().clearUserId();

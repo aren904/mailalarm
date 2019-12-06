@@ -13,11 +13,13 @@ import org.apache.log4j.Logger;
 import cn.infocore.entity.Client_;
 import cn.infocore.entity.Data_ark;
 import cn.infocore.entity.Fault;
+import cn.infocore.entity.RDS;
+import cn.infocore.entity.RDSInstance;
 import cn.infocore.entity.Vcenter;
 import cn.infocore.entity.Virtual_machine;
 import cn.infocore.handler.DataArkHandler;
 import cn.infocore.handler.ExceptHandler;
-import cn.infocore.mail.MailCenterRestry;
+import cn.infocore.service.impl.MailServiceImpl;
 import cn.infocore.utils.MyDataSource;
 
 /**
@@ -140,7 +142,9 @@ public class ThreadScanStreamer implements Runnable {
 				List<Client_> clientList = new LinkedList<Client_>();
 				List<Vcenter> vcList = new LinkedList<Vcenter>();
 				List<Virtual_machine> vmList = new LinkedList<Virtual_machine>();
-				MailCenterRestry.getInstance().notifyCenter(data_ark, clientList, vcList, vmList, fault);
+				List<RDS> rdsList = new ArrayList<>();
+				List<RDSInstance> rdsInstanceList = new ArrayList<>();
+				MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList,rdsList,rdsInstanceList, fault);
 			} catch (Exception e1) {
 				logger.error("ThreadScanStreamer:" + e1);
 			}

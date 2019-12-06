@@ -16,6 +16,7 @@ public class Data_ark {
 	private long used_cap;
 	//Oracle备份空间
 	private long total_oracle_capacity;
+	
 	//数据方舟的异常 ; 分隔
 	private String except;
 	

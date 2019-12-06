@@ -5,7 +5,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
-
+import org.springframework.stereotype.Component;
+@Component
 public class ThreadScanPoolService   extends Thread {
 
 	volatile boolean flag = false;

@@ -1,6 +1,3 @@
-//package StmStreamerDrManage;
-syntax = "proto2";
-
 option java_package = "cn.infocore.protobuf";
 option java_outer_classname = "StmStreamerDrManage";
 
@@ -11,6 +8,9 @@ enum ClientType{
     RAC = 3;
     VC = 4;
     AIX = 5;
+    FileSingle = 11;
+    Rds = 12;
+    RdsInstance = 13;
 }
 
 //备份的错误类型
@@ -37,12 +37,21 @@ enum FaultType{
     VMWARE_OFFLINE = 19;              //虚拟机离线
     CLIENT_CREATE_SNAP_FAILED = 20;   //普通客户端创建快照点失败 
     RAC_CREATE_SNAP_FAILED = 21;      //Rac客户端创建快照点失败 
-    DR_SERVER_OFFLINE = 22;            //容灾服务离线  
+    DR_SERVER_OFFLINE = 22;            //容灾服务离线 
     STREAMER_POOL_ALMOST_FULL = 23;   //存储池已超过阈值
     STREAMER_CLIENT_DISK_OFFLINE = 24;//映射的盘离线(用于AIX客户端)
     VMWARE_INIT_MIRROR_FAILED = 25;   //vmware同步数据失败
     VMWARE_SNAPSHOT_POINT_SIZE_IS_ZERO = 26;  //在线虚拟机创建快照点数据异常
-    
+    FILE_SINGLE_CREATE_TARGET_FAILED = 27;  // 文件大力客户端任务计划创建快照点失败
+    FILE_SINGLE_OFFLINE = 28;  // 文件代理客户端离线
+    FILE_SINGLE_LOCAL_LOST = 29;  // 文件备份客户端本地丢失
+    FILE_SINGLE_TARGET_LOST = 30;  // 文件备份客户端目标丢失
+    RDS_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED = 31;  // rds实例备份点下载失败
+    RDS_INSTANCE_OFFLINE= 32;  // rds实例离线
+    RDS_STORAGE_DROP = 33;  // rds备份空间异常 
+    AKSK_HAS_CHANGED = 34;  // ak/sk变更
+    RDS_CLIENT_OFFLINE = 35;  // rds客户端离线
+    RDS_SERVER_OFFLINE = 36;  // rds备份模块服务异常
 }
 
 //服务器信息
@@ -54,6 +63,7 @@ message Streamer{
     repeated FaultType Streamer_state = 5;
     required uint64 oracle_vol = 6;
     required uint64 max_clients = 7;
+    required uint64 rds_vol = 8;
 }
 
 //有代理客户端
@@ -87,6 +97,20 @@ message Vcent{
     required ClientType type = 6;
 }
 
+message RdsInstanceInfo{
+    required string name = 1;
+    required string uuid = 2;
+    required ClientType type = 3;
+    repeated FaultType status = 4;
+}
+
+message RdsInfo{
+    required string name = 1;
+    required string uuid = 2;
+    required ClientType type = 3;
+    repeated FaultType status = 4;
+    repeated RdsInstanceInfo instance_list = 5;
+}
 
 //stm -> clouddrmanage
 message GetServerInfoReturn{
@@ -94,4 +118,5 @@ message GetServerInfoReturn{
     required Streamer server = 2;
     repeated Client  clients = 3;
     repeated Vcent vcents = 4;
+    repeated RdsInfo rds_clients = 5;
 }

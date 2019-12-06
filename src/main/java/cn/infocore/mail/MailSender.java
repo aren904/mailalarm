@@ -14,12 +14,14 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import cn.hutool.cache.CacheUtil;
 import cn.hutool.cache.impl.TimedCache;
 import cn.infocore.entity.Email_alarm;
 import cn.infocore.entity.Fault;
 import cn.infocore.utils.Utils;
+
 
 public class MailSender {
 	private static final Logger logger=Logger.getLogger(MailSender.class);
@@ -67,7 +69,7 @@ public class MailSender {
 	public Email_alarm getConfig() {
 		return this.config;
 	}
-
+	
 	// 逻辑处理
 	public void judge(Fault fault,String user) {
 		logger.info("----------Userid:"+user+",exception:"+config.getExceptions()+",fault type:"+fault.getType()+",enabled:"+config.getEnabled()+",target:"+fault.getTarget());

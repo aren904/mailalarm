@@ -1,9 +1,6 @@
 package cn.infocore.main;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -11,36 +8,46 @@ import java.util.TreeSet;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.infocore.dao.AlarmLogDAO;
 import cn.infocore.entity.Client_;
 import cn.infocore.entity.Data_ark;
 import cn.infocore.entity.Fault;
+import cn.infocore.entity.RDS;
+import cn.infocore.entity.RDSInstance;
 import cn.infocore.entity.Vcenter;
 import cn.infocore.entity.Virtual_machine;
 import cn.infocore.handler.NameHandler;
 import cn.infocore.handler.User_idHandler;
-import cn.infocore.mail.MailCenterRestry;
 import cn.infocore.protobuf.StmStreamerDrManage.Client;
 import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
+import cn.infocore.protobuf.StmStreamerDrManage.RdsInfo;
 import cn.infocore.protobuf.StmStreamerDrManage.Streamer;
 import cn.infocore.protobuf.StmStreamerDrManage.Vcent;
 import cn.infocore.protobuf.StmStreamerDrManage.Vmware;
+import cn.infocore.service.RDSService;
+import cn.infocore.service.impl.MailServiceImpl;
 import cn.infocore.utils.MyDataSource;
 
 //解析数据，拦截，触发报警，写数据库等操作
 public class InfoProcessData {
+	
+	
 
 	private static final Logger logger = Logger.getLogger(InfoProcessData.class);
 	private GetServerInfoReturn hrt;
-
+	
+	
+	RDSService rdsService;
+	
 	private List<Client_> clientList;
 	private Data_ark data_ark;
 	private List<Fault> faults;
 	private List<Virtual_machine> vmList;
 	private List<Vcenter> vcList;
-
+	
 	public InfoProcessData(GetServerInfoReturn hrt) {
 		this.hrt = hrt;
 	}
@@ -76,10 +83,22 @@ public class InfoProcessData {
 			if (vmList != null && vmList.size() > 0) {
 				updateVirtualMachine(vmList);
 			}
+			
+			
+			
+			List<RdsInfo> rdsInfoList = hrt.getRdsClientsList();
+			
+			List<RDS> rdsList =  rdsService.updateRdsInfo(data_ark,rdsInfoList);
+			List<RDSInstance> rdsInstances = rdsService.getRDSInstanceListFromSource(data_ark,rdsInfoList);
 
+			List<Fault> faultList = rdsService.getFault(data_ark,rdsInfoList);
+			logger.info("rdsfaultsize:"+faultList.size());
+			faults.addAll(faultList);
+			
+			
 			if (faults.size() > 0) {
 				Fault[] faults_array = new Fault[faults.size()];
-				MailCenterRestry.getInstance().notifyCenter(data_ark, clientList, vcList, vmList,
+				MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList,rdsList,rdsInstances,
 						faults.toArray(faults_array));
 			}
 
@@ -95,14 +114,14 @@ public class InfoProcessData {
 		}
 
 	}
-
+	
 	// 更新data_ark
 	private void updateData_ark(Data_ark data_ark) {
 		logger.info("Start update data ark in database.");
 		//// Connection conn=MyDataSource.getConnection();
 		try {
 			QueryRunner qr = MyDataSource.getQueryRunner();
-			String sql = "update data_ark set total_capacity=?,used_capacity=?,exceptions=?,total_oracle_capacity=? where id=?";
+			String sql = "update data_ark set total_capacity=?,used_capacity=?,exceptions=?,total_oracle_capacity=?,total_rds_capacity=? where id=?";
 			/*
 			 * if(data_ark.getIp()!=null&&data_ark.getIp()!=""&&data_ark.getIp().length()>0)
 			 * { Object[] param={data_ark.getTotal_cap(),data_ark.getUsed_cap(),
@@ -112,7 +131,7 @@ public class InfoProcessData {
 			 * ; qr.update(sql, param); }else{
 			 */
 			Object[] param = { data_ark.getTotal_cap(), data_ark.getUsed_cap(), data_ark.getExcept(),
-					data_ark.getTotal_oracle_capacity(), data_ark.getId() };
+					data_ark.getTotal_oracle_capacity(),data_ark.getTotal_rds_capacity(), data_ark.getId() };
 			qr.update(sql, param);
 			// }
 		} catch (SQLException e) {
@@ -145,7 +164,7 @@ public class InfoProcessData {
 		for (int i = 0; i < size; i++) {
 			Client_ c = list.get(i);
 			if (c.getIps() != null && c.getIps() != "" && c.getIps().length() > 0) {
-				param[j] = new Object[6];
+				param[j] = new Object[5];
 				//param[j][0] = c.getType();
 				param[j][0] = c.getName();
 				param[j][1] = c.getIps();
@@ -159,7 +178,7 @@ public class InfoProcessData {
 		for (int i = 0; i < size; i++) {
 			Client_ c = list.get(i);
 			if (c.getIps() == null || c.getIps() == "" || c.getIps().length() == 0) {
-				param1[k] = new Object[5];
+				param1[k] = new Object[4];
 				//param1[k][0] = c.getType();
 				param1[k][0] = c.getName();
 				param1[k][1] = c.getExcept();
@@ -391,72 +410,13 @@ public class InfoProcessData {
 	}
 
 	private void parse(GetServerInfoReturn hrt) {
-		// 把心跳过来的异常信息全部先封装起来
 		long now = System.currentTimeMillis() / 1000;
-		// 开始封装Data_ark
-		String uuid = hrt.getUuid();
-		data_ark.setId(uuid);
-		Streamer streamer = hrt.getServer();
-		data_ark.setIp(streamer.getIp());
-		data_ark.setName(getDataArkName(uuid));
-		data_ark.setTotal_cap(streamer.getTotal());
-		data_ark.setUsed_cap(streamer.getUsed());
-		data_ark.setTotal_oracle_capacity(streamer.getOracleVol());
+		this.data_ark = convertStreamerServer(hrt,now);
+		convertClient(hrt, now);
+		convertVCenter(hrt, now);
+	}
 
-		String user_id = getUserIdByDataArk(uuid);
-		List<Fault> data_ark_fault_list = new LinkedList<Fault>();
-		for (FaultType f : streamer.getStreamerStateList()) {
-			Fault mFault = new Fault();
-			mFault.setTimestamp(now);
-			mFault.setUser_id(user_id);
-			mFault.setType(f.getNumber());
-			mFault.setData_ark_id(data_ark.getId());
-			mFault.setData_ark_name(data_ark.getName());
-			mFault.setData_ark_ip(data_ark.getIp());
-			mFault.setTarget(data_ark.getName());
-			mFault.setClient_type(0);// 2019年3月11日18:04:13 朱伟添加
-			mFault.setClient_id(uuid); // add by wxx
-			data_ark_fault_list.add(mFault);
-			faults.add(mFault);
-		}
-		data_ark.setFaults(data_ark_fault_list);
-		// Data_ark封装完毕
-
-		// 开始封装有代理客户端Client
-		List<Client> cList = hrt.getClientsList();
-		if (cList != null && cList.size() > 0) {
-			for (Client client : cList) {
-				Client_ tmp = new Client_();
-				tmp.setId(client.getId());
-				tmp.setName(client.getName());
-				tmp.setIps(client.getIp());
-				//client.get
-				// add by wxx 2019/05/13
-				tmp.setSystem_Version(client.getSystemVersion());
-				String user_id1 = getUserIdByClient(client.getId());
-				List<Fault> client_fault_list = new LinkedList<Fault>();
-				for (FaultType f : client.getClientStateList()) {
-					Fault fault = new Fault();
-					fault.setTimestamp(now);
-					fault.setUser_id(user_id1);
-					fault.setType(f.getNumber());
-					fault.setData_ark_id(data_ark.getId());
-					fault.setData_ark_name(data_ark.getName());
-					fault.setData_ark_ip(data_ark.getIp());
-					fault.setTarget(client.getName());
-					fault.setClient_type(1);// 2019年3月11日18:04:13 朱伟添加
-					fault.setClient_id(client.getId());// 2019年3月11日18:04:13 朱伟添加
-					client_fault_list.add(fault);
-					faults.add(fault);
-				}
-				tmp.setfList(client_fault_list);
-				tmp.setType(client.getType().getNumber());
-				tmp.setData_ark_id(data_ark.getId());
-				clientList.add(tmp);
-			}
-		}
-		// 封装有代理客户端Client完毕
-
+	private void convertVCenter(GetServerInfoReturn hrt, long now) {
 		// 开始封装无代理客户端
 		List<Vcent> vList = hrt.getVcentsList();
 		if (vList != null && vList.size() > 0) {
@@ -496,41 +456,128 @@ public class InfoProcessData {
 					continue;
 				}
 
-				// 顺便封装虚拟机
-				List<Vmware> vmwareList = vcent.getClientsList();
-				if (vmwareList != null && vmwareList.size() > 0) {
-					for (Vmware vmware : vmwareList) {
-						Virtual_machine vm = new Virtual_machine();
-						vm.setId(vmware.getId());
-						vm.setName(vmware.getName());
-						vm.setPath(vmware.getPath());
-						// add by wxx 2019/05/13
-						vm.setSystem_Version(vmware.getSystemVersion());
-						String user_id3 = getUserIdByVM(vmware.getId(), data_ark.getId());
-						List<Fault> vmware_list_faults = new LinkedList<Fault>();
-						for (FaultType faultType : vmware.getVmwareStateList()) {
-							Fault fault = new Fault();
-							fault.setTimestamp(now);
-							fault.setUser_id(user_id3);
-							fault.setType(faultType.getNumber());
-							fault.setData_ark_id(data_ark.getId());
-							fault.setData_ark_name(data_ark.getName());
-							fault.setData_ark_ip(data_ark.getIp());
-							fault.setTarget(vmware.getName());
-							fault.setClient_type(3);
-							fault.setClient_id(vmware.getId());
-							vmware_list_faults.add(fault);
-							faults.add(fault);
-						}
-						vm.setFaults(vmware_list_faults);
-						vm.setVcenter_id(vcent.getVcUuid());
-						vm.setData_ark_id(data_ark.getId());
-						vmList.add(vm);
-					}
-				}
-				// 虚拟机封装结束
+				List<Vmware> vmwareList = convertVirtualMachine(now, vcent);
 			}
 		}
 		// 封装结束
 	}
+
+	private List<Vmware> convertVirtualMachine(long now, Vcent vcent) {
+		// 顺便封装虚拟机
+		List<Vmware> vmwareList = vcent.getClientsList();
+		if (vmwareList != null && vmwareList.size() > 0) {
+			for (Vmware vmware : vmwareList) {
+				Virtual_machine vm = new Virtual_machine();
+				vm.setId(vmware.getId());
+				vm.setName(vmware.getName());
+				vm.setPath(vmware.getPath());
+				// add by wxx 2019/05/13
+				vm.setSystem_Version(vmware.getSystemVersion());
+				String user_id3 = getUserIdByVM(vmware.getId(), data_ark.getId());
+				List<Fault> vmware_list_faults = new LinkedList<Fault>();
+				for (FaultType faultType : vmware.getVmwareStateList()) {
+					Fault fault = new Fault();
+					fault.setTimestamp(now);
+					fault.setUser_id(user_id3);
+					fault.setType(faultType.getNumber());
+					fault.setData_ark_id(data_ark.getId());
+					fault.setData_ark_name(data_ark.getName());
+					fault.setData_ark_ip(data_ark.getIp());
+					fault.setTarget(vmware.getName());
+					fault.setClient_type(3);
+					fault.setClient_id(vmware.getId());
+					vmware_list_faults.add(fault);
+					//faults.add(fault);
+				}
+				vm.setFaults(vmware_list_faults);
+				vm.setVcenter_id(vcent.getVcUuid());
+				vm.setData_ark_id(data_ark.getId());
+				vmList.add(vm);
+			}
+		}
+		// 虚拟机封装结束
+		return vmwareList;
+	}
+
+	private void convertClient(GetServerInfoReturn hrt, long now) {
+		// 开始封装有代理客户端Client
+		List<Client> cList = hrt.getClientsList();
+		if (cList != null && cList.size() > 0) {
+			for (Client client : cList) {
+				Client_ tmp = new Client_();
+				tmp.setId(client.getId());
+				tmp.setName(client.getName());
+				tmp.setIps(client.getIp());
+				//client.get
+				// add by wxx 2019/05/13
+				tmp.setSystem_Version(client.getSystemVersion());
+				String user_id1 = getUserIdByClient(client.getId());
+				List<Fault> client_fault_list = new LinkedList<Fault>();
+				for (FaultType f : client.getClientStateList()) {
+					Fault fault = new Fault();
+					fault.setTimestamp(now);
+					fault.setUser_id(user_id1);
+					fault.setType(f.getNumber());
+					fault.setData_ark_id(data_ark.getId());
+					fault.setData_ark_name(data_ark.getName());
+					fault.setData_ark_ip(data_ark.getIp());
+					fault.setTarget(client.getName());
+					fault.setClient_type(1);// 2019年3月11日18:04:13 朱伟添加
+					fault.setClient_id(client.getId());// 2019年3月11日18:04:13 朱伟添加
+					client_fault_list.add(fault);
+					faults.add(fault);
+				}
+				tmp.setFaultList(client_fault_list);
+				tmp.setType(client.getType().getNumber());
+				tmp.setData_ark_id(data_ark.getId());
+				clientList.add(tmp);
+			}
+		}
+		// 封装有代理客户端Client完毕
+	}
+
+	private Data_ark convertStreamerServer(GetServerInfoReturn hrt,long now) {
+		// 把心跳过来的异常信息全部先封装起来
+		Data_ark dataServer = new Data_ark();
+		// 开始封装Data_ark
+		String uuid = hrt.getUuid();
+		dataServer.setId(uuid);
+		Streamer streamer = hrt.getServer();
+		dataServer.setIp(streamer.getIp());
+		dataServer.setName(getDataArkName(uuid));
+		dataServer.setTotal_cap(streamer.getTotal());
+		dataServer.setUsed_cap(streamer.getUsed());
+		dataServer.setTotal_oracle_capacity(streamer.getOracleVol());
+		dataServer.setTotal_rds_capacity(streamer.getRdsVol());
+		String user_id = getUserIdByDataArk(uuid);
+		List<Fault> data_ark_fault_list = new LinkedList<Fault>();
+		for (FaultType f : streamer.getStreamerStateList()) {
+			Fault mFault = new Fault();
+			mFault.setTimestamp(now);
+			mFault.setUser_id(user_id);
+			mFault.setType(f.getNumber());
+			mFault.setData_ark_id(dataServer.getId());
+			mFault.setData_ark_name(dataServer.getName());
+			mFault.setData_ark_ip(dataServer.getIp());
+			mFault.setTarget(dataServer.getName());
+			mFault.setClient_type(0);// 2019年3月11日18:04:13 朱伟添加
+			mFault.setClient_id(uuid); // add by wxx
+			data_ark_fault_list.add(mFault);
+			faults.add(mFault);
+		}
+		dataServer.setFaults(data_ark_fault_list);
+	
+		// Data_ark封装完毕
+		return dataServer;
+	}
+
+	public RDSService getRdsService() {
+		return rdsService;
+	}
+
+	public void setRdsService(RDSService rdsService) {
+		this.rdsService = rdsService;
+	}
+	
+	
 }

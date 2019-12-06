@@ -5,17 +5,34 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import cn.infocore.operator.Header;
 import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
+import cn.infocore.service.RDSService;
 import cn.infocore.utils.Utils;
 
+@Component
 public class DealSocket implements Runnable{
 	private static final Logger logger=Logger.getLogger(DealSocket.class);
 	private Socket socket;
-
+	@Autowired
+	RDSService rdsService;
+	
 	public DealSocket(Socket socket) {
 		this.socket=socket;
+	}
+
+	public DealSocket() {
+
+	}
+	public Socket getSocket() {
+		return socket;
+	}
+
+	public void setSocket(Socket socket) {
+		this.socket = socket;
 	}
 
 	public Header getHeaderObj(){
@@ -77,7 +94,10 @@ public class DealSocket implements Runnable{
 			out.flush();
 			
 			GetServerInfoReturn hrt=GetServerInfoReturn.parseFrom(buffer);
-			new InfoProcessData(hrt).run();
+			InfoProcessData process  = new InfoProcessData(hrt);
+			process.setRdsService(rdsService);
+			process.run();
+			
 			
 			//清理内存
 			hrt.toBuilder().clear();
@@ -101,5 +121,7 @@ public class DealSocket implements Runnable{
 			}
 		}
 	}
+	
+	
 	
 }

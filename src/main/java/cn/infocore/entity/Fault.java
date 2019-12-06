@@ -1,6 +1,8 @@
 package cn.infocore.entity;
 
+import lombok.ToString;
 
+@ToString
 public class Fault {
 	//时间戳
 	private long timestamp;

@@ -8,8 +8,10 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 //接收来自强哥的通知
+@Component
 public class ThreadInformation extends Thread{
 	private static final Logger logger=Logger.getLogger(ThreadInformation.class);
 	private static final int C_PORT=23334;
