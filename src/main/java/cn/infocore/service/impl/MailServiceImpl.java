@@ -240,7 +240,7 @@ public class MailServiceImpl implements MailService {
 							logger.info(fault.getUser_id() + "," + fault.getData_ark_ip()
 									+ " current not contains db,confirm it:" + type);
 							// 2.current not contains db,confirm it.
-							if (type == 3 || type == 25 || type == 26) {
+							if (type == 3 || type == 25 || type == 26||type == 31) {
 
 								logger.info("VM error not need to confirm.");
 							} else {

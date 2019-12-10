@@ -42,10 +42,7 @@ enum FaultType{
     STREAMER_CLIENT_DISK_OFFLINE = 24;//映射的盘离线(用于AIX客户端)
     VMWARE_INIT_MIRROR_FAILED = 25;   //vmware同步数据失败
     VMWARE_SNAPSHOT_POINT_SIZE_IS_ZERO = 26;  //在线虚拟机创建快照点数据异常
-    FILE_SINGLE_CREATE_TARGET_FAILED = 27;  // 文件大力客户端任务计划创建快照点失败
-    FILE_SINGLE_OFFLINE = 28;  // 文件代理客户端离线
-    FILE_SINGLE_LOCAL_LOST = 29;  // 文件备份客户端本地丢失
-    FILE_SINGLE_TARGET_LOST = 30;  // 文件备份客户端目标丢失
+
     RDS_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED = 31;  // rds实例备份点下载失败
     RDS_INSTANCE_OFFLINE= 32;  // rds实例离线
     RDS_STORAGE_DROP = 33;  // rds备份空间异常 

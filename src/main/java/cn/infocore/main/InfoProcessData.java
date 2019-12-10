@@ -487,12 +487,12 @@ public class InfoProcessData {
 					fault.setClient_type(3);
 					fault.setClient_id(vmware.getId());
 					vmware_list_faults.add(fault);
-					//faults.add(fault);
+					this.faults.add(fault);
 				}
 				vm.setFaults(vmware_list_faults);
 				vm.setVcenter_id(vcent.getVcUuid());
 				vm.setData_ark_id(data_ark.getId());
-				vmList.add(vm);
+				this.vmList.add(vm);
 			}
 		}
 		// 虚拟机封装结束
@@ -525,12 +525,12 @@ public class InfoProcessData {
 					fault.setClient_type(1);// 2019年3月11日18:04:13 朱伟添加
 					fault.setClient_id(client.getId());// 2019年3月11日18:04:13 朱伟添加
 					client_fault_list.add(fault);
-					faults.add(fault);
+					this.faults.add(fault);
 				}
 				tmp.setFaultList(client_fault_list);
 				tmp.setType(client.getType().getNumber());
 				tmp.setData_ark_id(data_ark.getId());
-				clientList.add(tmp);
+				this.clientList.add(tmp);
 			}
 		}
 		// 封装有代理客户端Client完毕
@@ -563,7 +563,7 @@ public class InfoProcessData {
 			mFault.setClient_type(0);// 2019年3月11日18:04:13 朱伟添加
 			mFault.setClient_id(uuid); // add by wxx
 			data_ark_fault_list.add(mFault);
-			faults.add(mFault);
+			this.faults.add(mFault);
 		}
 		dataServer.setFaults(data_ark_fault_list);
 	
