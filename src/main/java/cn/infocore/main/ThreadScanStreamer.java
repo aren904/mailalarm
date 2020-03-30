@@ -10,11 +10,11 @@ import java.util.Map;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 
+import cn.infocore.dto.DataArkDTO;
 import cn.infocore.entity.Client_;
-import cn.infocore.entity.Data_ark;
 import cn.infocore.entity.Fault;
-import cn.infocore.entity.RDS;
-import cn.infocore.entity.RDSInstance;
+import cn.infocore.entity.RdsDO;
+import cn.infocore.entity.RdsInstanceDO;
 import cn.infocore.entity.Vcenter;
 import cn.infocore.entity.Virtual_machine;
 import cn.infocore.handler.DataArkHandler;
@@ -115,8 +115,8 @@ public class ThreadScanStreamer implements Runnable {
 			String sql1 = "select name,user_id,ip from data_ark where id=?";
 			Object[] param1 = { uuid };
 			try {
-				Data_ark data_ark = qr.query(sql, new DataArkHandler(), param1);
-				Data_ark adminData_ark = qr.query(sql1, new DataArkHandler(), param1);
+				DataArkDTO data_ark = qr.query(sql, new DataArkHandler(), param1);
+				DataArkDTO adminData_ark = qr.query(sql1, new DataArkHandler(), param1);
 				if (data_ark == null && adminData_ark != null) {
 					data_ark = adminData_ark;
 				}
@@ -142,9 +142,13 @@ public class ThreadScanStreamer implements Runnable {
 				List<Client_> clientList = new LinkedList<Client_>();
 				List<Vcenter> vcList = new LinkedList<Vcenter>();
 				List<Virtual_machine> vmList = new LinkedList<Virtual_machine>();
-				List<RDS> rdsList = new ArrayList<>();
-				List<RDSInstance> rdsInstanceList = new ArrayList<>();
-				MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList,rdsList,rdsInstanceList, fault);
+				List<RdsDO> rdsList = new ArrayList<>();
+				List<RdsInstanceDO> rdsInstanceList = new ArrayList<>();
+				
+	            List<Fault> fault_list_single = new LinkedList<Fault>();
+	            fault_list_single.add(fault);
+				
+				MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList,rdsList,rdsInstanceList, fault_list_single);
 			} catch (Exception e1) {
 				logger.error("ThreadScanStreamer:" + e1);
 			}

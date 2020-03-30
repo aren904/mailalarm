@@ -9,27 +9,27 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import cn.infocore.dao.RDSMapper;
-import cn.infocore.entity.RDS;
+import cn.infocore.entity.RdsDO;
 @Component
-public class RdsManager extends ServiceImpl<RDSMapper, RDS> {
+public class RdsManager extends ServiceImpl<RDSMapper, RdsDO> {
 	
-	public void updateByUUIDBatch(List<RDS> rdsList) {
+	public void updateByUUIDBatch(List<RdsDO> rdsList) {
 
-		for (RDS rds : rdsList) {
+		for (RdsDO rds : rdsList) {
 			updateByUUID(rds);
 		}
 
 	}
 
-	public void updateByUUID(RDS rds) {
+	public void updateByUUID(RdsDO rds) {
 		
-		LambdaUpdateWrapper<RDS> update = new UpdateWrapper<RDS>().lambda().eq(RDS::getRdsId, rds.getRdsId())
-				.set(RDS::getExceptions, rds.getExceptions());
-		this.update(new RDS(), update);
+		LambdaUpdateWrapper<RdsDO> update = new UpdateWrapper<RdsDO>().lambda().eq(RdsDO::getRdsId, rds.getRdsId())
+				.set(RdsDO::getExceptions, rds.getExceptions());
+		this.update(new RdsDO(), update);
 	}
 	
 	
-	public RDS getByData(String rdsId, String StreamerServerId) {
+	public RdsDO getByData(String rdsId, String StreamerServerId) {
 		
 		
 		return null;

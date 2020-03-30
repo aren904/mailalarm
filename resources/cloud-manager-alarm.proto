@@ -90,6 +90,14 @@ enum Command {
     Command_RemoveDisasterRdsInstance = 251;
     Command_UpdateAkskForRds = 252;
     Command_UpdateDownloadScheduleForRdsInstance = 253;  // 仅用于记录操作日志，不作为接口指令
+    Command_AddOss = 254;
+    Command_AddOssExt = 255;
+    Command_RemoveOss = 256;
+    Command_AddOssObjectSet = 257;
+    Command_RemoveOssObjectSet = 258;
+    Command_AddDisasterOssObjectSet = 259;
+    Command_RemoveDisasterOssObjectSet = 260;
+    Command_UpdateAkskForOss = 261;
 
     /* data ark management end */
 
@@ -109,8 +117,8 @@ enum Command {
     Command_UpdateUserQuota = 311;
     // 312 废弃
     Command_MigrateUser = 313;
-    // 314 占用
-    // 315 占用
+    Command_CreateUserQuota = 314;
+    Command_DeleteUserQuota = 315;
 
     /* user management end */
 
@@ -245,6 +253,17 @@ enum ErrorCode {
     ErrorCode_ClientGroupNonexistent = 1111;  // 不存在客户端组
     ErrorCode_ClientGroupSameName = 1112;  // 客户端组重名
 
+    ErrorCode_OssExistent = 1200;  // 存在OSS
+    ErrorCode_OssNonexistent = 1201;  // 不存在OSS
+    ErrorCode_OssObjectSetExistent = 1202;  // 存在OSS ObjectSet
+    ErrorCode_OssObjectSetNonexistent = 1203;  // 不存在OSS ObjectSet
+    ErrorCode_DisasterOssObjectSetExistent = 1204;  // 存在容灾OSS ObjectSet，即存在容灾关系
+    ErrorCode_DisasterOssObjectSetNonexistent = 1205;  // 不存在容灾OSS ObjectSet，即存在容灾关系
+    ErrorCode_RacExistent = 1206;
+    ErrorCode_RacNonexistent = 1207;
+    ErrorCode_RacDbExistent = 1208;
+    ErrorCode_RacDbNonexistent = 1209;
+
     /* login begin */
 
     ErrorCode_GetPublicKeyFailed = 10000;
@@ -322,6 +341,14 @@ enum ErrorCode {
     ErrorCode_AddDisasterRdsInstanceFailed = 10250;
     ErrorCode_RemoveDisasterRdsInstanceFailed = 10251;
     ErrorCode_UpdateAkskForRdsFailed = 10252;
+    ErrorCode_AddOssFailed = 10254;
+    ErrorCode_AddOssExtFailed = 10255;
+    ErrorCode_RemoveOssFailed = 10256;
+    ErrorCode_AddOssObjectSetFailed = 10257;
+    ErrorCode_RemoveOssObjectSetFailed = 10258;
+    ErrorCode_AddDisasterOssObjectSetFailed = 10259;
+    ErrorCode_RemoveDisasterOssObjectSetFailed = 10260;
+    ErrorCode_UpdateAkskForOssFailed = 10261;
 
     /* data ark management end */
 
@@ -407,10 +434,16 @@ enum Exception {
     Exception_FileSingleTargetLost = 30;  // 文件级备份客户端异常-目标丢失
     Exception_RdsInstanceBackupPointDownloadFailed = 31;  // RDS 实例备份点下载失败
     Exception_RdsInstanceOffline = 32;  // RDS 实例离线
-    Exception_RdsStorageDrop = 33;  // RDS 备份空间异常
+    Exception_RdsStorageDrop = 33;  // 7.0中已废弃，RDS 备份空间异常
     Exception_RdsAkskChanged = 34;  // RDS AK/SK变更
     Exception_RdsClientOffline = 35;  // RDS客户端离线
     Exception_RdsBackupServiceOffline = 36;  // RDS备份模块服务异常
+    Exception_CloudStorageDrop = 37;  // 云备份空间异常
+    Exception_OssObjectSetBackupPointDownloadFailed = 38;  // OSS备份点下载失败
+    Exception_OssAkskChanged = 39;  // OSS ak/sk变更
+    Exception_OssClientOffline = 40;  // OSS客户端离线
+    Exception_OssBackupServiceOffline = 41;  // OSS备份模块服务异常
+    Exception_OssBackupSpaceExceededThreshold = 42;  // OSS备份空间达到阈值
 }
 
 enum ClientType {
@@ -423,12 +456,12 @@ enum ClientType {
     ClientType_FileSingle = 11;
     ClientType_Rds = 12;
     ClientType_RdsInstance = 13;
-}
-
-/* 客户端主机属性，用于区别安装在 ecs 上还是普通主机上 */
-enum ClientHostType {
-    ClientHostType_Normal = 0;
-    ClientHostType_Ecs = 1;
+    ClientType_Oss = 14;
+    ClientType_OssObjectSet = 15;
+    ClientType_Ecs = 16;
+    ClientType_EcsInstance = 17;
+    ClientType_Metadatabase = 18;
+    ClientType_MetadatabaseBackup = 19;
 }
 
 enum DataArkGroupType {

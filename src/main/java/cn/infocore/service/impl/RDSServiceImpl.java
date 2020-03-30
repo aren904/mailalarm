@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import cn.infocore.dao.UserDAO;
-import cn.infocore.entity.Data_ark;
+import cn.infocore.dto.DataArkDTO;
 import cn.infocore.entity.Fault;
-import cn.infocore.entity.RDS;
-import cn.infocore.entity.RDSInstance;
+import cn.infocore.entity.RdsDO;
+import cn.infocore.entity.RdsInstanceDO;
 import cn.infocore.manager.RDSInstanceManager;
 import cn.infocore.manager.RdsManager;
 import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
@@ -20,7 +20,7 @@ import cn.infocore.protobuf.StmStreamerDrManage.RdsInfo;
 import cn.infocore.protobuf.StmStreamerDrManage.RdsInstanceInfo;
 import cn.infocore.service.RDSService;
 
-@Component
+@Service
 public class RDSServiceImpl implements RDSService {
 
 	@Autowired
@@ -33,30 +33,33 @@ public class RDSServiceImpl implements RDSService {
 	UserDAO userDAO;
 
 	@Override
-	public List<RDS> updateRdsInfo(Data_ark data_ark,List<RdsInfo> rdsInfoList) {
-		List<RDS> rdsList = getRDSListFromSource(data_ark,rdsInfoList);
+	public List<RdsDO> updateRdsInfo(DataArkDTO data_ark,List<RdsInfo> rdsInfoList) {
+		List<RdsDO> rdsList = getRDSListFromSource(data_ark,rdsInfoList);
 		rdsManager.updateByUUIDBatch(rdsList);
-
-		List<RDSInstance> rdsInstanceList = getRDSInstanceListFromSource(data_ark,rdsInfoList);
+		
+		List<RdsInstanceDO> rdsInstanceList = getRDSInstanceListFromSource(data_ark,rdsInfoList);
 
 		rdsInstanceManager.updateByUUIDBatch(rdsInstanceList);
 		return rdsList;
 	}
 
-	List<RDS> getRDSListFromSource(Data_ark data_ark,List<RdsInfo> rdsInfoList) {
+	List<RdsDO> getRDSListFromSource(DataArkDTO data_ark,List<RdsInfo> rdsInfoList) {
 		
 		if (rdsInfoList != null && !rdsInfoList.isEmpty()) {
 			String dataArkId  = data_ark.getId();
-			List<RDS> rdsList = new ArrayList<>(rdsInfoList.size());
+			List<RdsDO> rdsList = new ArrayList<>(rdsInfoList.size());
 
 			for (RdsInfo rdsInfo : rdsInfoList) {
 
 				String name = rdsInfo.getName();
 				String rdsId = rdsInfo.getUuid();
 				rdsInfo.getType();
-				
+				Long preoccupationSizeByte;//TODO ??? not exist in DB?
 				List<FaultType> faultyList = rdsInfo.getStatusList();
-				RDS rds = new RDS().setExceptionsWithFaultyTypeList(faultyList).setRdsId(rdsId).setName(name).setDataArkId(dataArkId);
+				RdsDO rds = new RdsDO().setExceptionsWithFaultyTypeList(faultyList)
+                				        .setRdsId(rdsId)
+                				        .setName(name)
+                				        .setDataArkId(dataArkId);
 				rdsList.add(rds);
 				
 			}
@@ -65,8 +68,8 @@ public class RDSServiceImpl implements RDSService {
 		return new ArrayList<>(0);
 	}
 
-	public List<RDSInstance> getRDSInstanceListFromSource(Data_ark data_ark,List<RdsInfo> rdsInfoList) {
-		List<RDSInstance> rdsInstanceList = new ArrayList<>();
+	public List<RdsInstanceDO> getRDSInstanceListFromSource(DataArkDTO data_ark,List<RdsInfo> rdsInfoList) {
+		List<RdsInstanceDO> rdsInstanceList = new ArrayList<>();
 		if (rdsInfoList != null && !rdsInfoList.isEmpty()) {
 			String dataArkId = data_ark.getId();
 			for (RdsInfo rdsInfo : rdsInfoList) {
@@ -78,11 +81,12 @@ public class RDSServiceImpl implements RDSService {
 
 						String name = rdsInstance.getName();
 						String uuid = rdsInstance.getUuid();
+						Long size = rdsInstance.getSize();
 						rdsInstance.getType();
 						List<FaultType> faultTypes = rdsInstance.getStatusList();
 
-						RDSInstance rInstance = new RDSInstance().setExceptionsWithFaultyTypeList(faultTypes)
-								.setName(name).setId(uuid).setDataArkId(dataArkId);
+						RdsInstanceDO rInstance = new RdsInstanceDO().setExceptionsWithFaultyTypeList(faultTypes)
+								.setName(name).setId(uuid).setDataArkId(dataArkId).setSize(size);
 						rdsInstanceList.add(rInstance);
 					}
 				}
@@ -92,7 +96,7 @@ public class RDSServiceImpl implements RDSService {
 	}
 
 	@Override
-	public List<Fault> getFault(Data_ark data_ark, List<RdsInfo> rdsInfoList) {
+	public List<Fault> getFault(DataArkDTO data_ark, List<RdsInfo> rdsInfoList) {
 		
 		Long timestamp = System.currentTimeMillis()/1000L;
 		List<Fault> resultList = new ArrayList<>();
@@ -147,7 +151,7 @@ public class RDSServiceImpl implements RDSService {
 		return resultList;
 	}
 
-	private List<Fault> getFaultFormInstacne(Data_ark data_ark, List<RdsInstanceInfo> instanceInfos) {
+	private List<Fault> getFaultFormInstacne(DataArkDTO data_ark, List<RdsInstanceInfo> instanceInfos) {
 		String dataArkId = data_ark.getId();
 		Long timestamp = System.currentTimeMillis()/1000;
 		List<Fault> resultList = new ArrayList<>();

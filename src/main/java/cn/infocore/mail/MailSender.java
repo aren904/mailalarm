@@ -30,7 +30,7 @@ public class MailSender {
 	private Email_alarm config;
 	private MimeMessage message;
 	private Session s;
-
+	        
 	public MailSender(Email_alarm config) {
 		this.config=config;
 		final Properties properties = new Properties();

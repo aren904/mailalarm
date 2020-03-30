@@ -5,14 +5,14 @@ import java.sql.SQLException;
 
 import org.apache.commons.dbutils.ResultSetHandler;
 
-import cn.infocore.entity.Data_ark;
+import cn.infocore.dto.DataArkDTO;
 
-public class DataArk2Handler implements ResultSetHandler<Data_ark>{
+public class DataArk2Handler implements ResultSetHandler<DataArkDTO>{
 
-	public Data_ark handle(ResultSet rs) throws SQLException {
-		Data_ark data_ark=null;
+	public DataArkDTO handle(ResultSet rs) throws SQLException {
+		DataArkDTO data_ark=null;
 		while(rs.next()) {
-			data_ark=new Data_ark();
+			data_ark=new DataArkDTO();
 			data_ark.setName(rs.getString("name"));
 			data_ark.setIp(rs.getString("ip"));
 			data_ark.setId(rs.getString("id"));

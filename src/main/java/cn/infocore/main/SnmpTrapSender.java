@@ -22,7 +22,7 @@ import org.snmp4j.smi.UdpAddress;
 import org.snmp4j.smi.VariableBinding;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
 
-import cn.infocore.entity.Data_ark;
+import cn.infocore.dto.DataArkDTO;
 import cn.infocore.entity.MySnmp;
 import cn.infocore.handler.DataArk2Handler;
 import cn.infocore.utils.MyDataSource;
@@ -47,12 +47,12 @@ public class SnmpTrapSender {
 		//不空且启用了
 		if(mySnmp!=null&&mySnmp.getEnabled()==1){
 			try {
-				List<Data_ark> data_arks=new ArrayList<Data_ark>();
+				List<DataArkDTO> data_arks=new ArrayList<DataArkDTO>();
 				for(String uuid:uuids){
 					String sql = "select id,name,ip from data_ark where id=?";
 					Object[] param = { uuid };
 					QueryRunner qr = MyDataSource.getQueryRunner();
-					Data_ark data_ark=null;
+					DataArkDTO data_ark=null;
 					try {
 						data_ark = qr.query(sql, new DataArk2Handler(), param);
 					} catch (SQLException e) {
@@ -98,10 +98,10 @@ public class SnmpTrapSender {
 	 * @return
 	 * @throws IOException 
 	 */
-	public ResponseEvent sendV2cTrap(MySnmp mySnmp,List<Data_ark> data_arks) throws IOException {
+	public ResponseEvent sendV2cTrap(MySnmp mySnmp,List<DataArkDTO> data_arks) throws IOException {
 		PDU pdu = new PDU();
 		for(int i=0;i<data_arks.size();i++){
-			Data_ark data_ark=data_arks.get(i);
+			DataArkDTO data_ark = data_arks.get(i);
 			pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.4."+i),new OctetString(data_ark.getName())));  
 			pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3."+i),new OctetString(data_ark.getId())));  
 			pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.2."+i),new OctetString(data_ark.getIp())));  

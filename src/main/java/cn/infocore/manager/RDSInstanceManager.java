@@ -9,23 +9,23 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import cn.infocore.dao.RDSInstanceMapper;
-import cn.infocore.entity.RDSInstance;
+import cn.infocore.entity.RdsInstanceDO;
 
 @Component
-public class RDSInstanceManager extends ServiceImpl<RDSInstanceMapper, RDSInstance> {
+public class RDSInstanceManager extends ServiceImpl<RDSInstanceMapper, RdsInstanceDO> {
 
-	public void updateByUUIDBatch(List<RDSInstance> rdsInstanceList) {
+	public void updateByUUIDBatch(List<RdsInstanceDO> rdsInstanceList) {
 		
-		for (RDSInstance rdsInstance : rdsInstanceList) {
+		for (RdsInstanceDO rdsInstance : rdsInstanceList) {
 			patchInstance(rdsInstance);
 		}
 	}
 
-	public boolean patchInstance(RDSInstance instance) {
-		LambdaUpdateWrapper<RDSInstance> updateWrapper = new UpdateWrapper<RDSInstance>().lambda()
-				.eq(RDSInstance::getId, instance.getId())
-				.set(RDSInstance::getName, instance.getName())
-				.set(RDSInstance::getExceptions, instance.getExceptions());
-		return this.update(new RDSInstance(), updateWrapper);
+	public boolean patchInstance(RdsInstanceDO instance) {
+		LambdaUpdateWrapper<RdsInstanceDO> updateWrapper = new UpdateWrapper<RdsInstanceDO>().lambda()
+				.eq(RdsInstanceDO::getId, instance.getId())
+				.set(RdsInstanceDO::getName, instance.getName())
+				.set(RdsInstanceDO::getExceptions, instance.getExceptions());
+		return this.update(new RdsInstanceDO(), updateWrapper);
 	}
 }

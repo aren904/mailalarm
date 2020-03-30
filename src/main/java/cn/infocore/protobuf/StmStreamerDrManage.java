@@ -49,6 +49,30 @@ public final class StmStreamerDrManage {
      * <code>RdsInstance = 13;</code>
      */
     RdsInstance(8, 13),
+    /**
+     * <code>Oss = 14;</code>
+     */
+    Oss(9, 14),
+    /**
+     * <code>OssObjectSet = 15;</code>
+     */
+    OssObjectSet(10, 15),
+    /**
+     * <code>Ecs = 16;</code>
+     */
+    Ecs(11, 16),
+    /**
+     * <code>EcsInstance = 17;</code>
+     */
+    EcsInstance(12, 17),
+    /**
+     * <code>MetaDB = 18;</code>
+     */
+    MetaDB(13, 18),
+    /**
+     * <code>MetaDBBackup = 19;</code>
+     */
+    MetaDBBackup(14, 19),
     ;
 
     /**
@@ -87,6 +111,30 @@ public final class StmStreamerDrManage {
      * <code>RdsInstance = 13;</code>
      */
     public static final int RdsInstance_VALUE = 13;
+    /**
+     * <code>Oss = 14;</code>
+     */
+    public static final int Oss_VALUE = 14;
+    /**
+     * <code>OssObjectSet = 15;</code>
+     */
+    public static final int OssObjectSet_VALUE = 15;
+    /**
+     * <code>Ecs = 16;</code>
+     */
+    public static final int Ecs_VALUE = 16;
+    /**
+     * <code>EcsInstance = 17;</code>
+     */
+    public static final int EcsInstance_VALUE = 17;
+    /**
+     * <code>MetaDB = 18;</code>
+     */
+    public static final int MetaDB_VALUE = 18;
+    /**
+     * <code>MetaDBBackup = 19;</code>
+     */
+    public static final int MetaDBBackup_VALUE = 19;
 
 
     public final int getNumber() { return value; }
@@ -102,6 +150,12 @@ public final class StmStreamerDrManage {
         case 11: return FileSingle;
         case 12: return Rds;
         case 13: return RdsInstance;
+        case 14: return Oss;
+        case 15: return OssObjectSet;
+        case 16: return Ecs;
+        case 17: return EcsInstance;
+        case 18: return MetaDB;
+        case 19: return MetaDBBackup;
         default: return null;
       }
     }
@@ -426,7 +480,7 @@ public final class StmStreamerDrManage {
      * <code>RDS_STORAGE_DROP = 33;</code>
      *
      * <pre>
-     * rds备份空间异常 
+     * rds备份空间异常  // 7.0中废弃
      * </pre>
      */
     RDS_STORAGE_DROP(33, 33),
@@ -434,7 +488,7 @@ public final class StmStreamerDrManage {
      * <code>RDS_AKSK_CHANGED = 34;</code>
      *
      * <pre>
-     * ak/sk变更
+     * rds ak/sk变更
      * </pre>
      */
     RDS_AKSK_CHANGED(34, 34),
@@ -454,6 +508,70 @@ public final class StmStreamerDrManage {
      * </pre>
      */
     RDS_BACKUP_SERVICE_OFFLINE(36, 36),
+    /**
+     * <code>CLOUD_STORAGE_DROP = 37;</code>
+     *
+     * <pre>
+     * 云备份空间异常 
+     * </pre>
+     */
+    CLOUD_STORAGE_DROP(37, 37),
+    /**
+     * <code>OSS_BACKUP_POINT_DOWNLOAD_FAILED = 38;</code>
+     *
+     * <pre>
+     * Oss备份点下载失败
+     * </pre>
+     */
+    OSS_BACKUP_POINT_DOWNLOAD_FAILED(38, 38),
+    /**
+     * <code>OSS_AKSK_CHANGED = 39;</code>
+     *
+     * <pre>
+     * oss ak/sk变更
+     * </pre>
+     */
+    OSS_AKSK_CHANGED(39, 39),
+    /**
+     * <code>OSS_CLIENT_OFFLINE = 40;</code>
+     *
+     * <pre>
+     * oss客户端离线
+     * </pre>
+     */
+    OSS_CLIENT_OFFLINE(40, 40),
+    /**
+     * <code>OSS_BACKUP_SERVICE_OFFLINE = 41;</code>
+     *
+     * <pre>
+     * oss备份模块服务异常
+     * </pre>
+     */
+    OSS_BACKUP_SERVICE_OFFLINE(41, 41),
+    /**
+     * <code>OSS_BACKUP_SPACE_HAS_REACHED_THRESHOLD = 42;</code>
+     *
+     * <pre>
+     * oss备份空间达到阈值
+     * </pre>
+     */
+    OSS_BACKUP_SPACE_HAS_REACHED_THRESHOLD(42, 42),
+    /**
+     * <code>OSS_BACKUP_POINT_WRITE_FAILED = 43;</code>
+     *
+     * <pre>
+     * oss备份无法写入
+     * </pre>
+     */
+    OSS_BACKUP_POINT_WRITE_FAILED(43, 43),
+    /**
+     * <code>OSS_BACKUP_LOCAL_LOST = 44;</code>
+     *
+     * <pre>
+     * oss备份源丢失
+     * </pre>
+     */
+    OSS_BACKUP_LOCAL_LOST(44, 44),
     ;
 
     /**
@@ -720,7 +838,7 @@ public final class StmStreamerDrManage {
      * <code>RDS_STORAGE_DROP = 33;</code>
      *
      * <pre>
-     * rds备份空间异常 
+     * rds备份空间异常  // 7.0中废弃
      * </pre>
      */
     public static final int RDS_STORAGE_DROP_VALUE = 33;
@@ -728,7 +846,7 @@ public final class StmStreamerDrManage {
      * <code>RDS_AKSK_CHANGED = 34;</code>
      *
      * <pre>
-     * ak/sk变更
+     * rds ak/sk变更
      * </pre>
      */
     public static final int RDS_AKSK_CHANGED_VALUE = 34;
@@ -748,6 +866,70 @@ public final class StmStreamerDrManage {
      * </pre>
      */
     public static final int RDS_BACKUP_SERVICE_OFFLINE_VALUE = 36;
+    /**
+     * <code>CLOUD_STORAGE_DROP = 37;</code>
+     *
+     * <pre>
+     * 云备份空间异常 
+     * </pre>
+     */
+    public static final int CLOUD_STORAGE_DROP_VALUE = 37;
+    /**
+     * <code>OSS_BACKUP_POINT_DOWNLOAD_FAILED = 38;</code>
+     *
+     * <pre>
+     * Oss备份点下载失败
+     * </pre>
+     */
+    public static final int OSS_BACKUP_POINT_DOWNLOAD_FAILED_VALUE = 38;
+    /**
+     * <code>OSS_AKSK_CHANGED = 39;</code>
+     *
+     * <pre>
+     * oss ak/sk变更
+     * </pre>
+     */
+    public static final int OSS_AKSK_CHANGED_VALUE = 39;
+    /**
+     * <code>OSS_CLIENT_OFFLINE = 40;</code>
+     *
+     * <pre>
+     * oss客户端离线
+     * </pre>
+     */
+    public static final int OSS_CLIENT_OFFLINE_VALUE = 40;
+    /**
+     * <code>OSS_BACKUP_SERVICE_OFFLINE = 41;</code>
+     *
+     * <pre>
+     * oss备份模块服务异常
+     * </pre>
+     */
+    public static final int OSS_BACKUP_SERVICE_OFFLINE_VALUE = 41;
+    /**
+     * <code>OSS_BACKUP_SPACE_HAS_REACHED_THRESHOLD = 42;</code>
+     *
+     * <pre>
+     * oss备份空间达到阈值
+     * </pre>
+     */
+    public static final int OSS_BACKUP_SPACE_HAS_REACHED_THRESHOLD_VALUE = 42;
+    /**
+     * <code>OSS_BACKUP_POINT_WRITE_FAILED = 43;</code>
+     *
+     * <pre>
+     * oss备份无法写入
+     * </pre>
+     */
+    public static final int OSS_BACKUP_POINT_WRITE_FAILED_VALUE = 43;
+    /**
+     * <code>OSS_BACKUP_LOCAL_LOST = 44;</code>
+     *
+     * <pre>
+     * oss备份源丢失
+     * </pre>
+     */
+    public static final int OSS_BACKUP_LOCAL_LOST_VALUE = 44;
 
 
     public final int getNumber() { return value; }
@@ -791,6 +973,14 @@ public final class StmStreamerDrManage {
         case 34: return RDS_AKSK_CHANGED;
         case 35: return RDS_CLIENT_OFFLINE;
         case 36: return RDS_BACKUP_SERVICE_OFFLINE;
+        case 37: return CLOUD_STORAGE_DROP;
+        case 38: return OSS_BACKUP_POINT_DOWNLOAD_FAILED;
+        case 39: return OSS_AKSK_CHANGED;
+        case 40: return OSS_CLIENT_OFFLINE;
+        case 41: return OSS_BACKUP_SERVICE_OFFLINE;
+        case 42: return OSS_BACKUP_SPACE_HAS_REACHED_THRESHOLD;
+        case 43: return OSS_BACKUP_POINT_WRITE_FAILED;
+        case 44: return OSS_BACKUP_LOCAL_LOST;
         default: return null;
       }
     }
@@ -876,19 +1066,35 @@ public final class StmStreamerDrManage {
 
     /**
      * <code>required uint64 total = 3;</code>
+     *
+     * <pre>
+     * pool size
+     * </pre>
      */
     boolean hasTotal();
     /**
      * <code>required uint64 total = 3;</code>
+     *
+     * <pre>
+     * pool size
+     * </pre>
      */
     long getTotal();
 
     /**
      * <code>required uint64 used = 4;</code>
+     *
+     * <pre>
+     * all of volumes size
+     * </pre>
      */
     boolean hasUsed();
     /**
      * <code>required uint64 used = 4;</code>
+     *
+     * <pre>
+     * all of volumes size
+     * </pre>
      */
     long getUsed();
 
@@ -907,10 +1113,18 @@ public final class StmStreamerDrManage {
 
     /**
      * <code>required uint64 oracle_vol = 6;</code>
+     *
+     * <pre>
+     * oracle vol size
+     * </pre>
      */
     boolean hasOracleVol();
     /**
      * <code>required uint64 oracle_vol = 6;</code>
+     *
+     * <pre>
+     * oracle vol size
+     * </pre>
      */
     long getOracleVol();
 
@@ -925,12 +1139,105 @@ public final class StmStreamerDrManage {
 
     /**
      * <code>required uint64 rds_vol = 8;</code>
+     *
+     * <pre>
+     * rds vol size(used in hengqin 6.3)
+     * </pre>
      */
     boolean hasRdsVol();
     /**
      * <code>required uint64 rds_vol = 8;</code>
+     *
+     * <pre>
+     * rds vol size(used in hengqin 6.3)
+     * </pre>
      */
     long getRdsVol();
+
+    /**
+     * <code>required uint64 cloud_vol = 9;</code>
+     *
+     * <pre>
+     * cloud vol size
+     * </pre>
+     */
+    boolean hasCloudVol();
+    /**
+     * <code>required uint64 cloud_vol = 9;</code>
+     *
+     * <pre>
+     * cloud vol size
+     * </pre>
+     */
+    long getCloudVol();
+
+    /**
+     * <code>required uint64 rac_used = 10;</code>
+     *
+     * <pre>
+     * rac vol used
+     * </pre>
+     */
+    boolean hasRacUsed();
+    /**
+     * <code>required uint64 rac_used = 10;</code>
+     *
+     * <pre>
+     * rac vol used
+     * </pre>
+     */
+    long getRacUsed();
+
+    /**
+     * <code>required uint64 ecs_used = 11;</code>
+     *
+     * <pre>
+     * ecs  backup point size
+     * </pre>
+     */
+    boolean hasEcsUsed();
+    /**
+     * <code>required uint64 ecs_used = 11;</code>
+     *
+     * <pre>
+     * ecs  backup point size
+     * </pre>
+     */
+    long getEcsUsed();
+
+    /**
+     * <code>required uint64 rds_used = 12;</code>
+     *
+     * <pre>
+     * rds instance backup point size
+     * </pre>
+     */
+    boolean hasRdsUsed();
+    /**
+     * <code>required uint64 rds_used = 12;</code>
+     *
+     * <pre>
+     * rds instance backup point size
+     * </pre>
+     */
+    long getRdsUsed();
+
+    /**
+     * <code>required uint64 oss_used = 13;</code>
+     *
+     * <pre>
+     * oss objecet set backup point size 
+     * </pre>
+     */
+    boolean hasOssUsed();
+    /**
+     * <code>required uint64 oss_used = 13;</code>
+     *
+     * <pre>
+     * oss objecet set backup point size 
+     * </pre>
+     */
+    long getOssUsed();
   }
   /**
    * Protobuf type {@code Streamer}
@@ -1056,6 +1363,31 @@ public final class StmStreamerDrManage {
             case 64: {
               bitField0_ |= 0x00000040;
               rdsVol_ = input.readUInt64();
+              break;
+            }
+            case 72: {
+              bitField0_ |= 0x00000080;
+              cloudVol_ = input.readUInt64();
+              break;
+            }
+            case 80: {
+              bitField0_ |= 0x00000100;
+              racUsed_ = input.readUInt64();
+              break;
+            }
+            case 88: {
+              bitField0_ |= 0x00000200;
+              ecsUsed_ = input.readUInt64();
+              break;
+            }
+            case 96: {
+              bitField0_ |= 0x00000400;
+              rdsUsed_ = input.readUInt64();
+              break;
+            }
+            case 104: {
+              bitField0_ |= 0x00000800;
+              ossUsed_ = input.readUInt64();
               break;
             }
           }
@@ -1189,12 +1521,20 @@ public final class StmStreamerDrManage {
     private long total_;
     /**
      * <code>required uint64 total = 3;</code>
+     *
+     * <pre>
+     * pool size
+     * </pre>
      */
     public boolean hasTotal() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
      * <code>required uint64 total = 3;</code>
+     *
+     * <pre>
+     * pool size
+     * </pre>
      */
     public long getTotal() {
       return total_;
@@ -1204,12 +1544,20 @@ public final class StmStreamerDrManage {
     private long used_;
     /**
      * <code>required uint64 used = 4;</code>
+     *
+     * <pre>
+     * all of volumes size
+     * </pre>
      */
     public boolean hasUsed() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
      * <code>required uint64 used = 4;</code>
+     *
+     * <pre>
+     * all of volumes size
+     * </pre>
      */
     public long getUsed() {
       return used_;
@@ -1240,12 +1588,20 @@ public final class StmStreamerDrManage {
     private long oracleVol_;
     /**
      * <code>required uint64 oracle_vol = 6;</code>
+     *
+     * <pre>
+     * oracle vol size
+     * </pre>
      */
     public boolean hasOracleVol() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
      * <code>required uint64 oracle_vol = 6;</code>
+     *
+     * <pre>
+     * oracle vol size
+     * </pre>
      */
     public long getOracleVol() {
       return oracleVol_;
@@ -1270,15 +1626,138 @@ public final class StmStreamerDrManage {
     private long rdsVol_;
     /**
      * <code>required uint64 rds_vol = 8;</code>
+     *
+     * <pre>
+     * rds vol size(used in hengqin 6.3)
+     * </pre>
      */
     public boolean hasRdsVol() {
       return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     /**
      * <code>required uint64 rds_vol = 8;</code>
+     *
+     * <pre>
+     * rds vol size(used in hengqin 6.3)
+     * </pre>
      */
     public long getRdsVol() {
       return rdsVol_;
+    }
+
+    public static final int CLOUD_VOL_FIELD_NUMBER = 9;
+    private long cloudVol_;
+    /**
+     * <code>required uint64 cloud_vol = 9;</code>
+     *
+     * <pre>
+     * cloud vol size
+     * </pre>
+     */
+    public boolean hasCloudVol() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    /**
+     * <code>required uint64 cloud_vol = 9;</code>
+     *
+     * <pre>
+     * cloud vol size
+     * </pre>
+     */
+    public long getCloudVol() {
+      return cloudVol_;
+    }
+
+    public static final int RAC_USED_FIELD_NUMBER = 10;
+    private long racUsed_;
+    /**
+     * <code>required uint64 rac_used = 10;</code>
+     *
+     * <pre>
+     * rac vol used
+     * </pre>
+     */
+    public boolean hasRacUsed() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    /**
+     * <code>required uint64 rac_used = 10;</code>
+     *
+     * <pre>
+     * rac vol used
+     * </pre>
+     */
+    public long getRacUsed() {
+      return racUsed_;
+    }
+
+    public static final int ECS_USED_FIELD_NUMBER = 11;
+    private long ecsUsed_;
+    /**
+     * <code>required uint64 ecs_used = 11;</code>
+     *
+     * <pre>
+     * ecs  backup point size
+     * </pre>
+     */
+    public boolean hasEcsUsed() {
+      return ((bitField0_ & 0x00000200) == 0x00000200);
+    }
+    /**
+     * <code>required uint64 ecs_used = 11;</code>
+     *
+     * <pre>
+     * ecs  backup point size
+     * </pre>
+     */
+    public long getEcsUsed() {
+      return ecsUsed_;
+    }
+
+    public static final int RDS_USED_FIELD_NUMBER = 12;
+    private long rdsUsed_;
+    /**
+     * <code>required uint64 rds_used = 12;</code>
+     *
+     * <pre>
+     * rds instance backup point size
+     * </pre>
+     */
+    public boolean hasRdsUsed() {
+      return ((bitField0_ & 0x00000400) == 0x00000400);
+    }
+    /**
+     * <code>required uint64 rds_used = 12;</code>
+     *
+     * <pre>
+     * rds instance backup point size
+     * </pre>
+     */
+    public long getRdsUsed() {
+      return rdsUsed_;
+    }
+
+    public static final int OSS_USED_FIELD_NUMBER = 13;
+    private long ossUsed_;
+    /**
+     * <code>required uint64 oss_used = 13;</code>
+     *
+     * <pre>
+     * oss objecet set backup point size 
+     * </pre>
+     */
+    public boolean hasOssUsed() {
+      return ((bitField0_ & 0x00000800) == 0x00000800);
+    }
+    /**
+     * <code>required uint64 oss_used = 13;</code>
+     *
+     * <pre>
+     * oss objecet set backup point size 
+     * </pre>
+     */
+    public long getOssUsed() {
+      return ossUsed_;
     }
 
     private void initFields() {
@@ -1290,6 +1769,11 @@ public final class StmStreamerDrManage {
       oracleVol_ = 0L;
       maxClients_ = 0L;
       rdsVol_ = 0L;
+      cloudVol_ = 0L;
+      racUsed_ = 0L;
+      ecsUsed_ = 0L;
+      rdsUsed_ = 0L;
+      ossUsed_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1325,6 +1809,26 @@ public final class StmStreamerDrManage {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasCloudVol()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRacUsed()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasEcsUsed()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRdsUsed()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasOssUsed()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -1355,6 +1859,21 @@ public final class StmStreamerDrManage {
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         output.writeUInt64(8, rdsVol_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeUInt64(9, cloudVol_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeUInt64(10, racUsed_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeUInt64(11, ecsUsed_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        output.writeUInt64(12, rdsUsed_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        output.writeUInt64(13, ossUsed_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1401,6 +1920,26 @@ public final class StmStreamerDrManage {
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(8, rdsVol_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(9, cloudVol_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(10, racUsed_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(11, ecsUsed_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(12, rdsUsed_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(13, ossUsed_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1539,6 +2078,16 @@ public final class StmStreamerDrManage {
         bitField0_ = (bitField0_ & ~0x00000040);
         rdsVol_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000080);
+        cloudVol_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000100);
+        racUsed_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000200);
+        ecsUsed_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000400);
+        rdsUsed_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000800);
+        ossUsed_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00001000);
         return this;
       }
 
@@ -1600,6 +2149,26 @@ public final class StmStreamerDrManage {
           to_bitField0_ |= 0x00000040;
         }
         result.rdsVol_ = rdsVol_;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.cloudVol_ = cloudVol_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.racUsed_ = racUsed_;
+        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
+          to_bitField0_ |= 0x00000200;
+        }
+        result.ecsUsed_ = ecsUsed_;
+        if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
+          to_bitField0_ |= 0x00000400;
+        }
+        result.rdsUsed_ = rdsUsed_;
+        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
+          to_bitField0_ |= 0x00000800;
+        }
+        result.ossUsed_ = ossUsed_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1651,6 +2220,21 @@ public final class StmStreamerDrManage {
         if (other.hasRdsVol()) {
           setRdsVol(other.getRdsVol());
         }
+        if (other.hasCloudVol()) {
+          setCloudVol(other.getCloudVol());
+        }
+        if (other.hasRacUsed()) {
+          setRacUsed(other.getRacUsed());
+        }
+        if (other.hasEcsUsed()) {
+          setEcsUsed(other.getEcsUsed());
+        }
+        if (other.hasRdsUsed()) {
+          setRdsUsed(other.getRdsUsed());
+        }
+        if (other.hasOssUsed()) {
+          setOssUsed(other.getOssUsed());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -1681,6 +2265,26 @@ public final class StmStreamerDrManage {
           return false;
         }
         if (!hasRdsVol()) {
+          
+          return false;
+        }
+        if (!hasCloudVol()) {
+          
+          return false;
+        }
+        if (!hasRacUsed()) {
+          
+          return false;
+        }
+        if (!hasEcsUsed()) {
+          
+          return false;
+        }
+        if (!hasRdsUsed()) {
+          
+          return false;
+        }
+        if (!hasOssUsed()) {
           
           return false;
         }
@@ -1861,18 +2465,30 @@ public final class StmStreamerDrManage {
       private long total_ ;
       /**
        * <code>required uint64 total = 3;</code>
+       *
+       * <pre>
+       * pool size
+       * </pre>
        */
       public boolean hasTotal() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
        * <code>required uint64 total = 3;</code>
+       *
+       * <pre>
+       * pool size
+       * </pre>
        */
       public long getTotal() {
         return total_;
       }
       /**
        * <code>required uint64 total = 3;</code>
+       *
+       * <pre>
+       * pool size
+       * </pre>
        */
       public Builder setTotal(long value) {
         bitField0_ |= 0x00000004;
@@ -1882,6 +2498,10 @@ public final class StmStreamerDrManage {
       }
       /**
        * <code>required uint64 total = 3;</code>
+       *
+       * <pre>
+       * pool size
+       * </pre>
        */
       public Builder clearTotal() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -1893,18 +2513,30 @@ public final class StmStreamerDrManage {
       private long used_ ;
       /**
        * <code>required uint64 used = 4;</code>
+       *
+       * <pre>
+       * all of volumes size
+       * </pre>
        */
       public boolean hasUsed() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
        * <code>required uint64 used = 4;</code>
+       *
+       * <pre>
+       * all of volumes size
+       * </pre>
        */
       public long getUsed() {
         return used_;
       }
       /**
        * <code>required uint64 used = 4;</code>
+       *
+       * <pre>
+       * all of volumes size
+       * </pre>
        */
       public Builder setUsed(long value) {
         bitField0_ |= 0x00000008;
@@ -1914,6 +2546,10 @@ public final class StmStreamerDrManage {
       }
       /**
        * <code>required uint64 used = 4;</code>
+       *
+       * <pre>
+       * all of volumes size
+       * </pre>
        */
       public Builder clearUsed() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -1997,18 +2633,30 @@ public final class StmStreamerDrManage {
       private long oracleVol_ ;
       /**
        * <code>required uint64 oracle_vol = 6;</code>
+       *
+       * <pre>
+       * oracle vol size
+       * </pre>
        */
       public boolean hasOracleVol() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
        * <code>required uint64 oracle_vol = 6;</code>
+       *
+       * <pre>
+       * oracle vol size
+       * </pre>
        */
       public long getOracleVol() {
         return oracleVol_;
       }
       /**
        * <code>required uint64 oracle_vol = 6;</code>
+       *
+       * <pre>
+       * oracle vol size
+       * </pre>
        */
       public Builder setOracleVol(long value) {
         bitField0_ |= 0x00000020;
@@ -2018,6 +2666,10 @@ public final class StmStreamerDrManage {
       }
       /**
        * <code>required uint64 oracle_vol = 6;</code>
+       *
+       * <pre>
+       * oracle vol size
+       * </pre>
        */
       public Builder clearOracleVol() {
         bitField0_ = (bitField0_ & ~0x00000020);
@@ -2061,18 +2713,30 @@ public final class StmStreamerDrManage {
       private long rdsVol_ ;
       /**
        * <code>required uint64 rds_vol = 8;</code>
+       *
+       * <pre>
+       * rds vol size(used in hengqin 6.3)
+       * </pre>
        */
       public boolean hasRdsVol() {
         return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       /**
        * <code>required uint64 rds_vol = 8;</code>
+       *
+       * <pre>
+       * rds vol size(used in hengqin 6.3)
+       * </pre>
        */
       public long getRdsVol() {
         return rdsVol_;
       }
       /**
        * <code>required uint64 rds_vol = 8;</code>
+       *
+       * <pre>
+       * rds vol size(used in hengqin 6.3)
+       * </pre>
        */
       public Builder setRdsVol(long value) {
         bitField0_ |= 0x00000080;
@@ -2082,10 +2746,254 @@ public final class StmStreamerDrManage {
       }
       /**
        * <code>required uint64 rds_vol = 8;</code>
+       *
+       * <pre>
+       * rds vol size(used in hengqin 6.3)
+       * </pre>
        */
       public Builder clearRdsVol() {
         bitField0_ = (bitField0_ & ~0x00000080);
         rdsVol_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long cloudVol_ ;
+      /**
+       * <code>required uint64 cloud_vol = 9;</code>
+       *
+       * <pre>
+       * cloud vol size
+       * </pre>
+       */
+      public boolean hasCloudVol() {
+        return ((bitField0_ & 0x00000100) == 0x00000100);
+      }
+      /**
+       * <code>required uint64 cloud_vol = 9;</code>
+       *
+       * <pre>
+       * cloud vol size
+       * </pre>
+       */
+      public long getCloudVol() {
+        return cloudVol_;
+      }
+      /**
+       * <code>required uint64 cloud_vol = 9;</code>
+       *
+       * <pre>
+       * cloud vol size
+       * </pre>
+       */
+      public Builder setCloudVol(long value) {
+        bitField0_ |= 0x00000100;
+        cloudVol_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 cloud_vol = 9;</code>
+       *
+       * <pre>
+       * cloud vol size
+       * </pre>
+       */
+      public Builder clearCloudVol() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        cloudVol_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long racUsed_ ;
+      /**
+       * <code>required uint64 rac_used = 10;</code>
+       *
+       * <pre>
+       * rac vol used
+       * </pre>
+       */
+      public boolean hasRacUsed() {
+        return ((bitField0_ & 0x00000200) == 0x00000200);
+      }
+      /**
+       * <code>required uint64 rac_used = 10;</code>
+       *
+       * <pre>
+       * rac vol used
+       * </pre>
+       */
+      public long getRacUsed() {
+        return racUsed_;
+      }
+      /**
+       * <code>required uint64 rac_used = 10;</code>
+       *
+       * <pre>
+       * rac vol used
+       * </pre>
+       */
+      public Builder setRacUsed(long value) {
+        bitField0_ |= 0x00000200;
+        racUsed_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 rac_used = 10;</code>
+       *
+       * <pre>
+       * rac vol used
+       * </pre>
+       */
+      public Builder clearRacUsed() {
+        bitField0_ = (bitField0_ & ~0x00000200);
+        racUsed_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long ecsUsed_ ;
+      /**
+       * <code>required uint64 ecs_used = 11;</code>
+       *
+       * <pre>
+       * ecs  backup point size
+       * </pre>
+       */
+      public boolean hasEcsUsed() {
+        return ((bitField0_ & 0x00000400) == 0x00000400);
+      }
+      /**
+       * <code>required uint64 ecs_used = 11;</code>
+       *
+       * <pre>
+       * ecs  backup point size
+       * </pre>
+       */
+      public long getEcsUsed() {
+        return ecsUsed_;
+      }
+      /**
+       * <code>required uint64 ecs_used = 11;</code>
+       *
+       * <pre>
+       * ecs  backup point size
+       * </pre>
+       */
+      public Builder setEcsUsed(long value) {
+        bitField0_ |= 0x00000400;
+        ecsUsed_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 ecs_used = 11;</code>
+       *
+       * <pre>
+       * ecs  backup point size
+       * </pre>
+       */
+      public Builder clearEcsUsed() {
+        bitField0_ = (bitField0_ & ~0x00000400);
+        ecsUsed_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long rdsUsed_ ;
+      /**
+       * <code>required uint64 rds_used = 12;</code>
+       *
+       * <pre>
+       * rds instance backup point size
+       * </pre>
+       */
+      public boolean hasRdsUsed() {
+        return ((bitField0_ & 0x00000800) == 0x00000800);
+      }
+      /**
+       * <code>required uint64 rds_used = 12;</code>
+       *
+       * <pre>
+       * rds instance backup point size
+       * </pre>
+       */
+      public long getRdsUsed() {
+        return rdsUsed_;
+      }
+      /**
+       * <code>required uint64 rds_used = 12;</code>
+       *
+       * <pre>
+       * rds instance backup point size
+       * </pre>
+       */
+      public Builder setRdsUsed(long value) {
+        bitField0_ |= 0x00000800;
+        rdsUsed_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 rds_used = 12;</code>
+       *
+       * <pre>
+       * rds instance backup point size
+       * </pre>
+       */
+      public Builder clearRdsUsed() {
+        bitField0_ = (bitField0_ & ~0x00000800);
+        rdsUsed_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long ossUsed_ ;
+      /**
+       * <code>required uint64 oss_used = 13;</code>
+       *
+       * <pre>
+       * oss objecet set backup point size 
+       * </pre>
+       */
+      public boolean hasOssUsed() {
+        return ((bitField0_ & 0x00001000) == 0x00001000);
+      }
+      /**
+       * <code>required uint64 oss_used = 13;</code>
+       *
+       * <pre>
+       * oss objecet set backup point size 
+       * </pre>
+       */
+      public long getOssUsed() {
+        return ossUsed_;
+      }
+      /**
+       * <code>required uint64 oss_used = 13;</code>
+       *
+       * <pre>
+       * oss objecet set backup point size 
+       * </pre>
+       */
+      public Builder setOssUsed(long value) {
+        bitField0_ |= 0x00001000;
+        ossUsed_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 oss_used = 13;</code>
+       *
+       * <pre>
+       * oss objecet set backup point size 
+       * </pre>
+       */
+      public Builder clearOssUsed() {
+        bitField0_ = (bitField0_ & ~0x00001000);
+        ossUsed_ = 0L;
         onChanged();
         return this;
       }
@@ -6028,6 +6936,15 @@ public final class StmStreamerDrManage {
      * <code>repeated .FaultType status = 4;</code>
      */
     cn.infocore.protobuf.StmStreamerDrManage.FaultType getStatus(int index);
+
+    /**
+     * <code>required uint64 size = 5;</code>
+     */
+    boolean hasSize();
+    /**
+     * <code>required uint64 size = 5;</code>
+     */
+    long getSize();
   }
   /**
    * Protobuf type {@code RdsInstanceInfo}
@@ -6135,6 +7052,11 @@ public final class StmStreamerDrManage {
                 }
               }
               input.popLimit(oldLimit);
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000008;
+              size_ = input.readUInt64();
               break;
             }
           }
@@ -6300,11 +7222,27 @@ public final class StmStreamerDrManage {
       return status_.get(index);
     }
 
+    public static final int SIZE_FIELD_NUMBER = 5;
+    private long size_;
+    /**
+     * <code>required uint64 size = 5;</code>
+     */
+    public boolean hasSize() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required uint64 size = 5;</code>
+     */
+    public long getSize() {
+      return size_;
+    }
+
     private void initFields() {
       name_ = "";
       uuid_ = "";
       type_ = cn.infocore.protobuf.StmStreamerDrManage.ClientType.SINGLE;
       status_ = java.util.Collections.emptyList();
+      size_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -6321,6 +7259,10 @@ public final class StmStreamerDrManage {
         return false;
       }
       if (!hasType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasSize()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -6342,6 +7284,9 @@ public final class StmStreamerDrManage {
       }
       for (int i = 0; i < status_.size(); i++) {
         output.writeEnum(4, status_.get(i).getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeUInt64(5, size_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -6372,6 +7317,10 @@ public final class StmStreamerDrManage {
         }
         size += dataSize;
         size += 1 * status_.size();
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(5, size_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -6498,6 +7447,8 @@ public final class StmStreamerDrManage {
         bitField0_ = (bitField0_ & ~0x00000004);
         status_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000008);
+        size_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -6543,6 +7494,10 @@ public final class StmStreamerDrManage {
           bitField0_ = (bitField0_ & ~0x00000008);
         }
         result.status_ = status_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.size_ = size_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -6582,6 +7537,9 @@ public final class StmStreamerDrManage {
           }
           onChanged();
         }
+        if (other.hasSize()) {
+          setSize(other.getSize());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -6596,6 +7554,10 @@ public final class StmStreamerDrManage {
           return false;
         }
         if (!hasType()) {
+          
+          return false;
+        }
+        if (!hasSize()) {
           
           return false;
         }
@@ -6880,6 +7842,38 @@ public final class StmStreamerDrManage {
         return this;
       }
 
+      private long size_ ;
+      /**
+       * <code>required uint64 size = 5;</code>
+       */
+      public boolean hasSize() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>required uint64 size = 5;</code>
+       */
+      public long getSize() {
+        return size_;
+      }
+      /**
+       * <code>required uint64 size = 5;</code>
+       */
+      public Builder setSize(long value) {
+        bitField0_ |= 0x00000010;
+        size_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 size = 5;</code>
+       */
+      public Builder clearSize() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        size_ = 0L;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:RdsInstanceInfo)
     }
 
@@ -6968,6 +7962,23 @@ public final class StmStreamerDrManage {
      */
     cn.infocore.protobuf.StmStreamerDrManage.RdsInstanceInfoOrBuilder getInstanceListOrBuilder(
         int index);
+
+    /**
+     * <code>required uint64 preoccupation_size_byte = 6;</code>
+     *
+     * <pre>
+     * 备份预留大小
+     * </pre>
+     */
+    boolean hasPreoccupationSizeByte();
+    /**
+     * <code>required uint64 preoccupation_size_byte = 6;</code>
+     *
+     * <pre>
+     * 备份预留大小
+     * </pre>
+     */
+    long getPreoccupationSizeByte();
   }
   /**
    * Protobuf type {@code RdsInfo}
@@ -7083,6 +8094,11 @@ public final class StmStreamerDrManage {
                 mutable_bitField0_ |= 0x00000010;
               }
               instanceList_.add(input.readMessage(cn.infocore.protobuf.StmStreamerDrManage.RdsInstanceInfo.PARSER, extensionRegistry));
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000008;
+              preoccupationSizeByte_ = input.readUInt64();
               break;
             }
           }
@@ -7286,12 +8302,36 @@ public final class StmStreamerDrManage {
       return instanceList_.get(index);
     }
 
+    public static final int PREOCCUPATION_SIZE_BYTE_FIELD_NUMBER = 6;
+    private long preoccupationSizeByte_;
+    /**
+     * <code>required uint64 preoccupation_size_byte = 6;</code>
+     *
+     * <pre>
+     * 备份预留大小
+     * </pre>
+     */
+    public boolean hasPreoccupationSizeByte() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required uint64 preoccupation_size_byte = 6;</code>
+     *
+     * <pre>
+     * 备份预留大小
+     * </pre>
+     */
+    public long getPreoccupationSizeByte() {
+      return preoccupationSizeByte_;
+    }
+
     private void initFields() {
       name_ = "";
       uuid_ = "";
       type_ = cn.infocore.protobuf.StmStreamerDrManage.ClientType.SINGLE;
       status_ = java.util.Collections.emptyList();
       instanceList_ = java.util.Collections.emptyList();
+      preoccupationSizeByte_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -7308,6 +8348,10 @@ public final class StmStreamerDrManage {
         return false;
       }
       if (!hasType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPreoccupationSizeByte()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -7338,6 +8382,9 @@ public final class StmStreamerDrManage {
       }
       for (int i = 0; i < instanceList_.size(); i++) {
         output.writeMessage(5, instanceList_.get(i));
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeUInt64(6, preoccupationSizeByte_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -7372,6 +8419,10 @@ public final class StmStreamerDrManage {
       for (int i = 0; i < instanceList_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, instanceList_.get(i));
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(6, preoccupationSizeByte_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -7505,6 +8556,8 @@ public final class StmStreamerDrManage {
         } else {
           instanceListBuilder_.clear();
         }
+        preoccupationSizeByte_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -7559,6 +8612,10 @@ public final class StmStreamerDrManage {
         } else {
           result.instanceList_ = instanceListBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.preoccupationSizeByte_ = preoccupationSizeByte_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -7624,6 +8681,9 @@ public final class StmStreamerDrManage {
             }
           }
         }
+        if (other.hasPreoccupationSizeByte()) {
+          setPreoccupationSizeByte(other.getPreoccupationSizeByte());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -7638,6 +8698,10 @@ public final class StmStreamerDrManage {
           return false;
         }
         if (!hasType()) {
+          
+          return false;
+        }
+        if (!hasPreoccupationSizeByte()) {
           
           return false;
         }
@@ -8168,6 +9232,54 @@ public final class StmStreamerDrManage {
         return instanceListBuilder_;
       }
 
+      private long preoccupationSizeByte_ ;
+      /**
+       * <code>required uint64 preoccupation_size_byte = 6;</code>
+       *
+       * <pre>
+       * 备份预留大小
+       * </pre>
+       */
+      public boolean hasPreoccupationSizeByte() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>required uint64 preoccupation_size_byte = 6;</code>
+       *
+       * <pre>
+       * 备份预留大小
+       * </pre>
+       */
+      public long getPreoccupationSizeByte() {
+        return preoccupationSizeByte_;
+      }
+      /**
+       * <code>required uint64 preoccupation_size_byte = 6;</code>
+       *
+       * <pre>
+       * 备份预留大小
+       * </pre>
+       */
+      public Builder setPreoccupationSizeByte(long value) {
+        bitField0_ |= 0x00000020;
+        preoccupationSizeByte_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 preoccupation_size_byte = 6;</code>
+       *
+       * <pre>
+       * 备份预留大小
+       * </pre>
+       */
+      public Builder clearPreoccupationSizeByte() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        preoccupationSizeByte_ = 0L;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:RdsInfo)
     }
 
@@ -8177,6 +9289,2414 @@ public final class StmStreamerDrManage {
     }
 
     // @@protoc_insertion_point(class_scope:RdsInfo)
+  }
+
+  public interface OssObjectSetInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:OssObjectSetInfo)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required string name = 1;</code>
+     */
+    boolean hasName();
+    /**
+     * <code>required string name = 1;</code>
+     */
+    java.lang.String getName();
+    /**
+     * <code>required string name = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>required string id = 2;</code>
+     */
+    boolean hasId();
+    /**
+     * <code>required string id = 2;</code>
+     */
+    java.lang.String getId();
+    /**
+     * <code>required string id = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <code>required .ClientType type = 3;</code>
+     */
+    boolean hasType();
+    /**
+     * <code>required .ClientType type = 3;</code>
+     */
+    cn.infocore.protobuf.StmStreamerDrManage.ClientType getType();
+
+    /**
+     * <code>repeated .FaultType status = 4;</code>
+     */
+    java.util.List<cn.infocore.protobuf.StmStreamerDrManage.FaultType> getStatusList();
+    /**
+     * <code>repeated .FaultType status = 4;</code>
+     */
+    int getStatusCount();
+    /**
+     * <code>repeated .FaultType status = 4;</code>
+     */
+    cn.infocore.protobuf.StmStreamerDrManage.FaultType getStatus(int index);
+
+    /**
+     * <code>required uint64 size = 5;</code>
+     */
+    boolean hasSize();
+    /**
+     * <code>required uint64 size = 5;</code>
+     */
+    long getSize();
+
+    /**
+     * <code>required uint64 preoccupation_size_byte = 6;</code>
+     *
+     * <pre>
+     * 备份预留大小
+     * </pre>
+     */
+    boolean hasPreoccupationSizeByte();
+    /**
+     * <code>required uint64 preoccupation_size_byte = 6;</code>
+     *
+     * <pre>
+     * 备份预留大小
+     * </pre>
+     */
+    long getPreoccupationSizeByte();
+  }
+  /**
+   * Protobuf type {@code OssObjectSetInfo}
+   */
+  public static final class OssObjectSetInfo extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:OssObjectSetInfo)
+      OssObjectSetInfoOrBuilder {
+    // Use OssObjectSetInfo.newBuilder() to construct.
+    private OssObjectSetInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private OssObjectSetInfo(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final OssObjectSetInfo defaultInstance;
+    public static OssObjectSetInfo getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public OssObjectSetInfo getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private OssObjectSetInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              name_ = bs;
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              id_ = bs;
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+              cn.infocore.protobuf.StmStreamerDrManage.ClientType value = cn.infocore.protobuf.StmStreamerDrManage.ClientType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                type_ = value;
+              }
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+              cn.infocore.protobuf.StmStreamerDrManage.FaultType value = cn.infocore.protobuf.StmStreamerDrManage.FaultType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(4, rawValue);
+                } else {
+                if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+                  status_ = new java.util.ArrayList<cn.infocore.protobuf.StmStreamerDrManage.FaultType>();
+                  mutable_bitField0_ |= 0x00000008;
+                }
+                status_.add(value);
+              }
+              break;
+            }
+            case 34: {
+              int length = input.readRawVarint32();
+              int oldLimit = input.pushLimit(length);
+              while(input.getBytesUntilLimit() > 0) {
+                int rawValue = input.readEnum();
+                cn.infocore.protobuf.StmStreamerDrManage.FaultType value = cn.infocore.protobuf.StmStreamerDrManage.FaultType.valueOf(rawValue);
+                if (value == null) {
+                  unknownFields.mergeVarintField(4, rawValue);
+                  } else {
+                  if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+                    status_ = new java.util.ArrayList<cn.infocore.protobuf.StmStreamerDrManage.FaultType>();
+                    mutable_bitField0_ |= 0x00000008;
+                  }
+                  status_.add(value);
+                }
+              }
+              input.popLimit(oldLimit);
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000008;
+              size_ = input.readUInt64();
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000010;
+              preoccupationSizeByte_ = input.readUInt64();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+          status_ = java.util.Collections.unmodifiableList(status_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return cn.infocore.protobuf.StmStreamerDrManage.internal_static_OssObjectSetInfo_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return cn.infocore.protobuf.StmStreamerDrManage.internal_static_OssObjectSetInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.class, cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<OssObjectSetInfo> PARSER =
+        new com.google.protobuf.AbstractParser<OssObjectSetInfo>() {
+      public OssObjectSetInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new OssObjectSetInfo(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<OssObjectSetInfo> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int NAME_FIELD_NUMBER = 1;
+    private java.lang.Object name_;
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ID_FIELD_NUMBER = 2;
+    private java.lang.Object id_;
+    /**
+     * <code>required string id = 2;</code>
+     */
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string id = 2;</code>
+     */
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          id_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string id = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 3;
+    private cn.infocore.protobuf.StmStreamerDrManage.ClientType type_;
+    /**
+     * <code>required .ClientType type = 3;</code>
+     */
+    public boolean hasType() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required .ClientType type = 3;</code>
+     */
+    public cn.infocore.protobuf.StmStreamerDrManage.ClientType getType() {
+      return type_;
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 4;
+    private java.util.List<cn.infocore.protobuf.StmStreamerDrManage.FaultType> status_;
+    /**
+     * <code>repeated .FaultType status = 4;</code>
+     */
+    public java.util.List<cn.infocore.protobuf.StmStreamerDrManage.FaultType> getStatusList() {
+      return status_;
+    }
+    /**
+     * <code>repeated .FaultType status = 4;</code>
+     */
+    public int getStatusCount() {
+      return status_.size();
+    }
+    /**
+     * <code>repeated .FaultType status = 4;</code>
+     */
+    public cn.infocore.protobuf.StmStreamerDrManage.FaultType getStatus(int index) {
+      return status_.get(index);
+    }
+
+    public static final int SIZE_FIELD_NUMBER = 5;
+    private long size_;
+    /**
+     * <code>required uint64 size = 5;</code>
+     */
+    public boolean hasSize() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required uint64 size = 5;</code>
+     */
+    public long getSize() {
+      return size_;
+    }
+
+    public static final int PREOCCUPATION_SIZE_BYTE_FIELD_NUMBER = 6;
+    private long preoccupationSizeByte_;
+    /**
+     * <code>required uint64 preoccupation_size_byte = 6;</code>
+     *
+     * <pre>
+     * 备份预留大小
+     * </pre>
+     */
+    public boolean hasPreoccupationSizeByte() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>required uint64 preoccupation_size_byte = 6;</code>
+     *
+     * <pre>
+     * 备份预留大小
+     * </pre>
+     */
+    public long getPreoccupationSizeByte() {
+      return preoccupationSizeByte_;
+    }
+
+    private void initFields() {
+      name_ = "";
+      id_ = "";
+      type_ = cn.infocore.protobuf.StmStreamerDrManage.ClientType.SINGLE;
+      status_ = java.util.Collections.emptyList();
+      size_ = 0L;
+      preoccupationSizeByte_ = 0L;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasSize()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPreoccupationSizeByte()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getIdBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(3, type_.getNumber());
+      }
+      for (int i = 0; i < status_.size(); i++) {
+        output.writeEnum(4, status_.get(i).getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeUInt64(5, size_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeUInt64(6, preoccupationSizeByte_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getIdBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, type_.getNumber());
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < status_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeEnumSizeNoTag(status_.get(i).getNumber());
+        }
+        size += dataSize;
+        size += 1 * status_.size();
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(5, size_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(6, preoccupationSizeByte_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code OssObjectSetInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:OssObjectSetInfo)
+        cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return cn.infocore.protobuf.StmStreamerDrManage.internal_static_OssObjectSetInfo_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return cn.infocore.protobuf.StmStreamerDrManage.internal_static_OssObjectSetInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.class, cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.Builder.class);
+      }
+
+      // Construct using cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        name_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        type_ = cn.infocore.protobuf.StmStreamerDrManage.ClientType.SINGLE;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        status_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        size_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        preoccupationSizeByte_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return cn.infocore.protobuf.StmStreamerDrManage.internal_static_OssObjectSetInfo_descriptor;
+      }
+
+      public cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo getDefaultInstanceForType() {
+        return cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.getDefaultInstance();
+      }
+
+      public cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo build() {
+        cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo buildPartial() {
+        cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo result = new cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.name_ = name_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.id_ = id_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.type_ = type_;
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          status_ = java.util.Collections.unmodifiableList(status_);
+          bitField0_ = (bitField0_ & ~0x00000008);
+        }
+        result.status_ = status_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.size_ = size_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.preoccupationSizeByte_ = preoccupationSizeByte_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo) {
+          return mergeFrom((cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo other) {
+        if (other == cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.getDefaultInstance()) return this;
+        if (other.hasName()) {
+          bitField0_ |= 0x00000001;
+          name_ = other.name_;
+          onChanged();
+        }
+        if (other.hasId()) {
+          bitField0_ |= 0x00000002;
+          id_ = other.id_;
+          onChanged();
+        }
+        if (other.hasType()) {
+          setType(other.getType());
+        }
+        if (!other.status_.isEmpty()) {
+          if (status_.isEmpty()) {
+            status_ = other.status_;
+            bitField0_ = (bitField0_ & ~0x00000008);
+          } else {
+            ensureStatusIsMutable();
+            status_.addAll(other.status_);
+          }
+          onChanged();
+        }
+        if (other.hasSize()) {
+          setSize(other.getSize());
+        }
+        if (other.hasPreoccupationSizeByte()) {
+          setPreoccupationSizeByte(other.getPreoccupationSizeByte());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasName()) {
+          
+          return false;
+        }
+        if (!hasId()) {
+          
+          return false;
+        }
+        if (!hasType()) {
+          
+          return false;
+        }
+        if (!hasSize()) {
+          
+          return false;
+        }
+        if (!hasPreoccupationSizeByte()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            name_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder clearName() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object id_ = "";
+      /**
+       * <code>required string id = 2;</code>
+       */
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string id = 2;</code>
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            id_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string id = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string id = 2;</code>
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string id = 2;</code>
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string id = 2;</code>
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private cn.infocore.protobuf.StmStreamerDrManage.ClientType type_ = cn.infocore.protobuf.StmStreamerDrManage.ClientType.SINGLE;
+      /**
+       * <code>required .ClientType type = 3;</code>
+       */
+      public boolean hasType() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required .ClientType type = 3;</code>
+       */
+      public cn.infocore.protobuf.StmStreamerDrManage.ClientType getType() {
+        return type_;
+      }
+      /**
+       * <code>required .ClientType type = 3;</code>
+       */
+      public Builder setType(cn.infocore.protobuf.StmStreamerDrManage.ClientType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000004;
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required .ClientType type = 3;</code>
+       */
+      public Builder clearType() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        type_ = cn.infocore.protobuf.StmStreamerDrManage.ClientType.SINGLE;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<cn.infocore.protobuf.StmStreamerDrManage.FaultType> status_ =
+        java.util.Collections.emptyList();
+      private void ensureStatusIsMutable() {
+        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+          status_ = new java.util.ArrayList<cn.infocore.protobuf.StmStreamerDrManage.FaultType>(status_);
+          bitField0_ |= 0x00000008;
+        }
+      }
+      /**
+       * <code>repeated .FaultType status = 4;</code>
+       */
+      public java.util.List<cn.infocore.protobuf.StmStreamerDrManage.FaultType> getStatusList() {
+        return java.util.Collections.unmodifiableList(status_);
+      }
+      /**
+       * <code>repeated .FaultType status = 4;</code>
+       */
+      public int getStatusCount() {
+        return status_.size();
+      }
+      /**
+       * <code>repeated .FaultType status = 4;</code>
+       */
+      public cn.infocore.protobuf.StmStreamerDrManage.FaultType getStatus(int index) {
+        return status_.get(index);
+      }
+      /**
+       * <code>repeated .FaultType status = 4;</code>
+       */
+      public Builder setStatus(
+          int index, cn.infocore.protobuf.StmStreamerDrManage.FaultType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureStatusIsMutable();
+        status_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .FaultType status = 4;</code>
+       */
+      public Builder addStatus(cn.infocore.protobuf.StmStreamerDrManage.FaultType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureStatusIsMutable();
+        status_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .FaultType status = 4;</code>
+       */
+      public Builder addAllStatus(
+          java.lang.Iterable<? extends cn.infocore.protobuf.StmStreamerDrManage.FaultType> values) {
+        ensureStatusIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, status_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .FaultType status = 4;</code>
+       */
+      public Builder clearStatus() {
+        status_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+        return this;
+      }
+
+      private long size_ ;
+      /**
+       * <code>required uint64 size = 5;</code>
+       */
+      public boolean hasSize() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>required uint64 size = 5;</code>
+       */
+      public long getSize() {
+        return size_;
+      }
+      /**
+       * <code>required uint64 size = 5;</code>
+       */
+      public Builder setSize(long value) {
+        bitField0_ |= 0x00000010;
+        size_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 size = 5;</code>
+       */
+      public Builder clearSize() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        size_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long preoccupationSizeByte_ ;
+      /**
+       * <code>required uint64 preoccupation_size_byte = 6;</code>
+       *
+       * <pre>
+       * 备份预留大小
+       * </pre>
+       */
+      public boolean hasPreoccupationSizeByte() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>required uint64 preoccupation_size_byte = 6;</code>
+       *
+       * <pre>
+       * 备份预留大小
+       * </pre>
+       */
+      public long getPreoccupationSizeByte() {
+        return preoccupationSizeByte_;
+      }
+      /**
+       * <code>required uint64 preoccupation_size_byte = 6;</code>
+       *
+       * <pre>
+       * 备份预留大小
+       * </pre>
+       */
+      public Builder setPreoccupationSizeByte(long value) {
+        bitField0_ |= 0x00000020;
+        preoccupationSizeByte_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 preoccupation_size_byte = 6;</code>
+       *
+       * <pre>
+       * 备份预留大小
+       * </pre>
+       */
+      public Builder clearPreoccupationSizeByte() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        preoccupationSizeByte_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:OssObjectSetInfo)
+    }
+
+    static {
+      defaultInstance = new OssObjectSetInfo(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:OssObjectSetInfo)
+  }
+
+  public interface OssInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:OssInfo)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required string name = 1;</code>
+     */
+    boolean hasName();
+    /**
+     * <code>required string name = 1;</code>
+     */
+    java.lang.String getName();
+    /**
+     * <code>required string name = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>required string uuid = 2;</code>
+     */
+    boolean hasUuid();
+    /**
+     * <code>required string uuid = 2;</code>
+     */
+    java.lang.String getUuid();
+    /**
+     * <code>required string uuid = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getUuidBytes();
+
+    /**
+     * <code>required .ClientType type = 3;</code>
+     */
+    boolean hasType();
+    /**
+     * <code>required .ClientType type = 3;</code>
+     */
+    cn.infocore.protobuf.StmStreamerDrManage.ClientType getType();
+
+    /**
+     * <code>repeated .FaultType status = 4;</code>
+     */
+    java.util.List<cn.infocore.protobuf.StmStreamerDrManage.FaultType> getStatusList();
+    /**
+     * <code>repeated .FaultType status = 4;</code>
+     */
+    int getStatusCount();
+    /**
+     * <code>repeated .FaultType status = 4;</code>
+     */
+    cn.infocore.protobuf.StmStreamerDrManage.FaultType getStatus(int index);
+
+    /**
+     * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+     */
+    java.util.List<cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo> 
+        getObjListList();
+    /**
+     * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+     */
+    cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo getObjList(int index);
+    /**
+     * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+     */
+    int getObjListCount();
+    /**
+     * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+     */
+    java.util.List<? extends cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfoOrBuilder> 
+        getObjListOrBuilderList();
+    /**
+     * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+     */
+    cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfoOrBuilder getObjListOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code OssInfo}
+   */
+  public static final class OssInfo extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:OssInfo)
+      OssInfoOrBuilder {
+    // Use OssInfo.newBuilder() to construct.
+    private OssInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private OssInfo(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final OssInfo defaultInstance;
+    public static OssInfo getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public OssInfo getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private OssInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              name_ = bs;
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              uuid_ = bs;
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+              cn.infocore.protobuf.StmStreamerDrManage.ClientType value = cn.infocore.protobuf.StmStreamerDrManage.ClientType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                type_ = value;
+              }
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+              cn.infocore.protobuf.StmStreamerDrManage.FaultType value = cn.infocore.protobuf.StmStreamerDrManage.FaultType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(4, rawValue);
+                } else {
+                if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+                  status_ = new java.util.ArrayList<cn.infocore.protobuf.StmStreamerDrManage.FaultType>();
+                  mutable_bitField0_ |= 0x00000008;
+                }
+                status_.add(value);
+              }
+              break;
+            }
+            case 34: {
+              int length = input.readRawVarint32();
+              int oldLimit = input.pushLimit(length);
+              while(input.getBytesUntilLimit() > 0) {
+                int rawValue = input.readEnum();
+                cn.infocore.protobuf.StmStreamerDrManage.FaultType value = cn.infocore.protobuf.StmStreamerDrManage.FaultType.valueOf(rawValue);
+                if (value == null) {
+                  unknownFields.mergeVarintField(4, rawValue);
+                  } else {
+                  if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+                    status_ = new java.util.ArrayList<cn.infocore.protobuf.StmStreamerDrManage.FaultType>();
+                    mutable_bitField0_ |= 0x00000008;
+                  }
+                  status_.add(value);
+                }
+              }
+              input.popLimit(oldLimit);
+              break;
+            }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+                objList_ = new java.util.ArrayList<cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo>();
+                mutable_bitField0_ |= 0x00000010;
+              }
+              objList_.add(input.readMessage(cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.PARSER, extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+          status_ = java.util.Collections.unmodifiableList(status_);
+        }
+        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+          objList_ = java.util.Collections.unmodifiableList(objList_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return cn.infocore.protobuf.StmStreamerDrManage.internal_static_OssInfo_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return cn.infocore.protobuf.StmStreamerDrManage.internal_static_OssInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              cn.infocore.protobuf.StmStreamerDrManage.OssInfo.class, cn.infocore.protobuf.StmStreamerDrManage.OssInfo.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<OssInfo> PARSER =
+        new com.google.protobuf.AbstractParser<OssInfo>() {
+      public OssInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new OssInfo(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<OssInfo> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int NAME_FIELD_NUMBER = 1;
+    private java.lang.Object name_;
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int UUID_FIELD_NUMBER = 2;
+    private java.lang.Object uuid_;
+    /**
+     * <code>required string uuid = 2;</code>
+     */
+    public boolean hasUuid() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string uuid = 2;</code>
+     */
+    public java.lang.String getUuid() {
+      java.lang.Object ref = uuid_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          uuid_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string uuid = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getUuidBytes() {
+      java.lang.Object ref = uuid_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        uuid_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 3;
+    private cn.infocore.protobuf.StmStreamerDrManage.ClientType type_;
+    /**
+     * <code>required .ClientType type = 3;</code>
+     */
+    public boolean hasType() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required .ClientType type = 3;</code>
+     */
+    public cn.infocore.protobuf.StmStreamerDrManage.ClientType getType() {
+      return type_;
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 4;
+    private java.util.List<cn.infocore.protobuf.StmStreamerDrManage.FaultType> status_;
+    /**
+     * <code>repeated .FaultType status = 4;</code>
+     */
+    public java.util.List<cn.infocore.protobuf.StmStreamerDrManage.FaultType> getStatusList() {
+      return status_;
+    }
+    /**
+     * <code>repeated .FaultType status = 4;</code>
+     */
+    public int getStatusCount() {
+      return status_.size();
+    }
+    /**
+     * <code>repeated .FaultType status = 4;</code>
+     */
+    public cn.infocore.protobuf.StmStreamerDrManage.FaultType getStatus(int index) {
+      return status_.get(index);
+    }
+
+    public static final int OBJ_LIST_FIELD_NUMBER = 5;
+    private java.util.List<cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo> objList_;
+    /**
+     * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+     */
+    public java.util.List<cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo> getObjListList() {
+      return objList_;
+    }
+    /**
+     * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+     */
+    public java.util.List<? extends cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfoOrBuilder> 
+        getObjListOrBuilderList() {
+      return objList_;
+    }
+    /**
+     * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+     */
+    public int getObjListCount() {
+      return objList_.size();
+    }
+    /**
+     * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+     */
+    public cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo getObjList(int index) {
+      return objList_.get(index);
+    }
+    /**
+     * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+     */
+    public cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfoOrBuilder getObjListOrBuilder(
+        int index) {
+      return objList_.get(index);
+    }
+
+    private void initFields() {
+      name_ = "";
+      uuid_ = "";
+      type_ = cn.infocore.protobuf.StmStreamerDrManage.ClientType.SINGLE;
+      status_ = java.util.Collections.emptyList();
+      objList_ = java.util.Collections.emptyList();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasUuid()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      for (int i = 0; i < getObjListCount(); i++) {
+        if (!getObjList(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getUuidBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(3, type_.getNumber());
+      }
+      for (int i = 0; i < status_.size(); i++) {
+        output.writeEnum(4, status_.get(i).getNumber());
+      }
+      for (int i = 0; i < objList_.size(); i++) {
+        output.writeMessage(5, objList_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getUuidBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, type_.getNumber());
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < status_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeEnumSizeNoTag(status_.get(i).getNumber());
+        }
+        size += dataSize;
+        size += 1 * status_.size();
+      }
+      for (int i = 0; i < objList_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, objList_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static cn.infocore.protobuf.StmStreamerDrManage.OssInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(cn.infocore.protobuf.StmStreamerDrManage.OssInfo prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code OssInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:OssInfo)
+        cn.infocore.protobuf.StmStreamerDrManage.OssInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return cn.infocore.protobuf.StmStreamerDrManage.internal_static_OssInfo_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return cn.infocore.protobuf.StmStreamerDrManage.internal_static_OssInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                cn.infocore.protobuf.StmStreamerDrManage.OssInfo.class, cn.infocore.protobuf.StmStreamerDrManage.OssInfo.Builder.class);
+      }
+
+      // Construct using cn.infocore.protobuf.StmStreamerDrManage.OssInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getObjListFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        name_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        uuid_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        type_ = cn.infocore.protobuf.StmStreamerDrManage.ClientType.SINGLE;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        status_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        if (objListBuilder_ == null) {
+          objList_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+        } else {
+          objListBuilder_.clear();
+        }
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return cn.infocore.protobuf.StmStreamerDrManage.internal_static_OssInfo_descriptor;
+      }
+
+      public cn.infocore.protobuf.StmStreamerDrManage.OssInfo getDefaultInstanceForType() {
+        return cn.infocore.protobuf.StmStreamerDrManage.OssInfo.getDefaultInstance();
+      }
+
+      public cn.infocore.protobuf.StmStreamerDrManage.OssInfo build() {
+        cn.infocore.protobuf.StmStreamerDrManage.OssInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public cn.infocore.protobuf.StmStreamerDrManage.OssInfo buildPartial() {
+        cn.infocore.protobuf.StmStreamerDrManage.OssInfo result = new cn.infocore.protobuf.StmStreamerDrManage.OssInfo(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.name_ = name_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.uuid_ = uuid_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.type_ = type_;
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          status_ = java.util.Collections.unmodifiableList(status_);
+          bitField0_ = (bitField0_ & ~0x00000008);
+        }
+        result.status_ = status_;
+        if (objListBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) == 0x00000010)) {
+            objList_ = java.util.Collections.unmodifiableList(objList_);
+            bitField0_ = (bitField0_ & ~0x00000010);
+          }
+          result.objList_ = objList_;
+        } else {
+          result.objList_ = objListBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof cn.infocore.protobuf.StmStreamerDrManage.OssInfo) {
+          return mergeFrom((cn.infocore.protobuf.StmStreamerDrManage.OssInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(cn.infocore.protobuf.StmStreamerDrManage.OssInfo other) {
+        if (other == cn.infocore.protobuf.StmStreamerDrManage.OssInfo.getDefaultInstance()) return this;
+        if (other.hasName()) {
+          bitField0_ |= 0x00000001;
+          name_ = other.name_;
+          onChanged();
+        }
+        if (other.hasUuid()) {
+          bitField0_ |= 0x00000002;
+          uuid_ = other.uuid_;
+          onChanged();
+        }
+        if (other.hasType()) {
+          setType(other.getType());
+        }
+        if (!other.status_.isEmpty()) {
+          if (status_.isEmpty()) {
+            status_ = other.status_;
+            bitField0_ = (bitField0_ & ~0x00000008);
+          } else {
+            ensureStatusIsMutable();
+            status_.addAll(other.status_);
+          }
+          onChanged();
+        }
+        if (objListBuilder_ == null) {
+          if (!other.objList_.isEmpty()) {
+            if (objList_.isEmpty()) {
+              objList_ = other.objList_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+            } else {
+              ensureObjListIsMutable();
+              objList_.addAll(other.objList_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.objList_.isEmpty()) {
+            if (objListBuilder_.isEmpty()) {
+              objListBuilder_.dispose();
+              objListBuilder_ = null;
+              objList_ = other.objList_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+              objListBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getObjListFieldBuilder() : null;
+            } else {
+              objListBuilder_.addAllMessages(other.objList_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasName()) {
+          
+          return false;
+        }
+        if (!hasUuid()) {
+          
+          return false;
+        }
+        if (!hasType()) {
+          
+          return false;
+        }
+        for (int i = 0; i < getObjListCount(); i++) {
+          if (!getObjList(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        cn.infocore.protobuf.StmStreamerDrManage.OssInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (cn.infocore.protobuf.StmStreamerDrManage.OssInfo) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            name_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder clearName() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object uuid_ = "";
+      /**
+       * <code>required string uuid = 2;</code>
+       */
+      public boolean hasUuid() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string uuid = 2;</code>
+       */
+      public java.lang.String getUuid() {
+        java.lang.Object ref = uuid_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            uuid_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string uuid = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getUuidBytes() {
+        java.lang.Object ref = uuid_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          uuid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string uuid = 2;</code>
+       */
+      public Builder setUuid(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        uuid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string uuid = 2;</code>
+       */
+      public Builder clearUuid() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        uuid_ = getDefaultInstance().getUuid();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string uuid = 2;</code>
+       */
+      public Builder setUuidBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        uuid_ = value;
+        onChanged();
+        return this;
+      }
+
+      private cn.infocore.protobuf.StmStreamerDrManage.ClientType type_ = cn.infocore.protobuf.StmStreamerDrManage.ClientType.SINGLE;
+      /**
+       * <code>required .ClientType type = 3;</code>
+       */
+      public boolean hasType() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required .ClientType type = 3;</code>
+       */
+      public cn.infocore.protobuf.StmStreamerDrManage.ClientType getType() {
+        return type_;
+      }
+      /**
+       * <code>required .ClientType type = 3;</code>
+       */
+      public Builder setType(cn.infocore.protobuf.StmStreamerDrManage.ClientType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000004;
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required .ClientType type = 3;</code>
+       */
+      public Builder clearType() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        type_ = cn.infocore.protobuf.StmStreamerDrManage.ClientType.SINGLE;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<cn.infocore.protobuf.StmStreamerDrManage.FaultType> status_ =
+        java.util.Collections.emptyList();
+      private void ensureStatusIsMutable() {
+        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+          status_ = new java.util.ArrayList<cn.infocore.protobuf.StmStreamerDrManage.FaultType>(status_);
+          bitField0_ |= 0x00000008;
+        }
+      }
+      /**
+       * <code>repeated .FaultType status = 4;</code>
+       */
+      public java.util.List<cn.infocore.protobuf.StmStreamerDrManage.FaultType> getStatusList() {
+        return java.util.Collections.unmodifiableList(status_);
+      }
+      /**
+       * <code>repeated .FaultType status = 4;</code>
+       */
+      public int getStatusCount() {
+        return status_.size();
+      }
+      /**
+       * <code>repeated .FaultType status = 4;</code>
+       */
+      public cn.infocore.protobuf.StmStreamerDrManage.FaultType getStatus(int index) {
+        return status_.get(index);
+      }
+      /**
+       * <code>repeated .FaultType status = 4;</code>
+       */
+      public Builder setStatus(
+          int index, cn.infocore.protobuf.StmStreamerDrManage.FaultType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureStatusIsMutable();
+        status_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .FaultType status = 4;</code>
+       */
+      public Builder addStatus(cn.infocore.protobuf.StmStreamerDrManage.FaultType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureStatusIsMutable();
+        status_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .FaultType status = 4;</code>
+       */
+      public Builder addAllStatus(
+          java.lang.Iterable<? extends cn.infocore.protobuf.StmStreamerDrManage.FaultType> values) {
+        ensureStatusIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, status_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .FaultType status = 4;</code>
+       */
+      public Builder clearStatus() {
+        status_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo> objList_ =
+        java.util.Collections.emptyList();
+      private void ensureObjListIsMutable() {
+        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+          objList_ = new java.util.ArrayList<cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo>(objList_);
+          bitField0_ |= 0x00000010;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo, cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.Builder, cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfoOrBuilder> objListBuilder_;
+
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public java.util.List<cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo> getObjListList() {
+        if (objListBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(objList_);
+        } else {
+          return objListBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public int getObjListCount() {
+        if (objListBuilder_ == null) {
+          return objList_.size();
+        } else {
+          return objListBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo getObjList(int index) {
+        if (objListBuilder_ == null) {
+          return objList_.get(index);
+        } else {
+          return objListBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public Builder setObjList(
+          int index, cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo value) {
+        if (objListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureObjListIsMutable();
+          objList_.set(index, value);
+          onChanged();
+        } else {
+          objListBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public Builder setObjList(
+          int index, cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.Builder builderForValue) {
+        if (objListBuilder_ == null) {
+          ensureObjListIsMutable();
+          objList_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          objListBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public Builder addObjList(cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo value) {
+        if (objListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureObjListIsMutable();
+          objList_.add(value);
+          onChanged();
+        } else {
+          objListBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public Builder addObjList(
+          int index, cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo value) {
+        if (objListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureObjListIsMutable();
+          objList_.add(index, value);
+          onChanged();
+        } else {
+          objListBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public Builder addObjList(
+          cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.Builder builderForValue) {
+        if (objListBuilder_ == null) {
+          ensureObjListIsMutable();
+          objList_.add(builderForValue.build());
+          onChanged();
+        } else {
+          objListBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public Builder addObjList(
+          int index, cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.Builder builderForValue) {
+        if (objListBuilder_ == null) {
+          ensureObjListIsMutable();
+          objList_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          objListBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public Builder addAllObjList(
+          java.lang.Iterable<? extends cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo> values) {
+        if (objListBuilder_ == null) {
+          ensureObjListIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, objList_);
+          onChanged();
+        } else {
+          objListBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public Builder clearObjList() {
+        if (objListBuilder_ == null) {
+          objList_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+          onChanged();
+        } else {
+          objListBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public Builder removeObjList(int index) {
+        if (objListBuilder_ == null) {
+          ensureObjListIsMutable();
+          objList_.remove(index);
+          onChanged();
+        } else {
+          objListBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.Builder getObjListBuilder(
+          int index) {
+        return getObjListFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfoOrBuilder getObjListOrBuilder(
+          int index) {
+        if (objListBuilder_ == null) {
+          return objList_.get(index);  } else {
+          return objListBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public java.util.List<? extends cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfoOrBuilder> 
+           getObjListOrBuilderList() {
+        if (objListBuilder_ != null) {
+          return objListBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(objList_);
+        }
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.Builder addObjListBuilder() {
+        return getObjListFieldBuilder().addBuilder(
+            cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.Builder addObjListBuilder(
+          int index) {
+        return getObjListFieldBuilder().addBuilder(
+            index, cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .OssObjectSetInfo obj_list = 5;</code>
+       */
+      public java.util.List<cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.Builder> 
+           getObjListBuilderList() {
+        return getObjListFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo, cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.Builder, cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfoOrBuilder> 
+          getObjListFieldBuilder() {
+        if (objListBuilder_ == null) {
+          objListBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo, cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo.Builder, cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfoOrBuilder>(
+                  objList_,
+                  ((bitField0_ & 0x00000010) == 0x00000010),
+                  getParentForChildren(),
+                  isClean());
+          objList_ = null;
+        }
+        return objListBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:OssInfo)
+    }
+
+    static {
+      defaultInstance = new OssInfo(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:OssInfo)
   }
 
   public interface GetServerInfoReturnOrBuilder extends
@@ -8281,6 +11801,30 @@ public final class StmStreamerDrManage {
      */
     cn.infocore.protobuf.StmStreamerDrManage.RdsInfoOrBuilder getRdsClientsOrBuilder(
         int index);
+
+    /**
+     * <code>repeated .OssInfo oss_clients = 6;</code>
+     */
+    java.util.List<cn.infocore.protobuf.StmStreamerDrManage.OssInfo> 
+        getOssClientsList();
+    /**
+     * <code>repeated .OssInfo oss_clients = 6;</code>
+     */
+    cn.infocore.protobuf.StmStreamerDrManage.OssInfo getOssClients(int index);
+    /**
+     * <code>repeated .OssInfo oss_clients = 6;</code>
+     */
+    int getOssClientsCount();
+    /**
+     * <code>repeated .OssInfo oss_clients = 6;</code>
+     */
+    java.util.List<? extends cn.infocore.protobuf.StmStreamerDrManage.OssInfoOrBuilder> 
+        getOssClientsOrBuilderList();
+    /**
+     * <code>repeated .OssInfo oss_clients = 6;</code>
+     */
+    cn.infocore.protobuf.StmStreamerDrManage.OssInfoOrBuilder getOssClientsOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code GetServerInfoReturn}
@@ -8381,6 +11925,14 @@ public final class StmStreamerDrManage {
               rdsClients_.add(input.readMessage(cn.infocore.protobuf.StmStreamerDrManage.RdsInfo.PARSER, extensionRegistry));
               break;
             }
+            case 50: {
+              if (!((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+                ossClients_ = new java.util.ArrayList<cn.infocore.protobuf.StmStreamerDrManage.OssInfo>();
+                mutable_bitField0_ |= 0x00000020;
+              }
+              ossClients_.add(input.readMessage(cn.infocore.protobuf.StmStreamerDrManage.OssInfo.PARSER, extensionRegistry));
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -8397,6 +11949,9 @@ public final class StmStreamerDrManage {
         }
         if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
           rdsClients_ = java.util.Collections.unmodifiableList(rdsClients_);
+        }
+        if (((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+          ossClients_ = java.util.Collections.unmodifiableList(ossClients_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -8598,12 +12153,48 @@ public final class StmStreamerDrManage {
       return rdsClients_.get(index);
     }
 
+    public static final int OSS_CLIENTS_FIELD_NUMBER = 6;
+    private java.util.List<cn.infocore.protobuf.StmStreamerDrManage.OssInfo> ossClients_;
+    /**
+     * <code>repeated .OssInfo oss_clients = 6;</code>
+     */
+    public java.util.List<cn.infocore.protobuf.StmStreamerDrManage.OssInfo> getOssClientsList() {
+      return ossClients_;
+    }
+    /**
+     * <code>repeated .OssInfo oss_clients = 6;</code>
+     */
+    public java.util.List<? extends cn.infocore.protobuf.StmStreamerDrManage.OssInfoOrBuilder> 
+        getOssClientsOrBuilderList() {
+      return ossClients_;
+    }
+    /**
+     * <code>repeated .OssInfo oss_clients = 6;</code>
+     */
+    public int getOssClientsCount() {
+      return ossClients_.size();
+    }
+    /**
+     * <code>repeated .OssInfo oss_clients = 6;</code>
+     */
+    public cn.infocore.protobuf.StmStreamerDrManage.OssInfo getOssClients(int index) {
+      return ossClients_.get(index);
+    }
+    /**
+     * <code>repeated .OssInfo oss_clients = 6;</code>
+     */
+    public cn.infocore.protobuf.StmStreamerDrManage.OssInfoOrBuilder getOssClientsOrBuilder(
+        int index) {
+      return ossClients_.get(index);
+    }
+
     private void initFields() {
       uuid_ = "";
       server_ = cn.infocore.protobuf.StmStreamerDrManage.Streamer.getDefaultInstance();
       clients_ = java.util.Collections.emptyList();
       vcents_ = java.util.Collections.emptyList();
       rdsClients_ = java.util.Collections.emptyList();
+      ossClients_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -8641,6 +12232,12 @@ public final class StmStreamerDrManage {
           return false;
         }
       }
+      for (int i = 0; i < getOssClientsCount(); i++) {
+        if (!getOssClients(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -8662,6 +12259,9 @@ public final class StmStreamerDrManage {
       }
       for (int i = 0; i < rdsClients_.size(); i++) {
         output.writeMessage(5, rdsClients_.get(i));
+      }
+      for (int i = 0; i < ossClients_.size(); i++) {
+        output.writeMessage(6, ossClients_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -8691,6 +12291,10 @@ public final class StmStreamerDrManage {
       for (int i = 0; i < rdsClients_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, rdsClients_.get(i));
+      }
+      for (int i = 0; i < ossClients_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, ossClients_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -8809,6 +12413,7 @@ public final class StmStreamerDrManage {
           getClientsFieldBuilder();
           getVcentsFieldBuilder();
           getRdsClientsFieldBuilder();
+          getOssClientsFieldBuilder();
         }
       }
       private static Builder create() {
@@ -8842,6 +12447,12 @@ public final class StmStreamerDrManage {
           bitField0_ = (bitField0_ & ~0x00000010);
         } else {
           rdsClientsBuilder_.clear();
+        }
+        if (ossClientsBuilder_ == null) {
+          ossClients_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000020);
+        } else {
+          ossClientsBuilder_.clear();
         }
         return this;
       }
@@ -8909,6 +12520,15 @@ public final class StmStreamerDrManage {
           result.rdsClients_ = rdsClients_;
         } else {
           result.rdsClients_ = rdsClientsBuilder_.build();
+        }
+        if (ossClientsBuilder_ == null) {
+          if (((bitField0_ & 0x00000020) == 0x00000020)) {
+            ossClients_ = java.util.Collections.unmodifiableList(ossClients_);
+            bitField0_ = (bitField0_ & ~0x00000020);
+          }
+          result.ossClients_ = ossClients_;
+        } else {
+          result.ossClients_ = ossClientsBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -9012,6 +12632,32 @@ public final class StmStreamerDrManage {
             }
           }
         }
+        if (ossClientsBuilder_ == null) {
+          if (!other.ossClients_.isEmpty()) {
+            if (ossClients_.isEmpty()) {
+              ossClients_ = other.ossClients_;
+              bitField0_ = (bitField0_ & ~0x00000020);
+            } else {
+              ensureOssClientsIsMutable();
+              ossClients_.addAll(other.ossClients_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.ossClients_.isEmpty()) {
+            if (ossClientsBuilder_.isEmpty()) {
+              ossClientsBuilder_.dispose();
+              ossClientsBuilder_ = null;
+              ossClients_ = other.ossClients_;
+              bitField0_ = (bitField0_ & ~0x00000020);
+              ossClientsBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getOssClientsFieldBuilder() : null;
+            } else {
+              ossClientsBuilder_.addAllMessages(other.ossClients_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -9043,6 +12689,12 @@ public final class StmStreamerDrManage {
         }
         for (int i = 0; i < getRdsClientsCount(); i++) {
           if (!getRdsClients(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        for (int i = 0; i < getOssClientsCount(); i++) {
+          if (!getOssClients(i).isInitialized()) {
             
             return false;
           }
@@ -9981,6 +13633,246 @@ public final class StmStreamerDrManage {
         return rdsClientsBuilder_;
       }
 
+      private java.util.List<cn.infocore.protobuf.StmStreamerDrManage.OssInfo> ossClients_ =
+        java.util.Collections.emptyList();
+      private void ensureOssClientsIsMutable() {
+        if (!((bitField0_ & 0x00000020) == 0x00000020)) {
+          ossClients_ = new java.util.ArrayList<cn.infocore.protobuf.StmStreamerDrManage.OssInfo>(ossClients_);
+          bitField0_ |= 0x00000020;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          cn.infocore.protobuf.StmStreamerDrManage.OssInfo, cn.infocore.protobuf.StmStreamerDrManage.OssInfo.Builder, cn.infocore.protobuf.StmStreamerDrManage.OssInfoOrBuilder> ossClientsBuilder_;
+
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public java.util.List<cn.infocore.protobuf.StmStreamerDrManage.OssInfo> getOssClientsList() {
+        if (ossClientsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(ossClients_);
+        } else {
+          return ossClientsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public int getOssClientsCount() {
+        if (ossClientsBuilder_ == null) {
+          return ossClients_.size();
+        } else {
+          return ossClientsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public cn.infocore.protobuf.StmStreamerDrManage.OssInfo getOssClients(int index) {
+        if (ossClientsBuilder_ == null) {
+          return ossClients_.get(index);
+        } else {
+          return ossClientsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public Builder setOssClients(
+          int index, cn.infocore.protobuf.StmStreamerDrManage.OssInfo value) {
+        if (ossClientsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOssClientsIsMutable();
+          ossClients_.set(index, value);
+          onChanged();
+        } else {
+          ossClientsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public Builder setOssClients(
+          int index, cn.infocore.protobuf.StmStreamerDrManage.OssInfo.Builder builderForValue) {
+        if (ossClientsBuilder_ == null) {
+          ensureOssClientsIsMutable();
+          ossClients_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          ossClientsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public Builder addOssClients(cn.infocore.protobuf.StmStreamerDrManage.OssInfo value) {
+        if (ossClientsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOssClientsIsMutable();
+          ossClients_.add(value);
+          onChanged();
+        } else {
+          ossClientsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public Builder addOssClients(
+          int index, cn.infocore.protobuf.StmStreamerDrManage.OssInfo value) {
+        if (ossClientsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOssClientsIsMutable();
+          ossClients_.add(index, value);
+          onChanged();
+        } else {
+          ossClientsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public Builder addOssClients(
+          cn.infocore.protobuf.StmStreamerDrManage.OssInfo.Builder builderForValue) {
+        if (ossClientsBuilder_ == null) {
+          ensureOssClientsIsMutable();
+          ossClients_.add(builderForValue.build());
+          onChanged();
+        } else {
+          ossClientsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public Builder addOssClients(
+          int index, cn.infocore.protobuf.StmStreamerDrManage.OssInfo.Builder builderForValue) {
+        if (ossClientsBuilder_ == null) {
+          ensureOssClientsIsMutable();
+          ossClients_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          ossClientsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public Builder addAllOssClients(
+          java.lang.Iterable<? extends cn.infocore.protobuf.StmStreamerDrManage.OssInfo> values) {
+        if (ossClientsBuilder_ == null) {
+          ensureOssClientsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, ossClients_);
+          onChanged();
+        } else {
+          ossClientsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public Builder clearOssClients() {
+        if (ossClientsBuilder_ == null) {
+          ossClients_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000020);
+          onChanged();
+        } else {
+          ossClientsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public Builder removeOssClients(int index) {
+        if (ossClientsBuilder_ == null) {
+          ensureOssClientsIsMutable();
+          ossClients_.remove(index);
+          onChanged();
+        } else {
+          ossClientsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public cn.infocore.protobuf.StmStreamerDrManage.OssInfo.Builder getOssClientsBuilder(
+          int index) {
+        return getOssClientsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public cn.infocore.protobuf.StmStreamerDrManage.OssInfoOrBuilder getOssClientsOrBuilder(
+          int index) {
+        if (ossClientsBuilder_ == null) {
+          return ossClients_.get(index);  } else {
+          return ossClientsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public java.util.List<? extends cn.infocore.protobuf.StmStreamerDrManage.OssInfoOrBuilder> 
+           getOssClientsOrBuilderList() {
+        if (ossClientsBuilder_ != null) {
+          return ossClientsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(ossClients_);
+        }
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public cn.infocore.protobuf.StmStreamerDrManage.OssInfo.Builder addOssClientsBuilder() {
+        return getOssClientsFieldBuilder().addBuilder(
+            cn.infocore.protobuf.StmStreamerDrManage.OssInfo.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public cn.infocore.protobuf.StmStreamerDrManage.OssInfo.Builder addOssClientsBuilder(
+          int index) {
+        return getOssClientsFieldBuilder().addBuilder(
+            index, cn.infocore.protobuf.StmStreamerDrManage.OssInfo.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .OssInfo oss_clients = 6;</code>
+       */
+      public java.util.List<cn.infocore.protobuf.StmStreamerDrManage.OssInfo.Builder> 
+           getOssClientsBuilderList() {
+        return getOssClientsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          cn.infocore.protobuf.StmStreamerDrManage.OssInfo, cn.infocore.protobuf.StmStreamerDrManage.OssInfo.Builder, cn.infocore.protobuf.StmStreamerDrManage.OssInfoOrBuilder> 
+          getOssClientsFieldBuilder() {
+        if (ossClientsBuilder_ == null) {
+          ossClientsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              cn.infocore.protobuf.StmStreamerDrManage.OssInfo, cn.infocore.protobuf.StmStreamerDrManage.OssInfo.Builder, cn.infocore.protobuf.StmStreamerDrManage.OssInfoOrBuilder>(
+                  ossClients_,
+                  ((bitField0_ & 0x00000020) == 0x00000020),
+                  getParentForChildren(),
+                  isClean());
+          ossClients_ = null;
+        }
+        return ossClientsBuilder_;
+      }
+
       // @@protoc_insertion_point(builder_scope:GetServerInfoReturn)
     }
 
@@ -10023,6 +13915,16 @@ public final class StmStreamerDrManage {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_RdsInfo_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_OssObjectSetInfo_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_OssObjectSetInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_OssInfo_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_OssInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_GetServerInfoReturn_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -10036,61 +13938,80 @@ public final class StmStreamerDrManage {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\034streamer_clouddrmanage.proto\"\237\001\n\010Strea" +
+      "\n\034streamer_clouddrmanage.proto\"\372\001\n\010Strea" +
       "mer\022\n\n\002ip\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\r\n\005total\030\003" +
       " \002(\004\022\014\n\004used\030\004 \002(\004\022\"\n\016Streamer_state\030\005 \003" +
       "(\0162\n.FaultType\022\022\n\noracle_vol\030\006 \002(\004\022\023\n\013ma" +
-      "x_clients\030\007 \002(\004\022\017\n\007rds_vol\030\010 \002(\004\"\203\001\n\006Cli" +
-      "ent\022\n\n\002id\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\n\n\002ip\030\003 \001(" +
-      "\t\022\031\n\004type\030\004 \002(\0162\013.ClientType\022 \n\014Client_s" +
-      "tate\030\005 \003(\0162\n.FaultType\022\026\n\016System_Version" +
-      "\030\006 \001(\t\"\205\001\n\006Vmware\022\n\n\002id\030\001 \002(\t\022\014\n\004name\030\002 " +
-      "\002(\t\022\031\n\004type\030\003 \002(\0162\013.ClientType\022\014\n\004path\030\004",
-      " \002(\t\022 \n\014Vmware_state\030\005 \003(\0162\n.FaultType\022\026" +
-      "\n\016System_Version\030\006 \002(\005\"\216\001\n\005Vcent\022\017\n\007vc_n" +
-      "ame\030\001 \002(\t\022\017\n\007vc_uuid\030\002 \002(\t\022\r\n\005vc_ip\030\003 \002(" +
-      "\t\022\037\n\013Vcent_state\030\004 \003(\0162\n.FaultType\022\030\n\007cl" +
-      "ients\030\005 \003(\0132\007.Vmware\022\031\n\004type\030\006 \002(\0162\013.Cli" +
-      "entType\"d\n\017RdsInstanceInfo\022\014\n\004name\030\001 \002(\t" +
+      "x_clients\030\007 \002(\004\022\017\n\007rds_vol\030\010 \002(\004\022\021\n\tclou" +
+      "d_vol\030\t \002(\004\022\020\n\010rac_used\030\n \002(\004\022\020\n\010ecs_use" +
+      "d\030\013 \002(\004\022\020\n\010rds_used\030\014 \002(\004\022\020\n\010oss_used\030\r " +
+      "\002(\004\"\203\001\n\006Client\022\n\n\002id\030\001 \002(\t\022\014\n\004name\030\002 \002(\t" +
+      "\022\n\n\002ip\030\003 \001(\t\022\031\n\004type\030\004 \002(\0162\013.ClientType\022" +
+      " \n\014Client_state\030\005 \003(\0162\n.FaultType\022\026\n\016Sys",
+      "tem_Version\030\006 \001(\t\"\205\001\n\006Vmware\022\n\n\002id\030\001 \002(\t" +
+      "\022\014\n\004name\030\002 \002(\t\022\031\n\004type\030\003 \002(\0162\013.ClientTyp" +
+      "e\022\014\n\004path\030\004 \002(\t\022 \n\014Vmware_state\030\005 \003(\0162\n." +
+      "FaultType\022\026\n\016System_Version\030\006 \002(\005\"\216\001\n\005Vc" +
+      "ent\022\017\n\007vc_name\030\001 \002(\t\022\017\n\007vc_uuid\030\002 \002(\t\022\r\n" +
+      "\005vc_ip\030\003 \002(\t\022\037\n\013Vcent_state\030\004 \003(\0162\n.Faul" +
+      "tType\022\030\n\007clients\030\005 \003(\0132\007.Vmware\022\031\n\004type\030" +
+      "\006 \002(\0162\013.ClientType\"r\n\017RdsInstanceInfo\022\014\n" +
+      "\004name\030\001 \002(\t\022\014\n\004uuid\030\002 \002(\t\022\031\n\004type\030\003 \002(\0162" +
+      "\013.ClientType\022\032\n\006status\030\004 \003(\0162\n.FaultType",
+      "\022\014\n\004size\030\005 \002(\004\"\246\001\n\007RdsInfo\022\014\n\004name\030\001 \002(\t" +
       "\022\014\n\004uuid\030\002 \002(\t\022\031\n\004type\030\003 \002(\0162\013.ClientTyp" +
-      "e\022\032\n\006status\030\004 \003(\0162\n.FaultType\"\205\001\n\007RdsInf" +
-      "o\022\014\n\004name\030\001 \002(\t\022\014\n\004uuid\030\002 \002(\t\022\031\n\004type\030\003 " +
-      "\002(\0162\013.ClientType\022\032\n\006status\030\004 \003(\0162\n.Fault",
-      "Type\022\'\n\rinstance_list\030\005 \003(\0132\020.RdsInstanc" +
-      "eInfo\"\217\001\n\023GetServerInfoReturn\022\014\n\004uuid\030\001 " +
-      "\002(\t\022\031\n\006server\030\002 \002(\0132\t.Streamer\022\030\n\007client" +
-      "s\030\003 \003(\0132\007.Client\022\026\n\006vcents\030\004 \003(\0132\006.Vcent" +
-      "\022\035\n\013rds_clients\030\005 \003(\0132\010.RdsInfo*r\n\nClien" +
-      "tType\022\n\n\006SINGLE\020\000\022\n\n\006VMWARE\020\001\022\010\n\004MSCS\020\002\022" +
-      "\007\n\003RAC\020\003\022\006\n\002VC\020\004\022\007\n\003AIX\020\005\022\016\n\nFileSingle\020" +
-      "\013\022\007\n\003Rds\020\014\022\017\n\013RdsInstance\020\r*\200\010\n\tFaultTyp" +
-      "e\022\n\n\006NORMAL\020\000\022\025\n\021CLIENT_LOCAL_LOST\020\001\022\023\n\017" +
-      "CLIENT_DST_LOST\020\002\022\035\n\031VMWARE_CREATE_SNAP_",
-      "FAILED\020\003\022\023\n\017VMWARE_CBT_DROP\020\004\022\022\n\016CLIENT_" +
-      "OFFLINE\020\005\022\023\n\017VCENTER_OFFLINE\020\006\022\036\n\032CLUSTE" +
-      "R_NODE_EXIST_OFFLINE\020\007\022\034\n\030CLUSTER_NODE_A" +
-      "LL_OFFLINE\020\010\022\031\n\025STREAMER_POOL_DISABLE\020\t\022" +
-      "\024\n\020STREAMER_OFFLINE\020\n\022\035\n\031CLIENT_AUTO_EXP" +
-      "AND_FAILED\020\013\022\034\n\030CLIENT_SNAP_MERGE_FAILED" +
-      "\020\014\022\027\n\023ORACLE_STORAGE_DROP\020\r\022\022\n\016DR_COPY_F" +
-      "AILED\020\016\022\032\n\026RAC_NODE_EXIST_OFFLINE\020\017\022\030\n\024R" +
-      "AC_NODE_ALL_OFFLINE\020\020\022\036\n\032RAC_INSTANCE_EX" +
-      "IST_OFFLINE\020\021\022\034\n\030RAC_INSTANCE_ALL_OFFLIN",
-      "E\020\022\022\022\n\016VMWARE_OFFLINE\020\023\022\035\n\031CLIENT_CREATE" +
-      "_SNAP_FAILED\020\024\022\032\n\026RAC_CREATE_SNAP_FAILED" +
-      "\020\025\022\025\n\021DR_SERVER_OFFLINE\020\026\022\035\n\031STREAMER_PO" +
-      "OL_ALMOST_FULL\020\027\022 \n\034STREAMER_CLIENT_DISK" +
-      "_OFFLINE\020\030\022\035\n\031VMWARE_INIT_MIRROR_FAILED\020" +
-      "\031\022&\n\"VMWARE_SNAPSHOT_POINT_SIZE_IS_ZERO\020" +
-      "\032\022$\n FILE_SINGLE_CREATE_TARGET_FAILED\020\033\022" +
-      "\027\n\023FILE_SINGLE_OFFLINE\020\034\022\032\n\026FILE_SINGLE_" +
-      "LOCAL_LOST\020\035\022\033\n\027FILE_SINGLE_TARGET_LOST\020" +
-      "\036\022-\n)RDS_INSTANCE_BACKUP_POINT_DOWNLOAD_",
-      "FAILED\020\037\022\030\n\024RDS_INSTANCE_OFFLINE\020 \022\024\n\020RD" +
-      "S_STORAGE_DROP\020!\022\024\n\020RDS_AKSK_CHANGED\020\"\022\026" +
-      "\n\022RDS_CLIENT_OFFLINE\020#\022\036\n\032RDS_BACKUP_SER" +
-      "VICE_OFFLINE\020$B+\n\024cn.infocore.protobufB\023" +
-      "StmStreamerDrManage"
+      "e\022\032\n\006status\030\004 \003(\0162\n.FaultType\022\'\n\rinstanc" +
+      "e_list\030\005 \003(\0132\020.RdsInstanceInfo\022\037\n\027preocc" +
+      "upation_size_byte\030\006 \002(\004\"\222\001\n\020OssObjectSet" +
+      "Info\022\014\n\004name\030\001 \002(\t\022\n\n\002id\030\002 \002(\t\022\031\n\004type\030\003" +
+      " \002(\0162\013.ClientType\022\032\n\006status\030\004 \003(\0162\n.Faul" +
+      "tType\022\014\n\004size\030\005 \002(\004\022\037\n\027preoccupation_siz" +
+      "e_byte\030\006 \002(\004\"\201\001\n\007OssInfo\022\014\n\004name\030\001 \002(\t\022\014" +
+      "\n\004uuid\030\002 \002(\t\022\031\n\004type\030\003 \002(\0162\013.ClientType\022",
+      "\032\n\006status\030\004 \003(\0162\n.FaultType\022#\n\010obj_list\030" +
+      "\005 \003(\0132\021.OssObjectSetInfo\"\256\001\n\023GetServerIn" +
+      "foReturn\022\014\n\004uuid\030\001 \002(\t\022\031\n\006server\030\002 \002(\0132\t" +
+      ".Streamer\022\030\n\007clients\030\003 \003(\0132\007.Client\022\026\n\006v" +
+      "cents\030\004 \003(\0132\006.Vcent\022\035\n\013rds_clients\030\005 \003(\013" +
+      "2\010.RdsInfo\022\035\n\013oss_clients\030\006 \003(\0132\010.OssInf" +
+      "o*\305\001\n\nClientType\022\n\n\006SINGLE\020\000\022\n\n\006VMWARE\020\001" +
+      "\022\010\n\004MSCS\020\002\022\007\n\003RAC\020\003\022\006\n\002VC\020\004\022\007\n\003AIX\020\005\022\016\n\n" +
+      "FileSingle\020\013\022\007\n\003Rds\020\014\022\017\n\013RdsInstance\020\r\022\007" +
+      "\n\003Oss\020\016\022\020\n\014OssObjectSet\020\017\022\007\n\003Ecs\020\020\022\017\n\013Ec",
+      "sInstance\020\021\022\n\n\006MetaDB\020\022\022\020\n\014MetaDBBackup\020" +
+      "\023*\366\t\n\tFaultType\022\n\n\006NORMAL\020\000\022\025\n\021CLIENT_LO" +
+      "CAL_LOST\020\001\022\023\n\017CLIENT_DST_LOST\020\002\022\035\n\031VMWAR" +
+      "E_CREATE_SNAP_FAILED\020\003\022\023\n\017VMWARE_CBT_DRO" +
+      "P\020\004\022\022\n\016CLIENT_OFFLINE\020\005\022\023\n\017VCENTER_OFFLI" +
+      "NE\020\006\022\036\n\032CLUSTER_NODE_EXIST_OFFLINE\020\007\022\034\n\030" +
+      "CLUSTER_NODE_ALL_OFFLINE\020\010\022\031\n\025STREAMER_P" +
+      "OOL_DISABLE\020\t\022\024\n\020STREAMER_OFFLINE\020\n\022\035\n\031C" +
+      "LIENT_AUTO_EXPAND_FAILED\020\013\022\034\n\030CLIENT_SNA" +
+      "P_MERGE_FAILED\020\014\022\027\n\023ORACLE_STORAGE_DROP\020",
+      "\r\022\022\n\016DR_COPY_FAILED\020\016\022\032\n\026RAC_NODE_EXIST_" +
+      "OFFLINE\020\017\022\030\n\024RAC_NODE_ALL_OFFLINE\020\020\022\036\n\032R" +
+      "AC_INSTANCE_EXIST_OFFLINE\020\021\022\034\n\030RAC_INSTA" +
+      "NCE_ALL_OFFLINE\020\022\022\022\n\016VMWARE_OFFLINE\020\023\022\035\n" +
+      "\031CLIENT_CREATE_SNAP_FAILED\020\024\022\032\n\026RAC_CREA" +
+      "TE_SNAP_FAILED\020\025\022\025\n\021DR_SERVER_OFFLINE\020\026\022" +
+      "\035\n\031STREAMER_POOL_ALMOST_FULL\020\027\022 \n\034STREAM" +
+      "ER_CLIENT_DISK_OFFLINE\020\030\022\035\n\031VMWARE_INIT_" +
+      "MIRROR_FAILED\020\031\022&\n\"VMWARE_SNAPSHOT_POINT" +
+      "_SIZE_IS_ZERO\020\032\022$\n FILE_SINGLE_CREATE_TA",
+      "RGET_FAILED\020\033\022\027\n\023FILE_SINGLE_OFFLINE\020\034\022\032" +
+      "\n\026FILE_SINGLE_LOCAL_LOST\020\035\022\033\n\027FILE_SINGL" +
+      "E_TARGET_LOST\020\036\022-\n)RDS_INSTANCE_BACKUP_P" +
+      "OINT_DOWNLOAD_FAILED\020\037\022\030\n\024RDS_INSTANCE_O" +
+      "FFLINE\020 \022\024\n\020RDS_STORAGE_DROP\020!\022\024\n\020RDS_AK" +
+      "SK_CHANGED\020\"\022\026\n\022RDS_CLIENT_OFFLINE\020#\022\036\n\032" +
+      "RDS_BACKUP_SERVICE_OFFLINE\020$\022\026\n\022CLOUD_ST" +
+      "ORAGE_DROP\020%\022$\n OSS_BACKUP_POINT_DOWNLOA" +
+      "D_FAILED\020&\022\024\n\020OSS_AKSK_CHANGED\020\'\022\026\n\022OSS_" +
+      "CLIENT_OFFLINE\020(\022\036\n\032OSS_BACKUP_SERVICE_O",
+      "FFLINE\020)\022*\n&OSS_BACKUP_SPACE_HAS_REACHED" +
+      "_THRESHOLD\020*\022!\n\035OSS_BACKUP_POINT_WRITE_F" +
+      "AILED\020+\022\031\n\025OSS_BACKUP_LOCAL_LOST\020,B+\n\024cn" +
+      ".infocore.protobufB\023StmStreamerDrManage"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -10109,7 +14030,7 @@ public final class StmStreamerDrManage {
     internal_static_Streamer_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Streamer_descriptor,
-        new java.lang.String[] { "Ip", "Name", "Total", "Used", "StreamerState", "OracleVol", "MaxClients", "RdsVol", });
+        new java.lang.String[] { "Ip", "Name", "Total", "Used", "StreamerState", "OracleVol", "MaxClients", "RdsVol", "CloudVol", "RacUsed", "EcsUsed", "RdsUsed", "OssUsed", });
     internal_static_Client_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_Client_fieldAccessorTable = new
@@ -10133,19 +14054,31 @@ public final class StmStreamerDrManage {
     internal_static_RdsInstanceInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_RdsInstanceInfo_descriptor,
-        new java.lang.String[] { "Name", "Uuid", "Type", "Status", });
+        new java.lang.String[] { "Name", "Uuid", "Type", "Status", "Size", });
     internal_static_RdsInfo_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_RdsInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_RdsInfo_descriptor,
-        new java.lang.String[] { "Name", "Uuid", "Type", "Status", "InstanceList", });
-    internal_static_GetServerInfoReturn_descriptor =
+        new java.lang.String[] { "Name", "Uuid", "Type", "Status", "InstanceList", "PreoccupationSizeByte", });
+    internal_static_OssObjectSetInfo_descriptor =
       getDescriptor().getMessageTypes().get(6);
+    internal_static_OssObjectSetInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_OssObjectSetInfo_descriptor,
+        new java.lang.String[] { "Name", "Id", "Type", "Status", "Size", "PreoccupationSizeByte", });
+    internal_static_OssInfo_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_OssInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_OssInfo_descriptor,
+        new java.lang.String[] { "Name", "Uuid", "Type", "Status", "ObjList", });
+    internal_static_GetServerInfoReturn_descriptor =
+      getDescriptor().getMessageTypes().get(8);
     internal_static_GetServerInfoReturn_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_GetServerInfoReturn_descriptor,
-        new java.lang.String[] { "Uuid", "Server", "Clients", "Vcents", "RdsClients", });
+        new java.lang.String[] { "Uuid", "Server", "Clients", "Vcents", "RdsClients", "OssClients", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
