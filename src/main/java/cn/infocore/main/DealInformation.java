@@ -53,7 +53,7 @@ public class DealInformation implements Runnable {
 			
 			InforHeader myHeader = new InforHeader();
 			myHeader.parseByteArray(header);
-			logger.info("Successed recived heartbeat from qiangge.");
+			logger.info("Successed recived heartbeat from Cloud Manager.");
 			dispatch(myHeader);
 		} catch (Exception e) {
 			logger.error("Failed to recived on DealInformation.",e);
@@ -83,12 +83,15 @@ public class DealInformation implements Runnable {
 		try {
 			ioret=in.read(buffer, 0, buffer.length);
 		} catch (IOException e) {
+		    logger.error("read bytes failed");
 			e.printStackTrace();
 		}
 		if (ioret!=buffer.length) {
+		    logger.error("check length failed info:"+buffer.length +"actual:"+ioret);
 			return;
 		}
 		int command=header.getCommand();
+		logger.info("dispatch code:"+command);
 		switch(command) {
 		case 205:
 			try {
@@ -183,6 +186,7 @@ public class DealInformation implements Runnable {
 			break;
 		case 504:
 			try {
+			    logger.info("Start sending a test email");
 				VerifyEmailAlarmRequest request = VerifyEmailAlarmRequest.parseFrom(buffer);
 				verifyEmailAlarm(request);
 				header.setErrorCode(0);
@@ -299,6 +303,7 @@ public class DealInformation implements Runnable {
 		email.setReceiver_emails(builder.toString());
 		new MailSender(email).send(null);
 		request.toBuilder().clear();
+		
 	}
 
 }

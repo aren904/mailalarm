@@ -222,7 +222,7 @@ public class MailServiceImpl implements MailService {
                     } else if (fault.getClient_type() == ClientType.RdsInstance_VALUE) {
                         for (RdsInstanceDO object : rdsInstances) {
                             if (fault.getData_ark_id().equals(object.getDataArkId())
-                                    && fault.getClient_id().equals(object.getId())) {
+                                    && fault.getClient_id().equals(object.getInstanceId())) {
                                 excepts = object.getExceptions();
                                 break;
                             }

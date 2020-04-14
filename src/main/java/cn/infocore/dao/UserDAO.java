@@ -64,7 +64,8 @@ public class UserDAO {
 		// Connection connection=MyDataSource.getConnection();
 		QueryRunner q = MyDataSource.getQueryRunner();
 		Object[] param = new Object[] { rds_instance_id, data_ark_id };
-		String sql = "select user_id from rds_instance where id=? and data_ark_id=?";
+		//String sql = "select user_id from rds_instance where id=? and data_ark_id=?";
+		String sql = "SELECT user_id from scmp.rds_instance as A inner join scmp.rds as B on A.rds_id=B.rds_id  and A.rds_id =? and B.data_ark_id = ? ";
 		String result = "";
 		try {
 			result = q.query(sql, new User_idHandler(), param);

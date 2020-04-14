@@ -23,7 +23,7 @@ public class RDSInstanceManager extends ServiceImpl<RDSInstanceMapper, RdsInstan
 
 	public boolean patchInstance(RdsInstanceDO instance) {
 		LambdaUpdateWrapper<RdsInstanceDO> updateWrapper = new UpdateWrapper<RdsInstanceDO>().lambda()
-				.eq(RdsInstanceDO::getId, instance.getId())
+				.eq(RdsInstanceDO::getInstanceId, instance.getInstanceId())
 				.set(RdsInstanceDO::getName, instance.getName())
 				.set(RdsInstanceDO::getExceptions, instance.getExceptions());
 		return this.update(new RdsInstanceDO(), updateWrapper);

@@ -313,7 +313,7 @@ public class InfoProcessData {
         logger.info("Start update virtual machine.");
         // Connection connection=MyDataSource.getConnection();
         QueryRunner qr = MyDataSource.getQueryRunner();
-        String sql = "update virtual_machine set name=?,path=?,exceptions=?,operating_system=? where id=?";
+        String sql = "update vcenter_vm set name=?,path=?,exceptions=?,operating_system=? where id=?";
         int size = vmlist.size();
         Object[][] param = new Object[size][];
         for (int i = 0; i < size; i++) {
@@ -448,7 +448,8 @@ public class InfoProcessData {
         // Connection connection=MyDataSource.getConnection();
         QueryRunner q = MyDataSource.getQueryRunner();
         Object[] param = new Object[] { uuid, data_ark_id };
-        String sql = "select user_id from virtual_machine where id=? and data_ark_id=?";
+        //String sql = "select user_id from vcenter_vm where id=? and data_ark_id=?";
+        String sql = "SELECT user_id from scmp.vcenter_vm as A inner join scmp.vcenter as B on A.vcenter_id=B.id and A.id =? and B.data_ark_id = ?  ";
         String result = "";
         try {
             result = q.query(sql, new User_idHandler(), param);

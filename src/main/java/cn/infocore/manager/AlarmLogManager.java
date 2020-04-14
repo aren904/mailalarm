@@ -21,7 +21,7 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
 
         for (FaultSimple faultSimple : faultSimples) {
             faultSimple.getClientType();
-
+            
         }
     }
 

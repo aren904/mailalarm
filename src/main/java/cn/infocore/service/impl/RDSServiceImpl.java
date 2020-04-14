@@ -86,7 +86,7 @@ public class RDSServiceImpl implements RDSService {
 						List<FaultType> faultTypes = rdsInstance.getStatusList();
 
 						RdsInstanceDO rInstance = new RdsInstanceDO().setExceptionsWithFaultyTypeList(faultTypes)
-								.setName(name).setId(uuid).setDataArkId(dataArkId).setSize(size);
+								.setName(name).setInstanceId(uuid).setDataArkId(dataArkId).setSize(size);
 						rdsInstanceList.add(rInstance);
 					}
 				}
