@@ -123,6 +123,8 @@ message RdsInstanceInfo{
     required ClientType type = 3;
     repeated FaultType status = 4;
     required uint64 size = 5; 
+    required uint64 preoccupation_size_byte = 6; // 备份预留大小
+    
 }
 
 message RdsInfo{
@@ -131,7 +133,6 @@ message RdsInfo{
     required ClientType type = 3;
     repeated FaultType status = 4;
     repeated RdsInstanceInfo instance_list = 5;
-    required uint64 preoccupation_size_byte = 6; // 备份预留大小
 }
     
 message OssObjectSetInfo{

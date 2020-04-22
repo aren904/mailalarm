@@ -6945,6 +6945,23 @@ public final class StmStreamerDrManage {
      * <code>required uint64 size = 5;</code>
      */
     long getSize();
+
+    /**
+     * <code>required uint64 preoccupation_size_byte = 6;</code>
+     *
+     * <pre>
+     * 备份预留大小
+     * </pre>
+     */
+    boolean hasPreoccupationSizeByte();
+    /**
+     * <code>required uint64 preoccupation_size_byte = 6;</code>
+     *
+     * <pre>
+     * 备份预留大小
+     * </pre>
+     */
+    long getPreoccupationSizeByte();
   }
   /**
    * Protobuf type {@code RdsInstanceInfo}
@@ -7057,6 +7074,11 @@ public final class StmStreamerDrManage {
             case 40: {
               bitField0_ |= 0x00000008;
               size_ = input.readUInt64();
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000010;
+              preoccupationSizeByte_ = input.readUInt64();
               break;
             }
           }
@@ -7237,12 +7259,36 @@ public final class StmStreamerDrManage {
       return size_;
     }
 
+    public static final int PREOCCUPATION_SIZE_BYTE_FIELD_NUMBER = 6;
+    private long preoccupationSizeByte_;
+    /**
+     * <code>required uint64 preoccupation_size_byte = 6;</code>
+     *
+     * <pre>
+     * 备份预留大小
+     * </pre>
+     */
+    public boolean hasPreoccupationSizeByte() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>required uint64 preoccupation_size_byte = 6;</code>
+     *
+     * <pre>
+     * 备份预留大小
+     * </pre>
+     */
+    public long getPreoccupationSizeByte() {
+      return preoccupationSizeByte_;
+    }
+
     private void initFields() {
       name_ = "";
       uuid_ = "";
       type_ = cn.infocore.protobuf.StmStreamerDrManage.ClientType.SINGLE;
       status_ = java.util.Collections.emptyList();
       size_ = 0L;
+      preoccupationSizeByte_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -7263,6 +7309,10 @@ public final class StmStreamerDrManage {
         return false;
       }
       if (!hasSize()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPreoccupationSizeByte()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -7287,6 +7337,9 @@ public final class StmStreamerDrManage {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeUInt64(5, size_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeUInt64(6, preoccupationSizeByte_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -7321,6 +7374,10 @@ public final class StmStreamerDrManage {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(5, size_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(6, preoccupationSizeByte_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -7449,6 +7506,8 @@ public final class StmStreamerDrManage {
         bitField0_ = (bitField0_ & ~0x00000008);
         size_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000010);
+        preoccupationSizeByte_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -7498,6 +7557,10 @@ public final class StmStreamerDrManage {
           to_bitField0_ |= 0x00000008;
         }
         result.size_ = size_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.preoccupationSizeByte_ = preoccupationSizeByte_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -7540,6 +7603,9 @@ public final class StmStreamerDrManage {
         if (other.hasSize()) {
           setSize(other.getSize());
         }
+        if (other.hasPreoccupationSizeByte()) {
+          setPreoccupationSizeByte(other.getPreoccupationSizeByte());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -7558,6 +7624,10 @@ public final class StmStreamerDrManage {
           return false;
         }
         if (!hasSize()) {
+          
+          return false;
+        }
+        if (!hasPreoccupationSizeByte()) {
           
           return false;
         }
@@ -7874,6 +7944,54 @@ public final class StmStreamerDrManage {
         return this;
       }
 
+      private long preoccupationSizeByte_ ;
+      /**
+       * <code>required uint64 preoccupation_size_byte = 6;</code>
+       *
+       * <pre>
+       * 备份预留大小
+       * </pre>
+       */
+      public boolean hasPreoccupationSizeByte() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>required uint64 preoccupation_size_byte = 6;</code>
+       *
+       * <pre>
+       * 备份预留大小
+       * </pre>
+       */
+      public long getPreoccupationSizeByte() {
+        return preoccupationSizeByte_;
+      }
+      /**
+       * <code>required uint64 preoccupation_size_byte = 6;</code>
+       *
+       * <pre>
+       * 备份预留大小
+       * </pre>
+       */
+      public Builder setPreoccupationSizeByte(long value) {
+        bitField0_ |= 0x00000020;
+        preoccupationSizeByte_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 preoccupation_size_byte = 6;</code>
+       *
+       * <pre>
+       * 备份预留大小
+       * </pre>
+       */
+      public Builder clearPreoccupationSizeByte() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        preoccupationSizeByte_ = 0L;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:RdsInstanceInfo)
     }
 
@@ -7962,23 +8080,6 @@ public final class StmStreamerDrManage {
      */
     cn.infocore.protobuf.StmStreamerDrManage.RdsInstanceInfoOrBuilder getInstanceListOrBuilder(
         int index);
-
-    /**
-     * <code>required uint64 preoccupation_size_byte = 6;</code>
-     *
-     * <pre>
-     * 备份预留大小
-     * </pre>
-     */
-    boolean hasPreoccupationSizeByte();
-    /**
-     * <code>required uint64 preoccupation_size_byte = 6;</code>
-     *
-     * <pre>
-     * 备份预留大小
-     * </pre>
-     */
-    long getPreoccupationSizeByte();
   }
   /**
    * Protobuf type {@code RdsInfo}
@@ -8094,11 +8195,6 @@ public final class StmStreamerDrManage {
                 mutable_bitField0_ |= 0x00000010;
               }
               instanceList_.add(input.readMessage(cn.infocore.protobuf.StmStreamerDrManage.RdsInstanceInfo.PARSER, extensionRegistry));
-              break;
-            }
-            case 48: {
-              bitField0_ |= 0x00000008;
-              preoccupationSizeByte_ = input.readUInt64();
               break;
             }
           }
@@ -8302,36 +8398,12 @@ public final class StmStreamerDrManage {
       return instanceList_.get(index);
     }
 
-    public static final int PREOCCUPATION_SIZE_BYTE_FIELD_NUMBER = 6;
-    private long preoccupationSizeByte_;
-    /**
-     * <code>required uint64 preoccupation_size_byte = 6;</code>
-     *
-     * <pre>
-     * 备份预留大小
-     * </pre>
-     */
-    public boolean hasPreoccupationSizeByte() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    /**
-     * <code>required uint64 preoccupation_size_byte = 6;</code>
-     *
-     * <pre>
-     * 备份预留大小
-     * </pre>
-     */
-    public long getPreoccupationSizeByte() {
-      return preoccupationSizeByte_;
-    }
-
     private void initFields() {
       name_ = "";
       uuid_ = "";
       type_ = cn.infocore.protobuf.StmStreamerDrManage.ClientType.SINGLE;
       status_ = java.util.Collections.emptyList();
       instanceList_ = java.util.Collections.emptyList();
-      preoccupationSizeByte_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -8348,10 +8420,6 @@ public final class StmStreamerDrManage {
         return false;
       }
       if (!hasType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPreoccupationSizeByte()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -8382,9 +8450,6 @@ public final class StmStreamerDrManage {
       }
       for (int i = 0; i < instanceList_.size(); i++) {
         output.writeMessage(5, instanceList_.get(i));
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeUInt64(6, preoccupationSizeByte_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -8419,10 +8484,6 @@ public final class StmStreamerDrManage {
       for (int i = 0; i < instanceList_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, instanceList_.get(i));
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(6, preoccupationSizeByte_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -8556,8 +8617,6 @@ public final class StmStreamerDrManage {
         } else {
           instanceListBuilder_.clear();
         }
-        preoccupationSizeByte_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -8612,10 +8671,6 @@ public final class StmStreamerDrManage {
         } else {
           result.instanceList_ = instanceListBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
-          to_bitField0_ |= 0x00000008;
-        }
-        result.preoccupationSizeByte_ = preoccupationSizeByte_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -8681,9 +8736,6 @@ public final class StmStreamerDrManage {
             }
           }
         }
-        if (other.hasPreoccupationSizeByte()) {
-          setPreoccupationSizeByte(other.getPreoccupationSizeByte());
-        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -8698,10 +8750,6 @@ public final class StmStreamerDrManage {
           return false;
         }
         if (!hasType()) {
-          
-          return false;
-        }
-        if (!hasPreoccupationSizeByte()) {
           
           return false;
         }
@@ -9230,54 +9278,6 @@ public final class StmStreamerDrManage {
           instanceList_ = null;
         }
         return instanceListBuilder_;
-      }
-
-      private long preoccupationSizeByte_ ;
-      /**
-       * <code>required uint64 preoccupation_size_byte = 6;</code>
-       *
-       * <pre>
-       * 备份预留大小
-       * </pre>
-       */
-      public boolean hasPreoccupationSizeByte() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
-      }
-      /**
-       * <code>required uint64 preoccupation_size_byte = 6;</code>
-       *
-       * <pre>
-       * 备份预留大小
-       * </pre>
-       */
-      public long getPreoccupationSizeByte() {
-        return preoccupationSizeByte_;
-      }
-      /**
-       * <code>required uint64 preoccupation_size_byte = 6;</code>
-       *
-       * <pre>
-       * 备份预留大小
-       * </pre>
-       */
-      public Builder setPreoccupationSizeByte(long value) {
-        bitField0_ |= 0x00000020;
-        preoccupationSizeByte_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required uint64 preoccupation_size_byte = 6;</code>
-       *
-       * <pre>
-       * 备份预留大小
-       * </pre>
-       */
-      public Builder clearPreoccupationSizeByte() {
-        bitField0_ = (bitField0_ & ~0x00000020);
-        preoccupationSizeByte_ = 0L;
-        onChanged();
-        return this;
       }
 
       // @@protoc_insertion_point(builder_scope:RdsInfo)
@@ -13955,63 +13955,63 @@ public final class StmStreamerDrManage {
       "ent\022\017\n\007vc_name\030\001 \002(\t\022\017\n\007vc_uuid\030\002 \002(\t\022\r\n" +
       "\005vc_ip\030\003 \002(\t\022\037\n\013Vcent_state\030\004 \003(\0162\n.Faul" +
       "tType\022\030\n\007clients\030\005 \003(\0132\007.Vmware\022\031\n\004type\030" +
-      "\006 \002(\0162\013.ClientType\"r\n\017RdsInstanceInfo\022\014\n" +
-      "\004name\030\001 \002(\t\022\014\n\004uuid\030\002 \002(\t\022\031\n\004type\030\003 \002(\0162" +
-      "\013.ClientType\022\032\n\006status\030\004 \003(\0162\n.FaultType",
-      "\022\014\n\004size\030\005 \002(\004\"\246\001\n\007RdsInfo\022\014\n\004name\030\001 \002(\t" +
-      "\022\014\n\004uuid\030\002 \002(\t\022\031\n\004type\030\003 \002(\0162\013.ClientTyp" +
-      "e\022\032\n\006status\030\004 \003(\0162\n.FaultType\022\'\n\rinstanc" +
-      "e_list\030\005 \003(\0132\020.RdsInstanceInfo\022\037\n\027preocc" +
-      "upation_size_byte\030\006 \002(\004\"\222\001\n\020OssObjectSet" +
-      "Info\022\014\n\004name\030\001 \002(\t\022\n\n\002id\030\002 \002(\t\022\031\n\004type\030\003" +
-      " \002(\0162\013.ClientType\022\032\n\006status\030\004 \003(\0162\n.Faul" +
-      "tType\022\014\n\004size\030\005 \002(\004\022\037\n\027preoccupation_siz" +
-      "e_byte\030\006 \002(\004\"\201\001\n\007OssInfo\022\014\n\004name\030\001 \002(\t\022\014" +
-      "\n\004uuid\030\002 \002(\t\022\031\n\004type\030\003 \002(\0162\013.ClientType\022",
-      "\032\n\006status\030\004 \003(\0162\n.FaultType\022#\n\010obj_list\030" +
-      "\005 \003(\0132\021.OssObjectSetInfo\"\256\001\n\023GetServerIn" +
-      "foReturn\022\014\n\004uuid\030\001 \002(\t\022\031\n\006server\030\002 \002(\0132\t" +
-      ".Streamer\022\030\n\007clients\030\003 \003(\0132\007.Client\022\026\n\006v" +
-      "cents\030\004 \003(\0132\006.Vcent\022\035\n\013rds_clients\030\005 \003(\013" +
-      "2\010.RdsInfo\022\035\n\013oss_clients\030\006 \003(\0132\010.OssInf" +
-      "o*\305\001\n\nClientType\022\n\n\006SINGLE\020\000\022\n\n\006VMWARE\020\001" +
-      "\022\010\n\004MSCS\020\002\022\007\n\003RAC\020\003\022\006\n\002VC\020\004\022\007\n\003AIX\020\005\022\016\n\n" +
-      "FileSingle\020\013\022\007\n\003Rds\020\014\022\017\n\013RdsInstance\020\r\022\007" +
-      "\n\003Oss\020\016\022\020\n\014OssObjectSet\020\017\022\007\n\003Ecs\020\020\022\017\n\013Ec",
-      "sInstance\020\021\022\n\n\006MetaDB\020\022\022\020\n\014MetaDBBackup\020" +
-      "\023*\366\t\n\tFaultType\022\n\n\006NORMAL\020\000\022\025\n\021CLIENT_LO" +
-      "CAL_LOST\020\001\022\023\n\017CLIENT_DST_LOST\020\002\022\035\n\031VMWAR" +
-      "E_CREATE_SNAP_FAILED\020\003\022\023\n\017VMWARE_CBT_DRO" +
-      "P\020\004\022\022\n\016CLIENT_OFFLINE\020\005\022\023\n\017VCENTER_OFFLI" +
-      "NE\020\006\022\036\n\032CLUSTER_NODE_EXIST_OFFLINE\020\007\022\034\n\030" +
-      "CLUSTER_NODE_ALL_OFFLINE\020\010\022\031\n\025STREAMER_P" +
-      "OOL_DISABLE\020\t\022\024\n\020STREAMER_OFFLINE\020\n\022\035\n\031C" +
-      "LIENT_AUTO_EXPAND_FAILED\020\013\022\034\n\030CLIENT_SNA" +
-      "P_MERGE_FAILED\020\014\022\027\n\023ORACLE_STORAGE_DROP\020",
-      "\r\022\022\n\016DR_COPY_FAILED\020\016\022\032\n\026RAC_NODE_EXIST_" +
-      "OFFLINE\020\017\022\030\n\024RAC_NODE_ALL_OFFLINE\020\020\022\036\n\032R" +
-      "AC_INSTANCE_EXIST_OFFLINE\020\021\022\034\n\030RAC_INSTA" +
-      "NCE_ALL_OFFLINE\020\022\022\022\n\016VMWARE_OFFLINE\020\023\022\035\n" +
-      "\031CLIENT_CREATE_SNAP_FAILED\020\024\022\032\n\026RAC_CREA" +
-      "TE_SNAP_FAILED\020\025\022\025\n\021DR_SERVER_OFFLINE\020\026\022" +
-      "\035\n\031STREAMER_POOL_ALMOST_FULL\020\027\022 \n\034STREAM" +
-      "ER_CLIENT_DISK_OFFLINE\020\030\022\035\n\031VMWARE_INIT_" +
-      "MIRROR_FAILED\020\031\022&\n\"VMWARE_SNAPSHOT_POINT" +
-      "_SIZE_IS_ZERO\020\032\022$\n FILE_SINGLE_CREATE_TA",
-      "RGET_FAILED\020\033\022\027\n\023FILE_SINGLE_OFFLINE\020\034\022\032" +
-      "\n\026FILE_SINGLE_LOCAL_LOST\020\035\022\033\n\027FILE_SINGL" +
-      "E_TARGET_LOST\020\036\022-\n)RDS_INSTANCE_BACKUP_P" +
-      "OINT_DOWNLOAD_FAILED\020\037\022\030\n\024RDS_INSTANCE_O" +
-      "FFLINE\020 \022\024\n\020RDS_STORAGE_DROP\020!\022\024\n\020RDS_AK" +
-      "SK_CHANGED\020\"\022\026\n\022RDS_CLIENT_OFFLINE\020#\022\036\n\032" +
-      "RDS_BACKUP_SERVICE_OFFLINE\020$\022\026\n\022CLOUD_ST" +
-      "ORAGE_DROP\020%\022$\n OSS_BACKUP_POINT_DOWNLOA" +
-      "D_FAILED\020&\022\024\n\020OSS_AKSK_CHANGED\020\'\022\026\n\022OSS_" +
-      "CLIENT_OFFLINE\020(\022\036\n\032OSS_BACKUP_SERVICE_O",
-      "FFLINE\020)\022*\n&OSS_BACKUP_SPACE_HAS_REACHED" +
-      "_THRESHOLD\020*\022!\n\035OSS_BACKUP_POINT_WRITE_F" +
-      "AILED\020+\022\031\n\025OSS_BACKUP_LOCAL_LOST\020,B+\n\024cn" +
-      ".infocore.protobufB\023StmStreamerDrManage"
+      "\006 \002(\0162\013.ClientType\"\223\001\n\017RdsInstanceInfo\022\014" +
+      "\n\004name\030\001 \002(\t\022\014\n\004uuid\030\002 \002(\t\022\031\n\004type\030\003 \002(\016" +
+      "2\013.ClientType\022\032\n\006status\030\004 \003(\0162\n.FaultTyp",
+      "e\022\014\n\004size\030\005 \002(\004\022\037\n\027preoccupation_size_by" +
+      "te\030\006 \002(\004\"\205\001\n\007RdsInfo\022\014\n\004name\030\001 \002(\t\022\014\n\004uu" +
+      "id\030\002 \002(\t\022\031\n\004type\030\003 \002(\0162\013.ClientType\022\032\n\006s" +
+      "tatus\030\004 \003(\0162\n.FaultType\022\'\n\rinstance_list" +
+      "\030\005 \003(\0132\020.RdsInstanceInfo\"\222\001\n\020OssObjectSe" +
+      "tInfo\022\014\n\004name\030\001 \002(\t\022\n\n\002id\030\002 \002(\t\022\031\n\004type\030" +
+      "\003 \002(\0162\013.ClientType\022\032\n\006status\030\004 \003(\0162\n.Fau" +
+      "ltType\022\014\n\004size\030\005 \002(\004\022\037\n\027preoccupation_si" +
+      "ze_byte\030\006 \002(\004\"\201\001\n\007OssInfo\022\014\n\004name\030\001 \002(\t\022" +
+      "\014\n\004uuid\030\002 \002(\t\022\031\n\004type\030\003 \002(\0162\013.ClientType",
+      "\022\032\n\006status\030\004 \003(\0162\n.FaultType\022#\n\010obj_list" +
+      "\030\005 \003(\0132\021.OssObjectSetInfo\"\256\001\n\023GetServerI" +
+      "nfoReturn\022\014\n\004uuid\030\001 \002(\t\022\031\n\006server\030\002 \002(\0132" +
+      "\t.Streamer\022\030\n\007clients\030\003 \003(\0132\007.Client\022\026\n\006" +
+      "vcents\030\004 \003(\0132\006.Vcent\022\035\n\013rds_clients\030\005 \003(" +
+      "\0132\010.RdsInfo\022\035\n\013oss_clients\030\006 \003(\0132\010.OssIn" +
+      "fo*\305\001\n\nClientType\022\n\n\006SINGLE\020\000\022\n\n\006VMWARE\020" +
+      "\001\022\010\n\004MSCS\020\002\022\007\n\003RAC\020\003\022\006\n\002VC\020\004\022\007\n\003AIX\020\005\022\016\n" +
+      "\nFileSingle\020\013\022\007\n\003Rds\020\014\022\017\n\013RdsInstance\020\r\022" +
+      "\007\n\003Oss\020\016\022\020\n\014OssObjectSet\020\017\022\007\n\003Ecs\020\020\022\017\n\013E",
+      "csInstance\020\021\022\n\n\006MetaDB\020\022\022\020\n\014MetaDBBackup" +
+      "\020\023*\366\t\n\tFaultType\022\n\n\006NORMAL\020\000\022\025\n\021CLIENT_L" +
+      "OCAL_LOST\020\001\022\023\n\017CLIENT_DST_LOST\020\002\022\035\n\031VMWA" +
+      "RE_CREATE_SNAP_FAILED\020\003\022\023\n\017VMWARE_CBT_DR" +
+      "OP\020\004\022\022\n\016CLIENT_OFFLINE\020\005\022\023\n\017VCENTER_OFFL" +
+      "INE\020\006\022\036\n\032CLUSTER_NODE_EXIST_OFFLINE\020\007\022\034\n" +
+      "\030CLUSTER_NODE_ALL_OFFLINE\020\010\022\031\n\025STREAMER_" +
+      "POOL_DISABLE\020\t\022\024\n\020STREAMER_OFFLINE\020\n\022\035\n\031" +
+      "CLIENT_AUTO_EXPAND_FAILED\020\013\022\034\n\030CLIENT_SN" +
+      "AP_MERGE_FAILED\020\014\022\027\n\023ORACLE_STORAGE_DROP",
+      "\020\r\022\022\n\016DR_COPY_FAILED\020\016\022\032\n\026RAC_NODE_EXIST" +
+      "_OFFLINE\020\017\022\030\n\024RAC_NODE_ALL_OFFLINE\020\020\022\036\n\032" +
+      "RAC_INSTANCE_EXIST_OFFLINE\020\021\022\034\n\030RAC_INST" +
+      "ANCE_ALL_OFFLINE\020\022\022\022\n\016VMWARE_OFFLINE\020\023\022\035" +
+      "\n\031CLIENT_CREATE_SNAP_FAILED\020\024\022\032\n\026RAC_CRE" +
+      "ATE_SNAP_FAILED\020\025\022\025\n\021DR_SERVER_OFFLINE\020\026" +
+      "\022\035\n\031STREAMER_POOL_ALMOST_FULL\020\027\022 \n\034STREA" +
+      "MER_CLIENT_DISK_OFFLINE\020\030\022\035\n\031VMWARE_INIT" +
+      "_MIRROR_FAILED\020\031\022&\n\"VMWARE_SNAPSHOT_POIN" +
+      "T_SIZE_IS_ZERO\020\032\022$\n FILE_SINGLE_CREATE_T",
+      "ARGET_FAILED\020\033\022\027\n\023FILE_SINGLE_OFFLINE\020\034\022" +
+      "\032\n\026FILE_SINGLE_LOCAL_LOST\020\035\022\033\n\027FILE_SING" +
+      "LE_TARGET_LOST\020\036\022-\n)RDS_INSTANCE_BACKUP_" +
+      "POINT_DOWNLOAD_FAILED\020\037\022\030\n\024RDS_INSTANCE_" +
+      "OFFLINE\020 \022\024\n\020RDS_STORAGE_DROP\020!\022\024\n\020RDS_A" +
+      "KSK_CHANGED\020\"\022\026\n\022RDS_CLIENT_OFFLINE\020#\022\036\n" +
+      "\032RDS_BACKUP_SERVICE_OFFLINE\020$\022\026\n\022CLOUD_S" +
+      "TORAGE_DROP\020%\022$\n OSS_BACKUP_POINT_DOWNLO" +
+      "AD_FAILED\020&\022\024\n\020OSS_AKSK_CHANGED\020\'\022\026\n\022OSS" +
+      "_CLIENT_OFFLINE\020(\022\036\n\032OSS_BACKUP_SERVICE_",
+      "OFFLINE\020)\022*\n&OSS_BACKUP_SPACE_HAS_REACHE" +
+      "D_THRESHOLD\020*\022!\n\035OSS_BACKUP_POINT_WRITE_" +
+      "FAILED\020+\022\031\n\025OSS_BACKUP_LOCAL_LOST\020,B+\n\024c" +
+      "n.infocore.protobufB\023StmStreamerDrManage"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -14054,13 +14054,13 @@ public final class StmStreamerDrManage {
     internal_static_RdsInstanceInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_RdsInstanceInfo_descriptor,
-        new java.lang.String[] { "Name", "Uuid", "Type", "Status", "Size", });
+        new java.lang.String[] { "Name", "Uuid", "Type", "Status", "Size", "PreoccupationSizeByte", });
     internal_static_RdsInfo_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_RdsInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_RdsInfo_descriptor,
-        new java.lang.String[] { "Name", "Uuid", "Type", "Status", "InstanceList", "PreoccupationSizeByte", });
+        new java.lang.String[] { "Name", "Uuid", "Type", "Status", "InstanceList", });
     internal_static_OssObjectSetInfo_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_OssObjectSetInfo_fieldAccessorTable = new

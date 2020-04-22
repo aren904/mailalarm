@@ -82,11 +82,12 @@ public class RDSServiceImpl implements RDSService {
 						String name = rdsInstance.getName();
 						String uuid = rdsInstance.getUuid();
 						Long size = rdsInstance.getSize();
+						  Long preoccupationSizeByte= rdsInstance.getPreoccupationSizeByte();
 						rdsInstance.getType();
 						List<FaultType> faultTypes = rdsInstance.getStatusList();
 
 						RdsInstanceDO rInstance = new RdsInstanceDO().setExceptionsWithFaultyTypeList(faultTypes)
-								.setName(name).setInstanceId(uuid).setDataArkId(dataArkId).setSize(size);
+								.setName(name).setInstanceId(uuid).setDataArkId(dataArkId).setSize(size).setPreoccupationSize(preoccupationSizeByte);
 						rdsInstanceList.add(rInstance);
 					}
 				}

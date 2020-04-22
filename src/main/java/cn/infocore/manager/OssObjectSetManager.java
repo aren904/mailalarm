@@ -50,7 +50,6 @@ public class OssObjectSetManager extends ServiceImpl<OssObjectSetMapper, OssObje
         List<FaultType> faultTypes  =  ossObjectSetInfo.getStatusList();
         Long size = ossObjectSetInfo.getSize();
         Long preoccupationSizeByte = ossObjectSetInfo.getPreoccupationSizeByte();
-        
         String exceptions= StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypes);
         
         OssObjectSetDO ossObjectSetDO = new OssObjectSetDO();
