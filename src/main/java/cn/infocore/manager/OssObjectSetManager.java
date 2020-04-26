@@ -53,7 +53,7 @@ public class OssObjectSetManager extends ServiceImpl<OssObjectSetMapper, OssObje
         String exceptions= StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypes);
         
         OssObjectSetDO ossObjectSetDO = new OssObjectSetDO();
-        ossObjectSetDO.setObjestSetId(id);
+        ossObjectSetDO.setObjectSetId(id);
         ossObjectSetDO.setSize(size);
         ossObjectSetDO.setPreoccupationSize(preoccupationSizeByte);
         ossObjectSetDO.setExceptions(exceptions);
@@ -66,7 +66,7 @@ public class OssObjectSetManager extends ServiceImpl<OssObjectSetMapper, OssObje
     void updateByObjestSetId(OssObjectSetDO ossObjectSetDO){
 
         LambdaQueryWrapper<OssObjectSetDO> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(OssObjectSetDO::getObjestSetId,ossObjectSetDO.getObjestSetId());
+        queryWrapper.eq(OssObjectSetDO::getObjectSetId,ossObjectSetDO.getObjectSetId());
         this.update(ossObjectSetDO, queryWrapper);
     }
     

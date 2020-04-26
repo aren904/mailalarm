@@ -117,7 +117,7 @@ public class MailSender {
 	/**
 	 * 发送邮件
 	 */
-	public void send(Fault fault) throws Exception{
+	public boolean send(Fault fault) throws Exception{
 		try {
 			// 发件人
 			/*Address from = new InternetAddress(config.getSender_email());
@@ -168,9 +168,11 @@ public class MailSender {
 			transport.close();
 			logger.info("Mail send successed.user :" +config.getSmtp_user_id());
 			
+			return true;
 		} catch (Exception e) {
 			String msg = "mail sent failed";
 			logger.error(msg,e);
+			return false;
 		}
 	}
 }

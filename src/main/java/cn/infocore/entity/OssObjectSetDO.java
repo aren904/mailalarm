@@ -14,8 +14,8 @@ public class OssObjectSetDO {
     @TableField(value = "id")
     Integer id;
     
-    @TableField(value = "objest_set_id")
-    String objestSetId;
+    @TableField(value = "object_set_id")
+    String objectSetId;
     
     @TableField(value = "oss_id")
     Integer ossId;

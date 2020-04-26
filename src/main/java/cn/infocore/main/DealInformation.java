@@ -188,8 +188,13 @@ public class DealInformation implements Runnable {
 			try {
 			    logger.info("Start sending a test email");
 				VerifyEmailAlarmRequest request = VerifyEmailAlarmRequest.parseFrom(buffer);
-				verifyEmailAlarm(request);
-				header.setErrorCode(0);
+				boolean result = verifyEmailAlarm(request);
+				if (result) {
+				    header.setErrorCode(0);
+                }else {
+                    header.setErrorCode(10504); 
+                }
+				
 			} catch (Exception e) {
 				logger.error(e);
 				header.setErrorCode(ErrorCode.ErrorCode_VerifyEmailAlarmFailed_VALUE);
@@ -286,7 +291,7 @@ public class DealInformation implements Runnable {
 	}
 
 	// 测试邮件报警配置
-	private void verifyEmailAlarm(VerifyEmailAlarmRequest request) throws Exception{
+	private boolean verifyEmailAlarm(VerifyEmailAlarmRequest request) throws Exception{
 		Email_alarm email = new Email_alarm();
 		email.setSender_email(request.getSenderEmail());
 		email.setSmtp_address(request.getSmtpAddress());
@@ -301,9 +306,9 @@ public class DealInformation implements Runnable {
 			builder.append(s + ";");
 		}
 		email.setReceiver_emails(builder.toString());
-		new MailSender(email).send(null);
+		boolean result = new MailSender(email).send(null);
 		request.toBuilder().clear();
-		
+		return result;
 	}
 
 }
