@@ -20,6 +20,7 @@ public class Utils {
 			case 17:
 			case 18:
 			case 19:
+            case 22:
 			case 32:
 			case 36:
 			
@@ -35,7 +36,6 @@ public class Utils {
 			case 15:
 			case 20:
 			case 21:
-			case 22:
 			case 31:
 			case 33:
 			case 34:
@@ -47,9 +47,10 @@ public class Utils {
 				ret = "警告";
 				break;
 			case 24:
+            case 25:
+
 				ret = "警告";
 				break;
-			case 25:
 			default:
 				ret = "正常";
 				break;

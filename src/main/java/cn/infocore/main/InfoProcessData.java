@@ -1,6 +1,7 @@
 package cn.infocore.main;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -142,6 +143,11 @@ public class InfoProcessData {
             }
 
             List<RdsInfo> rdsInfoList = hrt.getRdsClientsList();
+            
+            
+
+            
+            
 
             List<RdsDO> rdsList = rdsService.updateRdsInfo(data_ark, rdsInfoList);
             List<RdsInstanceDO> rdsInstances = rdsService.getRDSInstanceListFromSource(data_ark, rdsInfoList);

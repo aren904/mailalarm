@@ -13,6 +13,7 @@ import cn.infocore.bo.FaultSimple;
 import cn.infocore.dao.OssObjectSetMapper;
 import cn.infocore.entity.Fault;
 import cn.infocore.entity.OssObjectSetDO;
+import cn.infocore.entity.RdsInstanceDO;
 import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
 import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 import cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo;
@@ -67,6 +68,14 @@ public class OssObjectSetManager extends ServiceImpl<OssObjectSetMapper, OssObje
 
         LambdaQueryWrapper<OssObjectSetDO> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(OssObjectSetDO::getObjectSetId,ossObjectSetDO.getObjectSetId());
+        
+        String setid = ossObjectSetDO.getObjectSetId();
+        
+        boolean isDr =  checkDrInstance(setid);
+        if (isDr) {
+            ossObjectSetDO.setDrSize(ossObjectSetDO.getSize());
+            ossObjectSetDO.setPreoccupationDrSize(ossObjectSetDO.getPreoccupationSize());
+        }
         this.update(ossObjectSetDO, queryWrapper);
     }
     
@@ -79,6 +88,16 @@ public class OssObjectSetManager extends ServiceImpl<OssObjectSetMapper, OssObje
                 faultSimple.setFaultTypes(faultTypes);
         }
         return faultList;
+    }
+    
+    
+    boolean checkDrInstance(String instanceId) {
+        LambdaQueryWrapper<OssObjectSetDO> queryWrapper = new LambdaQueryWrapper<OssObjectSetDO>()
+                .eq(OssObjectSetDO::getObjectSetId, instanceId);
+        OssObjectSetDO rdsInstanceDO = this.getOne(queryWrapper);
+        Integer isDr = rdsInstanceDO.getDrEnabled();
+        return isDr != null && isDr > 0;
+
     }
     
 }
