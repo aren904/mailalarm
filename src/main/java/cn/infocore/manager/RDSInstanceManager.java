@@ -34,7 +34,7 @@ public class RDSInstanceManager extends ServiceImpl<RDSInstanceMapper, RdsInstan
                 .set(RdsInstanceDO::getPreoccupationSize, instance.getPreoccupationSize());
         if (isDR) {
             updateWrapper.set(RdsInstanceDO::getDrSize, instance.getSize())
-                .set(RdsInstanceDO::getPreoccupationDrSize, instance.getSize());
+                .set(RdsInstanceDO::getPreoccupationDrSize, instance.getPreoccupationSize());
         }
 
         return this.update(new RdsInstanceDO(), updateWrapper);

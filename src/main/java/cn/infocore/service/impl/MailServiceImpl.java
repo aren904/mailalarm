@@ -221,7 +221,7 @@ public class MailServiceImpl implements MailService {
 
                     } else if (fault.getClient_type() == ClientType.RdsInstance_VALUE) {
                         for (RdsInstanceDO object : rdsInstances) {
-                            if (fault.getData_ark_id().equals(object.getDataArkId())
+                            if (fault.getData_ark_id().equals(object.getDataArkDrId())
                                     && fault.getClient_id().equals(object.getInstanceId())) {
                                 excepts = object.getExceptions();
                                 break;
@@ -315,7 +315,7 @@ public class MailServiceImpl implements MailService {
                                         || fault.getClient_type().intValue() == 3) {
                                     // 查询该user_id是否和报警客户端存在关系，即该客户端是否是该用户添加过，添加过则给该用户发送报警邮件
                                     Long count = findArkIdAndUserIdAndId(fault, user);
-                                    if (count.intValue() == 1) {
+                                    if (count.intValue() > 0) {
                                         mailSender.judge(fault, user);
                                     }
                                 } else {
@@ -345,7 +345,7 @@ public class MailServiceImpl implements MailService {
             sql = "select count(*) from vcenter where user_id=? and data_ark_id=? and id=?";
         } else if (fault.getClient_type() == 3) {
             //sql = "select count(*) from virtual_machine where user_id=? and data_ark_id=? and id=?";
-            sql = "select count(*) from virtual_machine inner join vcenter on  vcenter.id= vcenter_vm.vcenter_id and vcenter.user_id=? and vcenter.data_ark_id= ? ";
+            sql = "select count(*) from virtual_machine inner join vcenter on  vcenter.id= vcenter_vm.vcenter_id and vcenter.user_id=? and vcenter.data_ark_id= ? and id=?  ";
 
         }
         Object[] param1 = { user, fault.getData_ark_id(), fault.getClient_id() };

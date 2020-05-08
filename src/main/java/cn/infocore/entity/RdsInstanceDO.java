@@ -51,8 +51,8 @@ public class RdsInstanceDO {
     @TableField(value = "preoccupation_dr_size")
     Long preoccupationDrSize;
     
-    @TableField(value = "data_ark_id")
-    String dataArkId;
+    @TableField(value = "data_ark_dr_id")
+    Integer dataArkDrId;
     
     
     

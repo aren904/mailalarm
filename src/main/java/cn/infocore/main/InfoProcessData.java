@@ -2,8 +2,11 @@ package cn.infocore.main;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -24,6 +27,7 @@ import cn.infocore.handler.NameHandler;
 import cn.infocore.handler.User_idHandler;
 import cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest;
 import cn.infocore.protobuf.StmStreamerDrManage.Client;
+import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
 import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
 import cn.infocore.protobuf.StmStreamerDrManage.OssInfo;
@@ -44,18 +48,14 @@ public class InfoProcessData {
     private static final Logger logger = Logger.getLogger(InfoProcessData.class);
     private GetServerInfoReturn hrt;
 
-    
+    RDSService rdsService;
 
-    
-     RDSService rdsService;
+    DataArkService dataArkService;
 
-     DataArkService dataArkService;
-
-     OssService ossService;
+    OssService ossService;
 
     AlarmLogService alarmLogService;
 
-    
     public DataArkService getDataArkService() {
         return dataArkService;
     }
@@ -98,8 +98,7 @@ public class InfoProcessData {
         Set<String> uSet = DataArkList.getInstance().getData_ark_list().keySet();
         long now = System.currentTimeMillis() / 1000;
         if (uSet.contains(hrt.getUuid())) {
-            
-            
+
             logger.debug(hrt.toString());
             // 把所有心跳过来的时间更新到HeartCache,做这个是为了检测数据方舟离线的.
             HeartCache.getInstance().addHeartCache(hrt.getUuid(), now);
@@ -126,38 +125,84 @@ public class InfoProcessData {
             if (vmList != null && vmList.size() > 0) {
                 updateVirtualMachine(vmList);
             }
-            
+
             Streamer dataArk = hrt.getServer();
             String dataArkId = hrt.getUuid();
             if (dataArk != null) {
-                 //List<FaultSimple> list =  updateDataArk(dataArkId,dataArk);
+                // List<FaultSimple> list = updateDataArk(dataArkId,dataArk);
             }
-            
 
             List<OssInfo> ossClients = hrt.getOssClientsList();
-            
+
             if (ossClients != null && !ossClients.isEmpty()) {
                 List<FaultSimple> ossFaultSimples = updateOssClient(ossClients);
-                
+
                 faultSimples.addAll(ossFaultSimples);
             }
 
             List<RdsInfo> rdsInfoList = hrt.getRdsClientsList();
-            
-            
-
-            
-            
 
             List<RdsDO> rdsList = rdsService.updateRdsInfo(data_ark, rdsInfoList);
             List<RdsInstanceDO> rdsInstances = rdsService.getRDSInstanceListFromSource(data_ark, rdsInfoList);
 
             List<Fault> faultList = rdsService.getFault(data_ark, rdsInfoList);
             logger.info("rdsfaultsize:" + faultList.size());
-            faults.addAll(faultList);
 
+            // faults.addAll(faultList);
 
-            
+            Map<String, FaultSimple> rdsFaultyMap = new HashMap<String, FaultSimple>();
+
+            for (Fault fault : faultList) {
+
+                String clientId = fault.getClient_id();
+
+                if (rdsFaultyMap.containsKey(clientId)) {
+                    int type = fault.getType();
+                    FaultSimple fSimple = rdsFaultyMap.get(clientId);
+                    fSimple.getFaultTypes().add(FaultType.valueOf(type));
+
+                    String userId = fault.getUser_id();
+                    if (userId != null) {
+                        fSimple.getUserIds().add(userId);
+
+                    }
+
+                } else {
+
+                    FaultSimple faultSimple = new FaultSimple();
+
+                    String id = fault.getClient_id();
+                    faultSimple.setTargetId(id);
+
+                    String userId = fault.getUser_id();
+                    List<String> userIds = new ArrayList<>();
+                    userIds.add(userId);
+                    faultSimple.setUserIds(userIds);
+
+                    Integer clientType = fault.getClient_type();
+                    if (clientType != null) {
+                        faultSimple.setClientType(ClientType.valueOf(clientType));
+                    }
+
+                    int type = fault.getType();
+                    List<FaultType> tFaultTypes = new ArrayList<>();
+                    tFaultTypes.add(FaultType.valueOf(type));
+                    faultSimple.setFaultTypes(tFaultTypes);
+
+                    String target = fault.getTarget();
+                    faultSimple.setTargetName(target);
+                    rdsFaultyMap.put(clientId, faultSimple);
+
+                }
+                ;
+
+                Set<Map.Entry<String, FaultSimple>> set = rdsFaultyMap.entrySet();
+                for (Map.Entry<String, FaultSimple> faultRds : set) {
+                    faultSimples.add(faultRds.getValue());
+                }
+
+            }
+
             // add dataArk info to FaultSimple
             String dataArkName = hrt.getServer().getName();
             String dataArkIp = hrt.getServer().getIp();
@@ -165,10 +210,9 @@ public class InfoProcessData {
                 faultSimple.setDataArkId(dataArkId);
                 faultSimple.setDataArkIp(dataArkIp);
                 faultSimple.setDataArkName(dataArkName);
+
             }
             alarmLogService.noticeFaults(faultSimples);
-            
-            
 
             if (faults.size() > 0) {
                 MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList, rdsList, rdsInstances,
@@ -454,7 +498,7 @@ public class InfoProcessData {
         // Connection connection=MyDataSource.getConnection();
         QueryRunner q = MyDataSource.getQueryRunner();
         Object[] param = new Object[] { uuid, data_ark_id };
-        //String sql = "select user_id from vcenter_vm where id=? and data_ark_id=?";
+        // String sql = "select user_id from vcenter_vm where id=? and data_ark_id=?";
         String sql = "SELECT user_id from scmp.vcenter_vm as A inner join scmp.vcenter as B on A.vcenter_id=B.id and A.id =? and B.data_ark_id = ?  ";
         String result = "";
         try {
@@ -569,7 +613,7 @@ public class InfoProcessData {
         List<Client> cList = hrt.getClientsList();
         if (cList != null && cList.size() > 0) {
             for (Client client : cList) {
-               
+
                 Client_ tmp = new Client_();
                 tmp.setId(client.getId());
                 tmp.setName(client.getName());
@@ -617,9 +661,7 @@ public class InfoProcessData {
         dataServer.setTotal_oracle_capacity(streamer.getOracleVol());
         dataServer.setTotal_rds_capacity(streamer.getRdsVol());
         long maxClient = streamer.getMaxClients();
-        
-        
-        
+
         Long cloudVol = streamer.getCloudVol();
         Long racUsed = streamer.getRacUsed();
         Long ecsUsed = streamer.getEcsUsed();
