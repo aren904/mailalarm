@@ -151,7 +151,7 @@ public class InfoProcessData {
             // faults.addAll(faultList);
 
             Map<String, FaultSimple> rdsFaultyMap = new HashMap<String, FaultSimple>();
-
+            
             for (Fault fault : faultList) {
 
                 String clientId = fault.getClient_id();
@@ -194,13 +194,15 @@ public class InfoProcessData {
                     rdsFaultyMap.put(clientId, faultSimple);
 
                 }
-                ;
 
                 Set<Map.Entry<String, FaultSimple>> set = rdsFaultyMap.entrySet();
                 for (Map.Entry<String, FaultSimple> faultRds : set) {
+                    
+//                    logger.info("print rds info===========");
+//                    logger.info(faultRds.getValue());
                     faultSimples.add(faultRds.getValue());
                 }
-
+                
             }
 
             // add dataArk info to FaultSimple

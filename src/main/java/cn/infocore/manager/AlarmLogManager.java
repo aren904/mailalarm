@@ -3,6 +3,7 @@ package cn.infocore.manager;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,25 +13,31 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import cn.infocore.bo.FaultSimple;
 import cn.infocore.dao.AlarmLogMapper;
 import cn.infocore.entity.AlarmLogDO;
+import cn.infocore.main.InfoProcessData;
 import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 
 @Component
 public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
+    private static final Logger logger = Logger.getLogger(AlarmLogManager.class);
 
     public void updateOrAddStatusBatchByType(List<FaultSimple> faultSimples) {
 
         for (FaultSimple faultSimple : faultSimples) {
-            faultSimple.getClientType();
-            
+            updateOrAddAlarmlog(faultSimple);
         }
     }
 
     public void updateOrAddAlarmlog(FaultSimple faultSimple) {
 
+//        logger.info("process log===");
+//        logger.info(faultSimple.toString());
+
+        
         String dataArkId = faultSimple.getDataArkId();
         String dataArkIp = faultSimple.getDataArkIp();
         String targetId = faultSimple.getTargetId();
         String targetName = faultSimple.getTargetName();
+        String dataArkName = faultSimple.getDataArkName();
         Collection<FaultType> faultTypes = faultSimple.getFaultTypes();
 
         List<String> userIds = faultSimple.getUserIds();
@@ -41,7 +48,7 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
 
             Integer code = faultType.getNumber();
             AlarmLogDO alarmLogDO = new AlarmLogDO();
-
+            alarmLogDO.setDataArkName(dataArkName);
             alarmLogDO.setDataArkId(dataArkId);
             alarmLogDO.setDataArkIp(dataArkIp);
             alarmLogDO.setTargetId(targetId);
@@ -58,8 +65,8 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
 
         if (alarmLogDO.getException() > 0) {
             LambdaQueryWrapper<AlarmLogDO> lambdaQueryWrapper = new LambdaQueryWrapper<AlarmLogDO>();
-            
-            lambdaQueryWrapper.eq(AlarmLogDO::getDataArkId, alarmLogDO.getTargetId());
+            Integer exception =  alarmLogDO.getException();
+            lambdaQueryWrapper.eq(AlarmLogDO::getTargetId, alarmLogDO.getTargetId()).eq(AlarmLogDO::getException, exception);
             
             if (this.count(lambdaQueryWrapper)>0) {
                 this.update(alarmLogDO, lambdaQueryWrapper);

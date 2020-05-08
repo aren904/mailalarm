@@ -95,8 +95,11 @@ public class OssObjectSetManager extends ServiceImpl<OssObjectSetMapper, OssObje
         LambdaQueryWrapper<OssObjectSetDO> queryWrapper = new LambdaQueryWrapper<OssObjectSetDO>()
                 .eq(OssObjectSetDO::getObjectSetId, instanceId);
         OssObjectSetDO rdsInstanceDO = this.getOne(queryWrapper);
-        Integer isDr = rdsInstanceDO.getDrEnabled();
-        return isDr != null && isDr > 0;
+        if (rdsInstanceDO!=null) {
+            Integer isDr = rdsInstanceDO.getDrEnabled();
+            return isDr != null && isDr > 0;
+        }
+        return false;
 
     }
     

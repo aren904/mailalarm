@@ -6,8 +6,9 @@ import java.util.List;
 import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
 import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 import lombok.Data;
+import lombok.ToString;
 import lombok.experimental.Accessors;
-
+@ToString
 @Accessors(chain = true)
 @Data
 public class FaultSimple {
@@ -29,6 +30,7 @@ public class FaultSimple {
     Collection<FaultType> faultTypes;
     
     List<String> userIds;
+    
     
     
 }
