@@ -51,5 +51,17 @@ public class DataArkServiceImpl extends ServiceImpl<DateArkMapper, DataArkDO> im
         this.updateById(dataArkDO);
 
     }
+    @Override
+    public String getDataArkNameById(String id) {
+        
+        DataArkDO dataArkDO =  this.getById(id);
+       
+        if (dataArkDO != null) {
+            return  dataArkDO.getName();
 
+        }
+        
+        return null;
+    }
+    
 }

@@ -206,13 +206,15 @@ public class InfoProcessData {
             }
 
             // add dataArk info to FaultSimple
-            String dataArkName = hrt.getServer().getName();
             String dataArkIp = hrt.getServer().getIp();
+            String id = hrt.getUuid();
+            String dataArkName = dataArkService.getDataArkNameById(id);
             for (FaultSimple faultSimple : faultSimples) {
                 faultSimple.setDataArkId(dataArkId);
                 faultSimple.setDataArkIp(dataArkIp);
                 faultSimple.setDataArkName(dataArkName);
-
+                
+                faultSimple.setTimestamp(System.currentTimeMillis()/1000);
             }
             alarmLogService.noticeFaults(faultSimples);
 

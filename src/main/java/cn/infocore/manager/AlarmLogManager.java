@@ -39,7 +39,7 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
         String targetName = faultSimple.getTargetName();
         String dataArkName = faultSimple.getDataArkName();
         Collection<FaultType> faultTypes = faultSimple.getFaultTypes();
-
+        Long timestamp = faultSimple.getTimestamp();
         List<String> userIds = faultSimple.getUserIds();
 
         String userIdsString = getUserIdsString(userIds);
@@ -55,6 +55,7 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
             alarmLogDO.setTarget(targetName);
             alarmLogDO.setUserId(userIdsString);
             alarmLogDO.setException(code);
+            alarmLogDO.setTimestamp(timestamp);
             updateAlarmlog(alarmLogDO);
         }
 

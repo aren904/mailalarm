@@ -437,7 +437,7 @@ public class MailServiceImpl implements MailService {
         String targetName = faultSimple.getTargetName();
         ClientType clientType = faultSimple.getClientType();
         List<String> userIds = faultSimple.getUserIds();
-
+        Long timestamp = faultSimple.getTimestamp();
         List<Fault> faults = new ArrayList<Fault>();
         for (FaultType faultType : faultTypes) {
             for (String userId : userIds) {
@@ -451,6 +451,7 @@ public class MailServiceImpl implements MailService {
                 fault.setData_ark_name(data_ark_name);
                 fault.setTarget(targetName);
                 fault.setUser_id(userId);
+                fault.setTimestamp(timestamp);
                 faults.add(fault);
             }
         }

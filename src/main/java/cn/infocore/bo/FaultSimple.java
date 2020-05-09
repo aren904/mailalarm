@@ -31,6 +31,6 @@ public class FaultSimple {
     
     List<String> userIds;
     
-    
+    Long timestamp;
     
 }
