@@ -198,8 +198,8 @@ public class InfoProcessData {
                 Set<Map.Entry<String, FaultSimple>> set = rdsFaultyMap.entrySet();
                 for (Map.Entry<String, FaultSimple> faultRds : set) {
                     
-//                    logger.info("print rds info===========");
-//                    logger.info(faultRds.getValue());
+                    //logger.info("print rds info===========");
+                    //logger.info(faultRds.toString());
                     faultSimples.add(faultRds.getValue());
                 }
                 

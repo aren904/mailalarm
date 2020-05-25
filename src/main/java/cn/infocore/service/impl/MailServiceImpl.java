@@ -42,6 +42,9 @@ public class MailServiceImpl implements MailService {
     private Map<String, MailSender> adminSenderMap = null;
 
     private MailServiceImpl() {
+
+        MailCenterRestryHolder.instance = this;
+
         this.normalSenderMap = new ConcurrentHashMap<String, MailSender>();
         this.adminSenderMap = new ConcurrentHashMap<String, MailSender>();
         // 初始的时候，先从数据库中获取一次
@@ -77,6 +80,7 @@ public class MailServiceImpl implements MailService {
     }
 
     private static class MailCenterRestryHolder {
+
         public static MailServiceImpl instance = new MailServiceImpl();
     }
 
@@ -139,7 +143,8 @@ public class MailServiceImpl implements MailService {
     }
 
     public void notifyCenter(DataArkDTO data_ark, List<Client_> clientList, List<Vcenter> vcList,
-            List<Virtual_machine> vmList, List<RdsDO> rdsList, List<RdsInstanceDO> rdsInstances, List<Fault> list_fault) {
+            List<Virtual_machine> vmList, List<RdsDO> rdsList, List<RdsInstanceDO> rdsInstances,
+            List<Fault> list_fault) {
         logger.info("Start NotifyCenetr inject mailsender,size:" + list_fault.size() + ",list size:"
                 + normalSenderMap.size() + ",data_ark:" + data_ark.getIp() + ",client size:" + clientList.size()
                 + ",vcenter size:" + vcList.size() + ",vm size:" + vmList.size());
@@ -344,7 +349,8 @@ public class MailServiceImpl implements MailService {
         } else if (fault.getClient_type() == 2) {
             sql = "select count(*) from vcenter where user_id=? and data_ark_id=? and id=?";
         } else if (fault.getClient_type() == 3) {
-            //sql = "select count(*) from virtual_machine where user_id=? and data_ark_id=? and id=?";
+            // sql = "select count(*) from virtual_machine where user_id=? and data_ark_id=?
+            // and id=?";
             sql = "select count(*) from vcenter_vm inner join vcenter on  vcenter.id= vcenter_vm.vcenter_id and vcenter.user_id=? and vcenter.data_ark_id= ? and vcenter_vm.id=?  ";
 
         }
@@ -368,35 +374,44 @@ public class MailServiceImpl implements MailService {
 
         for (FaultSimple faultSimple : faultSimples) {
             // send to normal users
+
             List<Fault> faults = convertFaultSimple(faultSimple);
             for (Fault fault : faults) {
+                logger.debug("==========MAIL USER_:" + fault.toString());
                 String userId = fault.getUser_id();
                 MailSender sender = this.normalSenderMap.get(userId);
+                logger.debug("==========MAIL SENDER_:" + normalSenderMap.toString());
+
                 if (sender != null) {
+
                     sender.judge(fault, userId);
 
                 }
             }
             // send all to admin user
-            
-            Set<Map.Entry<String, MailSender>> senderSet  = this.adminSenderMap.entrySet();
-            List<Fault> faultsWithUserIdString  = convertFaultSimpleWithUserString(faultSimple);
+
+            Set<Map.Entry<String, MailSender>> senderSet = this.adminSenderMap.entrySet();
+            logger.debug("==========MAIL SENDER_ADMIN:" + adminSenderMap.toString());
+
+            List<Fault> faultsWithUserIdString = convertFaultSimpleWithUserString(faultSimple);
             for (Map.Entry<String, MailSender> entry : senderSet) {
                 MailSender sender = entry.getValue();
                 String userId = entry.getKey();
                 for (Fault fault : faultsWithUserIdString) {
+                    logger.debug("==========MAIL ADMIN_:" + fault.toString());
+
                     try {
-                        sender.judge(fault,userId);
+                        sender.judge(fault, userId);
                     } catch (Exception e) {
-                        logger.error("send mail to"+ userId + " failed",e);
+                        logger.error("send mail to" + userId + " failed", e);
                     }
                 }
             }
-            
+
         }
 
     }
-    
+
     List<Fault> convertFaultSimpleWithUserString(FaultSimple faultSimple) {
 
         Collection<FaultType> faultTypes = faultSimple.getFaultTypes();
@@ -406,22 +421,24 @@ public class MailServiceImpl implements MailService {
         String data_ark_name = faultSimple.getDataArkName();
         String targetId = faultSimple.getTargetId();
         String targetName = faultSimple.getTargetName();
+        long timestamp = faultSimple.getTimestamp();
         ClientType clientType = faultSimple.getClientType();
         List<String> userIds = faultSimple.getUserIds();
 
         List<Fault> faults = new ArrayList<Fault>();
         for (FaultType faultType : faultTypes) {
-                Integer code = faultType.getNumber();
-                Fault fault = new Fault();
-                fault.setType(code);
-                fault.setClient_id(targetId);
-                fault.setClient_type(clientType.getNumber());
-                fault.setData_ark_id(dataArkId);
-                fault.setData_ark_ip(dataArkIp);
-                fault.setData_ark_name(data_ark_name);
-                fault.setTarget(targetName);
-                fault.setUser_id(StupidStringUtil.parseUserIdListToUserIdsString(userIds));
-                faults.add(fault);
+            Integer code = faultType.getNumber();
+            Fault fault = new Fault();
+            fault.setType(code);
+            fault.setClient_id(targetId);
+            fault.setClient_type(clientType.getNumber());
+            fault.setData_ark_id(dataArkId);
+            fault.setData_ark_ip(dataArkIp);
+            fault.setData_ark_name(data_ark_name);
+            fault.setTarget(targetName);
+            fault.setUser_id(StupidStringUtil.parseUserIdListToUserIdsString(userIds));
+            fault.setTimestamp(timestamp);
+            faults.add(fault);
         }
         return faults;
     }

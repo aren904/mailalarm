@@ -13,7 +13,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.2.0.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,14 +22,23 @@
 		<start-class>cn.infocore.App</start-class>
 	</properties>
 
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${springboot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-dependencies</artifactId>
-			<version>${springboot.version}</version>
-			<type>pom</type>
-			<scope>import</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -105,12 +114,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			
+
 			<exclusions>
 				<exclusion>
 					<groupId>org.junit.vintage</groupId>
@@ -123,39 +132,18 @@
 	<build>
 		<!-- 把相关的第三方依赖一起打入新jar包 -->
 		<plugins>
-<!-- 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
-						<manifest>
-							<mainClass>${start-class}</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-				<executions>
-					修改mvn assembly为mvn package
-					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin> -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-assembly-plugin</artifactId> 
+				<version>2.6</version> <configuration> <descriptorRefs> <descriptorRef>jar-with-dependencies</descriptorRef> 
+				</descriptorRefs> <archive> <manifest> <mainClass>${start-class}</mainClass> 
+				</manifest> </archive> </configuration> <executions> 修改mvn assembly为mvn package 
+				<execution> <id>make-assembly</id> <phase>package</phase> <goals> <goal>single</goal> 
+				</goals> </execution> </executions> </plugin> -->
 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-<!-- 				<configuration>
-					<fork>true</fork>
-					<mainClass>${start-class}</mainClass>
-				</configuration> -->
+				<!-- <configuration> <fork>true</fork> <mainClass>${start-class}</mainClass> 
+					</configuration> -->
 				<executions>
 					<execution>
 						<goals>

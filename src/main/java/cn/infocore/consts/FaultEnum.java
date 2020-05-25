@@ -1,6 +1,8 @@
 package cn.infocore.consts;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public enum FaultEnum {
     
@@ -59,7 +61,7 @@ public enum FaultEnum {
         this.message = message;
     }
     
-    public FaultEnum valueOf(int code){
+    public static FaultEnum valueOf(int code){
         
         FaultEnum[] faultEnums = FaultEnum.values();
         
@@ -69,6 +71,18 @@ public enum FaultEnum {
             }
         }
         return FaultEnum.UNKNOW;
+    }
+    
+    
+    
+    public static final Set<FaultEnum> AUTOCONFIRM = new HashSet<FaultEnum>();
+    
+    static {
+        AUTOCONFIRM.add(RDS_AKSK_CHANGED);
+        AUTOCONFIRM.add(RDS_CLIENT_OFFLINE);
+        AUTOCONFIRM.add(RDS_INSTANCE_OFFLINE);
+        AUTOCONFIRM.add(RDS_BACKUP_SERVICE_OFFLINE);
+
     }
     
 }

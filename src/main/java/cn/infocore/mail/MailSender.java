@@ -72,7 +72,8 @@ public class MailSender {
 	
 	// 逻辑处理
 	public void judge(Fault fault,String user) {
-		logger.info("----------Userid:"+user+",exception:"+config.getExceptions()+",fault type:"+fault.getType()+",enabled:"+config.getEnabled()+",target:"+fault.getTarget());
+	    
+		logger.info("----------Userid:"+user+",exception:"+config.getExceptions()+",fault type:"+fault.getType()+",enabled:"+config.getEnabled()+",target:"+fault.getTarget()+",timestamp:"+fault.getTimestamp());
 		if(config.getEnabled()==0){
 			logger.info(user+" not need send email,for config is not enabled.");
 			return;

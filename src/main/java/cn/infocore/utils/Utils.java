@@ -36,18 +36,15 @@ public class Utils {
         case 15:
         case 20:
         case 21:
+        case 23:
+        case 24:
+        case 25:
+
+        case 26:
         case 31:
         case 33:
         case 34:
         case 35:
-
-            ret = "警告";
-            break;
-        case 23:
-            ret = "警告";
-            break;
-        case 24:
-        case 25:
 
             ret = "警告";
             break;

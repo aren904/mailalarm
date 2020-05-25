@@ -11,6 +11,7 @@ import lombok.experimental.Accessors;
 @ToString
 @Accessors(chain = true)
 @Data
+
 public class FaultSimple {
     
     volatile boolean done = false;

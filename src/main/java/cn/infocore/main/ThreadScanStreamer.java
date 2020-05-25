@@ -177,7 +177,7 @@ public class ThreadScanStreamer implements Runnable {
 			List<String> source = qr.execute(selectsql, new ExceptHandler(), parm0);
 			if (source != null && !source.isEmpty()) {
 				String exceptions = source.get(0);
-				if (exceptions.contains(";")) {
+				if (exceptions!= null && exceptions.contains(";")) {
 					String[] resultArray = source.get(0).split(";");
 					return new ArrayList<String>(Arrays.asList(resultArray));
 				} else {
@@ -187,7 +187,7 @@ public class ThreadScanStreamer implements Runnable {
 				}
 
 			}
-		} catch (SQLException e2) {
+		} catch (Exception e2) {
 			e2.printStackTrace();
 		}
 		return null;
