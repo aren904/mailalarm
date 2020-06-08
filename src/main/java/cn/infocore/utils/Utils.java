@@ -45,7 +45,14 @@ public class Utils {
         case 33:
         case 34:
         case 35:
-
+        case 37:
+        case 38:
+        case 39:
+        case 40:
+        case 41:
+        case 42:
+        case 43:
+        case 44:
             ret = "警告";
             break;
         default:
@@ -167,6 +174,21 @@ public class Utils {
             break;
         case 39:
             ret = "oss 备份账户异常";
+            break;
+        case 40:
+            ret = "oss客户端离线";
+            break;
+        case 41:
+            ret = "oss备份模块服务异常";
+            break;
+        case 42:
+            ret = "oss备份空间达到阈值";
+            break;
+        case 43:
+            ret = "oss备份无法写入";
+            break;
+        case 44:
+            ret = "oss备份源丢失";
             break;
         default:
             ret = "未知异常";
