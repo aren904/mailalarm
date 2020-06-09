@@ -28,8 +28,10 @@ import cn.infocore.handler.User_idHandler;
 import cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest;
 import cn.infocore.protobuf.StmStreamerDrManage.Client;
 import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
+import cn.infocore.protobuf.StmStreamerDrManage.EcsInfo;
 import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
+import cn.infocore.protobuf.StmStreamerDrManage.MetaInfo;
 import cn.infocore.protobuf.StmStreamerDrManage.OssInfo;
 import cn.infocore.protobuf.StmStreamerDrManage.RdsInfo;
 import cn.infocore.protobuf.StmStreamerDrManage.Streamer;
@@ -39,7 +41,9 @@ import cn.infocore.service.AlarmLogService;
 import cn.infocore.service.DataArkService;
 import cn.infocore.service.OssService;
 import cn.infocore.service.RDSService;
+import cn.infocore.service.impl.EcsService;
 import cn.infocore.service.impl.MailServiceImpl;
+import cn.infocore.service.impl.MdbService;
 import cn.infocore.utils.MyDataSource;
 
 //解析数据，拦截，触发报警，写数据库等操作
@@ -55,7 +59,29 @@ public class InfoProcessData {
     OssService ossService;
 
     AlarmLogService alarmLogService;
+    
+    public EcsService getEcsService() {
+        return ecsService;
+    }
 
+    public void setEcsService(EcsService ecsService) {
+        this.ecsService = ecsService;
+    }
+
+    public MdbService getMdbService() {
+        return mdbService;
+    }
+
+    public void setMdbService(MdbService mdbService) {
+        this.mdbService = mdbService;
+    }
+
+    EcsService ecsService;
+    
+    MdbService mdbService;
+
+    
+    
     public DataArkService getDataArkService() {
         return dataArkService;
     }
@@ -151,7 +177,7 @@ public class InfoProcessData {
             // faults.addAll(faultList);
 
             Map<String, FaultSimple> rdsFaultyMap = new HashMap<String, FaultSimple>();
-            
+
             for (Fault fault : faultList) {
 
                 String clientId = fault.getClient_id();
@@ -197,14 +223,27 @@ public class InfoProcessData {
 
                 Set<Map.Entry<String, FaultSimple>> set = rdsFaultyMap.entrySet();
                 for (Map.Entry<String, FaultSimple> faultRds : set) {
-                    
-                    //logger.info("print rds info===========");
-                    //logger.info(faultRds.toString());
+
+                    // logger.info("print rds info===========");
+                    // logger.info(faultRds.toString());
                     faultSimples.add(faultRds.getValue());
                 }
-                
+
             }
 
+            List<EcsInfo> exEcsInfos =  hrt.getEcsClientsList();
+            
+            for (EcsInfo ecsInfo : exEcsInfos) {
+                ecsService.updateEcsInfo(ecsInfo);
+            }
+            
+            List<MetaInfo> metaInfos = hrt.getMetaClientsList();
+            
+            for (MetaInfo metaInfo : metaInfos) {
+                mdbService.updateMdbInfo(metaInfo);
+            }
+            
+            
             // add dataArk info to FaultSimple
             String dataArkIp = hrt.getServer().getIp();
             String id = hrt.getUuid();
@@ -213,8 +252,8 @@ public class InfoProcessData {
                 faultSimple.setDataArkId(dataArkId);
                 faultSimple.setDataArkIp(dataArkIp);
                 faultSimple.setDataArkName(dataArkName);
-                
-                faultSimple.setTimestamp(System.currentTimeMillis()/1000);
+
+                faultSimple.setTimestamp(System.currentTimeMillis() / 1000);
             }
             alarmLogService.noticeFaults(faultSimples);
 
