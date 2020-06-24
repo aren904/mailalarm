@@ -16,7 +16,7 @@ public class MetaBackupManager extends ServiceImpl<MdbBackupMapper, MdbBackupDO>
     public void updateByRealId(String id, MdbBackupDO mdbBackupDO) {
         LambdaQueryWrapper<MdbBackupDO> queryWrapper = new LambdaQueryWrapper<>();
 
-        queryWrapper.eq(MdbBackupDO::getMdbId, id);
+        queryWrapper.eq(MdbBackupDO::getBackupId, id);
 
         this.baseMapper.update(mdbBackupDO, queryWrapper);
 

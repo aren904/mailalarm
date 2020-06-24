@@ -14,6 +14,8 @@ import cn.infocore.service.AlarmLogService;
 import cn.infocore.service.DataArkService;
 import cn.infocore.service.OssService;
 import cn.infocore.service.RDSService;
+import cn.infocore.service.impl.EcsService;
+import cn.infocore.service.impl.MdbService;
 import cn.infocore.utils.Utils;
 
 @Component
@@ -22,7 +24,10 @@ public class DealSocket implements Runnable {
     private Socket socket;
     @Autowired
     RDSService rdsService;
-
+    @Autowired
+    EcsService ecsService;
+    @Autowired
+    MdbService mdbService;
     @Autowired
     DataArkService dataArkService;
     @Autowired
@@ -111,7 +116,8 @@ public class DealSocket implements Runnable {
             process.setAlarmLogService(alarmLogService);
             process.setDataArkService(dataArkService);
             process.setOssService(ossService);
-        
+            process.setMdbService(mdbService);
+            process.setEcsService(ecsService);
             process.run();
 
             // 清理内存

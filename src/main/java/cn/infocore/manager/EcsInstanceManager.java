@@ -16,7 +16,7 @@ public class EcsInstanceManager extends ServiceImpl<EcsInstanceMapper, EcsInstan
     public void updateByInstanceId(String id, EcsInstanceDO ecsInstanceDO) {
         LambdaQueryWrapper<EcsInstanceDO> queryWrapper = new LambdaQueryWrapper<>();
 
-        queryWrapper.eq(EcsInstanceDO::getEcsId, id);
+        queryWrapper.eq(EcsInstanceDO::getInstanceId, id);
 
         this.baseMapper.update(ecsInstanceDO, queryWrapper);
     }

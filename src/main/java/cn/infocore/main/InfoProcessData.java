@@ -710,6 +710,7 @@ public class InfoProcessData {
         Long ecsUsed = streamer.getEcsUsed();
         Long rdsUsed = streamer.getRdsUsed();
         Long ossUsed = streamer.getOssUsed();
+        Long metaUsed = streamer.getMetaUsed();
         dataServer.setLimitClientCount(maxClient);
         dataServer.setCloudVol(cloudVol);
         dataServer.setRacUsed(racUsed);
@@ -717,7 +718,7 @@ public class InfoProcessData {
         dataServer.setRacUsed(racUsed);
         dataServer.setRdsUsed(rdsUsed);
         dataServer.setOssUsed(ossUsed);
-
+        dataServer.setMetaUsed(metaUsed);
         String user_id = getUserIdByDataArk(uuid);
         List<Fault> data_ark_fault_list = new LinkedList<Fault>();
         for (FaultType f : streamer.getStreamerStateList()) {

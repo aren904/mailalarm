@@ -43,7 +43,7 @@ public class DataArkDTO {
     long rdsUsed;
     long ossUsed;
     
-    
+    long metaUsed;
     
     
     
@@ -223,6 +223,16 @@ public class DataArkDTO {
 
     public void setData_ark_group_id(int data_ark_group_id) {
         this.data_ark_group_id = data_ark_group_id;
+    }
+    
+    
+
+    public long getMetaUsed() {
+        return metaUsed;
+    }
+
+    public void setMetaUsed(long metaUsed) {
+        this.metaUsed = metaUsed;
     }
 
     @Override

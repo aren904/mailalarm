@@ -9,6 +9,7 @@ import cn.infocore.entity.EcsInstanceDO;
 import cn.infocore.manager.EcsInstanceManager;
 import cn.infocore.protobuf.StmStreamerDrManage.EcsInfo;
 import cn.infocore.protobuf.StmStreamerDrManage.EcsInstanceInfo;
+import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 
 @Service
 public class EcsService {
@@ -22,9 +23,15 @@ public class EcsService {
         for (EcsInstanceInfo ecsInstanceInfo : instanceInfos) {
             String id = ecsInstanceInfo.getId();
             Long size =  ecsInstanceInfo.getSize();
-
+            List<FaultType> faults =  ecsInstanceInfo.getStatusList();
+            StringBuilder sb = new StringBuilder();
+            for (FaultType fault : faults) {
+               int code =  fault.getNumber();
+               sb.append(code).append(";");
+            }
             EcsInstanceDO ecsInstanceDO = new EcsInstanceDO();
             ecsInstanceDO.setSize(size);
+            ecsInstanceDO.setExceptions(sb.toString());
             ecsInstanceManager.updateByInstanceId(id, ecsInstanceDO);
             
         }

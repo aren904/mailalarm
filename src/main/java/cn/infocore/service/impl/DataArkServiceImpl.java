@@ -32,6 +32,7 @@ public class DataArkServiceImpl extends ServiceImpl<DateArkMapper, DataArkDO> im
         Long ecsUsed = data_ark.getEcsUsed();
         Long rdsUsed = data_ark.getRdsUsed();
         Long ossUsed = data_ark.getOssUsed();
+        Long metaUsed = data_ark.getMetaUsed();
         int limitClientCount =  (int)data_ark.getLimitClientCount();
 
         DataArkDO dataArkDO = new DataArkDO();
@@ -46,7 +47,9 @@ public class DataArkServiceImpl extends ServiceImpl<DateArkMapper, DataArkDO> im
                 .setUsedOracleSpaceSize(racUsed)
                 .setUsedEcsSpaceSize(ecsUsed)
                 .setUsedRdsSpaceSize(rdsUsed)
-                .setUsedOssSpaceSize(ossUsed);
+                .setUsedOssSpaceSize(ossUsed)
+                .setUsedMetadatabaseSpaceSize(metaUsed)
+                ;
 
         this.updateById(dataArkDO);
 

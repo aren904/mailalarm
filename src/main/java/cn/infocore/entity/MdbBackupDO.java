@@ -11,7 +11,7 @@ public class MdbBackupDO {
 
     @TableField("id")
     Integer id;
-    @TableField("backupId")
+    @TableField("backup_id")
     String backupId;
     @TableField("mdb_id")
     Integer mdbId;

@@ -55,7 +55,7 @@ enum FaultType{
     RDS_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED = 31;  // rds实例备份点下载失败
     RDS_INSTANCE_OFFLINE= 32;  // rds实例离线
     RDS_STORAGE_DROP = 33;  // rds备份空间异常  // 7.0中废弃
-    RDS_AKSK_CHANGED = 34;  // RDS备份账户异常
+    RDS_AKSK_CHANGED = 34;  // rds ak/sk变更
     RDS_CLIENT_OFFLINE = 35;  // rds客户端离线
     RDS_BACKUP_SERVICE_OFFLINE = 36;  // rds备份模块服务异常
     CLOUD_STORAGE_DROP = 37;  // 云备份空间异常 
@@ -66,10 +66,25 @@ enum FaultType{
     OSS_BACKUP_SPACE_HAS_REACHED_THRESHOLD = 42;  // oss备份空间达到阈值
     OSS_BACKUP_POINT_WRITE_FAILED = 43;  // oss备份无法写入
     OSS_BACKUP_LOCAL_LOST = 44;  // oss备份源丢失
+
+    ECS_AKSK_ABNORMAL = 45;  // ecs aksk异常
+    ECS_CLIENT_OFFLINE = 46;  // ecs 客户端离线
+    ECS_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED = 47;  // ecs 实例备份点下载失败
+    ECS_BACKUP_SPACE_HAS_REACHED_THRESHOLD = 48;  // ecs备份空间达到阈值
+    ECS_BACKUP_POINT_WRITE_FAILED = 49;  // ecs 备份写入失败
+    ECS_BACKUP_LOCAL_LOST = 50;  // ecs 本地丢失
+
+    
+    META_AUTH_ABNORMAL = 51;  // meta 认证异常, aksk/ip/password 异常
+    META_CLIENT_OFFLINE = 52;  // meta 客户端离线
+    META_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED = 53;  // meta 备份点下载失败
+    META_BACKUP_SPACE_HAS_REACHED_THRESHOLD = 54;  // meta 备份空间达到阈值
+    META_BACKUP_POINT_WRITE_FAILED = 55;  // meta 备份写入失败
+    META_BACKUP_LOCAL_LOST = 56;  // meta 本地丢失
 }
 
 //服务器信息
-message Streamer{ 
+message Streamer{
 	required string ip = 1; 
     required string name = 2;
     required uint64 total = 3;  // pool size
@@ -83,7 +98,7 @@ message Streamer{
     required uint64 ecs_used = 11;  // ecs  backup point size
     required uint64 rds_used = 12;  // rds instance backup point size
     required uint64 oss_used = 13;  // oss objecet set backup point size 
-
+    required uint64 meta_used = 14;  // oss objecet set backup point size 
 }
 
 //有代理客户端
@@ -122,9 +137,8 @@ message RdsInstanceInfo{
     required string uuid = 2;
     required ClientType type = 3;
     repeated FaultType status = 4;
-    required uint64 size = 5; 
+    required uint64 size = 5;
     required uint64 preoccupation_size_byte = 6; // 备份预留大小
-    
 }
 
 message RdsInfo{
@@ -151,6 +165,40 @@ message OssInfo{
     repeated FaultType status = 4;
     repeated OssObjectSetInfo obj_list = 5;
 }
+
+message EcsInstanceInfo {
+    required string name = 1;
+    required string id = 2;
+    required ClientType type = 3;
+    repeated FaultType status = 4;
+    required uint64 size = 5;
+    required uint64 preoccupation_size_byte = 6; // 备份预留大小
+}
+
+message EcsInfo {
+    required string name = 1;
+    required string id = 2;
+    required ClientType type = 3;
+    repeated FaultType status = 4;
+    repeated EcsInstanceInfo instance_list = 5;
+}
+
+message MetaBackupInfo {
+    required string name = 1;
+    required string id = 2;
+    required ClientType type = 3;
+    repeated FaultType status = 4;
+    required uint64 size = 5;
+    required uint64 preoccupation_size_byte = 6; // 备份预留大小
+}
+
+message MetaInfo {
+    required string name = 1;
+    required string id = 2;
+    required ClientType type = 3;
+    repeated FaultType status = 4;
+    repeated MetaBackupInfo backup_list = 5;
+}
 //stm -> clouddrmanage
 message GetServerInfoReturn{
     required string uuid =1;
@@ -159,4 +207,6 @@ message GetServerInfoReturn{
     repeated Vcent vcents = 4;
     repeated RdsInfo rds_clients = 5;
     repeated OssInfo oss_clients = 6;
+    repeated EcsInfo ecs_clients = 7;
+    repeated MetaInfo meta_clients = 8;
 }
