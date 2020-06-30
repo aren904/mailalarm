@@ -17,7 +17,7 @@ public class MyDataSource {
 	// 从连接池中取用一个连接
 	public static Connection getConnection() {
 		Connection connection = null;
-		try {
+		try { 
 			connection = dataSource.getConnection();
 
 		} catch (Exception e) {

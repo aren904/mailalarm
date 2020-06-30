@@ -186,7 +186,10 @@ public class ThreadScanStreamer implements Runnable {
 					return result;
 				}
 
-			}
+			}else {
+                return new ArrayList<String>();
+            }
+			
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}

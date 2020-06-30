@@ -49,8 +49,8 @@ public class DataArkDO {
     
     @TableField(value = "used_ecs_space_size")
     Long usedEcsSpaceSize;
-    @TableField(value="used_metadatabase_space_size")
     
+    @TableField(value="used_metadatabase_space_size")
     Long usedMetadatabaseSpaceSize;
     
     @TableField(value = "user_id")

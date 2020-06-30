@@ -13,6 +13,7 @@ public class DataArkHandler implements ResultSetHandler<DataArkDTO>{
 		StringBuilder builder=new StringBuilder();
 		DataArkDTO data_ark=null;
 		int i=0;
+		
 		while(rs.next()) {
 			if(i==0){
 				data_ark=new DataArkDTO();
@@ -25,6 +26,10 @@ public class DataArkHandler implements ResultSetHandler<DataArkDTO>{
 			}
 			i++;
 		}
+		
+		
+		
+		
 		if(data_ark!=null){
             data_ark.setUser_id(builder.toString());
         }

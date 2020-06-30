@@ -275,10 +275,10 @@ public class InfoProcessData {
 
     }
 
-    private List<FaultSimple> updateDataArk(String dataArkId, Streamer dataArk) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+//    private List<FaultSimple> updateDataArk(String dataArkId, Streamer dataArk) {
+//        // TODO Auto-generated method stub
+//        return null;
+//    }
 
     void updateDataArk(DataArkDTO data_ark) {
         dataArkService.update(data_ark);
