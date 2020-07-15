@@ -1,6 +1,7 @@
 option java_package = "cn.infocore.protobuf";
 option java_outer_classname = "CloudManagerAlarm";
 
+
 /* common begin */
 
 /* enum begin */
@@ -89,7 +90,7 @@ enum Command {
     Command_AddDisasterRdsInstance = 250;
     Command_RemoveDisasterRdsInstance = 251;
     Command_UpdateAkskForRds = 252;
-    Command_UpdateDownloadScheduleForRdsInstance = 253;  // 仅用于记录操作日志，不作为接口指令
+    Command_UpdateDownloadScheduleForRdsInstance = 253;  // 已废弃。仅用于记录操作日志，不作为接口指令
     Command_AddOss = 254;
     Command_AddOssExt = 255;
     Command_RemoveOss = 256;
@@ -98,6 +99,21 @@ enum Command {
     Command_AddDisasterOssObjectSet = 259;
     Command_RemoveDisasterOssObjectSet = 260;
     Command_UpdateAkskForOss = 261;
+    Command_AddEcs = 262;
+    Command_AddEcsExt = 263;
+    Command_RemoveEcs = 264;
+    Command_AddEcsInstance = 265;
+    Command_RemoveEcsInstance = 266;
+    Command_AddDisasterEcsInstance = 267;
+    Command_RemoveDisasterEcsInstance = 268;
+    Command_UpdateAkskForEcs = 269;
+    Command_AddMetadatabase = 270;
+    Command_AddMetadatabaseExt = 271;
+    Command_RemoveMetadatabase = 272;
+    Command_AddMetadatabaseBackup = 273;
+    Command_RemoveMetadatabaseBackup = 274;
+    Command_AddDisasterMetadatabaseBackup = 275;
+    Command_RemoveDisasterMetadatabaseBackup = 276;
 
     /* data ark management end */
 
@@ -146,6 +162,7 @@ enum Command {
     Command_GetCloudServiceEndpoint = 507;
     Command_UpdateRdsEndpoint = 508;
     Command_UpdateOssEndpoint = 509;
+    Command_UpdateEcsEndpoint = 510;
 
     /* system end */
 
@@ -263,6 +280,18 @@ enum ErrorCode {
     ErrorCode_RacNonexistent = 1207;
     ErrorCode_RacDbExistent = 1208;
     ErrorCode_RacDbNonexistent = 1209;
+    ErrorCode_EcsExistent = 1210;  // 存在ECS
+    ErrorCode_EcsNonexistent = 1211;  // 不存在ECS
+    ErrorCode_EcsInstanceExistent = 1212;  // 存在ECS Instance
+    ErrorCode_EcsInstanceNonexistent = 1213;  // 不存在ECS Instance
+    ErrorCode_DisasterEcsInstanceExistent = 1214;  // 存在容灾ECS Instance，即存在容灾关系
+    ErrorCode_DisasterEcsInstanceNonexistent = 1215;  // 不存在容灾ECS Instance，即存在容灾关系
+    ErrorCode_MetadatabaseExistent = 1216;  // 存在Metadatabase
+    ErrorCode_MetadatabaseNonexistent = 1217;  // 不存在Metadatabase
+    ErrorCode_MetadatabaseBackupExistent = 1218;  // 存在Metadatabase Backup
+    ErrorCode_MetadatabaseBackupNonexistent = 1219;  // 不存在Metadatabase Backup
+    ErrorCode_DisasterMetadatabaseBackupExistent = 1220;  // 存在容灾Metadatabase Backup，即存在容灾关系
+    ErrorCode_DisasterMetadatabaseBackupNonexistent = 1221;  // 不存在容灾Metadatabase Backup，即存在容灾关系
 
     /* login begin */
 
@@ -349,6 +378,21 @@ enum ErrorCode {
     ErrorCode_AddDisasterOssObjectSetFailed = 10259;
     ErrorCode_RemoveDisasterOssObjectSetFailed = 10260;
     ErrorCode_UpdateAkskForOssFailed = 10261;
+    ErrorCode_AddEcsFailed = 10262;
+    ErrorCode_AddEcsExtFailed = 10263;
+    ErrorCode_RemoveEcsFailed = 10264;
+    ErrorCode_AddEcsInstanceFailed = 10265;
+    ErrorCode_RemoveEcsInstanceFailed = 10266;
+    ErrorCode_AddDisasterEcsInstanceFailed = 10267;
+    ErrorCode_RemoveDisasterEcsInstanceFailed = 10268;
+    ErrorCode_UpdateAkskForEcsFailed = 10269;
+    ErrorCode_AddMetadatabaseFailed = 10270;
+    ErrorCode_AddMetadatabaseExtFailed = 10271;
+    ErrorCode_RemoveMetadatabaseFailed = 10272;
+    ErrorCode_AddMetadatabaseBackupFailed = 10273;
+    ErrorCode_RemoveMetadatabaseBackupFailed = 10274;
+    ErrorCode_AddDisasterMetadatabaseBackupFailed = 10275;
+    ErrorCode_RemoveDisasterMetadatabaseBackupFailed = 10276;
 
     /* data ark management end */
 
@@ -396,6 +440,7 @@ enum ErrorCode {
     ErrorCode_GetCloudServiceEndpointFailed = 10507;
     ErrorCode_UpdateRdsEndpointFailed = 10508;
     ErrorCode_UpdateOssEndpointFailed = 10509;
+    ErrorCode_UpdateEcsEndpointFailed = 10510;
 
     /* system end */
 }
@@ -405,45 +450,60 @@ enum Exception {
     Exception_ClientLocalLost = 1;              // 备份异常—本地丢失
     Exception_ClientTargetLost = 2;             // 备份异常—目标丢失
     Exception_VmwareCreateSnapshotFailed = 3;   // VMware虚拟机任务计划快照点创建失败
-    Exception_VmwareCbtDrop = 4;                // CBT 异常
+    Exception_VmwareCbtDrop = 4;                // CBT异常
     Exception_ClientOffline = 5;                // 普通客户端离线
-    Exception_VcenterOffline = 6;               // vCenter 离线
+    Exception_VcenterOffline = 6;               // vCenter离线
     Exception_ClusterNodeExistOffline = 7;      // 集群节点部分离线
     Exception_ClusterNodeAllOffline = 8;        // 集群节点全部离线
     Exception_StreamerPoolDisabled = 9;         // 存储池异常
-    Exception_StreamerOffline = 10;             // Streamer 服务器离线
+    Exception_StreamerOffline = 10;             // Streamer服务器离线
     Exception_ClientAutoExpandFailed = 11;      // 自动扩容失败
     Exception_ClientSnapshotMergeFailed = 12;   // 快照合并失败
-    Exception_OracleStorageDrop = 13;           // Oracle 备份空间异常
+    Exception_OracleStorageDrop = 13;           // Oracle备份空间异常
     Exception_DisasterReplicationFailed = 14;   // 容灾复制失败
     Exception_RacNodeExistOffline = 15;         // RAC节点存在离线
     Exception_RacNodeAllOffline = 16;           // RAC节点全部离线
     Exception_RacInstanceExistOffline = 17;     // RAC实例离线
     Exception_RacInstanceAllOffline = 18;       // RAC实例全部离线
-    Exception_VmwareVirtualMachineOffline = 19;  // Vmware 虚拟机离线
+    Exception_VmwareVirtualMachineOffline = 19;  // Vmware虚拟机离线
     Exception_ClientCreateSnapshotFailed = 20;  // 普通客户端创建快照点失败
-    Exception_RacCreateSnapshotFailed = 21;     // Rac 客户端创建快照点失败
+    Exception_RacCreateSnapshotFailed = 21;     // Rac客户端创建快照点失败
     Exception_DisasterServerOffline = 22;       // 容灾服务离线
     Exception_StreamerPoolExceededThreshold = 23;  // 存储池超过阈值
-    Exception_AixDiskOffline = 24;              // 映射给 AIX 的磁盘离线
-    Exception_VmwareInitMirrorFailed = 25;      // VMware 同步数据失败
+    Exception_AixDiskOffline = 24;              // 映射给AIX的磁盘离线
+    Exception_VmwareInitMirrorFailed = 25;      // VMware同步数据失败
     Exception_VmwareSnapshotSizeIsZero = 26;    // 在线虚拟机创建快照点数据异常
     Exception_FileSingleCreateSnapshotFailed = 27;  // 文件级备份客户端任务计划创建快照点失败
     Exception_FileSingleOffline = 28;  // 文件级备份客户端离线
     Exception_FileSingleLocalLost = 29;  // 文件级备份客户端异常-本地丢失
     Exception_FileSingleTargetLost = 30;  // 文件级备份客户端异常-目标丢失
-    Exception_RdsInstanceBackupPointDownloadFailed = 31;  // RDS 实例备份点下载失败
-    Exception_RdsInstanceOffline = 32;  // RDS 实例离线
-    Exception_RdsStorageDrop = 33;  // 7.0中已废弃，RDS 备份空间异常
-    Exception_RdsAkskChanged = 34;  // RDS AK/SK变更
+    Exception_RdsInstanceBackupPointDownloadFailed = 31;  // RDS实例备份点下载失败
+    Exception_RdsInstanceOffline = 32;  // RDS实例离线，即源丢失，云上实例离线
+    Exception_RdsStorageDrop = 33;  // 7.0V1中已废弃，RDS备份空间异常
+    Exception_RdsAuthAbnormal = 34;  // RDS认证异常
     Exception_RdsClientOffline = 35;  // RDS客户端离线
-    Exception_RdsBackupServiceOffline = 36;  // RDS备份模块服务异常
+    Exception_RdsBackupServiceOffline = 36;  // 7.0V2中弃用，RDS备份模块服务异常
     Exception_CloudStorageDrop = 37;  // 云备份空间异常
-    Exception_OssObjectSetBackupPointDownloadFailed = 38;  // OSS备份点下载失败
-    Exception_OssAkskChanged = 39;  // OSS ak/sk变更
+    Exception_OssBackupPointDownloadFailed = 38;  // OSS备份点下载失败
+    Exception_OssAuthAbnormal = 39;  // OSS认证异常
     Exception_OssClientOffline = 40;  // OSS客户端离线
-    Exception_OssBackupServiceOffline = 41;  // OSS备份模块服务异常
+    Exception_OssBackupServiceOffline = 41;  // 7.0V2中弃用，OSS备份模块服务异常
     Exception_OssBackupSpaceExceededThreshold = 42;  // OSS备份空间达到阈值
+    Exception_OssBackupDestLost = 43;  // OSS备份目标丢失，本地目录丢失
+    Exception_OssBackupSourceLost = 44;  // OSS备份源丢失，即云上桶或目录丢失
+    Exception_EcsAuthAbnormal = 45;  // ECS认证异常
+    Exception_EcsClientOffline = 46;  // ECS客户端离线
+    Exception_EcsInstanceBackupPointDownloadFailed = 47;  // ECS实例备份点下载失败
+    Exception_EcsBackupSpaceExceededThreshold = 48;  // ECS备份空间达到阈值
+    Exception_EcsDestLost = 49;  // ECS备份目标丢失，本地目录丢失
+    Exception_EcsInstanceOffline = 50;  // ECS实例离线，即源丢失，云上实例离线
+    Exception_MetaAuthAbnormal = 51;  // 元数据库认证异常，AKSK/IP/Password异常
+    Exception_MetaClientOffline = 52;  // 元数据库客户端离线
+    Exception_MetaBackupPointDownloadFailed = 53;  // 元数据库备份点下载失败
+    Exception_MetaBackupSpaceExceededThreshold = 54;  // 元数据库备份空间达到阈值
+    Exception_MetaBackupDestLost = 55;  // 元数据库备份目标丢失，本地目录丢失
+    Exception_MetaBackupSourceLost = 56;  // 元数据库备份源丢失
+    Exception_RdsBackupDestLost = 57; // RDS目标丢失，本地目录丢失
 }
 
 enum ClientType {
@@ -498,7 +558,7 @@ enum SnmpPrivacyProtocol {
 
 enum Version {
     option allow_alias = true;
-    Version_Value = 3;
+    Version_Value = 4;
 }
 
 /* enum end */

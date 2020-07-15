@@ -485,13 +485,13 @@ public final class StmStreamerDrManage {
      */
     RDS_STORAGE_DROP(33, 33),
     /**
-     * <code>RDS_AKSK_CHANGED = 34;</code>
+     * <code>RDS_AUTH_ABNORMAL = 34;</code>
      *
      * <pre>
-     * rds ak/sk变更
+     * rds 认证异常
      * </pre>
      */
-    RDS_AKSK_CHANGED(34, 34),
+    RDS_AUTH_ABNORMAL(34, 34),
     /**
      * <code>RDS_CLIENT_OFFLINE = 35;</code>
      *
@@ -504,7 +504,7 @@ public final class StmStreamerDrManage {
      * <code>RDS_BACKUP_SERVICE_OFFLINE = 36;</code>
      *
      * <pre>
-     * rds备份模块服务异常
+     * 弃用 rds备份模块服务异常
      * </pre>
      */
     RDS_BACKUP_SERVICE_OFFLINE(36, 36),
@@ -525,13 +525,13 @@ public final class StmStreamerDrManage {
      */
     OSS_BACKUP_POINT_DOWNLOAD_FAILED(38, 38),
     /**
-     * <code>OSS_AKSK_CHANGED = 39;</code>
+     * <code>OSS_AUTH_ABNORMAL = 39;</code>
      *
      * <pre>
-     * oss ak/sk变更
+     * oss 认证异常
      * </pre>
      */
-    OSS_AKSK_CHANGED(39, 39),
+    OSS_AUTH_ABNORMAL(39, 39),
     /**
      * <code>OSS_CLIENT_OFFLINE = 40;</code>
      *
@@ -544,7 +544,7 @@ public final class StmStreamerDrManage {
      * <code>OSS_BACKUP_SERVICE_OFFLINE = 41;</code>
      *
      * <pre>
-     * oss备份模块服务异常
+     * 弃用
      * </pre>
      */
     OSS_BACKUP_SERVICE_OFFLINE(41, 41),
@@ -557,29 +557,29 @@ public final class StmStreamerDrManage {
      */
     OSS_BACKUP_SPACE_HAS_REACHED_THRESHOLD(42, 42),
     /**
-     * <code>OSS_BACKUP_POINT_WRITE_FAILED = 43;</code>
+     * <code>OSS_BACKUP_DST_LOST = 43;</code>
      *
      * <pre>
-     * oss备份无法写入
+     * oss 备份目录找不到
      * </pre>
      */
-    OSS_BACKUP_POINT_WRITE_FAILED(43, 43),
+    OSS_BACKUP_DST_LOST(43, 43),
     /**
-     * <code>OSS_BACKUP_LOCAL_LOST = 44;</code>
+     * <code>OSS_BACKUP_SOURCE_LOST = 44;</code>
      *
      * <pre>
-     * oss备份源丢失
+     * oss 备份源目录找不到
      * </pre>
      */
-    OSS_BACKUP_LOCAL_LOST(44, 44),
+    OSS_BACKUP_SOURCE_LOST(44, 44),
     /**
-     * <code>ECS_AKSK_ABNORMAL = 45;</code>
+     * <code>ECS_AUTH_ABNORMAL = 45;</code>
      *
      * <pre>
-     * ecs aksk异常
+     * ecs 认证异常
      * </pre>
      */
-    ECS_AKSK_ABNORMAL(45, 45),
+    ECS_AUTH_ABNORMAL(45, 45),
     /**
      * <code>ECS_CLIENT_OFFLINE = 46;</code>
      *
@@ -605,21 +605,21 @@ public final class StmStreamerDrManage {
      */
     ECS_BACKUP_SPACE_HAS_REACHED_THRESHOLD(48, 48),
     /**
-     * <code>ECS_BACKUP_POINT_WRITE_FAILED = 49;</code>
+     * <code>ECS_BACKUP_DST_LOST = 49;</code>
      *
      * <pre>
-     * ecs 备份写入失败
+     * ecs 备份目录找不到
      * </pre>
      */
-    ECS_BACKUP_POINT_WRITE_FAILED(49, 49),
+    ECS_BACKUP_DST_LOST(49, 49),
     /**
-     * <code>ECS_BACKUP_LOCAL_LOST = 50;</code>
+     * <code>ECS_INSTANCE_OFFLINE = 50;</code>
      *
      * <pre>
-     * ecs 本地丢失
+     * ecs 实例离线
      * </pre>
      */
-    ECS_BACKUP_LOCAL_LOST(50, 50),
+    ECS_INSTANCE_OFFLINE(50, 50),
     /**
      * <code>META_AUTH_ABNORMAL = 51;</code>
      *
@@ -653,21 +653,29 @@ public final class StmStreamerDrManage {
      */
     META_BACKUP_SPACE_HAS_REACHED_THRESHOLD(54, 54),
     /**
-     * <code>META_BACKUP_POINT_WRITE_FAILED = 55;</code>
+     * <code>META_BACKUP_DST_LOST = 55;</code>
      *
      * <pre>
-     * meta 备份写入失败
+     * meta 备份目录找不到
      * </pre>
      */
-    META_BACKUP_POINT_WRITE_FAILED(55, 55),
+    META_BACKUP_DST_LOST(55, 55),
     /**
-     * <code>META_BACKUP_LOCAL_LOST = 56;</code>
+     * <code>META_BACKUP_SOURCE_LOST = 56;</code>
      *
      * <pre>
-     * meta 本地丢失
+     * meta备份源目录找不到
      * </pre>
      */
-    META_BACKUP_LOCAL_LOST(56, 56),
+    META_BACKUP_SOURCE_LOST(56, 56),
+    /**
+     * <code>RDS_BACKUP_DST_LOST = 57;</code>
+     *
+     * <pre>
+     * rds 备份目录找不到
+     * </pre>
+     */
+    RDS_BACKUP_DST_LOST(57, 57),
     ;
 
     /**
@@ -939,13 +947,13 @@ public final class StmStreamerDrManage {
      */
     public static final int RDS_STORAGE_DROP_VALUE = 33;
     /**
-     * <code>RDS_AKSK_CHANGED = 34;</code>
+     * <code>RDS_AUTH_ABNORMAL = 34;</code>
      *
      * <pre>
-     * rds ak/sk变更
+     * rds 认证异常
      * </pre>
      */
-    public static final int RDS_AKSK_CHANGED_VALUE = 34;
+    public static final int RDS_AUTH_ABNORMAL_VALUE = 34;
     /**
      * <code>RDS_CLIENT_OFFLINE = 35;</code>
      *
@@ -958,7 +966,7 @@ public final class StmStreamerDrManage {
      * <code>RDS_BACKUP_SERVICE_OFFLINE = 36;</code>
      *
      * <pre>
-     * rds备份模块服务异常
+     * 弃用 rds备份模块服务异常
      * </pre>
      */
     public static final int RDS_BACKUP_SERVICE_OFFLINE_VALUE = 36;
@@ -979,13 +987,13 @@ public final class StmStreamerDrManage {
      */
     public static final int OSS_BACKUP_POINT_DOWNLOAD_FAILED_VALUE = 38;
     /**
-     * <code>OSS_AKSK_CHANGED = 39;</code>
+     * <code>OSS_AUTH_ABNORMAL = 39;</code>
      *
      * <pre>
-     * oss ak/sk变更
+     * oss 认证异常
      * </pre>
      */
-    public static final int OSS_AKSK_CHANGED_VALUE = 39;
+    public static final int OSS_AUTH_ABNORMAL_VALUE = 39;
     /**
      * <code>OSS_CLIENT_OFFLINE = 40;</code>
      *
@@ -998,7 +1006,7 @@ public final class StmStreamerDrManage {
      * <code>OSS_BACKUP_SERVICE_OFFLINE = 41;</code>
      *
      * <pre>
-     * oss备份模块服务异常
+     * 弃用
      * </pre>
      */
     public static final int OSS_BACKUP_SERVICE_OFFLINE_VALUE = 41;
@@ -1011,29 +1019,29 @@ public final class StmStreamerDrManage {
      */
     public static final int OSS_BACKUP_SPACE_HAS_REACHED_THRESHOLD_VALUE = 42;
     /**
-     * <code>OSS_BACKUP_POINT_WRITE_FAILED = 43;</code>
+     * <code>OSS_BACKUP_DST_LOST = 43;</code>
      *
      * <pre>
-     * oss备份无法写入
+     * oss 备份目录找不到
      * </pre>
      */
-    public static final int OSS_BACKUP_POINT_WRITE_FAILED_VALUE = 43;
+    public static final int OSS_BACKUP_DST_LOST_VALUE = 43;
     /**
-     * <code>OSS_BACKUP_LOCAL_LOST = 44;</code>
+     * <code>OSS_BACKUP_SOURCE_LOST = 44;</code>
      *
      * <pre>
-     * oss备份源丢失
+     * oss 备份源目录找不到
      * </pre>
      */
-    public static final int OSS_BACKUP_LOCAL_LOST_VALUE = 44;
+    public static final int OSS_BACKUP_SOURCE_LOST_VALUE = 44;
     /**
-     * <code>ECS_AKSK_ABNORMAL = 45;</code>
+     * <code>ECS_AUTH_ABNORMAL = 45;</code>
      *
      * <pre>
-     * ecs aksk异常
+     * ecs 认证异常
      * </pre>
      */
-    public static final int ECS_AKSK_ABNORMAL_VALUE = 45;
+    public static final int ECS_AUTH_ABNORMAL_VALUE = 45;
     /**
      * <code>ECS_CLIENT_OFFLINE = 46;</code>
      *
@@ -1059,21 +1067,21 @@ public final class StmStreamerDrManage {
      */
     public static final int ECS_BACKUP_SPACE_HAS_REACHED_THRESHOLD_VALUE = 48;
     /**
-     * <code>ECS_BACKUP_POINT_WRITE_FAILED = 49;</code>
+     * <code>ECS_BACKUP_DST_LOST = 49;</code>
      *
      * <pre>
-     * ecs 备份写入失败
+     * ecs 备份目录找不到
      * </pre>
      */
-    public static final int ECS_BACKUP_POINT_WRITE_FAILED_VALUE = 49;
+    public static final int ECS_BACKUP_DST_LOST_VALUE = 49;
     /**
-     * <code>ECS_BACKUP_LOCAL_LOST = 50;</code>
+     * <code>ECS_INSTANCE_OFFLINE = 50;</code>
      *
      * <pre>
-     * ecs 本地丢失
+     * ecs 实例离线
      * </pre>
      */
-    public static final int ECS_BACKUP_LOCAL_LOST_VALUE = 50;
+    public static final int ECS_INSTANCE_OFFLINE_VALUE = 50;
     /**
      * <code>META_AUTH_ABNORMAL = 51;</code>
      *
@@ -1107,21 +1115,29 @@ public final class StmStreamerDrManage {
      */
     public static final int META_BACKUP_SPACE_HAS_REACHED_THRESHOLD_VALUE = 54;
     /**
-     * <code>META_BACKUP_POINT_WRITE_FAILED = 55;</code>
+     * <code>META_BACKUP_DST_LOST = 55;</code>
      *
      * <pre>
-     * meta 备份写入失败
+     * meta 备份目录找不到
      * </pre>
      */
-    public static final int META_BACKUP_POINT_WRITE_FAILED_VALUE = 55;
+    public static final int META_BACKUP_DST_LOST_VALUE = 55;
     /**
-     * <code>META_BACKUP_LOCAL_LOST = 56;</code>
+     * <code>META_BACKUP_SOURCE_LOST = 56;</code>
      *
      * <pre>
-     * meta 本地丢失
+     * meta备份源目录找不到
      * </pre>
      */
-    public static final int META_BACKUP_LOCAL_LOST_VALUE = 56;
+    public static final int META_BACKUP_SOURCE_LOST_VALUE = 56;
+    /**
+     * <code>RDS_BACKUP_DST_LOST = 57;</code>
+     *
+     * <pre>
+     * rds 备份目录找不到
+     * </pre>
+     */
+    public static final int RDS_BACKUP_DST_LOST_VALUE = 57;
 
 
     public final int getNumber() { return value; }
@@ -1162,29 +1178,30 @@ public final class StmStreamerDrManage {
         case 31: return RDS_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED;
         case 32: return RDS_INSTANCE_OFFLINE;
         case 33: return RDS_STORAGE_DROP;
-        case 34: return RDS_AKSK_CHANGED;
+        case 34: return RDS_AUTH_ABNORMAL;
         case 35: return RDS_CLIENT_OFFLINE;
         case 36: return RDS_BACKUP_SERVICE_OFFLINE;
         case 37: return CLOUD_STORAGE_DROP;
         case 38: return OSS_BACKUP_POINT_DOWNLOAD_FAILED;
-        case 39: return OSS_AKSK_CHANGED;
+        case 39: return OSS_AUTH_ABNORMAL;
         case 40: return OSS_CLIENT_OFFLINE;
         case 41: return OSS_BACKUP_SERVICE_OFFLINE;
         case 42: return OSS_BACKUP_SPACE_HAS_REACHED_THRESHOLD;
-        case 43: return OSS_BACKUP_POINT_WRITE_FAILED;
-        case 44: return OSS_BACKUP_LOCAL_LOST;
-        case 45: return ECS_AKSK_ABNORMAL;
+        case 43: return OSS_BACKUP_DST_LOST;
+        case 44: return OSS_BACKUP_SOURCE_LOST;
+        case 45: return ECS_AUTH_ABNORMAL;
         case 46: return ECS_CLIENT_OFFLINE;
         case 47: return ECS_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED;
         case 48: return ECS_BACKUP_SPACE_HAS_REACHED_THRESHOLD;
-        case 49: return ECS_BACKUP_POINT_WRITE_FAILED;
-        case 50: return ECS_BACKUP_LOCAL_LOST;
+        case 49: return ECS_BACKUP_DST_LOST;
+        case 50: return ECS_INSTANCE_OFFLINE;
         case 51: return META_AUTH_ABNORMAL;
         case 52: return META_CLIENT_OFFLINE;
         case 53: return META_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED;
         case 54: return META_BACKUP_SPACE_HAS_REACHED_THRESHOLD;
-        case 55: return META_BACKUP_POINT_WRITE_FAILED;
-        case 56: return META_BACKUP_LOCAL_LOST;
+        case 55: return META_BACKUP_DST_LOST;
+        case 56: return META_BACKUP_SOURCE_LOST;
+        case 57: return RDS_BACKUP_DST_LOST;
         default: return null;
       }
     }
@@ -19897,7 +19914,7 @@ public final class StmStreamerDrManage {
       "\005\022\016\n\nFileSingle\020\013\022\007\n\003Rds\020\014\022\017\n\013RdsInstanc" +
       "e\020\r\022\007\n\003Oss\020\016\022\020\n\014OssObjectSet\020\017\022\007\n\003Ecs\020\020\022" +
       "\017\n\013EcsInstance\020\021\022\n\n\006MetaDB\020\022\022\020\n\014MetaDBBa" +
-      "ckup\020\023*\214\r\n\tFaultType\022\n\n\006NORMAL\020\000\022\025\n\021CLIE" +
+      "ckup\020\023*\212\r\n\tFaultType\022\n\n\006NORMAL\020\000\022\025\n\021CLIE" +
       "NT_LOCAL_LOST\020\001\022\023\n\017CLIENT_DST_LOST\020\002\022\035\n\031" +
       "VMWARE_CREATE_SNAP_FAILED\020\003\022\023\n\017VMWARE_CB",
       "T_DROP\020\004\022\022\n\016CLIENT_OFFLINE\020\005\022\023\n\017VCENTER_" +
@@ -19920,27 +19937,27 @@ public final class StmStreamerDrManage {
       "E\020\034\022\032\n\026FILE_SINGLE_LOCAL_LOST\020\035\022\033\n\027FILE_" +
       "SINGLE_TARGET_LOST\020\036\022-\n)RDS_INSTANCE_BAC" +
       "KUP_POINT_DOWNLOAD_FAILED\020\037\022\030\n\024RDS_INSTA",
-      "NCE_OFFLINE\020 \022\024\n\020RDS_STORAGE_DROP\020!\022\024\n\020R" +
-      "DS_AKSK_CHANGED\020\"\022\026\n\022RDS_CLIENT_OFFLINE\020" +
-      "#\022\036\n\032RDS_BACKUP_SERVICE_OFFLINE\020$\022\026\n\022CLO" +
-      "UD_STORAGE_DROP\020%\022$\n OSS_BACKUP_POINT_DO" +
-      "WNLOAD_FAILED\020&\022\024\n\020OSS_AKSK_CHANGED\020\'\022\026\n" +
-      "\022OSS_CLIENT_OFFLINE\020(\022\036\n\032OSS_BACKUP_SERV" +
-      "ICE_OFFLINE\020)\022*\n&OSS_BACKUP_SPACE_HAS_RE" +
-      "ACHED_THRESHOLD\020*\022!\n\035OSS_BACKUP_POINT_WR" +
-      "ITE_FAILED\020+\022\031\n\025OSS_BACKUP_LOCAL_LOST\020,\022" +
-      "\025\n\021ECS_AKSK_ABNORMAL\020-\022\026\n\022ECS_CLIENT_OFF",
-      "LINE\020.\022-\n)ECS_INSTANCE_BACKUP_POINT_DOWN" +
-      "LOAD_FAILED\020/\022*\n&ECS_BACKUP_SPACE_HAS_RE" +
-      "ACHED_THRESHOLD\0200\022!\n\035ECS_BACKUP_POINT_WR" +
-      "ITE_FAILED\0201\022\031\n\025ECS_BACKUP_LOCAL_LOST\0202\022" +
-      "\026\n\022META_AUTH_ABNORMAL\0203\022\027\n\023META_CLIENT_O" +
-      "FFLINE\0204\022.\n*META_INSTANCE_BACKUP_POINT_D" +
-      "OWNLOAD_FAILED\0205\022+\n\'META_BACKUP_SPACE_HA" +
-      "S_REACHED_THRESHOLD\0206\022\"\n\036META_BACKUP_POI" +
-      "NT_WRITE_FAILED\0207\022\032\n\026META_BACKUP_LOCAL_L" +
-      "OST\0208B+\n\024cn.infocore.protobufB\023StmStream",
-      "erDrManage"
+      "NCE_OFFLINE\020 \022\024\n\020RDS_STORAGE_DROP\020!\022\025\n\021R" +
+      "DS_AUTH_ABNORMAL\020\"\022\026\n\022RDS_CLIENT_OFFLINE" +
+      "\020#\022\036\n\032RDS_BACKUP_SERVICE_OFFLINE\020$\022\026\n\022CL" +
+      "OUD_STORAGE_DROP\020%\022$\n OSS_BACKUP_POINT_D" +
+      "OWNLOAD_FAILED\020&\022\025\n\021OSS_AUTH_ABNORMAL\020\'\022" +
+      "\026\n\022OSS_CLIENT_OFFLINE\020(\022\036\n\032OSS_BACKUP_SE" +
+      "RVICE_OFFLINE\020)\022*\n&OSS_BACKUP_SPACE_HAS_" +
+      "REACHED_THRESHOLD\020*\022\027\n\023OSS_BACKUP_DST_LO" +
+      "ST\020+\022\032\n\026OSS_BACKUP_SOURCE_LOST\020,\022\025\n\021ECS_" +
+      "AUTH_ABNORMAL\020-\022\026\n\022ECS_CLIENT_OFFLINE\020.\022",
+      "-\n)ECS_INSTANCE_BACKUP_POINT_DOWNLOAD_FA" +
+      "ILED\020/\022*\n&ECS_BACKUP_SPACE_HAS_REACHED_T" +
+      "HRESHOLD\0200\022\027\n\023ECS_BACKUP_DST_LOST\0201\022\030\n\024E" +
+      "CS_INSTANCE_OFFLINE\0202\022\026\n\022META_AUTH_ABNOR" +
+      "MAL\0203\022\027\n\023META_CLIENT_OFFLINE\0204\022.\n*META_I" +
+      "NSTANCE_BACKUP_POINT_DOWNLOAD_FAILED\0205\022+" +
+      "\n\'META_BACKUP_SPACE_HAS_REACHED_THRESHOL" +
+      "D\0206\022\030\n\024META_BACKUP_DST_LOST\0207\022\033\n\027META_BA" +
+      "CKUP_SOURCE_LOST\0208\022\027\n\023RDS_BACKUP_DST_LOS" +
+      "T\0209B+\n\024cn.infocore.protobufB\023StmStreamer",
+      "DrManage"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

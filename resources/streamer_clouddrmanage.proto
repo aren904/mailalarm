@@ -52,35 +52,39 @@ enum FaultType{
     FILE_SINGLE_OFFLINE = 28;  // 文件级备份客户端离线
     FILE_SINGLE_LOCAL_LOST = 29;  // 文件级备份客户端本地丢失
     FILE_SINGLE_TARGET_LOST = 30;  // 文件级备份客户端目标丢失
+   
     RDS_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED = 31;  // rds实例备份点下载失败
     RDS_INSTANCE_OFFLINE= 32;  // rds实例离线
     RDS_STORAGE_DROP = 33;  // rds备份空间异常  // 7.0中废弃
-    RDS_AKSK_CHANGED = 34;  // rds ak/sk变更
+    RDS_AUTH_ABNORMAL = 34;  // rds 认证异常
     RDS_CLIENT_OFFLINE = 35;  // rds客户端离线
-    RDS_BACKUP_SERVICE_OFFLINE = 36;  // rds备份模块服务异常
+    RDS_BACKUP_SERVICE_OFFLINE = 36;  // 弃用 rds备份模块服务异常
     CLOUD_STORAGE_DROP = 37;  // 云备份空间异常 
-    OSS_BACKUP_POINT_DOWNLOAD_FAILED = 38;  // Oss备份点下载失败
-    OSS_AKSK_CHANGED = 39;  // oss ak/sk变更
-    OSS_CLIENT_OFFLINE = 40;  // oss客户端离线
-    OSS_BACKUP_SERVICE_OFFLINE = 41;  // oss备份模块服务异常
-    OSS_BACKUP_SPACE_HAS_REACHED_THRESHOLD = 42;  // oss备份空间达到阈值
-    OSS_BACKUP_POINT_WRITE_FAILED = 43;  // oss备份无法写入
-    OSS_BACKUP_LOCAL_LOST = 44;  // oss备份源丢失
 
-    ECS_AKSK_ABNORMAL = 45;  // ecs aksk异常
+    OSS_BACKUP_POINT_DOWNLOAD_FAILED = 38;  // Oss备份点下载失败
+    OSS_AUTH_ABNORMAL = 39;  // oss 认证异常
+    OSS_CLIENT_OFFLINE = 40;  // oss客户端离线
+    OSS_BACKUP_SERVICE_OFFLINE = 41;  // 弃用
+    OSS_BACKUP_SPACE_HAS_REACHED_THRESHOLD = 42;  // oss备份空间达到阈值
+    OSS_BACKUP_DST_LOST = 43;  // oss 备份目录找不到
+    OSS_BACKUP_SOURCE_LOST = 44;  // oss 备份源目录找不到
+
+    ECS_AUTH_ABNORMAL = 45;  // ecs 认证异常
     ECS_CLIENT_OFFLINE = 46;  // ecs 客户端离线
     ECS_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED = 47;  // ecs 实例备份点下载失败
     ECS_BACKUP_SPACE_HAS_REACHED_THRESHOLD = 48;  // ecs备份空间达到阈值
-    ECS_BACKUP_POINT_WRITE_FAILED = 49;  // ecs 备份写入失败
-    ECS_BACKUP_LOCAL_LOST = 50;  // ecs 本地丢失
+    ECS_BACKUP_DST_LOST = 49;  // ecs 备份目录找不到
+    ECS_INSTANCE_OFFLINE = 50;  // ecs 实例离线
 
     
     META_AUTH_ABNORMAL = 51;  // meta 认证异常, aksk/ip/password 异常
     META_CLIENT_OFFLINE = 52;  // meta 客户端离线
     META_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED = 53;  // meta 备份点下载失败
     META_BACKUP_SPACE_HAS_REACHED_THRESHOLD = 54;  // meta 备份空间达到阈值
-    META_BACKUP_POINT_WRITE_FAILED = 55;  // meta 备份写入失败
-    META_BACKUP_LOCAL_LOST = 56;  // meta 本地丢失
+    META_BACKUP_DST_LOST = 55;  // meta 备份目录找不到
+    META_BACKUP_SOURCE_LOST = 56;  // meta备份源目录找不到
+    
+    RDS_BACKUP_DST_LOST = 57;  // rds 备份目录找不到
 }
 
 //服务器信息
