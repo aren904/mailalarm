@@ -27,7 +27,7 @@ import cn.infocore.utils.MyDataSource;
  */
 public class ThreadScanStreamer implements Runnable {
 	private static final Logger logger = Logger.getLogger(ThreadScanStreamer.class);
-	private static final long split = 3 * 60;
+	private static final long split = 365*24 * 60 *60;
 	// private static final long split=30;
 	// Long timestamp = System.currentTimeMillis();
 
