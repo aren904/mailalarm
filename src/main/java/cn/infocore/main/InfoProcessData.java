@@ -638,8 +638,11 @@ public class InfoProcessData {
                     fault.setTarget(vmware.getName());
                     fault.setClient_type(3);
                     fault.setClient_id(vmware.getId());
-                    vmware_list_faults.add(fault);
-                    this.faults.add(fault);
+                   
+                    if (!FaultType.VMWARE_OFFLINE.equals(faultType)) {
+                        this.faults.add(fault);
+                        vmware_list_faults.add(fault);
+                    }
                 }
                 vm.setFaults(vmware_list_faults);
                 vm.setVcenter_id(vcent.getVcUuid());
