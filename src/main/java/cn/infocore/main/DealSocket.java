@@ -18,26 +18,28 @@ import cn.infocore.service.impl.EcsService;
 import cn.infocore.service.impl.MdbService;
 import cn.infocore.utils.Utils;
 
-@Component
+
 public class DealSocket implements Runnable {
     private static final Logger logger = Logger.getLogger(DealSocket.class);
     private Socket socket;
-    @Autowired
+ 
     RDSService rdsService;
-    @Autowired
+ 
     EcsService ecsService;
-    @Autowired
+ 
     MdbService mdbService;
-    @Autowired
+ 
     DataArkService dataArkService;
-    @Autowired
+ 
     OssService ossService;
-    @Autowired
+ 
     AlarmLogService alarmLogService;
 
     public DealSocket(Socket socket) {
         this.socket = socket;
     }
+    
+    
 
     public DealSocket() {
 
@@ -142,5 +144,32 @@ public class DealSocket implements Runnable {
             }
         }
     }
+
+    public void setRdsService(RDSService rdsService) {
+        this.rdsService = rdsService;
+    }
+
+    public void setEcsService(EcsService ecsService) {
+        this.ecsService = ecsService;
+    }
+
+    public void setMdbService(MdbService mdbService) {
+        this.mdbService = mdbService;
+    }
+
+    public void setDataArkService(DataArkService dataArkService) {
+        this.dataArkService = dataArkService;
+    }
+
+    public void setOssService(OssService ossService) {
+        this.ossService = ossService;
+    }
+
+    public void setAlarmLogService(AlarmLogService alarmLogService) {
+        this.alarmLogService = alarmLogService;
+    }
+    
+    
+    
 
 }

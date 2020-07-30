@@ -49,7 +49,7 @@ public class ThreadInformation extends Thread{
 				server.close();
 			} catch (IOException e) {
 				logger.error(e);
-			}			
+			}	
 		}
 	}
 
