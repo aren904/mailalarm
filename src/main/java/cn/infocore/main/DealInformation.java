@@ -34,7 +34,6 @@ public class DealInformation implements Runnable {
 		this.in = null;
 		this.out = null;
 	}
-
 	/*
 	 * cloudmanager来的所有请求，数据库都不需要我来操作，只是通知我，对本地缓存操作.
 	 */
@@ -46,17 +45,16 @@ public class DealInformation implements Runnable {
 			byte[] header = new byte[InforHeader.INFOR_HEADER_LENGTH];
 			ioret = this.in.read(header, 0, InforHeader.INFOR_HEADER_LENGTH);
 			if (ioret != InforHeader.INFOR_HEADER_LENGTH) {
-				logger.error(Utils.fmt("Failed to recived header,[%d] byte(s) expected,but [%d] is recevied.",
+				logger.error(Utils.fmt("Failed to received header,[%d] byte(s) expected,but [%d] is received.",
 						InforHeader.INFOR_HEADER_LENGTH, ioret));
 				return;
 			}
-			
-			InforHeader myHeader = new InforHeader();
+		InforHeader myHeader = new InforHeader();
 			myHeader.parseByteArray(header);
-			logger.info("Successed recived heartbeat from Cloud Manager.");
+			logger.info("Successfully received heartbeat from Cloud Manager.");
 			dispatch(myHeader);
 		} catch (Exception e) {
-			logger.error("Failed to recived on DealInformation.",e);
+			logger.error("Failed to received on DealInformation.",e);
 		}finally {
 			try {
 				if (this.in!=null) {
@@ -67,11 +65,10 @@ public class DealInformation implements Runnable {
 				}
 				this.socket.close();
 			} catch (Exception e2) {
-				logger.error("IO Exception occured while closing socket.", e2);
+				logger.error("IO Exception occurred while closing socket.", e2);
 			}
 		}
 	}
-	
 	//调度函数，同时捕获异常
 	private void dispatch(InforHeader header) {
 		if (header==null) {
@@ -105,7 +102,7 @@ public class DealInformation implements Runnable {
 				byte[] resp=header.toByteArray();
 				try {
 					out.write(resp, 0, resp.length);
-					logger.info("Successed recived information.");
+					logger.info("Successfully receive information.");
 				} catch (IOException e1) {
 					logger.error(e1);
 				}
@@ -123,7 +120,7 @@ public class DealInformation implements Runnable {
 				byte[] resp=header.toByteArray();
 				try {
 					out.write(resp, 0, resp.length);
-					logger.info("Successed recived information.");
+					logger.info("Successfully receive  information.");
 				} catch (IOException e1) {
 					logger.error(e1);
 				}
@@ -142,7 +139,7 @@ public class DealInformation implements Runnable {
 				byte[] resp=header.toByteArray();
 				try {
 					out.write(resp, 0, resp.length);
-					logger.info("Successed recived information.");
+					logger.info("Successfully receive  information.");
 				} catch (IOException e1) {
 					logger.error(e1);
 				}
@@ -160,7 +157,7 @@ public class DealInformation implements Runnable {
 				byte[] resp=header.toByteArray();
 				try {
 					out.write(resp, 0, resp.length);
-					logger.info("Successed recived information.");
+					logger.info("Successfully receive  information.");
 				} catch (IOException e1) {
 					logger.error(e1);
 				}
@@ -178,7 +175,7 @@ public class DealInformation implements Runnable {
 				byte[] resp=header.toByteArray();
 				try {
 					out.write(resp, 0, resp.length);
-					logger.info("Successed recived information.");
+					logger.info("Successfully receive  information.");
 				} catch (IOException e1) {
 					logger.error(e1);
 				}
@@ -202,7 +199,7 @@ public class DealInformation implements Runnable {
 				byte[] resp=header.toByteArray();
 				try {
 					out.write(resp, 0, resp.length);
-					logger.info("Successed recived information.");
+					logger.info("Successfully receive  information.");
 				} catch (IOException e1) {
 					logger.error(e1);
 				}
@@ -248,7 +245,7 @@ public class DealInformation implements Runnable {
 		//MyDataSource.close(conn);
 		logger.info("Need to add data ark ip:" + ip);
 		DataArkList.getInstance().addDataArk(uuid, ip);
-		logger.info("Add data ark successed.");
+		logger.info("Add data ark is successful.");
 		request.toBuilder().clear();
 		request.toBuilder().clearId();
 	}
@@ -267,7 +264,7 @@ public class DealInformation implements Runnable {
 	private void updateDataArk(UpdateDataArkRequest request){
 		// 使用添加接口
 		DataArkList.getInstance().addDataArk(request.getId(), request.getId());
-		logger.info("Update data ark successed.");
+		logger.info("Update data ark is successful.");
 		request.toBuilder().clear();
 		request.toBuilder().clearId();
 	}
@@ -276,7 +273,7 @@ public class DealInformation implements Runnable {
 	private void createEmailAlarm(CreateEmailAlarmRequest request){
 		String name = request.getUserId();
 		MailServiceImpl.getInstance().addMailService(name);
-		logger.info("Add email alarm user successed.");
+		logger.info("Add email alarm user is successful.");
 		request.toBuilder().clear();
 		request.toBuilder().clearUserId();
 	}
@@ -285,7 +282,7 @@ public class DealInformation implements Runnable {
 	private void updateEmailAlarm(UpdateEmailAlarmRequest request){
 		String name = request.getUserId();
 		MailServiceImpl.getInstance().addMailService(name);
-		logger.info("Update email alarm user successed.");
+		logger.info("Update email alarm user is successful.");
 		request.toBuilder().clear();
 		request.toBuilder().clearUserId();
 	}

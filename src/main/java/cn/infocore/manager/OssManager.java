@@ -24,9 +24,6 @@ public class OssManager extends ServiceImpl<OssMapper, OssDO>{
         for (OssDO ossDO : ossDOs) {
             userIdList.add(ossDO.getUserId());
         }
-        
         return userIdList;
     }
-    
-
 }

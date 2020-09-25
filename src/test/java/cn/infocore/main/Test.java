@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.infocore.operator.Header;
 import cn.infocore.protobuf.StmStreamerDrManage.Client;
@@ -54,25 +56,44 @@ public class Test {
 		s.setName("server13");
 		s.setTotal(new Long("66006659629056"));
 		s.setUsed(new Long("3236257857536"));
-		s.setStreamerState(0, FaultType.NORMAL);
+		List<FaultType> fault=new ArrayList<FaultType>();
+		fault.add(FaultType.NORMAL);
+		s.addAllStreamerState(fault);
+		//s.setStreamerState(0, FaultType.NORMAL);
 		s.setOracleVol(new Long("1087700467712"));
 		s.setMaxClients(new Long("128"));
-		
+
+		s.setOracleVol(0);
+
+		s.setMaxClients(128);
+
+		s.setEcsUsed(0L);
+
+		s.setMetaUsed(0L);
+		s.setOssUsed(0L);
+		s.setRacUsed(0L);
+		s.setRdsUsed(0L);
+		s.setCloudVol(0L);
+		s.setRdsVol(0L);
+
 		Client.Builder c=Client.newBuilder();
 		c.setId("6755a773-0000-0000-0000-000000000000");
 		c.setName("RACTT");
 		c.setIp("");
 		c.setType(ClientType.RAC);
-		c.setClientState(0, FaultType.NORMAL);
+		List<FaultType> fault1=new ArrayList<FaultType>();
+		fault1.add(FaultType.NORMAL);
+		c.addAllClientState(fault1);
+		//c.setClientState(0, FaultType.NORMAL);
 		c.setSystemVersion("Red Hat Enterprise Linux Server release 6.5 (Santiago)");
-		
+
 		get.addClients(c.build());
 		get.setUuid("98e10615-6200-4a92-bd23-40011f5945b7");
 		get.setServer(s.build());
 		
         try {
             //创建Socket对象
-            Socket socket=new Socket("localhost",23335);
+            Socket socket=new Socket("192.168.11.188",1232);
             
             //根据输入输出流和服务端连接
             OutputStream outputStream=socket.getOutputStream();//获取一个输出流，向服务端发送信息

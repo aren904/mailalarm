@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import cn.infocore.entity.*;
+import cn.infocore.protobuf.StmStreamerDrManage;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
@@ -18,14 +20,6 @@ import org.springframework.stereotype.Service;
 
 import cn.infocore.bo.FaultSimple;
 import cn.infocore.dto.DataArkDTO;
-import cn.infocore.entity.Client_;
-import cn.infocore.entity.Email_alarm;
-import cn.infocore.entity.Fault;
-import cn.infocore.entity.Quota;
-import cn.infocore.entity.RdsDO;
-import cn.infocore.entity.RdsInstanceDO;
-import cn.infocore.entity.Vcenter;
-import cn.infocore.entity.Virtual_machine;
 import cn.infocore.handler.QuotaHandler;
 import cn.infocore.mail.MailSender;
 import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
@@ -48,7 +42,7 @@ public class MailServiceImpl implements MailService {
         this.normalSenderMap = new ConcurrentHashMap<String, MailSender>();
         this.adminSenderMap = new ConcurrentHashMap<String, MailSender>();
         // 初始的时候，先从数据库中获取一次
-        logger.info("Start collect mail config from database.");
+        logger.info("Start to collect mail config from database.");
         QueryRunner qr = MyDataSource.getQueryRunner();
         String sql = "select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,sender_password,smtp_address,"
                 + "smtp_port,smtp_authentication,smtp_user_id,smtp_password,ssl_encrypt,receiver_emails,privilege_level "
@@ -142,9 +136,7 @@ public class MailServiceImpl implements MailService {
 
     }
 
-    public void notifyCenter(DataArkDTO data_ark, List<Client_> clientList, List<Vcenter> vcList,
-            List<Virtual_machine> vmList, List<RdsDO> rdsList, List<RdsInstanceDO> rdsInstances,
-            List<Fault> list_fault) {
+    public void notifyCenter (DataArkDTO data_ark,List<Client_> clientList,List<Vcenter> vcList,List<Virtual_machine> vmList,List<RdsDO> rdsList, List<RdsInstanceDO> rdsInstances,List<Fault> list_fault) throws SQLException{
         logger.info("Start NotifyCenetr inject mailsender,size:" + list_fault.size() + ",list size:"
                 + normalSenderMap.size() + ",data_ark:" + data_ark.getIp() + ",client size:" + clientList.size()
                 + ",vcenter size:" + vcList.size() + ",vm size:" + vmList.size());
@@ -158,6 +150,7 @@ public class MailServiceImpl implements MailService {
                         + fault.getClient_id());
                 if (fault.getType() == ClientType.SINGLE_VALUE) {
                     // 1.confirm all alarm log for target.
+                    //更新（异常信息不是虚拟机快照点创建失败的，离线建立快照点，VMWARE同步数据失败）告警日志数据方舟id，并且设置未处理，
                     sql = "update alarm_log set processed=1 where data_ark_id=? and target_id=? and exception!=3 and exception!=25 and exception!=26";
 
                     condition = new Object[] { fault.getData_ark_id(), fault.getClient_id() };
@@ -233,6 +226,8 @@ public class MailServiceImpl implements MailService {
                             }
                         }
                     }
+
+
                     // current error
                     if (excepts != "" && excepts != null) {
                         currentErrors.addAll(Arrays.asList(excepts.split(";")));
@@ -326,7 +321,7 @@ public class MailServiceImpl implements MailService {
                                 } else {
                                     mailSender.judge(fault, user);
                                 }
-                                logger.info(user + " commom user start judge...");
+                                logger.info(user + " commom user start to judge...");
                             } else {
                                 logger.warn("email_alarm table has not user_id:" + user + " and data_ark_id:"
                                         + fault.getData_ark_id());
@@ -370,8 +365,14 @@ public class MailServiceImpl implements MailService {
         // this.list.put(name, sender);
     }
 
-    public void sentFault(Collection<FaultSimple> faultSimples) {
 
+
+
+    @Override
+
+
+    public void sentFault(Collection<FaultSimple> faultSimples) {
+        logger.warn(faultSimples);
         for (FaultSimple faultSimple : faultSimples) {
             // send to normal users
 
@@ -383,9 +384,7 @@ public class MailServiceImpl implements MailService {
                 logger.debug("==========MAIL SENDER_:" + normalSenderMap.toString());
 
                 if (sender != null) {
-
                     sender.judge(fault, userId);
-
                 }
             }
             // send all to admin user
@@ -423,7 +422,7 @@ public class MailServiceImpl implements MailService {
         String targetName = faultSimple.getTargetName();
         long timestamp = faultSimple.getTimestamp();
         ClientType clientType = faultSimple.getClientType();
-        List<String> userIds = faultSimple.getUserIds();
+//        List<String> userIds = faultSimple.getUserIds();
 
         List<Fault> faults = new ArrayList<Fault>();
         for (FaultType faultType : faultTypes) {
@@ -436,13 +435,13 @@ public class MailServiceImpl implements MailService {
             fault.setData_ark_ip(dataArkIp);
             fault.setData_ark_name(data_ark_name);
             fault.setTarget(targetName);
-            fault.setUser_id(StupidStringUtil.parseUserIdListToUserIdsString(userIds));
+//            fault.setUser_id(StupidStringUtil.parseUserIdListToUserIdsString(userIds));
             fault.setTimestamp(timestamp);
             faults.add(fault);
         }
         return faults;
     }
-
+    //将faultS转化成faults
     List<Fault> convertFaultSimple(FaultSimple faultSimple) {
 
         Collection<FaultType> faultTypes = faultSimple.getFaultTypes();

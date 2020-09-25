@@ -30,8 +30,8 @@ public class DataArkList {
 				this.data_ark_list.put(uid_ip.getUuid(),uid_ip.getIp());
 				//同时初始化维护数据方舟掉线的列表
 				HeartCache.getInstance().addHeartCache(uid_ip.getUuid(), 0L);
-			}
-			logger.info("Successed to get data ark,count:"+this.data_ark_list.size());
+		}
+			logger.info("Succeed to get data ark,count:"+this.data_ark_list.size());
 		} catch (SQLException e) {
 			logger.error(e);
 		}finally {

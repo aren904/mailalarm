@@ -17,7 +17,7 @@ public class MySnmpCache {
 	private  boolean inited = false;
 
 	private MySnmpCache() {
-		
+
 	}
 
 	private MySnmpCache init() {
@@ -47,7 +47,7 @@ public class MySnmpCache {
 				} catch (Exception e) {
 					// ignore
 				}
-				
+
 			} else {
 				logger.info("snmp is not set");
 			}

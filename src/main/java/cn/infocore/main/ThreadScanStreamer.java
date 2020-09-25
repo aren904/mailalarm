@@ -7,21 +7,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import cn.infocore.entity.*;
+import cn.infocore.protobuf.StmStreamerDrManage;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 
 import cn.infocore.dto.DataArkDTO;
-import cn.infocore.entity.Client_;
-import cn.infocore.entity.Fault;
-import cn.infocore.entity.RdsDO;
-import cn.infocore.entity.RdsInstanceDO;
-import cn.infocore.entity.Vcenter;
-import cn.infocore.entity.Virtual_machine;
 import cn.infocore.handler.DataArkHandler;
 import cn.infocore.handler.ExceptHandler;
 import cn.infocore.service.impl.MailServiceImpl;
 import cn.infocore.utils.MyDataSource;
-
+import cn.infocore.protobuf.StmStreamerDrManage;
 /**
  * 检测streamer服务端状态
  */
@@ -82,7 +78,7 @@ public class ThreadScanStreamer implements Runnable {
 				try {
 					Thread.sleep(split * 1000);
 				} catch (InterruptedException e) {
-					logger.error("ThreadScanStreamer interupted...", e);
+					logger.error("ThreadScanStreamer interrupted...", e);
 				}
 			} catch (Exception e) {
 				logger.error("ThreadScanStreamer:" + e);
@@ -103,7 +99,7 @@ public class ThreadScanStreamer implements Runnable {
 		}
 
 		if (!online) {
-			logger.warn("The data ark which uuid:" + uuid + "is offline...");
+			logger.warn("The data ark which uuid:" + uuid + " is offline...");
 			// 如果离线，触发邮件报警
 			List<Fault> data_ark_fault_list = new LinkedList<Fault>();
 			Fault fault = new Fault();
@@ -144,11 +140,12 @@ public class ThreadScanStreamer implements Runnable {
 				List<Virtual_machine> vmList = new LinkedList<Virtual_machine>();
 				List<RdsDO> rdsList = new ArrayList<>();
 				List<RdsInstanceDO> rdsInstanceList = new ArrayList<>();
-				
+
 	            List<Fault> fault_list_single = new LinkedList<Fault>();
 	            fault_list_single.add(fault);
 				
 				MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList,rdsList,rdsInstanceList, fault_list_single);
+
 			} catch (Exception e1) {
 				logger.error("ThreadScanStreamer:" + e1);
 			}

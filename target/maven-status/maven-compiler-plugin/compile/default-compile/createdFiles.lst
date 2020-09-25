@@ -226,6 +226,7 @@ cn\infocore\handler\KeyidHandler.class
 cn\infocore\service\impl\MailServiceImpl$1.class
 cn\infocore\service\RDSService.class
 cn\infocore\dao\AlarmLogDAO.class
+cn\infocore\main\Test.class
 cn\infocore\protobuf\StmStreamerDrManage$ClientType.class
 cn\infocore\protobuf\StmStreamerDrManage$EcsInstanceInfo.class
 cn\infocore\protobuf\CloudManagerAlarm$SnmpVersion$1.class

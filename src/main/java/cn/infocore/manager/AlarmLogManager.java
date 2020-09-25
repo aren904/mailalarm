@@ -1,11 +1,10 @@
 package cn.infocore.manager;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,9 +24,11 @@ import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 @Component
 public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
     private static final Logger logger = Logger.getLogger(AlarmLogManager.class);
+//    @Autowired
+//    AlarmLogMapper alarmLogMapper;
 
     public void updateOrAddStatusBatchByType(List<FaultSimple> faultSimples) {
-
+        logger.warn(faultSimples);
         for (FaultSimple faultSimple : faultSimples) {
             updateOrAddAlarmlog(faultSimple);
         }
@@ -35,12 +36,11 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
 
     public void updateOrAddAlarmlog(FaultSimple faultSimple) {
 
-//        logger.info("process log===");
-//        logger.info(faultSimple.toString());
-
+//        logger.warn("process log===");
+//        logger.warn(faultSimple.toString());
+        String targetId = faultSimple.getTargetId();
         String dataArkId = faultSimple.getDataArkId();
         String dataArkIp = faultSimple.getDataArkIp();
-        String targetId = faultSimple.getTargetId();
         String targetName = faultSimple.getTargetName();
         String dataArkName = faultSimple.getDataArkName();
         Collection<FaultType> faultTypes = faultSimple.getFaultTypes();
@@ -48,19 +48,19 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
         List<String> userIds = faultSimple.getUserIds();
 
         List<AlarmLogDO> currentLogs = getCurrentAlarmLogByDataArkIdAndTargetId(dataArkId, targetId);
-
         Set<Integer> exceptionSet = new HashSet<Integer>();
-
+//        logger.debug("试试" + currentLogs);
         for (AlarmLogDO alarmLogDO : currentLogs) {
             Integer exc = alarmLogDO.getException();
             exceptionSet.add(exc);
         }
-
+//        logger.debug(exceptionSet+"sd");//[]
         String userIdsString = getUserIdsString(userIds);
-
+//        logger.warn(faultTypes);
         for (FaultType faultType : faultTypes) {
 
             Integer code = faultType.getNumber();
+//            logger.debug(code);
             AlarmLogDO alarmLogDO = new AlarmLogDO();
             alarmLogDO.setDataArkName(dataArkName);
             alarmLogDO.setDataArkId(dataArkId);
@@ -71,19 +71,19 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
             alarmLogDO.setException(code);
             alarmLogDO.setTimestamp(timestamp);
             updateAlarmlog(alarmLogDO);
-
-            exceptionSet.remove(code);
+//            exceptionSet.remove(code);//2.0.0版本
+            exceptionSet.add(code);//2.0.1版本
         }
-
+//        logger.debug(exceptionSet);
         for (Integer integer : exceptionSet) {
 
             if (FaultEnum.AUTOCONFIRM.contains(FaultEnum.valueOf(integer))) {
                 autoConfirmLog(dataArkId, targetId, integer);
-            };
+            }
         }
 
     }
-
+    //select * from AlarmDO where dataArk=?,targetid=?,exception=?
     void autoConfirmLog(String dataArkId, String targetId, Integer exception) {
         AlarmLogDO alarmLogDO = new AlarmLogDO();
         alarmLogDO.setProcessed(1);
@@ -95,24 +95,20 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
     }
 
     List<AlarmLogDO> getCurrentAlarmLogByDataArkIdAndTargetId(String dataArkId, String targetId) {
-
         LambdaQueryWrapper<AlarmLogDO> lambdaQueryWrapper = new LambdaQueryWrapper<AlarmLogDO>();
         lambdaQueryWrapper.eq(AlarmLogDO::getDataArkId, dataArkId).eq(AlarmLogDO::getTargetId, targetId);
         return this.list(lambdaQueryWrapper);
-
     }
 
     @Transactional
-    private void updateAlarmlog(AlarmLogDO alarmLogDO) {
-
+    void updateAlarmlog(AlarmLogDO alarmLogDO) {
+//        logger.warn("五5");
         if (alarmLogDO.getException() > 0) {
             LambdaQueryWrapper<AlarmLogDO> lambdaQueryWrapper = new LambdaQueryWrapper<AlarmLogDO>();
             Integer exception = alarmLogDO.getException();
             lambdaQueryWrapper.eq(AlarmLogDO::getTargetId, alarmLogDO.getTargetId()).eq(AlarmLogDO::getException,
                     exception);
-
             if (this.count(lambdaQueryWrapper) > 0) {
-
                 this.update(alarmLogDO, lambdaQueryWrapper);
             } else {
                 long linuxTimestamp = System.currentTimeMillis() / 1000;
@@ -133,5 +129,23 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
         }
         return sb.toString();
     }
+
+//    public List<Integer> checkVmUncheckedException(String clientId) {
+//        LambdaQueryWrapper<AlarmLogDO> alarmLogDOLambdaQueryWrapper = new LambdaQueryWrapper<>();
+//        if (!StringUtils.isEmpty(clientId)) {
+//            alarmLogDOLambdaQueryWrapper.eq(AlarmLogDO::getTargetId, clientId).eq(AlarmLogDO::getProcessed, 0);
+//        }
+//        logger.debug(alarmLogMapper);
+//        List<AlarmLogDO> list = alarmLogMapper.selectList(alarmLogDOLambdaQueryWrapper);
+//        Integer exception = null;
+//        for (AlarmLogDO alarmLogDO : list) {
+//            exception = alarmLogDO.getException();
+//        }
+//        ArrayList<Integer> exceptions = new ArrayList<>();
+//        exceptions.add(exception);
+////        List<Integer> exceptions=new ArrayList<>();
+////        exceptions.add(333);
+//        return exceptions;
+//    }
 
 }

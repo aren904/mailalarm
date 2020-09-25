@@ -6,13 +6,8 @@ import java.util.List;
 
 import cn.infocore.bo.FaultSimple;
 import cn.infocore.dto.DataArkDTO;
-import cn.infocore.entity.Client_;
-import cn.infocore.entity.Email_alarm;
-import cn.infocore.entity.Fault;
-import cn.infocore.entity.RdsDO;
-import cn.infocore.entity.RdsInstanceDO;
-import cn.infocore.entity.Vcenter;
-import cn.infocore.entity.Virtual_machine;
+import cn.infocore.entity.*;
+import cn.infocore.protobuf.StmStreamerDrManage;
 
 public interface MailService {
 	
@@ -29,6 +24,6 @@ public interface MailService {
 	
 	//通知
 	void notifyCenter (DataArkDTO data_ark,List<Client_> clientList,List<Vcenter> vcList,List<Virtual_machine> vmList,List<RdsDO> rdsList, List<RdsInstanceDO> rdsInstances,List<Fault> list_fault) throws SQLException;
-	
+
 	void sentFault(Collection<FaultSimple> faultSimples);
 }

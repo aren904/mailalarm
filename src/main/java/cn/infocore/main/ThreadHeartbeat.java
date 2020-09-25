@@ -20,8 +20,6 @@ public class ThreadHeartbeat extends Thread{
 	private static final int PORT=23335;
 	private ThreadPoolExecutor threadPool;
 	private static final Logger logger=Logger.getLogger(ThreadHeartbeat.class);
- 
-	
     @Autowired
     RDSService rdsService;
     @Autowired
@@ -40,15 +38,15 @@ public class ThreadHeartbeat extends Thread{
 		threadPool=  new ThreadPoolExecutor(100,500,1,TimeUnit.SECONDS,new ArrayBlockingQueue<Runnable>(1000),new ThreadPoolExecutor.CallerRunsPolicy());
 		threadPool.allowCoreThreadTimeOut(true);
 	}
-	
+
 	private static class ThreadHeartbeatHolder{
 		public static ThreadHeartbeat instance=new ThreadHeartbeat();
 	}
-	
+
 	public static ThreadHeartbeat getInstance() {
 		return ThreadHeartbeatHolder.instance;
 	}
-	
+
 	public void run() {
 		ServerSocket serverSocket=null;
 		try {
@@ -71,12 +69,14 @@ public class ThreadHeartbeat extends Thread{
 		    logger.error(e);
 		}finally {
 			try {
-				serverSocket.close();
+				if (serverSocket!=null) {
+					serverSocket.close();
+				}
 			} catch (IOException e) {
 				logger.error(e);
 			}
 		}
-		
+
 	}
-	
+
 }

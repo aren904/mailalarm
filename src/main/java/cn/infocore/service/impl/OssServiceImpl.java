@@ -36,8 +36,7 @@ public class OssServiceImpl implements OssService {
         }
         return faultList;
     }
-    
-    
+
     public List<FaultSimple> updateOssClient(OssInfo ossInfo) {
         
         String id = ossInfo.getUuid();
@@ -76,9 +75,6 @@ public class OssServiceImpl implements OssService {
                 faultSimple.setFaultTypes(faultTypes);
                 faultList.add(faultSimple);
         }
-        
         return faultList;
     }
-
-    
 }
