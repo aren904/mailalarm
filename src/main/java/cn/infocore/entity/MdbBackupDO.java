@@ -32,7 +32,7 @@ public class MdbBackupDO {
     Long drSize;
     @TableField("preoccupation_dr_size")
     Long preoccupationDrSize;
-    @TableField("data_ark_dr_id")//
+    @TableField("data_ark_dr_id")
     Long dataArkDrId;
 
 }
