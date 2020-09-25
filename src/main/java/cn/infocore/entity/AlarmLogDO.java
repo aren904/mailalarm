@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-
+//方便链式编程，set返回对象
 @Accessors(chain = true)
 @Data
 @TableName("alarm_log")
