@@ -472,7 +472,7 @@ enum Exception {
     Exception_StreamerPoolExceededThreshold = 23;  // 存储池超过阈值
     Exception_AixDiskOffline = 24;              // 映射给AIX的磁盘离线
     Exception_VmwareInitMirrorFailed = 25;      // VMware同步数据失败
-    Exception_VmwareSnapshotSizeIsZero = 26;    // 在线虚拟机创建快照点数据异常
+    Exception_VmwareSnapshotSizeIsZero = 26;    // (now 离线创建快照点)     (before在线虚拟机创建快照点数据异常)
     Exception_FileSingleCreateSnapshotFailed = 27;  // 文件级备份客户端任务计划创建快照点失败
     Exception_FileSingleOffline = 28;  // 文件级备份客户端离线
     Exception_FileSingleLocalLost = 29;  // 文件级备份客户端异常-本地丢失
