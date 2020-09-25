@@ -424,7 +424,7 @@ public final class StmStreamerDrManage {
      * <code>VMWARE_SNAPSHOT_POINT_SIZE_IS_ZERO = 26;</code>
      *
      * <pre>
-     *在线虚拟机创建快照点数据异常
+     *离线创建快照点
      * </pre>
      */
     VMWARE_SNAPSHOT_POINT_SIZE_IS_ZERO(26, 26),
@@ -886,7 +886,7 @@ public final class StmStreamerDrManage {
      * <code>VMWARE_SNAPSHOT_POINT_SIZE_IS_ZERO = 26;</code>
      *
      * <pre>
-     *在线虚拟机创建快照点数据异常
+     *离线创建快照点
      * </pre>
      */
     public static final int VMWARE_SNAPSHOT_POINT_SIZE_IS_ZERO_VALUE = 26;
@@ -1245,7 +1245,7 @@ public final class StmStreamerDrManage {
     private final int index;
     private final int value;
 
-    private FaultType(int index, int value) {
+     FaultType(int index, int value) {
       this.index = index;
       this.value = value;
     }
