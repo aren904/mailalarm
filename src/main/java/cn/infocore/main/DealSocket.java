@@ -3,11 +3,8 @@ package cn.infocore.main;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-
+import lombok.Data;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import cn.infocore.operator.Header;
 import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
 import cn.infocore.service.AlarmLogService;
@@ -18,40 +15,16 @@ import cn.infocore.service.impl.EcsService;
 import cn.infocore.service.impl.MdbService;
 import cn.infocore.utils.Utils;
 
-
+@Data
 public class DealSocket implements Runnable {
     private static final Logger logger = Logger.getLogger(DealSocket.class);
     private Socket socket;
- 
     RDSService rdsService;
- 
     EcsService ecsService;
- 
     MdbService mdbService;
- 
     DataArkService dataArkService;
- 
     OssService ossService;
- 
     AlarmLogService alarmLogService;
-
-    public DealSocket(Socket socket) {
-        this.socket = socket;
-    }
-    
-    
-
-    public DealSocket() {
-
-    }
-
-    public Socket getSocket() {
-        return socket;
-    }
-
-    public void setSocket(Socket socket) {
-        this.socket = socket;
-    }
 
     public Header getHeaderObj() {
         Header header = new Header();
@@ -77,8 +50,9 @@ public class DealSocket implements Runnable {
             out = this.socket.getOutputStream();
             byte[] h = new byte[Header.STREAMER_HEADER_LENGTH];
             ioret = in.read(h, 0, Header.STREAMER_HEADER_LENGTH);
+            logger.debug(ioret);
             if (ioret != Header.STREAMER_HEADER_LENGTH) {
-                logger.error(Utils.fmt("Failed to recived header,[%d] byte(s) expected,but [%d] is recevied.",
+                logger.error(Utils.fmt("Failed to received header,[%d] byte(s) expected,but [%d] is received.",
                         Header.STREAMER_HEADER_LENGTH, ioret));
                 Header header = getHeaderObj();
                 byte[] resp = header.toByteArray();
@@ -89,6 +63,7 @@ public class DealSocket implements Runnable {
 
             Header header = new Header();
             header.parseByteArray(h);
+
             if (header.getCommand() != 87000) {
                 logger.error(Utils.fmt("Incorrect command"));
                 header.setErrorCode(1);
@@ -128,7 +103,7 @@ public class DealSocket implements Runnable {
             hrt.toBuilder().clearServer();
             hrt.toBuilder().clearUuid();
             hrt.toBuilder().clearVcents();
-            logger.info("Response heartbeat successed..");
+            logger.info("Response heartbeat successfully..");
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("DealSocket failed." + e);
@@ -144,32 +119,5 @@ public class DealSocket implements Runnable {
             }
         }
     }
-
-    public void setRdsService(RDSService rdsService) {
-        this.rdsService = rdsService;
-    }
-
-    public void setEcsService(EcsService ecsService) {
-        this.ecsService = ecsService;
-    }
-
-    public void setMdbService(MdbService mdbService) {
-        this.mdbService = mdbService;
-    }
-
-    public void setDataArkService(DataArkService dataArkService) {
-        this.dataArkService = dataArkService;
-    }
-
-    public void setOssService(OssService ossService) {
-        this.ossService = ossService;
-    }
-
-    public void setAlarmLogService(AlarmLogService alarmLogService) {
-        this.alarmLogService = alarmLogService;
-    }
-    
-    
-    
 
 }
