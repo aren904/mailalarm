@@ -97,8 +97,6 @@ public enum FaultEnum {
         AUTOCONFIRM.add(RDS_CLIENT_OFFLINE);
         AUTOCONFIRM.add(RDS_INSTANCE_OFFLINE);
         AUTOCONFIRM.add(RDS_BACKUP_SERVICE_OFFLINE);
-
-
         //added by xyr
 //        AUTOCONFIRM.add(META_AUTH_ABNORMAL);
 //        AUTOCONFIRM.add(META_CLIENT_OFFLINE);
