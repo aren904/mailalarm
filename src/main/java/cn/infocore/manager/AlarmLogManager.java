@@ -28,7 +28,7 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
 //    AlarmLogMapper alarmLogMapper;
 
     public void updateOrAddStatusBatchByType(List<FaultSimple> faultSimples) {
-        logger.warn(faultSimples);
+//        logger.warn(faultSimples);
         for (FaultSimple faultSimple : faultSimples) {
             updateOrAddAlarmlog(faultSimple);
         }
