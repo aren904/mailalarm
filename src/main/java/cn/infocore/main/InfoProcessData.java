@@ -69,9 +69,11 @@ public class InfoProcessData {
         // 如果过来的数据方舟心跳的uuid不再内存维护链表中，扔掉....
         Set<String> uSet = DataArkList.getInstance().getData_ark_list().keySet();
         long now = System.currentTimeMillis() / 1000;
+        logger.debug("now, the current heartbeat's uuid which is at Maintenance list:" + uSet);
         if (uSet.contains(hrt.getUuid())) {
-
+            logger.debug("Congratulates! your heartbeat's uuid is at Maintenance list");
 //            logger.debug(hrt.toString());//此注解必要时可以打开（与logHeartbeat一样的）
+
             // 把所有心跳过来的时间更新到HeartCache,做这个是为了检测数据方舟离线的.
             HeartCache.getInstance().addHeartCache(hrt.getUuid(), now);
             logger.info("Received to heartbeat from data ark,and data ark is on the data_ark_list,data ark uuid:"
@@ -190,7 +192,7 @@ public class InfoProcessData {
                 faultSimple.setDataArkName(dataArkName);
                 faultSimple.setTimestamp(System.currentTimeMillis() / 1000);
             }
-            logger.warn(faultSimples);//遍历出结果
+//            logger.warn(faultSimples);//遍历出结果
             alarmLogService.noticeFaults(faultSimples);//这个方法里包括
             if (faults.size() > 0) {
                 MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList, rdsList, rdsInstances,
