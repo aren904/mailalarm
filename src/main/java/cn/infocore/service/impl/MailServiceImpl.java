@@ -372,7 +372,7 @@ public class MailServiceImpl implements MailService {
 
 
     public void sentFault(Collection<FaultSimple> faultSimples) {
-        logger.warn(faultSimples);
+//        logger.warn(faultSimples);
         for (FaultSimple faultSimple : faultSimples) {
             // send to normal users
 
