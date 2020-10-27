@@ -183,7 +183,7 @@ public class InfoProcessData {
                 faultSimples.addAll(MetaFaultSimples);
             }
 //            for (MetaInfo metaInfo : metaInfos) {
-//                mdbService.updateMdbInfo(metaInfo);
+//                mdbService.updateMdbInfo(metaInfo.);
 //            }
 
             List<EcsInfo> ecsClientsList = hrt.getEcsClientsList();
