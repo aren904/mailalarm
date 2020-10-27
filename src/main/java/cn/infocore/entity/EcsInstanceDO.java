@@ -21,7 +21,6 @@ public class EcsInstanceDO {
     @TableField("operating_system")
     String operateSystem;
     @TableField("exceptions")
-
     String exceptions;
     @TableField("size")
     Long size;
@@ -35,5 +34,7 @@ public class EcsInstanceDO {
     Long preoccupationDrSize;
     @TableField("data_ark_dr_id")
     Long dataArkDrId;
+
+
 
 }
