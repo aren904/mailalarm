@@ -18,7 +18,7 @@ public class EcsInstanceDO {
     Integer type;
     @TableField("name")
     String name;
-    @TableField("operate_system")
+    @TableField("operating_system")
     String operateSystem;
     @TableField("exceptions")
 
