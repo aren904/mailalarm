@@ -2,23 +2,21 @@ package cn.infocore.manager;
 
 import java.util.*;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.toolkit.LambdaUtils;
+
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import cn.infocore.bo.FaultSimple;
 import cn.infocore.consts.FaultEnum;
 import cn.infocore.dao.AlarmLogMapper;
 import cn.infocore.entity.AlarmLogDO;
-import cn.infocore.main.InfoProcessData;
 import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 
 @Component
@@ -49,18 +47,14 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
 
         List<AlarmLogDO> currentLogs = getCurrentAlarmLogByDataArkIdAndTargetId(dataArkId, targetId);
         Set<Integer> exceptionSet = new HashSet<Integer>();
-//        logger.debug("试试" + currentLogs);
         for (AlarmLogDO alarmLogDO : currentLogs) {
             Integer exc = alarmLogDO.getException();
             exceptionSet.add(exc);
         }
-//        logger.debug(exceptionSet+"sd");//[]
         String userIdsString = getUserIdsString(userIds);
-//        logger.warn(faultTypes);
         for (FaultType faultType : faultTypes) {
 
             Integer code = faultType.getNumber();
-//            logger.debug(code);
             AlarmLogDO alarmLogDO = new AlarmLogDO();
             alarmLogDO.setDataArkName(dataArkName);
             alarmLogDO.setDataArkId(dataArkId);
