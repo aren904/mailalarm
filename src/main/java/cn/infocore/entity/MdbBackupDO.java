@@ -19,7 +19,6 @@ public class MdbBackupDO {
     Integer type;
     @TableField("name")
     String name;
-
     @TableField("exceptions")
     String exceptions;
     @TableField("size")

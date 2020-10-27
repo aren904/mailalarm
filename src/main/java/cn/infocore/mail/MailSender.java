@@ -59,7 +59,7 @@ public class MailSender {
             String[] recv = config.getReceiver_emails().split(";");
             for (String r : recv) {
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(r));
-            }
+        }
         } catch (Exception e) {
             logger.error(e);
         }

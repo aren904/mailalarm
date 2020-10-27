@@ -1,8 +1,12 @@
 package cn.infocore.service.impl;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import cn.infocore.bo.FaultSimple;
+import cn.infocore.protobuf.StmStreamerDrManage;
+import cn.infocore.utils.StupidStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -95,6 +99,9 @@ public class RDSServiceImpl implements RDSService {
 		}
 		return rdsInstanceList;
 	}
+
+
+
 
 	@Override
 	public List<Fault> getFault(DataArkDTO data_ark, List<RdsInfo> rdsInfoList) {
@@ -199,5 +206,51 @@ public class RDSServiceImpl implements RDSService {
 
 		return resultList;
 	}
+
+
+	@Override
+	public List<FaultSimple> updateRdsInfoClientList(List<RdsInfo> rdsInfos) {
+	List<FaultSimple> faultSimpleList=new LinkedList<>();
+	for(RdsInfo rdsInfo :rdsInfos){
+	faultSimpleList.addAll(updateRdsClient(rdsInfo));
+	}
+	return faultSimpleList;
+	}
+
+	public List<FaultSimple> updateRdsClient(RdsInfo rdsInfo){
+		String uuid = rdsInfo.getUuid();
+		String name = rdsInfo.getName();
+		List<FaultType> faultTypes = rdsInfo.getStatusList();
+		List<RdsInstanceInfo> instanceListList = rdsInfo.getInstanceListList();
+		List<FaultSimple> RdsfaultSimpleList = rdsInstanceManager.updateList(instanceListList);
+		RdsDO rdsDO = new RdsDO();
+		rdsDO.setExceptions(StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypes));
+		List<FaultSimple>  faultsList = listFaults(faultTypes);
+		List<String>  userIdList = rdsManager.getRdsUserIdsById(uuid);
+
+		for (FaultSimple faultSimple : faultsList) {
+			faultSimple.setTargetId(uuid);
+			faultSimple.setTargetName(name);
+		}
+
+		faultsList.addAll( RdsfaultSimpleList);
+
+		for (FaultSimple faultSimple : faultsList) {
+			faultSimple.setUserIds(userIdList);
+		}
+		return faultsList;
+	}
+
+	List<FaultSimple>  listFaults(List<FaultType> faultTypes){
+		LinkedList<FaultSimple> faultList =  new LinkedList<FaultSimple>();
+		if (faultTypes!= null) {
+			FaultSimple faultSimple =  new FaultSimple();
+			faultSimple.setClientType(ClientType.Rds);
+			faultSimple.setFaultTypes(faultTypes);
+			faultList.add(faultSimple);
+		}
+		return faultList;
+	}
+
 
 }

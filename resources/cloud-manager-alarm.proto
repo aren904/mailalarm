@@ -265,7 +265,6 @@ enum ErrorCode {
     ErrorCode_RdsInstanceNonexistent = 1096;  // 不存在 RDS 实例
 
     ErrorCode_RequestToAlarmServiceFailed = 1100;  // 发送请求给邮件报警服务失败
-
     ErrorCode_ClientGroupExistent = 1110;  // 已存在客户端组
     ErrorCode_ClientGroupNonexistent = 1111;  // 不存在客户端组
     ErrorCode_ClientGroupSameName = 1112;  // 客户端组重名

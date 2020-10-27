@@ -112,7 +112,7 @@ message Client{
     optional string ip = 3;
     required ClientType type = 4;
     repeated FaultType Client_state = 5;
-    optional string System_Version =6; 
+    optional string System_Version =6;
 }
 
 //无代理客户端

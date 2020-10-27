@@ -369,13 +369,10 @@ public class MailServiceImpl implements MailService {
 
 
     @Override
-
-
     public void sentFault(Collection<FaultSimple> faultSimples) {
 //        logger.warn(faultSimples);
         for (FaultSimple faultSimple : faultSimples) {
             // send to normal users
-
             List<Fault> faults = convertFaultSimple(faultSimple);
             for (Fault fault : faults) {
                 logger.debug("==========MAIL USER_:" + fault.toString());

@@ -1,6 +1,6 @@
 package cn.infocore.service.impl;
 
-import java.util.Collection;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,7 +8,6 @@ import cn.infocore.bo.FaultSimple;
 import cn.infocore.manager.MetaManager;
 import cn.infocore.protobuf.StmStreamerDrManage;
 import cn.infocore.utils.StupidStringUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import cn.infocore.entity.MdbDO;
@@ -17,6 +16,8 @@ import cn.infocore.manager.MetaBackupManager;
 import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 import cn.infocore.protobuf.StmStreamerDrManage.MetaBackupInfo;
 import cn.infocore.protobuf.StmStreamerDrManage.MetaInfo;
+
+import static cn.infocore.protobuf.StmStreamerDrManage.*;
 
 @Service
 public class MdbService {
@@ -44,9 +45,9 @@ public class MdbService {
         }
 
     }
-    public List<FaultSimple> updateMetaClientList(List<MetaInfo> metaInfos){
+    public List<FaultSimple> updateMetaClientList(List<MetaInfo> metaClientsList){
         List<FaultSimple> faultSimpleList=new LinkedList<>();
-        for(MetaInfo metaInfo:metaInfos){
+        for(MetaInfo metaInfo:metaClientsList){
             faultSimpleList.addAll(updateMetaClient(metaInfo));
         }
         return faultSimpleList;
@@ -85,7 +86,7 @@ public class MdbService {
         LinkedList<FaultSimple> faultList =  new LinkedList<FaultSimple>();
         if (faultTypes!= null) {
             FaultSimple faultSimple =  new FaultSimple();
-            faultSimple.setClientType(StmStreamerDrManage.ClientType.MetaDB);
+            faultSimple.setClientType(ClientType.MetaDB);
             faultSimple.setFaultTypes(faultTypes);
             faultList.add(faultSimple);
         }

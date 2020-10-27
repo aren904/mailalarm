@@ -10,8 +10,7 @@ import lombok.experimental.Accessors;
 @Data
 @TableName("oss")
 public class OssDO {
-    
-    
+
     @TableField(value = "id")
     Integer id;
     

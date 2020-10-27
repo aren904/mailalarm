@@ -27,7 +27,7 @@ public class MySnmpCache {
 			QueryRunner qr = MyDataSource.getQueryRunner();
 			try {
 				this.snmp = qr.query(sql, new BeanHandler<MySnmp>(MySnmp.class));
-				logger.info("Successed to get snmp[Name:]" + snmp.getStation_name() + "[IP]:" + snmp.getStation_ip()
+				logger.info("Succeed to get snmp[Name:]" + snmp.getStation_name() + "[IP]:" + snmp.getStation_ip()
 						+ ",[Port:]" + snmp.getStation_port());
 			} catch (Exception e) {
 				logger.error(e);
