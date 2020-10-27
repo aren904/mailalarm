@@ -111,15 +111,15 @@ public class InfoProcessData {
                 faultSimples.addAll(ossFaultSimples);
             }
 
-            List<RdsInfo> rdsInfoList = hrt.getRdsClientsList();
 
+            List<RdsInfo> rdsInfoList = hrt.getRdsClientsList();
             List<RdsDO> rdsList = rdsService.updateRdsInfo(data_ark, rdsInfoList);
             List<RdsInstanceDO> rdsInstances = rdsService.getRDSInstanceListFromSource(data_ark, rdsInfoList);
 
             List<Fault> faultList = rdsService.getFault(data_ark, rdsInfoList);
             logger.info("rdsfaultsize:" + faultList.size());
 
-            // faults.addAll(faultList);
+            faults.addAll(faultList);
 
             Map<String, FaultSimple> rdsFaultyMap = new HashMap<String, FaultSimple>();
 
@@ -170,18 +170,32 @@ public class InfoProcessData {
                 }
             }
 
-            List<MetaInfo> metaInfos = hrt.getMetaClientsList();
-            if (metaInfos != null && !metaInfos.isEmpty()) {
-                List<FaultSimple> MetaFaultSimples = updateMetaClient(metaInfos);
+
+            if (rdsInfoList != null && !rdsInfoList.isEmpty()) {
+                List<FaultSimple> RdsFaultSimples = updateRdsClient(rdsInfoList);
+                faultSimples.addAll(RdsFaultSimples);
+            }
+
+            List<MetaInfo> metaClientsList = hrt.getMetaClientsList();
+//            List<MetaInfo> metaInfos = metaClientsList;
+            if (metaClientsList != null && !metaClientsList.isEmpty()) {
+                List<FaultSimple> MetaFaultSimples = updateMetaClient(metaClientsList);
                 faultSimples.addAll(MetaFaultSimples);
             }
-            for (MetaInfo metaInfo : metaInfos) {
-                mdbService.updateMdbInfo(metaInfo);
+//            for (MetaInfo metaInfo : metaInfos) {
+//                mdbService.updateMdbInfo(metaInfo);
+//            }
+
+            List<EcsInfo> ecsClientsList = hrt.getEcsClientsList();
+//            List<EcsInfo> ecsInfos = ecsClientsList;
+            if (ecsClientsList != null && !ecsClientsList.isEmpty()) {
+                List<FaultSimple> EcsFaultSimples = updateEcsClient(ecsClientsList);
+                faultSimples.addAll(EcsFaultSimples);
             }
-            List<EcsInfo> exEcsInfos = hrt.getEcsClientsList();
-            for (EcsInfo ecsInfo : exEcsInfos) {
-                ecsService.updateEcsInfo(ecsInfo);
-            }
+//            for (EcsInfo ecsInfo : ecsInfos) {
+//                ecsService.updateEcsInfo(ecsInfo);
+//            }
+
             // add dataArk info to FaultSimple
             String dataArkIp = hrt.getServer().getIp();
             String id = hrt.getUuid();
@@ -213,11 +227,20 @@ public class InfoProcessData {
 
     }
 
-    List<FaultSimple> updateMetaClient(List<MetaInfo> metaInfo) {
-        List<FaultSimple> faultSimples = mdbService.updateMetaClientList(metaInfo);
+    List<FaultSimple> updateMetaClient(List<MetaInfo> metaClientsList) {
+        List<FaultSimple> faultSimples = mdbService.updateMetaClientList(metaClientsList);
         return faultSimples;
     }
 
+    List<FaultSimple> updateEcsClient(List<EcsInfo> ecsClientsList) {
+        List<FaultSimple> faultSimples = ecsService.updateEcsClientList(ecsClientsList);
+        return faultSimples;
+    }
+
+    List<FaultSimple> updateRdsClient(List<RdsInfo> rdsInfo) {
+        List<FaultSimple> faultSimples = rdsService.updateRdsInfoClientList(rdsInfo);
+        return faultSimples;
+    }
 //    private List<FaultSimple> updateDataArk(String dataArkId, Streamer dataArk) {
 //        // TODO Auto-generated method stub
 //        return null;
