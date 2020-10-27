@@ -11,9 +11,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import cn.infocore.bo.FaultSimple;
 import cn.infocore.dao.OssObjectSetMapper;
-import cn.infocore.entity.Fault;
 import cn.infocore.entity.OssObjectSetDO;
-import cn.infocore.entity.RdsInstanceDO;
 import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
 import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 import cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo;
@@ -23,8 +21,6 @@ public class OssObjectSetManager extends ServiceImpl<OssObjectSetMapper, OssObje
 
     public List<FaultSimple> updateList(List<OssObjectSetInfo> ossObjectSetInfos) {
         LinkedList<FaultSimple> faultList =  new LinkedList<FaultSimple>();
-
-        
         for (OssObjectSetInfo ossObjectSetInfo : ossObjectSetInfos) {
             update(ossObjectSetInfo);
             List<FaultType> list = ossObjectSetInfo.getStatusList();
