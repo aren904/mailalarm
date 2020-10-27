@@ -182,19 +182,12 @@ public class InfoProcessData {
                 List<FaultSimple> MetaFaultSimples = updateMetaClient(metaClientsList);
                 faultSimples.addAll(MetaFaultSimples);
             }
-//            for (MetaInfo metaInfo : metaInfos) {
-//                mdbService.updateMdbInfo(metaInfo.);
-//            }
 
             List<EcsInfo> ecsClientsList = hrt.getEcsClientsList();
-//            List<EcsInfo> ecsInfos = ecsClientsList;
             if (ecsClientsList != null && !ecsClientsList.isEmpty()) {
                 List<FaultSimple> EcsFaultSimples = updateEcsClient(ecsClientsList);
                 faultSimples.addAll(EcsFaultSimples);
             }
-//            for (EcsInfo ecsInfo : ecsInfos) {
-//                ecsService.updateEcsInfo(ecsInfo);
-//            }
 
             // add dataArk info to FaultSimple
             String dataArkIp = hrt.getServer().getIp();
