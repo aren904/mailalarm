@@ -8,17 +8,15 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import cn.infocore.dao.EcsInstanceMapper;
+
 import cn.infocore.dao.MdbBackupMapper;
-import cn.infocore.entity.EcsInstanceDO;
 import cn.infocore.entity.MdbBackupDO;
 import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
 import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
-import cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo;
 import cn.infocore.protobuf.StmStreamerDrManage.MetaBackupInfo;
 import cn.infocore.utils.StupidStringUtil;
 
-import java.util.Collection;
+
 import java.util.LinkedList;
 import java.util.List;
 
