@@ -22,30 +22,30 @@ import static cn.infocore.protobuf.StmStreamerDrManage.*;
 @Component
 public class RDSInstanceManager extends ServiceImpl<RDSInstanceMapper, RdsInstanceDO> {
 
-    public void updateByUUIDBatch(List<RdsInstanceDO> rdsInstanceList) {
-
-        for (RdsInstanceDO rdsInstance : rdsInstanceList) {
-            patchInstance(rdsInstance);
-        }
-    }
-
-    public boolean patchInstance(RdsInstanceDO instance) {
-
-        String id = instance.getInstanceId();
-        boolean isDR = checkDrInstance(id);
-        LambdaUpdateWrapper<RdsInstanceDO> updateWrapper = new UpdateWrapper<RdsInstanceDO>().lambda()
-                .eq(RdsInstanceDO::getInstanceId, instance.getInstanceId())
-                .set(RdsInstanceDO::getName, instance.getName())
-                .set(RdsInstanceDO::getExceptions, instance.getExceptions())
-                .set(RdsInstanceDO::getSize, instance.getSize())
-                .set(RdsInstanceDO::getPreoccupationSize, instance.getPreoccupationSize());
-        if (isDR) {
-            updateWrapper.set(RdsInstanceDO::getDrSize, instance.getSize())
-                .set(RdsInstanceDO::getPreoccupationDrSize, instance.getPreoccupationSize());
-        }
-
-        return this.update(new RdsInstanceDO(), updateWrapper);
-    }
+//    public void updateByUUIDBatch(List<RdsInstanceDO> rdsInstanceList) {
+//
+//        for (RdsInstanceDO rdsInstance : rdsInstanceList) {
+//            patchInstance(rdsInstance);
+//        }
+//    }
+//
+//    public boolean patchInstance(RdsInstanceDO instance) {
+//
+//        String id = instance.getInstanceId();
+//        boolean isDR = checkDrInstance(id);
+//        LambdaUpdateWrapper<RdsInstanceDO> updateWrapper = new UpdateWrapper<RdsInstanceDO>().lambda()
+//                .eq(RdsInstanceDO::getInstanceId, instance.getInstanceId())
+//                .set(RdsInstanceDO::getName, instance.getName())
+//                .set(RdsInstanceDO::getExceptions, instance.getExceptions())
+//                .set(RdsInstanceDO::getSize, instance.getSize())
+//                .set(RdsInstanceDO::getPreoccupationSize, instance.getPreoccupationSize());
+//        if (isDR) {
+//            updateWrapper.set(RdsInstanceDO::getDrSize, instance.getSize())
+//                .set(RdsInstanceDO::getPreoccupationDrSize, instance.getPreoccupationSize());
+//        }
+//
+//        return this.update(new RdsInstanceDO(), updateWrapper);
+//    }
 
 //    boolean checkDrInstance(String instanceId) {
 //        LambdaQueryWrapper<RdsInstanceDO> queryWrapper = new LambdaQueryWrapper<RdsInstanceDO>()
