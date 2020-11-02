@@ -20,7 +20,7 @@ public class RDSInstanceManagerTest {
 		ins.setName("LLSsssMddddssOIH");
 		ins.setExceptions("54sdddsssss;6");
 		ins.setType(5);
-		rDSInstanceManager.patchInstance(ins);
+//		rDSInstanceManager.patchInstance(ins);
 	}
 }
 
