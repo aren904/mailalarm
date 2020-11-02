@@ -73,43 +73,43 @@ public class Test {
         builder.setSystemVersion("Centos Linux release 8.0.1905(core)");
         get.addClients(builder);
 
-        StmStreamerDrManage.EcsInfo.Builder builder1 = StmStreamerDrManage.EcsInfo.newBuilder();
-        builder1.setName("101");
-        builder1.setId("6eed0467-409b-4426-b582-b1c5aa830e95");
-        builder1.setType(ClientType.Ecs);
-        ArrayList<FaultType> f12 = new ArrayList<>();
-        f12.add(ECS_CLIENT_OFFLINE);
-        builder1.addAllStatus(f12);
-        StmStreamerDrManage.EcsInstanceInfo.Builder builder2 = builder1.addInstanceListBuilder();
-        builder2.setName("test");
-        builder2.setId("a413067f-01b4-45b6-b8b7-624853b04085");
-        builder2.setType(ClientType.EcsInstance);
-        ArrayList<FaultType> list = new ArrayList<>();
-        list.add(ECS_BACKUP_DST_LOST);
-        builder2.addAllStatus(list);
-        builder2.setSize(0);
-        builder2.setPreoccupationSizeByte(0);
-        get.addEcsClients(builder1);
-//
-
-//        StmStreamerDrManage.RdsInfo.Builder builder1 = StmStreamerDrManage.RdsInfo.newBuilder();
+//        StmStreamerDrManage.EcsInfo.Builder builder1 = StmStreamerDrManage.EcsInfo.newBuilder();
 //        builder1.setName("101");
-//        builder1.setUuid("6eed0467-409b-4426-b582-b1c5aa830e95");
-//        builder1.setType(ClientType.Rds);
+//        builder1.setId("6eed0467-409b-4426-b582-b1c5aa830e95");
+//        builder1.setType(ClientType.Ecs);
 //        ArrayList<FaultType> f12 = new ArrayList<>();
-//        f12.add(RDS_CLIENT_OFFLINE);
+//        f12.add(ECS_CLIENT_OFFLINE);
 //        builder1.addAllStatus(f12);
-//
-//        StmStreamerDrManage.RdsInstanceInfo.Builder builder2=builder1.addInstanceListBuilder();
+//        StmStreamerDrManage.EcsInstanceInfo.Builder builder2 = builder1.addInstanceListBuilder();
 //        builder2.setName("test");
-//        builder2.setUuid("a413067f-01b4-45b6-b8b7-624853b04085");
-//        builder2.setType(ClientType.RdsInstance);
+//        builder2.setId("a413067f-01b4-45b6-b8b7-624853b04085");
+//        builder2.setType(ClientType.EcsInstance);
 //        ArrayList<FaultType> list = new ArrayList<>();
-//        list.add(RDS_BACKUP_SERVICE_OFFLINE);
+//        list.add(ECS_BACKUP_DST_LOST);
 //        builder2.addAllStatus(list);
 //        builder2.setSize(0);
 //        builder2.setPreoccupationSizeByte(0);
-//        get.addRdsClients(builder1);
+//        get.addEcsClients(builder1);
+//
+
+        StmStreamerDrManage.RdsInfo.Builder builder1 = StmStreamerDrManage.RdsInfo.newBuilder();
+        builder1.setName("101");
+        builder1.setUuid("6eed0467-409b-4426-b582-b1c5aa830e95");
+        builder1.setType(ClientType.Rds);
+        ArrayList<FaultType> f12 = new ArrayList<>();
+        f12.add(RDS_CLIENT_OFFLINE);
+        builder1.addAllStatus(f12);
+
+        StmStreamerDrManage.RdsInstanceInfo.Builder builder2=builder1.addInstanceListBuilder();
+        builder2.setName("test");
+        builder2.setUuid("a413067f-01b4-45b6-b8b7-624853b04085");
+        builder2.setType(ClientType.RdsInstance);
+        ArrayList<FaultType> list = new ArrayList<>();
+        list.add(RDS_BACKUP_SERVICE_OFFLINE);
+        builder2.addAllStatus(list);
+        builder2.setSize(0);
+        builder2.setPreoccupationSizeByte(0);
+        get.addRdsClients(builder1);
 
 //        get.addMetaClients(builder1);
 //        Vmware.Builder vm1 = Vmware.newBuilder();
