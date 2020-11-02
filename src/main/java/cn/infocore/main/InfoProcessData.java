@@ -21,7 +21,6 @@ import cn.infocore.dto.DataArkDTO;
 import cn.infocore.handler.NameHandler;
 import cn.infocore.handler.User_idHandler;
 import cn.infocore.protobuf.StmStreamerDrManage.Client;
-import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
 import cn.infocore.protobuf.StmStreamerDrManage.EcsInfo;
 import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
@@ -113,62 +112,62 @@ public class InfoProcessData {
 
 
             List<RdsInfo> rdsInfoList = hrt.getRdsClientsList();
-            List<RdsDO> rdsList = rdsService.updateRdsInfo(data_ark, rdsInfoList);
-            List<RdsInstanceDO> rdsInstances = rdsService.getRDSInstanceListFromSource(data_ark, rdsInfoList);
+//            List<RdsDO> rdsList = rdsService.updateRdsInfo(data_ark, rdsInfoList);
+//            List<RdsInstanceDO> rdsInstances = rdsService.getRDSInstanceListFromSource(data_ark, rdsInfoList);
+//
+//            List<Fault> faultList = rdsService.getFault(data_ark, rdsInfoList);
+//            logger.info("rdsfaultsize:" + faultList.size());
+//
+//            faults.addAll(faultList);
 
-            List<Fault> faultList = rdsService.getFault(data_ark, rdsInfoList);
-            logger.info("rdsfaultsize:" + faultList.size());
-
-            faults.addAll(faultList);
-
-            Map<String, FaultSimple> rdsFaultyMap = new HashMap<String, FaultSimple>();
-
-            for (Fault fault : faultList) {
-                String clientId = fault.getClient_id();
-                if (rdsFaultyMap.containsKey(clientId)) {
-                    int type = fault.getType();
-                    FaultSimple fSimple = rdsFaultyMap.get(clientId);
-                    fSimple.getFaultTypes().add(FaultType.valueOf(type));
-
-                    String userId = fault.getUser_id();
-                    if (userId != null) {
-                        fSimple.getUserIds().add(userId);
-                    }
-                } else {
-
-                    FaultSimple faultSimple = new FaultSimple();
-
-                    String id = fault.getClient_id();
-                    faultSimple.setTargetId(id);
-
-                    String userId = fault.getUser_id();
-                    List<String> userIds = new ArrayList<>();
-                    userIds.add(userId);
-                    faultSimple.setUserIds(userIds);
-
-                    Integer clientType = fault.getClient_type();
-                    if (clientType != null) {
-                        faultSimple.setClientType(ClientType.valueOf(clientType));
-                    }
-
-                    int type = fault.getType();
-                    List<FaultType> tFaultTypes = new ArrayList<>();
-                    tFaultTypes.add(FaultType.valueOf(type));
-                    faultSimple.setFaultTypes(tFaultTypes);
-
-                    String target = fault.getTarget();
-                    faultSimple.setTargetName(target);
-                    rdsFaultyMap.put(clientId, faultSimple);
-
-                }
-
-                Set<Map.Entry<String, FaultSimple>> set = rdsFaultyMap.entrySet();
-                for (Map.Entry<String, FaultSimple> faultRds : set) {
-                    // logger.info("print rds info===========");
-                    // logger.info(faultRds.toString());
-                    faultSimples.add(faultRds.getValue());
-                }
-            }
+//            Map<String, FaultSimple> rdsFaultyMap = new HashMap<String, FaultSimple>();
+////
+//            for (Fault fault : faultList) {
+//                String clientId = fault.getClient_id();
+//                if (rdsFaultyMap.containsKey(clientId)) {
+//                    int type = fault.getType();
+//                    FaultSimple fSimple = rdsFaultyMap.get(clientId);
+//                    fSimple.getFaultTypes().add(FaultType.valueOf(type));
+//
+//                    String userId = fault.getUser_id();
+//                    if (userId != null) {
+//                        fSimple.getUserIds().add(userId);
+//                    }
+//                } else {
+//
+//                    FaultSimple faultSimple = new FaultSimple();
+//
+//                    String id = fault.getClient_id();
+//                    faultSimple.setTargetId(id);
+//
+//                    String userId = fault.getUser_id();
+//                    List<String> userIds = new ArrayList<>();
+//                    userIds.add(userId);
+//                    faultSimple.setUserIds(userIds);
+//
+//                    Integer clientType = fault.getClient_type();
+//                    if (clientType != null) {
+//                        faultSimple.setClientType(ClientType.valueOf(clientType));
+//                    }
+//
+//                    int type = fault.getType();
+//                    List<FaultType> tFaultTypes = new ArrayList<>();
+//                    tFaultTypes.add(FaultType.valueOf(type));
+//                    faultSimple.setFaultTypes(tFaultTypes);
+//
+//                    String target = fault.getTarget();
+//                    faultSimple.setTargetName(target);
+//                    rdsFaultyMap.put(clientId, faultSimple);
+//
+//                }
+//
+//                Set<Map.Entry<String, FaultSimple>> set = rdsFaultyMap.entrySet();
+//                for (Map.Entry<String, FaultSimple> faultRds : set) {
+//                    // logger.info("print rds info===========");
+//                    // logger.info(faultRds.toString());
+//                    faultSimples.add(faultRds.getValue());
+//                }
+//            }
 
 
             if (rdsInfoList != null && !rdsInfoList.isEmpty()) {
@@ -202,8 +201,9 @@ public class InfoProcessData {
 //            logger.warn(faultSimples);//遍历出结果
             alarmLogService.noticeFaults(faultSimples);//这个方法里包括
             if (faults.size() > 0) {
-                MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList, rdsList, rdsInstances,
-                        faults);
+//                MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList, rdsList, rdsInstances,
+//                        faults);
+                MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList, faults);
             }
 //            logger.debug("释放之前,notifyCenter");
 
@@ -234,6 +234,7 @@ public class InfoProcessData {
         List<FaultSimple> faultSimples = rdsService.updateRdsInfoClientList(rdsInfo);
         return faultSimples;
     }
+
 //    private List<FaultSimple> updateDataArk(String dataArkId, Streamer dataArk) {
 //        // TODO Auto-generated method stub
 //        return null;
