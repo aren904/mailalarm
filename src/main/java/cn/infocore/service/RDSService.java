@@ -11,11 +11,11 @@ import cn.infocore.protobuf.StmStreamerDrManage.RdsInfo;
 
 public interface RDSService {
 
-	List<RdsDO> updateRdsInfo( DataArkDTO data_ark,List<RdsInfo> rdsInfoList);
-
-	List<Fault> getFault(DataArkDTO data_ark, List<RdsInfo> rdsInfoList);
-	
-	List<RdsInstanceDO> getRDSInstanceListFromSource(DataArkDTO data_ark, List<RdsInfo> rdsInfoList);
+//	List<RdsDO> updateRdsInfo( DataArkDTO data_ark,List<RdsInfo> rdsInfoList);
+//
+//	List<Fault> getFault(DataArkDTO data_ark, List<RdsInfo> rdsInfoList);
+//
+//	List<RdsInstanceDO> getRDSInstanceListFromSource(DataArkDTO data_ark, List<RdsInfo> rdsInfoList);
 
 	List<FaultSimple> updateRdsInfoClientList(List<RdsInfo> rdsInfo);
 }
