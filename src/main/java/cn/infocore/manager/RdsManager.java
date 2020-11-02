@@ -17,27 +17,27 @@ import cn.infocore.entity.RdsDO;
 @Component
 public class RdsManager extends ServiceImpl<RDSMapper, RdsDO> {
 	
-	public void updateByUUIDBatch(List<RdsDO> rdsList) {
-
-		for (RdsDO rds : rdsList) {
-			updateByUUID(rds);
-		}
-
-	}
-
-	public void updateByUUID(RdsDO rds) {
-		
-		LambdaUpdateWrapper<RdsDO> update = new UpdateWrapper<RdsDO>().lambda().eq(RdsDO::getRdsId, rds.getRdsId())
-				.set(RdsDO::getExceptions, rds.getExceptions());
-		this.update(new RdsDO(), update);
-	}
-	
-	
-	public RdsDO getByData(String rdsId, String StreamerServerId) {
-		
-		
-		return null;
-	}
+//	public void updateByUUIDBatch(List<RdsDO> rdsList) {
+//
+//		for (RdsDO rds : rdsList) {
+//			updateByUUID(rds);
+//		}
+//
+//	}
+//
+//	public void updateByUUID(RdsDO rds) {
+//
+//		LambdaUpdateWrapper<RdsDO> update = new UpdateWrapper<RdsDO>().lambda().eq(RdsDO::getRdsId, rds.getRdsId())
+//				.set(RdsDO::getExceptions, rds.getExceptions());
+//		this.update(new RdsDO(), update);
+//	}
+//
+//
+//	public RdsDO getByData(String rdsId, String StreamerServerId) {
+//
+//
+//		return null;
+//	}
 
 	public List<String> getRdsUserIdsById(String uuid) {
 		LambdaQueryWrapper<RdsDO> lambdaQueryWrapper = new LambdaQueryWrapper<>();
