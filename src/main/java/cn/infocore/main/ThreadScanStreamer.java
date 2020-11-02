@@ -144,8 +144,8 @@ public class ThreadScanStreamer implements Runnable {
 	            List<Fault> fault_list_single = new LinkedList<Fault>();
 	            fault_list_single.add(fault);
 				
-				MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList,rdsList,rdsInstanceList, fault_list_single);
-
+//				MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList,rdsList,rdsInstanceList, fault_list_single);
+				MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList, fault_list_single);
 			} catch (Exception e1) {
 				logger.error("ThreadScanStreamer:" + e1);
 			}
