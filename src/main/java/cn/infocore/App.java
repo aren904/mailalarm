@@ -6,6 +6,7 @@ package cn.infocore;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import cn.infocore.main.MailMain;
@@ -21,9 +22,6 @@ public class App {
 		ConfigurableApplicationContext context = SpringApplication.run(App.class, args);
 		MailMain mainRunner = context.getBean(MailMain.class);
 		mainRunner.start();
-
-
-		
 	}
 
 }

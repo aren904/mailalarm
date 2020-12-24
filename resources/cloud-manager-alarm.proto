@@ -1,6 +1,4 @@
-option java_package = "cn.infocore.protobuf";
-option java_outer_classname = "CloudManagerAlarm";
-
+syntax = "proto2";
 
 /* common begin */
 
@@ -73,8 +71,8 @@ enum Command {
     Command_GetDisasterDataArks = 233;
     Command_GetUserResourceForTransfer = 234;
     Command_TransferUserResource = 235;
-    Command_AddDisasterRac = 236;
-    Command_RemoveDisasterRac = 237;
+    Command_AddDisasterRacDatabase = 236;
+    Command_RemoveDisasterRacDatabase = 237;
     Command_AddVcenterExt = 238;
     Command_AddDisasterDataArkExt = 239;
     Command_CreateClientGroup = 240;
@@ -114,6 +112,12 @@ enum Command {
     Command_RemoveMetadatabaseBackup = 274;
     Command_AddDisasterMetadatabaseBackup = 275;
     Command_RemoveDisasterMetadatabaseBackup = 276;
+    Command_UpdateDataArkRole = 277;
+    Command_AddRac = 278;
+    Command_RemoveRac = 279;
+    Command_AddRacDatabase = 280;
+    Command_UpdateRacDatabase = 281;
+    Command_RemoveRacDatabase = 282;
 
     /* data ark management end */
 
@@ -163,6 +167,11 @@ enum Command {
     Command_UpdateRdsEndpoint = 508;
     Command_UpdateOssEndpoint = 509;
     Command_UpdateEcsEndpoint = 510;
+    Command_GetCloudManagers = 511;
+    Command_AddCloudManager = 512;
+    Command_UpdateCloudManager = 513;
+    Command_RemoveCloudManager = 514;
+    Command_VerifyCloudManager = 515;
 
     /* system end */
 
@@ -204,6 +213,7 @@ enum ErrorCode {
     ErrorCode_OperationAborted = 30;  // 操作被终止
     ErrorCode_PerformingOperation = 31;  // 正在执行操作
     ErrorCode_TargetUserLockOccupied = 32;  // 表示当前操作的目标用户是临界资源，已经被其他操作占用，需要重新发送请求
+    ErrorCode_LockOccupied = 33;  // 表示当前操作的目标是临界资源，已经被其他操作占用，需要重新发送请求
 
     ErrorCode_DataArkGroupCloudManagerNonexistent = 1000;  // 数据方舟组管理平台不存在
 
@@ -218,6 +228,9 @@ enum ErrorCode {
     ErrorCode_DataArkExistent = 1030;  // 数据方舟已存在
     ErrorCode_DataArkNonexistent = 1031;  // 数据方舟不存在
     ErrorCode_DataArkSameName = 1032;  // 数据方舟重名
+    ErrorCode_DataArkRoleUndefined = 1033;  // 数据方舟角色未指定
+    ErrorCode_DisasterSideOfOtherDataArk = 1034;  // 该数据方舟是其他数据方舟的容灾端
+    ErrorCode_ProductionSideOfOtherDataArk = 1035;  // 该数据方舟是其他数据方舟的生产端
 
     ErrorCode_UserGroupExistent = 1040;  // 用户组已存在
     ErrorCode_UserGroupNonexistent = 1041;  // 用户组不存在
@@ -255,8 +268,8 @@ enum ErrorCode {
     ErrorCode_EmailAlarmNonexistent = 1086;  // 不存在邮件报警设置
     ErrorCode_DisasterDiskBackupExistent = 1087;  // 存在容灾磁盘备份，即存在容灾关系
     ErrorCode_DisasterDiskBackupNonexistent = 1088;  // 不存在容灾磁盘备份，即不存在容灾关系
-    ErrorCode_DisasterRacExistent = 1089;  // 存在容灾 RAC，即存在容灾关系
-    ErrorCode_DisasterRacNonexistent = 1090;  // 不存在容灾 RAC，即不存在容灾关系
+    ErrorCode_DisasterRacDatabaseExistent = 1089;  // 存在容灾 RAC Database，即存在容灾关系
+    ErrorCode_DisasterRacDatabaseNonexistent = 1090;  // 不存在容灾 RAC Database，即不存在容灾关系
     ErrorCode_DisasterRdsInstanceExistent = 1091;  // 存在容灾 RDS 实例，即存在容灾关系
     ErrorCode_DisasterRdsInstanceNonexistent = 1092;  // 不存在容灾 RDS 实例，即存在容灾关系
     ErrorCode_RdsExistent = 1093;  // 存在 RDS
@@ -265,9 +278,18 @@ enum ErrorCode {
     ErrorCode_RdsInstanceNonexistent = 1096;  // 不存在 RDS 实例
 
     ErrorCode_RequestToAlarmServiceFailed = 1100;  // 发送请求给邮件报警服务失败
+    ErrorCode_RequestToConsoleFailed = 1101;  // 发送请求给控制台失败
+    ErrorCode_RequestToStreamerFailed = 1102;  // 发送请求给Streamer服务失败
+    ErrorCode_RequestToCloudManagerFailed = 1103;  // 发送请求给管理平台服务失败
+
     ErrorCode_ClientGroupExistent = 1110;  // 已存在客户端组
     ErrorCode_ClientGroupNonexistent = 1111;  // 不存在客户端组
     ErrorCode_ClientGroupSameName = 1112;  // 客户端组重名
+    ErrorCode_CloudManagerExistent = 1113;  // 已存在管理平台
+    ErrorCode_CloudManagerNonexistent = 1114;  // 不存在管理平台
+    ErrorCode_CloudManagerSameName = 1115;  // 管理平台重名
+    ErrorCode_CloudManagerIdInconsistent = 1116;  // 管理平台ID不一致
+    ErrorCode_CloudManagerIdNonexistent = 1117;  // 不存在管理平台ID
 
     ErrorCode_OssExistent = 1200;  // 存在OSS
     ErrorCode_OssNonexistent = 1201;  // 不存在OSS
@@ -275,10 +297,10 @@ enum ErrorCode {
     ErrorCode_OssObjectSetNonexistent = 1203;  // 不存在OSS ObjectSet
     ErrorCode_DisasterOssObjectSetExistent = 1204;  // 存在容灾OSS ObjectSet，即存在容灾关系
     ErrorCode_DisasterOssObjectSetNonexistent = 1205;  // 不存在容灾OSS ObjectSet，即存在容灾关系
-    ErrorCode_RacExistent = 1206;
-    ErrorCode_RacNonexistent = 1207;
-    ErrorCode_RacDbExistent = 1208;
-    ErrorCode_RacDbNonexistent = 1209;
+    ErrorCode_RacExistent = 1206;  // 存在RAC
+    ErrorCode_RacNonexistent = 1207;  // 不存在RAC
+    ErrorCode_RacDatabaseExistent = 1208;  // 存在RAC Database，即存在备份关系
+    ErrorCode_RacDatabaseNonexistent = 1209;  // 不存在RAC Database，即不存在备份关系
     ErrorCode_EcsExistent = 1210;  // 存在ECS
     ErrorCode_EcsNonexistent = 1211;  // 不存在ECS
     ErrorCode_EcsInstanceExistent = 1212;  // 存在ECS Instance
@@ -291,6 +313,11 @@ enum ErrorCode {
     ErrorCode_MetadatabaseBackupNonexistent = 1219;  // 不存在Metadatabase Backup
     ErrorCode_DisasterMetadatabaseBackupExistent = 1220;  // 存在容灾Metadatabase Backup，即存在容灾关系
     ErrorCode_DisasterMetadatabaseBackupNonexistent = 1221;  // 不存在容灾Metadatabase Backup，即存在容灾关系
+    ErrorCode_BackupExistent = 1222;  // 存在备份关系
+    ErrorCode_BackupNonexistent = 1223;  // 不存在备份关系
+    ErrorCode_DisasterBackupExistent = 1224;  // 存在容灾关系
+    ErrorCode_DisasterBackupNonexistent = 1225;  // 不存在容灾关系
+    ErrorCode_QuotaNotZeroExistent = 1226;  // 存在非0配额
 
     /* login begin */
 
@@ -352,8 +379,8 @@ enum ErrorCode {
     ErrorCode_GetDisasterDataArksFailed = 10233;
     ErrorCode_GetUserResourceForTransferFailed = 10234;
     ErrorCode_TransferUserResourceFailed = 10235;
-    ErrorCode_AddDisasterRacFailed = 10236;
-    ErrorCode_RemoveDisasterRacFailed = 10237;
+    ErrorCode_AddDisasterRacDatabaseFailed = 10236;
+    ErrorCode_RemoveDisasterRacDatabaseFailed = 10237;
     ErrorCode_AddVcenterExtFailed = 10238;
     ErrorCode_AddDisasterDataArkExtFailed = 10239;
     ErrorCode_CreateClientGroupFailed = 10240;
@@ -392,6 +419,12 @@ enum ErrorCode {
     ErrorCode_RemoveMetadatabaseBackupFailed = 10274;
     ErrorCode_AddDisasterMetadatabaseBackupFailed = 10275;
     ErrorCode_RemoveDisasterMetadatabaseBackupFailed = 10276;
+    ErrorCode_UpdateDataArkRoleFailed = 10277;
+    ErrorCode_AddRacFailed = 10278;
+    ErrorCode_RemoveRacFailed = 10279;
+    ErrorCode_AddRacDatabaseFailed = 10280;
+    ErrorCode_UpdateRacDatabaseFailed = 10281;
+    ErrorCode_RemoveRacDatabaseFailed = 10282;
 
     /* data ark management end */
 
@@ -440,6 +473,11 @@ enum ErrorCode {
     ErrorCode_UpdateRdsEndpointFailed = 10508;
     ErrorCode_UpdateOssEndpointFailed = 10509;
     ErrorCode_UpdateEcsEndpointFailed = 10510;
+    ErrorCode_GetCloudManagersFailed = 10511;
+    ErrorCode_AddCloudManagerFailed = 10512;
+    ErrorCode_UpdateCloudManagerFailed = 10513;
+    ErrorCode_RemoveCloudManagerFailed = 10514;
+    ErrorCode_VerifyCloudManagerFailed = 10515;
 
     /* system end */
 }
@@ -471,7 +509,7 @@ enum Exception {
     Exception_StreamerPoolExceededThreshold = 23;  // 存储池超过阈值
     Exception_AixDiskOffline = 24;              // 映射给AIX的磁盘离线
     Exception_VmwareInitMirrorFailed = 25;      // VMware同步数据失败
-    Exception_VmwareSnapshotSizeIsZero = 26;    // (now 离线创建快照点)     (before在线虚拟机创建快照点数据异常)
+    Exception_VmwareSnapshotSizeIsZero = 26;    // 在线虚拟机创建快照点数据异常
     Exception_FileSingleCreateSnapshotFailed = 27;  // 文件级备份客户端任务计划创建快照点失败
     Exception_FileSingleOffline = 28;  // 文件级备份客户端离线
     Exception_FileSingleLocalLost = 29;  // 文件级备份客户端异常-本地丢失
@@ -529,11 +567,18 @@ enum DataArkGroupType {
     DataArkGroupType_ResourcePool = 2;  // 资源池
 }
 
+enum DataArkRole {
+    DataArkRole_None = 0;
+    DataArkRole_Production = 1;
+    DataArkRole_Disaster = 2;
+}
+
 enum UserPrivilegeLevel {
     UserPrivilegeLevel_Root = 0;
     UserPrivilegeLevel_Admin = 1;
     UserPrivilegeLevel_User = 2;
     UserPrivilegeLevel_Auditor = 3;  // 审计员
+    UserPrivilegeLevel_Topo = 4;  // 只能管理CloudManager
 }
 
 enum SnmpVersion {
@@ -557,7 +602,7 @@ enum SnmpPrivacyProtocol {
 
 enum Version {
     option allow_alias = true;
-    Version_Value = 4;
+    Version_Value = 6;
 }
 
 /* enum end */
