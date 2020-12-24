@@ -6,6 +6,8 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.List;
+
+import cn.infocore.protobuf.CloudManagerAlarm;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 import cn.infocore.entity.Email_alarm;
@@ -165,7 +167,7 @@ public class DealInformation implements Runnable {
 			break;
 		case 501:
 			try {
-				UpdateEmailAlarmRequest request=UpdateEmailAlarmRequest.parseFrom(buffer);
+				UpdateEmailAlarmRequest request= CloudManagerAlarm.UpdateEmailAlarmRequest.parseFrom(buffer);
 				updateEmailAlarm(request);
 				header.setErrorCode(0);
 			} catch (Exception e) {
