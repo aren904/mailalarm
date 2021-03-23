@@ -14,7 +14,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import cn.infocore.dao.RDSMapper;
 import cn.infocore.entity.RdsDO;
-@Component
+import org.springframework.stereotype.Service;
+
+@Service
 public class RdsManager extends ServiceImpl<RDSMapper, RdsDO> {
 	
 //	public void updateByUUIDBatch(List<RdsDO> rdsList) {

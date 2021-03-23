@@ -39,6 +39,7 @@ public class DealInformation implements Runnable {
 	/*
 	 * cloudmanager来的所有请求，数据库都不需要我来操作，只是通知我，对本地缓存操作.
 	 */
+	@Override
 	public void run() {
 		int ioret;
 		try {

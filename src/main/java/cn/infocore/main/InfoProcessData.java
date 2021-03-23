@@ -99,9 +99,6 @@ public class InfoProcessData {
 
             Streamer dataArk = hrt.getServer();
             String dataArkId = hrt.getUuid();
-            if (dataArk != null) {
-                // List<FaultSimple> list = updateDataArk(dataArkId,dataArk);
-            }
 
             List<OssInfo> ossClients = hrt.getOssClientsList();
 
@@ -112,63 +109,6 @@ public class InfoProcessData {
 
 
             List<RdsInfo> rdsInfoList = hrt.getRdsClientsList();
-//            List<RdsDO> rdsList = rdsService.updateRdsInfo(data_ark, rdsInfoList);
-//            List<RdsInstanceDO> rdsInstances = rdsService.getRDSInstanceListFromSource(data_ark, rdsInfoList);
-//
-//            List<Fault> faultList = rdsService.getFault(data_ark, rdsInfoList);
-//            logger.info("rdsfaultsize:" + faultList.size());
-//
-//            faults.addAll(faultList);
-
-//            Map<String, FaultSimple> rdsFaultyMap = new HashMap<String, FaultSimple>();
-////
-//            for (Fault fault : faultList) {
-//                String clientId = fault.getClient_id();
-//                if (rdsFaultyMap.containsKey(clientId)) {
-//                    int type = fault.getType();
-//                    FaultSimple fSimple = rdsFaultyMap.get(clientId);
-//                    fSimple.getFaultTypes().add(FaultType.valueOf(type));
-//
-//                    String userId = fault.getUser_id();
-//                    if (userId != null) {
-//                        fSimple.getUserIds().add(userId);
-//                    }
-//                } else {
-//
-//                    FaultSimple faultSimple = new FaultSimple();
-//
-//                    String id = fault.getClient_id();
-//                    faultSimple.setTargetId(id);
-//
-//                    String userId = fault.getUser_id();
-//                    List<String> userIds = new ArrayList<>();
-//                    userIds.add(userId);
-//                    faultSimple.setUserIds(userIds);
-//
-//                    Integer clientType = fault.getClient_type();
-//                    if (clientType != null) {
-//                        faultSimple.setClientType(ClientType.valueOf(clientType));
-//                    }
-//
-//                    int type = fault.getType();
-//                    List<FaultType> tFaultTypes = new ArrayList<>();
-//                    tFaultTypes.add(FaultType.valueOf(type));
-//                    faultSimple.setFaultTypes(tFaultTypes);
-//
-//                    String target = fault.getTarget();
-//                    faultSimple.setTargetName(target);
-//                    rdsFaultyMap.put(clientId, faultSimple);
-//
-//                }
-//
-//                Set<Map.Entry<String, FaultSimple>> set = rdsFaultyMap.entrySet();
-//                for (Map.Entry<String, FaultSimple> faultRds : set) {
-//                    // logger.info("print rds info===========");
-//                    // logger.info(faultRds.toString());
-//                    faultSimples.add(faultRds.getValue());
-//                }
-//            }
-
 
             if (rdsInfoList != null && !rdsInfoList.isEmpty()) {
                 List<FaultSimple> RdsFaultSimples = updateRdsClient(rdsInfoList);
@@ -181,9 +121,6 @@ public class InfoProcessData {
                 List<FaultSimple> MetaFaultSimples = updateMetaClient(metaClientsList);
                 faultSimples.addAll(MetaFaultSimples);
             }
-//            for (MetaInfo metaInfo : metaInfos) {
-//                mdbService.updateMdbInfo(metaInfo.);
-//            }
 
             List<EcsInfo> ecsClientsList = hrt.getEcsClientsList();
 //            List<EcsInfo> ecsInfos = ecsClientsList;
@@ -191,9 +128,7 @@ public class InfoProcessData {
                 List<FaultSimple> EcsFaultSimples = updateEcsClient(ecsClientsList);
                 faultSimples.addAll(EcsFaultSimples);
             }
-//            for (EcsInfo ecsInfo : ecsInfos) {
-//                ecsService.updateEcsInfo(ecsInfo);
-//            }
+
 
             // add dataArk info to FaultSimple
             String dataArkIp = hrt.getServer().getIp();
@@ -208,8 +143,6 @@ public class InfoProcessData {
 //            logger.warn(faultSimples);//遍历出结果
             alarmLogService.noticeFaults(faultSimples);//这个方法里包括
             if (faults.size() > 0) {
-//                MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList, rdsList, rdsInstances,
-//                        faults);
                 MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList, faults);
             }
 //            logger.debug("释放之前,notifyCenter");
@@ -224,7 +157,6 @@ public class InfoProcessData {
         } else {
             logger.info("The data ark uuid:" + hrt.getUuid() + " is not in Cache or Database,refused it!!!");
         }
-
     }
 
     List<FaultSimple> updateMetaClient(List<MetaInfo> metaClientsList) {
@@ -237,8 +169,8 @@ public class InfoProcessData {
         return faultSimples;
     }
 
-    List<FaultSimple> updateRdsClient(List<RdsInfo> rdsInfo) {
-        List<FaultSimple> faultSimples = rdsService.updateRdsInfoClientList(rdsInfo);
+    List<FaultSimple> updateRdsClient(List<RdsInfo> rdsInfoList) {
+        List<FaultSimple> faultSimples = rdsService.updateRdsInfoClientList(rdsInfoList);
         return faultSimples;
     }
 
@@ -247,7 +179,7 @@ public class InfoProcessData {
 //        return null;
 //    }
 
-    void updateDataArk(DataArkDTO data_ark) {
+    public void updateDataArk(DataArkDTO data_ark) {
         dataArkService.update(data_ark);
     }
 
@@ -317,7 +249,7 @@ public class InfoProcessData {
 
     // 更新VC
     private void updateVcenter(List<Vcenter> list) {
-        logger.info("Start update VCenter..");
+        logger.info("Start to update VCenter..");
         QueryRunner qr = MyDataSource.getQueryRunner();
         String sql = "update vcenter set name=?,ips=?,exceptions=? where vcenter_id=?";
         int size = list.size();
@@ -522,9 +454,9 @@ public class InfoProcessData {
 
     private void parse(GetServerInfoReturn hrt) {
         long now = System.currentTimeMillis() / 1000;
-        this.data_ark = convertStreamerServer(hrt, now);
-        convertClient(hrt, now);
-        convertVCenter(hrt, now);
+        this.data_ark = convertStreamerServer(hrt, now);//封装心跳
+        convertClient(hrt, now);//封装Client信息（把接收到hdr中的内容一一赋值给对象）
+        convertVCenter(hrt, now); //封装Vcente信息
     }
 
     private List<FaultSimple> updateOssClient(List<OssInfo> ossClient) {

@@ -27,14 +27,14 @@ import cn.infocore.service.RDSService;
 @Service
 public class RDSServiceImpl implements RDSService {
 
-	@Autowired
-	RDSInstanceManager rdsInstanceManager;
+    @Autowired
+    RDSInstanceManager rdsInstanceManager;
 
-	@Autowired
-	RdsManager rdsManager;
+    @Autowired
+    RdsManager rdsManager;
 
-	@Autowired
-	UserDAO userDAO;
+    @Autowired
+    UserDAO userDAO;
 
 //	@Override
 //	public List<RdsDO> updateRdsInfo(DataArkDTO data_ark,List<RdsInfo> rdsInfoList) {
@@ -212,49 +212,52 @@ public class RDSServiceImpl implements RDSService {
 //	}
 
 
-	@Override
-	public List<FaultSimple> updateRdsInfoClientList(List<RdsInfo> rdsInfos) {
-		List<FaultSimple> faultSimpleList=new LinkedList<>();
-		for(RdsInfo rdsInfo :rdsInfos){
-			faultSimpleList.addAll(updateRdsClient(rdsInfo));
-		}
-		return faultSimpleList;
-	}
+    @Override
+    public List<FaultSimple> updateRdsInfoClientList(List<RdsInfo> rdsInfos) {
+        List<FaultSimple> faultSimpleList = new LinkedList<>();
+        for (RdsInfo rdsInfo : rdsInfos) {
+            faultSimpleList.addAll(updateRdsClient(rdsInfo));
+        }
+        return faultSimpleList;
+    }
 
-	public List<FaultSimple> updateRdsClient(RdsInfo rdsInfo){
-		String uuid = rdsInfo.getUuid();
-		String name = rdsInfo.getName();
-		List<FaultType> faultTypes = rdsInfo.getStatusList();
-		List<RdsInstanceInfo> instanceListList = rdsInfo.getInstanceListList();
-		List<FaultSimple> RdsfaultSimpleList = rdsInstanceManager.updateList(instanceListList);
-		RdsDO rdsDO = new RdsDO();
-		rdsDO.setExceptions(StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypes));
-		List<FaultSimple>  faultsList = listFaults(faultTypes);
-		List<String>  userIdList = rdsManager.getRdsUserIdsById(uuid);
+    public List<FaultSimple> updateRdsClient(RdsInfo rdsInfo) {
 
-		for (FaultSimple faultSimple : faultsList) {
-			faultSimple.setTargetId(uuid);
-			faultSimple.setTargetName(name);
-		}
+        String uuid = rdsInfo.getUuid();
+        String name = rdsInfo.getName();
+        List<FaultType> faultTypes = rdsInfo.getStatusList();
+        List<RdsInstanceInfo> instanceListList = rdsInfo.getInstanceListList();
+        List<FaultSimple> rdsfaultSimpleList = rdsInstanceManager.updateList(instanceListList);
 
-		faultsList.addAll( RdsfaultSimpleList);
+        RdsDO rdsDO = new RdsDO();
+        rdsDO.setExceptions(StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypes));
 
-		for (FaultSimple faultSimple : faultsList) {
-			faultSimple.setUserIds(userIdList);
-		}
-		return faultsList;
-	}
+        List<FaultSimple> faultsList = listFaults(faultTypes);
+        List<String> userIdList = rdsManager.getRdsUserIdsById(uuid);
+        faultsList.addAll(rdsfaultSimpleList);
+        for (FaultSimple faultSimple : faultsList) {
+            faultSimple.setTargetId(uuid);
+            faultSimple.setTargetName(name);
+        }
 
-	List<FaultSimple>  listFaults(List<FaultType> faultTypes){
-		LinkedList<FaultSimple> faultList =  new LinkedList<FaultSimple>();
-		if (faultTypes!= null) {
-			FaultSimple faultSimple =  new FaultSimple();
-			faultSimple.setClientType(ClientType.Rds);
-			faultSimple.setFaultTypes(faultTypes);
-			faultList.add(faultSimple);
-		}
-		return faultList;
-	}
+        faultsList.addAll(rdsfaultSimpleList);
+
+        for (FaultSimple faultSimple : faultsList) {
+            faultSimple.setUserIds(userIdList);
+        }
+        return faultsList;
+    }
+
+    List<FaultSimple> listFaults(List<FaultType> faultTypes) {
+        LinkedList<FaultSimple> faultList = new LinkedList<FaultSimple>();
+        if (faultTypes != null) {
+            FaultSimple faultSimple = new FaultSimple();
+            faultSimple.setClientType(ClientType.Rds);
+            faultSimple.setFaultTypes(faultTypes);
+            faultList.add(faultSimple);
+        }
+        return faultList;
+    }
 
 
 }

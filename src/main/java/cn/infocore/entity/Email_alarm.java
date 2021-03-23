@@ -24,7 +24,7 @@ public class Email_alarm {
 	//收件人
 	private String receiver_emails;
 	
-	//该发件人的权限等级：？？
+	//该发件人的权限等级： 1和0是管理员级别，普通用户是2，见user表
 	private int privilege_level;
 	
 	//是否启用身份验证

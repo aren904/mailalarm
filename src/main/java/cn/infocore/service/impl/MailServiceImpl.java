@@ -53,8 +53,9 @@ public class MailServiceImpl implements MailService {
             if (eList.size() > 0) {
                 logger.info("Get mail config count:" + eList.size());
                 for (Email_alarm eAlarm : eList) {
-                    if (eAlarm.getEnabled() == (byte) 0)
+                    if (eAlarm.getEnabled() == (byte) 0) {
                         continue;
+                    }
                     MailSender sender = new MailSender(eAlarm);
                     if (eAlarm.getPrivilege_level() < 2) {
                         this.adminSenderMap.put(eAlarm.getUser_id(), sender);
@@ -82,6 +83,7 @@ public class MailServiceImpl implements MailService {
         return MailCenterRestryHolder.instance;
     }
 
+    @Override
     public void addAllMailService(List<Email_alarm> l) {
         for (Email_alarm email_alarm : l) {
             MailSender sender = new MailSender(email_alarm);
@@ -94,6 +96,7 @@ public class MailServiceImpl implements MailService {
     }
 
     // 更新邮件配置还是使用该接口
+    @Override
     public void addMailService(String name) {
         // 通过查数据库，添加到本地，自己构造MailSender对象
         // 初始的时候，先从数据库中获取一次
@@ -125,6 +128,7 @@ public class MailServiceImpl implements MailService {
         }
     }
 
+    @Override
     public void deleteMailService(String name) {
         // 查询数据库，从本地删除
         if (this.normalSenderMap.containsKey(name)) {
@@ -481,7 +485,7 @@ public class MailServiceImpl implements MailService {
                             // 2.current not contains db,confirm it.
                             if (type == 3 || type == 25 || type == 26 || type == 31) {
 
-                                logger.info("VM error not need to confirm.");
+                                logger.info("VM error don't need to confirm.");
                             } else {
                                 // remove user id update TODO
                                 // sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and
@@ -634,7 +638,7 @@ public class MailServiceImpl implements MailService {
         }
         return faults;
     }
-    //将faultS转化成faults
+    //将faultSimple转化成faults
     List<Fault> convertFaultSimple(FaultSimple faultSimple) {
 
         Collection<FaultType> faultTypes = faultSimple.getFaultTypes();
@@ -667,60 +671,60 @@ public class MailServiceImpl implements MailService {
         return faults;
     }
 
-    public void sentFault(FaultSimple faultSimple) {
+//    public void sentFault(FaultSimple faultSimple) {
+//
+//        ClientType clientType = faultSimple.getClientType();
+//
+//        switch (clientType) {
+//            case SINGLE:
+//
+//                break;
+//            case VMWARE:
+//
+//                break;
+//            case MSCS:
+//
+//                break;
+//            case RAC:
+//
+//                break;
+//            case VC:
+//
+//                break;
+//            case AIX:
+//
+//                break;
+//            case FileSingle:
+//
+//                break;
+//            case Rds:
+//
+//                break;
+//            case RdsInstance:
+//
+//                break;
+//            case Oss:
+//
+//                break;
+//            case OssObjectSet:
+//
+//                break;
+//            case Ecs:
+//
+//                break;
+//            case EcsInstance:
+//
+//                break;
+//            case MetaDB:
+//
+//                break;
+//            case MetaDBBackup:
+//
+//                break;
+//            default:
+//                break;
+//        }
 
-        ClientType clientType = faultSimple.getClientType();
-
-        switch (clientType) {
-            case SINGLE:
-
-                break;
-            case VMWARE:
-
-                break;
-            case MSCS:
-
-                break;
-            case RAC:
-
-                break;
-            case VC:
-
-                break;
-            case AIX:
-
-                break;
-            case FileSingle:
-
-                break;
-            case Rds:
-
-                break;
-            case RdsInstance:
-
-                break;
-            case Oss:
-
-                break;
-            case OssObjectSet:
-
-                break;
-            case Ecs:
-
-                break;
-            case EcsInstance:
-
-                break;
-            case MetaDB:
-
-                break;
-            case MetaDBBackup:
-
-                break;
-            default:
-                break;
-        }
-
-    }
+//    }
 
 }

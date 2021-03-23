@@ -87,6 +87,7 @@ public class EcsInstanceManager extends ServiceImpl<EcsInstanceMapper, EcsInstan
             FaultSimple faultSimple = new FaultSimple();
             faultSimple.setClientType(ClientType.EcsInstance);
             faultSimple.setFaultTypes(faultTypes);
+            faultList.add(faultSimple);
         }
         return faultList;
     }

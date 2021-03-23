@@ -41,6 +41,7 @@ public class DealSocket implements Runnable {
     /**
      * 定义需求，收到指令后需要恢复streamer服务端
      */
+    @Override
     public void run() {
         int ioret;
         InputStream in = null;
@@ -103,16 +104,21 @@ public class DealSocket implements Runnable {
             hrt.toBuilder().clearServer();
             hrt.toBuilder().clearUuid();
             hrt.toBuilder().clearVcents();
+//            hrt.toBuilder().clearClients();
+//            hrt.toBuilder().clearEcsClients();
+//            .....
             logger.info("Response heartbeat successfully..");
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("DealSocket failed." + e);
         } finally {
             try {
-                if (in != null)
+                if (in != null) {
                     in.close();
-                if (out != null)
+                }
+                if (out != null) {
                     out.close();
+                }
                 this.socket.close();
             } catch (Exception e2) {
                 logger.error(e2);

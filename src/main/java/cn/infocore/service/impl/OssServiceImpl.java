@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import cn.infocore.main.InfoProcessData;
+import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +23,7 @@ import cn.infocore.service.OssService;
 import cn.infocore.utils.StupidStringUtil;
 @Service
 public class OssServiceImpl implements OssService {
-
+    private static final org.apache.log4j.Logger logger = Logger.getLogger(OssServiceImpl.class);
     @Autowired
     OssManager ossManager;
     
@@ -45,17 +48,19 @@ public class OssServiceImpl implements OssService {
         List<FaultType> faultTypes = ossInfo.getStatusList();
         List<OssObjectSetInfo> ossObjectSetInfos = ossInfo.getObjListList();
         List<FaultSimple> ossObjectFaultSimpleList = ossObjectSetManager.updateList(ossObjectSetInfos);
-        
+        logger.error(ossObjectFaultSimpleList);
         OssDO ossDO = new OssDO();
         ossDO.setExceptions(StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypes));
         
         ossManager.updateById(ossDO);
         List<FaultSimple>  faultsList = listFaults(faultTypes);
+        faultsList.addAll(ossObjectFaultSimpleList);
         List<String>  userIdList = ossManager.getOssUserIdsById(id);
         
         for (FaultSimple faultSimple : faultsList) {
             faultSimple.setTargetId(id);
             faultSimple.setTargetName(name);
+
         }
         
         faultsList.addAll(ossObjectFaultSimpleList);

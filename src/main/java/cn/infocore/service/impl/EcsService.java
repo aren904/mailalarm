@@ -84,7 +84,7 @@ public class EcsService {
         ecsManager.updateById(ecsDO);
         List<FaultSimple> faultsList = listFaults(faultTypes);
         List<String> userIdList = ecsManager.getEcsUserIdsById(id);
-
+        faultsList.addAll(EcsInstanceFaultSimpleList);
         for (FaultSimple faultSimple : faultsList) {
             faultSimple.setTargetId(id);
             faultSimple.setTargetName(name);

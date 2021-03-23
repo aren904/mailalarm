@@ -31,6 +31,7 @@ public class ThreadInformation extends Thread {
     }
 
 //    测试邮件通过把config直接传递过来，不需要读取数据库
+    @Override
     public void run() {
         ServerSocket server = null;
         try {
@@ -45,7 +46,9 @@ public class ThreadInformation extends Thread {
             logger.error("Exception happened:" + e);
         } finally {
             try {
-                server.close();
+                if (server != null) {
+                    server.close();
+                }
             } catch (IOException e) {
                 logger.error(e);
             }

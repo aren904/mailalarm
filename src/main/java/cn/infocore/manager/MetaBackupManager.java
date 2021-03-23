@@ -44,7 +44,7 @@ public class MetaBackupManager extends ServiceImpl<MdbBackupMapper, MdbBackupDO>
     public void update(MetaBackupInfo metaBackupInfo) {
         MdbBackupDO mdbBackupDO = collectMetaBackupInfomation(metaBackupInfo);
         this.updateByObjestSetId(mdbBackupDO);
-        return;
+
     }
 
 
@@ -86,6 +86,7 @@ public class MetaBackupManager extends ServiceImpl<MdbBackupMapper, MdbBackupDO>
             FaultSimple faultSimple = new FaultSimple();
             faultSimple.setClientType(ClientType.MetaDBBackup);
             faultSimple.setFaultTypes(faultTypes);
+            faultList.add(faultSimple);
         }
         return faultList;
     }

@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +92,7 @@ public class Test {
 //        builder2.setPreoccupationSizeByte(0);
 //        get.addEcsClients(builder1);
 //
-
+        //RDS自测
         StmStreamerDrManage.RdsInfo.Builder builder1 = StmStreamerDrManage.RdsInfo.newBuilder();
         builder1.setName("101");
         builder1.setUuid("6eed0467-409b-4426-b582-b1c5aa830e95");
@@ -105,11 +106,56 @@ public class Test {
         builder2.setUuid("a413067f-01b4-45b6-b8b7-624853b04085");
         builder2.setType(ClientType.RdsInstance);
         ArrayList<FaultType> list = new ArrayList<>();
-        list.add(RDS_BACKUP_SERVICE_OFFLINE);
+//        list.add(RDS_BACKUP_SERVICE_OFFLINE);
+        list.add(RDS_STORAGE_DROP);
         builder2.addAllStatus(list);
         builder2.setSize(0);
         builder2.setPreoccupationSizeByte(0);
         get.addRdsClients(builder1);
+
+        //测试oss
+//        StmStreamerDrManage.OssInfo.Builder builder1 = StmStreamerDrManage.OssInfo.newBuilder();
+//        builder1.setName("102");
+//        builder1.setUuid("6eed0467-409b-4426-b582-b1c5aa830e95");
+//        builder1.setType(ClientType.Oss);
+//        ArrayList<FaultType> ff = new ArrayList<>();
+//        ff.add(NORMAL);
+//        builder1.addAllStatus(ff);
+//
+//
+//        StmStreamerDrManage.OssObjectSetInfo.Builder builder2 = StmStreamerDrManage.OssObjectSetInfo.newBuilder();
+//        builder2.setName("test");
+//        builder2.setId("6eed0467-409b-4426-b582-b1c5aa830e95");
+//        builder2.setType(ClientType.OssObjectSet);
+//        ArrayList<FaultType> list = new ArrayList<>();
+//        list.add(OSS_BACKUP_DST_LOST);
+//        builder2.addAllStatus(list);
+//        builder2.setSize(0);
+//        builder2.setPreoccupationSizeByte(0);
+//        builder1.addObjList(builder2);
+//        get.addOssClients(builder1);
+
+        //测试metaInfo
+//        StmStreamerDrManage.MetaInfo.Builder builder1 = StmStreamerDrManage.MetaInfo.newBuilder();
+//        builder1.setName("102");
+//        builder1.setId("cdc11ea8-4214-44c7-915f-1c5efbc6925d");
+//        builder1.setType(ClientType.MetaDB);
+//        ArrayList<FaultType> ff = new ArrayList<>();
+//        ff.add(NORMAL);
+//        builder1.addAllStatus(ff);
+//
+//
+//        StmStreamerDrManage.MetaBackupInfo.Builder builder2 = StmStreamerDrManage.MetaBackupInfo.newBuilder();
+//        builder2.setName("test");
+//        builder2.setId("cdc11ea8-4214-44c7-915f-1c5efbc6925d");
+//        builder2.setType(ClientType.MetaDBBackup);
+//        ArrayList<FaultType> list = new ArrayList<>();
+//        list.add(META_BACKUP_DST_LOST);
+//        builder2.addAllStatus(list);
+//        builder2.setSize(0);
+//        builder2.setPreoccupationSizeByte(0);
+//        builder1.addBackupList(builder2);
+//        get.addMetaClients(builder1);
 
 //        get.addMetaClients(builder1);
 //        Vmware.Builder vm1 = Vmware.newBuilder();

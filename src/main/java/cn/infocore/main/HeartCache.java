@@ -13,7 +13,7 @@ public class HeartCache {
 	
 	private HeartCache() {
 		cache=new ConcurrentHashMap<String, Long>();
-		logger.info("Init HeartCache successed.");
+		logger.info("Init HeartCache is successful.");
 	}
 	
 	private static class HeartCacheHolder{

@@ -9,9 +9,9 @@ import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-@Accessors(chain = true)
-@Data
+//@Accessors(chain = true)
 @TableName("rds_instance")
+@Data
 public class RdsInstanceDO {
 
     @TableField(value = "id")

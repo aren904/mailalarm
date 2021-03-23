@@ -23,5 +23,4 @@ public class App {
 		MailMain mainRunner = context.getBean(MailMain.class);
 		mainRunner.start();
 	}
-
 }

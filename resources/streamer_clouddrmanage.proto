@@ -85,6 +85,7 @@ enum FaultType{
     META_BACKUP_SOURCE_LOST = 56;  // meta备份源目录找不到
     
     RDS_BACKUP_DST_LOST = 57;  // rds 备份目录找不到
+
 }
 
 //服务器信息

@@ -26,7 +26,7 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
 //    AlarmLogMapper alarmLogMapper;
 
     public void updateOrAddStatusBatchByType(List<FaultSimple> faultSimples) {
-//        logger.warn(faultSimples);
+
         for (FaultSimple faultSimple : faultSimples) {
             updateOrAddAlarmlog(faultSimple);
         }
@@ -96,7 +96,6 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
 
     @Transactional
     void updateAlarmlog(AlarmLogDO alarmLogDO) {
-//        logger.warn("五5");
         if (alarmLogDO.getException() > 0) {
             LambdaQueryWrapper<AlarmLogDO> lambdaQueryWrapper = new LambdaQueryWrapper<AlarmLogDO>();
             Integer exception = alarmLogDO.getException();

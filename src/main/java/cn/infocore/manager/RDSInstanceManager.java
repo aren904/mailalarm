@@ -16,10 +16,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import cn.infocore.dao.RDSInstanceMapper;
 import cn.infocore.entity.RdsInstanceDO;
+import org.springframework.stereotype.Service;
 
 import static cn.infocore.protobuf.StmStreamerDrManage.*;
 
-@Component
+@Service
 public class RDSInstanceManager extends ServiceImpl<RDSInstanceMapper, RdsInstanceDO> {
 
 //    public void updateByUUIDBatch(List<RdsInstanceDO> rdsInstanceList) {
@@ -70,9 +71,8 @@ public class RDSInstanceManager extends ServiceImpl<RDSInstanceMapper, RdsInstan
 
 
     public void update(RdsInstanceInfo rdsInstanceInfo) {
-        RdsInstanceDO rdsInstanceDO = collectMetaBackupInfomation(rdsInstanceInfo);
+        RdsInstanceDO rdsInstanceDO = collectrdsInstanceInfomation(rdsInstanceInfo);
         this.updateByObjestSetId(rdsInstanceDO);
-        return;
     }
 
 
@@ -91,7 +91,7 @@ public class RDSInstanceManager extends ServiceImpl<RDSInstanceMapper, RdsInstan
 
 
 
-    public RdsInstanceDO collectMetaBackupInfomation(RdsInstanceInfo rdsInstanceInfo) {
+    public RdsInstanceDO collectrdsInstanceInfomation(RdsInstanceInfo rdsInstanceInfo) {
         String id = rdsInstanceInfo.getUuid();
         String name = rdsInstanceInfo.getName();
         ClientType type = rdsInstanceInfo.getType();
@@ -101,7 +101,6 @@ public class RDSInstanceManager extends ServiceImpl<RDSInstanceMapper, RdsInstan
         String exceptions = StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypes);
         RdsInstanceDO rdsInstanceDO = new RdsInstanceDO();
         rdsInstanceDO.setInstanceId(id);
-        rdsInstanceDO.setName(name);
         rdsInstanceDO.setSize(size);
         rdsInstanceDO.setPreoccupationSize(preoccupationSizeByte);
         rdsInstanceDO.setExceptions(exceptions);
@@ -115,6 +114,7 @@ public class RDSInstanceManager extends ServiceImpl<RDSInstanceMapper, RdsInstan
             FaultSimple faultSimple = new FaultSimple();
             faultSimple.setClientType(ClientType.RdsInstance);
             faultSimple.setFaultTypes(faultTypes);
+            faultList.add(faultSimple);
         }
         return faultList;
     }

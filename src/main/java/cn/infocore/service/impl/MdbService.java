@@ -33,21 +33,20 @@ public class MdbService {
             Long size = metaBackupInfo.getSize();
             MdbBackupDO mdbBackupDO = new MdbBackupDO();
             mdbBackupDO.setSize(size);
-            List<FaultType> faults =  metaInfo.getStatusList();
+            List<FaultType> faults = metaInfo.getStatusList();
             StringBuilder sb = new StringBuilder();
             for (FaultType fault : faults) {
-                int code =  fault.getNumber();
+                int code = fault.getNumber();
                 sb.append(code).append(";");
             }
             mdbBackupDO.setExceptions(sb.toString());
             metaBackupManager.updateByRealId(id, mdbBackupDO);
-
         }
-
     }
-    public List<FaultSimple> updateMetaClientList(List<MetaInfo> metaClientsList){
-        List<FaultSimple> faultSimpleList=new LinkedList<>();
-        for(MetaInfo metaInfo:metaClientsList){
+
+    public List<FaultSimple> updateMetaClientList(List<MetaInfo> metaClientsList) {
+        List<FaultSimple> faultSimpleList = new LinkedList<>();
+        for (MetaInfo metaInfo : metaClientsList) {
             faultSimpleList.addAll(updateMetaClient(metaInfo));
         }
         return faultSimpleList;
@@ -59,33 +58,31 @@ public class MdbService {
         String name = metaInfo.getName();
         List<FaultType> faultTypes = metaInfo.getStatusList();
         List<MetaBackupInfo> backupListList = metaInfo.getBackupListList();
-        List<FaultSimple> MetaBackupFaultSimpleList = metaBackupManager.updateList( backupListList);
+        List<FaultSimple> MetaBackupFaultSimpleList = metaBackupManager.updateList(backupListList);
 
         MdbDO mdbDO = new MdbDO();
         mdbDO.setExceptions(StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypes));
 
 
-        List<FaultSimple>  faultsList = listFaults(faultTypes);
-        List<String>  userIdList = metaManager.getMetaUserIdsById(id);
-
+        List<FaultSimple> faultsList = listFaults(faultTypes);
+        List<String> userIdList = metaManager.getMetaUserIdsById(id);
+        faultsList.addAll(MetaBackupFaultSimpleList);
         for (FaultSimple faultSimple : faultsList) {
             faultSimple.setTargetId(id);
             faultSimple.setTargetName(name);
-        }
-
-        faultsList.addAll( MetaBackupFaultSimpleList);
-
-        for (FaultSimple faultSimple : faultsList) {
             faultSimple.setUserIds(userIdList);
         }
+
+        faultsList.addAll(MetaBackupFaultSimpleList);
+
         return faultsList;
     }
 
 
-    List<FaultSimple>  listFaults(List<FaultType> faultTypes){
-        LinkedList<FaultSimple> faultList =  new LinkedList<FaultSimple>();
-        if (faultTypes!= null) {
-            FaultSimple faultSimple =  new FaultSimple();
+    List<FaultSimple> listFaults(List<FaultType> faultTypes) {
+        LinkedList<FaultSimple> faultList = new LinkedList<FaultSimple>();
+        if (faultTypes != null) {
+            FaultSimple faultSimple = new FaultSimple();
             faultSimple.setClientType(ClientType.MetaDB);
             faultSimple.setFaultTypes(faultTypes);
             faultList.add(faultSimple);
