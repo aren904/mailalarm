@@ -47,9 +47,8 @@ public class MySnmpCache {
 				} catch (Exception e) {
 					// ignore
 				}
-
 			} else {
-				logger.info("snmp is not set");
+				logger.info("snmp dose not set");
 			}
 		}
 		return this;

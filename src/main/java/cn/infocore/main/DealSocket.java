@@ -53,7 +53,7 @@ public class DealSocket implements Runnable {
             ioret = in.read(h, 0, Header.STREAMER_HEADER_LENGTH);
             logger.debug(ioret);
             if (ioret != Header.STREAMER_HEADER_LENGTH) {
-                logger.error(Utils.fmt("Failed to received header,[%d] byte(s) expected,but [%d] is received.",
+                logger.error(Utils.fmt("Failed to receive header,[%d] byte(s) expected,but [%d] is received.",
                         Header.STREAMER_HEADER_LENGTH, ioret));
                 Header header = getHeaderObj();
                 byte[] resp = header.toByteArray();

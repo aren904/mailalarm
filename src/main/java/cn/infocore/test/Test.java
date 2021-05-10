@@ -1,4 +1,4 @@
-package cn.infocore.main;
+package cn.infocore.test;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -245,7 +245,7 @@ public class Test {
         byte[] requestBuffer = get.build().toByteArray();
 
         try {
-            //创建Socket对象
+            //创建Socket对象,ip为mailalarm服务所在ip，端口23335
             Socket socket = new Socket("192.168.13.130", 23335);
 
             //根据输入输出流和服务端连接

@@ -10,6 +10,7 @@ cn\infocore\protobuf\StmStreamerDrManage$MetaInfo$Builder.class
 cn\infocore\protobuf\StmStreamerDrManage$RdsInfo.class
 cn\infocore\dao\Cs_Endpoint.class
 cn\infocore\main\MailMain.class
+cn\infocore\SnmpV3Sender\ANP.class
 cn\infocore\entity\Virtual_machine.class
 cn\infocore\main\DataArkList.class
 cn\infocore\manager\AlarmLogManager.class
@@ -35,6 +36,7 @@ cn\infocore\transfer\WorkEventGroup.class
 cn\infocore\service\OssService.class
 cn\infocore\protobuf\StmStreamerDrManage$RdsInfo$Builder.class
 cn\infocore\protobuf\StmStreamerDrManage$Vmware$1.class
+cn\infocore\service\impl\SnmpServiceImpl.class
 cn\infocore\manager\RdsManager.class
 cn\infocore\manager\RDSInstanceManager.class
 cn\infocore\protobuf\CloudManagerAlarm$SnmpAuthenticationProtocol$1.class
@@ -49,7 +51,9 @@ cn\infocore\handler\DataArkHandler.class
 cn\infocore\handler\ExecptHandler.class
 cn\infocore\main\ThreadScanPoolService.class
 cn\infocore\protobuf\StmStreamerDrManage$OssInfo$1.class
+cn\infocore\SnmpV3Sender\AP.class
 cn\infocore\entity\MySnmp.class
+cn\infocore\SnmpV3Sender\NaNp.class
 cn\infocore\protobuf\CloudManagerAlarm$Exception$1.class
 cn\infocore\protobuf\StmStreamerDrManage$MetaInfoOrBuilder.class
 cn\infocore\protobuf\CloudManagerAlarm$VerifyEmailAlarmRequestOrBuilder.class
@@ -130,11 +134,13 @@ cn\infocore\manager\EcsInstanceManager.class
 cn\infocore\manager\OssObjectSetManager.class
 cn\infocore\protobuf\CloudManagerAlarm$AddDataArkRequest.class
 cn\infocore\utils\Utils.class
+cn\infocore\dao\SnmpDao.class
 cn\infocore\protobuf\CloudManagerAlarm$AddDataArkRequest$1.class
 cn\infocore\service\impl\EcsService.class
 cn\infocore\manager\MetaBackupManager.class
 cn\infocore\protobuf\CloudManagerAlarm$Command$1.class
 cn\infocore\protobuf\CloudManagerAlarm$SnmpPrivacyProtocol.class
+cn\infocore\service\SnmpService.class
 cn\infocore\protobuf\CloudManagerAlarm$UpdateEmailAlarmRequest$1.class
 cn\infocore\entity\DisasterRdsInstance.class
 cn\infocore\dao\EcsInstanceMapper.class
@@ -154,6 +160,7 @@ cn\infocore\mail\MailSender.class
 cn\infocore\main\HeartCache$HeartCacheHolder.class
 cn\infocore\config\MyBatisConfig.class
 cn\infocore\utils\MyDataSource.class
+cn\infocore\main\MultiThreadedTrapReceiver.class
 cn\infocore\protobuf\StmStreamerDrManage$RdsInstanceInfo$1.class
 cn\infocore\protobuf\CloudManagerAlarm$UpdateEmailAlarmRequestOrBuilder.class
 cn\infocore\protobuf\StmStreamerDrManage$RdsInstanceInfo.class

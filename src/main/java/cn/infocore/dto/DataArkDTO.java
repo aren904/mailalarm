@@ -42,7 +42,6 @@ public class DataArkDTO {
     long ecsUsed;
     long rdsUsed;
     long ossUsed;
-    
     long metaUsed;
     
     
