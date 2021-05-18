@@ -9,27 +9,31 @@ public class Fault {
 	//异常类型
 	private int type;
 	//数据方舟id
-	private String data_ark_id;
+	private String data_ark_uuid;
 	//数据方舟名字
 	private String data_ark_name;
 	//数据方舟ip
 	private String data_ark_ip;
 	//数据方舟名或客户端名或vc或虚拟机
-	private String target;
+	private String target_name;
 	
 	//所属用户名
-	private String user_id;
+	private String user_uuid;
 	//2019年3月11日18:04:13 朱伟添加
 	private Integer Client_type;//0 数据方舟 1.客户端 2.VC 3.虚拟机
 	//客户端ID //2019年3月11日18:04:13 朱伟添加
 	private String Client_id;
-	
-	public String getUser_id() {
-		return user_id;
+
+	private String target_uuid;
+
+	public String getTarget_uuid() {
+		return target_uuid;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+
+	public void setTarget_uuid(String target_uuid) {
+		this.target_uuid = target_uuid;
 	}
+
 	public long getTimestamp() {
 		return timestamp;
 	}
@@ -42,12 +46,31 @@ public class Fault {
 	public void setType(int type) {
 		this.type = type;
 	}
-	public String getData_ark_id() {
-		return data_ark_id;
+
+	public String getData_ark_uuid() {
+		return data_ark_uuid;
 	}
-	public void setData_ark_id(String data_ark_id) {
-		this.data_ark_id = data_ark_id;
+
+	public void setData_ark_uuid(String data_ark_uuid) {
+		this.data_ark_uuid = data_ark_uuid;
 	}
+
+	public String getTarget_name() {
+		return target_name;
+	}
+
+	public void setTarget_name(String target_name) {
+		this.target_name = target_name;
+	}
+
+	public String getUser_uuid() {
+		return user_uuid;
+	}
+
+	public void setUser_uuid(String user_uuid) {
+		this.user_uuid = user_uuid;
+	}
+
 	public String getData_ark_name() {
 		return data_ark_name;
 	}
@@ -60,25 +83,15 @@ public class Fault {
 	public void setData_ark_ip(String data_ark_ip) {
 		this.data_ark_ip = data_ark_ip;
 	}
-	public String getTarget() {
-		return target;
-	}
-	public void setTarget(String target) {
-		this.target = target;
-	}
-
 	public Integer getClient_type() {
 		return Client_type;
 	}
-
 	public void setClient_type(Integer client_type) {
 		Client_type = client_type;
 	}
-
 	public String getClient_id() {
 		return Client_id;
 	}
-
 	public void setClient_id(String client_id) {
 		Client_id = client_id;
 	}

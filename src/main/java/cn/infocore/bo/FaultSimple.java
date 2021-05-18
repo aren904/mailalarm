@@ -16,13 +16,13 @@ public class FaultSimple {
     
     volatile boolean done = false;
     
-    String dataArkId;
+    String dataArkUuid;
     
     String dataArkIp;
     
     String dataArkName;
     
-    String targetId;
+    String targetUuid;
     
     String targetName;
     
@@ -30,7 +30,7 @@ public class FaultSimple {
     
     Collection<FaultType> faultTypes;
     
-    List<String> userIds;
+    List<String> userUuids;
     
     Long timestamp;
     

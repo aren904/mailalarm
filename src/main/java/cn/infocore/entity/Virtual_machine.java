@@ -3,7 +3,19 @@ package cn.infocore.entity;
 import java.util.List;
 
 public class Virtual_machine {
-	private String id;
+
+
+		private String id;
+	private String uuid;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	private String name;
 	private String path;
 	private String except;
@@ -46,9 +58,9 @@ public class Virtual_machine {
 		this.system_Version = system_Version;
 	}
 
-	public String getId() {
-		return id;
-	}
+//	public String getId() {
+//		return id;
+//	}
 
 	public String getPath() {
 		return path;
@@ -58,9 +70,9 @@ public class Virtual_machine {
 		this.path = path;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
+//	public void setId(String id) {
+//		this.id = id;
+//	}
 
 	public String getName() {
 		return name;
@@ -100,6 +112,14 @@ public class Virtual_machine {
 
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 }

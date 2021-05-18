@@ -19,10 +19,10 @@ public class DataArkHandler implements ResultSetHandler<DataArkDTO>{
 				data_ark=new DataArkDTO();
 				data_ark.setName(rs.getString("name"));
 				data_ark.setIp(rs.getString("ip"));
-				builder.append(rs.getString("user_id"));
+				builder.append(rs.getString("user_uuid"));
 			}else{
 				builder.append(";");
-				builder.append(rs.getString("user_id"));
+				builder.append(rs.getString("user_uuid"));
 			}
 			i++;
 		}
@@ -31,7 +31,7 @@ public class DataArkHandler implements ResultSetHandler<DataArkDTO>{
 		
 		
 		if(data_ark!=null){
-            data_ark.setUser_id(builder.toString());
+            data_ark.setUser_uuid(builder.toString());
         }
 		return data_ark;
 

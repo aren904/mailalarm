@@ -105,10 +105,11 @@ public class ThreadScanStreamer implements Runnable {
 			Fault fault = new Fault();
 			fault.setTimestamp(now);
 			fault.setType(10);
-			fault.setData_ark_id(uuid);
+			fault.setData_ark_uuid(uuid);
 			fault.setClient_type(0);
 			sql = "select d.name,d.ip,q.user_id from data_ark as d,quota as q where d.id=q.data_ark_id and q.data_ark_id=?";
-			String sql1 = "select name,user_id,ip from data_ark where id=?";
+//			String sql1 = "select name,user_id,ip from data_ark where id=?";
+			String sql1 = "select name,user_uuid,ip from data_ark where uuid=?";
 			Object[] param1 = { uuid };
 			try {
 				DataArkDTO data_ark = qr.query(sql, new DataArkHandler(), param1);
@@ -120,17 +121,17 @@ public class ThreadScanStreamer implements Runnable {
 				if (data_ark == null) {
 					fault.setData_ark_name("null");
 					fault.setData_ark_ip("null");
-					fault.setTarget("null");
-					fault.setUser_id("null");
+					fault.setTarget_name("null");
+					fault.setUser_uuid("null");
 					fault.setClient_id("null");
-					fault.setData_ark_id("null");
+					fault.setData_ark_uuid("null");
 				} else {
 					fault.setData_ark_name(data_ark.getName());
 					fault.setData_ark_ip(data_ark.getIp());
-					fault.setTarget(data_ark.getName());
-					fault.setUser_id(data_ark.getUser_id());
+					fault.setTarget_name(data_ark.getName());
+					fault.setUser_uuid(data_ark.getUser_uuid());
 					fault.setClient_id(uuid); // add by wxx
-					fault.setData_ark_id(uuid);
+					fault.setData_ark_uuid(uuid);
 				}
 
 				data_ark_fault_list.add(fault);
@@ -156,8 +157,8 @@ public class ThreadScanStreamer implements Runnable {
 	private static void updateStreamerStatus(String uuid, boolean online, QueryRunner qr) {
 		String sql;
 		// 更新数据库数据方舟的状态
-		sql = "update data_ark set exceptions=? where id=?";
-
+//		sql = "update data_ark set exceptions=? where id=?";
+		sql = "update data_ark set exceptions=? where uuid=?";
 		Object[] param = { online ? "0" : "10", uuid };
 		try {
 			qr.update(sql, param);
@@ -167,7 +168,8 @@ public class ThreadScanStreamer implements Runnable {
 	}
 
 	private static List<String> getExceptionDb(String uuid, QueryRunner qr) {
-		String selectsql = "select `exceptions` from data_ark where id=?";
+//		String selectsql = "select `exceptions` from data_ark where id=?";
+		String selectsql = "select `exceptions` from data_ark where uuid=?";
 		Object[] parm0 = { uuid };
 
 		try {

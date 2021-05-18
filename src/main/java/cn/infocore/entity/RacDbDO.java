@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 @Data
 @TableName("rac_db")
 public class RacDbDO {
-    
+
     @TableField(value = "id")
     Integer id;
     @TableField(value = "db_id")
@@ -25,5 +25,5 @@ public class RacDbDO {
     Long drSize;
     @TableField(value = "data_ark_dr_id")
     Integer dataArkDrId;
-    
+
 }

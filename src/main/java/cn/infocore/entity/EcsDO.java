@@ -32,6 +32,6 @@ public class EcsDO {
     String ossSk;
     @TableField("oss_bucket")
     String ossBucket;
-    
-    
+
+
 }

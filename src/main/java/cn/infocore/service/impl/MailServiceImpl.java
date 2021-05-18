@@ -44,8 +44,11 @@ public class MailServiceImpl implements MailService {
         // 初始的时候，先从数据库中获取一次
         logger.info("Start to collect mail config from database.");
         QueryRunner qr = MyDataSource.getQueryRunner();
+//        String sql = "select user_uuid,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,sender_password,smtp_address,"
+//                + "smtp_port,smtp_authentication,smtp_user_id,smtp_password,ssl_encrypt,receiver_emails,privilege_level "
+//                + "from email_alarm,user where email_alarm.user_id=user.id";
         String sql = "select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,sender_password,smtp_address,"
-                + "smtp_port,smtp_authentication,smtp_user_id,smtp_password,ssl_encrypt,receiver_emails,privilege_level "
+                + "smtp_port,smtp_auth_enabled,smtp_user_uuid,smtp_password,ssl_encrypt_enabled,receiver_emails,role "
                 + "from email_alarm,user where email_alarm.user_id=user.id";
         List<Email_alarm> eList = null;
         try {
@@ -57,10 +60,10 @@ public class MailServiceImpl implements MailService {
                         continue;
                     }
                     MailSender sender = new MailSender(eAlarm);
-                    if (eAlarm.getPrivilege_level() < 2) {
-                        this.adminSenderMap.put(eAlarm.getUser_id(), sender);
+                    if (eAlarm.getRole() < 2) {
+                        this.adminSenderMap.put(eAlarm.getUser_uuid(), sender);
                     }
-                    this.normalSenderMap.put(eAlarm.getUser_id(), sender);
+                    this.normalSenderMap.put(eAlarm.getUser_uuid(), sender);
 
                 }
                 logger.info("Collected mail config finished.");
@@ -87,10 +90,10 @@ public class MailServiceImpl implements MailService {
     public void addAllMailService(List<Email_alarm> l) {
         for (Email_alarm email_alarm : l) {
             MailSender sender = new MailSender(email_alarm);
-            if (email_alarm.getPrivilege_level() < 2) {
-                this.adminSenderMap.put(email_alarm.getUser_id(), sender);
+            if (email_alarm.getRole() < 2) {
+                this.adminSenderMap.put(email_alarm.getUser_uuid(), sender);
             }
-            this.normalSenderMap.put(email_alarm.getUser_id(), sender);
+            this.normalSenderMap.put(email_alarm.getUser_uuid(), sender);
         }
 
     }
@@ -100,8 +103,12 @@ public class MailServiceImpl implements MailService {
     public void addMailService(String name) {
         // 通过查数据库，添加到本地，自己构造MailSender对象
         // 初始的时候，先从数据库中获取一次
+//        String sql = "select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,sender_password,smtp_address,"
+//                + "smtp_port,smtp_authentication,smtp_user_id,smtp_password,ssl_encrypt,receiver_emails,privilege_level "
+//                + "from email_alarm,user where email_alarm.user_id=user.id and email_alarm.user_id=?";
+
         String sql = "select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,sender_password,smtp_address,"
-                + "smtp_port,smtp_authentication,smtp_user_id,smtp_password,ssl_encrypt,receiver_emails,privilege_level "
+                + "smtp_port,smtp_authentication,smtp_user_id,smtp_password,ssl_encrypt,receiver_emails,role "
                 + "from email_alarm,user where email_alarm.user_id=user.id and email_alarm.user_id=?";
         QueryRunner qr = MyDataSource.getQueryRunner();
         Object[] para = { name };
@@ -116,8 +123,8 @@ public class MailServiceImpl implements MailService {
                     continue;
                 }
                 MailSender sender = new MailSender(email_alarm);
-                if (email_alarm.getPrivilege_level() < 2) {
-                    this.adminSenderMap.put(email_alarm.getUser_id(), sender);
+                if (email_alarm.getRole() < 2) {
+                    this.adminSenderMap.put(email_alarm.getUser_uuid(), sender);
                 }
                 this.normalSenderMap.put(name, sender);
             }
@@ -137,6 +144,11 @@ public class MailServiceImpl implements MailService {
         if (this.adminSenderMap.containsKey(name)) {
             this.adminSenderMap.remove(name);
         }
+
+    }
+
+    @Override
+    public void updateMailService(String name, Email_alarm sender) {
 
     }
 
@@ -353,7 +365,7 @@ public class MailServiceImpl implements MailService {
             sql = "select count(*) from vcenter_vm inner join vcenter on  vcenter.id= vcenter_vm.vcenter_id and vcenter.user_id=? and vcenter.data_ark_id= ? and vcenter_vm.id=?  ";
 
         }
-        Object[] param1 = { user, fault.getData_ark_id(), fault.getClient_id() };
+        Object[] param1 = { user, fault.getData_ark_uuid(), fault.getClient_id() };
         try {
             Long count = qclent.query(sql, new ScalarHandler<Long>(), param1);
             return count;
@@ -364,10 +376,10 @@ public class MailServiceImpl implements MailService {
         return null;
     }
 
-    public void updateMailService(String name, Email_alarm sender) {
-        // 同理，查询数据库，更新
-        // this.list.put(name, sender);
-    }
+//    public void updateMailService(String name, Email_alarm sender) {
+//        // 同理，查询数据库，更新
+//        // this.list.put(name, sender);
+//    }
 
     @Override
     public void notifyCenter(DataArkDTO data_ark, List<Client_> clientList, List<Vcenter> vcList, List<Virtual_machine> vmList, List<Fault> list_fault) throws SQLException {
@@ -376,15 +388,15 @@ public class MailServiceImpl implements MailService {
 
         for (Fault fault : list_fault) {
             try {
-                logger.info("-----------Userid:" + fault.getUser_id() + ",faultType:" + fault.getType() + ",target:"
-                        + fault.getTarget() + ",data_ark ip:" + fault.getData_ark_ip() + ",client_id:"
+                logger.info("-----------Userid:" + fault.getUser_uuid() + ",faultType:" + fault.getType() + ",targetName:"
+                        + fault.getTarget_name() + ",data_ark ip:" + fault.getData_ark_ip() + ",client_id:"
                         + fault.getClient_id());
                 if (fault.getType() == ClientType.SINGLE_VALUE) {
                     // 1.confirm all alarm log for target.
                     //更新（异常信息不是虚拟机快照点创建失败的，离线建立快照点，VMWARE同步数据失败）告警日志数据方舟id，并且设置未处理，
-                    sql = "update alarm_log set processed=1 where data_ark_id=? and target_id=? and exception!=3 and exception!=25 and exception!=26";
+                    sql = "update alarm_log set processed=1 where data_ark_uuid=? and target_uuid=? and exception!=3 and exception!=25 and exception!=26";
 
-                    condition = new Object[] { fault.getData_ark_id(), fault.getClient_id() };
+                    condition = new Object[] { fault.getData_ark_uuid(), fault.getClient_id() };
                     // logger.error(fault.getUser_id()+" "+fault.getData_ark_id()+"
                     // "+fault.getTarget());
                 } else {
@@ -408,8 +420,8 @@ public class MailServiceImpl implements MailService {
                          * excepts=qr.query(sql, new ExecptHandler(), condition);
                          */
                         for (Client_ c : clientList) {
-                            if (fault.getData_ark_id().equals(c.getData_ark_id())
-                                    && fault.getClient_id().equals(c.getId())) {
+                            if (fault.getData_ark_uuid().equals(c.getData_ark_id())
+                                    && fault.getClient_id().equals(c.getUuid())) {
                                 excepts = c.getExcept();
                                 break;
                             }
@@ -421,16 +433,16 @@ public class MailServiceImpl implements MailService {
                          */
 
                         for (Vcenter vc : vcList) {
-                            if (fault.getData_ark_id().equals(vc.getData_ark_id())
-                                    && fault.getClient_id().equals(vc.getId())) {
+                            if (fault.getData_ark_uuid().equals(vc.getData_ark_id())
+                                    && fault.getClient_id().equals(vc.getUuid())) {
                                 excepts = vc.getExcep();
                                 break;
                             }
                         }
                     } else if (fault.getClient_type() == ClientType.RAC_VALUE) {
                         for (Virtual_machine vm : vmList) {
-                            if (fault.getData_ark_id().equals(vm.getData_ark_id())
-                                    && fault.getClient_id().equals(vm.getId())) {
+                            if (fault.getData_ark_uuid().equals(vm.getData_ark_id())
+                                    && fault.getClient_id().equals(vm.getUuid())) {
                                 excepts = vm.getExcept();
                                 break;
                             }
@@ -469,8 +481,8 @@ public class MailServiceImpl implements MailService {
 
                     // not confirm error
 
-                    sql = "select * from alarm_log where data_ark_id=? and binary target=? and target_id=? and processed=0";
-                    condition = new Object[] { fault.getData_ark_id(), fault.getTarget(), fault.getClient_id() };
+                    sql = "select * from alarm_log where data_ark_uuid=? and binary target_name=? and target_uuid=? and processed=0";
+                    condition = new Object[] { fault.getData_ark_uuid(), fault.getTarget_name(), fault.getClient_id() };
                     // db error
                     qr = MyDataSource.getQueryRunner();
                     List<Integer> dbErrors = qr.query(sql, new ColumnListHandler<Integer>("exception"), condition);
@@ -480,7 +492,7 @@ public class MailServiceImpl implements MailService {
                     logger.info("start to compare current and db errors.");
                     for (Integer type : dbErrors) {
                         if (!currentErrors.contains(String.valueOf(type))) {
-                            logger.info(fault.getUser_id() + "," + fault.getData_ark_ip()
+                            logger.info(fault.getUser_uuid() + "," + fault.getData_ark_ip()
                                     + " current not contains db,confirm it:" + type);
                             // 2.current not contains db,confirm it.
                             if (type == 3 || type == 25 || type == 26 || type == 31) {
@@ -490,10 +502,10 @@ public class MailServiceImpl implements MailService {
                                 // remove user id update TODO
                                 // sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and
                                 // target_id=? and exeception=?";
-                                sql = "update alarm_log set processed=1 where data_ark_id=? and target_id=? and exception=?";
+                                sql = "update alarm_log set processed=1 where data_ark_uuid=? and target_uuid=? and exception=?";
                                 // condition= new
                                 // Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id(),type};
-                                condition = new Object[] { fault.getData_ark_id(), fault.getClient_id(), type };
+                                condition = new Object[] { fault.getData_ark_uuid(), fault.getClient_id(), type };
                             }
                         }
                     }
@@ -501,19 +513,19 @@ public class MailServiceImpl implements MailService {
                     for (String type : currentErrors) {
 
                         if (!dbErrors.contains(Integer.parseInt(type)) && Integer.parseInt(type) != 0) { // insert error
-                            logger.info(fault.getUser_id() + "," + fault.getData_ark_ip() + " current is new,insert it:"
+                            logger.info(fault.getUser_uuid() + "," + fault.getData_ark_ip() + " current is new,insert it:"
                                     + type);
                             // 3.current is new,insert/update it.
 
-                            sql = "insert into alarm_log(timestamp,processed,exception,data_ark_id,data_ark_name,data_ark_ip,target_id,target,last_alarm_timestamp,user_id) values(?,?,?,?,?,?,?,?,?,?)";
+                            sql = "insert into alarm_log(timestamp,processed,exception,data_ark_uuid,data_ark_name,data_ark_ip,target_uuid,target_name,last_alarm_timestamp,user_uuid) values(?,?,?,?,?,?,?,?,?,?)";
                             condition = new Object[] { fault.getTimestamp(), 0L, fault.getType(),
-                                    fault.getData_ark_id(), fault.getData_ark_name(), fault.getData_ark_ip(),
-                                    fault.getClient_id(), fault.getTarget(), 0L, fault.getUser_id() };
+                                    fault.getData_ark_uuid(), fault.getData_ark_name(), fault.getData_ark_ip(),
+                                    fault.getClient_id(), fault.getTarget_name(), 0L, fault.getUser_uuid() };
                         } else if (dbErrors.contains(Integer.parseInt(type)) && (Integer.parseInt(type) == 3
                                 || Integer.parseInt(type) == 25 || Integer.parseInt(type) == 26)) {
                             // bug#777 ->update time for snapshot error
-                            sql = "update alarm_log set timestamp=? where data_ark_id=? and target_id=? and exception=? and processed=0";
-                            condition = new Object[] { fault.getTimestamp(), fault.getData_ark_id(),
+                            sql = "update alarm_log set timestamp=? where data_ark_uuid=? and target_uuid=? and exception=? and processed=0";
+                            condition = new Object[] { fault.getTimestamp(), fault.getData_ark_uuid(),
                                     fault.getClient_id(), type };
                         }
                     }
@@ -523,22 +535,19 @@ public class MailServiceImpl implements MailService {
                 qr.execute(sql, condition);
 
                 if (fault.getType() != 0) {
-                    /*
-                     * if(!this.list.containsKey(fault.getUser_id())){
-                     * logger.info(fault.getUser_id()+" not set email."); continue; }
-                     */
 
                     for (Map.Entry<String, MailSender> entry : this.normalSenderMap.entrySet()) {
                         String user = entry.getKey();
                         MailSender mailSender = entry.getValue();
                         // 判断是否属于管理员用户
                         Email_alarm conf = mailSender.getConfig();
-                        if (conf.getPrivilege_level() == 0 || conf.getPrivilege_level() == 1) {
+                        if (conf.getRole() == 0 || conf.getRole() == 1) {
                             mailSender.judge(fault, user);
                             logger.info(user + " admin or root user start judge...");
                         } else {
                             sql = "select * from quota where user_id=? and data_ark_id=?";
-                            Object[] param = { user, fault.getData_ark_id() };
+//                            Object[] param = { user, fault.getData_ark_uuid() };
+                            Object[] param = { user, fault.getData_ark_uuid() };
                             QueryRunner qRunner = MyDataSource.getQueryRunner();
                             List<Quota> quotas = qRunner.query(sql, new QuotaHandler(), param);
                             if (!quotas.isEmpty()) {
@@ -556,13 +565,13 @@ public class MailServiceImpl implements MailService {
                                 logger.info(user + " commom user start to judge...");
                             } else {
                                 logger.warn("email_alarm table has not user_id:" + user + " and data_ark_id:"
-                                        + fault.getData_ark_id());
+                                        + fault.getData_ark_uuid());
                             }
                         }
                     }
                 }
             } catch (Exception e) {
-                logger.error(fault.getUser_id() + ":" + e);
+                logger.error(fault.getUser_uuid() + ":" + e);
             }
         }
     }
@@ -576,7 +585,7 @@ public class MailServiceImpl implements MailService {
             List<Fault> faults = convertFaultSimple(faultSimple);
             for (Fault fault : faults) {
                 logger.debug("==========MAIL USER_:" + fault.toString());
-                String userId = fault.getUser_id();
+                String userId = fault.getUser_uuid();
                 MailSender sender = this.normalSenderMap.get(userId);
                 logger.debug("==========MAIL SENDER_:" + normalSenderMap.toString());
 
@@ -612,10 +621,10 @@ public class MailServiceImpl implements MailService {
 
         Collection<FaultType> faultTypes = faultSimple.getFaultTypes();
 
-        String dataArkId = faultSimple.getDataArkId();
+        String dataArkId = faultSimple.getDataArkUuid();
         String dataArkIp = faultSimple.getDataArkIp();
         String data_ark_name = faultSimple.getDataArkName();
-        String targetId = faultSimple.getTargetId();
+        String targetId = faultSimple.getTargetUuid();
         String targetName = faultSimple.getTargetName();
         long timestamp = faultSimple.getTimestamp();
         ClientType clientType = faultSimple.getClientType();
@@ -628,10 +637,10 @@ public class MailServiceImpl implements MailService {
             fault.setType(code);
             fault.setClient_id(targetId);
             fault.setClient_type(clientType.getNumber());
-            fault.setData_ark_id(dataArkId);
+            fault.setData_ark_uuid(dataArkId);
             fault.setData_ark_ip(dataArkIp);
             fault.setData_ark_name(data_ark_name);
-            fault.setTarget(targetName);
+            fault.setTarget_name(targetName);
 //            fault.setUser_id(StupidStringUtil.parseUserIdListToUserIdsString(userIds));
             fault.setTimestamp(timestamp);
             faults.add(fault);
@@ -643,13 +652,13 @@ public class MailServiceImpl implements MailService {
 
         Collection<FaultType> faultTypes = faultSimple.getFaultTypes();
 
-        String dataArkId = faultSimple.getDataArkId();
+        String dataArkId = faultSimple.getDataArkUuid();
         String dataArkIp = faultSimple.getDataArkIp();
         String data_ark_name = faultSimple.getDataArkName();
-        String targetId = faultSimple.getTargetId();
+        String targetId = faultSimple.getTargetUuid();
         String targetName = faultSimple.getTargetName();
         ClientType clientType = faultSimple.getClientType();
-        List<String> userIds = faultSimple.getUserIds();
+        List<String> userIds = faultSimple.getUserUuids();
         Long timestamp = faultSimple.getTimestamp();
         List<Fault> faults = new ArrayList<Fault>();
         for (FaultType faultType : faultTypes) {
@@ -659,11 +668,11 @@ public class MailServiceImpl implements MailService {
                 fault.setType(code);
                 fault.setClient_id(targetId);
                 fault.setClient_type(clientType.getNumber());
-                fault.setData_ark_id(dataArkId);
+                fault.setData_ark_uuid(dataArkId);
                 fault.setData_ark_ip(dataArkIp);
                 fault.setData_ark_name(data_ark_name);
-                fault.setTarget(targetName);
-                fault.setUser_id(userId);
+                fault.setTarget_name(targetName);
+                fault.setUser_uuid(userId);
                 fault.setTimestamp(timestamp);
                 faults.add(fault);
             }

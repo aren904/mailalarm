@@ -15,7 +15,8 @@ public class UUid_ipHandler implements ResultSetHandler<List<UUid_ip>>{
 		while(set.next()) {
 			UUid_ip uid_ip=new UUid_ip();
 			uid_ip.setIp(set.getString("ip"));
-			uid_ip.setUuid(set.getString("id"));
+//			uid_ip.setUuid(set.getString("id"));
+			uid_ip.setUuid(set.getString("uuid"));
 			uid_ips.add(uid_ip);
 		}
 		return uid_ips;

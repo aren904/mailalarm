@@ -1,5 +1,12 @@
 syntax = "proto2";
 
+package scmp.proto.alarm;
+
+/*
+ * NOTE:
+ *   DO NOT prefix the field name with has_
+ */
+
 /* common begin */
 
 /* enum begin */
@@ -483,33 +490,33 @@ enum ErrorCode {
 }
 
 enum Exception {
-    Exception_Normal = 0;                       // 正常
-    Exception_ClientLocalLost = 1;              // 备份异常—本地丢失
-    Exception_ClientTargetLost = 2;             // 备份异常—目标丢失
-    Exception_VmwareCreateSnapshotFailed = 3;   // VMware虚拟机任务计划快照点创建失败
-    Exception_VmwareCbtDrop = 4;                // CBT异常
-    Exception_ClientOffline = 5;                // 普通客户端离线
-    Exception_VcenterOffline = 6;               // vCenter离线
-    Exception_ClusterNodeExistOffline = 7;      // 集群节点部分离线
-    Exception_ClusterNodeAllOffline = 8;        // 集群节点全部离线
-    Exception_StreamerPoolDisabled = 9;         // 存储池异常
-    Exception_StreamerOffline = 10;             // Streamer服务器离线
-    Exception_ClientAutoExpandFailed = 11;      // 自动扩容失败
-    Exception_ClientSnapshotMergeFailed = 12;   // 快照合并失败
-    Exception_OracleStorageDrop = 13;           // Oracle备份空间异常
-    Exception_DisasterReplicationFailed = 14;   // 容灾复制失败
-    Exception_RacNodeExistOffline = 15;         // RAC节点存在离线
-    Exception_RacNodeAllOffline = 16;           // RAC节点全部离线
-    Exception_RacInstanceExistOffline = 17;     // RAC实例离线
-    Exception_RacInstanceAllOffline = 18;       // RAC实例全部离线
+    Exception_Normal = 0;  // 正常
+    Exception_ClientLocalLost = 1;  // 备份异常—本地丢失
+    Exception_ClientTargetLost = 2;  // 备份异常—目标丢失
+    Exception_VmwareCreateSnapshotFailed = 3;  // VMware虚拟机任务计划快照点创建失败
+    Exception_VmwareCbtDrop = 4;  // CBT异常
+    Exception_ClientOffline = 5;  // 普通客户端离线
+    Exception_VcenterOffline = 6;  // vCenter离线
+    Exception_ClusterNodeExistOffline = 7;  // 集群节点部分离线
+    Exception_ClusterNodeAllOffline = 8;  // 集群节点全部离线
+    Exception_StreamerPoolDisabled = 9;  // 存储池异常
+    Exception_StreamerOffline = 10;  // Streamer服务器离线
+    Exception_ClientAutoExpandFailed = 11;  // 自动扩容失败
+    Exception_ClientSnapshotMergeFailed = 12;  // 快照合并失败
+    Exception_OracleStorageDrop = 13;  // Oracle备份空间异常
+    Exception_DisasterReplicationFailed = 14;  // 容灾复制失败
+    Exception_RacNodeExistOffline = 15;  // RAC节点存在离线
+    Exception_RacNodeAllOffline = 16;  // RAC节点全部离线
+    Exception_RacInstanceExistOffline = 17;  // RAC实例离线
+    Exception_RacInstanceAllOffline = 18;  // RAC实例全部离线
     Exception_VmwareVirtualMachineOffline = 19;  // Vmware虚拟机离线
     Exception_ClientCreateSnapshotFailed = 20;  // 普通客户端创建快照点失败
-    Exception_RacCreateSnapshotFailed = 21;     // Rac客户端创建快照点失败
-    Exception_DisasterServerOffline = 22;       // 容灾服务离线
+    Exception_RacCreateSnapshotFailed = 21;  // Rac客户端创建快照点失败
+    Exception_DisasterServerOffline = 22;  // 容灾服务离线
     Exception_StreamerPoolExceededThreshold = 23;  // 存储池超过阈值
-    Exception_AixDiskOffline = 24;              // 映射给AIX的磁盘离线
-    Exception_VmwareInitMirrorFailed = 25;      // VMware同步数据失败
-    Exception_VmwareSnapshotSizeIsZero = 26;    // 在线虚拟机创建快照点数据异常
+    Exception_AixDiskOffline = 24;  // 映射给AIX的磁盘离线
+    Exception_VmwareInitMirrorFailed = 25;  // VMware同步数据失败
+    Exception_VmwareSnapshotSizeIsZero = 26;  // 在线虚拟机创建快照点数据异常
     Exception_FileSingleCreateSnapshotFailed = 27;  // 文件级备份客户端任务计划创建快照点失败
     Exception_FileSingleOffline = 28;  // 文件级备份客户端离线
     Exception_FileSingleLocalLost = 29;  // 文件级备份客户端异常-本地丢失
@@ -540,7 +547,9 @@ enum Exception {
     Exception_MetaBackupSpaceExceededThreshold = 54;  // 元数据库备份空间达到阈值
     Exception_MetaBackupDestLost = 55;  // 元数据库备份目标丢失，本地目录丢失
     Exception_MetaBackupSourceLost = 56;  // 元数据库备份源丢失
-    Exception_RdsBackupDestLost = 57; // RDS目标丢失，本地目录丢失
+    Exception_RdsBackupDestLost = 57;  // RDS目标丢失，本地目录丢失
+    Exception_OracleBackupSpaceExceededThreshold = 58;  // Oracle备份空间达到阈值
+    Exception_ClientInitMirrorFailed = 59; // 代理客户端同步数据失败
 }
 
 enum ClientType {
@@ -601,7 +610,6 @@ enum SnmpPrivacyProtocol {
 }
 
 enum Version {
-    option allow_alias = true;
     Version_Value = 6;
 }
 

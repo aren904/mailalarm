@@ -4,7 +4,7 @@
 package cn.infocore.protobuf;
 
 public final class StmStreamerDrManage {
-  private StmStreamerDrManage() {}
+  public StmStreamerDrManage() {}
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }

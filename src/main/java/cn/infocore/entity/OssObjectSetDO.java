@@ -8,44 +8,45 @@ import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
 @Data
-@TableName("oss_object_set")
+//@TableName("oss_object_set")
 public class OssObjectSetDO {
-    
-    @TableField(value = "id")
+
+//    @TableField(value = "id")
     Integer id;
-    
-    @TableField(value = "object_set_id")
+
+//    @TableField(value = "object_set_id")
     String objectSetId;
-    
-    @TableField(value = "oss_id")
+//    String Uuid;
+
+//    @TableField(value = "oss_id")
     Integer ossId;
-    
-    @TableField(value = "type")
+
+//    @TableField(value = "type")
     Integer type;
-    
-    @TableField(value = "name")
+
+//    @TableField(value = "name")
     String name;
-    
-    @TableField(value = "exceptions")
+
+//    @TableField(value = "exceptions")
     String exceptions;
-    
-    @TableField(value = "size")
+
+//    @TableField(value = "size")
     Long size;
-    
-    @TableField(value = "preoccupation_size")
+
+//    @TableField(value = "preoccupation_size")
     Long preoccupationSize;
-    
-    @TableField(value = "is_dr_enabled")
+
+//    @TableField(value = "is_dr_enabled")
     Integer drEnabled;
-    
-    @TableField(value = "dr_size")
+
+//    @TableField(value = "dr_size")
     Long drSize;
-    
-    @TableField(value = "preoccupation_dr_size")
+
+//    @TableField(value = "preoccupation_dr_size")
     Long preoccupationDrSize;
 
-    @TableField(value = "data_ark_dr_id")
+//    @TableField(value = "data_ark_dr_id")
     Long dataArkDrId;
 
-    
+
 }

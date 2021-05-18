@@ -4,14 +4,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 import cn.infocore.bo.FaultSimple;
-import cn.infocore.entity.MdbDO;
+import cn.infocore.entity.*;
+import cn.infocore.manager.CloudClientDeviceManager;
+import cn.infocore.manager.CloudClientManager;
 import cn.infocore.protobuf.StmStreamerDrManage;
 import cn.infocore.utils.StupidStringUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.infocore.entity.EcsDO;
-import cn.infocore.entity.EcsInstanceDO;
 import cn.infocore.manager.EcsInstanceManager;
 import cn.infocore.manager.EcsManager;
 import cn.infocore.protobuf.StmStreamerDrManage.EcsInfo;
@@ -28,38 +30,47 @@ public class EcsService {
     @Autowired
     EcsManager ecsManager;
 
-    public void updateEcsInfo(EcsInfo ecsInfo) {
-        List<EcsInstanceInfo> instanceInfos = ecsInfo.getInstanceListList();
+    @Autowired
+    CloudClientManager cloudClientManager;
 
-        String ecsId = ecsInfo.getId();
-        List<FaultType> faultsEcs = ecsInfo.getStatusList();
-        StringBuilder faultsEcsSB = new StringBuilder();
-        for (FaultType fault : faultsEcs) {
+    @Autowired
+    CloudClientDeviceManager cloudClientDeviceManager;
+
+    private static final org.apache.log4j.Logger logger = Logger.getLogger(EcsService.class);
+
+    public void ReUpdateEcsInfo(EcsInfo ecsInfo) {
+
+        String uuid = ecsInfo.getId();
+        String name = ecsInfo.getName();
+        ClientType type = ecsInfo.getType();
+        List<EcsInstanceInfo> EcsInstanceList = ecsInfo.getInstanceListList();
+        List<FaultType> ossFaultList = ecsInfo.getStatusList();
+        StringBuffer EcsFaultLists = new StringBuffer();
+        for (FaultType fault : ossFaultList) {
             int code = fault.getNumber();
-            faultsEcsSB.append(code).append(";");
+            EcsFaultLists.append(code).append(";");
         }
+        CloudDo cloudDo = new CloudDo();
+        Boolean isDr = CheckCloudIsDr(cloudDo);
+        if(isDr) {
+            cloudDo.setIsDr(1);
+        }else {
+            cloudDo.setIsDr(0);
+        }
+        cloudDo.setName(name);
+        cloudDo.setUuId(uuid);
+        cloudDo.setType(type.getNumber());
+        cloudDo.setExceptions( EcsFaultLists.toString());
 
-        EcsDO ecsDO = new EcsDO();
-        ecsDO.setEcsId(ecsId);
-        ecsDO.setExceptions(faultsEcsSB.toString());
-        ecsManager.updateByEcsId(ecsId, ecsDO);
-
-        for (EcsInstanceInfo ecsInstanceInfo : instanceInfos) {
-            String id = ecsInstanceInfo.getId();
-            Long size = ecsInstanceInfo.getSize();
-            List<FaultType> faults = ecsInstanceInfo.getStatusList();
-            StringBuilder sb = new StringBuilder();
-            for (FaultType fault : faults) {
-                int code = fault.getNumber();
-                sb.append(code).append(";");
+        //更新CloudDevice
+        cloudClientManager.updateCloudClient(uuid, cloudDo);
+        if (EcsInstanceList != null) {
+            for (EcsInstanceInfo ecsInstanceInfo :EcsInstanceList) {
+                CloudDeviceDo cloudDeviceDo = cloudClientDeviceManager.ReSetEcsCloudDevice(ecsInstanceInfo);
+                String objectSetId = cloudDeviceDo.getUuid();
+                cloudClientDeviceManager.updateObjectSetDo(cloudDeviceDo,objectSetId);
             }
-            EcsInstanceDO ecsInstanceDO = new EcsInstanceDO();
-            ecsInstanceDO.setSize(size);
-            ecsInstanceDO.setExceptions(sb.toString());
-            ecsInstanceManager.updateByInstanceId(id, ecsInstanceDO);
-
         }
-
     }
 
     public List<FaultSimple> updateEcsClientList(List<EcsInfo> ecsClientsList) {
@@ -77,23 +88,23 @@ public class EcsService {
         List<FaultType> faultTypes = ecsInfo.getStatusList();
         List<EcsInstanceInfo> instanceListList = ecsInfo.getInstanceListList();
         List<FaultSimple> EcsInstanceFaultSimpleList = ecsInstanceManager.updateList(instanceListList);
-
+        logger.info(EcsInstanceFaultSimpleList);
         EcsDO ecsDO = new EcsDO();
         ecsDO.setExceptions(StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypes));
 
         ecsManager.updateById(ecsDO);
         List<FaultSimple> faultsList = listFaults(faultTypes);
-        List<String> userIdList = ecsManager.getEcsUserIdsById(id);
-        faultsList.addAll(EcsInstanceFaultSimpleList);
+        List<String> userIdList = cloudClientManager.getUserIdByUuid(id);
+//        faultsList.addAll(EcsInstanceFaultSimpleList);
         for (FaultSimple faultSimple : faultsList) {
-            faultSimple.setTargetId(id);
+            faultSimple.setTargetUuid(id);
             faultSimple.setTargetName(name);
         }
 
         faultsList.addAll(EcsInstanceFaultSimpleList);
 
         for (FaultSimple faultSimple : faultsList) {
-            faultSimple.setUserIds(userIdList);
+            faultSimple.setUserUuids(userIdList);
         }
         return faultsList;
     }
@@ -110,5 +121,15 @@ public class EcsService {
         return faultList;
     }
 
+    public Boolean CheckCloudIsDr(CloudDo cloudDo){
+        LambdaQueryWrapper<CloudDo> cloudDoLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        cloudDoLambdaQueryWrapper.eq(CloudDo::getUuId, cloudDo.getUuId());
+        CloudDo cloudDo1 = cloudClientManager.getOne(cloudDoLambdaQueryWrapper);
+        if(cloudDo1!=null){
+            Integer isDr = cloudDo.getIsDr();
+            return isDr!=null&& isDr >0;
+        }
+        return false;
+    }
 
 }

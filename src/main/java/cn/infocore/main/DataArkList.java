@@ -21,7 +21,9 @@ public class DataArkList {
 	private DataArkList() {
 		logger.info("Init,Start get all data ark from database.");
 		//初始的时候，先从数据库中获取一次，写入缓存
-		String sql="select id,ip from data_ark";
+//		String sql="select id,ip from data_ark";
+//		String sql="select id,ip from data_ark";
+		String sql="select * from data_ark";
 		QueryRunner qr=MyDataSource.getQueryRunner();
 		List<UUid_ip> lIps=null;
 		try {

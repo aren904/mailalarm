@@ -7,23 +7,17 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.List;
 
-import cn.infocore.protobuf.CloudManagerAlarm;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 import cn.infocore.entity.Email_alarm;
 import cn.infocore.mail.MailSender;
 import cn.infocore.operator.InforHeader;
-import cn.infocore.protobuf.CloudManagerAlarm.AddDataArkRequest;
-import cn.infocore.protobuf.CloudManagerAlarm.CreateEmailAlarmRequest;
-import cn.infocore.protobuf.CloudManagerAlarm.ErrorCode;
-import cn.infocore.protobuf.CloudManagerAlarm.RemoveDataArkRequest;
-import cn.infocore.protobuf.CloudManagerAlarm.UpdateDataArkRequest;
-import cn.infocore.protobuf.CloudManagerAlarm.UpdateEmailAlarmRequest;
-import cn.infocore.protobuf.CloudManagerAlarm.VerifyEmailAlarmRequest;
+
 import cn.infocore.service.impl.MailServiceImpl;
 import cn.infocore.utils.MyDataSource;
 import cn.infocore.handler.StringHandler;
 import cn.infocore.utils.Utils;
+import scmp.proto.alarm.CloudManagerAlarm;
 
 public class DealInformation implements Runnable {
 	private static final Logger logger = Logger.getLogger(DealInformation.class);
@@ -52,7 +46,7 @@ public class DealInformation implements Runnable {
 						InforHeader.INFOR_HEADER_LENGTH, ioret));
 				return;
 			}
-		InforHeader myHeader = new InforHeader();
+			InforHeader myHeader = new InforHeader();
 			myHeader.parseByteArray(header);
 			logger.info("Successfully received heartbeat from Cloud Manager.");
 			dispatch(myHeader);
@@ -83,157 +77,170 @@ public class DealInformation implements Runnable {
 		try {
 			ioret=in.read(buffer, 0, buffer.length);
 		} catch (IOException e) {
-		    logger.error("read bytes failed");
+			logger.error("read bytes failed");
 			e.printStackTrace();
 		}
 		if (ioret!=buffer.length) {
-		    logger.error("check length failed info:"+buffer.length +"actual:"+ioret);
+			logger.error("check length failed info:"+buffer.length +"actual:"+ioret);
 			return;
 		}
 		int command=header.getCommand();
 		logger.info("dispatch code:"+command);
 		switch(command) {
-		case 205:
-			try {
-				AddDataArkRequest request=AddDataArkRequest.parseFrom(buffer);
-				addDataArk(request);
-				header.setErrorCode(0);
-			} catch (Exception e) {
-				logger.error(e);
-				header.setErrorCode(ErrorCode.ErrorCode_AddDataArkFailed_VALUE);
-			}finally {
-				byte[] resp=header.toByteArray();
+			case 205:
 				try {
-					out.write(resp, 0, resp.length);
-					logger.info("Successfully receive information.");
-				} catch (IOException e1) {
-					logger.error(e1);
+//					AddDataArkRequest request=AddDataArkRequest.parseFrom(buffer);
+//					scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest request = AddDataArkRequest.parseFrom(buffer);
+					CloudManagerAlarm.AddDataArkRequest request = CloudManagerAlarm.AddDataArkRequest.parseFrom(buffer);
+					addDataArk(request);
+					header.setErrorCode(0);
+				} catch (Exception e) {
+					logger.error(e);
+					header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_AddDataArkFailed_VALUE);
+				}finally {
+					byte[] resp=header.toByteArray();
+					try {
+						out.write(resp, 0, resp.length);
+						logger.info("Successfully receive information.");
+					} catch (IOException e1) {
+						logger.error(e1);
+					}
 				}
-			}
-			break;
-		case 206:
-			try {
-				RemoveDataArkRequest request = RemoveDataArkRequest.parseFrom(buffer);
-				removeDataArk(request);
-				header.setErrorCode(0);
-			} catch (Exception e) {
-				logger.error(e);
-				header.setErrorCode(ErrorCode.ErrorCode_RemoveDataArkFailed_VALUE);
-			}finally {
-				byte[] resp=header.toByteArray();
+				break;
+			case 206:
 				try {
-					out.write(resp, 0, resp.length);
-					logger.info("Successfully receive  information.");
-				} catch (IOException e1) {
-					logger.error(e1);
+//					RemoveDataArkRequest request = RemoveDataArkRequest.parseFrom(buffer);
+//					scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest request = RemoveDataArkRequest.parseFrom(buffer);
+					CloudManagerAlarm.RemoveDataArkRequest request = CloudManagerAlarm.RemoveDataArkRequest.parseFrom(buffer);
+					removeDataArk(request);
+					header.setErrorCode(0);
+				} catch (Exception e) {
+					logger.error(e);
+					header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_RemoveDataArkFailed_VALUE);
+				}finally {
+					byte[] resp=header.toByteArray();
+					try {
+						out.write(resp, 0, resp.length);
+						logger.info("Successfully receive  information.");
+					} catch (IOException e1) {
+						logger.error(e1);
+					}
 				}
-			}
-			break;
-			
-		case 207:
-			try {
-				UpdateDataArkRequest request=UpdateDataArkRequest.parseFrom(buffer);
-				updateDataArk(request);
-				header.setErrorCode(0);
-			} catch (Exception e) {
-				logger.error(e);
-				header.setErrorCode(ErrorCode.ErrorCode_UpdateDataArkFailed_VALUE);
-			}finally {
-				byte[] resp=header.toByteArray();
+				break;
+
+			case 207:
 				try {
-					out.write(resp, 0, resp.length);
-					logger.info("Successfully receive  information.");
-				} catch (IOException e1) {
-					logger.error(e1);
+//					UpdateDataArkRequest request=UpdateDataArkRequest.parseFrom(buffer);
+//					scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest request = UpdateDataArkRequest.parseFrom(buffer);
+					CloudManagerAlarm.UpdateDataArkRequest request = CloudManagerAlarm.UpdateDataArkRequest.parseFrom(buffer);
+//					updateDataArk(request);
+					updateDataArk(request);
+					header.setErrorCode(0);
+				} catch (Exception e) {
+					logger.error(e);
+					header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_UpdateDataArkFailed_VALUE);
+				}finally {
+					byte[] resp=header.toByteArray();
+					try {
+						out.write(resp, 0, resp.length);
+						logger.info("Successfully receive  information.");
+					} catch (IOException e1) {
+						logger.error(e1);
+					}
 				}
-			}
-			break;
-		case 502:
-			try {
-				CreateEmailAlarmRequest request = CreateEmailAlarmRequest.parseFrom(buffer);
-				createEmailAlarm(request);
-				header.setErrorCode(0);
-			} catch (Exception e) {
-				logger.error(e);
-				header.setErrorCode(ErrorCode.ErrorCode_CreateEmailAlarmFailed_VALUE);
-			}finally {
-				byte[] resp=header.toByteArray();
+				break;
+			case 502:
 				try {
-					out.write(resp, 0, resp.length);
-					logger.info("Successfully receive  information.");
-				} catch (IOException e1) {
-					logger.error(e1);
+//					CreateEmailAlarmRequest request = CreateEmailAlarmRequest.parseFrom(buffer);
+//					scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest request = CreateEmailAlarmRequest.parseFrom(buffer);
+					CloudManagerAlarm.CreateEmailAlarmRequest request = CloudManagerAlarm.CreateEmailAlarmRequest.parseFrom(buffer);
+					createEmailAlarm(request);
+					header.setErrorCode(0);
+				} catch (Exception e) {
+					logger.error(e);
+					header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_CreateEmailAlarmFailed_VALUE);
+				}finally {
+					byte[] resp=header.toByteArray();
+					try {
+						out.write(resp, 0, resp.length);
+						logger.info("Successfully receive  information.");
+					} catch (IOException e1) {
+						logger.error(e1);
+					}
 				}
-			}
-			break;
-		case 501:
-			try {
-				UpdateEmailAlarmRequest request= CloudManagerAlarm.UpdateEmailAlarmRequest.parseFrom(buffer);
-				updateEmailAlarm(request);
-				header.setErrorCode(0);
-			} catch (Exception e) {
-				logger.error(e);
-				header.setErrorCode(ErrorCode.ErrorCode_UpdateEmailAlarmFailed_VALUE);
-			}finally {
-				byte[] resp=header.toByteArray();
+				break;
+			case 501:
 				try {
-					out.write(resp, 0, resp.length);
-					logger.info("Successfully receive  information.");
-				} catch (IOException e1) {
-					logger.error(e1);
+//					UpdateEmailAlarmRequest request= CloudManagerAlarm.UpdateEmailAlarmRequest.parseFrom(buffer);
+//					scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest request = UpdateEmailAlarmRequest.parseFrom(buffer);
+					CloudManagerAlarm.UpdateEmailAlarmRequest request = CloudManagerAlarm.UpdateEmailAlarmRequest.parseFrom(buffer);
+					updateEmailAlarm(request);
+					header.setErrorCode(0);
+				} catch (Exception e) {
+					logger.error(e);
+					header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_UpdateEmailAlarmFailed_VALUE);
+				}finally {
+					byte[] resp=header.toByteArray();
+					try {
+						out.write(resp, 0, resp.length);
+						logger.info("Successfully receive  information.");
+					} catch (IOException e1) {
+						logger.error(e1);
+					}
 				}
-			}
-			break;
-		case 504:
-			try {
-			    logger.info("Start sending a test email");
-				VerifyEmailAlarmRequest request = VerifyEmailAlarmRequest.parseFrom(buffer);
-				boolean result = verifyEmailAlarm(request);
-				if (result) {
-				    header.setErrorCode(0);
-                }else {
-                    header.setErrorCode(10504); 
-                }
-				
-			} catch (Exception e) {
-				logger.error(e);
-				header.setErrorCode(ErrorCode.ErrorCode_VerifyEmailAlarmFailed_VALUE);
-			}finally {
-				byte[] resp=header.toByteArray();
+				break;
+			case 504:
 				try {
-					out.write(resp, 0, resp.length);
-					logger.info("Successfully receive  information.");
-				} catch (IOException e1) {
-					logger.error(e1);
+					logger.info("Start sending a test email");
+//					VerifyEmailAlarmRequest request = VerifyEmailAlarmRequest.parseFrom(buffer);
+//					scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest request = VerifyEmailAlarmRequest.parseFrom(buffer);
+					CloudManagerAlarm.VerifyEmailAlarmRequest request = CloudManagerAlarm.VerifyEmailAlarmRequest.parseFrom(buffer);
+					boolean result = verifyEmailAlarm(request);
+					if (result) {
+						header.setErrorCode(0);
+					}else {
+						header.setErrorCode(10504);
+					}
+
+				} catch (Exception e) {
+					logger.error(e);
+					header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_VerifyEmailAlarmFailed_VALUE);
+				}finally {
+					byte[] resp=header.toByteArray();
+					try {
+						out.write(resp, 0, resp.length);
+						logger.info("Successfully receive  information.");
+					} catch (IOException e1) {
+						logger.error(e1);
+					}
 				}
-			}
-			break;
-		case 506:
-			//add by wxx 2019/04/16,update snmp
-			try {
-				MySnmpCache.getInstance().updateMySnmp();
-				header.setErrorCode(0);
-			} catch (Exception e) {
-				logger.error(e);
-				header.setErrorCode(ErrorCode.ErrorCode_UpdateSnmpFailed_VALUE);
-			}finally {
-				byte[] resp=header.toByteArray();
+				break;
+			case 506:
+				//add by wxx 2019/04/16,update snmp
 				try {
-					logger.info("response info for updating MySnmp.");
-					out.write(resp, 0, resp.length);
-					logger.info("processed update MySnmp.");
-				} catch (IOException e1) {
-					logger.error(e1);
+					MySnmpCache.getInstance().updateMySnmp();
+					header.setErrorCode(0);
+				} catch (Exception e) {
+					logger.error(e);
+					header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_UpdateSnmpFailed_VALUE);
+				}finally {
+					byte[] resp=header.toByteArray();
+					try {
+						logger.info("response info for updating MySnmp.");
+						out.write(resp, 0, resp.length);
+						logger.info("processed update MySnmp.");
+					} catch (IOException e1) {
+						logger.error(e1);
+					}
 				}
-			}
-			break;
+				break;
 			default:logger.error("Unknown Operation Code:"+command);break;
 		}
-		
+
 	}
-	
+
 	// 添加数据方舟
-	private void addDataArk(AddDataArkRequest request){
+	private void addDataArk(CloudManagerAlarm.AddDataArkRequest request){
 		String uuid = request.getId();
 		logger.info("Need to add data ark id:" + uuid);
 		String ip = "";
@@ -254,7 +261,7 @@ public class DealInformation implements Runnable {
 	}
 
 	// 删除数据方舟
-	private void removeDataArk(RemoveDataArkRequest request){
+	private void removeDataArk(CloudManagerAlarm.RemoveDataArkRequest request){
 		String uuid = request.getId();
 		DataArkList.getInstance().removeDataArk(uuid);
 		//同时删除掉线的缓存
@@ -264,7 +271,7 @@ public class DealInformation implements Runnable {
 	}
 
 	// 更新数据方舟
-	private void updateDataArk(UpdateDataArkRequest request){
+	private void updateDataArk(CloudManagerAlarm.UpdateDataArkRequest request){
 		// 使用添加接口
 		DataArkList.getInstance().addDataArk(request.getId(), request.getId());
 		logger.info("Update data ark is successful.");
@@ -273,7 +280,7 @@ public class DealInformation implements Runnable {
 	}
 
 	// 添加邮件报警配置
-	private void createEmailAlarm(CreateEmailAlarmRequest request){
+	private void createEmailAlarm(CloudManagerAlarm.CreateEmailAlarmRequest request){
 		String name = request.getUserId();
 		MailServiceImpl.getInstance().addMailService(name);
 		logger.info("Add email alarm user is successful.");
@@ -282,7 +289,7 @@ public class DealInformation implements Runnable {
 	}
 
 	// 更新邮件报警配置,其实可以和上面同用一个接口
-	private void updateEmailAlarm(UpdateEmailAlarmRequest request){
+	private void updateEmailAlarm(CloudManagerAlarm.UpdateEmailAlarmRequest request){
 		String name = request.getUserId();
 		MailServiceImpl.getInstance().addMailService(name);
 		logger.info("Update email alarm user is successful.");
@@ -291,7 +298,7 @@ public class DealInformation implements Runnable {
 	}
 
 	// 测试邮件报警配置
-	private boolean verifyEmailAlarm(VerifyEmailAlarmRequest request) throws Exception{
+	private boolean verifyEmailAlarm(CloudManagerAlarm.VerifyEmailAlarmRequest request) throws Exception{
 		Email_alarm email = new Email_alarm();
 		email.setSender_email(request.getSenderEmail());
 		email.setSmtp_address(request.getSmtpAddress());

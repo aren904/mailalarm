@@ -72,7 +72,7 @@ public class MailSender {
     // 逻辑处理
     public void judge(Fault fault, String user) {
 
-        logger.info("----------Userid:" + user + ",exception:" + config.getExceptions() + ",fault type:" + fault.getType() + ",enabled:" + config.getEnabled() + ",target:" + fault.getTarget() + ",timestamp:" + fault.getTimestamp());
+        logger.info("----------Userid:" + user + ",exception:" + config.getExceptions() + ",fault type:" + fault.getType() + ",enabled:" + config.getEnabled() + ",targetName:" + fault.getTarget_name() + ",timestamp:" + fault.getTimestamp());
         if (config.getEnabled() == 0) {
             logger.info(user + " doesn't need send email,for config is not enabled.");
             return;
@@ -83,11 +83,11 @@ public class MailSender {
             // 如果该用户已经添加这个异常
             if (string.equals(Integer.toString(fault.getType()))) {
                 // 是否开启限制同一时间内只发送一封邮件
-                String key = user + fault.getData_ark_id() + fault.getTarget() + fault.getType();
+                String key = user + fault.getData_ark_uuid() + fault.getTarget_name() + fault.getType();
                 if (config.getLimit_enabled() == 0) {
                     // 未开启,直接发送异常邮件
                     try {
-                        logger.info(user + " not enabled limit,send email:" + fault.getTarget() + "," + fault.getType());
+                        logger.info(user + " not enabled limit,send email:" + fault.getTarget_name() + "," + fault.getType());
                         send(fault);
                     } catch (Exception e1) {
                         logger.error(user + ":" + e1);
@@ -101,7 +101,7 @@ public class MailSender {
                     if ((howOfen.get(key) == null || howOfen.get(key) + split <= now) && timedCache.get(key, false) == null) {
                         timedCache.put(key, key);
                         try {
-                            logger.info(user + " enabled limit,send email:" + fault.getTarget() + "," + fault.getType());
+                            logger.info(user + " enabled limit,send email:" + fault.getTarget_name() + "," + fault.getType());
                             send(fault);
                         } catch (Exception e1) {
                             logger.error(user + ":" + e1);
@@ -145,12 +145,12 @@ public class MailSender {
                 builder.append("尊敬的用户,您好:\n");
                 builder.append("\t数据方舟统一管理平台发现告警信息:");
                 builder.append(fault.getData_ark_name());
-                builder.append("(" + fault.getData_ark_ip() + ")" + fault.getTarget() + " " + Utils.getAlarmInformationType(fault.getType()) + "\n");
+                builder.append("(" + fault.getData_ark_ip() + ")" + fault.getTarget_name() + " " + Utils.getAlarmInformationType(fault.getType()) + "\n");
                 builder.append("\t告警等级:" + Utils.getAlarmInformationClass(fault.getType()) + "\n");
                 String time = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(fault.getTimestamp() * 1000);
                 builder.append("\t告警时间:" + time + "\n");
                 builder.append("\t对应数据方舟:" + fault.getData_ark_name() + "\n");
-                builder.append("\t对应告警对象:" + fault.getTarget() + "\n");
+                builder.append("\t对应告警对象:" + fault.getTarget_name() + "\n");
                 //builder.append("\t此致\n\t敬礼!\n\n");
             } else {
                 builder.append("这是一封来自数据方舟统一管理平台的测试邮件!");

@@ -16,6 +16,7 @@ public interface RDSService {
 //	List<Fault> getFault(DataArkDTO data_ark, List<RdsInfo> rdsInfoList);
 //
 //	List<RdsInstanceDO> getRDSInstanceListFromSource(DataArkDTO data_ark, List<RdsInfo> rdsInfoList);
+	void ReUpdateRdsClient(RdsInfo rdsClient);
 
 	List<FaultSimple> updateRdsInfoClientList(List<RdsInfo> rdsInfo);
 }

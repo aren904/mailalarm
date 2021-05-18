@@ -36,14 +36,14 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
 
 //        logger.warn("process log===");
 //        logger.warn(faultSimple.toString());
-        String targetId = faultSimple.getTargetId();
-        String dataArkId = faultSimple.getDataArkId();
+        String targetId = faultSimple.getTargetUuid();
+        String dataArkId = faultSimple.getDataArkUuid();
         String dataArkIp = faultSimple.getDataArkIp();
         String targetName = faultSimple.getTargetName();
         String dataArkName = faultSimple.getDataArkName();
         Collection<FaultType> faultTypes = faultSimple.getFaultTypes();
         Long timestamp = faultSimple.getTimestamp();
-        List<String> userIds = faultSimple.getUserIds();
+        List<String> userIds = faultSimple.getUserUuids();
 
         List<AlarmLogDO> currentLogs = getCurrentAlarmLogByDataArkIdAndTargetId(dataArkId, targetId);
         Set<Integer> exceptionSet = new HashSet<Integer>();
@@ -57,11 +57,11 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
             Integer code = faultType.getNumber();
             AlarmLogDO alarmLogDO = new AlarmLogDO();
             alarmLogDO.setDataArkName(dataArkName);
-            alarmLogDO.setDataArkId(dataArkId);
+            alarmLogDO.setDataArkUuid(dataArkId);
             alarmLogDO.setDataArkIp(dataArkIp);
-            alarmLogDO.setTargetId(targetId);
-            alarmLogDO.setTarget(targetName);
-            alarmLogDO.setUserId(userIdsString);
+            alarmLogDO.setTargetUuid(targetId);
+            alarmLogDO.setTargetName(targetName);
+            alarmLogDO.setUserUuid(userIdsString);
             alarmLogDO.setException(code);
             alarmLogDO.setTimestamp(timestamp);
             updateAlarmlog(alarmLogDO);
@@ -82,7 +82,7 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
         AlarmLogDO alarmLogDO = new AlarmLogDO();
         alarmLogDO.setProcessed(1);
         LambdaUpdateWrapper<AlarmLogDO> updateWrapper = new UpdateWrapper<AlarmLogDO>().lambda();
-        updateWrapper.eq(AlarmLogDO::getDataArkId, dataArkId).eq(AlarmLogDO::getTargetId, targetId)
+        updateWrapper.eq(AlarmLogDO::getDataArkUuid, dataArkId).eq(AlarmLogDO::getTargetUuid, targetId)
                 .eq(AlarmLogDO::getException, exception);
         this.update(alarmLogDO, updateWrapper);
 
@@ -90,7 +90,7 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
 
     List<AlarmLogDO> getCurrentAlarmLogByDataArkIdAndTargetId(String dataArkId, String targetId) {
         LambdaQueryWrapper<AlarmLogDO> lambdaQueryWrapper = new LambdaQueryWrapper<AlarmLogDO>();
-        lambdaQueryWrapper.eq(AlarmLogDO::getDataArkId, dataArkId).eq(AlarmLogDO::getTargetId, targetId);
+        lambdaQueryWrapper.eq(AlarmLogDO::getDataArkUuid, dataArkId).eq(AlarmLogDO::getTargetUuid, targetId);
         return this.list(lambdaQueryWrapper);
     }
 
@@ -99,7 +99,7 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
         if (alarmLogDO.getException() > 0) {
             LambdaQueryWrapper<AlarmLogDO> lambdaQueryWrapper = new LambdaQueryWrapper<AlarmLogDO>();
             Integer exception = alarmLogDO.getException();
-            lambdaQueryWrapper.eq(AlarmLogDO::getTargetId, alarmLogDO.getTargetId()).eq(AlarmLogDO::getException,
+            lambdaQueryWrapper.eq(AlarmLogDO::getTargetUuid, alarmLogDO.getTargetUuid()).eq(AlarmLogDO::getException,
                     exception);
             if (this.count(lambdaQueryWrapper) > 0) {
                 this.update(alarmLogDO, lambdaQueryWrapper);
@@ -123,22 +123,6 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
         return sb.toString();
     }
 
-//    public List<Integer> checkVmUncheckedException(String clientId) {
-//        LambdaQueryWrapper<AlarmLogDO> alarmLogDOLambdaQueryWrapper = new LambdaQueryWrapper<>();
-//        if (!StringUtils.isEmpty(clientId)) {
-//            alarmLogDOLambdaQueryWrapper.eq(AlarmLogDO::getTargetId, clientId).eq(AlarmLogDO::getProcessed, 0);
-//        }
-//        logger.debug(alarmLogMapper);
-//        List<AlarmLogDO> list = alarmLogMapper.selectList(alarmLogDOLambdaQueryWrapper);
-//        Integer exception = null;
-//        for (AlarmLogDO alarmLogDO : list) {
-//            exception = alarmLogDO.getException();
-//        }
-//        ArrayList<Integer> exceptions = new ArrayList<>();
-//        exceptions.add(exception);
-////        List<Integer> exceptions=new ArrayList<>();
-////        exceptions.add(333);
-//        return exceptions;
-//    }
+
 
 }

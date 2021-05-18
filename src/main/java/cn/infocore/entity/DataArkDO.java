@@ -1,6 +1,7 @@
 package cn.infocore.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import lombok.Data;
@@ -10,6 +11,7 @@ import lombok.experimental.Accessors;
 @TableName("data_ark")
 public class DataArkDO {
 
+//    @TableId
     @TableField(value = "id")
     String id;
     
@@ -18,9 +20,16 @@ public class DataArkDO {
     
     @TableField(value = "ip")
     String ip;
+
+    @TableField(value = "uuid")
+    String uuid;
+
     
     @TableField(value = "limit_client_count")
     Integer limitClientCount;
+
+    @TableField(value = "is_zombie")
+    Boolean isZombie;
     
     @TableField(value = "total_pool_size")
     Long totalPoolSize;
@@ -50,11 +59,11 @@ public class DataArkDO {
     @TableField(value = "used_ecs_space_size")
     Long usedEcsSpaceSize;
     
-    @TableField(value="used_metadatabase_space_size")
-    Long usedMetadatabaseSpaceSize;
+    @TableField(value="used_mdb_space_size")
+    Long usedMdbSpaceSize;
     
-    @TableField(value = "user_id")
-    String userId;
+    @TableField(value = "user_uuid")
+    String userUuid;
     
     @TableField(value = "user_password")
     String userPassword;
@@ -75,4 +84,6 @@ public class DataArkDO {
     @TableField(value = "oss_endpoint_updated_version")
     Integer ossEndpointUpdatedVersion;
 
+    @TableField(value = "ecs_endpoint_updated_version")
+    Integer ecsEndpointUpdatedVersion;
 }

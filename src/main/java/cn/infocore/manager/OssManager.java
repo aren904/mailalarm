@@ -14,16 +14,22 @@ import cn.infocore.entity.OssDO;
 @Component
 public class OssManager extends ServiceImpl<OssMapper, OssDO>{
 
-    
+
     public List<String>  getOssUserIdsById(String id){
         LambdaQueryWrapper<OssDO> lambdaQueryWrapper = new  LambdaQueryWrapper<OssDO>();
         lambdaQueryWrapper.eq(OssDO::getId,id );
         LinkedList<String> userIdList= new LinkedList<String>();
-        
+
         Collection<OssDO> ossDOs =  this.list(lambdaQueryWrapper);
         for (OssDO ossDO : ossDOs) {
             userIdList.add(ossDO.getUserId());
         }
         return userIdList;
+    }
+
+    public void updateOssClientByOssid(String ossId, OssDO ossDO){
+        LambdaQueryWrapper<OssDO> ossDOLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        ossDOLambdaQueryWrapper.eq(OssDO::getOssId,ossId);
+        this.baseMapper.update(ossDO,ossDOLambdaQueryWrapper);
     }
 }

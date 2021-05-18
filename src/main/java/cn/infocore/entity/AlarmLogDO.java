@@ -23,8 +23,8 @@ public class AlarmLogDO {
     @TableField("exception")
     Integer exception;
     
-    @TableField("data_ark_id")
-    String dataArkId;
+    @TableField("data_ark_uuid")
+    String dataArkUuid;
     
     @TableField("data_ark_name")
     String dataArkName;
@@ -32,16 +32,16 @@ public class AlarmLogDO {
     @TableField("data_ark_ip")
     String dataArkIp;
     
-    @TableField("target_id")
-    String targetId;
+    @TableField("target_uuid")
+    String targetUuid;
     
-    @TableField("target")
-    String target;
+    @TableField("target_name")
+    String targetName;
     
     @TableField("last_alarm_timestamp")
     Long lastAlarmTimestamp;
     
-    @TableField("user_id")
-    String userId;
+    @TableField("user_uuid")
+    String userUuid;
     
 }

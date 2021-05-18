@@ -7,11 +7,23 @@ import cn.infocore.entity.Fault;
 
 public class DataArkDTO {
     // 数据方舟id,就是Streamerid
+//    private String id;
     private String id;
+
+    private String uuid;
     // 数据方舟名称
     private String name;
     // 数据方舟ip
     private String ip;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
     // 总容量
     private long total_cap;
     // 已经使用了的容量
@@ -24,8 +36,40 @@ public class DataArkDTO {
 
     private List<Fault> faults;
 
+    long limitClientCount ;
+
+    long cloudVol;
+
+    long racUsed;
+
+    long ecsUsed;
+
+    long rdsUsed;
+
+    long ossUsed;
+
+    long metaUsed;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
+
+    public String getUser_uuid() {
+        return user_uuid;
+    }
+
+    public void setUser_uuid(String user_uuid) {
+        this.user_uuid = user_uuid;
+    }
+
     // 数据方舟的用户id
-    private String user_id;
+    private String user_uuid;
 
     // 数据方舟的用户密码
     private String user_password;
@@ -34,15 +78,7 @@ public class DataArkDTO {
     private int data_ark_group_id;
 
     private long total_rds_capacity;
-    long limitClientCount ;
-    
-    long cloudVol;
-    
-    long racUsed;
-    long ecsUsed;
-    long rdsUsed;
-    long ossUsed;
-    long metaUsed;
+
     
     
     
@@ -132,9 +168,6 @@ public class DataArkDTO {
         this.total_oracle_capacity = total_oracle_capacity;
     }
 
-    public String getId() {
-        return id;
-    }
 
     public List<Fault> getFaults() {
         return faults;
@@ -156,13 +189,13 @@ public class DataArkDTO {
         setExcept(string.toString());
     }
 
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
-    }
+//    public String getUser_id() {
+//        return user_id;
+//    }
+//
+//    public void setUser_id(String user_id) {
+//        this.user_id = user_id;
+//    }
 
     public String getUser_password() {
         return user_password;
@@ -172,9 +205,9 @@ public class DataArkDTO {
         this.user_password = user_password;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;

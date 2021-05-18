@@ -25,8 +25,17 @@ public class Email_alarm {
 	private String receiver_emails;
 	
 	//该发件人的权限等级： 1和0是管理员级别，普通用户是2，见user表
-	private int privilege_level;
-	
+//	private int privilege_level;
+	private int role;
+
+	public int getRole() {
+		return role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
+	}
+
 	//是否启用身份验证
 	private byte smtp_authentication;
 	
@@ -35,17 +44,25 @@ public class Email_alarm {
 	
 	//smtp password
 	private String smtp_password;
-	
+
+	public String getUser_uuid() {
+		return user_uuid;
+	}
+
+	public void setUser_uuid(String user_uuid) {
+		this.user_uuid = user_uuid;
+	}
+
 	//对应User的id字段，是外健
-	private String user_id;
+	private String user_uuid;
 
-	public int getPrivilege_level() {
-		return privilege_level;
-	}
-
-	public void setPrivilege_level(int privilege_level) {
-		this.privilege_level = privilege_level;
-	}
+//	public int getPrivilege_level() {
+//		return privilege_level;
+//	}
+//
+//	public void setPrivilege_level(int privilege_level) {
+//		this.privilege_level = privilege_level;
+//	}
 
 	public String getExceptions() {
 		return exceptions;
@@ -159,12 +176,5 @@ public class Email_alarm {
 		this.receiver_emails = receiver_emails;
 	}
 
-	public String getUser_id() {
-		return user_id;
-	}
 
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
-	
 }

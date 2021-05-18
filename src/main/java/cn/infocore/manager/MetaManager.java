@@ -19,7 +19,7 @@ public class MetaManager extends ServiceImpl<MdbMapper, MdbDO> {
 
     public List<String> getMetaUserIdsById(String id) {
         LambdaQueryWrapper<MdbDO> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(MdbDO::getId, id);
+        lambdaQueryWrapper.eq(MdbDO::getUuid, id);
         LinkedList<String> userIdList = new LinkedList<>();
 
         Collection<MdbDO> mdbDOS = this.list(lambdaQueryWrapper);
@@ -28,5 +28,12 @@ public class MetaManager extends ServiceImpl<MdbMapper, MdbDO> {
         }
 
         return userIdList;
+    }
+
+
+    public void updateMetaClientByMdbId(String mdbId,MdbDO mdbDO){
+        LambdaQueryWrapper<MdbDO> mdbDOLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        mdbDOLambdaQueryWrapper.eq(MdbDO::getUuid,mdbId);
+        this.update(mdbDO,mdbDOLambdaQueryWrapper);
     }
 }

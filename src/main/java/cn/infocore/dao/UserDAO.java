@@ -18,7 +18,8 @@ public class UserDAO {
 		QueryRunner q = MyDataSource.getQueryRunner();
 		Object[] param = new Object[] { vcId, data_ark_id };
 		String result = "";
-		String sql = "select user_id from vcenter where vcenter_id=? and data_ark_id=?";
+//		String sql = "select user_id from vcenter where vcenter_id=? and data_ark_id=?";
+		String sql = "select user_id from vcenter where uuid=? and data_ark_id=?";
 		try {
 			result = q.query(sql, new User_idHandler(), param);
 		} catch (SQLException e) {
