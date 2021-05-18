@@ -45,15 +45,15 @@ public class Test {
         s.setMetaUsed(0);
         get.setServer(s.build());
 
-//        List<Vcent> vcs = new ArrayList<>();
-//        Vcent.Builder vc = Vcent.newBuilder();
-//        vc.setVcName("VMware vCenter Server 5.5.0 build-2646482");
-//        vc.setVcIp("10.0.114.115");
-//        vc.setVcUuid("8CEA50E4-9871-417C-8C6B-4C76EE795D31");
-//        List<FaultType> fts = new ArrayList<>();
-//        fts.add(FaultType.NORMAL);
-//        vc.addAllVcentState(fts);
-//        vc.setType(ClientType.VC);
+        List<Vcent> vcs = new ArrayList<>();
+        Vcent.Builder vc = Vcent.newBuilder();
+        vc.setVcName("VMware vCenter Server 5.5.0 build-2646482");
+        vc.setVcIp("10.0.114.115");
+        vc.setVcUuid("8CEA50E4-9871-417C-8C6B-4C76EE795D31");
+        List<FaultType> fts = new ArrayList<>();
+        fts.add(FaultType.NORMAL);
+        vc.addAllVcentState(fts);
+        vc.setType(ClientType.VC);
         /**
          * required string id = 1;
          required string name = 2;
@@ -63,16 +63,16 @@ public class Test {
          required int32 System_Version =6;
          */
 
-        StmStreamerDrManage.Client.Builder builder = StmStreamerDrManage.Client.newBuilder();
-        builder.setName("z2y");
-        builder.setId("283");
-        builder.setIp("192.168.11.80");
-        builder.setType(ClientType.SINGLE);
-        List<FaultType> f11 = new ArrayList<>();
-        f11.add(FaultType.NORMAL);
-        builder.addAllClientState(f11);
-        builder.setSystemVersion("Centos Linux release 8.0.1905(core)");
-        get.addClients(builder);
+//        StmStreamerDrManage.Client.Builder builder = StmStreamerDrManage.Client.newBuilder();
+//        builder.setName("z2y");
+//        builder.setId("283");
+//        builder.setIp("192.168.11.80");
+//        builder.setType(ClientType.SINGLE);
+//        List<FaultType> f11 = new ArrayList<>();
+//        f11.add(FaultType.NORMAL);
+//        builder.addAllClientState(f11);
+//        builder.setSystemVersion("Centos Linux release 8.0.1905(core)");
+//        get.addClients(builder);
 
 //        StmStreamerDrManage.EcsInfo.Builder builder1 = StmStreamerDrManage.EcsInfo.newBuilder();
 //        builder1.setName("101");
@@ -93,25 +93,25 @@ public class Test {
 //        get.addEcsClients(builder1);
 //
         //RDS自测
-        StmStreamerDrManage.RdsInfo.Builder builder1 = StmStreamerDrManage.RdsInfo.newBuilder();
-        builder1.setName("101");
-        builder1.setUuid("6eed0467-409b-4426-b582-b1c5aa830e95");
-        builder1.setType(ClientType.Rds);
-        ArrayList<FaultType> f12 = new ArrayList<>();
-        f12.add(RDS_CLIENT_OFFLINE);
-        builder1.addAllStatus(f12);
-
-        StmStreamerDrManage.RdsInstanceInfo.Builder builder2=builder1.addInstanceListBuilder();
-        builder2.setName("test");
-        builder2.setUuid("a413067f-01b4-45b6-b8b7-624853b04085");
-        builder2.setType(ClientType.RdsInstance);
-        ArrayList<FaultType> list = new ArrayList<>();
-//        list.add(RDS_BACKUP_SERVICE_OFFLINE);
-        list.add(RDS_STORAGE_DROP);
-        builder2.addAllStatus(list);
-        builder2.setSize(0);
-        builder2.setPreoccupationSizeByte(0);
-        get.addRdsClients(builder1);
+//        StmStreamerDrManage.RdsInfo.Builder builder1 = StmStreamerDrManage.RdsInfo.newBuilder();
+//        builder1.setName("101");
+//        builder1.setUuid("6eed0467-409b-4426-b582-b1c5aa830e95");
+//        builder1.setType(ClientType.Rds);
+//        ArrayList<FaultType> f12 = new ArrayList<>();
+//        f12.add(RDS_CLIENT_OFFLINE);
+//        builder1.addAllStatus(f12);
+//
+//        StmStreamerDrManage.RdsInstanceInfo.Builder builder2=builder1.addInstanceListBuilder();
+//        builder2.setName("test");
+//        builder2.setUuid("a413067f-01b4-45b6-b8b7-624853b04085");
+//        builder2.setType(ClientType.RdsInstance);
+//        ArrayList<FaultType> list = new ArrayList<>();
+////        list.add(RDS_BACKUP_SERVICE_OFFLINE);
+//        list.add(RDS_STORAGE_DROP);
+//        builder2.addAllStatus(list);
+//        builder2.setSize(0);
+//        builder2.setPreoccupationSizeByte(0);
+//        get.addRdsClients(builder1);
 
         //测试oss
 //        StmStreamerDrManage.OssInfo.Builder builder1 = StmStreamerDrManage.OssInfo.newBuilder();
@@ -158,16 +158,16 @@ public class Test {
 //        get.addMetaClients(builder1);
 
 //        get.addMetaClients(builder1);
-//        Vmware.Builder vm1 = Vmware.newBuilder();
-//        vm1.setName("QYXY_APP_10.0.112.17");
-//        vm1.setId("50353408-e86c-2e48-6ae8-b125adb5721a");
-//        vm1.setPath("[1]c.VMware vCenter Server 5.5.0 build-2646482/[2]vCenter_PD_DMZ/[4]DMZ_Cluster_\\346\\211\\230\\347\\256\\241\\345\\214\\272/[3]10.0.114.127/[5]\\346\\250\\252\\347\\220\\264\\344\\274\\201\\344\\270\\232\\344\\277\\241\\346\\201\\257\\357\\274\\210\\344\\277\\241\\347\\224\\250\\347\\275\\221\\357\\274\\211");
-//        vm1.setSystemVersion(1);
-//        vm1.setType(ClientType.VMWARE);
-//        List<FaultType> f4 = new ArrayList<>();
-//        f4.add(FaultType.VMWARE_CREATE_SNAP_FAILED);
-//        vm1.addAllVmwareState(f4);
-//        vc.addClients(vm1);
+        Vmware.Builder vm1 = Vmware.newBuilder();
+        vm1.setName("QYXY_APP_10.0.112.17");
+        vm1.setId("50353408-e86c-2e48-6ae8-b125adb5721a");
+        vm1.setPath("[1]c.VMware vCenter Server 5.5.0 build-2646482/[2]vCenter_PD_DMZ/[4]DMZ_Cluster_\\346\\211\\230\\347\\256\\241\\345\\214\\272/[3]10.0.114.127/[5]\\346\\250\\252\\347\\220\\264\\344\\274\\201\\344\\270\\232\\344\\277\\241\\346\\201\\257\\357\\274\\210\\344\\277\\241\\347\\224\\250\\347\\275\\221\\357\\274\\211");
+        vm1.setSystemVersion(1);
+        vm1.setType(ClientType.VMWARE);
+        List<FaultType> f4 = new ArrayList<>();
+        f4.add(FaultType.VMWARE_CREATE_SNAP_FAILED);
+        vm1.addAllVmwareState(f4);
+        vc.addClients(vm1);
 //
 //        Vmware.Builder vm2 = Vmware.newBuilder();
 //        vm2.setName("DZZBAPP51_10.0.112.186");
@@ -237,8 +237,8 @@ public class Test {
 //        get.addClients(builder);
 
 
-//        vcs.add(vc.build());
-//        get.addAllVcents(vcs);
+        vcs.add(vc.build());
+        get.addAllVcents(vcs);
         System.out.println(get);
 
 

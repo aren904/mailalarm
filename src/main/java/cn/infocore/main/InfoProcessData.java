@@ -10,8 +10,11 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import cn.infocore.entity.*;
+import cn.infocore.handler.IdHandler;
 import lombok.Data;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.log4j.Logger;
 
 
@@ -231,7 +234,7 @@ public class InfoProcessData {
         // String sql = "update client set
         // type=?,name=?,ips=?,exceptions=?,operating_system=? where id=?";
 
-        String sql = "update client set name=?,ips=?,exceptions=?,operating_system=? where id=?";
+        String sql = "update client set name=?,ips=?,exceptions=?,operating_system=? where uuid=?";
         int size = list.size();
         int paramSize = 0;
         for (int i = 0; i < list.size(); i++) {
@@ -278,7 +281,7 @@ public class InfoProcessData {
                 // sql = "update client set type=?,name=?,exceptions=?,operating_system=? where
                 // id=?";
 
-                sql = "update client set name=?,exceptions=?,operating_system=? where id=?";
+                sql = "update client set name=?,exceptions=?,operating_system=? where uuid=?";
                 qr.batch(sql, param1);
             }
         } catch (SQLException e) {
@@ -350,7 +353,7 @@ public class InfoProcessData {
         logger.info("Start update virtual machine.");
         // Connection connection=MyDataSource.getConnection();
         QueryRunner qr = MyDataSource.getQueryRunner();
-        String sql = "update vcenter_vm set name=?,path=?,exceptions=?,operating_system=? where id=?";
+        String sql = "update vcenter_vm set name=?,path=?,exceptions=?,operating_system=? where uuid=?";
         int size = vmlist.size();
         Object[][] param = new Object[size][];
         for (int i = 0; i < size; i++) {
@@ -445,6 +448,7 @@ public class InfoProcessData {
         String sql = "select user_id from quota where data_ark_id=?";
         try {
             result = q.query(sql, new User_idHandler(), param);
+//            result = q.query(sql, new BeanListHandler<>(), param);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -459,7 +463,7 @@ public class InfoProcessData {
         Object[] param = new Object[]{clientId};
         String result = "";
 //        String sql = "select user_id from client where id=?";
-        String sql = "select user_id from client where uuid=?";
+        String sql = "select user_id from client where data_ark_id=?";
         try {
             result = q.query(sql, new User_idHandler(), param);
         } catch (SQLException e) {
@@ -486,6 +490,24 @@ public class InfoProcessData {
         }
         return result;
     }
+
+
+    private String getUserIdByUuid(String uuid) {
+        QueryRunner q = MyDataSource.getQueryRunner();
+        Object[] param = new Object[]{uuid};
+        String result = "";
+        String sql = "select id from data_ark where uuid=?";
+        try {
+            result = q.query(sql, new IdHandler(), param);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+        return result;
+    }
+
+
 
 
     private String getUserIdByVM(String uuid, String data_ark_id) {
@@ -523,16 +545,16 @@ public class InfoProcessData {
                 vcenter.setUuid(vcent.getVcUuid());
                 vcenter.setName(vcent.getVcName());
                 vcenter.setIps(vcent.getVcIp());
-                String user_id2 = getUserIdByVcent(vcent.getVcUuid(), data_ark.getId());
-                logger.info(user_id2);
-                logger.info(data_ark.getId());
+
+                String id = getUserIdByUuid(vcent.getVcUuid());
+                String user_id2 = getUserIdByVcent(vcent.getVcUuid(), id);
                 List<Fault> v_list_faults = new LinkedList<Fault>();
                 for (FaultType fault : vcent.getVcentStateList()) {
                     Fault fault2 = new Fault();
                     fault2.setTimestamp(now);
                     fault2.setUser_uuid(user_id2);
                     fault2.setType(fault.getNumber());
-                    fault2.setData_ark_uuid(data_ark.getId());
+                    fault2.setData_ark_uuid(data_ark.getUuid());
                     fault2.setData_ark_name(data_ark.getName());
                     fault2.setData_ark_ip(data_ark.getIp());
                     fault2.setTarget_name(vcent.getVcName());
@@ -552,10 +574,12 @@ public class InfoProcessData {
                         break;
                     }
                 }
+
                 if (offline) {
                     continue;
                 }
                 List<Vmware> vmwareList = convertVirtualMachine(now, vcent);
+
             }
         }
         // 封装结束
@@ -573,10 +597,7 @@ public class InfoProcessData {
                 vm.setPath(vmware.getPath());
                 // add by wxx 2019/05/13
                 vm.setSystem_Version(vmware.getSystemVersion());
-//                String dataArkIdByUuID = getDataArkIdByUuID(data_ark.getId());
-
                 String user_id3 = getUserIdByVM(vmware.getId(), data_ark.getId());
-//                String user_id3 = getUserIdByVM(vmware.getId(), dataArkIdByUuID);
                 List<Fault> vmware_list_faults = new LinkedList<Fault>();
                 List<FaultType> vmwareStateList = vmware.getVmwareStateList();
                 for (FaultType faultType : vmwareStateList) {
@@ -584,7 +605,7 @@ public class InfoProcessData {
                     fault.setTimestamp(now);
                     fault.setUser_uuid(user_id3);
                     fault.setType(faultType.getNumber());
-                    fault.setData_ark_uuid(data_ark.getId());
+                    fault.setData_ark_uuid(data_ark.getUuid());
                     fault.setData_ark_name(data_ark.getName());
                     fault.setData_ark_ip(data_ark.getIp());
                     fault.setTarget_name(vmware.getName());
@@ -598,7 +619,8 @@ public class InfoProcessData {
                 }
                 vm.setFaults(vmware_list_faults);
                 vm.setVcenter_id(vcent.getVcUuid());
-                vm.setData_ark_id(data_ark.getId());
+//                vm.setData_ark_id(data_ark.getId());
+                vm.setData_ark_id(data_ark.getUuid());
                 this.vmList.add(vm);
             }
         }
@@ -606,7 +628,7 @@ public class InfoProcessData {
         return vmwareList;
     }
 
-    //TODO 需要在alarm表中插入user_uuid
+
     private void convertClient(GetServerInfoReturn hrt, long now) {
         // 开始封装有代理客户端Client
         List<Client> cList = hrt.getClientsList();
@@ -622,15 +644,15 @@ public class InfoProcessData {
                 // client.get
                 // add by wxx 2019/05/13
                 tmp.setSystem_Version(client.getSystemVersion());
-                String user_id1 = getUserIdByClient(client.getId());
+                String id = getUserIdByUuid(client.getId());
+                String user_id1 = getUserIdByClient(id);
                 List<Fault> client_fault_list = new LinkedList<Fault>();
                 for (FaultType f : client.getClientStateList()) {
                     Fault fault = new Fault();
                     fault.setTimestamp(now);
                     fault.setUser_uuid(user_id1);
                     fault.setType(f.getNumber());
-//                    fault.setUser_uuid(user_id1);
-                    fault.setData_ark_uuid(data_ark.getId());
+                    fault.setData_ark_uuid(data_ark.getUuid());
                     fault.setData_ark_name(data_ark.getName());
                     fault.setData_ark_ip(data_ark.getIp());
                     fault.setTarget_name(client.getName());
@@ -641,7 +663,8 @@ public class InfoProcessData {
                 }
                 tmp.setFaultList(client_fault_list);
                 tmp.setType(client.getType().getNumber());
-                tmp.setData_ark_id(data_ark.getId());
+//                tmp.setData_ark_id(data_ark.getId());
+                tmp.setData_ark_id(data_ark.getUuid());
                 this.clientList.add(tmp);
             }
         }
@@ -654,8 +677,8 @@ public class InfoProcessData {
         // 开始封装Data_ark
         String uuid = hrt.getUuid();
 
-        dataServer.setId(uuid);//正常
-//        dataServer.setUuid(uuid);
+//        dataServer.setId(uuid);//正常
+        dataServer.setUuid(uuid);
 //        dataServer.setUuid(uuid);
         Streamer streamer = hrt.getServer();
         dataServer.setIp(streamer.getIp());
@@ -680,15 +703,16 @@ public class InfoProcessData {
         dataServer.setRdsUsed(rdsUsed);
         dataServer.setOssUsed(ossUsed);
         dataServer.setMetaUsed(metaUsed);
-        String user_id = getUserIdByDataArk(uuid);
+        String id = getUserIdByUuid(uuid);
+        String user_id = getUserIdByDataArk(id);
         List<Fault> data_ark_fault_list = new LinkedList<Fault>();
         for (FaultType f : streamer.getStreamerStateList()) {
             Fault mFault = new Fault();
             mFault.setTimestamp(now);
             mFault.setUser_uuid(user_id);
             mFault.setType(f.getNumber());
-            mFault.setData_ark_uuid(dataServer.getId());//正常
-//            mFault.setData_ark_uuid(dataServer.getUuid());
+//            mFault.setData_ark_uuid(dataServer.getId());//正常
+            mFault.setData_ark_uuid(dataServer.getUuid());
             mFault.setData_ark_name(dataServer.getName());
             mFault.setData_ark_ip(dataServer.getIp());
             mFault.setTarget_name(dataServer.getName());
@@ -698,8 +722,6 @@ public class InfoProcessData {
             this.faults.add(mFault);
         }
         dataServer.setFaults(data_ark_fault_list);
-        logger.info(dataServer);
-        logger.info("Data_ark封装完毕");
 
 
         // Data_ark封装完毕

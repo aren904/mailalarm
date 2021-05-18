@@ -122,4 +122,19 @@ public class Virtual_machine {
 		this.uuid = uuid;
 	}
 
+	@Override
+	public String toString() {
+		return "Virtual_machine{" +
+				"id='" + id + '\'' +
+				", uuid='" + uuid + '\'' +
+				", name='" + name + '\'' +
+				", path='" + path + '\'' +
+				", except='" + except + '\'' +
+				", faults=" + faults +
+				", vcenter_id='" + vcenter_id + '\'' +
+				", data_ark_id='" + data_ark_id + '\'' +
+				", user_id='" + user_id + '\'' +
+				", system_Version=" + system_Version +
+				'}';
+	}
 }

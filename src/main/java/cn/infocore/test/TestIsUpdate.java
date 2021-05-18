@@ -3,6 +3,7 @@ package cn.infocore.test;
 import cn.infocore.operator.Header;
 import cn.infocore.protobuf.StmStreamerDrManage;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -39,26 +40,48 @@ public class TestIsUpdate {
         s.setCloudVol(0);
         s.setRacUsed(0);
         s.setEcsUsed(0);
-        s.setRdsUsed(1);
+        s.setRdsUsed(2);
         s.setOssUsed(0);
         s.setMetaUsed(0);
         get.setServer(s.build());
 
+        List<StmStreamerDrManage.Vcent> vcs = new ArrayList<>();
         StmStreamerDrManage.Vcent.Builder vc = StmStreamerDrManage.Vcent.newBuilder();
-        ArrayList<StmStreamerDrManage.FaultType> faultTypes = new ArrayList<>();
-        faultTypes.add(StmStreamerDrManage.FaultType.VCENTER_OFFLINE);
-        vc.addAllVcentState(faultTypes);
-        vc.setType(StmStreamerDrManage.ClientType.VC);
-        vc.setVcName("asdasd");
+        vc.setVcName("VMware vCenter Server 5.5.0 build-2646482");
         vc.setVcIp("10.0.114.115");
         vc.setVcUuid("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
-
+        List<StmStreamerDrManage.FaultType> fts = new ArrayList<>();
+        fts.add(StmStreamerDrManage.FaultType.VCENTER_OFFLINE);
+        vc.addAllVcentState(fts);
+        vc.setType(StmStreamerDrManage.ClientType.VC);
         get.addVcents(vc);
+        /**
+         * required string id = 1;
+         required string name = 2;
+         required ClientType type = 3;
+         required string path =4;
+         repeated FaultType Vmware_state = 5;
+         required int32 System_Version =6;
+         */
+            //vm
+//        StmStreamerDrManage.Vmware.Builder vm1 = StmStreamerDrManage.Vmware.newBuilder();
+//        vm1.setName("QYXY_APP_10.0.112.17");
+//        vm1.setId("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
+//        vm1.setPath("[1]c.VMware vCenter Server 5.5.0 build-2646482/");
+//        vm1.setSystemVersion(1);
+//        vm1.setType(StmStreamerDrManage.ClientType.VMWARE);
+//        List<StmStreamerDrManage.FaultType> f4 = new ArrayList<>();
+//        f4.add(StmStreamerDrManage.FaultType.VMWARE_CREATE_SNAP_FAILED);
+//        vm1.addAllVmwareState(f4);
+//        vc.addClients(vm1);
+//        get.addVcents(vc);
 
+
+
+        //client
         StmStreamerDrManage.Client.Builder builder2 = StmStreamerDrManage.Client.newBuilder();
-
         builder2.setName("z2y");
-        builder2.setId("283");
+        builder2.setId("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
         builder2.setIp("192.168.11.80");
         builder2.setType(StmStreamerDrManage.ClientType.SINGLE);
         builder2.setSystemVersion("linux");

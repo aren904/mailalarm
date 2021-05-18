@@ -53,6 +53,7 @@ D:\AllMyCode\mailalarm-8.0\src\main\java\cn\infocore\dao\MdbDeviceMapper.java
 D:\AllMyCode\mailalarm-8.0\src\main\java\cn\infocore\handler\UUid_ipHandler.java
 D:\AllMyCode\mailalarm-8.0\src\main\java\cn\infocore\manager\OssManager.java
 D:\AllMyCode\mailalarm-8.0\src\main\java\cn\infocore\dao\OssMapper.java
+D:\AllMyCode\mailalarm-8.0\src\main\java\cn\infocore\handler\IdHandler.java
 D:\AllMyCode\mailalarm-8.0\src\main\java\cn\infocore\dao\SnmpDao.java
 D:\AllMyCode\mailalarm-8.0\src\main\java\cn\infocore\entity\VcenterDO.java
 D:\AllMyCode\mailalarm-8.0\src\main\java\cn\infocore\main\SnmpTrapSender.java

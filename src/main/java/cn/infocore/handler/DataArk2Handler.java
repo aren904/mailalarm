@@ -16,7 +16,8 @@ public class DataArk2Handler implements ResultSetHandler<DataArkDTO>{
 			data_ark=new DataArkDTO();
 			data_ark.setName(rs.getString("name"));
 			data_ark.setIp(rs.getString("ip"));
-			data_ark.setId(rs.getString("id"));
+//			data_ark.setId(rs.getString("id"));
+			data_ark.setUuid(rs.getString("uuid"));
 		}
 		return data_ark;
 	}

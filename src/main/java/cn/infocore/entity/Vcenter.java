@@ -85,4 +85,16 @@ public class Vcenter {
         this.data_ark_id = data_ark_id;
     }
 
+    @Override
+    public String toString() {
+        return "Vcenter{" +
+                "uuid='" + uuid + '\'' +
+                ", name='" + name + '\'' +
+                ", ips='" + ips + '\'' +
+                ", excep='" + excep + '\'' +
+                ", client_group_id='" + client_group_id + '\'' +
+                ", data_ark_id='" + data_ark_id + '\'' +
+                ", faults=" + faults +
+                '}';
+    }
 }

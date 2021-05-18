@@ -7,6 +7,7 @@ cn\infocore\service\impl\MdbService.class
 cn\infocore\protobuf\StmStreamerDrManage$MetaInfo$Builder.class
 cn\infocore\protobuf\StmStreamerDrManage$RdsInfo.class
 scmp\proto\alarm\CloudManagerAlarm$CreateEmailAlarmRequest.class
+cn\infocore\handler\IdHandler.class
 cn\infocore\dao\Cs_Endpoint.class
 cn\infocore\main\MailMain.class
 cn\infocore\SnmpV3Sender\ANP.class

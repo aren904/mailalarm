@@ -61,7 +61,7 @@ public class SnmpTrapSender {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-                    logger.info(fmt("Target streamer info[Id:%s][IP:%s][Name:%s].", data_ark.getId(), data_ark.getIp(), data_ark.getName()));
+                    logger.info(fmt("Target streamer info[Id:%s][IP:%s][Name:%s].", data_ark.getUuid(), data_ark.getIp(), data_ark.getName()));
                     if (data_ark != null) {
                         data_arks.add(data_ark);
                     }
@@ -112,7 +112,8 @@ public class SnmpTrapSender {
         for (int i = 0; i < data_arks.size(); i++) {
             DataArkDTO data_ark = data_arks.get(i);
             pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.4." + i), new OctetString(data_ark.getName())));
-            pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3." + i), new OctetString(data_ark.getId())));
+//            pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3." + i), new OctetString(data_ark.getId())));//正常
+            pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3." + i), new OctetString(data_ark.getUuid())));
             pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.2." + i), new OctetString(data_ark.getIp())));
             pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.5." + i), new Integer32(10)));  //离线告警状态是10
         }

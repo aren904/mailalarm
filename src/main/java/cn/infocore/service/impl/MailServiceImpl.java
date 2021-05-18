@@ -420,7 +420,7 @@ public class MailServiceImpl implements MailService {
                          * excepts=qr.query(sql, new ExecptHandler(), condition);
                          */
                         for (Client_ c : clientList) {
-                            if (fault.getData_ark_uuid().equals(c.getData_ark_id())
+                            if (fault.getData_ark_uuid().equals(c.getUuid())
                                     && fault.getClient_id().equals(c.getUuid())) {
                                 excepts = c.getExcept();
                                 break;
@@ -433,7 +433,7 @@ public class MailServiceImpl implements MailService {
                          */
 
                         for (Vcenter vc : vcList) {
-                            if (fault.getData_ark_uuid().equals(vc.getData_ark_id())
+                            if (fault.getData_ark_uuid().equals(vc.getUuid())
                                     && fault.getClient_id().equals(vc.getUuid())) {
                                 excepts = vc.getExcep();
                                 break;
@@ -441,7 +441,7 @@ public class MailServiceImpl implements MailService {
                         }
                     } else if (fault.getClient_type() == ClientType.RAC_VALUE) {
                         for (Virtual_machine vm : vmList) {
-                            if (fault.getData_ark_uuid().equals(vm.getData_ark_id())
+                            if (fault.getData_ark_uuid().equals(vm.getUuid())
                                     && fault.getClient_id().equals(vm.getUuid())) {
                                 excepts = vm.getExcept();
                                 break;

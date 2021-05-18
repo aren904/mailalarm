@@ -18,7 +18,7 @@ public class AlarmLogDAO {
 
 	public static List<Integer> checkVmUncheckedException(String clientId) {
 
-		String sql="select * from alarm_log where target_id=? and processed=0";
+		String sql="select * from alarm_log where target_uuid=? and processed=0";
 		Object[] condition=new Object[]{clientId};
 		//db error
 		QueryRunner qr = MyDataSource.getQueryRunner();
