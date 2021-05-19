@@ -470,53 +470,57 @@ public final class CloudManagerAlarm {
      */
     Command_ForceRemoveDataArk(101, 283),
     /**
+     * <code>Command_UpdateVmwareVirtualMachinBackup = 284;</code>
+     */
+    Command_UpdateVmwareVirtualMachinBackup(102, 284),
+    /**
      * <code>Command_GetUsers = 300;</code>
      */
-    Command_GetUsers(102, 300),
+    Command_GetUsers(103, 300),
     /**
      * <code>Command_CreateUserGroup = 301;</code>
      */
-    Command_CreateUserGroup(103, 301),
+    Command_CreateUserGroup(104, 301),
     /**
      * <code>Command_DeleteUserGroup = 302;</code>
      */
-    Command_DeleteUserGroup(104, 302),
+    Command_DeleteUserGroup(105, 302),
     /**
      * <code>Command_UpdateUserGroup = 303;</code>
      */
-    Command_UpdateUserGroup(105, 303),
+    Command_UpdateUserGroup(106, 303),
     /**
      * <code>Command_MigrateUserGroup = 304;</code>
      */
-    Command_MigrateUserGroup(106, 304),
+    Command_MigrateUserGroup(107, 304),
     /**
      * <code>Command_CreateUser = 305;</code>
      */
-    Command_CreateUser(107, 305),
+    Command_CreateUser(108, 305),
     /**
      * <code>Command_DeleteUser = 306;</code>
      */
-    Command_DeleteUser(108, 306),
+    Command_DeleteUser(109, 306),
     /**
      * <code>Command_UpdateUserPassword = 307;</code>
      */
-    Command_UpdateUserPassword(109, 307),
+    Command_UpdateUserPassword(110, 307),
     /**
      * <code>Command_ResetUserPassword = 308;</code>
      */
-    Command_ResetUserPassword(110, 308),
+    Command_ResetUserPassword(111, 308),
     /**
      * <code>Command_UpdateUser = 309;</code>
      */
-    Command_UpdateUser(111, 309),
+    Command_UpdateUser(112, 309),
     /**
      * <code>Command_GetUserQuota = 310;</code>
      */
-    Command_GetUserQuota(112, 310),
+    Command_GetUserQuota(113, 310),
     /**
      * <code>Command_UpdateUserQuota = 311;</code>
      */
-    Command_UpdateUserQuota(113, 311),
+    Command_UpdateUserQuota(114, 311),
     /**
      * <code>Command_MigrateUser = 313;</code>
      *
@@ -524,31 +528,31 @@ public final class CloudManagerAlarm {
      * 312 废弃
      * </pre>
      */
-    Command_MigrateUser(114, 313),
+    Command_MigrateUser(115, 313),
     /**
      * <code>Command_CreateUserQuota = 314;</code>
      */
-    Command_CreateUserQuota(115, 314),
+    Command_CreateUserQuota(116, 314),
     /**
      * <code>Command_DeleteUserQuota = 315;</code>
      */
-    Command_DeleteUserQuota(116, 315),
+    Command_DeleteUserQuota(117, 315),
     /**
      * <code>Command_GetAlarmLogs = 400;</code>
      */
-    Command_GetAlarmLogs(117, 400),
+    Command_GetAlarmLogs(118, 400),
     /**
      * <code>Command_UpdateAlarmLogProcessed = 401;</code>
      */
-    Command_UpdateAlarmLogProcessed(118, 401),
+    Command_UpdateAlarmLogProcessed(119, 401),
     /**
      * <code>Command_DeleteAlarmLog = 402;</code>
      */
-    Command_DeleteAlarmLog(119, 402),
+    Command_DeleteAlarmLog(120, 402),
     /**
      * <code>Command_GetOperationLogs = 403;</code>
      */
-    Command_GetOperationLogs(120, 403),
+    Command_GetOperationLogs(121, 403),
     /**
      * <code>Command_UpdateAlarmLogProcessed_Processed = 404;</code>
      *
@@ -556,7 +560,7 @@ public final class CloudManagerAlarm {
      * 标记已处理，仅用于记录操作日志，不作为接口指令
      * </pre>
      */
-    Command_UpdateAlarmLogProcessed_Processed(121, 404),
+    Command_UpdateAlarmLogProcessed_Processed(122, 404),
     /**
      * <code>Command_UpdateAlarmLogProcessed_Unprocessed = 405;</code>
      *
@@ -564,75 +568,75 @@ public final class CloudManagerAlarm {
      * 标记未处理，仅用于记录操作日志，不作为接口指令
      * </pre>
      */
-    Command_UpdateAlarmLogProcessed_Unprocessed(122, 405),
+    Command_UpdateAlarmLogProcessed_Unprocessed(123, 405),
     /**
      * <code>Command_InsertOperationLog = 406;</code>
      */
-    Command_InsertOperationLog(123, 406),
+    Command_InsertOperationLog(124, 406),
     /**
      * <code>Command_GetEmailAlarm = 500;</code>
      */
-    Command_GetEmailAlarm(124, 500),
+    Command_GetEmailAlarm(125, 500),
     /**
      * <code>Command_UpdateEmailAlarm = 501;</code>
      */
-    Command_UpdateEmailAlarm(125, 501),
+    Command_UpdateEmailAlarm(126, 501),
     /**
      * <code>Command_CreateEmailAlarm = 502;</code>
      */
-    Command_CreateEmailAlarm(126, 502),
+    Command_CreateEmailAlarm(127, 502),
     /**
      * <code>Command_DeleteEmailAlarm = 503;</code>
      */
-    Command_DeleteEmailAlarm(127, 503),
+    Command_DeleteEmailAlarm(128, 503),
     /**
      * <code>Command_VerifyEmailAlarm = 504;</code>
      */
-    Command_VerifyEmailAlarm(128, 504),
+    Command_VerifyEmailAlarm(129, 504),
     /**
      * <code>Command_GetSnmp = 505;</code>
      */
-    Command_GetSnmp(129, 505),
+    Command_GetSnmp(130, 505),
     /**
      * <code>Command_UpdateSnmp = 506;</code>
      */
-    Command_UpdateSnmp(130, 506),
+    Command_UpdateSnmp(131, 506),
     /**
      * <code>Command_GetCloudServiceEndpoint = 507;</code>
      */
-    Command_GetCloudServiceEndpoint(131, 507),
+    Command_GetCloudServiceEndpoint(132, 507),
     /**
      * <code>Command_UpdateRdsEndpoint = 508;</code>
      */
-    Command_UpdateRdsEndpoint(132, 508),
+    Command_UpdateRdsEndpoint(133, 508),
     /**
      * <code>Command_UpdateOssEndpoint = 509;</code>
      */
-    Command_UpdateOssEndpoint(133, 509),
+    Command_UpdateOssEndpoint(134, 509),
     /**
      * <code>Command_UpdateEcsEndpoint = 510;</code>
      */
-    Command_UpdateEcsEndpoint(134, 510),
+    Command_UpdateEcsEndpoint(135, 510),
     /**
      * <code>Command_GetCloudManagers = 511;</code>
      */
-    Command_GetCloudManagers(135, 511),
+    Command_GetCloudManagers(136, 511),
     /**
      * <code>Command_AddCloudManager = 512;</code>
      */
-    Command_AddCloudManager(136, 512),
+    Command_AddCloudManager(137, 512),
     /**
      * <code>Command_UpdateCloudManager = 513;</code>
      */
-    Command_UpdateCloudManager(137, 513),
+    Command_UpdateCloudManager(138, 513),
     /**
      * <code>Command_RemoveCloudManager = 514;</code>
      */
-    Command_RemoveCloudManager(138, 514),
+    Command_RemoveCloudManager(139, 514),
     /**
      * <code>Command_VerifyCloudManager = 515;</code>
      */
-    Command_VerifyCloudManager(139, 515),
+    Command_VerifyCloudManager(140, 515),
     /**
      * <code>Command_ManageDataArk = 600;</code>
      *
@@ -640,7 +644,7 @@ public final class CloudManagerAlarm {
      * 管理数据方舟，仅用于记录操作日志，不作为接口指令
      * </pre>
      */
-    Command_ManageDataArk(140, 600),
+    Command_ManageDataArk(141, 600),
     /**
      * <code>Command_ExportDataArkLog = 601;</code>
      *
@@ -648,19 +652,19 @@ public final class CloudManagerAlarm {
      * 导出数据方舟日志，即导出 streamer server 上的日志，仅用于记录操作日志，不作为接口指令
      * </pre>
      */
-    Command_ExportDataArkLog(141, 601),
+    Command_ExportDataArkLog(142, 601),
     /**
      * <code>Command_CommitTransaction = 602;</code>
      */
-    Command_CommitTransaction(142, 602),
+    Command_CommitTransaction(143, 602),
     /**
      * <code>Command_RollbackTransaction = 603;</code>
      */
-    Command_RollbackTransaction(143, 603),
+    Command_RollbackTransaction(144, 603),
     /**
      * <code>Command_ProcessTransactionGroup = 604;</code>
      */
-    Command_ProcessTransactionGroup(144, 604),
+    Command_ProcessTransactionGroup(145, 604),
     ;
 
     /**
@@ -1116,6 +1120,10 @@ public final class CloudManagerAlarm {
      */
     public static final int Command_ForceRemoveDataArk_VALUE = 283;
     /**
+     * <code>Command_UpdateVmwareVirtualMachinBackup = 284;</code>
+     */
+    public static final int Command_UpdateVmwareVirtualMachinBackup_VALUE = 284;
+    /**
      * <code>Command_GetUsers = 300;</code>
      */
     public static final int Command_GetUsers_VALUE = 300;
@@ -1415,6 +1423,7 @@ public final class CloudManagerAlarm {
         case 281: return Command_UpdateRacDatabase;
         case 282: return Command_RemoveRacDatabase;
         case 283: return Command_ForceRemoveDataArk;
+        case 284: return Command_UpdateVmwareVirtualMachinBackup;
         case 300: return Command_GetUsers;
         case 301: return Command_CreateUserGroup;
         case 302: return Command_DeleteUserGroup;
@@ -2139,13 +2148,29 @@ public final class CloudManagerAlarm {
      */
     ErrorCode_RdsInstanceNonexistent(78, 1096),
     /**
+     * <code>ErrorCode_DisasterClientExistent = 1097;</code>
+     *
+     * <pre>
+     * 存在容灾客户端
+     * </pre>
+     */
+    ErrorCode_DisasterClientExistent(79, 1097),
+    /**
+     * <code>ErrorCode_DisasterClientNonexistent = 1098;</code>
+     *
+     * <pre>
+     * 不存在容灾客户端
+     * </pre>
+     */
+    ErrorCode_DisasterClientNonexistent(80, 1098),
+    /**
      * <code>ErrorCode_RequestToAlarmServiceFailed = 1100;</code>
      *
      * <pre>
      * 发送请求给邮件报警服务失败
      * </pre>
      */
-    ErrorCode_RequestToAlarmServiceFailed(79, 1100),
+    ErrorCode_RequestToAlarmServiceFailed(81, 1100),
     /**
      * <code>ErrorCode_RequestToConsoleFailed = 1101;</code>
      *
@@ -2153,7 +2178,7 @@ public final class CloudManagerAlarm {
      * 发送请求给控制台失败
      * </pre>
      */
-    ErrorCode_RequestToConsoleFailed(80, 1101),
+    ErrorCode_RequestToConsoleFailed(82, 1101),
     /**
      * <code>ErrorCode_RequestToStreamerFailed = 1102;</code>
      *
@@ -2161,7 +2186,7 @@ public final class CloudManagerAlarm {
      * 发送请求给Streamer服务失败
      * </pre>
      */
-    ErrorCode_RequestToStreamerFailed(81, 1102),
+    ErrorCode_RequestToStreamerFailed(83, 1102),
     /**
      * <code>ErrorCode_RequestToCloudManagerFailed = 1103;</code>
      *
@@ -2169,7 +2194,7 @@ public final class CloudManagerAlarm {
      * 发送请求给管理平台服务失败
      * </pre>
      */
-    ErrorCode_RequestToCloudManagerFailed(82, 1103),
+    ErrorCode_RequestToCloudManagerFailed(84, 1103),
     /**
      * <code>ErrorCode_ClientGroupExistent = 1110;</code>
      *
@@ -2177,7 +2202,7 @@ public final class CloudManagerAlarm {
      * 已存在客户端组
      * </pre>
      */
-    ErrorCode_ClientGroupExistent(83, 1110),
+    ErrorCode_ClientGroupExistent(85, 1110),
     /**
      * <code>ErrorCode_ClientGroupNonexistent = 1111;</code>
      *
@@ -2185,7 +2210,7 @@ public final class CloudManagerAlarm {
      * 不存在客户端组
      * </pre>
      */
-    ErrorCode_ClientGroupNonexistent(84, 1111),
+    ErrorCode_ClientGroupNonexistent(86, 1111),
     /**
      * <code>ErrorCode_ClientGroupSameName = 1112;</code>
      *
@@ -2193,7 +2218,7 @@ public final class CloudManagerAlarm {
      * 客户端组重名
      * </pre>
      */
-    ErrorCode_ClientGroupSameName(85, 1112),
+    ErrorCode_ClientGroupSameName(87, 1112),
     /**
      * <code>ErrorCode_CloudManagerExistent = 1113;</code>
      *
@@ -2201,7 +2226,7 @@ public final class CloudManagerAlarm {
      * 已存在管理平台
      * </pre>
      */
-    ErrorCode_CloudManagerExistent(86, 1113),
+    ErrorCode_CloudManagerExistent(88, 1113),
     /**
      * <code>ErrorCode_CloudManagerNonexistent = 1114;</code>
      *
@@ -2209,7 +2234,7 @@ public final class CloudManagerAlarm {
      * 不存在管理平台
      * </pre>
      */
-    ErrorCode_CloudManagerNonexistent(87, 1114),
+    ErrorCode_CloudManagerNonexistent(89, 1114),
     /**
      * <code>ErrorCode_CloudManagerSameName = 1115;</code>
      *
@@ -2217,7 +2242,7 @@ public final class CloudManagerAlarm {
      * 管理平台重名
      * </pre>
      */
-    ErrorCode_CloudManagerSameName(88, 1115),
+    ErrorCode_CloudManagerSameName(90, 1115),
     /**
      * <code>ErrorCode_CloudManagerIdInconsistent = 1116;</code>
      *
@@ -2225,7 +2250,7 @@ public final class CloudManagerAlarm {
      * 管理平台ID不一致
      * </pre>
      */
-    ErrorCode_CloudManagerIdInconsistent(89, 1116),
+    ErrorCode_CloudManagerIdInconsistent(91, 1116),
     /**
      * <code>ErrorCode_CloudManagerIdNonexistent = 1117;</code>
      *
@@ -2233,7 +2258,7 @@ public final class CloudManagerAlarm {
      * 不存在管理平台ID
      * </pre>
      */
-    ErrorCode_CloudManagerIdNonexistent(90, 1117),
+    ErrorCode_CloudManagerIdNonexistent(92, 1117),
     /**
      * <code>ErrorCode_OssExistent = 1200;</code>
      *
@@ -2241,7 +2266,7 @@ public final class CloudManagerAlarm {
      * 存在OSS
      * </pre>
      */
-    ErrorCode_OssExistent(91, 1200),
+    ErrorCode_OssExistent(93, 1200),
     /**
      * <code>ErrorCode_OssNonexistent = 1201;</code>
      *
@@ -2249,7 +2274,7 @@ public final class CloudManagerAlarm {
      * 不存在OSS
      * </pre>
      */
-    ErrorCode_OssNonexistent(92, 1201),
+    ErrorCode_OssNonexistent(94, 1201),
     /**
      * <code>ErrorCode_OssObjectSetExistent = 1202;</code>
      *
@@ -2257,7 +2282,7 @@ public final class CloudManagerAlarm {
      * 存在OSS ObjectSet
      * </pre>
      */
-    ErrorCode_OssObjectSetExistent(93, 1202),
+    ErrorCode_OssObjectSetExistent(95, 1202),
     /**
      * <code>ErrorCode_OssObjectSetNonexistent = 1203;</code>
      *
@@ -2265,7 +2290,7 @@ public final class CloudManagerAlarm {
      * 不存在OSS ObjectSet
      * </pre>
      */
-    ErrorCode_OssObjectSetNonexistent(94, 1203),
+    ErrorCode_OssObjectSetNonexistent(96, 1203),
     /**
      * <code>ErrorCode_DisasterOssObjectSetExistent = 1204;</code>
      *
@@ -2273,7 +2298,7 @@ public final class CloudManagerAlarm {
      * 存在容灾OSS ObjectSet，即存在容灾关系
      * </pre>
      */
-    ErrorCode_DisasterOssObjectSetExistent(95, 1204),
+    ErrorCode_DisasterOssObjectSetExistent(97, 1204),
     /**
      * <code>ErrorCode_DisasterOssObjectSetNonexistent = 1205;</code>
      *
@@ -2281,7 +2306,7 @@ public final class CloudManagerAlarm {
      * 不存在容灾OSS ObjectSet，即存在容灾关系
      * </pre>
      */
-    ErrorCode_DisasterOssObjectSetNonexistent(96, 1205),
+    ErrorCode_DisasterOssObjectSetNonexistent(98, 1205),
     /**
      * <code>ErrorCode_RacExistent = 1206;</code>
      *
@@ -2289,7 +2314,7 @@ public final class CloudManagerAlarm {
      * 存在RAC
      * </pre>
      */
-    ErrorCode_RacExistent(97, 1206),
+    ErrorCode_RacExistent(99, 1206),
     /**
      * <code>ErrorCode_RacNonexistent = 1207;</code>
      *
@@ -2297,7 +2322,7 @@ public final class CloudManagerAlarm {
      * 不存在RAC
      * </pre>
      */
-    ErrorCode_RacNonexistent(98, 1207),
+    ErrorCode_RacNonexistent(100, 1207),
     /**
      * <code>ErrorCode_RacDatabaseExistent = 1208;</code>
      *
@@ -2305,7 +2330,7 @@ public final class CloudManagerAlarm {
      * 存在RAC Database，即存在备份关系
      * </pre>
      */
-    ErrorCode_RacDatabaseExistent(99, 1208),
+    ErrorCode_RacDatabaseExistent(101, 1208),
     /**
      * <code>ErrorCode_RacDatabaseNonexistent = 1209;</code>
      *
@@ -2313,7 +2338,7 @@ public final class CloudManagerAlarm {
      * 不存在RAC Database，即不存在备份关系
      * </pre>
      */
-    ErrorCode_RacDatabaseNonexistent(100, 1209),
+    ErrorCode_RacDatabaseNonexistent(102, 1209),
     /**
      * <code>ErrorCode_EcsExistent = 1210;</code>
      *
@@ -2321,7 +2346,7 @@ public final class CloudManagerAlarm {
      * 存在ECS
      * </pre>
      */
-    ErrorCode_EcsExistent(101, 1210),
+    ErrorCode_EcsExistent(103, 1210),
     /**
      * <code>ErrorCode_EcsNonexistent = 1211;</code>
      *
@@ -2329,7 +2354,7 @@ public final class CloudManagerAlarm {
      * 不存在ECS
      * </pre>
      */
-    ErrorCode_EcsNonexistent(102, 1211),
+    ErrorCode_EcsNonexistent(104, 1211),
     /**
      * <code>ErrorCode_EcsInstanceExistent = 1212;</code>
      *
@@ -2337,7 +2362,7 @@ public final class CloudManagerAlarm {
      * 存在ECS Instance
      * </pre>
      */
-    ErrorCode_EcsInstanceExistent(103, 1212),
+    ErrorCode_EcsInstanceExistent(105, 1212),
     /**
      * <code>ErrorCode_EcsInstanceNonexistent = 1213;</code>
      *
@@ -2345,7 +2370,7 @@ public final class CloudManagerAlarm {
      * 不存在ECS Instance
      * </pre>
      */
-    ErrorCode_EcsInstanceNonexistent(104, 1213),
+    ErrorCode_EcsInstanceNonexistent(106, 1213),
     /**
      * <code>ErrorCode_DisasterEcsInstanceExistent = 1214;</code>
      *
@@ -2353,7 +2378,7 @@ public final class CloudManagerAlarm {
      * 存在容灾ECS Instance，即存在容灾关系
      * </pre>
      */
-    ErrorCode_DisasterEcsInstanceExistent(105, 1214),
+    ErrorCode_DisasterEcsInstanceExistent(107, 1214),
     /**
      * <code>ErrorCode_DisasterEcsInstanceNonexistent = 1215;</code>
      *
@@ -2361,7 +2386,7 @@ public final class CloudManagerAlarm {
      * 不存在容灾ECS Instance，即存在容灾关系
      * </pre>
      */
-    ErrorCode_DisasterEcsInstanceNonexistent(106, 1215),
+    ErrorCode_DisasterEcsInstanceNonexistent(108, 1215),
     /**
      * <code>ErrorCode_MetadatabaseExistent = 1216;</code>
      *
@@ -2369,7 +2394,7 @@ public final class CloudManagerAlarm {
      * 存在Metadatabase
      * </pre>
      */
-    ErrorCode_MetadatabaseExistent(107, 1216),
+    ErrorCode_MetadatabaseExistent(109, 1216),
     /**
      * <code>ErrorCode_MetadatabaseNonexistent = 1217;</code>
      *
@@ -2377,7 +2402,7 @@ public final class CloudManagerAlarm {
      * 不存在Metadatabase
      * </pre>
      */
-    ErrorCode_MetadatabaseNonexistent(108, 1217),
+    ErrorCode_MetadatabaseNonexistent(110, 1217),
     /**
      * <code>ErrorCode_MetadatabaseBackupExistent = 1218;</code>
      *
@@ -2385,7 +2410,7 @@ public final class CloudManagerAlarm {
      * 存在Metadatabase Backup
      * </pre>
      */
-    ErrorCode_MetadatabaseBackupExistent(109, 1218),
+    ErrorCode_MetadatabaseBackupExistent(111, 1218),
     /**
      * <code>ErrorCode_MetadatabaseBackupNonexistent = 1219;</code>
      *
@@ -2393,7 +2418,7 @@ public final class CloudManagerAlarm {
      * 不存在Metadatabase Backup
      * </pre>
      */
-    ErrorCode_MetadatabaseBackupNonexistent(110, 1219),
+    ErrorCode_MetadatabaseBackupNonexistent(112, 1219),
     /**
      * <code>ErrorCode_DisasterMetadatabaseBackupExistent = 1220;</code>
      *
@@ -2401,7 +2426,7 @@ public final class CloudManagerAlarm {
      * 存在容灾Metadatabase Backup，即存在容灾关系
      * </pre>
      */
-    ErrorCode_DisasterMetadatabaseBackupExistent(111, 1220),
+    ErrorCode_DisasterMetadatabaseBackupExistent(113, 1220),
     /**
      * <code>ErrorCode_DisasterMetadatabaseBackupNonexistent = 1221;</code>
      *
@@ -2409,7 +2434,7 @@ public final class CloudManagerAlarm {
      * 不存在容灾Metadatabase Backup，即存在容灾关系
      * </pre>
      */
-    ErrorCode_DisasterMetadatabaseBackupNonexistent(112, 1221),
+    ErrorCode_DisasterMetadatabaseBackupNonexistent(114, 1221),
     /**
      * <code>ErrorCode_BackupExistent = 1222;</code>
      *
@@ -2417,7 +2442,7 @@ public final class CloudManagerAlarm {
      * 存在备份关系
      * </pre>
      */
-    ErrorCode_BackupExistent(113, 1222),
+    ErrorCode_BackupExistent(115, 1222),
     /**
      * <code>ErrorCode_BackupNonexistent = 1223;</code>
      *
@@ -2425,7 +2450,7 @@ public final class CloudManagerAlarm {
      * 不存在备份关系
      * </pre>
      */
-    ErrorCode_BackupNonexistent(114, 1223),
+    ErrorCode_BackupNonexistent(116, 1223),
     /**
      * <code>ErrorCode_DisasterBackupExistent = 1224;</code>
      *
@@ -2433,7 +2458,7 @@ public final class CloudManagerAlarm {
      * 存在容灾关系
      * </pre>
      */
-    ErrorCode_DisasterBackupExistent(115, 1224),
+    ErrorCode_DisasterBackupExistent(117, 1224),
     /**
      * <code>ErrorCode_DisasterBackupNonexistent = 1225;</code>
      *
@@ -2441,7 +2466,7 @@ public final class CloudManagerAlarm {
      * 不存在容灾关系
      * </pre>
      */
-    ErrorCode_DisasterBackupNonexistent(116, 1225),
+    ErrorCode_DisasterBackupNonexistent(118, 1225),
     /**
      * <code>ErrorCode_QuotaNotZeroExistent = 1226;</code>
      *
@@ -2449,71 +2474,71 @@ public final class CloudManagerAlarm {
      * 存在非0配额
      * </pre>
      */
-    ErrorCode_QuotaNotZeroExistent(117, 1226),
+    ErrorCode_QuotaNotZeroExistent(119, 1226),
     /**
      * <code>ErrorCode_GetPublicKeyFailed = 10000;</code>
      */
-    ErrorCode_GetPublicKeyFailed(118, 10000),
+    ErrorCode_GetPublicKeyFailed(120, 10000),
     /**
      * <code>ErrorCode_LoginCloudManagerFailed = 10001;</code>
      */
-    ErrorCode_LoginCloudManagerFailed(119, 10001),
+    ErrorCode_LoginCloudManagerFailed(121, 10001),
     /**
      * <code>ErrorCode_SendDekFailed = 10002;</code>
      */
-    ErrorCode_SendDekFailed(120, 10002),
+    ErrorCode_SendDekFailed(122, 10002),
     /**
      * <code>ErrorCode_LogoutCloudManagerFailed = 10003;</code>
      */
-    ErrorCode_LogoutCloudManagerFailed(121, 10003),
+    ErrorCode_LogoutCloudManagerFailed(123, 10003),
     /**
      * <code>ErrorCode_VerifyUserFailed = 10004;</code>
      */
-    ErrorCode_VerifyUserFailed(122, 10004),
+    ErrorCode_VerifyUserFailed(124, 10004),
     /**
      * <code>ErrorCode_ForceLoginCloudManagerFailed = 10006;</code>
      */
-    ErrorCode_ForceLoginCloudManagerFailed(123, 10006),
+    ErrorCode_ForceLoginCloudManagerFailed(125, 10006),
     /**
      * <code>ErrorCode_GetOverviewFailed = 10100;</code>
      */
-    ErrorCode_GetOverviewFailed(124, 10100),
+    ErrorCode_GetOverviewFailed(126, 10100),
     /**
      * <code>ErrorCode_GetDataArkReportFailed = 10101;</code>
      */
-    ErrorCode_GetDataArkReportFailed(125, 10101),
+    ErrorCode_GetDataArkReportFailed(127, 10101),
     /**
      * <code>ErrorCode_GetUserReportFailed = 10102;</code>
      */
-    ErrorCode_GetUserReportFailed(126, 10102),
+    ErrorCode_GetUserReportFailed(128, 10102),
     /**
      * <code>ErrorCode_GetBackupReportFailed = 10103;</code>
      */
-    ErrorCode_GetBackupReportFailed(127, 10103),
+    ErrorCode_GetBackupReportFailed(129, 10103),
     /**
      * <code>ErrorCode_GetOverviewDataArksFailed = 10107;</code>
      */
-    ErrorCode_GetOverviewDataArksFailed(128, 10107),
+    ErrorCode_GetOverviewDataArksFailed(130, 10107),
     /**
      * <code>ErrorCode_GetOverviewClientsFailed = 10108;</code>
      */
-    ErrorCode_GetOverviewClientsFailed(129, 10108),
+    ErrorCode_GetOverviewClientsFailed(131, 10108),
     /**
      * <code>ErrorCode_GetOverviewVmwareVirtualMachinesFailed = 10109;</code>
      */
-    ErrorCode_GetOverviewVmwareVirtualMachinesFailed(130, 10109),
+    ErrorCode_GetOverviewVmwareVirtualMachinesFailed(132, 10109),
     /**
      * <code>ErrorCode_GetOverviewCloudHostFailed = 10110;</code>
      */
-    ErrorCode_GetOverviewCloudHostFailed(131, 10110),
+    ErrorCode_GetOverviewCloudHostFailed(133, 10110),
     /**
      * <code>ErrorCode_GetDataArksFailed = 10200;</code>
      */
-    ErrorCode_GetDataArksFailed(132, 10200),
+    ErrorCode_GetDataArksFailed(134, 10200),
     /**
      * <code>ErrorCode_GetDataArkResourceFailed = 10201;</code>
      */
-    ErrorCode_GetDataArkResourceFailed(133, 10201),
+    ErrorCode_GetDataArkResourceFailed(135, 10201),
     /**
      * <code>ErrorCode_AddDataArkFailed = 10205;</code>
      *
@@ -2521,363 +2546,367 @@ public final class CloudManagerAlarm {
      * 10202~10204 废弃
      * </pre>
      */
-    ErrorCode_AddDataArkFailed(134, 10205),
+    ErrorCode_AddDataArkFailed(136, 10205),
     /**
      * <code>ErrorCode_RemoveDataArkFailed = 10206;</code>
      */
-    ErrorCode_RemoveDataArkFailed(135, 10206),
+    ErrorCode_RemoveDataArkFailed(137, 10206),
     /**
      * <code>ErrorCode_UpdateDataArkFailed = 10207;</code>
      */
-    ErrorCode_UpdateDataArkFailed(136, 10207),
+    ErrorCode_UpdateDataArkFailed(138, 10207),
     /**
      * <code>ErrorCode_MigrateDataArkFailed = 10208;</code>
      */
-    ErrorCode_MigrateDataArkFailed(137, 10208),
+    ErrorCode_MigrateDataArkFailed(139, 10208),
     /**
      * <code>ErrorCode_AddDisasterDataArkFailed = 10209;</code>
      */
-    ErrorCode_AddDisasterDataArkFailed(138, 10209),
+    ErrorCode_AddDisasterDataArkFailed(140, 10209),
     /**
      * <code>ErrorCode_RemoveDisasterDataArkFailed = 10210;</code>
      */
-    ErrorCode_RemoveDisasterDataArkFailed(139, 10210),
+    ErrorCode_RemoveDisasterDataArkFailed(141, 10210),
     /**
      * <code>ErrorCode_GetClientsFailed = 10211;</code>
      */
-    ErrorCode_GetClientsFailed(140, 10211),
+    ErrorCode_GetClientsFailed(142, 10211),
     /**
      * <code>ErrorCode_AddClientFailed = 10212;</code>
      */
-    ErrorCode_AddClientFailed(141, 10212),
+    ErrorCode_AddClientFailed(143, 10212),
     /**
      * <code>ErrorCode_AddVcenterFailed = 10213;</code>
      */
-    ErrorCode_AddVcenterFailed(142, 10213),
+    ErrorCode_AddVcenterFailed(144, 10213),
     /**
      * <code>ErrorCode_AddVmwareVirtualMachineFailed = 10214;</code>
      */
-    ErrorCode_AddVmwareVirtualMachineFailed(143, 10214),
+    ErrorCode_AddVmwareVirtualMachineFailed(145, 10214),
     /**
      * <code>ErrorCode_RemoveClientFailed = 10215;</code>
      */
-    ErrorCode_RemoveClientFailed(144, 10215),
+    ErrorCode_RemoveClientFailed(146, 10215),
     /**
      * <code>ErrorCode_RemoveVcenterFailed = 10216;</code>
      */
-    ErrorCode_RemoveVcenterFailed(145, 10216),
+    ErrorCode_RemoveVcenterFailed(147, 10216),
     /**
      * <code>ErrorCode_RemoveVmwareVirtualMachineFailed = 10217;</code>
      */
-    ErrorCode_RemoveVmwareVirtualMachineFailed(146, 10217),
+    ErrorCode_RemoveVmwareVirtualMachineFailed(148, 10217),
     /**
      * <code>ErrorCode_CreateDataArkGroupDataCenterFailed = 10218;</code>
      */
-    ErrorCode_CreateDataArkGroupDataCenterFailed(147, 10218),
+    ErrorCode_CreateDataArkGroupDataCenterFailed(149, 10218),
     /**
      * <code>ErrorCode_CreateDataArkGroupResourcePoolFailed = 10219;</code>
      */
-    ErrorCode_CreateDataArkGroupResourcePoolFailed(148, 10219),
+    ErrorCode_CreateDataArkGroupResourcePoolFailed(150, 10219),
     /**
      * <code>ErrorCode_DeleteDataArkGroupDataCenterFailed = 10220;</code>
      */
-    ErrorCode_DeleteDataArkGroupDataCenterFailed(149, 10220),
+    ErrorCode_DeleteDataArkGroupDataCenterFailed(151, 10220),
     /**
      * <code>ErrorCode_DeleteDataArkGroupResourcePoolFailed = 10221;</code>
      */
-    ErrorCode_DeleteDataArkGroupResourcePoolFailed(150, 10221),
+    ErrorCode_DeleteDataArkGroupResourcePoolFailed(152, 10221),
     /**
      * <code>ErrorCode_UpdateDataArkGroupCloudManagerFailed = 10222;</code>
      */
-    ErrorCode_UpdateDataArkGroupCloudManagerFailed(151, 10222),
+    ErrorCode_UpdateDataArkGroupCloudManagerFailed(153, 10222),
     /**
      * <code>ErrorCode_UpdateDataArkGroupDataCenterFailed = 10223;</code>
      */
-    ErrorCode_UpdateDataArkGroupDataCenterFailed(152, 10223),
+    ErrorCode_UpdateDataArkGroupDataCenterFailed(154, 10223),
     /**
      * <code>ErrorCode_UpdateDataArkGroupResourcePoolFailed = 10224;</code>
      */
-    ErrorCode_UpdateDataArkGroupResourcePoolFailed(153, 10224),
+    ErrorCode_UpdateDataArkGroupResourcePoolFailed(155, 10224),
     /**
      * <code>ErrorCode_AddDiskBackupFailed = 10225;</code>
      */
-    ErrorCode_AddDiskBackupFailed(154, 10225),
+    ErrorCode_AddDiskBackupFailed(156, 10225),
     /**
      * <code>ErrorCode_UpdateDiskBackupFailed = 10226;</code>
      */
-    ErrorCode_UpdateDiskBackupFailed(155, 10226),
+    ErrorCode_UpdateDiskBackupFailed(157, 10226),
     /**
      * <code>ErrorCode_RemoveDiskBackupFailed = 10227;</code>
      */
-    ErrorCode_RemoveDiskBackupFailed(156, 10227),
+    ErrorCode_RemoveDiskBackupFailed(158, 10227),
     /**
      * <code>ErrorCode_GetDisasterClientsFailed = 10228;</code>
      */
-    ErrorCode_GetDisasterClientsFailed(157, 10228),
+    ErrorCode_GetDisasterClientsFailed(159, 10228),
     /**
      * <code>ErrorCode_AddDisasterDiskBackupFailed = 10229;</code>
      */
-    ErrorCode_AddDisasterDiskBackupFailed(158, 10229),
+    ErrorCode_AddDisasterDiskBackupFailed(160, 10229),
     /**
      * <code>ErrorCode_UpdateDisasterDiskBackupFailed = 10230;</code>
      */
-    ErrorCode_UpdateDisasterDiskBackupFailed(159, 10230),
+    ErrorCode_UpdateDisasterDiskBackupFailed(161, 10230),
     /**
      * <code>ErrorCode_RemoveDisasterDiskBackupFailed = 10231;</code>
      */
-    ErrorCode_RemoveDisasterDiskBackupFailed(160, 10231),
+    ErrorCode_RemoveDisasterDiskBackupFailed(162, 10231),
     /**
      * <code>ErrorCode_AddDiskBackupStraightFailed = 10232;</code>
      */
-    ErrorCode_AddDiskBackupStraightFailed(161, 10232),
+    ErrorCode_AddDiskBackupStraightFailed(163, 10232),
     /**
      * <code>ErrorCode_GetDisasterDataArksFailed = 10233;</code>
      */
-    ErrorCode_GetDisasterDataArksFailed(162, 10233),
+    ErrorCode_GetDisasterDataArksFailed(164, 10233),
     /**
      * <code>ErrorCode_GetUserResourceForTransferFailed = 10234;</code>
      */
-    ErrorCode_GetUserResourceForTransferFailed(163, 10234),
+    ErrorCode_GetUserResourceForTransferFailed(165, 10234),
     /**
      * <code>ErrorCode_TransferUserResourceFailed = 10235;</code>
      */
-    ErrorCode_TransferUserResourceFailed(164, 10235),
+    ErrorCode_TransferUserResourceFailed(166, 10235),
     /**
      * <code>ErrorCode_AddDisasterRacDatabaseFailed = 10236;</code>
      */
-    ErrorCode_AddDisasterRacDatabaseFailed(165, 10236),
+    ErrorCode_AddDisasterRacDatabaseFailed(167, 10236),
     /**
      * <code>ErrorCode_RemoveDisasterRacDatabaseFailed = 10237;</code>
      */
-    ErrorCode_RemoveDisasterRacDatabaseFailed(166, 10237),
+    ErrorCode_RemoveDisasterRacDatabaseFailed(168, 10237),
     /**
      * <code>ErrorCode_AddVcenterExtFailed = 10238;</code>
      */
-    ErrorCode_AddVcenterExtFailed(167, 10238),
+    ErrorCode_AddVcenterExtFailed(169, 10238),
     /**
      * <code>ErrorCode_AddDisasterDataArkExtFailed = 10239;</code>
      */
-    ErrorCode_AddDisasterDataArkExtFailed(168, 10239),
+    ErrorCode_AddDisasterDataArkExtFailed(170, 10239),
     /**
      * <code>ErrorCode_CreateClientGroupFailed = 10240;</code>
      */
-    ErrorCode_CreateClientGroupFailed(169, 10240),
+    ErrorCode_CreateClientGroupFailed(171, 10240),
     /**
      * <code>ErrorCode_UpdateClientGroupFailed = 10241;</code>
      */
-    ErrorCode_UpdateClientGroupFailed(170, 10241),
+    ErrorCode_UpdateClientGroupFailed(172, 10241),
     /**
      * <code>ErrorCode_DeleteClientGroupFailed = 10242;</code>
      */
-    ErrorCode_DeleteClientGroupFailed(171, 10242),
+    ErrorCode_DeleteClientGroupFailed(173, 10242),
     /**
      * <code>ErrorCode_MigrateClientFailed = 10243;</code>
      */
-    ErrorCode_MigrateClientFailed(172, 10243),
+    ErrorCode_MigrateClientFailed(174, 10243),
     /**
      * <code>ErrorCode_UpdateClientHostTypeFailed = 10244;</code>
      */
-    ErrorCode_UpdateClientHostTypeFailed(173, 10244),
+    ErrorCode_UpdateClientHostTypeFailed(175, 10244),
     /**
      * <code>ErrorCode_AddRdsFailed = 10245;</code>
      */
-    ErrorCode_AddRdsFailed(174, 10245),
+    ErrorCode_AddRdsFailed(176, 10245),
     /**
      * <code>ErrorCode_AddRdsExtFailed = 10246;</code>
      */
-    ErrorCode_AddRdsExtFailed(175, 10246),
+    ErrorCode_AddRdsExtFailed(177, 10246),
     /**
      * <code>ErrorCode_RemoveRdsFailed = 10247;</code>
      */
-    ErrorCode_RemoveRdsFailed(176, 10247),
+    ErrorCode_RemoveRdsFailed(178, 10247),
     /**
      * <code>ErrorCode_AddRdsInstanceFailed = 10248;</code>
      */
-    ErrorCode_AddRdsInstanceFailed(177, 10248),
+    ErrorCode_AddRdsInstanceFailed(179, 10248),
     /**
      * <code>ErrorCode_RemoveRdsInstanceFailed = 10249;</code>
      */
-    ErrorCode_RemoveRdsInstanceFailed(178, 10249),
+    ErrorCode_RemoveRdsInstanceFailed(180, 10249),
     /**
      * <code>ErrorCode_AddDisasterRdsInstanceFailed = 10250;</code>
      */
-    ErrorCode_AddDisasterRdsInstanceFailed(179, 10250),
+    ErrorCode_AddDisasterRdsInstanceFailed(181, 10250),
     /**
      * <code>ErrorCode_RemoveDisasterRdsInstanceFailed = 10251;</code>
      */
-    ErrorCode_RemoveDisasterRdsInstanceFailed(180, 10251),
+    ErrorCode_RemoveDisasterRdsInstanceFailed(182, 10251),
     /**
      * <code>ErrorCode_UpdateAkskForRdsFailed = 10252;</code>
      */
-    ErrorCode_UpdateAkskForRdsFailed(181, 10252),
+    ErrorCode_UpdateAkskForRdsFailed(183, 10252),
     /**
      * <code>ErrorCode_AddOssFailed = 10254;</code>
      */
-    ErrorCode_AddOssFailed(182, 10254),
+    ErrorCode_AddOssFailed(184, 10254),
     /**
      * <code>ErrorCode_AddOssExtFailed = 10255;</code>
      */
-    ErrorCode_AddOssExtFailed(183, 10255),
+    ErrorCode_AddOssExtFailed(185, 10255),
     /**
      * <code>ErrorCode_RemoveOssFailed = 10256;</code>
      */
-    ErrorCode_RemoveOssFailed(184, 10256),
+    ErrorCode_RemoveOssFailed(186, 10256),
     /**
      * <code>ErrorCode_AddOssObjectSetFailed = 10257;</code>
      */
-    ErrorCode_AddOssObjectSetFailed(185, 10257),
+    ErrorCode_AddOssObjectSetFailed(187, 10257),
     /**
      * <code>ErrorCode_RemoveOssObjectSetFailed = 10258;</code>
      */
-    ErrorCode_RemoveOssObjectSetFailed(186, 10258),
+    ErrorCode_RemoveOssObjectSetFailed(188, 10258),
     /**
      * <code>ErrorCode_AddDisasterOssObjectSetFailed = 10259;</code>
      */
-    ErrorCode_AddDisasterOssObjectSetFailed(187, 10259),
+    ErrorCode_AddDisasterOssObjectSetFailed(189, 10259),
     /**
      * <code>ErrorCode_RemoveDisasterOssObjectSetFailed = 10260;</code>
      */
-    ErrorCode_RemoveDisasterOssObjectSetFailed(188, 10260),
+    ErrorCode_RemoveDisasterOssObjectSetFailed(190, 10260),
     /**
      * <code>ErrorCode_UpdateAkskForOssFailed = 10261;</code>
      */
-    ErrorCode_UpdateAkskForOssFailed(189, 10261),
+    ErrorCode_UpdateAkskForOssFailed(191, 10261),
     /**
      * <code>ErrorCode_AddEcsFailed = 10262;</code>
      */
-    ErrorCode_AddEcsFailed(190, 10262),
+    ErrorCode_AddEcsFailed(192, 10262),
     /**
      * <code>ErrorCode_AddEcsExtFailed = 10263;</code>
      */
-    ErrorCode_AddEcsExtFailed(191, 10263),
+    ErrorCode_AddEcsExtFailed(193, 10263),
     /**
      * <code>ErrorCode_RemoveEcsFailed = 10264;</code>
      */
-    ErrorCode_RemoveEcsFailed(192, 10264),
+    ErrorCode_RemoveEcsFailed(194, 10264),
     /**
      * <code>ErrorCode_AddEcsInstanceFailed = 10265;</code>
      */
-    ErrorCode_AddEcsInstanceFailed(193, 10265),
+    ErrorCode_AddEcsInstanceFailed(195, 10265),
     /**
      * <code>ErrorCode_RemoveEcsInstanceFailed = 10266;</code>
      */
-    ErrorCode_RemoveEcsInstanceFailed(194, 10266),
+    ErrorCode_RemoveEcsInstanceFailed(196, 10266),
     /**
      * <code>ErrorCode_AddDisasterEcsInstanceFailed = 10267;</code>
      */
-    ErrorCode_AddDisasterEcsInstanceFailed(195, 10267),
+    ErrorCode_AddDisasterEcsInstanceFailed(197, 10267),
     /**
      * <code>ErrorCode_RemoveDisasterEcsInstanceFailed = 10268;</code>
      */
-    ErrorCode_RemoveDisasterEcsInstanceFailed(196, 10268),
+    ErrorCode_RemoveDisasterEcsInstanceFailed(198, 10268),
     /**
      * <code>ErrorCode_UpdateAkskForEcsFailed = 10269;</code>
      */
-    ErrorCode_UpdateAkskForEcsFailed(197, 10269),
+    ErrorCode_UpdateAkskForEcsFailed(199, 10269),
     /**
      * <code>ErrorCode_AddMetadatabaseFailed = 10270;</code>
      */
-    ErrorCode_AddMetadatabaseFailed(198, 10270),
+    ErrorCode_AddMetadatabaseFailed(200, 10270),
     /**
      * <code>ErrorCode_AddMetadatabaseExtFailed = 10271;</code>
      */
-    ErrorCode_AddMetadatabaseExtFailed(199, 10271),
+    ErrorCode_AddMetadatabaseExtFailed(201, 10271),
     /**
      * <code>ErrorCode_RemoveMetadatabaseFailed = 10272;</code>
      */
-    ErrorCode_RemoveMetadatabaseFailed(200, 10272),
+    ErrorCode_RemoveMetadatabaseFailed(202, 10272),
     /**
      * <code>ErrorCode_AddMetadatabaseBackupFailed = 10273;</code>
      */
-    ErrorCode_AddMetadatabaseBackupFailed(201, 10273),
+    ErrorCode_AddMetadatabaseBackupFailed(203, 10273),
     /**
      * <code>ErrorCode_RemoveMetadatabaseBackupFailed = 10274;</code>
      */
-    ErrorCode_RemoveMetadatabaseBackupFailed(202, 10274),
+    ErrorCode_RemoveMetadatabaseBackupFailed(204, 10274),
     /**
      * <code>ErrorCode_AddDisasterMetadatabaseBackupFailed = 10275;</code>
      */
-    ErrorCode_AddDisasterMetadatabaseBackupFailed(203, 10275),
+    ErrorCode_AddDisasterMetadatabaseBackupFailed(205, 10275),
     /**
      * <code>ErrorCode_RemoveDisasterMetadatabaseBackupFailed = 10276;</code>
      */
-    ErrorCode_RemoveDisasterMetadatabaseBackupFailed(204, 10276),
+    ErrorCode_RemoveDisasterMetadatabaseBackupFailed(206, 10276),
     /**
      * <code>ErrorCode_UpdateDataArkRoleFailed = 10277;</code>
      */
-    ErrorCode_UpdateDataArkRoleFailed(205, 10277),
+    ErrorCode_UpdateDataArkRoleFailed(207, 10277),
     /**
      * <code>ErrorCode_AddRacFailed = 10278;</code>
      */
-    ErrorCode_AddRacFailed(206, 10278),
+    ErrorCode_AddRacFailed(208, 10278),
     /**
      * <code>ErrorCode_RemoveRacFailed = 10279;</code>
      */
-    ErrorCode_RemoveRacFailed(207, 10279),
+    ErrorCode_RemoveRacFailed(209, 10279),
     /**
      * <code>ErrorCode_AddRacDatabaseFailed = 10280;</code>
      */
-    ErrorCode_AddRacDatabaseFailed(208, 10280),
+    ErrorCode_AddRacDatabaseFailed(210, 10280),
     /**
      * <code>ErrorCode_UpdateRacDatabaseFailed = 10281;</code>
      */
-    ErrorCode_UpdateRacDatabaseFailed(209, 10281),
+    ErrorCode_UpdateRacDatabaseFailed(211, 10281),
     /**
      * <code>ErrorCode_RemoveRacDatabaseFailed = 10282;</code>
      */
-    ErrorCode_RemoveRacDatabaseFailed(210, 10282),
+    ErrorCode_RemoveRacDatabaseFailed(212, 10282),
     /**
      * <code>ErrorCode_ForceRemoveDataArkFailed = 10283;</code>
      */
-    ErrorCode_ForceRemoveDataArkFailed(211, 10283),
+    ErrorCode_ForceRemoveDataArkFailed(213, 10283),
+    /**
+     * <code>ErrorCode_UpdateVmwareVirtualMachinBackupFailed = 10284;</code>
+     */
+    ErrorCode_UpdateVmwareVirtualMachinBackupFailed(214, 10284),
     /**
      * <code>ErrorCode_GetUsersFailed = 10300;</code>
      */
-    ErrorCode_GetUsersFailed(212, 10300),
+    ErrorCode_GetUsersFailed(215, 10300),
     /**
      * <code>ErrorCode_CreateUserGroupFailed = 10301;</code>
      */
-    ErrorCode_CreateUserGroupFailed(213, 10301),
+    ErrorCode_CreateUserGroupFailed(216, 10301),
     /**
      * <code>ErrorCode_DeleteUserGroupFailed = 10302;</code>
      */
-    ErrorCode_DeleteUserGroupFailed(214, 10302),
+    ErrorCode_DeleteUserGroupFailed(217, 10302),
     /**
      * <code>ErrorCode_UpdateUserGroupFailed = 10303;</code>
      */
-    ErrorCode_UpdateUserGroupFailed(215, 10303),
+    ErrorCode_UpdateUserGroupFailed(218, 10303),
     /**
      * <code>ErrorCode_MigrateUserGroupFailed = 10304;</code>
      */
-    ErrorCode_MigrateUserGroupFailed(216, 10304),
+    ErrorCode_MigrateUserGroupFailed(219, 10304),
     /**
      * <code>ErrorCode_CreateUserFailed = 10305;</code>
      */
-    ErrorCode_CreateUserFailed(217, 10305),
+    ErrorCode_CreateUserFailed(220, 10305),
     /**
      * <code>ErrorCode_DeleteUserFailed = 10306;</code>
      */
-    ErrorCode_DeleteUserFailed(218, 10306),
+    ErrorCode_DeleteUserFailed(221, 10306),
     /**
      * <code>ErrorCode_UpdateUserPasswordFailed = 10307;</code>
      */
-    ErrorCode_UpdateUserPasswordFailed(219, 10307),
+    ErrorCode_UpdateUserPasswordFailed(222, 10307),
     /**
      * <code>ErrorCode_ResetUserPasswordFailed = 10308;</code>
      */
-    ErrorCode_ResetUserPasswordFailed(220, 10308),
+    ErrorCode_ResetUserPasswordFailed(223, 10308),
     /**
      * <code>ErrorCode_UpdateUserFailed = 10309;</code>
      */
-    ErrorCode_UpdateUserFailed(221, 10309),
+    ErrorCode_UpdateUserFailed(224, 10309),
     /**
      * <code>ErrorCode_GetUserQuotaFailed = 10310;</code>
      */
-    ErrorCode_GetUserQuotaFailed(222, 10310),
+    ErrorCode_GetUserQuotaFailed(225, 10310),
     /**
      * <code>ErrorCode_UpdateUserQuotaFailed = 10311;</code>
      */
-    ErrorCode_UpdateUserQuotaFailed(223, 10311),
+    ErrorCode_UpdateUserQuotaFailed(226, 10311),
     /**
      * <code>ErrorCode_MigrateUserFailed = 10313;</code>
      *
@@ -2885,19 +2914,19 @@ public final class CloudManagerAlarm {
      * 10312 废弃
      * </pre>
      */
-    ErrorCode_MigrateUserFailed(224, 10313),
+    ErrorCode_MigrateUserFailed(227, 10313),
     /**
      * <code>ErrorCode_CreateUserQuotaFailed = 10314;</code>
      */
-    ErrorCode_CreateUserQuotaFailed(225, 10314),
+    ErrorCode_CreateUserQuotaFailed(228, 10314),
     /**
      * <code>ErrorCode_DeleteUserQuotaFailed = 10315;</code>
      */
-    ErrorCode_DeleteUserQuotaFailed(226, 10315),
+    ErrorCode_DeleteUserQuotaFailed(229, 10315),
     /**
      * <code>ErrorCode_GetAlarmLogsFailed = 10400;</code>
      */
-    ErrorCode_GetAlarmLogsFailed(227, 10400),
+    ErrorCode_GetAlarmLogsFailed(230, 10400),
     /**
      * <code>ErrorCode_DeleteAlarmLogFailed = 10402;</code>
      *
@@ -2905,27 +2934,27 @@ public final class CloudManagerAlarm {
      * 10401 废弃
      * </pre>
      */
-    ErrorCode_DeleteAlarmLogFailed(228, 10402),
+    ErrorCode_DeleteAlarmLogFailed(231, 10402),
     /**
      * <code>ErrorCode_GetOperationLogsFailed = 10403;</code>
      */
-    ErrorCode_GetOperationLogsFailed(229, 10403),
+    ErrorCode_GetOperationLogsFailed(232, 10403),
     /**
      * <code>ErrorCode_UpdateAlarmLogProcessed_ProcessedFailed = 10404;</code>
      */
-    ErrorCode_UpdateAlarmLogProcessed_ProcessedFailed(230, 10404),
+    ErrorCode_UpdateAlarmLogProcessed_ProcessedFailed(233, 10404),
     /**
      * <code>ErrorCode_UpdateAlarmLogProcessed_UnprocessedFailed = 10405;</code>
      */
-    ErrorCode_UpdateAlarmLogProcessed_UnprocessedFailed(231, 10405),
+    ErrorCode_UpdateAlarmLogProcessed_UnprocessedFailed(234, 10405),
     /**
      * <code>ErrorCode_GetEmailAlarmFailed = 10500;</code>
      */
-    ErrorCode_GetEmailAlarmFailed(232, 10500),
+    ErrorCode_GetEmailAlarmFailed(235, 10500),
     /**
      * <code>ErrorCode_UpdateEmailAlarmFailed = 10501;</code>
      */
-    ErrorCode_UpdateEmailAlarmFailed(233, 10501),
+    ErrorCode_UpdateEmailAlarmFailed(236, 10501),
     /**
      * <code>ErrorCode_CreateEmailAlarmFailed = 10502;</code>
      *
@@ -2933,7 +2962,7 @@ public final class CloudManagerAlarm {
      * 报警模块用
      * </pre>
      */
-    ErrorCode_CreateEmailAlarmFailed(234, 10502),
+    ErrorCode_CreateEmailAlarmFailed(237, 10502),
     /**
      * <code>ErrorCode_DeleteEmailAlarmFailed = 10503;</code>
      *
@@ -2941,55 +2970,55 @@ public final class CloudManagerAlarm {
      * 报警模块用
      * </pre>
      */
-    ErrorCode_DeleteEmailAlarmFailed(235, 10503),
+    ErrorCode_DeleteEmailAlarmFailed(238, 10503),
     /**
      * <code>ErrorCode_VerifyEmailAlarmFailed = 10504;</code>
      */
-    ErrorCode_VerifyEmailAlarmFailed(236, 10504),
+    ErrorCode_VerifyEmailAlarmFailed(239, 10504),
     /**
      * <code>ErrorCode_GetSnmpFailed = 10505;</code>
      */
-    ErrorCode_GetSnmpFailed(237, 10505),
+    ErrorCode_GetSnmpFailed(240, 10505),
     /**
      * <code>ErrorCode_UpdateSnmpFailed = 10506;</code>
      */
-    ErrorCode_UpdateSnmpFailed(238, 10506),
+    ErrorCode_UpdateSnmpFailed(241, 10506),
     /**
      * <code>ErrorCode_GetCloudServiceEndpointFailed = 10507;</code>
      */
-    ErrorCode_GetCloudServiceEndpointFailed(239, 10507),
+    ErrorCode_GetCloudServiceEndpointFailed(242, 10507),
     /**
      * <code>ErrorCode_UpdateRdsEndpointFailed = 10508;</code>
      */
-    ErrorCode_UpdateRdsEndpointFailed(240, 10508),
+    ErrorCode_UpdateRdsEndpointFailed(243, 10508),
     /**
      * <code>ErrorCode_UpdateOssEndpointFailed = 10509;</code>
      */
-    ErrorCode_UpdateOssEndpointFailed(241, 10509),
+    ErrorCode_UpdateOssEndpointFailed(244, 10509),
     /**
      * <code>ErrorCode_UpdateEcsEndpointFailed = 10510;</code>
      */
-    ErrorCode_UpdateEcsEndpointFailed(242, 10510),
+    ErrorCode_UpdateEcsEndpointFailed(245, 10510),
     /**
      * <code>ErrorCode_GetCloudManagersFailed = 10511;</code>
      */
-    ErrorCode_GetCloudManagersFailed(243, 10511),
+    ErrorCode_GetCloudManagersFailed(246, 10511),
     /**
      * <code>ErrorCode_AddCloudManagerFailed = 10512;</code>
      */
-    ErrorCode_AddCloudManagerFailed(244, 10512),
+    ErrorCode_AddCloudManagerFailed(247, 10512),
     /**
      * <code>ErrorCode_UpdateCloudManagerFailed = 10513;</code>
      */
-    ErrorCode_UpdateCloudManagerFailed(245, 10513),
+    ErrorCode_UpdateCloudManagerFailed(248, 10513),
     /**
      * <code>ErrorCode_RemoveCloudManagerFailed = 10514;</code>
      */
-    ErrorCode_RemoveCloudManagerFailed(246, 10514),
+    ErrorCode_RemoveCloudManagerFailed(249, 10514),
     /**
      * <code>ErrorCode_VerifyCloudManagerFailed = 10515;</code>
      */
-    ErrorCode_VerifyCloudManagerFailed(247, 10515),
+    ErrorCode_VerifyCloudManagerFailed(250, 10515),
     ;
 
     /**
@@ -3616,6 +3645,22 @@ public final class CloudManagerAlarm {
      * </pre>
      */
     public static final int ErrorCode_RdsInstanceNonexistent_VALUE = 1096;
+    /**
+     * <code>ErrorCode_DisasterClientExistent = 1097;</code>
+     *
+     * <pre>
+     * 存在容灾客户端
+     * </pre>
+     */
+    public static final int ErrorCode_DisasterClientExistent_VALUE = 1097;
+    /**
+     * <code>ErrorCode_DisasterClientNonexistent = 1098;</code>
+     *
+     * <pre>
+     * 不存在容灾客户端
+     * </pre>
+     */
+    public static final int ErrorCode_DisasterClientNonexistent_VALUE = 1098;
     /**
      * <code>ErrorCode_RequestToAlarmServiceFailed = 1100;</code>
      *
@@ -4309,6 +4354,10 @@ public final class CloudManagerAlarm {
      */
     public static final int ErrorCode_ForceRemoveDataArkFailed_VALUE = 10283;
     /**
+     * <code>ErrorCode_UpdateVmwareVirtualMachinBackupFailed = 10284;</code>
+     */
+    public static final int ErrorCode_UpdateVmwareVirtualMachinBackupFailed_VALUE = 10284;
+    /**
      * <code>ErrorCode_GetUsersFailed = 10300;</code>
      */
     public static final int ErrorCode_GetUsersFailed_VALUE = 10300;
@@ -4553,6 +4602,8 @@ public final class CloudManagerAlarm {
         case 1094: return ErrorCode_RdsNonexistent;
         case 1095: return ErrorCode_RdsInstanceExistent;
         case 1096: return ErrorCode_RdsInstanceNonexistent;
+        case 1097: return ErrorCode_DisasterClientExistent;
+        case 1098: return ErrorCode_DisasterClientNonexistent;
         case 1100: return ErrorCode_RequestToAlarmServiceFailed;
         case 1101: return ErrorCode_RequestToConsoleFailed;
         case 1102: return ErrorCode_RequestToStreamerFailed;
@@ -4686,6 +4737,7 @@ public final class CloudManagerAlarm {
         case 10281: return ErrorCode_UpdateRacDatabaseFailed;
         case 10282: return ErrorCode_RemoveRacDatabaseFailed;
         case 10283: return ErrorCode_ForceRemoveDataArkFailed;
+        case 10284: return ErrorCode_UpdateVmwareVirtualMachinBackupFailed;
         case 10300: return ErrorCode_GetUsersFailed;
         case 10301: return ErrorCode_CreateUserGroupFailed;
         case 10302: return ErrorCode_DeleteUserGroupFailed;
@@ -11466,7 +11518,7 @@ public final class CloudManagerAlarm {
                     "tp_port\030\003 \002(\r\022\036\n\026is_ssl_encrypt_enabled\030",
             "\004 \002(\010\022\036\n\026is_smtp_authentication\030\005 \002(\010\022\024\n" +
                     "\014smtp_user_id\030\006 \002(\t\022\025\n\rsmtp_password\030\007 \002" +
-                    "(\t\022\027\n\017receiver_emails\030\010 \003(\t*\324$\n\007Command\022" +
+                    "(\t\022\027\n\017receiver_emails\030\010 \003(\t*\202%\n\007Command\022" +
                     "\030\n\024Command_GetPublicKey\020\000\022\035\n\031Command_Log" +
                     "inCloudManager\020\001\022\023\n\017Command_SendDek\020\002\022\036\n" +
                     "\032Command_LogoutCloudManager\020\003\022\026\n\022Command" +
@@ -11550,366 +11602,371 @@ public final class CloudManagerAlarm {
                     "mand_RemoveRac\020\227\002\022\033\n\026Command_AddRacDatab" +
                     "ase\020\230\002\022\036\n\031Command_UpdateRacDatabase\020\231\002\022\036" +
                     "\n\031Command_RemoveRacDatabase\020\232\002\022\037\n\032Comman" +
-                    "d_ForceRemoveDataArk\020\233\002\022\025\n\020Command_GetUs" +
-                    "ers\020\254\002\022\034\n\027Command_CreateUserGroup\020\255\002\022\034\n\027" +
-                    "Command_DeleteUserGroup\020\256\002\022\034\n\027Command_Up" +
-                    "dateUserGroup\020\257\002\022\035\n\030Command_MigrateUserG",
-            "roup\020\260\002\022\027\n\022Command_CreateUser\020\261\002\022\027\n\022Comm" +
-                    "and_DeleteUser\020\262\002\022\037\n\032Command_UpdateUserP" +
-                    "assword\020\263\002\022\036\n\031Command_ResetUserPassword\020" +
-                    "\264\002\022\027\n\022Command_UpdateUser\020\265\002\022\031\n\024Command_G" +
-                    "etUserQuota\020\266\002\022\034\n\027Command_UpdateUserQuot" +
-                    "a\020\267\002\022\030\n\023Command_MigrateUser\020\271\002\022\034\n\027Comman" +
-                    "d_CreateUserQuota\020\272\002\022\034\n\027Command_DeleteUs" +
-                    "erQuota\020\273\002\022\031\n\024Command_GetAlarmLogs\020\220\003\022$\n" +
-                    "\037Command_UpdateAlarmLogProcessed\020\221\003\022\033\n\026C" +
-                    "ommand_DeleteAlarmLog\020\222\003\022\035\n\030Command_GetO",
-            "perationLogs\020\223\003\022.\n)Command_UpdateAlarmLo" +
-                    "gProcessed_Processed\020\224\003\0220\n+Command_Updat" +
-                    "eAlarmLogProcessed_Unprocessed\020\225\003\022\037\n\032Com" +
-                    "mand_InsertOperationLog\020\226\003\022\032\n\025Command_Ge" +
-                    "tEmailAlarm\020\364\003\022\035\n\030Command_UpdateEmailAla" +
-                    "rm\020\365\003\022\035\n\030Command_CreateEmailAlarm\020\366\003\022\035\n\030" +
-                    "Command_DeleteEmailAlarm\020\367\003\022\035\n\030Command_V" +
-                    "erifyEmailAlarm\020\370\003\022\024\n\017Command_GetSnmp\020\371\003" +
-                    "\022\027\n\022Command_UpdateSnmp\020\372\003\022$\n\037Command_Get" +
-                    "CloudServiceEndpoint\020\373\003\022\036\n\031Command_Updat",
-            "eRdsEndpoint\020\374\003\022\036\n\031Command_UpdateOssEndp" +
-                    "oint\020\375\003\022\036\n\031Command_UpdateEcsEndpoint\020\376\003\022" +
-                    "\035\n\030Command_GetCloudManagers\020\377\003\022\034\n\027Comman" +
-                    "d_AddCloudManager\020\200\004\022\037\n\032Command_UpdateCl" +
-                    "oudManager\020\201\004\022\037\n\032Command_RemoveCloudMana" +
-                    "ger\020\202\004\022\037\n\032Command_VerifyCloudManager\020\203\004\022" +
-                    "\032\n\025Command_ManageDataArk\020\330\004\022\035\n\030Command_E" +
-                    "xportDataArkLog\020\331\004\022\036\n\031Command_CommitTran" +
-                    "saction\020\332\004\022 \n\033Command_RollbackTransactio" +
-                    "n\020\333\004\022$\n\037Command_ProcessTransactionGroup\020",
-            "\334\004*\250K\n\tErrorCode\022\025\n\021ErrorCode_Success\020\000\022" +
-                    "\024\n\020ErrorCode_Failed\020\001\022\033\n\027ErrorCode_Conne" +
-                    "ctFailed\020\n\022\030\n\024ErrorCode_SendFailed\020\013\022\033\n\027" +
-                    "ErrorCode_ReceiveFailed\020\014\022#\n\037ErrorCode_U" +
-                    "nrecognizedOperation\020\r\022\"\n\036ErrorCode_Enqu" +
-                    "eueCommandFailed\020\016\022\"\n\036ErrorCode_DequeueC" +
-                    "ommandFailed\020\017\022\036\n\032ErrorCode_NetworkExcep" +
-                    "tion\020\020\022\"\n\036ErrorCode_UnsupportedOperation" +
-                    "\020\021\022\036\n\032ErrorCode_InvalidOperation\020\022\022\034\n\030Er" +
-                    "rorCode_ParameterError\020\024\022\035\n\031ErrorCode_Se",
-            "rializeFailed\020\025\022\037\n\033ErrorCode_Deserialize" +
-                    "Failed\020\026\022\036\n\032ErrorCode_PermissionDenied\020\027" +
-                    "\022#\n\037ErrorCode_ConnectDatabaseFailed\020\030\022#\n" +
-                    "\037ErrorCode_OperateDatabaseFailed\020\031\022\037\n\033Er" +
-                    "rorCode_OperationNotStart\020\032\022\034\n\030ErrorCode" +
-                    "_OperationUndid\020\033\022$\n ErrorCode_Transacti" +
-                    "onNonexistent\020\034\022!\n\035ErrorCode_Transaction" +
-                    "Existent\020\035\022\036\n\032ErrorCode_OperationAborted" +
-                    "\020\036\022!\n\035ErrorCode_PerformingOperation\020\037\022$\n" +
-                    " ErrorCode_TargetUserLockOccupied\020 \022\032\n\026E",
-            "rrorCode_LockOccupied\020!\0222\n-ErrorCode_Dat" +
-                    "aArkGroupCloudManagerNonexistent\020\350\007\022-\n(E" +
-                    "rrorCode_DataArkGroupDataCenterExistent\020" +
-                    "\362\007\0220\n+ErrorCode_DataArkGroupDataCenterNo" +
-                    "nexistent\020\363\007\022-\n(ErrorCode_DataArkGroupDa" +
-                    "taCenterSameName\020\364\007\022/\n*ErrorCode_DataArk" +
-                    "GroupResourcePoolExistent\020\374\007\0222\n-ErrorCod" +
-                    "e_DataArkGroupResourcePoolNonexistent\020\375\007" +
-                    "\022/\n*ErrorCode_DataArkGroupResourcePoolSa" +
-                    "meName\020\376\007\022\036\n\031ErrorCode_DataArkExistent\020\206",
-            "\010\022!\n\034ErrorCode_DataArkNonexistent\020\207\010\022\036\n\031" +
-                    "ErrorCode_DataArkSameName\020\210\010\022#\n\036ErrorCod" +
-                    "e_DataArkRoleUndefined\020\211\010\022)\n$ErrorCode_D" +
-                    "isasterSideOfOtherDataArk\020\212\010\022+\n&ErrorCod" +
-                    "e_ProductionSideOfOtherDataArk\020\213\010\022 \n\033Err" +
-                    "orCode_UserGroupExistent\020\220\010\022#\n\036ErrorCode" +
-                    "_UserGroupNonexistent\020\221\010\022 \n\033ErrorCode_Us" +
-                    "erGroupSameName\020\222\010\022)\n$ErrorCode_TargetUs" +
-                    "erGroupNonexistent\020\223\010\022\033\n\026ErrorCode_UserE" +
-                    "xistent\020\232\010\022\036\n\031ErrorCode_UserNonexistent\020",
-            "\233\010\022\031\n\024ErrorCode_UserSameID\020\234\010\022\"\n\035ErrorCo" +
-                    "de_UserSameDisplayName\020\235\010\022\"\n\035ErrorCode_U" +
-                    "serPasswordUnmatch\020\236\010\022\'\n\"ErrorCode_UserN" +
-                    "ewPasswordSameToOld\020\237\010\022\031\n\024ErrorCode_User" +
-                    "Online\020\244\010\022 \n\033ErrorCode_UserAlreadyLogged" +
-                    "\020\245\010\022(\n#ErrorCode_UserLongTimeNoInteracti" +
-                    "on\020\246\010\022!\n\034ErrorCode_UserLoginElsewhere\020\247\010" +
-                    "\022\034\n\027ErrorCode_QuotaExistent\020\256\010\022\037\n\032ErrorC" +
-                    "ode_QuotaNonexistent\020\257\010\022\035\n\030ErrorCode_Quo" +
-                    "taNotEnough\020\260\010\022(\n#ErrorCode_ProductionDa",
-            "taArkExistent\020\261\010\022+\n&ErrorCode_Production" +
-                    "DataArkNonexistent\020\262\010\022&\n!ErrorCode_Disas" +
-                    "terDataArkExistent\020\263\010\022)\n$ErrorCode_Disas" +
-                    "terDataArkNonexistent\020\264\010\022\035\n\030ErrorCode_Cl" +
-                    "ientExistent\020\265\010\022 \n\033ErrorCode_ClientNonex" +
-                    "istent\020\266\010\022\036\n\031ErrorCode_VcenterExistent\020\267" +
-                    "\010\022!\n\034ErrorCode_VcenterNonexistent\020\270\010\022+\n&" +
-                    "ErrorCode_VmwareVirtualMachineExistent\020\271" +
-                    "\010\022.\n)ErrorCode_VmwareVirtualMachineNonex" +
-                    "istent\020\272\010\022!\n\034ErrorCode_DiskBackupExisten",
-            "t\020\273\010\022$\n\037ErrorCode_DiskBackupNonexistent\020" +
-                    "\274\010\022!\n\034ErrorCode_EmailAlarmExistent\020\275\010\022$\n" +
-                    "\037ErrorCode_EmailAlarmNonexistent\020\276\010\022)\n$E" +
-                    "rrorCode_DisasterDiskBackupExistent\020\277\010\022," +
-                    "\n\'ErrorCode_DisasterDiskBackupNonexisten" +
-                    "t\020\300\010\022*\n%ErrorCode_DisasterRacDatabaseExi" +
-                    "stent\020\301\010\022-\n(ErrorCode_DisasterRacDatabas" +
-                    "eNonexistent\020\302\010\022*\n%ErrorCode_DisasterRds" +
-                    "InstanceExistent\020\303\010\022-\n(ErrorCode_Disaste" +
-                    "rRdsInstanceNonexistent\020\304\010\022\032\n\025ErrorCode_",
-            "RdsExistent\020\305\010\022\035\n\030ErrorCode_RdsNonexiste" +
-                    "nt\020\306\010\022\"\n\035ErrorCode_RdsInstanceExistent\020\307" +
-                    "\010\022%\n ErrorCode_RdsInstanceNonexistent\020\310\010" +
-                    "\022*\n%ErrorCode_RequestToAlarmServiceFaile" +
-                    "d\020\314\010\022%\n ErrorCode_RequestToConsoleFailed" +
-                    "\020\315\010\022&\n!ErrorCode_RequestToStreamerFailed" +
-                    "\020\316\010\022*\n%ErrorCode_RequestToCloudManagerFa" +
-                    "iled\020\317\010\022\"\n\035ErrorCode_ClientGroupExistent" +
-                    "\020\326\010\022%\n ErrorCode_ClientGroupNonexistent\020" +
-                    "\327\010\022\"\n\035ErrorCode_ClientGroupSameName\020\330\010\022#",
-            "\n\036ErrorCode_CloudManagerExistent\020\331\010\022&\n!E" +
-                    "rrorCode_CloudManagerNonexistent\020\332\010\022#\n\036E" +
-                    "rrorCode_CloudManagerSameName\020\333\010\022)\n$Erro" +
-                    "rCode_CloudManagerIdInconsistent\020\334\010\022(\n#E" +
-                    "rrorCode_CloudManagerIdNonexistent\020\335\010\022\032\n" +
-                    "\025ErrorCode_OssExistent\020\260\t\022\035\n\030ErrorCode_O" +
-                    "ssNonexistent\020\261\t\022#\n\036ErrorCode_OssObjectS" +
-                    "etExistent\020\262\t\022&\n!ErrorCode_OssObjectSetN" +
-                    "onexistent\020\263\t\022+\n&ErrorCode_DisasterOssOb" +
-                    "jectSetExistent\020\264\t\022.\n)ErrorCode_Disaster",
-            "OssObjectSetNonexistent\020\265\t\022\032\n\025ErrorCode_" +
-                    "RacExistent\020\266\t\022\035\n\030ErrorCode_RacNonexiste" +
-                    "nt\020\267\t\022\"\n\035ErrorCode_RacDatabaseExistent\020\270" +
-                    "\t\022%\n ErrorCode_RacDatabaseNonexistent\020\271\t" +
-                    "\022\032\n\025ErrorCode_EcsExistent\020\272\t\022\035\n\030ErrorCod" +
-                    "e_EcsNonexistent\020\273\t\022\"\n\035ErrorCode_EcsInst" +
-                    "anceExistent\020\274\t\022%\n ErrorCode_EcsInstance" +
-                    "Nonexistent\020\275\t\022*\n%ErrorCode_DisasterEcsI" +
-                    "nstanceExistent\020\276\t\022-\n(ErrorCode_Disaster" +
-                    "EcsInstanceNonexistent\020\277\t\022#\n\036ErrorCode_M",
-            "etadatabaseExistent\020\300\t\022&\n!ErrorCode_Meta" +
-                    "databaseNonexistent\020\301\t\022)\n$ErrorCode_Meta" +
-                    "databaseBackupExistent\020\302\t\022,\n\'ErrorCode_M" +
-                    "etadatabaseBackupNonexistent\020\303\t\0221\n,Error" +
-                    "Code_DisasterMetadatabaseBackupExistent\020" +
-                    "\304\t\0224\n/ErrorCode_DisasterMetadatabaseBack" +
-                    "upNonexistent\020\305\t\022\035\n\030ErrorCode_BackupExis" +
-                    "tent\020\306\t\022 \n\033ErrorCode_BackupNonexistent\020\307" +
-                    "\t\022%\n ErrorCode_DisasterBackupExistent\020\310\t" +
-                    "\022(\n#ErrorCode_DisasterBackupNonexistent\020",
-            "\311\t\022#\n\036ErrorCode_QuotaNotZeroExistent\020\312\t\022" +
-                    "!\n\034ErrorCode_GetPublicKeyFailed\020\220N\022&\n!Er" +
-                    "rorCode_LoginCloudManagerFailed\020\221N\022\034\n\027Er" +
-                    "rorCode_SendDekFailed\020\222N\022\'\n\"ErrorCode_Lo" +
-                    "goutCloudManagerFailed\020\223N\022\037\n\032ErrorCode_V" +
-                    "erifyUserFailed\020\224N\022+\n&ErrorCode_ForceLog" +
-                    "inCloudManagerFailed\020\226N\022 \n\033ErrorCode_Get" +
-                    "OverviewFailed\020\364N\022%\n ErrorCode_GetDataAr" +
-                    "kReportFailed\020\365N\022\"\n\035ErrorCode_GetUserRep" +
-                    "ortFailed\020\366N\022$\n\037ErrorCode_GetBackupRepor",
-            "tFailed\020\367N\022(\n#ErrorCode_GetOverviewDataA" +
-                    "rksFailed\020\373N\022\'\n\"ErrorCode_GetOverviewCli" +
-                    "entsFailed\020\374N\0225\n0ErrorCode_GetOverviewVm" +
-                    "wareVirtualMachinesFailed\020\375N\022)\n$ErrorCod" +
-                    "e_GetOverviewCloudHostFailed\020\376N\022 \n\033Error" +
-                    "Code_GetDataArksFailed\020\330O\022\'\n\"ErrorCode_G" +
-                    "etDataArkResourceFailed\020\331O\022\037\n\032ErrorCode_" +
-                    "AddDataArkFailed\020\335O\022\"\n\035ErrorCode_RemoveD" +
-                    "ataArkFailed\020\336O\022\"\n\035ErrorCode_UpdateDataA" +
-                    "rkFailed\020\337O\022#\n\036ErrorCode_MigrateDataArkF",
-            "ailed\020\340O\022\'\n\"ErrorCode_AddDisasterDataArk" +
-                    "Failed\020\341O\022*\n%ErrorCode_RemoveDisasterDat" +
-                    "aArkFailed\020\342O\022\037\n\032ErrorCode_GetClientsFai" +
-                    "led\020\343O\022\036\n\031ErrorCode_AddClientFailed\020\344O\022\037" +
-                    "\n\032ErrorCode_AddVcenterFailed\020\345O\022,\n\'Error" +
-                    "Code_AddVmwareVirtualMachineFailed\020\346O\022!\n" +
-                    "\034ErrorCode_RemoveClientFailed\020\347O\022\"\n\035Erro" +
-                    "rCode_RemoveVcenterFailed\020\350O\022/\n*ErrorCod" +
-                    "e_RemoveVmwareVirtualMachineFailed\020\351O\0221\n" +
-                    ",ErrorCode_CreateDataArkGroupDataCenterF",
-            "ailed\020\352O\0223\n.ErrorCode_CreateDataArkGroup" +
-                    "ResourcePoolFailed\020\353O\0221\n,ErrorCode_Delet" +
-                    "eDataArkGroupDataCenterFailed\020\354O\0223\n.Erro" +
-                    "rCode_DeleteDataArkGroupResourcePoolFail" +
-                    "ed\020\355O\0223\n.ErrorCode_UpdateDataArkGroupClo" +
-                    "udManagerFailed\020\356O\0221\n,ErrorCode_UpdateDa" +
-                    "taArkGroupDataCenterFailed\020\357O\0223\n.ErrorCo" +
-                    "de_UpdateDataArkGroupResourcePoolFailed\020" +
-                    "\360O\022\"\n\035ErrorCode_AddDiskBackupFailed\020\361O\022%" +
-                    "\n ErrorCode_UpdateDiskBackupFailed\020\362O\022%\n",
-            " ErrorCode_RemoveDiskBackupFailed\020\363O\022\'\n\"" +
-                    "ErrorCode_GetDisasterClientsFailed\020\364O\022*\n" +
-                    "%ErrorCode_AddDisasterDiskBackupFailed\020\365" +
-                    "O\022-\n(ErrorCode_UpdateDisasterDiskBackupF" +
-                    "ailed\020\366O\022-\n(ErrorCode_RemoveDisasterDisk" +
-                    "BackupFailed\020\367O\022*\n%ErrorCode_AddDiskBack" +
-                    "upStraightFailed\020\370O\022(\n#ErrorCode_GetDisa" +
-                    "sterDataArksFailed\020\371O\022/\n*ErrorCode_GetUs" +
-                    "erResourceForTransferFailed\020\372O\022)\n$ErrorC" +
-                    "ode_TransferUserResourceFailed\020\373O\022+\n&Err",
-            "orCode_AddDisasterRacDatabaseFailed\020\374O\022." +
-                    "\n)ErrorCode_RemoveDisasterRacDatabaseFai" +
-                    "led\020\375O\022\"\n\035ErrorCode_AddVcenterExtFailed\020" +
-                    "\376O\022*\n%ErrorCode_AddDisasterDataArkExtFai" +
-                    "led\020\377O\022&\n!ErrorCode_CreateClientGroupFai" +
-                    "led\020\200P\022&\n!ErrorCode_UpdateClientGroupFai" +
-                    "led\020\201P\022&\n!ErrorCode_DeleteClientGroupFai" +
-                    "led\020\202P\022\"\n\035ErrorCode_MigrateClientFailed\020" +
-                    "\203P\022)\n$ErrorCode_UpdateClientHostTypeFail" +
-                    "ed\020\204P\022\033\n\026ErrorCode_AddRdsFailed\020\205P\022\036\n\031Er",
-            "rorCode_AddRdsExtFailed\020\206P\022\036\n\031ErrorCode_" +
-                    "RemoveRdsFailed\020\207P\022#\n\036ErrorCode_AddRdsIn" +
-                    "stanceFailed\020\210P\022&\n!ErrorCode_RemoveRdsIn" +
-                    "stanceFailed\020\211P\022+\n&ErrorCode_AddDisaster" +
-                    "RdsInstanceFailed\020\212P\022.\n)ErrorCode_Remove" +
-                    "DisasterRdsInstanceFailed\020\213P\022%\n ErrorCod" +
-                    "e_UpdateAkskForRdsFailed\020\214P\022\033\n\026ErrorCode" +
-                    "_AddOssFailed\020\216P\022\036\n\031ErrorCode_AddOssExtF" +
-                    "ailed\020\217P\022\036\n\031ErrorCode_RemoveOssFailed\020\220P" +
-                    "\022$\n\037ErrorCode_AddOssObjectSetFailed\020\221P\022\'",
-            "\n\"ErrorCode_RemoveOssObjectSetFailed\020\222P\022" +
-                    ",\n\'ErrorCode_AddDisasterOssObjectSetFail" +
-                    "ed\020\223P\022/\n*ErrorCode_RemoveDisasterOssObje" +
-                    "ctSetFailed\020\224P\022%\n ErrorCode_UpdateAkskFo" +
-                    "rOssFailed\020\225P\022\033\n\026ErrorCode_AddEcsFailed\020" +
-                    "\226P\022\036\n\031ErrorCode_AddEcsExtFailed\020\227P\022\036\n\031Er" +
-                    "rorCode_RemoveEcsFailed\020\230P\022#\n\036ErrorCode_" +
-                    "AddEcsInstanceFailed\020\231P\022&\n!ErrorCode_Rem" +
-                    "oveEcsInstanceFailed\020\232P\022+\n&ErrorCode_Add" +
-                    "DisasterEcsInstanceFailed\020\233P\022.\n)ErrorCod",
-            "e_RemoveDisasterEcsInstanceFailed\020\234P\022%\n " +
-                    "ErrorCode_UpdateAkskForEcsFailed\020\235P\022$\n\037E" +
-                    "rrorCode_AddMetadatabaseFailed\020\236P\022\'\n\"Err" +
-                    "orCode_AddMetadatabaseExtFailed\020\237P\022\'\n\"Er" +
-                    "rorCode_RemoveMetadatabaseFailed\020\240P\022*\n%E" +
-                    "rrorCode_AddMetadatabaseBackupFailed\020\241P\022" +
-                    "-\n(ErrorCode_RemoveMetadatabaseBackupFai" +
-                    "led\020\242P\0222\n-ErrorCode_AddDisasterMetadatab" +
-                    "aseBackupFailed\020\243P\0225\n0ErrorCode_RemoveDi" +
-                    "sasterMetadatabaseBackupFailed\020\244P\022&\n!Err",
-            "orCode_UpdateDataArkRoleFailed\020\245P\022\033\n\026Err" +
-                    "orCode_AddRacFailed\020\246P\022\036\n\031ErrorCode_Remo" +
-                    "veRacFailed\020\247P\022#\n\036ErrorCode_AddRacDataba" +
-                    "seFailed\020\250P\022&\n!ErrorCode_UpdateRacDataba" +
-                    "seFailed\020\251P\022&\n!ErrorCode_RemoveRacDataba" +
-                    "seFailed\020\252P\022\'\n\"ErrorCode_ForceRemoveData" +
-                    "ArkFailed\020\253P\022\035\n\030ErrorCode_GetUsersFailed" +
-                    "\020\274P\022$\n\037ErrorCode_CreateUserGroupFailed\020\275" +
-                    "P\022$\n\037ErrorCode_DeleteUserGroupFailed\020\276P\022" +
-                    "$\n\037ErrorCode_UpdateUserGroupFailed\020\277P\022%\n",
-            " ErrorCode_MigrateUserGroupFailed\020\300P\022\037\n\032" +
-                    "ErrorCode_CreateUserFailed\020\301P\022\037\n\032ErrorCo" +
-                    "de_DeleteUserFailed\020\302P\022\'\n\"ErrorCode_Upda" +
-                    "teUserPasswordFailed\020\303P\022&\n!ErrorCode_Res" +
-                    "etUserPasswordFailed\020\304P\022\037\n\032ErrorCode_Upd" +
-                    "ateUserFailed\020\305P\022!\n\034ErrorCode_GetUserQuo" +
-                    "taFailed\020\306P\022$\n\037ErrorCode_UpdateUserQuota" +
-                    "Failed\020\307P\022 \n\033ErrorCode_MigrateUserFailed" +
-                    "\020\311P\022$\n\037ErrorCode_CreateUserQuotaFailed\020\312" +
-                    "P\022$\n\037ErrorCode_DeleteUserQuotaFailed\020\313P\022",
-            "!\n\034ErrorCode_GetAlarmLogsFailed\020\240Q\022#\n\036Er" +
-                    "rorCode_DeleteAlarmLogFailed\020\242Q\022%\n Error" +
-                    "Code_GetOperationLogsFailed\020\243Q\0226\n1ErrorC" +
-                    "ode_UpdateAlarmLogProcessed_ProcessedFai" +
-                    "led\020\244Q\0228\n3ErrorCode_UpdateAlarmLogProces" +
-                    "sed_UnprocessedFailed\020\245Q\022\"\n\035ErrorCode_Ge" +
-                    "tEmailAlarmFailed\020\204R\022%\n ErrorCode_Update" +
-                    "EmailAlarmFailed\020\205R\022%\n ErrorCode_CreateE" +
-                    "mailAlarmFailed\020\206R\022%\n ErrorCode_DeleteEm" +
-                    "ailAlarmFailed\020\207R\022%\n ErrorCode_VerifyEma",
-            "ilAlarmFailed\020\210R\022\034\n\027ErrorCode_GetSnmpFai" +
-                    "led\020\211R\022\037\n\032ErrorCode_UpdateSnmpFailed\020\212R\022" +
-                    ",\n\'ErrorCode_GetCloudServiceEndpointFail" +
-                    "ed\020\213R\022&\n!ErrorCode_UpdateRdsEndpointFail" +
-                    "ed\020\214R\022&\n!ErrorCode_UpdateOssEndpointFail" +
-                    "ed\020\215R\022&\n!ErrorCode_UpdateEcsEndpointFail" +
-                    "ed\020\216R\022%\n ErrorCode_GetCloudManagersFaile" +
-                    "d\020\217R\022$\n\037ErrorCode_AddCloudManagerFailed\020" +
-                    "\220R\022\'\n\"ErrorCode_UpdateCloudManagerFailed" +
-                    "\020\221R\022\'\n\"ErrorCode_RemoveCloudManagerFaile",
-            "d\020\222R\022\'\n\"ErrorCode_VerifyCloudManagerFail" +
-                    "ed\020\223R*\245\021\n\tException\022\024\n\020Exception_Normal\020" +
-                    "\000\022\035\n\031Exception_ClientLocalLost\020\001\022\036\n\032Exce" +
-                    "ption_ClientTargetLost\020\002\022(\n$Exception_Vm" +
-                    "wareCreateSnapshotFailed\020\003\022\033\n\027Exception_" +
-                    "VmwareCbtDrop\020\004\022\033\n\027Exception_ClientOffli" +
-                    "ne\020\005\022\034\n\030Exception_VcenterOffline\020\006\022%\n!Ex" +
-                    "ception_ClusterNodeExistOffline\020\007\022#\n\037Exc" +
-                    "eption_ClusterNodeAllOffline\020\010\022\"\n\036Except" +
-                    "ion_StreamerPoolDisabled\020\t\022\035\n\031Exception_",
-            "StreamerOffline\020\n\022$\n Exception_ClientAut" +
-                    "oExpandFailed\020\013\022\'\n#Exception_ClientSnaps" +
-                    "hotMergeFailed\020\014\022\037\n\033Exception_OracleStor" +
-                    "ageDrop\020\r\022\'\n#Exception_DisasterReplicati" +
-                    "onFailed\020\016\022!\n\035Exception_RacNodeExistOffl" +
-                    "ine\020\017\022\037\n\033Exception_RacNodeAllOffline\020\020\022%" +
-                    "\n!Exception_RacInstanceExistOffline\020\021\022#\n" +
-                    "\037Exception_RacInstanceAllOffline\020\022\022)\n%Ex" +
-                    "ception_VmwareVirtualMachineOffline\020\023\022(\n" +
-                    "$Exception_ClientCreateSnapshotFailed\020\024\022",
-            "%\n!Exception_RacCreateSnapshotFailed\020\025\022#" +
-                    "\n\037Exception_DisasterServerOffline\020\026\022+\n\'E" +
-                    "xception_StreamerPoolExceededThreshold\020\027" +
-                    "\022\034\n\030Exception_AixDiskOffline\020\030\022$\n Except" +
-                    "ion_VmwareInitMirrorFailed\020\031\022&\n\"Exceptio" +
-                    "n_VmwareSnapshotSizeIsZero\020\032\022,\n(Exceptio" +
-                    "n_FileSingleCreateSnapshotFailed\020\033\022\037\n\033Ex" +
-                    "ception_FileSingleOffline\020\034\022!\n\035Exception" +
-                    "_FileSingleLocalLost\020\035\022\"\n\036Exception_File" +
-                    "SingleTargetLost\020\036\0222\n.Exception_RdsInsta",
-            "nceBackupPointDownloadFailed\020\037\022 \n\034Except" +
-                    "ion_RdsInstanceOffline\020 \022\034\n\030Exception_Rd" +
-                    "sStorageDrop\020!\022\035\n\031Exception_RdsAuthAbnor" +
-                    "mal\020\"\022\036\n\032Exception_RdsClientOffline\020#\022%\n" +
-                    "!Exception_RdsBackupServiceOffline\020$\022\036\n\032" +
-                    "Exception_CloudStorageDrop\020%\022*\n&Exceptio" +
-                    "n_OssBackupPointDownloadFailed\020&\022\035\n\031Exce" +
-                    "ption_OssAuthAbnormal\020\'\022\036\n\032Exception_Oss" +
-                    "ClientOffline\020(\022%\n!Exception_OssBackupSe" +
-                    "rviceOffline\020)\022-\n)Exception_OssBackupSpa",
-            "ceExceededThreshold\020*\022\037\n\033Exception_OssBa" +
-                    "ckupDestLost\020+\022!\n\035Exception_OssBackupSou" +
-                    "rceLost\020,\022\035\n\031Exception_EcsAuthAbnormal\020-" +
-                    "\022\036\n\032Exception_EcsClientOffline\020.\0222\n.Exce" +
-                    "ption_EcsInstanceBackupPointDownloadFail" +
-                    "ed\020/\022-\n)Exception_EcsBackupSpaceExceeded" +
-                    "Threshold\0200\022\031\n\025Exception_EcsDestLost\0201\022 " +
-                    "\n\034Exception_EcsInstanceOffline\0202\022\036\n\032Exce" +
-                    "ption_MetaAuthAbnormal\0203\022\037\n\033Exception_Me" +
-                    "taClientOffline\0204\022+\n\'Exception_MetaBacku",
-            "pPointDownloadFailed\0205\022.\n*Exception_Meta" +
-                    "BackupSpaceExceededThreshold\0206\022 \n\034Except" +
-                    "ion_MetaBackupDestLost\0207\022\"\n\036Exception_Me" +
-                    "taBackupSourceLost\0208\022\037\n\033Exception_RdsBac" +
-                    "kupDestLost\0209\0220\n,Exception_OracleBackupS" +
-                    "paceExceededThreshold\020:\022$\n Exception_Cli" +
-                    "entInitMirrorFailed\020;*\211\003\n\nClientType\022\025\n\021" +
-                    "ClientType_Single\020\000\022#\n\037ClientType_Vmware" +
-                    "VirtualMachine\020\001\022\023\n\017ClientType_Mscs\020\002\022\022\n" +
-                    "\016ClientType_Rac\020\003\022\026\n\022ClientType_Vcenter\020",
-            "\004\022\022\n\016ClientType_AIX\020\005\022\031\n\025ClientType_File" +
-                    "Single\020\013\022\022\n\016ClientType_Rds\020\014\022\032\n\026ClientTy" +
-                    "pe_RdsInstance\020\r\022\022\n\016ClientType_Oss\020\016\022\033\n\027" +
-                    "ClientType_OssObjectSet\020\017\022\022\n\016ClientType_" +
-                    "Ecs\020\020\022\032\n\026ClientType_EcsInstance\020\021\022\033\n\027Cli" +
-                    "entType_Metadatabase\020\022\022!\n\035ClientType_Met" +
-                    "adatabaseBackup\020\023*y\n\020DataArkGroupType\022!\n" +
-                    "\035DataArkGroupType_CloudManager\020\000\022\037\n\033Data" +
-                    "ArkGroupType_DataCenter\020\001\022!\n\035DataArkGrou" +
-                    "pType_ResourcePool\020\002*Y\n\013DataArkRole\022\024\n\020D",
-            "ataArkRole_None\020\000\022\032\n\026DataArkRole_Product" +
-                    "ion\020\001\022\030\n\024DataArkRole_Disaster\020\002*\251\001\n\022User" +
-                    "PrivilegeLevel\022\033\n\027UserPrivilegeLevel_Roo" +
-                    "t\020\000\022\034\n\030UserPrivilegeLevel_Admin\020\001\022\033\n\027Use" +
-                    "rPrivilegeLevel_User\020\002\022\036\n\032UserPrivilegeL" +
-                    "evel_Auditor\020\003\022\033\n\027UserPrivilegeLevel_Top" +
-                    "o\020\004*J\n\013SnmpVersion\022\022\n\016SnmpVersion_V1\020\000\022\023" +
-                    "\n\017SnmpVersion_V2c\020\001\022\022\n\016SnmpVersion_V3\020\002*" +
-                    "i\n\032SnmpAuthenticationProtocol\022\'\n#SnmpAut" +
-                    "henticationProtocol_HMAC_MD5\020\000\022\"\n\036SnmpAu",
-            "thenticationProtocol_SHA\020\001*\260\001\n\023SnmpPriva" +
-                    "cyProtocol\022\033\n\027SnmpPrivacyProtocol_DES\020\000\022" +
-                    "\034\n\030SnmpPrivacyProtocol_3DES\020\001\022\036\n\032SnmpPri" +
-                    "vacyProtocol_AES128\020\002\022\036\n\032SnmpPrivacyProt" +
-                    "ocol_AES192\020\003\022\036\n\032SnmpPrivacyProtocol_AES" +
-                    "256\020\004*\034\n\007Version\022\021\n\rVersion_Value\020\007"
+                    "d_ForceRemoveDataArk\020\233\002\022,\n\'Command_Updat" +
+                    "eVmwareVirtualMachinBackup\020\234\002\022\025\n\020Command" +
+                    "_GetUsers\020\254\002\022\034\n\027Command_CreateUserGroup\020" +
+                    "\255\002\022\034\n\027Command_DeleteUserGroup\020\256\002\022\034\n\027Comm",
+            "and_UpdateUserGroup\020\257\002\022\035\n\030Command_Migrat" +
+                    "eUserGroup\020\260\002\022\027\n\022Command_CreateUser\020\261\002\022\027" +
+                    "\n\022Command_DeleteUser\020\262\002\022\037\n\032Command_Updat" +
+                    "eUserPassword\020\263\002\022\036\n\031Command_ResetUserPas" +
+                    "sword\020\264\002\022\027\n\022Command_UpdateUser\020\265\002\022\031\n\024Com" +
+                    "mand_GetUserQuota\020\266\002\022\034\n\027Command_UpdateUs" +
+                    "erQuota\020\267\002\022\030\n\023Command_MigrateUser\020\271\002\022\034\n\027" +
+                    "Command_CreateUserQuota\020\272\002\022\034\n\027Command_De" +
+                    "leteUserQuota\020\273\002\022\031\n\024Command_GetAlarmLogs" +
+                    "\020\220\003\022$\n\037Command_UpdateAlarmLogProcessed\020\221",
+            "\003\022\033\n\026Command_DeleteAlarmLog\020\222\003\022\035\n\030Comman" +
+                    "d_GetOperationLogs\020\223\003\022.\n)Command_UpdateA" +
+                    "larmLogProcessed_Processed\020\224\003\0220\n+Command" +
+                    "_UpdateAlarmLogProcessed_Unprocessed\020\225\003\022" +
+                    "\037\n\032Command_InsertOperationLog\020\226\003\022\032\n\025Comm" +
+                    "and_GetEmailAlarm\020\364\003\022\035\n\030Command_UpdateEm" +
+                    "ailAlarm\020\365\003\022\035\n\030Command_CreateEmailAlarm\020" +
+                    "\366\003\022\035\n\030Command_DeleteEmailAlarm\020\367\003\022\035\n\030Com" +
+                    "mand_VerifyEmailAlarm\020\370\003\022\024\n\017Command_GetS" +
+                    "nmp\020\371\003\022\027\n\022Command_UpdateSnmp\020\372\003\022$\n\037Comma",
+            "nd_GetCloudServiceEndpoint\020\373\003\022\036\n\031Command" +
+                    "_UpdateRdsEndpoint\020\374\003\022\036\n\031Command_UpdateO" +
+                    "ssEndpoint\020\375\003\022\036\n\031Command_UpdateEcsEndpoi" +
+                    "nt\020\376\003\022\035\n\030Command_GetCloudManagers\020\377\003\022\034\n\027" +
+                    "Command_AddCloudManager\020\200\004\022\037\n\032Command_Up" +
+                    "dateCloudManager\020\201\004\022\037\n\032Command_RemoveClo" +
+                    "udManager\020\202\004\022\037\n\032Command_VerifyCloudManag" +
+                    "er\020\203\004\022\032\n\025Command_ManageDataArk\020\330\004\022\035\n\030Com" +
+                    "mand_ExportDataArkLog\020\331\004\022\036\n\031Command_Comm" +
+                    "itTransaction\020\332\004\022 \n\033Command_RollbackTran",
+            "saction\020\333\004\022$\n\037Command_ProcessTransaction" +
+                    "Group\020\334\004*\257L\n\tErrorCode\022\025\n\021ErrorCode_Succ" +
+                    "ess\020\000\022\024\n\020ErrorCode_Failed\020\001\022\033\n\027ErrorCode" +
+                    "_ConnectFailed\020\n\022\030\n\024ErrorCode_SendFailed" +
+                    "\020\013\022\033\n\027ErrorCode_ReceiveFailed\020\014\022#\n\037Error" +
+                    "Code_UnrecognizedOperation\020\r\022\"\n\036ErrorCod" +
+                    "e_EnqueueCommandFailed\020\016\022\"\n\036ErrorCode_De" +
+                    "queueCommandFailed\020\017\022\036\n\032ErrorCode_Networ" +
+                    "kException\020\020\022\"\n\036ErrorCode_UnsupportedOpe" +
+                    "ration\020\021\022\036\n\032ErrorCode_InvalidOperation\020\022",
+            "\022\034\n\030ErrorCode_ParameterError\020\024\022\035\n\031ErrorC" +
+                    "ode_SerializeFailed\020\025\022\037\n\033ErrorCode_Deser" +
+                    "ializeFailed\020\026\022\036\n\032ErrorCode_PermissionDe" +
+                    "nied\020\027\022#\n\037ErrorCode_ConnectDatabaseFaile" +
+                    "d\020\030\022#\n\037ErrorCode_OperateDatabaseFailed\020\031" +
+                    "\022\037\n\033ErrorCode_OperationNotStart\020\032\022\034\n\030Err" +
+                    "orCode_OperationUndid\020\033\022$\n ErrorCode_Tra" +
+                    "nsactionNonexistent\020\034\022!\n\035ErrorCode_Trans" +
+                    "actionExistent\020\035\022\036\n\032ErrorCode_OperationA" +
+                    "borted\020\036\022!\n\035ErrorCode_PerformingOperatio",
+            "n\020\037\022$\n ErrorCode_TargetUserLockOccupied\020" +
+                    " \022\032\n\026ErrorCode_LockOccupied\020!\0222\n-ErrorCo" +
+                    "de_DataArkGroupCloudManagerNonexistent\020\350" +
+                    "\007\022-\n(ErrorCode_DataArkGroupDataCenterExi" +
+                    "stent\020\362\007\0220\n+ErrorCode_DataArkGroupDataCe" +
+                    "nterNonexistent\020\363\007\022-\n(ErrorCode_DataArkG" +
+                    "roupDataCenterSameName\020\364\007\022/\n*ErrorCode_D" +
+                    "ataArkGroupResourcePoolExistent\020\374\007\0222\n-Er" +
+                    "rorCode_DataArkGroupResourcePoolNonexist" +
+                    "ent\020\375\007\022/\n*ErrorCode_DataArkGroupResource",
+            "PoolSameName\020\376\007\022\036\n\031ErrorCode_DataArkExis" +
+                    "tent\020\206\010\022!\n\034ErrorCode_DataArkNonexistent\020" +
+                    "\207\010\022\036\n\031ErrorCode_DataArkSameName\020\210\010\022#\n\036Er" +
+                    "rorCode_DataArkRoleUndefined\020\211\010\022)\n$Error" +
+                    "Code_DisasterSideOfOtherDataArk\020\212\010\022+\n&Er" +
+                    "rorCode_ProductionSideOfOtherDataArk\020\213\010\022" +
+                    " \n\033ErrorCode_UserGroupExistent\020\220\010\022#\n\036Err" +
+                    "orCode_UserGroupNonexistent\020\221\010\022 \n\033ErrorC" +
+                    "ode_UserGroupSameName\020\222\010\022)\n$ErrorCode_Ta" +
+                    "rgetUserGroupNonexistent\020\223\010\022\033\n\026ErrorCode",
+            "_UserExistent\020\232\010\022\036\n\031ErrorCode_UserNonexi" +
+                    "stent\020\233\010\022\031\n\024ErrorCode_UserSameID\020\234\010\022\"\n\035E" +
+                    "rrorCode_UserSameDisplayName\020\235\010\022\"\n\035Error" +
+                    "Code_UserPasswordUnmatch\020\236\010\022\'\n\"ErrorCode" +
+                    "_UserNewPasswordSameToOld\020\237\010\022\031\n\024ErrorCod" +
+                    "e_UserOnline\020\244\010\022 \n\033ErrorCode_UserAlready" +
+                    "Logged\020\245\010\022(\n#ErrorCode_UserLongTimeNoInt" +
+                    "eraction\020\246\010\022!\n\034ErrorCode_UserLoginElsewh" +
+                    "ere\020\247\010\022\034\n\027ErrorCode_QuotaExistent\020\256\010\022\037\n\032" +
+                    "ErrorCode_QuotaNonexistent\020\257\010\022\035\n\030ErrorCo",
+            "de_QuotaNotEnough\020\260\010\022(\n#ErrorCode_Produc" +
+                    "tionDataArkExistent\020\261\010\022+\n&ErrorCode_Prod" +
+                    "uctionDataArkNonexistent\020\262\010\022&\n!ErrorCode" +
+                    "_DisasterDataArkExistent\020\263\010\022)\n$ErrorCode" +
+                    "_DisasterDataArkNonexistent\020\264\010\022\035\n\030ErrorC" +
+                    "ode_ClientExistent\020\265\010\022 \n\033ErrorCode_Clien" +
+                    "tNonexistent\020\266\010\022\036\n\031ErrorCode_VcenterExis" +
+                    "tent\020\267\010\022!\n\034ErrorCode_VcenterNonexistent\020" +
+                    "\270\010\022+\n&ErrorCode_VmwareVirtualMachineExis" +
+                    "tent\020\271\010\022.\n)ErrorCode_VmwareVirtualMachin",
+            "eNonexistent\020\272\010\022!\n\034ErrorCode_DiskBackupE" +
+                    "xistent\020\273\010\022$\n\037ErrorCode_DiskBackupNonexi" +
+                    "stent\020\274\010\022!\n\034ErrorCode_EmailAlarmExistent" +
+                    "\020\275\010\022$\n\037ErrorCode_EmailAlarmNonexistent\020\276" +
+                    "\010\022)\n$ErrorCode_DisasterDiskBackupExisten" +
+                    "t\020\277\010\022,\n\'ErrorCode_DisasterDiskBackupNone" +
+                    "xistent\020\300\010\022*\n%ErrorCode_DisasterRacDatab" +
+                    "aseExistent\020\301\010\022-\n(ErrorCode_DisasterRacD" +
+                    "atabaseNonexistent\020\302\010\022*\n%ErrorCode_Disas" +
+                    "terRdsInstanceExistent\020\303\010\022-\n(ErrorCode_D",
+            "isasterRdsInstanceNonexistent\020\304\010\022\032\n\025Erro" +
+                    "rCode_RdsExistent\020\305\010\022\035\n\030ErrorCode_RdsNon" +
+                    "existent\020\306\010\022\"\n\035ErrorCode_RdsInstanceExis" +
+                    "tent\020\307\010\022%\n ErrorCode_RdsInstanceNonexist" +
+                    "ent\020\310\010\022%\n ErrorCode_DisasterClientExiste" +
+                    "nt\020\311\010\022(\n#ErrorCode_DisasterClientNonexis" +
+                    "tent\020\312\010\022*\n%ErrorCode_RequestToAlarmServi" +
+                    "ceFailed\020\314\010\022%\n ErrorCode_RequestToConsol" +
+                    "eFailed\020\315\010\022&\n!ErrorCode_RequestToStreame" +
+                    "rFailed\020\316\010\022*\n%ErrorCode_RequestToCloudMa",
+            "nagerFailed\020\317\010\022\"\n\035ErrorCode_ClientGroupE" +
+                    "xistent\020\326\010\022%\n ErrorCode_ClientGroupNonex" +
+                    "istent\020\327\010\022\"\n\035ErrorCode_ClientGroupSameNa" +
+                    "me\020\330\010\022#\n\036ErrorCode_CloudManagerExistent\020" +
+                    "\331\010\022&\n!ErrorCode_CloudManagerNonexistent\020" +
+                    "\332\010\022#\n\036ErrorCode_CloudManagerSameName\020\333\010\022" +
+                    ")\n$ErrorCode_CloudManagerIdInconsistent\020" +
+                    "\334\010\022(\n#ErrorCode_CloudManagerIdNonexisten" +
+                    "t\020\335\010\022\032\n\025ErrorCode_OssExistent\020\260\t\022\035\n\030Erro" +
+                    "rCode_OssNonexistent\020\261\t\022#\n\036ErrorCode_Oss",
+            "ObjectSetExistent\020\262\t\022&\n!ErrorCode_OssObj" +
+                    "ectSetNonexistent\020\263\t\022+\n&ErrorCode_Disast" +
+                    "erOssObjectSetExistent\020\264\t\022.\n)ErrorCode_D" +
+                    "isasterOssObjectSetNonexistent\020\265\t\022\032\n\025Err" +
+                    "orCode_RacExistent\020\266\t\022\035\n\030ErrorCode_RacNo" +
+                    "nexistent\020\267\t\022\"\n\035ErrorCode_RacDatabaseExi" +
+                    "stent\020\270\t\022%\n ErrorCode_RacDatabaseNonexis" +
+                    "tent\020\271\t\022\032\n\025ErrorCode_EcsExistent\020\272\t\022\035\n\030E" +
+                    "rrorCode_EcsNonexistent\020\273\t\022\"\n\035ErrorCode_" +
+                    "EcsInstanceExistent\020\274\t\022%\n ErrorCode_EcsI",
+            "nstanceNonexistent\020\275\t\022*\n%ErrorCode_Disas" +
+                    "terEcsInstanceExistent\020\276\t\022-\n(ErrorCode_D" +
+                    "isasterEcsInstanceNonexistent\020\277\t\022#\n\036Erro" +
+                    "rCode_MetadatabaseExistent\020\300\t\022&\n!ErrorCo" +
+                    "de_MetadatabaseNonexistent\020\301\t\022)\n$ErrorCo" +
+                    "de_MetadatabaseBackupExistent\020\302\t\022,\n\'Erro" +
+                    "rCode_MetadatabaseBackupNonexistent\020\303\t\0221" +
+                    "\n,ErrorCode_DisasterMetadatabaseBackupEx" +
+                    "istent\020\304\t\0224\n/ErrorCode_DisasterMetadatab" +
+                    "aseBackupNonexistent\020\305\t\022\035\n\030ErrorCode_Bac",
+            "kupExistent\020\306\t\022 \n\033ErrorCode_BackupNonexi" +
+                    "stent\020\307\t\022%\n ErrorCode_DisasterBackupExis" +
+                    "tent\020\310\t\022(\n#ErrorCode_DisasterBackupNonex" +
+                    "istent\020\311\t\022#\n\036ErrorCode_QuotaNotZeroExist" +
+                    "ent\020\312\t\022!\n\034ErrorCode_GetPublicKeyFailed\020\220" +
+                    "N\022&\n!ErrorCode_LoginCloudManagerFailed\020\221" +
+                    "N\022\034\n\027ErrorCode_SendDekFailed\020\222N\022\'\n\"Error" +
+                    "Code_LogoutCloudManagerFailed\020\223N\022\037\n\032Erro" +
+                    "rCode_VerifyUserFailed\020\224N\022+\n&ErrorCode_F" +
+                    "orceLoginCloudManagerFailed\020\226N\022 \n\033ErrorC",
+            "ode_GetOverviewFailed\020\364N\022%\n ErrorCode_Ge" +
+                    "tDataArkReportFailed\020\365N\022\"\n\035ErrorCode_Get" +
+                    "UserReportFailed\020\366N\022$\n\037ErrorCode_GetBack" +
+                    "upReportFailed\020\367N\022(\n#ErrorCode_GetOvervi" +
+                    "ewDataArksFailed\020\373N\022\'\n\"ErrorCode_GetOver" +
+                    "viewClientsFailed\020\374N\0225\n0ErrorCode_GetOve" +
+                    "rviewVmwareVirtualMachinesFailed\020\375N\022)\n$E" +
+                    "rrorCode_GetOverviewCloudHostFailed\020\376N\022 " +
+                    "\n\033ErrorCode_GetDataArksFailed\020\330O\022\'\n\"Erro" +
+                    "rCode_GetDataArkResourceFailed\020\331O\022\037\n\032Err",
+            "orCode_AddDataArkFailed\020\335O\022\"\n\035ErrorCode_" +
+                    "RemoveDataArkFailed\020\336O\022\"\n\035ErrorCode_Upda" +
+                    "teDataArkFailed\020\337O\022#\n\036ErrorCode_MigrateD" +
+                    "ataArkFailed\020\340O\022\'\n\"ErrorCode_AddDisaster" +
+                    "DataArkFailed\020\341O\022*\n%ErrorCode_RemoveDisa" +
+                    "sterDataArkFailed\020\342O\022\037\n\032ErrorCode_GetCli" +
+                    "entsFailed\020\343O\022\036\n\031ErrorCode_AddClientFail" +
+                    "ed\020\344O\022\037\n\032ErrorCode_AddVcenterFailed\020\345O\022," +
+                    "\n\'ErrorCode_AddVmwareVirtualMachineFaile" +
+                    "d\020\346O\022!\n\034ErrorCode_RemoveClientFailed\020\347O\022",
+            "\"\n\035ErrorCode_RemoveVcenterFailed\020\350O\022/\n*E" +
+                    "rrorCode_RemoveVmwareVirtualMachineFaile" +
+                    "d\020\351O\0221\n,ErrorCode_CreateDataArkGroupData" +
+                    "CenterFailed\020\352O\0223\n.ErrorCode_CreateDataA" +
+                    "rkGroupResourcePoolFailed\020\353O\0221\n,ErrorCod" +
+                    "e_DeleteDataArkGroupDataCenterFailed\020\354O\022" +
+                    "3\n.ErrorCode_DeleteDataArkGroupResourceP" +
+                    "oolFailed\020\355O\0223\n.ErrorCode_UpdateDataArkG" +
+                    "roupCloudManagerFailed\020\356O\0221\n,ErrorCode_U" +
+                    "pdateDataArkGroupDataCenterFailed\020\357O\0223\n.",
+            "ErrorCode_UpdateDataArkGroupResourcePool" +
+                    "Failed\020\360O\022\"\n\035ErrorCode_AddDiskBackupFail" +
+                    "ed\020\361O\022%\n ErrorCode_UpdateDiskBackupFaile" +
+                    "d\020\362O\022%\n ErrorCode_RemoveDiskBackupFailed" +
+                    "\020\363O\022\'\n\"ErrorCode_GetDisasterClientsFaile" +
+                    "d\020\364O\022*\n%ErrorCode_AddDisasterDiskBackupF" +
+                    "ailed\020\365O\022-\n(ErrorCode_UpdateDisasterDisk" +
+                    "BackupFailed\020\366O\022-\n(ErrorCode_RemoveDisas" +
+                    "terDiskBackupFailed\020\367O\022*\n%ErrorCode_AddD" +
+                    "iskBackupStraightFailed\020\370O\022(\n#ErrorCode_",
+            "GetDisasterDataArksFailed\020\371O\022/\n*ErrorCod" +
+                    "e_GetUserResourceForTransferFailed\020\372O\022)\n" +
+                    "$ErrorCode_TransferUserResourceFailed\020\373O" +
+                    "\022+\n&ErrorCode_AddDisasterRacDatabaseFail" +
+                    "ed\020\374O\022.\n)ErrorCode_RemoveDisasterRacData" +
+                    "baseFailed\020\375O\022\"\n\035ErrorCode_AddVcenterExt" +
+                    "Failed\020\376O\022*\n%ErrorCode_AddDisasterDataAr" +
+                    "kExtFailed\020\377O\022&\n!ErrorCode_CreateClientG" +
+                    "roupFailed\020\200P\022&\n!ErrorCode_UpdateClientG" +
+                    "roupFailed\020\201P\022&\n!ErrorCode_DeleteClientG",
+            "roupFailed\020\202P\022\"\n\035ErrorCode_MigrateClient" +
+                    "Failed\020\203P\022)\n$ErrorCode_UpdateClientHostT" +
+                    "ypeFailed\020\204P\022\033\n\026ErrorCode_AddRdsFailed\020\205" +
+                    "P\022\036\n\031ErrorCode_AddRdsExtFailed\020\206P\022\036\n\031Err" +
+                    "orCode_RemoveRdsFailed\020\207P\022#\n\036ErrorCode_A" +
+                    "ddRdsInstanceFailed\020\210P\022&\n!ErrorCode_Remo" +
+                    "veRdsInstanceFailed\020\211P\022+\n&ErrorCode_AddD" +
+                    "isasterRdsInstanceFailed\020\212P\022.\n)ErrorCode" +
+                    "_RemoveDisasterRdsInstanceFailed\020\213P\022%\n E" +
+                    "rrorCode_UpdateAkskForRdsFailed\020\214P\022\033\n\026Er",
+            "rorCode_AddOssFailed\020\216P\022\036\n\031ErrorCode_Add" +
+                    "OssExtFailed\020\217P\022\036\n\031ErrorCode_RemoveOssFa" +
+                    "iled\020\220P\022$\n\037ErrorCode_AddOssObjectSetFail" +
+                    "ed\020\221P\022\'\n\"ErrorCode_RemoveOssObjectSetFai" +
+                    "led\020\222P\022,\n\'ErrorCode_AddDisasterOssObject" +
+                    "SetFailed\020\223P\022/\n*ErrorCode_RemoveDisaster" +
+                    "OssObjectSetFailed\020\224P\022%\n ErrorCode_Updat" +
+                    "eAkskForOssFailed\020\225P\022\033\n\026ErrorCode_AddEcs" +
+                    "Failed\020\226P\022\036\n\031ErrorCode_AddEcsExtFailed\020\227" +
+                    "P\022\036\n\031ErrorCode_RemoveEcsFailed\020\230P\022#\n\036Err",
+            "orCode_AddEcsInstanceFailed\020\231P\022&\n!ErrorC" +
+                    "ode_RemoveEcsInstanceFailed\020\232P\022+\n&ErrorC" +
+                    "ode_AddDisasterEcsInstanceFailed\020\233P\022.\n)E" +
+                    "rrorCode_RemoveDisasterEcsInstanceFailed" +
+                    "\020\234P\022%\n ErrorCode_UpdateAkskForEcsFailed\020" +
+                    "\235P\022$\n\037ErrorCode_AddMetadatabaseFailed\020\236P" +
+                    "\022\'\n\"ErrorCode_AddMetadatabaseExtFailed\020\237" +
+                    "P\022\'\n\"ErrorCode_RemoveMetadatabaseFailed\020" +
+                    "\240P\022*\n%ErrorCode_AddMetadatabaseBackupFai" +
+                    "led\020\241P\022-\n(ErrorCode_RemoveMetadatabaseBa",
+            "ckupFailed\020\242P\0222\n-ErrorCode_AddDisasterMe" +
+                    "tadatabaseBackupFailed\020\243P\0225\n0ErrorCode_R" +
+                    "emoveDisasterMetadatabaseBackupFailed\020\244P" +
+                    "\022&\n!ErrorCode_UpdateDataArkRoleFailed\020\245P" +
+                    "\022\033\n\026ErrorCode_AddRacFailed\020\246P\022\036\n\031ErrorCo" +
+                    "de_RemoveRacFailed\020\247P\022#\n\036ErrorCode_AddRa" +
+                    "cDatabaseFailed\020\250P\022&\n!ErrorCode_UpdateRa" +
+                    "cDatabaseFailed\020\251P\022&\n!ErrorCode_RemoveRa" +
+                    "cDatabaseFailed\020\252P\022\'\n\"ErrorCode_ForceRem" +
+                    "oveDataArkFailed\020\253P\0224\n/ErrorCode_UpdateV",
+            "mwareVirtualMachinBackupFailed\020\254P\022\035\n\030Err" +
+                    "orCode_GetUsersFailed\020\274P\022$\n\037ErrorCode_Cr" +
+                    "eateUserGroupFailed\020\275P\022$\n\037ErrorCode_Dele" +
+                    "teUserGroupFailed\020\276P\022$\n\037ErrorCode_Update" +
+                    "UserGroupFailed\020\277P\022%\n ErrorCode_MigrateU" +
+                    "serGroupFailed\020\300P\022\037\n\032ErrorCode_CreateUse" +
+                    "rFailed\020\301P\022\037\n\032ErrorCode_DeleteUserFailed" +
+                    "\020\302P\022\'\n\"ErrorCode_UpdateUserPasswordFaile" +
+                    "d\020\303P\022&\n!ErrorCode_ResetUserPasswordFaile" +
+                    "d\020\304P\022\037\n\032ErrorCode_UpdateUserFailed\020\305P\022!\n",
+            "\034ErrorCode_GetUserQuotaFailed\020\306P\022$\n\037Erro" +
+                    "rCode_UpdateUserQuotaFailed\020\307P\022 \n\033ErrorC" +
+                    "ode_MigrateUserFailed\020\311P\022$\n\037ErrorCode_Cr" +
+                    "eateUserQuotaFailed\020\312P\022$\n\037ErrorCode_Dele" +
+                    "teUserQuotaFailed\020\313P\022!\n\034ErrorCode_GetAla" +
+                    "rmLogsFailed\020\240Q\022#\n\036ErrorCode_DeleteAlarm" +
+                    "LogFailed\020\242Q\022%\n ErrorCode_GetOperationLo" +
+                    "gsFailed\020\243Q\0226\n1ErrorCode_UpdateAlarmLogP" +
+                    "rocessed_ProcessedFailed\020\244Q\0228\n3ErrorCode" +
+                    "_UpdateAlarmLogProcessed_UnprocessedFail",
+            "ed\020\245Q\022\"\n\035ErrorCode_GetEmailAlarmFailed\020\204" +
+                    "R\022%\n ErrorCode_UpdateEmailAlarmFailed\020\205R" +
+                    "\022%\n ErrorCode_CreateEmailAlarmFailed\020\206R\022" +
+                    "%\n ErrorCode_DeleteEmailAlarmFailed\020\207R\022%" +
+                    "\n ErrorCode_VerifyEmailAlarmFailed\020\210R\022\034\n" +
+                    "\027ErrorCode_GetSnmpFailed\020\211R\022\037\n\032ErrorCode" +
+                    "_UpdateSnmpFailed\020\212R\022,\n\'ErrorCode_GetClo" +
+                    "udServiceEndpointFailed\020\213R\022&\n!ErrorCode_" +
+                    "UpdateRdsEndpointFailed\020\214R\022&\n!ErrorCode_" +
+                    "UpdateOssEndpointFailed\020\215R\022&\n!ErrorCode_",
+            "UpdateEcsEndpointFailed\020\216R\022%\n ErrorCode_" +
+                    "GetCloudManagersFailed\020\217R\022$\n\037ErrorCode_A" +
+                    "ddCloudManagerFailed\020\220R\022\'\n\"ErrorCode_Upd" +
+                    "ateCloudManagerFailed\020\221R\022\'\n\"ErrorCode_Re" +
+                    "moveCloudManagerFailed\020\222R\022\'\n\"ErrorCode_V" +
+                    "erifyCloudManagerFailed\020\223R*\245\021\n\tException" +
+                    "\022\024\n\020Exception_Normal\020\000\022\035\n\031Exception_Clie" +
+                    "ntLocalLost\020\001\022\036\n\032Exception_ClientTargetL" +
+                    "ost\020\002\022(\n$Exception_VmwareCreateSnapshotF" +
+                    "ailed\020\003\022\033\n\027Exception_VmwareCbtDrop\020\004\022\033\n\027",
+            "Exception_ClientOffline\020\005\022\034\n\030Exception_V" +
+                    "centerOffline\020\006\022%\n!Exception_ClusterNode" +
+                    "ExistOffline\020\007\022#\n\037Exception_ClusterNodeA" +
+                    "llOffline\020\010\022\"\n\036Exception_StreamerPoolDis" +
+                    "abled\020\t\022\035\n\031Exception_StreamerOffline\020\n\022$" +
+                    "\n Exception_ClientAutoExpandFailed\020\013\022\'\n#" +
+                    "Exception_ClientSnapshotMergeFailed\020\014\022\037\n" +
+                    "\033Exception_OracleStorageDrop\020\r\022\'\n#Except" +
+                    "ion_DisasterReplicationFailed\020\016\022!\n\035Excep" +
+                    "tion_RacNodeExistOffline\020\017\022\037\n\033Exception_",
+            "RacNodeAllOffline\020\020\022%\n!Exception_RacInst" +
+                    "anceExistOffline\020\021\022#\n\037Exception_RacInsta" +
+                    "nceAllOffline\020\022\022)\n%Exception_VmwareVirtu" +
+                    "alMachineOffline\020\023\022(\n$Exception_ClientCr" +
+                    "eateSnapshotFailed\020\024\022%\n!Exception_RacCre" +
+                    "ateSnapshotFailed\020\025\022#\n\037Exception_Disaste" +
+                    "rServerOffline\020\026\022+\n\'Exception_StreamerPo" +
+                    "olExceededThreshold\020\027\022\034\n\030Exception_AixDi" +
+                    "skOffline\020\030\022$\n Exception_VmwareInitMirro" +
+                    "rFailed\020\031\022&\n\"Exception_VmwareSnapshotSiz",
+            "eIsZero\020\032\022,\n(Exception_FileSingleCreateS" +
+                    "napshotFailed\020\033\022\037\n\033Exception_FileSingleO" +
+                    "ffline\020\034\022!\n\035Exception_FileSingleLocalLos" +
+                    "t\020\035\022\"\n\036Exception_FileSingleTargetLost\020\036\022" +
+                    "2\n.Exception_RdsInstanceBackupPointDownl" +
+                    "oadFailed\020\037\022 \n\034Exception_RdsInstanceOffl" +
+                    "ine\020 \022\034\n\030Exception_RdsStorageDrop\020!\022\035\n\031E" +
+                    "xception_RdsAuthAbnormal\020\"\022\036\n\032Exception_" +
+                    "RdsClientOffline\020#\022%\n!Exception_RdsBacku" +
+                    "pServiceOffline\020$\022\036\n\032Exception_CloudStor",
+            "ageDrop\020%\022*\n&Exception_OssBackupPointDow" +
+                    "nloadFailed\020&\022\035\n\031Exception_OssAuthAbnorm" +
+                    "al\020\'\022\036\n\032Exception_OssClientOffline\020(\022%\n!" +
+                    "Exception_OssBackupServiceOffline\020)\022-\n)E" +
+                    "xception_OssBackupSpaceExceededThreshold" +
+                    "\020*\022\037\n\033Exception_OssBackupDestLost\020+\022!\n\035E" +
+                    "xception_OssBackupSourceLost\020,\022\035\n\031Except" +
+                    "ion_EcsAuthAbnormal\020-\022\036\n\032Exception_EcsCl" +
+                    "ientOffline\020.\0222\n.Exception_EcsInstanceBa" +
+                    "ckupPointDownloadFailed\020/\022-\n)Exception_E",
+            "csBackupSpaceExceededThreshold\0200\022\031\n\025Exce" +
+                    "ption_EcsDestLost\0201\022 \n\034Exception_EcsInst" +
+                    "anceOffline\0202\022\036\n\032Exception_MetaAuthAbnor" +
+                    "mal\0203\022\037\n\033Exception_MetaClientOffline\0204\022+" +
+                    "\n\'Exception_MetaBackupPointDownloadFaile" +
+                    "d\0205\022.\n*Exception_MetaBackupSpaceExceeded" +
+                    "Threshold\0206\022 \n\034Exception_MetaBackupDestL" +
+                    "ost\0207\022\"\n\036Exception_MetaBackupSourceLost\020" +
+                    "8\022\037\n\033Exception_RdsBackupDestLost\0209\0220\n,Ex" +
+                    "ception_OracleBackupSpaceExceededThresho",
+            "ld\020:\022$\n Exception_ClientInitMirrorFailed" +
+                    "\020;*\211\003\n\nClientType\022\025\n\021ClientType_Single\020\000" +
+                    "\022#\n\037ClientType_VmwareVirtualMachine\020\001\022\023\n" +
+                    "\017ClientType_Mscs\020\002\022\022\n\016ClientType_Rac\020\003\022\026" +
+                    "\n\022ClientType_Vcenter\020\004\022\022\n\016ClientType_AIX" +
+                    "\020\005\022\031\n\025ClientType_FileSingle\020\013\022\022\n\016ClientT" +
+                    "ype_Rds\020\014\022\032\n\026ClientType_RdsInstance\020\r\022\022\n" +
+                    "\016ClientType_Oss\020\016\022\033\n\027ClientType_OssObjec" +
+                    "tSet\020\017\022\022\n\016ClientType_Ecs\020\020\022\032\n\026ClientType" +
+                    "_EcsInstance\020\021\022\033\n\027ClientType_Metadatabas",
+            "e\020\022\022!\n\035ClientType_MetadatabaseBackup\020\023*y" +
+                    "\n\020DataArkGroupType\022!\n\035DataArkGroupType_C" +
+                    "loudManager\020\000\022\037\n\033DataArkGroupType_DataCe" +
+                    "nter\020\001\022!\n\035DataArkGroupType_ResourcePool\020" +
+                    "\002*Y\n\013DataArkRole\022\024\n\020DataArkRole_None\020\000\022\032" +
+                    "\n\026DataArkRole_Production\020\001\022\030\n\024DataArkRol" +
+                    "e_Disaster\020\002*\251\001\n\022UserPrivilegeLevel\022\033\n\027U" +
+                    "serPrivilegeLevel_Root\020\000\022\034\n\030UserPrivileg" +
+                    "eLevel_Admin\020\001\022\033\n\027UserPrivilegeLevel_Use" +
+                    "r\020\002\022\036\n\032UserPrivilegeLevel_Auditor\020\003\022\033\n\027U",
+            "serPrivilegeLevel_Topo\020\004*J\n\013SnmpVersion\022" +
+                    "\022\n\016SnmpVersion_V1\020\000\022\023\n\017SnmpVersion_V2c\020\001" +
+                    "\022\022\n\016SnmpVersion_V3\020\002*i\n\032SnmpAuthenticati" +
+                    "onProtocol\022\'\n#SnmpAuthenticationProtocol" +
+                    "_HMAC_MD5\020\000\022\"\n\036SnmpAuthenticationProtoco" +
+                    "l_SHA\020\001*\260\001\n\023SnmpPrivacyProtocol\022\033\n\027SnmpP" +
+                    "rivacyProtocol_DES\020\000\022\034\n\030SnmpPrivacyProto" +
+                    "col_3DES\020\001\022\036\n\032SnmpPrivacyProtocol_AES128" +
+                    "\020\002\022\036\n\032SnmpPrivacyProtocol_AES192\020\003\022\036\n\032Sn" +
+                    "mpPrivacyProtocol_AES256\020\004*\034\n\007Version\022\021\n",
+            "\rVersion_Value\020\007"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
             new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
