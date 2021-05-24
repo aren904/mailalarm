@@ -72,7 +72,6 @@ cn\infocore\dao\EcsMapper.class
 cn\infocore\entity\OssDO.class
 cn\infocore\main\ThreadHeartbeat$ThreadHeartbeatHolder.class
 cn\infocore\protobuf\StmStreamerDrManage$ClientOrBuilder.class
-cn\infocore\manager\MetaManager.class
 cn\infocore\service\CloudService.class
 cn\infocore\entity\VcenterDO.class
 cn\infocore\main\DealSocket.class

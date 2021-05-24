@@ -105,9 +105,10 @@ public class TestIsUpdate {
 //        LinkedList<StmStreamerDrManage.FaultType> faultTypes = new LinkedList<>();
 //        faultTypes.add(StmStreamerDrManage.FaultType.META_AUTH_ABNORMAL);
 //        builder1.addAllStatus(faultTypes);
-//        builder1.setSize(0);
+//        builder1.setSize(223);
+//        builder1.setPreoccupationSizeByte(23);
 //        builder1.setId("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
-//        builder1.setPreoccupationSizeByte(0);
+////        builder1.setPreoccupationSizeByte(0);
 //        get.addMetaClients(builder);
 
 
@@ -116,7 +117,7 @@ public class TestIsUpdate {
         //Oss
 //        StmStreamerDrManage.OssInfo.Builder builder = StmStreamerDrManage.OssInfo.newBuilder();
 //        builder.setType(StmStreamerDrManage.ClientType.Oss);
-//        builder.setName("555");
+//        builder.setName("5");
 //        builder.setUuid("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
 //        LinkedList<StmStreamerDrManage.FaultType> list = new LinkedList<>();
 //        list.add(StmStreamerDrManage.FaultType.OSS_CLIENT_OFFLINE);
@@ -128,30 +129,31 @@ public class TestIsUpdate {
 //        LinkedList<StmStreamerDrManage.FaultType> faultTypes = new LinkedList<>();
 //        faultTypes.add(StmStreamerDrManage.FaultType.OSS_BACKUP_DST_LOST);
 //        builder1.addAllStatus(faultTypes);
-//        builder1.setSize(0);
+//        builder1.setSize(99);
 //        builder1.setId("c1e5edca-12c1-4b60-bec1-00a83db97214");
-//        builder1.setPreoccupationSizeByte(0);
+//        builder1.setPreoccupationSizeByte(55);
 //        get.addOssClients(builder);
 
             //rds
-//        StmStreamerDrManage.RdsInfo.Builder builder = StmStreamerDrManage.RdsInfo.newBuilder();
-//        builder.setType(StmStreamerDrManage.ClientType.Rds);
-//        builder.setName("555");
-//        builder.setUuid("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
-//        LinkedList<StmStreamerDrManage.FaultType> list = new LinkedList<>();
-//        list.add(StmStreamerDrManage.FaultType.RDS_STORAGE_DROP);
-//        builder.addAllStatus(list);
-//
-//        StmStreamerDrManage.RdsInstanceInfo.Builder builder1 = builder.addInstanceListBuilder();
-//        builder1.setName("2341");
-//        builder1.setType(StmStreamerDrManage.ClientType.RdsInstance);
-//        LinkedList<StmStreamerDrManage.FaultType> faultTypes = new LinkedList<>();
-//        faultTypes.add(StmStreamerDrManage.FaultType.RDS_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED);
-//        builder1.addAllStatus(faultTypes);
-//        builder1.setSize(0);
-//        builder1.setUuid("c1e5edca-12c1-4b60-bec1-00a83db97214");
-//        builder1.setPreoccupationSizeByte(0);
-//        get.addRdsClients(builder);
+        StmStreamerDrManage.RdsInfo.Builder builder4 = StmStreamerDrManage.RdsInfo.newBuilder();
+        builder4.setType(StmStreamerDrManage.ClientType.Rds);
+        builder4.setName("555");
+        builder4.setUuid("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
+        LinkedList<StmStreamerDrManage.FaultType> list1 = new LinkedList<>();
+        list1.add(StmStreamerDrManage.FaultType.RDS_STORAGE_DROP);
+        builder4.addAllStatus(list1);
+
+//        StmStreamerDrManage.RdsInstanceInfo.Builder builder5 = builder.addObjListBuilder();
+        StmStreamerDrManage.RdsInstanceInfo.Builder builder5 = builder4.addInstanceListBuilder();
+        builder5.setName("2341");
+        builder5.setType(StmStreamerDrManage.ClientType.RdsInstance);
+        LinkedList<StmStreamerDrManage.FaultType> faultTypes1 = new LinkedList<>();
+        faultTypes1.add(StmStreamerDrManage.FaultType.RDS_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED);
+        builder5.addAllStatus(faultTypes1);
+        builder5.setSize(8);
+        builder5.setUuid("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
+        builder5.setPreoccupationSizeByte(8);
+        get.addRdsClients(builder4);
 
 
         //Ecs

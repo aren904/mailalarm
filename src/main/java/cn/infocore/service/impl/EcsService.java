@@ -67,8 +67,13 @@ public class EcsService {
         if (EcsInstanceList != null) {
             for (EcsInstanceInfo ecsInstanceInfo :EcsInstanceList) {
                 CloudDeviceDo cloudDeviceDo = cloudClientDeviceManager.ReSetEcsCloudDevice(ecsInstanceInfo);
+                cloudDeviceDo.setSize(ecsInstanceInfo.getSize());
+                cloudDeviceDo.setType(ecsInstanceInfo.getType().getNumber());
+                long preoccupationSizeByte = ecsInstanceInfo.getPreoccupationSizeByte();
+                int preoccupationSizebyte = Integer.parseInt(String.valueOf(preoccupationSizeByte));
+                cloudDeviceDo.setPreoccupationSize(preoccupationSizebyte);
                 String objectSetId = cloudDeviceDo.getUuid();
-                cloudClientDeviceManager.updateObjectSetDo(cloudDeviceDo,objectSetId);
+                cloudClientDeviceManager.updateObjectSetDo(cloudDeviceDo,objectSetId,ecsInstanceInfo.getType());
             }
         }
     }

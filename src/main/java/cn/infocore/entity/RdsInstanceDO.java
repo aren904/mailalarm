@@ -10,48 +10,48 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 //@Accessors(chain = true)
-@TableName("rds_instance")
+//@TableName("rds_instance")
 @Data
 public class RdsInstanceDO {
 
-    @TableField(value = "id")
+//    @TableField(value = "id")
     String id;
 
-    @TableField(value = "instance_id")
+//    @TableField(value = "instance_id")
     String instanceId;
 
-    @TableField(value = "rds_id")
+//    @TableField(value = "rds_id")
     String rdsId;
 
-    @TableField(value = "type")
+//    @TableField(value = "type")
     Integer type;
 
-    @TableField(value = "name")
+//    @TableField(value = "name")
     String name;
 
-    @TableField(value = "db_type")
+//    @TableField(value = "db_type")
     String dbType;
 
-    @TableField(value = "exceptions")
+//    @TableField(value = "exceptions")
     String exceptions;
 
-    @TableField(value = "size")
+//    @TableField(value = "size")
     Long size;
 
-    @TableField(value = "preoccupation_size")
+//    @TableField(value = "preoccupation_size")
     Long preoccupationSize;
 
-    @TableField(value = "is_dr_enabled")
+//    @TableField(value = "is_dr_enabled")
     Integer isDrEnabled;
 
-    @TableField(value = "dr_size")
+//    @TableField(value = "dr_size")
     Long drSize;
 
     //update status
-    @TableField(value = "preoccupation_dr_size")
+//    @TableField(value = "preoccupation_dr_size")
     Long preoccupationDrSize;
 
-    @TableField(value = "data_ark_dr_id")
+//    @TableField(value = "data_ark_dr_id")
     Integer dataArkDrId;
 
 

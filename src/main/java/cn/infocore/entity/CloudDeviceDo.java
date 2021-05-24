@@ -24,8 +24,8 @@ public class CloudDeviceDo {
     String uuid;
     @TableField(value = "cloud_client_id")
     Integer cloudClientId;
-    @TableField(value = "is_dr_enabled")
-    Integer isDrEnabled;
+//    @TableField(value = "is_dr_enabled")
+//    Integer isDrEnabled;
     @TableField(value = "data_ark_dr_id")
     Integer dataArkDrId;
     @TableField(value = "type")

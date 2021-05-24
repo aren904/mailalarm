@@ -5,12 +5,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 import cn.infocore.bo.FaultSimple;
+import cn.infocore.entity.CloudDeviceDo;
 import cn.infocore.entity.CloudDo;
 import cn.infocore.entity.MdbDeviceDo;
 import cn.infocore.main.InfoProcessData;
+import cn.infocore.manager.CloudClientDeviceManager;
 import cn.infocore.manager.CloudClientManager;
 import cn.infocore.manager.MdbDeviceManager;
-import cn.infocore.manager.MetaManager;
+//import cn.infocore.manager.MetaManager;
+import cn.infocore.protobuf.StmStreamerDrManage;
 import cn.infocore.utils.StupidStringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.log4j.Logger;
@@ -30,32 +33,53 @@ public class MdbService {
     @Autowired
     MdbDeviceManager mdbDeviceManager;
 
+//    @Autowired
+//    MetaManager metaManager;
+
     @Autowired
-    MetaManager metaManager;
+    CloudClientManager cloudClientManager;
+
+    @Autowired
+    CloudClientDeviceManager cloudClientDeviceManager;
 
     private static final Logger logger = Logger.getLogger(MdbService.class);
 
 
-    public void ReUpdateRdsClient(MetaInfo metaClient) {
-        String metaClientId = metaClient.getId();
+    public void ReUpdateMdbClient(MetaInfo metaClient) {
+        String uuid = metaClient.getId();
+        List<MetaBackupInfo> backupListList = metaClient.getBackupListList();
         List<FaultType> MetaFaultList = metaClient.getStatusList();
         StringBuilder metaFaultList = new StringBuilder();
         for (FaultType metaFaultSimple : MetaFaultList) {
             int code = metaFaultSimple.getNumber();
             metaFaultList.append(code).append(";");
         }
-        MdbDO mdbDO = new MdbDO();
-        mdbDO.setUuid(metaClientId);
-        mdbDO.setName(metaClient.getName());
-        mdbDO.setType(metaClient.getType().getNumber());//
-        mdbDO.setExceptions(metaFaultList.toString());
-        Boolean isDr = CheckMdbIsDr(mdbDO);
+        CloudDo  cloudDo= new CloudDo();
+        cloudDo.setUuId(uuid);
+        cloudDo.setName(metaClient.getName());
+        cloudDo.setType(metaClient.getType().getNumber());//
+        cloudDo.setExceptions(metaFaultList.toString());
+        Boolean isDr = checkCloudIsDr(cloudDo);
         if (isDr) {
-            mdbDO.setIsDr(1);
+            cloudDo.setIsDr(1);
         } else {
-            mdbDO.setIsDr(0);
+            cloudDo.setIsDr(0);
         }
-        metaManager.updateMetaClientByMdbId(metaClientId, mdbDO);
+        cloudClientManager.updateCloudClient(uuid, cloudDo);
+
+        if (backupListList != null) {
+            for (StmStreamerDrManage.MetaBackupInfo backupInfo :backupListList) {
+                CloudDeviceDo cloudDeviceDo = cloudClientDeviceManager.ReSetMetaBackupListCloudDevice(backupInfo);
+                cloudDeviceDo.setSize(backupInfo.getSize());
+//                cloudDeviceDo.setType(19);
+                cloudDeviceDo.setType(backupInfo.getType().getNumber());
+                long preoccupationSizeByte = backupInfo.getPreoccupationSizeByte();
+                int preoccupationSizebyte = Integer.parseInt(String.valueOf(preoccupationSizeByte));
+                cloudDeviceDo.setPreoccupationSize(preoccupationSizebyte);
+                String uuid1 = cloudDeviceDo.getUuid();
+                cloudClientDeviceManager.updateObjectSetDo(cloudDeviceDo,uuid1,backupInfo.getType());
+            }
+        }
     }
 
     public List<FaultSimple> updateMetaClientList(List<MetaInfo> metaClientsList) {
@@ -68,7 +92,7 @@ public class MdbService {
 
     public List<FaultSimple> updateMetaClient(MetaInfo metaInfo) {
 
-        String id = metaInfo.getId();
+        String uuid = metaInfo.getId();
         String name = metaInfo.getName();
         List<FaultType> faultTypes = metaInfo.getStatusList();
         List<MetaBackupInfo> backupListList = metaInfo.getBackupListList();
@@ -79,11 +103,9 @@ public class MdbService {
 
 
         List<FaultSimple> faultsList = listFaults(faultTypes);
-        List<String> userIdList = metaManager.getMetaUserIdsById(id);
-
-//        faultsList.addAll(MetaBackupFaultSimpleList);
+        List<String> userIdList = cloudClientManager.getUserIdByUuid(uuid);
         for (FaultSimple faultSimple : faultsList) {
-            faultSimple.setTargetUuid(id);
+            faultSimple.setTargetUuid(uuid);
             faultSimple.setTargetName(name);
 
         }
@@ -109,13 +131,13 @@ public class MdbService {
     }
 
 
-    public Boolean CheckMdbIsDr(MdbDO mdbDo) {
-        LambdaQueryWrapper<MdbDO> mdbDOLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        mdbDOLambdaQueryWrapper.eq(MdbDO::getUuid, mdbDo.getUuid());
-        MdbDO mdbDO = metaManager.getOne(mdbDOLambdaQueryWrapper);
-        if (mdbDO != null) {
-            Integer isDr = mdbDo.getIsDr();
-            return isDr != null && isDr > 0;
+    public Boolean checkCloudIsDr(CloudDo cloudDo){
+        LambdaQueryWrapper<CloudDo> cloudDoLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        cloudDoLambdaQueryWrapper.eq(CloudDo::getUuId, cloudDo.getUuId());
+        CloudDo cloudDo1 = cloudClientManager.getOne(cloudDoLambdaQueryWrapper);
+        if(cloudDo1!=null){
+            Integer isDr = cloudDo.getIsDr();
+            return isDr!=null&& isDr >0;
         }
         return false;
     }

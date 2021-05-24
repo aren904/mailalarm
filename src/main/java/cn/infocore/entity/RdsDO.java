@@ -11,26 +11,26 @@ import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
 @Data
-@TableName("rds")
+//@TableName("rds")
 public class RdsDO {
 
-    @TableField(value = "id")
+//    @TableField(value = "id")
     Integer id;
-    @TableField(value = "rds_id")
+//    @TableField(value = "rds_id")
     String rdsId;
-    @TableField(value = "data_ark_id")
+//    @TableField(value = "data_ark_id")
     String dataArkId;
-    @TableField(value = "user_id")
+//    @TableField(value = "user_id")
     String userId;
-    @TableField(value = "type")
+//    @TableField(value = "type")
     Integer type;
-    @TableField(value = "name")
+//    @TableField(value = "name")
     String name;
-    @TableField(value = "exceptions")
+//    @TableField(value = "exceptions")
     String exceptions;
-    @TableField(value = "ak")
+//    @TableField(value = "ak")
     String ak;
-    @TableField(value = "sk")
+//    @TableField(value = "sk")
     String sk;
 
     public RdsDO setExceptionsWithFaultyTypeList(List<FaultType> faultyList) {

@@ -65,14 +65,19 @@ public class RDSServiceImpl implements RDSService {
         cloudDo.setUuId(uuid);
         cloudDo.setType(type.getNumber());
         cloudDo.setExceptions( RdsFaultLists.toString());
-
-        //更新CloudDevice
         cloudClientManager.updateCloudClient(uuid, cloudDo);
+        //更新CloudDevice
         if (RdsInstanceList != null) {
             for (StmStreamerDrManage.RdsInstanceInfo rdsInstanceInfo :RdsInstanceList) {
                 CloudDeviceDo cloudDeviceDo = cloudClientDeviceManager.ReSetRdsCloudDevice(rdsInstanceInfo);
+                cloudDeviceDo.setSize(rdsInstanceInfo.getSize());
+//                cloudDeviceDo.setType(13);
+                cloudDeviceDo.setType(rdsInstanceInfo.getType().getNumber());
+                long preoccupationSizeByte = rdsInstanceInfo.getPreoccupationSizeByte();
+                int preoccupationSizebyte = Integer.parseInt(String.valueOf(preoccupationSizeByte));
+                cloudDeviceDo.setPreoccupationSize(preoccupationSizebyte);
                 String objectSetId = cloudDeviceDo.getUuid();
-                cloudClientDeviceManager.updateObjectSetDo(cloudDeviceDo,objectSetId);
+                cloudClientDeviceManager.updateObjectSetDo(cloudDeviceDo,objectSetId,rdsInstanceInfo.getType());
             }
         }
 
@@ -96,7 +101,7 @@ public class RDSServiceImpl implements RDSService {
         List<FaultType> faultTypes = rdsInfo.getStatusList();
         List<RdsInstanceInfo> instanceListList = rdsInfo.getInstanceListList();
         List<FaultSimple> rdsfaultSimpleList = rdsInstanceManager.updateList(instanceListList);
-        logger.info(rdsfaultSimpleList);
+
         RdsDO rdsDO = new RdsDO();
         rdsDO.setExceptions(StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypes));
 

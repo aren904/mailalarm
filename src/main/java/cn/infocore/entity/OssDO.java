@@ -8,34 +8,34 @@ import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
 @Data
-@TableName("oss")
+//@TableName("oss")
 public class OssDO {
 
-    @TableField(value = "id")
+//    @TableField(value = "id")
     Integer id;
 
-    @TableField(value = "oss_id")
+//    @TableField(value = "oss_id")
     String ossId;
 
-    @TableField(value = "user_id")
+//    @TableField(value = "user_id")
     String userId;
 
-    @TableField(value = "data_ark_id")
+//    @TableField(value = "data_ark_id")
     String dataArkId;
 
-    @TableField(value = "type")
+//    @TableField(value = "type")
     Integer type;
 
-    @TableField(value = "name")
+//    @TableField(value = "name")
     String name;
 
-    @TableField(value = "exceptions")
+//    @TableField(value = "exceptions")
     String exceptions;
 
-    @TableField(value = "ak")
+//    @TableField(value = "ak")
     String ak;
 
-    @TableField(value = "sk")
+//    @TableField(value = "sk")
     String sk;
 
 }

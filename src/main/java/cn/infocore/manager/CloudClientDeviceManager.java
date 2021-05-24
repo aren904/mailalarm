@@ -78,28 +78,46 @@ public class CloudClientDeviceManager extends ServiceImpl<CloudDeviceMapper, Clo
         return cloudDeviceDo;
     }
 
-    public void updateObjectSetDo(CloudDeviceDo  cloudDeviceDo,String uuid){
+    public CloudDeviceDo ReSetMetaBackupListCloudDevice(StmStreamerDrManage.MetaBackupInfo metaBackupInfo){
+        CloudDeviceDo cloudDeviceDo = new CloudDeviceDo();
+        String id = metaBackupInfo.getId();
+        String name = metaBackupInfo.getName();
+        StmStreamerDrManage.ClientType type = metaBackupInfo.getType();
+        long size = metaBackupInfo.getSize();
+        List<StmStreamerDrManage.FaultType> faultTypeList = metaBackupInfo.getStatusList();
+        String exceptions = StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypeList);
+
+        cloudDeviceDo.setExceptions(exceptions);
+        cloudDeviceDo.setType(type.getNumber());
+        cloudDeviceDo.setName(name);
+        cloudDeviceDo.setUuid(id);
+        return cloudDeviceDo;
+    }
+
+    public void updateObjectSetDo(CloudDeviceDo  cloudDeviceDo, String uuid, StmStreamerDrManage.ClientType type){
         LambdaQueryWrapper<CloudDeviceDo> cloudDeviceDoLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        cloudDeviceDoLambdaQueryWrapper.eq(CloudDeviceDo::getUuid,uuid);
-        String setId = cloudDeviceDo.getUuid();
-        Boolean aBoolean = checkDrInstance(setId);
-        if (aBoolean){
-            cloudDeviceDo.setPreoccupationSize(cloudDeviceDo.getPreoccupationSize());
-            cloudDeviceDo.setSize(cloudDeviceDo.getSize());
-        }
-        this.update(cloudDeviceDo,cloudDeviceDoLambdaQueryWrapper);
-        logger.info("cloudDevice is accomplished");
+        cloudDeviceDoLambdaQueryWrapper.eq(CloudDeviceDo::getUuid,uuid).eq(CloudDeviceDo::getType,type.getNumber());
+//        String setId = cloudDeviceDo.getUuid();
+//        Boolean aBoolean = checkDrInstance(setId);
+//        if (aBoolean){
+//            cloudDeviceDo.setPreoccupationSize(cloudDeviceDo.getPreoccupationSize());
+//            cloudDeviceDo.setSize(cloudDeviceDo.getSize());
+//        }
+//        this.update(cloudDeviceDo,cloudDeviceDoLambdaQueryWrapper);
+        update(cloudDeviceDo,cloudDeviceDoLambdaQueryWrapper);
+        logger.info(cloudDeviceDo);
+        logger.info("cloudDevice update is accomplished");
 
     }
 
-    public Boolean checkDrInstance(String setId){
-        LambdaQueryWrapper<CloudDeviceDo> cloudDeviceDoLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        cloudDeviceDoLambdaQueryWrapper.eq(CloudDeviceDo::getUuid,setId);
-        CloudDeviceDo cloudDeviceDo = this.getOne(cloudDeviceDoLambdaQueryWrapper);
-        if(cloudDeviceDo!=null){
-            Integer isDrEnabled = cloudDeviceDo.getIsDrEnabled();
-            return isDrEnabled!=null&&isDrEnabled >0;
-        }
-        return false;
-    }
+//    public Boolean checkDrInstance(String setId){
+//        LambdaQueryWrapper<CloudDeviceDo> cloudDeviceDoLambdaQueryWrapper = new LambdaQueryWrapper<>();
+//        cloudDeviceDoLambdaQueryWrapper.eq(CloudDeviceDo::getUuid,setId);
+//        CloudDeviceDo cloudDeviceDo = this.getOne(cloudDeviceDoLambdaQueryWrapper);
+//        if(cloudDeviceDo!=null){
+//            Integer isDrEnabled = cloudDeviceDo.getIsDrEnabled();
+//            return isDrEnabled!=null&&isDrEnabled >0;
+//        }
+//        return false;
+//    }
 }

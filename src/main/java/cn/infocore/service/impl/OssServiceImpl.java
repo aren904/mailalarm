@@ -61,8 +61,14 @@ public class OssServiceImpl implements OssService {
         if (objListList != null) {
             for (OssObjectSetInfo ossObjectSetInfo : objListList) {
                 CloudDeviceDo cloudDeviceDo = cloudClientDeviceManager.ReSetOssCloudDevice(ossObjectSetInfo);
+                cloudDeviceDo.setSize(ossObjectSetInfo.getSize());
+//                cloudDeviceDo.setType(15);
+                cloudDeviceDo.setType(ossObjectSetInfo.getType().getNumber());
+                long preoccupationSizeByte = ossObjectSetInfo.getPreoccupationSizeByte();
+                int preoccupationSizebyte = Integer.parseInt(String.valueOf(preoccupationSizeByte));
+                cloudDeviceDo.setPreoccupationSize(preoccupationSizebyte);
                 String objectSetId = cloudDeviceDo.getUuid();
-                cloudClientDeviceManager.updateObjectSetDo(cloudDeviceDo,objectSetId);
+                cloudClientDeviceManager.updateObjectSetDo(cloudDeviceDo,objectSetId,ossObjectSetInfo.getType());
             }
         }
     }

@@ -5,32 +5,32 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import lombok.Data;
 
-@TableName("ecs")
+//@TableName("ecs")
 @Data
 public class EcsDO {
-    @TableField("id")
+//    @TableField("id")
     Integer id;
-    @TableField("ecs_id")
+//    @TableField("ecs_id")
     String ecsId;
-    @TableField("user_id")
+//    @TableField("user_id")
     String userId;
-    @TableField("data_ark_id")
+//    @TableField("data_ark_id")
     String dataArkId;
-    @TableField("type")
+//    @TableField("type")
     Integer type;
-    @TableField("name")
+//    @TableField("name")
     String name;
-    @TableField("exceptions")
+//    @TableField("exceptions")
     String exceptions;
-    @TableField("ak")
+//    @TableField("ak")
     String ak;
-    @TableField("sk")
+//    @TableField("sk")
     String sk;
-    @TableField("oss_ak")
+//    @TableField("oss_ak")
     String ossAk;
-    @TableField("oss_sk")
+//    @TableField("oss_sk")
     String ossSk;
-    @TableField("oss_bucket")
+//    @TableField("oss_bucket")
     String ossBucket;
 
 

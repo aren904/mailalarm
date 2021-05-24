@@ -218,7 +218,7 @@ public class InfoProcessData {
     }
 
     void ReUpdateMetaClient(MetaInfo metaClient) {
-        mdbService.ReUpdateRdsClient(metaClient);
+        mdbService.ReUpdateMdbClient(metaClient);
     }
 
     public void updateDataArk(DataArkDTO data_ark) {
