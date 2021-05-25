@@ -6,17 +6,17 @@ package scmp.proto.alarm;
 public final class CloudManagerAlarm {
   private CloudManagerAlarm() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
+          com.google.protobuf.ExtensionRegistry registry) {
   }
   /**
    * Protobuf enum {@code scmp.proto.alarm.Command}
    *
    * <pre>
-   * login begin 
+   * login begin
    * </pre>
    */
   public enum Command
-      implements com.google.protobuf.ProtocolMessageEnum {
+          implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <code>Command_GetPublicKey = 0;</code>
      */
@@ -243,6 +243,10 @@ public final class CloudManagerAlarm {
     Command_RemoveDiskBackup(45, 227),
     /**
      * <code>Command_GetDisasterClients = 228;</code>
+     *
+     * <pre>
+     * 8.0 中废弃
+     * </pre>
      */
     Command_GetDisasterClients(46, 228),
     /**
@@ -675,6 +679,10 @@ public final class CloudManagerAlarm {
     Command_RollbackTransaction(147, 603),
     /**
      * <code>Command_ProcessTransactionGroup = 604;</code>
+     *
+     * <pre>
+     * 8.0 中废弃
+     * </pre>
      */
     Command_ProcessTransactionGroup(148, 604),
     ;
@@ -905,6 +913,10 @@ public final class CloudManagerAlarm {
     public static final int Command_RemoveDiskBackup_VALUE = 227;
     /**
      * <code>Command_GetDisasterClients = 228;</code>
+     *
+     * <pre>
+     * 8.0 中废弃
+     * </pre>
      */
     public static final int Command_GetDisasterClients_VALUE = 228;
     /**
@@ -1337,6 +1349,10 @@ public final class CloudManagerAlarm {
     public static final int Command_RollbackTransaction_VALUE = 603;
     /**
      * <code>Command_ProcessTransactionGroup = 604;</code>
+     *
+     * <pre>
+     * 8.0 中废弃
+     * </pre>
      */
     public static final int Command_ProcessTransactionGroup_VALUE = 604;
 
@@ -1499,37 +1515,37 @@ public final class CloudManagerAlarm {
     }
 
     public static com.google.protobuf.Internal.EnumLiteMap<Command>
-        internalGetValueMap() {
+    internalGetValueMap() {
       return internalValueMap;
     }
     private static com.google.protobuf.Internal.EnumLiteMap<Command>
-        internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<Command>() {
-            public Command findValueByNumber(int number) {
-              return Command.valueOf(number);
-            }
-          };
+            internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Command>() {
+              public Command findValueByNumber(int number) {
+                return Command.valueOf(number);
+              }
+            };
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
+    getValueDescriptor() {
       return getDescriptor().getValues().get(index);
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
+    getDescriptorForType() {
       return getDescriptor();
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return CloudManagerAlarm.getDescriptor().getEnumTypes().get(0);
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.getDescriptor().getEnumTypes().get(0);
     }
 
     private static final Command[] VALUES = values();
 
     public static Command valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
-        throw new IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
+        throw new java.lang.IllegalArgumentException(
+                "EnumValueDescriptor is not for this type.");
       }
       return VALUES[desc.getIndex()];
     }
@@ -1549,7 +1565,7 @@ public final class CloudManagerAlarm {
    * Protobuf enum {@code scmp.proto.alarm.ErrorCode}
    */
   public enum ErrorCode
-      implements com.google.protobuf.ProtocolMessageEnum {
+          implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <code>ErrorCode_Success = 0;</code>
      */
@@ -4833,37 +4849,37 @@ public final class CloudManagerAlarm {
     }
 
     public static com.google.protobuf.Internal.EnumLiteMap<ErrorCode>
-        internalGetValueMap() {
+    internalGetValueMap() {
       return internalValueMap;
     }
     private static com.google.protobuf.Internal.EnumLiteMap<ErrorCode>
-        internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<ErrorCode>() {
-            public ErrorCode findValueByNumber(int number) {
-              return ErrorCode.valueOf(number);
-            }
-          };
+            internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ErrorCode>() {
+              public ErrorCode findValueByNumber(int number) {
+                return ErrorCode.valueOf(number);
+              }
+            };
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
+    getValueDescriptor() {
       return getDescriptor().getValues().get(index);
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
+    getDescriptorForType() {
       return getDescriptor();
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return CloudManagerAlarm.getDescriptor().getEnumTypes().get(1);
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.getDescriptor().getEnumTypes().get(1);
     }
 
     private static final ErrorCode[] VALUES = values();
 
     public static ErrorCode valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
-        throw new IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
+        throw new java.lang.IllegalArgumentException(
+                "EnumValueDescriptor is not for this type.");
       }
       return VALUES[desc.getIndex()];
     }
@@ -4883,7 +4899,7 @@ public final class CloudManagerAlarm {
    * Protobuf enum {@code scmp.proto.alarm.Exception}
    */
   public enum Exception
-      implements com.google.protobuf.ProtocolMessageEnum {
+          implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <code>Exception_Normal = 0;</code>
      *
@@ -5917,37 +5933,37 @@ public final class CloudManagerAlarm {
     }
 
     public static com.google.protobuf.Internal.EnumLiteMap<Exception>
-        internalGetValueMap() {
+    internalGetValueMap() {
       return internalValueMap;
     }
     private static com.google.protobuf.Internal.EnumLiteMap<Exception>
-        internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<Exception>() {
-            public Exception findValueByNumber(int number) {
-              return Exception.valueOf(number);
-            }
-          };
+            internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Exception>() {
+              public Exception findValueByNumber(int number) {
+                return Exception.valueOf(number);
+              }
+            };
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
+    getValueDescriptor() {
       return getDescriptor().getValues().get(index);
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
+    getDescriptorForType() {
       return getDescriptor();
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return CloudManagerAlarm.getDescriptor().getEnumTypes().get(2);
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.getDescriptor().getEnumTypes().get(2);
     }
 
     private static final Exception[] VALUES = values();
 
     public static Exception valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
-        throw new IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
+        throw new java.lang.IllegalArgumentException(
+                "EnumValueDescriptor is not for this type.");
       }
       return VALUES[desc.getIndex()];
     }
@@ -5967,7 +5983,7 @@ public final class CloudManagerAlarm {
    * Protobuf enum {@code scmp.proto.alarm.ClientType}
    */
   public enum ClientType
-      implements com.google.protobuf.ProtocolMessageEnum {
+          implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <code>ClientType_Single = 0;</code>
      */
@@ -6116,37 +6132,37 @@ public final class CloudManagerAlarm {
     }
 
     public static com.google.protobuf.Internal.EnumLiteMap<ClientType>
-        internalGetValueMap() {
+    internalGetValueMap() {
       return internalValueMap;
     }
     private static com.google.protobuf.Internal.EnumLiteMap<ClientType>
-        internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<ClientType>() {
-            public ClientType findValueByNumber(int number) {
-              return ClientType.valueOf(number);
-            }
-          };
+            internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ClientType>() {
+              public ClientType findValueByNumber(int number) {
+                return ClientType.valueOf(number);
+              }
+            };
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
+    getValueDescriptor() {
       return getDescriptor().getValues().get(index);
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
+    getDescriptorForType() {
       return getDescriptor();
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return CloudManagerAlarm.getDescriptor().getEnumTypes().get(3);
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.getDescriptor().getEnumTypes().get(3);
     }
 
     private static final ClientType[] VALUES = values();
 
     public static ClientType valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
-        throw new IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
+        throw new java.lang.IllegalArgumentException(
+                "EnumValueDescriptor is not for this type.");
       }
       return VALUES[desc.getIndex()];
     }
@@ -6166,7 +6182,7 @@ public final class CloudManagerAlarm {
    * Protobuf enum {@code scmp.proto.alarm.DataArkGroupType}
    */
   public enum DataArkGroupType
-      implements com.google.protobuf.ProtocolMessageEnum {
+          implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <code>DataArkGroupType_CloudManager = 0;</code>
      *
@@ -6231,37 +6247,37 @@ public final class CloudManagerAlarm {
     }
 
     public static com.google.protobuf.Internal.EnumLiteMap<DataArkGroupType>
-        internalGetValueMap() {
+    internalGetValueMap() {
       return internalValueMap;
     }
     private static com.google.protobuf.Internal.EnumLiteMap<DataArkGroupType>
-        internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<DataArkGroupType>() {
-            public DataArkGroupType findValueByNumber(int number) {
-              return DataArkGroupType.valueOf(number);
-            }
-          };
+            internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<DataArkGroupType>() {
+              public DataArkGroupType findValueByNumber(int number) {
+                return DataArkGroupType.valueOf(number);
+              }
+            };
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
+    getValueDescriptor() {
       return getDescriptor().getValues().get(index);
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
+    getDescriptorForType() {
       return getDescriptor();
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return CloudManagerAlarm.getDescriptor().getEnumTypes().get(4);
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.getDescriptor().getEnumTypes().get(4);
     }
 
     private static final DataArkGroupType[] VALUES = values();
 
     public static DataArkGroupType valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
-        throw new IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
+        throw new java.lang.IllegalArgumentException(
+                "EnumValueDescriptor is not for this type.");
       }
       return VALUES[desc.getIndex()];
     }
@@ -6281,7 +6297,7 @@ public final class CloudManagerAlarm {
    * Protobuf enum {@code scmp.proto.alarm.DataArkRole}
    */
   public enum DataArkRole
-      implements com.google.protobuf.ProtocolMessageEnum {
+          implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <code>DataArkRole_None = 0;</code>
      */
@@ -6322,37 +6338,37 @@ public final class CloudManagerAlarm {
     }
 
     public static com.google.protobuf.Internal.EnumLiteMap<DataArkRole>
-        internalGetValueMap() {
+    internalGetValueMap() {
       return internalValueMap;
     }
     private static com.google.protobuf.Internal.EnumLiteMap<DataArkRole>
-        internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<DataArkRole>() {
-            public DataArkRole findValueByNumber(int number) {
-              return DataArkRole.valueOf(number);
-            }
-          };
+            internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<DataArkRole>() {
+              public DataArkRole findValueByNumber(int number) {
+                return DataArkRole.valueOf(number);
+              }
+            };
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
+    getValueDescriptor() {
       return getDescriptor().getValues().get(index);
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
+    getDescriptorForType() {
       return getDescriptor();
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return CloudManagerAlarm.getDescriptor().getEnumTypes().get(5);
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.getDescriptor().getEnumTypes().get(5);
     }
 
     private static final DataArkRole[] VALUES = values();
 
     public static DataArkRole valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
-        throw new IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
+        throw new java.lang.IllegalArgumentException(
+                "EnumValueDescriptor is not for this type.");
       }
       return VALUES[desc.getIndex()];
     }
@@ -6372,7 +6388,7 @@ public final class CloudManagerAlarm {
    * Protobuf enum {@code scmp.proto.alarm.UserPrivilegeLevel}
    */
   public enum UserPrivilegeLevel
-      implements com.google.protobuf.ProtocolMessageEnum {
+          implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <code>UserPrivilegeLevel_Root = 0;</code>
      */
@@ -6447,37 +6463,37 @@ public final class CloudManagerAlarm {
     }
 
     public static com.google.protobuf.Internal.EnumLiteMap<UserPrivilegeLevel>
-        internalGetValueMap() {
+    internalGetValueMap() {
       return internalValueMap;
     }
     private static com.google.protobuf.Internal.EnumLiteMap<UserPrivilegeLevel>
-        internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<UserPrivilegeLevel>() {
-            public UserPrivilegeLevel findValueByNumber(int number) {
-              return UserPrivilegeLevel.valueOf(number);
-            }
-          };
+            internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<UserPrivilegeLevel>() {
+              public UserPrivilegeLevel findValueByNumber(int number) {
+                return UserPrivilegeLevel.valueOf(number);
+              }
+            };
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
+    getValueDescriptor() {
       return getDescriptor().getValues().get(index);
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
+    getDescriptorForType() {
       return getDescriptor();
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return CloudManagerAlarm.getDescriptor().getEnumTypes().get(6);
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.getDescriptor().getEnumTypes().get(6);
     }
 
     private static final UserPrivilegeLevel[] VALUES = values();
 
     public static UserPrivilegeLevel valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
-        throw new IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
+        throw new java.lang.IllegalArgumentException(
+                "EnumValueDescriptor is not for this type.");
       }
       return VALUES[desc.getIndex()];
     }
@@ -6497,7 +6513,7 @@ public final class CloudManagerAlarm {
    * Protobuf enum {@code scmp.proto.alarm.SnmpVersion}
    */
   public enum SnmpVersion
-      implements com.google.protobuf.ProtocolMessageEnum {
+          implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <code>SnmpVersion_V1 = 0;</code>
      */
@@ -6538,37 +6554,37 @@ public final class CloudManagerAlarm {
     }
 
     public static com.google.protobuf.Internal.EnumLiteMap<SnmpVersion>
-        internalGetValueMap() {
+    internalGetValueMap() {
       return internalValueMap;
     }
     private static com.google.protobuf.Internal.EnumLiteMap<SnmpVersion>
-        internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<SnmpVersion>() {
-            public SnmpVersion findValueByNumber(int number) {
-              return SnmpVersion.valueOf(number);
-            }
-          };
+            internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<SnmpVersion>() {
+              public SnmpVersion findValueByNumber(int number) {
+                return SnmpVersion.valueOf(number);
+              }
+            };
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
+    getValueDescriptor() {
       return getDescriptor().getValues().get(index);
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
+    getDescriptorForType() {
       return getDescriptor();
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return CloudManagerAlarm.getDescriptor().getEnumTypes().get(7);
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.getDescriptor().getEnumTypes().get(7);
     }
 
     private static final SnmpVersion[] VALUES = values();
 
     public static SnmpVersion valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
-        throw new IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
+        throw new java.lang.IllegalArgumentException(
+                "EnumValueDescriptor is not for this type.");
       }
       return VALUES[desc.getIndex()];
     }
@@ -6588,7 +6604,7 @@ public final class CloudManagerAlarm {
    * Protobuf enum {@code scmp.proto.alarm.SnmpAuthenticationProtocol}
    */
   public enum SnmpAuthenticationProtocol
-      implements com.google.protobuf.ProtocolMessageEnum {
+          implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <code>SnmpAuthenticationProtocol_HMAC_MD5 = 0;</code>
      */
@@ -6620,37 +6636,37 @@ public final class CloudManagerAlarm {
     }
 
     public static com.google.protobuf.Internal.EnumLiteMap<SnmpAuthenticationProtocol>
-        internalGetValueMap() {
+    internalGetValueMap() {
       return internalValueMap;
     }
     private static com.google.protobuf.Internal.EnumLiteMap<SnmpAuthenticationProtocol>
-        internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<SnmpAuthenticationProtocol>() {
-            public SnmpAuthenticationProtocol findValueByNumber(int number) {
-              return SnmpAuthenticationProtocol.valueOf(number);
-            }
-          };
+            internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<SnmpAuthenticationProtocol>() {
+              public SnmpAuthenticationProtocol findValueByNumber(int number) {
+                return SnmpAuthenticationProtocol.valueOf(number);
+              }
+            };
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
+    getValueDescriptor() {
       return getDescriptor().getValues().get(index);
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
+    getDescriptorForType() {
       return getDescriptor();
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return CloudManagerAlarm.getDescriptor().getEnumTypes().get(8);
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.getDescriptor().getEnumTypes().get(8);
     }
 
     private static final SnmpAuthenticationProtocol[] VALUES = values();
 
     public static SnmpAuthenticationProtocol valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
-        throw new IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
+        throw new java.lang.IllegalArgumentException(
+                "EnumValueDescriptor is not for this type.");
       }
       return VALUES[desc.getIndex()];
     }
@@ -6670,7 +6686,7 @@ public final class CloudManagerAlarm {
    * Protobuf enum {@code scmp.proto.alarm.SnmpPrivacyProtocol}
    */
   public enum SnmpPrivacyProtocol
-      implements com.google.protobuf.ProtocolMessageEnum {
+          implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <code>SnmpPrivacyProtocol_DES = 0;</code>
      */
@@ -6729,37 +6745,37 @@ public final class CloudManagerAlarm {
     }
 
     public static com.google.protobuf.Internal.EnumLiteMap<SnmpPrivacyProtocol>
-        internalGetValueMap() {
+    internalGetValueMap() {
       return internalValueMap;
     }
     private static com.google.protobuf.Internal.EnumLiteMap<SnmpPrivacyProtocol>
-        internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<SnmpPrivacyProtocol>() {
-            public SnmpPrivacyProtocol findValueByNumber(int number) {
-              return SnmpPrivacyProtocol.valueOf(number);
-            }
-          };
+            internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<SnmpPrivacyProtocol>() {
+              public SnmpPrivacyProtocol findValueByNumber(int number) {
+                return SnmpPrivacyProtocol.valueOf(number);
+              }
+            };
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
+    getValueDescriptor() {
       return getDescriptor().getValues().get(index);
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
+    getDescriptorForType() {
       return getDescriptor();
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return CloudManagerAlarm.getDescriptor().getEnumTypes().get(9);
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.getDescriptor().getEnumTypes().get(9);
     }
 
     private static final SnmpPrivacyProtocol[] VALUES = values();
 
     public static SnmpPrivacyProtocol valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
-        throw new IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
+        throw new java.lang.IllegalArgumentException(
+                "EnumValueDescriptor is not for this type.");
       }
       return VALUES[desc.getIndex()];
     }
@@ -6779,7 +6795,7 @@ public final class CloudManagerAlarm {
    * Protobuf enum {@code scmp.proto.alarm.Version}
    */
   public enum Version
-      implements com.google.protobuf.ProtocolMessageEnum {
+          implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <code>Version_Value = 7;</code>
      */
@@ -6802,37 +6818,37 @@ public final class CloudManagerAlarm {
     }
 
     public static com.google.protobuf.Internal.EnumLiteMap<Version>
-        internalGetValueMap() {
+    internalGetValueMap() {
       return internalValueMap;
     }
     private static com.google.protobuf.Internal.EnumLiteMap<Version>
-        internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<Version>() {
-            public Version findValueByNumber(int number) {
-              return Version.valueOf(number);
-            }
-          };
+            internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Version>() {
+              public Version findValueByNumber(int number) {
+                return Version.valueOf(number);
+              }
+            };
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
+    getValueDescriptor() {
       return getDescriptor().getValues().get(index);
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
+    getDescriptorForType() {
       return getDescriptor();
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return CloudManagerAlarm.getDescriptor().getEnumTypes().get(10);
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.getDescriptor().getEnumTypes().get(10);
     }
 
     private static final Version[] VALUES = values();
 
     public static Version valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
-        throw new IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
+        throw new java.lang.IllegalArgumentException(
+                "EnumValueDescriptor is not for this type.");
       }
       return VALUES[desc.getIndex()];
     }
@@ -6849,8 +6865,8 @@ public final class CloudManagerAlarm {
   }
 
   public interface AddDataArkRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:scmp.proto.alarm.AddDataArkRequest)
-      com.google.protobuf.MessageOrBuilder {
+          // @@protoc_insertion_point(interface_extends:scmp.proto.alarm.AddDataArkRequest)
+          com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>required string id = 1;</code>
@@ -6867,7 +6883,7 @@ public final class CloudManagerAlarm {
      * data ark id
      * </pre>
      */
-    String getId();
+    java.lang.String getId();
     /**
      * <code>required string id = 1;</code>
      *
@@ -6876,19 +6892,19 @@ public final class CloudManagerAlarm {
      * </pre>
      */
     com.google.protobuf.ByteString
-        getIdBytes();
+    getIdBytes();
   }
   /**
    * Protobuf type {@code scmp.proto.alarm.AddDataArkRequest}
    *
    * <pre>
-   * Command_AddDataArk 
+   * Command_AddDataArk
    * </pre>
    */
   public static final class AddDataArkRequest extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:scmp.proto.alarm.AddDataArkRequest)
-      AddDataArkRequestOrBuilder {
+          com.google.protobuf.GeneratedMessage implements
+          // @@protoc_insertion_point(message_implements:scmp.proto.alarm.AddDataArkRequest)
+          AddDataArkRequestOrBuilder {
     // Use AddDataArkRequest.newBuilder() to construct.
     private AddDataArkRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -6906,19 +6922,19 @@ public final class CloudManagerAlarm {
     }
 
     private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @Override
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private AddDataArkRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       initFields();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
+              com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -6929,7 +6945,7 @@ public final class CloudManagerAlarm {
               break;
             default: {
               if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+                      extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -6946,42 +6962,42 @@ public final class CloudManagerAlarm {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+                e.getMessage()).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return CloudManagerAlarm.internal_static_scmp_proto_alarm_AddDataArkRequest_descriptor;
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_AddDataArkRequest_descriptor;
     }
 
-    protected FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return CloudManagerAlarm.internal_static_scmp_proto_alarm_AddDataArkRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              AddDataArkRequest.class, Builder.class);
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    internalGetFieldAccessorTable() {
+      return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_AddDataArkRequest_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                      scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest.class, scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest.Builder.class);
     }
 
     public static com.google.protobuf.Parser<AddDataArkRequest> PARSER =
-        new com.google.protobuf.AbstractParser<AddDataArkRequest>() {
-      public AddDataArkRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new AddDataArkRequest(input, extensionRegistry);
-      }
-    };
+            new com.google.protobuf.AbstractParser<AddDataArkRequest>() {
+              public AddDataArkRequest parsePartialFrom(
+                      com.google.protobuf.CodedInputStream input,
+                      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                      throws com.google.protobuf.InvalidProtocolBufferException {
+                return new AddDataArkRequest(input, extensionRegistry);
+              }
+            };
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Parser<AddDataArkRequest> getParserForType() {
       return PARSER;
     }
 
     private int bitField0_;
     public static final int ID_FIELD_NUMBER = 1;
-    private Object id_;
+    private java.lang.Object id_;
     /**
      * <code>required string id = 1;</code>
      *
@@ -6999,14 +7015,14 @@ public final class CloudManagerAlarm {
      * data ark id
      * </pre>
      */
-    public String getId() {
-      Object ref = id_;
-      if (ref instanceof String) {
-        return (String) ref;
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
           id_ = s;
         }
@@ -7021,12 +7037,12 @@ public final class CloudManagerAlarm {
      * </pre>
      */
     public com.google.protobuf.ByteString
-        getIdBytes() {
-      Object ref = id_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+    getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         id_ = b;
         return b;
       } else {
@@ -7052,7 +7068,7 @@ public final class CloudManagerAlarm {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
+            throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, getIdBytes());
@@ -7068,7 +7084,7 @@ public final class CloudManagerAlarm {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getIdBytes());
+                .computeBytesSize(1, getIdBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -7076,75 +7092,75 @@ public final class CloudManagerAlarm {
     }
 
     private static final long serialVersionUID = 0L;
-    @Override
-    protected Object writeReplace()
-        throws java.io.ObjectStreamException {
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+            throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
 
-    public static AddDataArkRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static AddDataArkRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static AddDataArkRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static AddDataArkRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static AddDataArkRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static AddDataArkRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static AddDataArkRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static AddDataArkRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static AddDataArkRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static AddDataArkRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(AddDataArkRequest prototype) {
+    public static Builder newBuilder(scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
 
-    @Override
+    @java.lang.Override
     protected Builder newBuilderForType(
-        BuilderParent parent) {
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -7152,23 +7168,23 @@ public final class CloudManagerAlarm {
      * Protobuf type {@code scmp.proto.alarm.AddDataArkRequest}
      *
      * <pre>
-     * Command_AddDataArk 
+     * Command_AddDataArk
      * </pre>
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:scmp.proto.alarm.AddDataArkRequest)
-        AddDataArkRequestOrBuilder {
+            com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:scmp.proto.alarm.AddDataArkRequest)
+            scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_AddDataArkRequest_descriptor;
+      getDescriptor() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_AddDataArkRequest_descriptor;
       }
 
-      protected FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_AddDataArkRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                AddDataArkRequest.class, Builder.class);
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internalGetFieldAccessorTable() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_AddDataArkRequest_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                        scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest.class, scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest.Builder.class);
       }
 
       // Construct using scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest.newBuilder()
@@ -7177,7 +7193,7 @@ public final class CloudManagerAlarm {
       }
 
       private Builder(
-          BuilderParent parent) {
+              com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -7201,24 +7217,24 @@ public final class CloudManagerAlarm {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_AddDataArkRequest_descriptor;
+      getDescriptorForType() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_AddDataArkRequest_descriptor;
       }
 
-      public AddDataArkRequest getDefaultInstanceForType() {
-        return AddDataArkRequest.getDefaultInstance();
+      public scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest getDefaultInstanceForType() {
+        return scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest.getDefaultInstance();
       }
 
-      public AddDataArkRequest build() {
-        AddDataArkRequest result = buildPartial();
+      public scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest build() {
+        scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public AddDataArkRequest buildPartial() {
-        AddDataArkRequest result = new AddDataArkRequest(this);
+      public scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest buildPartial() {
+        scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest result = new scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -7231,16 +7247,16 @@ public final class CloudManagerAlarm {
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof AddDataArkRequest) {
-          return mergeFrom((AddDataArkRequest)other);
+        if (other instanceof scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest) {
+          return mergeFrom((scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(AddDataArkRequest other) {
-        if (other == AddDataArkRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest other) {
+        if (other == scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest.getDefaultInstance()) return this;
         if (other.hasId()) {
           bitField0_ |= 0x00000001;
           id_ = other.id_;
@@ -7252,21 +7268,21 @@ public final class CloudManagerAlarm {
 
       public final boolean isInitialized() {
         if (!hasId()) {
-          
+
           return false;
         }
         return true;
       }
 
       public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        AddDataArkRequest parsedMessage = null;
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (AddDataArkRequest) e.getUnfinishedMessage();
+          parsedMessage = (scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -7277,7 +7293,7 @@ public final class CloudManagerAlarm {
       }
       private int bitField0_;
 
-      private Object id_ = "";
+      private java.lang.Object id_ = "";
       /**
        * <code>required string id = 1;</code>
        *
@@ -7295,18 +7311,18 @@ public final class CloudManagerAlarm {
        * data ark id
        * </pre>
        */
-      public String getId() {
-        Object ref = id_;
-        if (!(ref instanceof String)) {
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
+                  (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
             id_ = s;
           }
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
       /**
@@ -7317,12 +7333,12 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public com.google.protobuf.ByteString
-          getIdBytes() {
-        Object ref = id_;
+      getIdBytes() {
+        java.lang.Object ref = id_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           id_ = b;
           return b;
         } else {
@@ -7337,11 +7353,11 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public Builder setId(
-          String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
         id_ = value;
         onChanged();
         return this;
@@ -7367,11 +7383,11 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public Builder setIdBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
         id_ = value;
         onChanged();
         return this;
@@ -7389,8 +7405,8 @@ public final class CloudManagerAlarm {
   }
 
   public interface RemoveDataArkRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:scmp.proto.alarm.RemoveDataArkRequest)
-      com.google.protobuf.MessageOrBuilder {
+          // @@protoc_insertion_point(interface_extends:scmp.proto.alarm.RemoveDataArkRequest)
+          com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>required string id = 1;</code>
@@ -7407,7 +7423,7 @@ public final class CloudManagerAlarm {
      * data ark id
      * </pre>
      */
-    String getId();
+    java.lang.String getId();
     /**
      * <code>required string id = 1;</code>
      *
@@ -7416,19 +7432,19 @@ public final class CloudManagerAlarm {
      * </pre>
      */
     com.google.protobuf.ByteString
-        getIdBytes();
+    getIdBytes();
   }
   /**
    * Protobuf type {@code scmp.proto.alarm.RemoveDataArkRequest}
    *
    * <pre>
-   * Command_RemoveDataArk 
+   * Command_RemoveDataArk
    * </pre>
    */
   public static final class RemoveDataArkRequest extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:scmp.proto.alarm.RemoveDataArkRequest)
-      RemoveDataArkRequestOrBuilder {
+          com.google.protobuf.GeneratedMessage implements
+          // @@protoc_insertion_point(message_implements:scmp.proto.alarm.RemoveDataArkRequest)
+          RemoveDataArkRequestOrBuilder {
     // Use RemoveDataArkRequest.newBuilder() to construct.
     private RemoveDataArkRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -7446,19 +7462,19 @@ public final class CloudManagerAlarm {
     }
 
     private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @Override
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private RemoveDataArkRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       initFields();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
+              com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -7469,7 +7485,7 @@ public final class CloudManagerAlarm {
               break;
             default: {
               if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+                      extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -7486,42 +7502,42 @@ public final class CloudManagerAlarm {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+                e.getMessage()).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return CloudManagerAlarm.internal_static_scmp_proto_alarm_RemoveDataArkRequest_descriptor;
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_RemoveDataArkRequest_descriptor;
     }
 
-    protected FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return CloudManagerAlarm.internal_static_scmp_proto_alarm_RemoveDataArkRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              RemoveDataArkRequest.class, Builder.class);
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    internalGetFieldAccessorTable() {
+      return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_RemoveDataArkRequest_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                      scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest.class, scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest.Builder.class);
     }
 
     public static com.google.protobuf.Parser<RemoveDataArkRequest> PARSER =
-        new com.google.protobuf.AbstractParser<RemoveDataArkRequest>() {
-      public RemoveDataArkRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new RemoveDataArkRequest(input, extensionRegistry);
-      }
-    };
+            new com.google.protobuf.AbstractParser<RemoveDataArkRequest>() {
+              public RemoveDataArkRequest parsePartialFrom(
+                      com.google.protobuf.CodedInputStream input,
+                      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                      throws com.google.protobuf.InvalidProtocolBufferException {
+                return new RemoveDataArkRequest(input, extensionRegistry);
+              }
+            };
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Parser<RemoveDataArkRequest> getParserForType() {
       return PARSER;
     }
 
     private int bitField0_;
     public static final int ID_FIELD_NUMBER = 1;
-    private Object id_;
+    private java.lang.Object id_;
     /**
      * <code>required string id = 1;</code>
      *
@@ -7539,14 +7555,14 @@ public final class CloudManagerAlarm {
      * data ark id
      * </pre>
      */
-    public String getId() {
-      Object ref = id_;
-      if (ref instanceof String) {
-        return (String) ref;
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
           id_ = s;
         }
@@ -7561,12 +7577,12 @@ public final class CloudManagerAlarm {
      * </pre>
      */
     public com.google.protobuf.ByteString
-        getIdBytes() {
-      Object ref = id_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+    getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         id_ = b;
         return b;
       } else {
@@ -7592,7 +7608,7 @@ public final class CloudManagerAlarm {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
+            throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, getIdBytes());
@@ -7608,7 +7624,7 @@ public final class CloudManagerAlarm {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getIdBytes());
+                .computeBytesSize(1, getIdBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -7616,75 +7632,75 @@ public final class CloudManagerAlarm {
     }
 
     private static final long serialVersionUID = 0L;
-    @Override
-    protected Object writeReplace()
-        throws java.io.ObjectStreamException {
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+            throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
 
-    public static RemoveDataArkRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static RemoveDataArkRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static RemoveDataArkRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static RemoveDataArkRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static RemoveDataArkRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static RemoveDataArkRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static RemoveDataArkRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static RemoveDataArkRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static RemoveDataArkRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static RemoveDataArkRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(RemoveDataArkRequest prototype) {
+    public static Builder newBuilder(scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
 
-    @Override
+    @java.lang.Override
     protected Builder newBuilderForType(
-        BuilderParent parent) {
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -7692,23 +7708,23 @@ public final class CloudManagerAlarm {
      * Protobuf type {@code scmp.proto.alarm.RemoveDataArkRequest}
      *
      * <pre>
-     * Command_RemoveDataArk 
+     * Command_RemoveDataArk
      * </pre>
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:scmp.proto.alarm.RemoveDataArkRequest)
-        RemoveDataArkRequestOrBuilder {
+            com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:scmp.proto.alarm.RemoveDataArkRequest)
+            scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_RemoveDataArkRequest_descriptor;
+      getDescriptor() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_RemoveDataArkRequest_descriptor;
       }
 
-      protected FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_RemoveDataArkRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                RemoveDataArkRequest.class, Builder.class);
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internalGetFieldAccessorTable() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_RemoveDataArkRequest_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                        scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest.class, scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest.Builder.class);
       }
 
       // Construct using scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest.newBuilder()
@@ -7717,7 +7733,7 @@ public final class CloudManagerAlarm {
       }
 
       private Builder(
-          BuilderParent parent) {
+              com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -7741,24 +7757,24 @@ public final class CloudManagerAlarm {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_RemoveDataArkRequest_descriptor;
+      getDescriptorForType() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_RemoveDataArkRequest_descriptor;
       }
 
-      public RemoveDataArkRequest getDefaultInstanceForType() {
-        return RemoveDataArkRequest.getDefaultInstance();
+      public scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest getDefaultInstanceForType() {
+        return scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest.getDefaultInstance();
       }
 
-      public RemoveDataArkRequest build() {
-        RemoveDataArkRequest result = buildPartial();
+      public scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest build() {
+        scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public RemoveDataArkRequest buildPartial() {
-        RemoveDataArkRequest result = new RemoveDataArkRequest(this);
+      public scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest buildPartial() {
+        scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest result = new scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -7771,16 +7787,16 @@ public final class CloudManagerAlarm {
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof RemoveDataArkRequest) {
-          return mergeFrom((RemoveDataArkRequest)other);
+        if (other instanceof scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest) {
+          return mergeFrom((scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(RemoveDataArkRequest other) {
-        if (other == RemoveDataArkRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest other) {
+        if (other == scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest.getDefaultInstance()) return this;
         if (other.hasId()) {
           bitField0_ |= 0x00000001;
           id_ = other.id_;
@@ -7792,21 +7808,21 @@ public final class CloudManagerAlarm {
 
       public final boolean isInitialized() {
         if (!hasId()) {
-          
+
           return false;
         }
         return true;
       }
 
       public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        RemoveDataArkRequest parsedMessage = null;
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (RemoveDataArkRequest) e.getUnfinishedMessage();
+          parsedMessage = (scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -7817,7 +7833,7 @@ public final class CloudManagerAlarm {
       }
       private int bitField0_;
 
-      private Object id_ = "";
+      private java.lang.Object id_ = "";
       /**
        * <code>required string id = 1;</code>
        *
@@ -7835,18 +7851,18 @@ public final class CloudManagerAlarm {
        * data ark id
        * </pre>
        */
-      public String getId() {
-        Object ref = id_;
-        if (!(ref instanceof String)) {
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
+                  (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
             id_ = s;
           }
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
       /**
@@ -7857,12 +7873,12 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public com.google.protobuf.ByteString
-          getIdBytes() {
-        Object ref = id_;
+      getIdBytes() {
+        java.lang.Object ref = id_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           id_ = b;
           return b;
         } else {
@@ -7877,11 +7893,11 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public Builder setId(
-          String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
         id_ = value;
         onChanged();
         return this;
@@ -7907,11 +7923,11 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public Builder setIdBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
         id_ = value;
         onChanged();
         return this;
@@ -7929,8 +7945,8 @@ public final class CloudManagerAlarm {
   }
 
   public interface UpdateDataArkRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:scmp.proto.alarm.UpdateDataArkRequest)
-      com.google.protobuf.MessageOrBuilder {
+          // @@protoc_insertion_point(interface_extends:scmp.proto.alarm.UpdateDataArkRequest)
+          com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>required string id = 1;</code>
@@ -7947,7 +7963,7 @@ public final class CloudManagerAlarm {
      * data ark id
      * </pre>
      */
-    String getId();
+    java.lang.String getId();
     /**
      * <code>required string id = 1;</code>
      *
@@ -7956,19 +7972,19 @@ public final class CloudManagerAlarm {
      * </pre>
      */
     com.google.protobuf.ByteString
-        getIdBytes();
+    getIdBytes();
   }
   /**
    * Protobuf type {@code scmp.proto.alarm.UpdateDataArkRequest}
    *
    * <pre>
-   * Command_UpdateDataArk 
+   * Command_UpdateDataArk
    * </pre>
    */
   public static final class UpdateDataArkRequest extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:scmp.proto.alarm.UpdateDataArkRequest)
-      UpdateDataArkRequestOrBuilder {
+          com.google.protobuf.GeneratedMessage implements
+          // @@protoc_insertion_point(message_implements:scmp.proto.alarm.UpdateDataArkRequest)
+          UpdateDataArkRequestOrBuilder {
     // Use UpdateDataArkRequest.newBuilder() to construct.
     private UpdateDataArkRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -7986,19 +8002,19 @@ public final class CloudManagerAlarm {
     }
 
     private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @Override
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private UpdateDataArkRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       initFields();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
+              com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -8009,7 +8025,7 @@ public final class CloudManagerAlarm {
               break;
             default: {
               if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+                      extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -8026,42 +8042,42 @@ public final class CloudManagerAlarm {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+                e.getMessage()).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateDataArkRequest_descriptor;
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateDataArkRequest_descriptor;
     }
 
-    protected FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateDataArkRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              UpdateDataArkRequest.class, Builder.class);
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    internalGetFieldAccessorTable() {
+      return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateDataArkRequest_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                      scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest.class, scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest.Builder.class);
     }
 
     public static com.google.protobuf.Parser<UpdateDataArkRequest> PARSER =
-        new com.google.protobuf.AbstractParser<UpdateDataArkRequest>() {
-      public UpdateDataArkRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new UpdateDataArkRequest(input, extensionRegistry);
-      }
-    };
+            new com.google.protobuf.AbstractParser<UpdateDataArkRequest>() {
+              public UpdateDataArkRequest parsePartialFrom(
+                      com.google.protobuf.CodedInputStream input,
+                      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                      throws com.google.protobuf.InvalidProtocolBufferException {
+                return new UpdateDataArkRequest(input, extensionRegistry);
+              }
+            };
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Parser<UpdateDataArkRequest> getParserForType() {
       return PARSER;
     }
 
     private int bitField0_;
     public static final int ID_FIELD_NUMBER = 1;
-    private Object id_;
+    private java.lang.Object id_;
     /**
      * <code>required string id = 1;</code>
      *
@@ -8079,14 +8095,14 @@ public final class CloudManagerAlarm {
      * data ark id
      * </pre>
      */
-    public String getId() {
-      Object ref = id_;
-      if (ref instanceof String) {
-        return (String) ref;
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
           id_ = s;
         }
@@ -8101,12 +8117,12 @@ public final class CloudManagerAlarm {
      * </pre>
      */
     public com.google.protobuf.ByteString
-        getIdBytes() {
-      Object ref = id_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+    getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         id_ = b;
         return b;
       } else {
@@ -8132,7 +8148,7 @@ public final class CloudManagerAlarm {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
+            throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, getIdBytes());
@@ -8148,7 +8164,7 @@ public final class CloudManagerAlarm {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getIdBytes());
+                .computeBytesSize(1, getIdBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -8156,75 +8172,75 @@ public final class CloudManagerAlarm {
     }
 
     private static final long serialVersionUID = 0L;
-    @Override
-    protected Object writeReplace()
-        throws java.io.ObjectStreamException {
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+            throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
 
-    public static UpdateDataArkRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static UpdateDataArkRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static UpdateDataArkRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static UpdateDataArkRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static UpdateDataArkRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static UpdateDataArkRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static UpdateDataArkRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static UpdateDataArkRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static UpdateDataArkRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static UpdateDataArkRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(UpdateDataArkRequest prototype) {
+    public static Builder newBuilder(scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
 
-    @Override
+    @java.lang.Override
     protected Builder newBuilderForType(
-        BuilderParent parent) {
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -8232,23 +8248,23 @@ public final class CloudManagerAlarm {
      * Protobuf type {@code scmp.proto.alarm.UpdateDataArkRequest}
      *
      * <pre>
-     * Command_UpdateDataArk 
+     * Command_UpdateDataArk
      * </pre>
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:scmp.proto.alarm.UpdateDataArkRequest)
-        UpdateDataArkRequestOrBuilder {
+            com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:scmp.proto.alarm.UpdateDataArkRequest)
+            scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateDataArkRequest_descriptor;
+      getDescriptor() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateDataArkRequest_descriptor;
       }
 
-      protected FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateDataArkRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                UpdateDataArkRequest.class, Builder.class);
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internalGetFieldAccessorTable() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateDataArkRequest_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                        scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest.class, scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest.Builder.class);
       }
 
       // Construct using scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest.newBuilder()
@@ -8257,7 +8273,7 @@ public final class CloudManagerAlarm {
       }
 
       private Builder(
-          BuilderParent parent) {
+              com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -8281,24 +8297,24 @@ public final class CloudManagerAlarm {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateDataArkRequest_descriptor;
+      getDescriptorForType() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateDataArkRequest_descriptor;
       }
 
-      public UpdateDataArkRequest getDefaultInstanceForType() {
-        return UpdateDataArkRequest.getDefaultInstance();
+      public scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest getDefaultInstanceForType() {
+        return scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest.getDefaultInstance();
       }
 
-      public UpdateDataArkRequest build() {
-        UpdateDataArkRequest result = buildPartial();
+      public scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest build() {
+        scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public UpdateDataArkRequest buildPartial() {
-        UpdateDataArkRequest result = new UpdateDataArkRequest(this);
+      public scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest buildPartial() {
+        scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest result = new scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -8311,16 +8327,16 @@ public final class CloudManagerAlarm {
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof UpdateDataArkRequest) {
-          return mergeFrom((UpdateDataArkRequest)other);
+        if (other instanceof scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest) {
+          return mergeFrom((scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(UpdateDataArkRequest other) {
-        if (other == UpdateDataArkRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest other) {
+        if (other == scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest.getDefaultInstance()) return this;
         if (other.hasId()) {
           bitField0_ |= 0x00000001;
           id_ = other.id_;
@@ -8332,21 +8348,21 @@ public final class CloudManagerAlarm {
 
       public final boolean isInitialized() {
         if (!hasId()) {
-          
+
           return false;
         }
         return true;
       }
 
       public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        UpdateDataArkRequest parsedMessage = null;
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (UpdateDataArkRequest) e.getUnfinishedMessage();
+          parsedMessage = (scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -8357,7 +8373,7 @@ public final class CloudManagerAlarm {
       }
       private int bitField0_;
 
-      private Object id_ = "";
+      private java.lang.Object id_ = "";
       /**
        * <code>required string id = 1;</code>
        *
@@ -8375,18 +8391,18 @@ public final class CloudManagerAlarm {
        * data ark id
        * </pre>
        */
-      public String getId() {
-        Object ref = id_;
-        if (!(ref instanceof String)) {
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
+                  (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
             id_ = s;
           }
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
       /**
@@ -8397,12 +8413,12 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public com.google.protobuf.ByteString
-          getIdBytes() {
-        Object ref = id_;
+      getIdBytes() {
+        java.lang.Object ref = id_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           id_ = b;
           return b;
         } else {
@@ -8417,11 +8433,11 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public Builder setId(
-          String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
         id_ = value;
         onChanged();
         return this;
@@ -8447,11 +8463,11 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public Builder setIdBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
         id_ = value;
         onChanged();
         return this;
@@ -8469,8 +8485,8 @@ public final class CloudManagerAlarm {
   }
 
   public interface UpdateEmailAlarmRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:scmp.proto.alarm.UpdateEmailAlarmRequest)
-      com.google.protobuf.MessageOrBuilder {
+          // @@protoc_insertion_point(interface_extends:scmp.proto.alarm.UpdateEmailAlarmRequest)
+          com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>required string user_id = 1;</code>
@@ -8487,7 +8503,7 @@ public final class CloudManagerAlarm {
      * 所属用户 ID
      * </pre>
      */
-    String getUserId();
+    java.lang.String getUserId();
     /**
      * <code>required string user_id = 1;</code>
      *
@@ -8496,19 +8512,19 @@ public final class CloudManagerAlarm {
      * </pre>
      */
     com.google.protobuf.ByteString
-        getUserIdBytes();
+    getUserIdBytes();
   }
   /**
    * Protobuf type {@code scmp.proto.alarm.UpdateEmailAlarmRequest}
    *
    * <pre>
-   * Command_UpdateEmailAlarm 
+   * Command_UpdateEmailAlarm
    * </pre>
    */
   public static final class UpdateEmailAlarmRequest extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:scmp.proto.alarm.UpdateEmailAlarmRequest)
-      UpdateEmailAlarmRequestOrBuilder {
+          com.google.protobuf.GeneratedMessage implements
+          // @@protoc_insertion_point(message_implements:scmp.proto.alarm.UpdateEmailAlarmRequest)
+          UpdateEmailAlarmRequestOrBuilder {
     // Use UpdateEmailAlarmRequest.newBuilder() to construct.
     private UpdateEmailAlarmRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -8526,19 +8542,19 @@ public final class CloudManagerAlarm {
     }
 
     private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @Override
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private UpdateEmailAlarmRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       initFields();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
+              com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -8549,7 +8565,7 @@ public final class CloudManagerAlarm {
               break;
             default: {
               if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+                      extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -8566,42 +8582,42 @@ public final class CloudManagerAlarm {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+                e.getMessage()).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_descriptor;
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_descriptor;
     }
 
-    protected FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              UpdateEmailAlarmRequest.class, Builder.class);
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    internalGetFieldAccessorTable() {
+      return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                      scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest.class, scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest.Builder.class);
     }
 
     public static com.google.protobuf.Parser<UpdateEmailAlarmRequest> PARSER =
-        new com.google.protobuf.AbstractParser<UpdateEmailAlarmRequest>() {
-      public UpdateEmailAlarmRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new UpdateEmailAlarmRequest(input, extensionRegistry);
-      }
-    };
+            new com.google.protobuf.AbstractParser<UpdateEmailAlarmRequest>() {
+              public UpdateEmailAlarmRequest parsePartialFrom(
+                      com.google.protobuf.CodedInputStream input,
+                      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                      throws com.google.protobuf.InvalidProtocolBufferException {
+                return new UpdateEmailAlarmRequest(input, extensionRegistry);
+              }
+            };
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Parser<UpdateEmailAlarmRequest> getParserForType() {
       return PARSER;
     }
 
     private int bitField0_;
     public static final int USER_ID_FIELD_NUMBER = 1;
-    private Object userId_;
+    private java.lang.Object userId_;
     /**
      * <code>required string user_id = 1;</code>
      *
@@ -8619,14 +8635,14 @@ public final class CloudManagerAlarm {
      * 所属用户 ID
      * </pre>
      */
-    public String getUserId() {
-      Object ref = userId_;
-      if (ref instanceof String) {
-        return (String) ref;
+    public java.lang.String getUserId() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
           userId_ = s;
         }
@@ -8641,12 +8657,12 @@ public final class CloudManagerAlarm {
      * </pre>
      */
     public com.google.protobuf.ByteString
-        getUserIdBytes() {
-      Object ref = userId_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+    getUserIdBytes() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         userId_ = b;
         return b;
       } else {
@@ -8672,7 +8688,7 @@ public final class CloudManagerAlarm {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
+            throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, getUserIdBytes());
@@ -8688,7 +8704,7 @@ public final class CloudManagerAlarm {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getUserIdBytes());
+                .computeBytesSize(1, getUserIdBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -8696,75 +8712,75 @@ public final class CloudManagerAlarm {
     }
 
     private static final long serialVersionUID = 0L;
-    @Override
-    protected Object writeReplace()
-        throws java.io.ObjectStreamException {
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+            throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
 
-    public static UpdateEmailAlarmRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static UpdateEmailAlarmRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static UpdateEmailAlarmRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static UpdateEmailAlarmRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static UpdateEmailAlarmRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static UpdateEmailAlarmRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static UpdateEmailAlarmRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static UpdateEmailAlarmRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static UpdateEmailAlarmRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static UpdateEmailAlarmRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(UpdateEmailAlarmRequest prototype) {
+    public static Builder newBuilder(scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
 
-    @Override
+    @java.lang.Override
     protected Builder newBuilderForType(
-        BuilderParent parent) {
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -8772,23 +8788,23 @@ public final class CloudManagerAlarm {
      * Protobuf type {@code scmp.proto.alarm.UpdateEmailAlarmRequest}
      *
      * <pre>
-     * Command_UpdateEmailAlarm 
+     * Command_UpdateEmailAlarm
      * </pre>
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:scmp.proto.alarm.UpdateEmailAlarmRequest)
-        UpdateEmailAlarmRequestOrBuilder {
+            com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:scmp.proto.alarm.UpdateEmailAlarmRequest)
+            scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_descriptor;
+      getDescriptor() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_descriptor;
       }
 
-      protected FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                UpdateEmailAlarmRequest.class, Builder.class);
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internalGetFieldAccessorTable() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                        scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest.class, scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest.Builder.class);
       }
 
       // Construct using scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest.newBuilder()
@@ -8797,7 +8813,7 @@ public final class CloudManagerAlarm {
       }
 
       private Builder(
-          BuilderParent parent) {
+              com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -8821,24 +8837,24 @@ public final class CloudManagerAlarm {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_descriptor;
+      getDescriptorForType() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_descriptor;
       }
 
-      public UpdateEmailAlarmRequest getDefaultInstanceForType() {
-        return UpdateEmailAlarmRequest.getDefaultInstance();
+      public scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest getDefaultInstanceForType() {
+        return scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest.getDefaultInstance();
       }
 
-      public UpdateEmailAlarmRequest build() {
-        UpdateEmailAlarmRequest result = buildPartial();
+      public scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest build() {
+        scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public UpdateEmailAlarmRequest buildPartial() {
-        UpdateEmailAlarmRequest result = new UpdateEmailAlarmRequest(this);
+      public scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest buildPartial() {
+        scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest result = new scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -8851,16 +8867,16 @@ public final class CloudManagerAlarm {
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof UpdateEmailAlarmRequest) {
-          return mergeFrom((UpdateEmailAlarmRequest)other);
+        if (other instanceof scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest) {
+          return mergeFrom((scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(UpdateEmailAlarmRequest other) {
-        if (other == UpdateEmailAlarmRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest other) {
+        if (other == scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest.getDefaultInstance()) return this;
         if (other.hasUserId()) {
           bitField0_ |= 0x00000001;
           userId_ = other.userId_;
@@ -8872,21 +8888,21 @@ public final class CloudManagerAlarm {
 
       public final boolean isInitialized() {
         if (!hasUserId()) {
-          
+
           return false;
         }
         return true;
       }
 
       public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        UpdateEmailAlarmRequest parsedMessage = null;
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (UpdateEmailAlarmRequest) e.getUnfinishedMessage();
+          parsedMessage = (scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -8897,7 +8913,7 @@ public final class CloudManagerAlarm {
       }
       private int bitField0_;
 
-      private Object userId_ = "";
+      private java.lang.Object userId_ = "";
       /**
        * <code>required string user_id = 1;</code>
        *
@@ -8915,18 +8931,18 @@ public final class CloudManagerAlarm {
        * 所属用户 ID
        * </pre>
        */
-      public String getUserId() {
-        Object ref = userId_;
-        if (!(ref instanceof String)) {
+      public java.lang.String getUserId() {
+        java.lang.Object ref = userId_;
+        if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
+                  (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
             userId_ = s;
           }
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
       /**
@@ -8937,12 +8953,12 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public com.google.protobuf.ByteString
-          getUserIdBytes() {
-        Object ref = userId_;
+      getUserIdBytes() {
+        java.lang.Object ref = userId_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           userId_ = b;
           return b;
         } else {
@@ -8957,11 +8973,11 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public Builder setUserId(
-          String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
         userId_ = value;
         onChanged();
         return this;
@@ -8987,11 +9003,11 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public Builder setUserIdBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
         userId_ = value;
         onChanged();
         return this;
@@ -9009,8 +9025,8 @@ public final class CloudManagerAlarm {
   }
 
   public interface CreateEmailAlarmRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:scmp.proto.alarm.CreateEmailAlarmRequest)
-      com.google.protobuf.MessageOrBuilder {
+          // @@protoc_insertion_point(interface_extends:scmp.proto.alarm.CreateEmailAlarmRequest)
+          com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>required string user_id = 1;</code>
@@ -9027,7 +9043,7 @@ public final class CloudManagerAlarm {
      * 所属用户 ID
      * </pre>
      */
-    String getUserId();
+    java.lang.String getUserId();
     /**
      * <code>required string user_id = 1;</code>
      *
@@ -9036,19 +9052,19 @@ public final class CloudManagerAlarm {
      * </pre>
      */
     com.google.protobuf.ByteString
-        getUserIdBytes();
+    getUserIdBytes();
   }
   /**
    * Protobuf type {@code scmp.proto.alarm.CreateEmailAlarmRequest}
    *
    * <pre>
-   * Command_CreateEmailAlarm 
+   * Command_CreateEmailAlarm
    * </pre>
    */
   public static final class CreateEmailAlarmRequest extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:scmp.proto.alarm.CreateEmailAlarmRequest)
-      CreateEmailAlarmRequestOrBuilder {
+          com.google.protobuf.GeneratedMessage implements
+          // @@protoc_insertion_point(message_implements:scmp.proto.alarm.CreateEmailAlarmRequest)
+          CreateEmailAlarmRequestOrBuilder {
     // Use CreateEmailAlarmRequest.newBuilder() to construct.
     private CreateEmailAlarmRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -9066,19 +9082,19 @@ public final class CloudManagerAlarm {
     }
 
     private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @Override
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private CreateEmailAlarmRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       initFields();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
+              com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -9089,7 +9105,7 @@ public final class CloudManagerAlarm {
               break;
             default: {
               if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+                      extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -9106,42 +9122,42 @@ public final class CloudManagerAlarm {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+                e.getMessage()).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return CloudManagerAlarm.internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_descriptor;
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_descriptor;
     }
 
-    protected FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return CloudManagerAlarm.internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              CreateEmailAlarmRequest.class, Builder.class);
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    internalGetFieldAccessorTable() {
+      return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                      scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest.class, scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest.Builder.class);
     }
 
     public static com.google.protobuf.Parser<CreateEmailAlarmRequest> PARSER =
-        new com.google.protobuf.AbstractParser<CreateEmailAlarmRequest>() {
-      public CreateEmailAlarmRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new CreateEmailAlarmRequest(input, extensionRegistry);
-      }
-    };
+            new com.google.protobuf.AbstractParser<CreateEmailAlarmRequest>() {
+              public CreateEmailAlarmRequest parsePartialFrom(
+                      com.google.protobuf.CodedInputStream input,
+                      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                      throws com.google.protobuf.InvalidProtocolBufferException {
+                return new CreateEmailAlarmRequest(input, extensionRegistry);
+              }
+            };
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Parser<CreateEmailAlarmRequest> getParserForType() {
       return PARSER;
     }
 
     private int bitField0_;
     public static final int USER_ID_FIELD_NUMBER = 1;
-    private Object userId_;
+    private java.lang.Object userId_;
     /**
      * <code>required string user_id = 1;</code>
      *
@@ -9159,14 +9175,14 @@ public final class CloudManagerAlarm {
      * 所属用户 ID
      * </pre>
      */
-    public String getUserId() {
-      Object ref = userId_;
-      if (ref instanceof String) {
-        return (String) ref;
+    public java.lang.String getUserId() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
           userId_ = s;
         }
@@ -9181,12 +9197,12 @@ public final class CloudManagerAlarm {
      * </pre>
      */
     public com.google.protobuf.ByteString
-        getUserIdBytes() {
-      Object ref = userId_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+    getUserIdBytes() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         userId_ = b;
         return b;
       } else {
@@ -9212,7 +9228,7 @@ public final class CloudManagerAlarm {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
+            throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, getUserIdBytes());
@@ -9228,7 +9244,7 @@ public final class CloudManagerAlarm {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getUserIdBytes());
+                .computeBytesSize(1, getUserIdBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -9236,75 +9252,75 @@ public final class CloudManagerAlarm {
     }
 
     private static final long serialVersionUID = 0L;
-    @Override
-    protected Object writeReplace()
-        throws java.io.ObjectStreamException {
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+            throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
 
-    public static CreateEmailAlarmRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static CreateEmailAlarmRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static CreateEmailAlarmRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static CreateEmailAlarmRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static CreateEmailAlarmRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static CreateEmailAlarmRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static CreateEmailAlarmRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static CreateEmailAlarmRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static CreateEmailAlarmRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static CreateEmailAlarmRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(CreateEmailAlarmRequest prototype) {
+    public static Builder newBuilder(scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
 
-    @Override
+    @java.lang.Override
     protected Builder newBuilderForType(
-        BuilderParent parent) {
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -9312,23 +9328,23 @@ public final class CloudManagerAlarm {
      * Protobuf type {@code scmp.proto.alarm.CreateEmailAlarmRequest}
      *
      * <pre>
-     * Command_CreateEmailAlarm 
+     * Command_CreateEmailAlarm
      * </pre>
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:scmp.proto.alarm.CreateEmailAlarmRequest)
-        CreateEmailAlarmRequestOrBuilder {
+            com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:scmp.proto.alarm.CreateEmailAlarmRequest)
+            scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_descriptor;
+      getDescriptor() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_descriptor;
       }
 
-      protected FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                CreateEmailAlarmRequest.class, Builder.class);
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internalGetFieldAccessorTable() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                        scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest.class, scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest.Builder.class);
       }
 
       // Construct using scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest.newBuilder()
@@ -9337,7 +9353,7 @@ public final class CloudManagerAlarm {
       }
 
       private Builder(
-          BuilderParent parent) {
+              com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -9361,24 +9377,24 @@ public final class CloudManagerAlarm {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_descriptor;
+      getDescriptorForType() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_descriptor;
       }
 
-      public CreateEmailAlarmRequest getDefaultInstanceForType() {
-        return CreateEmailAlarmRequest.getDefaultInstance();
+      public scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest getDefaultInstanceForType() {
+        return scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest.getDefaultInstance();
       }
 
-      public CreateEmailAlarmRequest build() {
-        CreateEmailAlarmRequest result = buildPartial();
+      public scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest build() {
+        scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public CreateEmailAlarmRequest buildPartial() {
-        CreateEmailAlarmRequest result = new CreateEmailAlarmRequest(this);
+      public scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest buildPartial() {
+        scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest result = new scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -9391,16 +9407,16 @@ public final class CloudManagerAlarm {
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof CreateEmailAlarmRequest) {
-          return mergeFrom((CreateEmailAlarmRequest)other);
+        if (other instanceof scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest) {
+          return mergeFrom((scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(CreateEmailAlarmRequest other) {
-        if (other == CreateEmailAlarmRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest other) {
+        if (other == scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest.getDefaultInstance()) return this;
         if (other.hasUserId()) {
           bitField0_ |= 0x00000001;
           userId_ = other.userId_;
@@ -9412,21 +9428,21 @@ public final class CloudManagerAlarm {
 
       public final boolean isInitialized() {
         if (!hasUserId()) {
-          
+
           return false;
         }
         return true;
       }
 
       public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        CreateEmailAlarmRequest parsedMessage = null;
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (CreateEmailAlarmRequest) e.getUnfinishedMessage();
+          parsedMessage = (scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -9437,7 +9453,7 @@ public final class CloudManagerAlarm {
       }
       private int bitField0_;
 
-      private Object userId_ = "";
+      private java.lang.Object userId_ = "";
       /**
        * <code>required string user_id = 1;</code>
        *
@@ -9455,18 +9471,18 @@ public final class CloudManagerAlarm {
        * 所属用户 ID
        * </pre>
        */
-      public String getUserId() {
-        Object ref = userId_;
-        if (!(ref instanceof String)) {
+      public java.lang.String getUserId() {
+        java.lang.Object ref = userId_;
+        if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
+                  (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
             userId_ = s;
           }
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
       /**
@@ -9477,12 +9493,12 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public com.google.protobuf.ByteString
-          getUserIdBytes() {
-        Object ref = userId_;
+      getUserIdBytes() {
+        java.lang.Object ref = userId_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           userId_ = b;
           return b;
         } else {
@@ -9497,11 +9513,11 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public Builder setUserId(
-          String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
         userId_ = value;
         onChanged();
         return this;
@@ -9527,11 +9543,11 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public Builder setUserIdBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
         userId_ = value;
         onChanged();
         return this;
@@ -9549,8 +9565,8 @@ public final class CloudManagerAlarm {
   }
 
   public interface DeleteEmailAlarmRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:scmp.proto.alarm.DeleteEmailAlarmRequest)
-      com.google.protobuf.MessageOrBuilder {
+          // @@protoc_insertion_point(interface_extends:scmp.proto.alarm.DeleteEmailAlarmRequest)
+          com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>required string user_id = 1;</code>
@@ -9567,7 +9583,7 @@ public final class CloudManagerAlarm {
      * 所属用户 ID
      * </pre>
      */
-    String getUserId();
+    java.lang.String getUserId();
     /**
      * <code>required string user_id = 1;</code>
      *
@@ -9576,19 +9592,19 @@ public final class CloudManagerAlarm {
      * </pre>
      */
     com.google.protobuf.ByteString
-        getUserIdBytes();
+    getUserIdBytes();
   }
   /**
    * Protobuf type {@code scmp.proto.alarm.DeleteEmailAlarmRequest}
    *
    * <pre>
-   * Command_DeleteEmailAlarm 
+   * Command_DeleteEmailAlarm
    * </pre>
    */
   public static final class DeleteEmailAlarmRequest extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:scmp.proto.alarm.DeleteEmailAlarmRequest)
-      DeleteEmailAlarmRequestOrBuilder {
+          com.google.protobuf.GeneratedMessage implements
+          // @@protoc_insertion_point(message_implements:scmp.proto.alarm.DeleteEmailAlarmRequest)
+          DeleteEmailAlarmRequestOrBuilder {
     // Use DeleteEmailAlarmRequest.newBuilder() to construct.
     private DeleteEmailAlarmRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -9606,19 +9622,19 @@ public final class CloudManagerAlarm {
     }
 
     private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @Override
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private DeleteEmailAlarmRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       initFields();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
+              com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -9629,7 +9645,7 @@ public final class CloudManagerAlarm {
               break;
             default: {
               if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+                      extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -9646,42 +9662,42 @@ public final class CloudManagerAlarm {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+                e.getMessage()).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return CloudManagerAlarm.internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_descriptor;
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_descriptor;
     }
 
-    protected FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return CloudManagerAlarm.internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              DeleteEmailAlarmRequest.class, Builder.class);
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    internalGetFieldAccessorTable() {
+      return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                      scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest.class, scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest.Builder.class);
     }
 
     public static com.google.protobuf.Parser<DeleteEmailAlarmRequest> PARSER =
-        new com.google.protobuf.AbstractParser<DeleteEmailAlarmRequest>() {
-      public DeleteEmailAlarmRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new DeleteEmailAlarmRequest(input, extensionRegistry);
-      }
-    };
+            new com.google.protobuf.AbstractParser<DeleteEmailAlarmRequest>() {
+              public DeleteEmailAlarmRequest parsePartialFrom(
+                      com.google.protobuf.CodedInputStream input,
+                      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                      throws com.google.protobuf.InvalidProtocolBufferException {
+                return new DeleteEmailAlarmRequest(input, extensionRegistry);
+              }
+            };
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Parser<DeleteEmailAlarmRequest> getParserForType() {
       return PARSER;
     }
 
     private int bitField0_;
     public static final int USER_ID_FIELD_NUMBER = 1;
-    private Object userId_;
+    private java.lang.Object userId_;
     /**
      * <code>required string user_id = 1;</code>
      *
@@ -9699,14 +9715,14 @@ public final class CloudManagerAlarm {
      * 所属用户 ID
      * </pre>
      */
-    public String getUserId() {
-      Object ref = userId_;
-      if (ref instanceof String) {
-        return (String) ref;
+    public java.lang.String getUserId() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
           userId_ = s;
         }
@@ -9721,12 +9737,12 @@ public final class CloudManagerAlarm {
      * </pre>
      */
     public com.google.protobuf.ByteString
-        getUserIdBytes() {
-      Object ref = userId_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+    getUserIdBytes() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         userId_ = b;
         return b;
       } else {
@@ -9752,7 +9768,7 @@ public final class CloudManagerAlarm {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
+            throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, getUserIdBytes());
@@ -9768,7 +9784,7 @@ public final class CloudManagerAlarm {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getUserIdBytes());
+                .computeBytesSize(1, getUserIdBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -9776,75 +9792,75 @@ public final class CloudManagerAlarm {
     }
 
     private static final long serialVersionUID = 0L;
-    @Override
-    protected Object writeReplace()
-        throws java.io.ObjectStreamException {
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+            throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
 
-    public static DeleteEmailAlarmRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static DeleteEmailAlarmRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static DeleteEmailAlarmRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static DeleteEmailAlarmRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static DeleteEmailAlarmRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static DeleteEmailAlarmRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static DeleteEmailAlarmRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static DeleteEmailAlarmRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static DeleteEmailAlarmRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static DeleteEmailAlarmRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(DeleteEmailAlarmRequest prototype) {
+    public static Builder newBuilder(scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
 
-    @Override
+    @java.lang.Override
     protected Builder newBuilderForType(
-        BuilderParent parent) {
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -9852,23 +9868,23 @@ public final class CloudManagerAlarm {
      * Protobuf type {@code scmp.proto.alarm.DeleteEmailAlarmRequest}
      *
      * <pre>
-     * Command_DeleteEmailAlarm 
+     * Command_DeleteEmailAlarm
      * </pre>
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:scmp.proto.alarm.DeleteEmailAlarmRequest)
-        DeleteEmailAlarmRequestOrBuilder {
+            com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:scmp.proto.alarm.DeleteEmailAlarmRequest)
+            scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_descriptor;
+      getDescriptor() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_descriptor;
       }
 
-      protected FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                DeleteEmailAlarmRequest.class, Builder.class);
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internalGetFieldAccessorTable() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                        scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest.class, scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest.Builder.class);
       }
 
       // Construct using scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest.newBuilder()
@@ -9877,7 +9893,7 @@ public final class CloudManagerAlarm {
       }
 
       private Builder(
-          BuilderParent parent) {
+              com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -9901,24 +9917,24 @@ public final class CloudManagerAlarm {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_descriptor;
+      getDescriptorForType() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_descriptor;
       }
 
-      public DeleteEmailAlarmRequest getDefaultInstanceForType() {
-        return DeleteEmailAlarmRequest.getDefaultInstance();
+      public scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest getDefaultInstanceForType() {
+        return scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest.getDefaultInstance();
       }
 
-      public DeleteEmailAlarmRequest build() {
-        DeleteEmailAlarmRequest result = buildPartial();
+      public scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest build() {
+        scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public DeleteEmailAlarmRequest buildPartial() {
-        DeleteEmailAlarmRequest result = new DeleteEmailAlarmRequest(this);
+      public scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest buildPartial() {
+        scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest result = new scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -9931,16 +9947,16 @@ public final class CloudManagerAlarm {
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof DeleteEmailAlarmRequest) {
-          return mergeFrom((DeleteEmailAlarmRequest)other);
+        if (other instanceof scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest) {
+          return mergeFrom((scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(DeleteEmailAlarmRequest other) {
-        if (other == DeleteEmailAlarmRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest other) {
+        if (other == scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest.getDefaultInstance()) return this;
         if (other.hasUserId()) {
           bitField0_ |= 0x00000001;
           userId_ = other.userId_;
@@ -9952,21 +9968,21 @@ public final class CloudManagerAlarm {
 
       public final boolean isInitialized() {
         if (!hasUserId()) {
-          
+
           return false;
         }
         return true;
       }
 
       public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        DeleteEmailAlarmRequest parsedMessage = null;
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (DeleteEmailAlarmRequest) e.getUnfinishedMessage();
+          parsedMessage = (scmp.proto.alarm.CloudManagerAlarm.DeleteEmailAlarmRequest) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -9977,7 +9993,7 @@ public final class CloudManagerAlarm {
       }
       private int bitField0_;
 
-      private Object userId_ = "";
+      private java.lang.Object userId_ = "";
       /**
        * <code>required string user_id = 1;</code>
        *
@@ -9995,18 +10011,18 @@ public final class CloudManagerAlarm {
        * 所属用户 ID
        * </pre>
        */
-      public String getUserId() {
-        Object ref = userId_;
-        if (!(ref instanceof String)) {
+      public java.lang.String getUserId() {
+        java.lang.Object ref = userId_;
+        if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
+                  (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
             userId_ = s;
           }
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
       /**
@@ -10017,12 +10033,12 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public com.google.protobuf.ByteString
-          getUserIdBytes() {
-        Object ref = userId_;
+      getUserIdBytes() {
+        java.lang.Object ref = userId_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           userId_ = b;
           return b;
         } else {
@@ -10037,11 +10053,11 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public Builder setUserId(
-          String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
         userId_ = value;
         onChanged();
         return this;
@@ -10067,11 +10083,11 @@ public final class CloudManagerAlarm {
        * </pre>
        */
       public Builder setUserIdBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
         userId_ = value;
         onChanged();
         return this;
@@ -10089,8 +10105,8 @@ public final class CloudManagerAlarm {
   }
 
   public interface VerifyEmailAlarmRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:scmp.proto.alarm.VerifyEmailAlarmRequest)
-      com.google.protobuf.MessageOrBuilder {
+          // @@protoc_insertion_point(interface_extends:scmp.proto.alarm.VerifyEmailAlarmRequest)
+          com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>required string sender_email = 1;</code>
@@ -10099,12 +10115,12 @@ public final class CloudManagerAlarm {
     /**
      * <code>required string sender_email = 1;</code>
      */
-    String getSenderEmail();
+    java.lang.String getSenderEmail();
     /**
      * <code>required string sender_email = 1;</code>
      */
     com.google.protobuf.ByteString
-        getSenderEmailBytes();
+    getSenderEmailBytes();
 
     /**
      * <code>required string smtp_address = 2;</code>
@@ -10113,12 +10129,12 @@ public final class CloudManagerAlarm {
     /**
      * <code>required string smtp_address = 2;</code>
      */
-    String getSmtpAddress();
+    java.lang.String getSmtpAddress();
     /**
      * <code>required string smtp_address = 2;</code>
      */
     com.google.protobuf.ByteString
-        getSmtpAddressBytes();
+    getSmtpAddressBytes();
 
     /**
      * <code>required uint32 smtp_port = 3;</code>
@@ -10154,12 +10170,12 @@ public final class CloudManagerAlarm {
     /**
      * <code>required string smtp_user_id = 6;</code>
      */
-    String getSmtpUserId();
+    java.lang.String getSmtpUserId();
     /**
      * <code>required string smtp_user_id = 6;</code>
      */
     com.google.protobuf.ByteString
-        getSmtpUserIdBytes();
+    getSmtpUserIdBytes();
 
     /**
      * <code>required string smtp_password = 7;</code>
@@ -10168,18 +10184,18 @@ public final class CloudManagerAlarm {
     /**
      * <code>required string smtp_password = 7;</code>
      */
-    String getSmtpPassword();
+    java.lang.String getSmtpPassword();
     /**
      * <code>required string smtp_password = 7;</code>
      */
     com.google.protobuf.ByteString
-        getSmtpPasswordBytes();
+    getSmtpPasswordBytes();
 
     /**
      * <code>repeated string receiver_emails = 8;</code>
      */
     com.google.protobuf.ProtocolStringList
-        getReceiverEmailsList();
+    getReceiverEmailsList();
     /**
      * <code>repeated string receiver_emails = 8;</code>
      */
@@ -10187,24 +10203,24 @@ public final class CloudManagerAlarm {
     /**
      * <code>repeated string receiver_emails = 8;</code>
      */
-    String getReceiverEmails(int index);
+    java.lang.String getReceiverEmails(int index);
     /**
      * <code>repeated string receiver_emails = 8;</code>
      */
     com.google.protobuf.ByteString
-        getReceiverEmailsBytes(int index);
+    getReceiverEmailsBytes(int index);
   }
   /**
    * Protobuf type {@code scmp.proto.alarm.VerifyEmailAlarmRequest}
    *
    * <pre>
-   * Command_VerifyEmailAlarm 
+   * Command_VerifyEmailAlarm
    * </pre>
    */
   public static final class VerifyEmailAlarmRequest extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:scmp.proto.alarm.VerifyEmailAlarmRequest)
-      VerifyEmailAlarmRequestOrBuilder {
+          com.google.protobuf.GeneratedMessage implements
+          // @@protoc_insertion_point(message_implements:scmp.proto.alarm.VerifyEmailAlarmRequest)
+          VerifyEmailAlarmRequestOrBuilder {
     // Use VerifyEmailAlarmRequest.newBuilder() to construct.
     private VerifyEmailAlarmRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -10222,19 +10238,19 @@ public final class CloudManagerAlarm {
     }
 
     private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @Override
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private VerifyEmailAlarmRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       initFields();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
+              com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -10245,7 +10261,7 @@ public final class CloudManagerAlarm {
               break;
             default: {
               if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+                      extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -10304,7 +10320,7 @@ public final class CloudManagerAlarm {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+                e.getMessage()).setUnfinishedMessage(this);
       } finally {
         if (((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
           receiverEmails_ = receiverEmails_.getUnmodifiableView();
@@ -10314,35 +10330,35 @@ public final class CloudManagerAlarm {
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return CloudManagerAlarm.internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_descriptor;
+    getDescriptor() {
+      return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_descriptor;
     }
 
-    protected FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return CloudManagerAlarm.internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              VerifyEmailAlarmRequest.class, Builder.class);
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    internalGetFieldAccessorTable() {
+      return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                      scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest.class, scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest.Builder.class);
     }
 
     public static com.google.protobuf.Parser<VerifyEmailAlarmRequest> PARSER =
-        new com.google.protobuf.AbstractParser<VerifyEmailAlarmRequest>() {
-      public VerifyEmailAlarmRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new VerifyEmailAlarmRequest(input, extensionRegistry);
-      }
-    };
+            new com.google.protobuf.AbstractParser<VerifyEmailAlarmRequest>() {
+              public VerifyEmailAlarmRequest parsePartialFrom(
+                      com.google.protobuf.CodedInputStream input,
+                      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                      throws com.google.protobuf.InvalidProtocolBufferException {
+                return new VerifyEmailAlarmRequest(input, extensionRegistry);
+              }
+            };
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Parser<VerifyEmailAlarmRequest> getParserForType() {
       return PARSER;
     }
 
     private int bitField0_;
     public static final int SENDER_EMAIL_FIELD_NUMBER = 1;
-    private Object senderEmail_;
+    private java.lang.Object senderEmail_;
     /**
      * <code>required string sender_email = 1;</code>
      */
@@ -10352,14 +10368,14 @@ public final class CloudManagerAlarm {
     /**
      * <code>required string sender_email = 1;</code>
      */
-    public String getSenderEmail() {
-      Object ref = senderEmail_;
-      if (ref instanceof String) {
-        return (String) ref;
+    public java.lang.String getSenderEmail() {
+      java.lang.Object ref = senderEmail_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
           senderEmail_ = s;
         }
@@ -10370,12 +10386,12 @@ public final class CloudManagerAlarm {
      * <code>required string sender_email = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getSenderEmailBytes() {
-      Object ref = senderEmail_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+    getSenderEmailBytes() {
+      java.lang.Object ref = senderEmail_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         senderEmail_ = b;
         return b;
       } else {
@@ -10384,7 +10400,7 @@ public final class CloudManagerAlarm {
     }
 
     public static final int SMTP_ADDRESS_FIELD_NUMBER = 2;
-    private Object smtpAddress_;
+    private java.lang.Object smtpAddress_;
     /**
      * <code>required string smtp_address = 2;</code>
      */
@@ -10394,14 +10410,14 @@ public final class CloudManagerAlarm {
     /**
      * <code>required string smtp_address = 2;</code>
      */
-    public String getSmtpAddress() {
-      Object ref = smtpAddress_;
-      if (ref instanceof String) {
-        return (String) ref;
+    public java.lang.String getSmtpAddress() {
+      java.lang.Object ref = smtpAddress_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
           smtpAddress_ = s;
         }
@@ -10412,12 +10428,12 @@ public final class CloudManagerAlarm {
      * <code>required string smtp_address = 2;</code>
      */
     public com.google.protobuf.ByteString
-        getSmtpAddressBytes() {
-      Object ref = smtpAddress_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+    getSmtpAddressBytes() {
+      java.lang.Object ref = smtpAddress_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         smtpAddress_ = b;
         return b;
       } else {
@@ -10471,7 +10487,7 @@ public final class CloudManagerAlarm {
     }
 
     public static final int SMTP_USER_ID_FIELD_NUMBER = 6;
-    private Object smtpUserId_;
+    private java.lang.Object smtpUserId_;
     /**
      * <code>required string smtp_user_id = 6;</code>
      */
@@ -10481,14 +10497,14 @@ public final class CloudManagerAlarm {
     /**
      * <code>required string smtp_user_id = 6;</code>
      */
-    public String getSmtpUserId() {
-      Object ref = smtpUserId_;
-      if (ref instanceof String) {
-        return (String) ref;
+    public java.lang.String getSmtpUserId() {
+      java.lang.Object ref = smtpUserId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
           smtpUserId_ = s;
         }
@@ -10499,12 +10515,12 @@ public final class CloudManagerAlarm {
      * <code>required string smtp_user_id = 6;</code>
      */
     public com.google.protobuf.ByteString
-        getSmtpUserIdBytes() {
-      Object ref = smtpUserId_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+    getSmtpUserIdBytes() {
+      java.lang.Object ref = smtpUserId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         smtpUserId_ = b;
         return b;
       } else {
@@ -10513,7 +10529,7 @@ public final class CloudManagerAlarm {
     }
 
     public static final int SMTP_PASSWORD_FIELD_NUMBER = 7;
-    private Object smtpPassword_;
+    private java.lang.Object smtpPassword_;
     /**
      * <code>required string smtp_password = 7;</code>
      */
@@ -10523,14 +10539,14 @@ public final class CloudManagerAlarm {
     /**
      * <code>required string smtp_password = 7;</code>
      */
-    public String getSmtpPassword() {
-      Object ref = smtpPassword_;
-      if (ref instanceof String) {
-        return (String) ref;
+    public java.lang.String getSmtpPassword() {
+      java.lang.Object ref = smtpPassword_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
           smtpPassword_ = s;
         }
@@ -10541,12 +10557,12 @@ public final class CloudManagerAlarm {
      * <code>required string smtp_password = 7;</code>
      */
     public com.google.protobuf.ByteString
-        getSmtpPasswordBytes() {
-      Object ref = smtpPassword_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
+    getSmtpPasswordBytes() {
+      java.lang.Object ref = smtpPassword_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         smtpPassword_ = b;
         return b;
       } else {
@@ -10560,7 +10576,7 @@ public final class CloudManagerAlarm {
      * <code>repeated string receiver_emails = 8;</code>
      */
     public com.google.protobuf.ProtocolStringList
-        getReceiverEmailsList() {
+    getReceiverEmailsList() {
       return receiverEmails_;
     }
     /**
@@ -10572,14 +10588,14 @@ public final class CloudManagerAlarm {
     /**
      * <code>repeated string receiver_emails = 8;</code>
      */
-    public String getReceiverEmails(int index) {
+    public java.lang.String getReceiverEmails(int index) {
       return receiverEmails_.get(index);
     }
     /**
      * <code>repeated string receiver_emails = 8;</code>
      */
     public com.google.protobuf.ByteString
-        getReceiverEmailsBytes(int index) {
+    getReceiverEmailsBytes(int index) {
       return receiverEmails_.getByteString(index);
     }
 
@@ -10632,7 +10648,7 @@ public final class CloudManagerAlarm {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
+            throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, getSenderEmailBytes());
@@ -10669,37 +10685,37 @@ public final class CloudManagerAlarm {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getSenderEmailBytes());
+                .computeBytesSize(1, getSenderEmailBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getSmtpAddressBytes());
+                .computeBytesSize(2, getSmtpAddressBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(3, smtpPort_);
+                .computeUInt32Size(3, smtpPort_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(4, isSslEncryptEnabled_);
+                .computeBoolSize(4, isSslEncryptEnabled_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(5, isSmtpAuthentication_);
+                .computeBoolSize(5, isSmtpAuthentication_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(6, getSmtpUserIdBytes());
+                .computeBytesSize(6, getSmtpUserIdBytes());
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(7, getSmtpPasswordBytes());
+                .computeBytesSize(7, getSmtpPasswordBytes());
       }
       {
         int dataSize = 0;
         for (int i = 0; i < receiverEmails_.size(); i++) {
           dataSize += com.google.protobuf.CodedOutputStream
-            .computeBytesSizeNoTag(receiverEmails_.getByteString(i));
+                  .computeBytesSizeNoTag(receiverEmails_.getByteString(i));
         }
         size += dataSize;
         size += 1 * getReceiverEmailsList().size();
@@ -10710,75 +10726,75 @@ public final class CloudManagerAlarm {
     }
 
     private static final long serialVersionUID = 0L;
-    @Override
-    protected Object writeReplace()
-        throws java.io.ObjectStreamException {
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+            throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
 
-    public static VerifyEmailAlarmRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static VerifyEmailAlarmRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static VerifyEmailAlarmRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static VerifyEmailAlarmRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static VerifyEmailAlarmRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static VerifyEmailAlarmRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static VerifyEmailAlarmRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static VerifyEmailAlarmRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static VerifyEmailAlarmRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static VerifyEmailAlarmRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+    public static scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(VerifyEmailAlarmRequest prototype) {
+    public static Builder newBuilder(scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
 
-    @Override
+    @java.lang.Override
     protected Builder newBuilderForType(
-        BuilderParent parent) {
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -10786,23 +10802,23 @@ public final class CloudManagerAlarm {
      * Protobuf type {@code scmp.proto.alarm.VerifyEmailAlarmRequest}
      *
      * <pre>
-     * Command_VerifyEmailAlarm 
+     * Command_VerifyEmailAlarm
      * </pre>
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:scmp.proto.alarm.VerifyEmailAlarmRequest)
-        VerifyEmailAlarmRequestOrBuilder {
+            com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:scmp.proto.alarm.VerifyEmailAlarmRequest)
+            scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_descriptor;
+      getDescriptor() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_descriptor;
       }
 
-      protected FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                VerifyEmailAlarmRequest.class, Builder.class);
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internalGetFieldAccessorTable() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                        scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest.class, scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest.Builder.class);
       }
 
       // Construct using scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest.newBuilder()
@@ -10811,7 +10827,7 @@ public final class CloudManagerAlarm {
       }
 
       private Builder(
-          BuilderParent parent) {
+              com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -10849,24 +10865,24 @@ public final class CloudManagerAlarm {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return CloudManagerAlarm.internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_descriptor;
+      getDescriptorForType() {
+        return scmp.proto.alarm.CloudManagerAlarm.internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_descriptor;
       }
 
-      public VerifyEmailAlarmRequest getDefaultInstanceForType() {
-        return VerifyEmailAlarmRequest.getDefaultInstance();
+      public scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest getDefaultInstanceForType() {
+        return scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest.getDefaultInstance();
       }
 
-      public VerifyEmailAlarmRequest build() {
-        VerifyEmailAlarmRequest result = buildPartial();
+      public scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest build() {
+        scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public VerifyEmailAlarmRequest buildPartial() {
-        VerifyEmailAlarmRequest result = new VerifyEmailAlarmRequest(this);
+      public scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest buildPartial() {
+        scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest result = new scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -10908,16 +10924,16 @@ public final class CloudManagerAlarm {
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof VerifyEmailAlarmRequest) {
-          return mergeFrom((VerifyEmailAlarmRequest)other);
+        if (other instanceof scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest) {
+          return mergeFrom((scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(VerifyEmailAlarmRequest other) {
-        if (other == VerifyEmailAlarmRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest other) {
+        if (other == scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest.getDefaultInstance()) return this;
         if (other.hasSenderEmail()) {
           bitField0_ |= 0x00000001;
           senderEmail_ = other.senderEmail_;
@@ -10963,45 +10979,45 @@ public final class CloudManagerAlarm {
 
       public final boolean isInitialized() {
         if (!hasSenderEmail()) {
-          
+
           return false;
         }
         if (!hasSmtpAddress()) {
-          
+
           return false;
         }
         if (!hasSmtpPort()) {
-          
+
           return false;
         }
         if (!hasIsSslEncryptEnabled()) {
-          
+
           return false;
         }
         if (!hasIsSmtpAuthentication()) {
-          
+
           return false;
         }
         if (!hasSmtpUserId()) {
-          
+
           return false;
         }
         if (!hasSmtpPassword()) {
-          
+
           return false;
         }
         return true;
       }
 
       public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        VerifyEmailAlarmRequest parsedMessage = null;
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (VerifyEmailAlarmRequest) e.getUnfinishedMessage();
+          parsedMessage = (scmp.proto.alarm.CloudManagerAlarm.VerifyEmailAlarmRequest) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -11012,7 +11028,7 @@ public final class CloudManagerAlarm {
       }
       private int bitField0_;
 
-      private Object senderEmail_ = "";
+      private java.lang.Object senderEmail_ = "";
       /**
        * <code>required string sender_email = 1;</code>
        */
@@ -11022,30 +11038,30 @@ public final class CloudManagerAlarm {
       /**
        * <code>required string sender_email = 1;</code>
        */
-      public String getSenderEmail() {
-        Object ref = senderEmail_;
-        if (!(ref instanceof String)) {
+      public java.lang.String getSenderEmail() {
+        java.lang.Object ref = senderEmail_;
+        if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
+                  (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
             senderEmail_ = s;
           }
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
       /**
        * <code>required string sender_email = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getSenderEmailBytes() {
-        Object ref = senderEmail_;
+      getSenderEmailBytes() {
+        java.lang.Object ref = senderEmail_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           senderEmail_ = b;
           return b;
         } else {
@@ -11056,11 +11072,11 @@ public final class CloudManagerAlarm {
        * <code>required string sender_email = 1;</code>
        */
       public Builder setSenderEmail(
-          String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
         senderEmail_ = value;
         onChanged();
         return this;
@@ -11078,17 +11094,17 @@ public final class CloudManagerAlarm {
        * <code>required string sender_email = 1;</code>
        */
       public Builder setSenderEmailBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
         senderEmail_ = value;
         onChanged();
         return this;
       }
 
-      private Object smtpAddress_ = "";
+      private java.lang.Object smtpAddress_ = "";
       /**
        * <code>required string smtp_address = 2;</code>
        */
@@ -11098,30 +11114,30 @@ public final class CloudManagerAlarm {
       /**
        * <code>required string smtp_address = 2;</code>
        */
-      public String getSmtpAddress() {
-        Object ref = smtpAddress_;
-        if (!(ref instanceof String)) {
+      public java.lang.String getSmtpAddress() {
+        java.lang.Object ref = smtpAddress_;
+        if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
+                  (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
             smtpAddress_ = s;
           }
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
       /**
        * <code>required string smtp_address = 2;</code>
        */
       public com.google.protobuf.ByteString
-          getSmtpAddressBytes() {
-        Object ref = smtpAddress_;
+      getSmtpAddressBytes() {
+        java.lang.Object ref = smtpAddress_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           smtpAddress_ = b;
           return b;
         } else {
@@ -11132,11 +11148,11 @@ public final class CloudManagerAlarm {
        * <code>required string smtp_address = 2;</code>
        */
       public Builder setSmtpAddress(
-          String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
         smtpAddress_ = value;
         onChanged();
         return this;
@@ -11154,11 +11170,11 @@ public final class CloudManagerAlarm {
        * <code>required string smtp_address = 2;</code>
        */
       public Builder setSmtpAddressBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
         smtpAddress_ = value;
         onChanged();
         return this;
@@ -11260,7 +11276,7 @@ public final class CloudManagerAlarm {
         return this;
       }
 
-      private Object smtpUserId_ = "";
+      private java.lang.Object smtpUserId_ = "";
       /**
        * <code>required string smtp_user_id = 6;</code>
        */
@@ -11270,30 +11286,30 @@ public final class CloudManagerAlarm {
       /**
        * <code>required string smtp_user_id = 6;</code>
        */
-      public String getSmtpUserId() {
-        Object ref = smtpUserId_;
-        if (!(ref instanceof String)) {
+      public java.lang.String getSmtpUserId() {
+        java.lang.Object ref = smtpUserId_;
+        if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
+                  (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
             smtpUserId_ = s;
           }
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
       /**
        * <code>required string smtp_user_id = 6;</code>
        */
       public com.google.protobuf.ByteString
-          getSmtpUserIdBytes() {
-        Object ref = smtpUserId_;
+      getSmtpUserIdBytes() {
+        java.lang.Object ref = smtpUserId_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           smtpUserId_ = b;
           return b;
         } else {
@@ -11304,11 +11320,11 @@ public final class CloudManagerAlarm {
        * <code>required string smtp_user_id = 6;</code>
        */
       public Builder setSmtpUserId(
-          String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000020;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000020;
         smtpUserId_ = value;
         onChanged();
         return this;
@@ -11326,17 +11342,17 @@ public final class CloudManagerAlarm {
        * <code>required string smtp_user_id = 6;</code>
        */
       public Builder setSmtpUserIdBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000020;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000020;
         smtpUserId_ = value;
         onChanged();
         return this;
       }
 
-      private Object smtpPassword_ = "";
+      private java.lang.Object smtpPassword_ = "";
       /**
        * <code>required string smtp_password = 7;</code>
        */
@@ -11346,30 +11362,30 @@ public final class CloudManagerAlarm {
       /**
        * <code>required string smtp_password = 7;</code>
        */
-      public String getSmtpPassword() {
-        Object ref = smtpPassword_;
-        if (!(ref instanceof String)) {
+      public java.lang.String getSmtpPassword() {
+        java.lang.Object ref = smtpPassword_;
+        if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
+                  (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
             smtpPassword_ = s;
           }
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
       /**
        * <code>required string smtp_password = 7;</code>
        */
       public com.google.protobuf.ByteString
-          getSmtpPasswordBytes() {
-        Object ref = smtpPassword_;
+      getSmtpPasswordBytes() {
+        java.lang.Object ref = smtpPassword_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           smtpPassword_ = b;
           return b;
         } else {
@@ -11380,11 +11396,11 @@ public final class CloudManagerAlarm {
        * <code>required string smtp_password = 7;</code>
        */
       public Builder setSmtpPassword(
-          String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000040;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000040;
         smtpPassword_ = value;
         onChanged();
         return this;
@@ -11402,11 +11418,11 @@ public final class CloudManagerAlarm {
        * <code>required string smtp_password = 7;</code>
        */
       public Builder setSmtpPasswordBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000040;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000040;
         smtpPassword_ = value;
         onChanged();
         return this;
@@ -11417,13 +11433,13 @@ public final class CloudManagerAlarm {
         if (!((bitField0_ & 0x00000080) == 0x00000080)) {
           receiverEmails_ = new com.google.protobuf.LazyStringArrayList(receiverEmails_);
           bitField0_ |= 0x00000080;
-         }
+        }
       }
       /**
        * <code>repeated string receiver_emails = 8;</code>
        */
       public com.google.protobuf.ProtocolStringList
-          getReceiverEmailsList() {
+      getReceiverEmailsList() {
         return receiverEmails_.getUnmodifiableView();
       }
       /**
@@ -11435,25 +11451,25 @@ public final class CloudManagerAlarm {
       /**
        * <code>repeated string receiver_emails = 8;</code>
        */
-      public String getReceiverEmails(int index) {
+      public java.lang.String getReceiverEmails(int index) {
         return receiverEmails_.get(index);
       }
       /**
        * <code>repeated string receiver_emails = 8;</code>
        */
       public com.google.protobuf.ByteString
-          getReceiverEmailsBytes(int index) {
+      getReceiverEmailsBytes(int index) {
         return receiverEmails_.getByteString(index);
       }
       /**
        * <code>repeated string receiver_emails = 8;</code>
        */
       public Builder setReceiverEmails(
-          int index, String value) {
+              int index, java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureReceiverEmailsIsMutable();
+          throw new NullPointerException();
+        }
+        ensureReceiverEmailsIsMutable();
         receiverEmails_.set(index, value);
         onChanged();
         return this;
@@ -11462,11 +11478,11 @@ public final class CloudManagerAlarm {
        * <code>repeated string receiver_emails = 8;</code>
        */
       public Builder addReceiverEmails(
-          String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureReceiverEmailsIsMutable();
+          throw new NullPointerException();
+        }
+        ensureReceiverEmailsIsMutable();
         receiverEmails_.add(value);
         onChanged();
         return this;
@@ -11475,10 +11491,10 @@ public final class CloudManagerAlarm {
        * <code>repeated string receiver_emails = 8;</code>
        */
       public Builder addAllReceiverEmails(
-          Iterable<String> values) {
+              java.lang.Iterable<java.lang.String> values) {
         ensureReceiverEmailsIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, receiverEmails_);
+                values, receiverEmails_);
         onChanged();
         return this;
       }
@@ -11495,11 +11511,11 @@ public final class CloudManagerAlarm {
        * <code>repeated string receiver_emails = 8;</code>
        */
       public Builder addReceiverEmailsBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureReceiverEmailsIsMutable();
+          throw new NullPointerException();
+        }
+        ensureReceiverEmailsIsMutable();
         receiverEmails_.add(value);
         onChanged();
         return this;
@@ -11517,574 +11533,574 @@ public final class CloudManagerAlarm {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_scmp_proto_alarm_AddDataArkRequest_descriptor;
+          internal_static_scmp_proto_alarm_AddDataArkRequest_descriptor;
   private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_scmp_proto_alarm_AddDataArkRequest_fieldAccessorTable;
+  com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internal_static_scmp_proto_alarm_AddDataArkRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_scmp_proto_alarm_RemoveDataArkRequest_descriptor;
+          internal_static_scmp_proto_alarm_RemoveDataArkRequest_descriptor;
   private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_scmp_proto_alarm_RemoveDataArkRequest_fieldAccessorTable;
+  com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internal_static_scmp_proto_alarm_RemoveDataArkRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_scmp_proto_alarm_UpdateDataArkRequest_descriptor;
+          internal_static_scmp_proto_alarm_UpdateDataArkRequest_descriptor;
   private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_scmp_proto_alarm_UpdateDataArkRequest_fieldAccessorTable;
+  com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internal_static_scmp_proto_alarm_UpdateDataArkRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_descriptor;
+          internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_descriptor;
   private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_fieldAccessorTable;
+  com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_descriptor;
+          internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_descriptor;
   private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_fieldAccessorTable;
+  com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_descriptor;
+          internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_descriptor;
   private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_fieldAccessorTable;
+  com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_descriptor;
+          internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_descriptor;
   private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_fieldAccessorTable;
+  com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
-      getDescriptor() {
+  getDescriptor() {
     return descriptor;
   }
   private static com.google.protobuf.Descriptors.FileDescriptor
-      descriptor;
+          descriptor;
   static {
-    String[] descriptorData = {
-      "\n\031cloud-manager-alarm.proto\022\020scmp.proto." +
-      "alarm\"\037\n\021AddDataArkRequest\022\n\n\002id\030\001 \002(\t\"\"" +
-      "\n\024RemoveDataArkRequest\022\n\n\002id\030\001 \002(\t\"\"\n\024Up" +
-      "dateDataArkRequest\022\n\n\002id\030\001 \002(\t\"*\n\027Update" +
-      "EmailAlarmRequest\022\017\n\007user_id\030\001 \002(\t\"*\n\027Cr" +
-      "eateEmailAlarmRequest\022\017\n\007user_id\030\001 \002(\t\"*" +
-      "\n\027DeleteEmailAlarmRequest\022\017\n\007user_id\030\001 \002" +
-      "(\t\"\336\001\n\027VerifyEmailAlarmRequest\022\024\n\014sender" +
-      "_email\030\001 \002(\t\022\024\n\014smtp_address\030\002 \002(\t\022\021\n\tsm" +
-      "tp_port\030\003 \002(\r\022\036\n\026is_ssl_encrypt_enabled\030",
-      "\004 \002(\010\022\036\n\026is_smtp_authentication\030\005 \002(\010\022\024\n" +
-      "\014smtp_user_id\030\006 \002(\t\022\025\n\rsmtp_password\030\007 \002" +
-      "(\t\022\027\n\017receiver_emails\030\010 \003(\t*\244&\n\007Command\022" +
-      "\030\n\024Command_GetPublicKey\020\000\022\035\n\031Command_Log" +
-      "inCloudManager\020\001\022\023\n\017Command_SendDek\020\002\022\036\n" +
-      "\032Command_LogoutCloudManager\020\003\022\026\n\022Command" +
-      "_VerifyUser\020\004\022+\n\'Command_ConsoleHeartbea" +
-      "tsToCloudManager\020\005\022\"\n\036Command_ForceLogin" +
-      "CloudManager\020\006\022\027\n\023Command_GetOverview\020d\022" +
-      "\034\n\030Command_GetDataArkReport\020e\022\031\n\025Command",
-      "_GetUserReport\020f\022\033\n\027Command_GetBackupRep" +
-      "ort\020g\022\037\n\033Command_ExportDataArkReport\020h\022\034" +
-      "\n\030Command_ExportUserReport\020i\022\036\n\032Command_" +
-      "ExportBackupReport\020j\022\037\n\033Command_GetOverv" +
-      "iewDataArks\020k\022\036\n\032Command_GetOverviewClie" +
-      "nts\020l\022,\n(Command_GetOverviewVmwareVirtua" +
-      "lMachines\020m\022 \n\034Command_GetOverviewCloudH" +
-      "ost\020n\022\030\n\023Command_GetDataArks\020\310\001\022\037\n\032Comma" +
-      "nd_GetDataArkResource\020\311\001\022\037\n\032Command_Crea" +
-      "teDataArkGroup\020\312\001\022\037\n\032Command_DeleteDataA",
-      "rkGroup\020\313\001\022\037\n\032Command_UpdateDataArkGroup" +
-      "\020\314\001\022\027\n\022Command_AddDataArk\020\315\001\022\032\n\025Command_" +
-      "RemoveDataArk\020\316\001\022\032\n\025Command_UpdateDataAr" +
-      "k\020\317\001\022\033\n\026Command_MigrateDataArk\020\320\001\022\037\n\032Com" +
-      "mand_AddDisasterDataArk\020\321\001\022\"\n\035Command_Re" +
-      "moveDisasterDataArk\020\322\001\022\027\n\022Command_GetCli" +
-      "ents\020\323\001\022\026\n\021Command_AddClient\020\324\001\022\027\n\022Comma" +
-      "nd_AddVcenter\020\325\001\022$\n\037Command_AddVmwareVir" +
-      "tualMachine\020\326\001\022\031\n\024Command_RemoveClient\020\327" +
-      "\001\022\032\n\025Command_RemoveVcenter\020\330\001\022\'\n\"Command",
-      "_RemoveVmwareVirtualMachine\020\331\001\022,\n\'Comman" +
-      "d_UpdateDataArkGroup_CloudManager\020\332\001\022*\n%" +
-      "Command_CreateDataArkGroup_DataCenter\020\333\001" +
-      "\022*\n%Command_DeleteDataArkGroup_DataCente" +
-      "r\020\334\001\022*\n%Command_UpdateDataArkGroup_DataC" +
-      "enter\020\335\001\022,\n\'Command_CreateDataArkGroup_R" +
-      "esourcePool\020\336\001\022,\n\'Command_DeleteDataArkG" +
-      "roup_ResourcePool\020\337\001\022,\n\'Command_UpdateDa" +
-      "taArkGroup_ResourcePool\020\340\001\022\032\n\025Command_Ad" +
-      "dDiskBackup\020\341\001\022\035\n\030Command_UpdateDiskBack",
-      "up\020\342\001\022\035\n\030Command_RemoveDiskBackup\020\343\001\022\037\n\032" +
-      "Command_GetDisasterClients\020\344\001\022\"\n\035Command" +
-      "_AddDisasterDiskBackup\020\345\001\022%\n Command_Upd" +
-      "ateDisasterDiskBackup\020\346\001\022%\n Command_Remo" +
-      "veDisasterDiskBackup\020\347\001\022\"\n\035Command_AddDi" +
-      "skBackupStraight\020\350\001\022 \n\033Command_GetDisast" +
-      "erDataArks\020\351\001\022\'\n\"Command_GetUserResource" +
-      "ForTransfer\020\352\001\022!\n\034Command_TransferUserRe" +
-      "source\020\353\001\022#\n\036Command_AddDisasterRacDatab" +
-      "ase\020\354\001\022&\n!Command_RemoveDisasterRacDatab",
-      "ase\020\355\001\022\032\n\025Command_AddVcenterExt\020\356\001\022\"\n\035Co" +
-      "mmand_AddDisasterDataArkExt\020\357\001\022\036\n\031Comman" +
-      "d_CreateClientGroup\020\360\001\022\036\n\031Command_Update" +
-      "ClientGroup\020\361\001\022\036\n\031Command_DeleteClientGr" +
-      "oup\020\362\001\022\032\n\025Command_MigrateClient\020\363\001\022!\n\034Co" +
-      "mmand_UpdateClientHostType\020\364\001\022\023\n\016Command" +
-      "_AddRds\020\365\001\022\026\n\021Command_AddRdsExt\020\366\001\022\026\n\021Co" +
-      "mmand_RemoveRds\020\367\001\022\033\n\026Command_AddRdsInst" +
-      "ance\020\370\001\022\036\n\031Command_RemoveRdsInstance\020\371\001\022" +
-      "#\n\036Command_AddDisasterRdsInstance\020\372\001\022&\n!",
-      "Command_RemoveDisasterRdsInstance\020\373\001\022\035\n\030" +
-      "Command_UpdateAkskForRds\020\374\001\0221\n,Command_U" +
-      "pdateDownloadScheduleForRdsInstance\020\375\001\022\023" +
-      "\n\016Command_AddOss\020\376\001\022\026\n\021Command_AddOssExt" +
-      "\020\377\001\022\026\n\021Command_RemoveOss\020\200\002\022\034\n\027Command_A" +
-      "ddOssObjectSet\020\201\002\022\037\n\032Command_RemoveOssOb" +
-      "jectSet\020\202\002\022$\n\037Command_AddDisasterOssObje" +
-      "ctSet\020\203\002\022\'\n\"Command_RemoveDisasterOssObj" +
-      "ectSet\020\204\002\022\035\n\030Command_UpdateAkskForOss\020\205\002" +
-      "\022\023\n\016Command_AddEcs\020\206\002\022\026\n\021Command_AddEcsE",
-      "xt\020\207\002\022\026\n\021Command_RemoveEcs\020\210\002\022\033\n\026Command" +
-      "_AddEcsInstance\020\211\002\022\036\n\031Command_RemoveEcsI" +
-      "nstance\020\212\002\022#\n\036Command_AddDisasterEcsInst" +
-      "ance\020\213\002\022&\n!Command_RemoveDisasterEcsInst" +
-      "ance\020\214\002\022\035\n\030Command_UpdateAkskForEcs\020\215\002\022\034" +
-      "\n\027Command_AddMetadatabase\020\216\002\022\037\n\032Command_" +
-      "AddMetadatabaseExt\020\217\002\022\037\n\032Command_RemoveM" +
-      "etadatabase\020\220\002\022\"\n\035Command_AddMetadatabas" +
-      "eBackup\020\221\002\022%\n Command_RemoveMetadatabase" +
-      "Backup\020\222\002\022*\n%Command_AddDisasterMetadata",
-      "baseBackup\020\223\002\022-\n(Command_RemoveDisasterM" +
-      "etadatabaseBackup\020\224\002\022\036\n\031Command_UpdateDa" +
-      "taArkRole\020\225\002\022\023\n\016Command_AddRac\020\226\002\022\026\n\021Com" +
-      "mand_RemoveRac\020\227\002\022\033\n\026Command_AddRacDatab" +
-      "ase\020\230\002\022\036\n\031Command_UpdateRacDatabase\020\231\002\022\036" +
-      "\n\031Command_RemoveRacDatabase\020\232\002\022\037\n\032Comman" +
-      "d_ForceRemoveDataArk\020\233\002\022,\n\'Command_Updat" +
-      "eVmwareVirtualMachinBackup\020\234\002\0222\n-Command" +
-      "_AddDisasterVmwareVirtualMachineBackup\020\235" +
-      "\002\0225\n0Command_UpdateDisasterVmwareVirtual",
-      "MachineBackup\020\236\002\0225\n0Command_RemoveDisast" +
-      "erVmwareVirtualMachineBackup\020\237\002\022\025\n\020Comma" +
-      "nd_GetUsers\020\254\002\022\034\n\027Command_CreateUserGrou" +
-      "p\020\255\002\022\034\n\027Command_DeleteUserGroup\020\256\002\022\034\n\027Co" +
-      "mmand_UpdateUserGroup\020\257\002\022\035\n\030Command_Migr" +
-      "ateUserGroup\020\260\002\022\027\n\022Command_CreateUser\020\261\002" +
-      "\022\027\n\022Command_DeleteUser\020\262\002\022\037\n\032Command_Upd" +
-      "ateUserPassword\020\263\002\022\036\n\031Command_ResetUserP" +
-      "assword\020\264\002\022\027\n\022Command_UpdateUser\020\265\002\022\031\n\024C" +
-      "ommand_GetUserQuota\020\266\002\022\034\n\027Command_Update",
-      "UserQuota\020\267\002\022\030\n\023Command_MigrateUser\020\271\002\022\034" +
-      "\n\027Command_CreateUserQuota\020\272\002\022\034\n\027Command_" +
-      "DeleteUserQuota\020\273\002\022\031\n\024Command_GetAlarmLo" +
-      "gs\020\220\003\022$\n\037Command_UpdateAlarmLogProcessed" +
-      "\020\221\003\022\033\n\026Command_DeleteAlarmLog\020\222\003\022\035\n\030Comm" +
-      "and_GetOperationLogs\020\223\003\022.\n)Command_Updat" +
-      "eAlarmLogProcessed_Processed\020\224\003\0220\n+Comma" +
-      "nd_UpdateAlarmLogProcessed_Unprocessed\020\225" +
-      "\003\022\037\n\032Command_InsertOperationLog\020\226\003\022\032\n\025Co" +
-      "mmand_GetEmailAlarm\020\364\003\022\035\n\030Command_Update",
-      "EmailAlarm\020\365\003\022\035\n\030Command_CreateEmailAlar" +
-      "m\020\366\003\022\035\n\030Command_DeleteEmailAlarm\020\367\003\022\035\n\030C" +
-      "ommand_VerifyEmailAlarm\020\370\003\022\024\n\017Command_Ge" +
-      "tSnmp\020\371\003\022\027\n\022Command_UpdateSnmp\020\372\003\022$\n\037Com" +
-      "mand_GetCloudServiceEndpoint\020\373\003\022\036\n\031Comma" +
-      "nd_UpdateRdsEndpoint\020\374\003\022\036\n\031Command_Updat" +
-      "eOssEndpoint\020\375\003\022\036\n\031Command_UpdateEcsEndp" +
-      "oint\020\376\003\022\035\n\030Command_GetCloudManagers\020\377\003\022\034" +
-      "\n\027Command_AddCloudManager\020\200\004\022\037\n\032Command_" +
-      "UpdateCloudManager\020\201\004\022\037\n\032Command_RemoveC",
-      "loudManager\020\202\004\022\037\n\032Command_VerifyCloudMan" +
-      "ager\020\203\004\022\032\n\025Command_ManageDataArk\020\330\004\022\035\n\030C" +
-      "ommand_ExportDataArkLog\020\331\004\022\036\n\031Command_Co" +
-      "mmitTransaction\020\332\004\022 \n\033Command_RollbackTr" +
-      "ansaction\020\333\004\022$\n\037Command_ProcessTransacti" +
-      "onGroup\020\334\004*\351M\n\tErrorCode\022\025\n\021ErrorCode_Su" +
-      "ccess\020\000\022\024\n\020ErrorCode_Failed\020\001\022\033\n\027ErrorCo" +
-      "de_ConnectFailed\020\n\022\030\n\024ErrorCode_SendFail" +
-      "ed\020\013\022\033\n\027ErrorCode_ReceiveFailed\020\014\022#\n\037Err" +
-      "orCode_UnrecognizedOperation\020\r\022\"\n\036ErrorC",
-      "ode_EnqueueCommandFailed\020\016\022\"\n\036ErrorCode_" +
-      "DequeueCommandFailed\020\017\022\036\n\032ErrorCode_Netw" +
-      "orkException\020\020\022\"\n\036ErrorCode_UnsupportedO" +
-      "peration\020\021\022\036\n\032ErrorCode_InvalidOperation" +
-      "\020\022\022\034\n\030ErrorCode_ParameterError\020\024\022\035\n\031Erro" +
-      "rCode_SerializeFailed\020\025\022\037\n\033ErrorCode_Des" +
-      "erializeFailed\020\026\022\036\n\032ErrorCode_Permission" +
-      "Denied\020\027\022#\n\037ErrorCode_ConnectDatabaseFai" +
-      "led\020\030\022#\n\037ErrorCode_OperateDatabaseFailed" +
-      "\020\031\022\037\n\033ErrorCode_OperationNotStart\020\032\022\034\n\030E",
-      "rrorCode_OperationUndid\020\033\022$\n ErrorCode_T" +
-      "ransactionNonexistent\020\034\022!\n\035ErrorCode_Tra" +
-      "nsactionExistent\020\035\022\036\n\032ErrorCode_Operatio" +
-      "nAborted\020\036\022!\n\035ErrorCode_PerformingOperat" +
-      "ion\020\037\022$\n ErrorCode_TargetUserLockOccupie" +
-      "d\020 \022\032\n\026ErrorCode_LockOccupied\020!\0222\n-Error" +
-      "Code_DataArkGroupCloudManagerNonexistent" +
-      "\020\350\007\022-\n(ErrorCode_DataArkGroupDataCenterE" +
-      "xistent\020\362\007\0220\n+ErrorCode_DataArkGroupData" +
-      "CenterNonexistent\020\363\007\022-\n(ErrorCode_DataAr",
-      "kGroupDataCenterSameName\020\364\007\022/\n*ErrorCode" +
-      "_DataArkGroupResourcePoolExistent\020\374\007\0222\n-" +
-      "ErrorCode_DataArkGroupResourcePoolNonexi" +
-      "stent\020\375\007\022/\n*ErrorCode_DataArkGroupResour" +
-      "cePoolSameName\020\376\007\022\036\n\031ErrorCode_DataArkEx" +
-      "istent\020\206\010\022!\n\034ErrorCode_DataArkNonexisten" +
-      "t\020\207\010\022\036\n\031ErrorCode_DataArkSameName\020\210\010\022#\n\036" +
-      "ErrorCode_DataArkRoleUndefined\020\211\010\022)\n$Err" +
-      "orCode_DisasterSideOfOtherDataArk\020\212\010\022+\n&" +
-      "ErrorCode_ProductionSideOfOtherDataArk\020\213",
-      "\010\022 \n\033ErrorCode_UserGroupExistent\020\220\010\022#\n\036E" +
-      "rrorCode_UserGroupNonexistent\020\221\010\022 \n\033Erro" +
-      "rCode_UserGroupSameName\020\222\010\022)\n$ErrorCode_" +
-      "TargetUserGroupNonexistent\020\223\010\022\033\n\026ErrorCo" +
-      "de_UserExistent\020\232\010\022\036\n\031ErrorCode_UserNone" +
-      "xistent\020\233\010\022\031\n\024ErrorCode_UserSameID\020\234\010\022\"\n" +
-      "\035ErrorCode_UserSameDisplayName\020\235\010\022\"\n\035Err" +
-      "orCode_UserPasswordUnmatch\020\236\010\022\'\n\"ErrorCo" +
-      "de_UserNewPasswordSameToOld\020\237\010\022\031\n\024ErrorC" +
-      "ode_UserOnline\020\244\010\022 \n\033ErrorCode_UserAlrea",
-      "dyLogged\020\245\010\022(\n#ErrorCode_UserLongTimeNoI" +
-      "nteraction\020\246\010\022!\n\034ErrorCode_UserLoginElse" +
-      "where\020\247\010\022\034\n\027ErrorCode_QuotaExistent\020\256\010\022\037" +
-      "\n\032ErrorCode_QuotaNonexistent\020\257\010\022\035\n\030Error" +
-      "Code_QuotaNotEnough\020\260\010\022(\n#ErrorCode_Prod" +
-      "uctionDataArkExistent\020\261\010\022+\n&ErrorCode_Pr" +
-      "oductionDataArkNonexistent\020\262\010\022&\n!ErrorCo" +
-      "de_DisasterDataArkExistent\020\263\010\022)\n$ErrorCo" +
-      "de_DisasterDataArkNonexistent\020\264\010\022\035\n\030Erro" +
-      "rCode_ClientExistent\020\265\010\022 \n\033ErrorCode_Cli",
-      "entNonexistent\020\266\010\022\036\n\031ErrorCode_VcenterEx" +
-      "istent\020\267\010\022!\n\034ErrorCode_VcenterNonexisten" +
-      "t\020\270\010\022+\n&ErrorCode_VmwareVirtualMachineEx" +
-      "istent\020\271\010\022.\n)ErrorCode_VmwareVirtualMach" +
-      "ineNonexistent\020\272\010\022!\n\034ErrorCode_DiskBacku" +
-      "pExistent\020\273\010\022$\n\037ErrorCode_DiskBackupNone" +
-      "xistent\020\274\010\022!\n\034ErrorCode_EmailAlarmExiste" +
-      "nt\020\275\010\022$\n\037ErrorCode_EmailAlarmNonexistent" +
-      "\020\276\010\022)\n$ErrorCode_DisasterDiskBackupExist" +
-      "ent\020\277\010\022,\n\'ErrorCode_DisasterDiskBackupNo",
-      "nexistent\020\300\010\022*\n%ErrorCode_DisasterRacDat" +
-      "abaseExistent\020\301\010\022-\n(ErrorCode_DisasterRa" +
-      "cDatabaseNonexistent\020\302\010\022*\n%ErrorCode_Dis" +
-      "asterRdsInstanceExistent\020\303\010\022-\n(ErrorCode" +
-      "_DisasterRdsInstanceNonexistent\020\304\010\022\032\n\025Er" +
-      "rorCode_RdsExistent\020\305\010\022\035\n\030ErrorCode_RdsN" +
-      "onexistent\020\306\010\022\"\n\035ErrorCode_RdsInstanceEx" +
-      "istent\020\307\010\022%\n ErrorCode_RdsInstanceNonexi" +
-      "stent\020\310\010\022%\n ErrorCode_DisasterClientExis" +
-      "tent\020\311\010\022(\n#ErrorCode_DisasterClientNonex",
-      "istent\020\312\010\022*\n%ErrorCode_RequestToAlarmSer" +
-      "viceFailed\020\314\010\022%\n ErrorCode_RequestToCons" +
-      "oleFailed\020\315\010\022&\n!ErrorCode_RequestToStrea" +
-      "merFailed\020\316\010\022*\n%ErrorCode_RequestToCloud" +
-      "ManagerFailed\020\317\010\022\"\n\035ErrorCode_ClientGrou" +
-      "pExistent\020\326\010\022%\n ErrorCode_ClientGroupNon" +
-      "existent\020\327\010\022\"\n\035ErrorCode_ClientGroupSame" +
-      "Name\020\330\010\022#\n\036ErrorCode_CloudManagerExisten" +
-      "t\020\331\010\022&\n!ErrorCode_CloudManagerNonexisten" +
-      "t\020\332\010\022#\n\036ErrorCode_CloudManagerSameName\020\333",
-      "\010\022)\n$ErrorCode_CloudManagerIdInconsisten" +
-      "t\020\334\010\022(\n#ErrorCode_CloudManagerIdNonexist" +
-      "ent\020\335\010\022\032\n\025ErrorCode_OssExistent\020\260\t\022\035\n\030Er" +
-      "rorCode_OssNonexistent\020\261\t\022#\n\036ErrorCode_O" +
-      "ssObjectSetExistent\020\262\t\022&\n!ErrorCode_OssO" +
-      "bjectSetNonexistent\020\263\t\022+\n&ErrorCode_Disa" +
-      "sterOssObjectSetExistent\020\264\t\022.\n)ErrorCode" +
-      "_DisasterOssObjectSetNonexistent\020\265\t\022\032\n\025E" +
-      "rrorCode_RacExistent\020\266\t\022\035\n\030ErrorCode_Rac" +
-      "Nonexistent\020\267\t\022\"\n\035ErrorCode_RacDatabaseE",
-      "xistent\020\270\t\022%\n ErrorCode_RacDatabaseNonex" +
-      "istent\020\271\t\022\032\n\025ErrorCode_EcsExistent\020\272\t\022\035\n" +
-      "\030ErrorCode_EcsNonexistent\020\273\t\022\"\n\035ErrorCod" +
-      "e_EcsInstanceExistent\020\274\t\022%\n ErrorCode_Ec" +
-      "sInstanceNonexistent\020\275\t\022*\n%ErrorCode_Dis" +
-      "asterEcsInstanceExistent\020\276\t\022-\n(ErrorCode" +
-      "_DisasterEcsInstanceNonexistent\020\277\t\022#\n\036Er" +
-      "rorCode_MetadatabaseExistent\020\300\t\022&\n!Error" +
-      "Code_MetadatabaseNonexistent\020\301\t\022)\n$Error" +
-      "Code_MetadatabaseBackupExistent\020\302\t\022,\n\'Er",
-      "rorCode_MetadatabaseBackupNonexistent\020\303\t" +
-      "\0221\n,ErrorCode_DisasterMetadatabaseBackup" +
-      "Existent\020\304\t\0224\n/ErrorCode_DisasterMetadat" +
-      "abaseBackupNonexistent\020\305\t\022\035\n\030ErrorCode_B" +
-      "ackupExistent\020\306\t\022 \n\033ErrorCode_BackupNone" +
-      "xistent\020\307\t\022%\n ErrorCode_DisasterBackupEx" +
-      "istent\020\310\t\022(\n#ErrorCode_DisasterBackupNon" +
-      "existent\020\311\t\022#\n\036ErrorCode_QuotaNotZeroExi" +
-      "stent\020\312\t\022!\n\034ErrorCode_GetPublicKeyFailed" +
-      "\020\220N\022&\n!ErrorCode_LoginCloudManagerFailed",
-      "\020\221N\022\034\n\027ErrorCode_SendDekFailed\020\222N\022\'\n\"Err" +
-      "orCode_LogoutCloudManagerFailed\020\223N\022\037\n\032Er" +
-      "rorCode_VerifyUserFailed\020\224N\022+\n&ErrorCode" +
-      "_ForceLoginCloudManagerFailed\020\226N\022 \n\033Erro" +
-      "rCode_GetOverviewFailed\020\364N\022%\n ErrorCode_" +
-      "GetDataArkReportFailed\020\365N\022\"\n\035ErrorCode_G" +
-      "etUserReportFailed\020\366N\022$\n\037ErrorCode_GetBa" +
-      "ckupReportFailed\020\367N\022(\n#ErrorCode_GetOver" +
-      "viewDataArksFailed\020\373N\022\'\n\"ErrorCode_GetOv" +
-      "erviewClientsFailed\020\374N\0225\n0ErrorCode_GetO",
-      "verviewVmwareVirtualMachinesFailed\020\375N\022)\n" +
-      "$ErrorCode_GetOverviewCloudHostFailed\020\376N" +
-      "\022 \n\033ErrorCode_GetDataArksFailed\020\330O\022\'\n\"Er" +
-      "rorCode_GetDataArkResourceFailed\020\331O\022\037\n\032E" +
-      "rrorCode_AddDataArkFailed\020\335O\022\"\n\035ErrorCod" +
-      "e_RemoveDataArkFailed\020\336O\022\"\n\035ErrorCode_Up" +
-      "dateDataArkFailed\020\337O\022#\n\036ErrorCode_Migrat" +
-      "eDataArkFailed\020\340O\022\'\n\"ErrorCode_AddDisast" +
-      "erDataArkFailed\020\341O\022*\n%ErrorCode_RemoveDi" +
-      "sasterDataArkFailed\020\342O\022\037\n\032ErrorCode_GetC",
-      "lientsFailed\020\343O\022\036\n\031ErrorCode_AddClientFa" +
-      "iled\020\344O\022\037\n\032ErrorCode_AddVcenterFailed\020\345O" +
-      "\022,\n\'ErrorCode_AddVmwareVirtualMachineFai" +
-      "led\020\346O\022!\n\034ErrorCode_RemoveClientFailed\020\347" +
-      "O\022\"\n\035ErrorCode_RemoveVcenterFailed\020\350O\022/\n" +
-      "*ErrorCode_RemoveVmwareVirtualMachineFai" +
-      "led\020\351O\0221\n,ErrorCode_CreateDataArkGroupDa" +
-      "taCenterFailed\020\352O\0223\n.ErrorCode_CreateDat" +
-      "aArkGroupResourcePoolFailed\020\353O\0221\n,ErrorC" +
-      "ode_DeleteDataArkGroupDataCenterFailed\020\354",
-      "O\0223\n.ErrorCode_DeleteDataArkGroupResourc" +
-      "ePoolFailed\020\355O\0223\n.ErrorCode_UpdateDataAr" +
-      "kGroupCloudManagerFailed\020\356O\0221\n,ErrorCode" +
-      "_UpdateDataArkGroupDataCenterFailed\020\357O\0223" +
-      "\n.ErrorCode_UpdateDataArkGroupResourcePo" +
-      "olFailed\020\360O\022\"\n\035ErrorCode_AddDiskBackupFa" +
-      "iled\020\361O\022%\n ErrorCode_UpdateDiskBackupFai" +
-      "led\020\362O\022%\n ErrorCode_RemoveDiskBackupFail" +
-      "ed\020\363O\022\'\n\"ErrorCode_GetDisasterClientsFai" +
-      "led\020\364O\022*\n%ErrorCode_AddDisasterDiskBacku",
-      "pFailed\020\365O\022-\n(ErrorCode_UpdateDisasterDi" +
-      "skBackupFailed\020\366O\022-\n(ErrorCode_RemoveDis" +
-      "asterDiskBackupFailed\020\367O\022*\n%ErrorCode_Ad" +
-      "dDiskBackupStraightFailed\020\370O\022(\n#ErrorCod" +
-      "e_GetDisasterDataArksFailed\020\371O\022/\n*ErrorC" +
-      "ode_GetUserResourceForTransferFailed\020\372O\022" +
-      ")\n$ErrorCode_TransferUserResourceFailed\020" +
-      "\373O\022+\n&ErrorCode_AddDisasterRacDatabaseFa" +
-      "iled\020\374O\022.\n)ErrorCode_RemoveDisasterRacDa" +
-      "tabaseFailed\020\375O\022\"\n\035ErrorCode_AddVcenterE",
-      "xtFailed\020\376O\022*\n%ErrorCode_AddDisasterData" +
-      "ArkExtFailed\020\377O\022&\n!ErrorCode_CreateClien" +
-      "tGroupFailed\020\200P\022&\n!ErrorCode_UpdateClien" +
-      "tGroupFailed\020\201P\022&\n!ErrorCode_DeleteClien" +
-      "tGroupFailed\020\202P\022\"\n\035ErrorCode_MigrateClie" +
-      "ntFailed\020\203P\022)\n$ErrorCode_UpdateClientHos" +
-      "tTypeFailed\020\204P\022\033\n\026ErrorCode_AddRdsFailed" +
-      "\020\205P\022\036\n\031ErrorCode_AddRdsExtFailed\020\206P\022\036\n\031E" +
-      "rrorCode_RemoveRdsFailed\020\207P\022#\n\036ErrorCode" +
-      "_AddRdsInstanceFailed\020\210P\022&\n!ErrorCode_Re",
-      "moveRdsInstanceFailed\020\211P\022+\n&ErrorCode_Ad" +
-      "dDisasterRdsInstanceFailed\020\212P\022.\n)ErrorCo" +
-      "de_RemoveDisasterRdsInstanceFailed\020\213P\022%\n" +
-      " ErrorCode_UpdateAkskForRdsFailed\020\214P\022\033\n\026" +
-      "ErrorCode_AddOssFailed\020\216P\022\036\n\031ErrorCode_A" +
-      "ddOssExtFailed\020\217P\022\036\n\031ErrorCode_RemoveOss" +
-      "Failed\020\220P\022$\n\037ErrorCode_AddOssObjectSetFa" +
-      "iled\020\221P\022\'\n\"ErrorCode_RemoveOssObjectSetF" +
-      "ailed\020\222P\022,\n\'ErrorCode_AddDisasterOssObje" +
-      "ctSetFailed\020\223P\022/\n*ErrorCode_RemoveDisast",
-      "erOssObjectSetFailed\020\224P\022%\n ErrorCode_Upd" +
-      "ateAkskForOssFailed\020\225P\022\033\n\026ErrorCode_AddE" +
-      "csFailed\020\226P\022\036\n\031ErrorCode_AddEcsExtFailed" +
-      "\020\227P\022\036\n\031ErrorCode_RemoveEcsFailed\020\230P\022#\n\036E" +
-      "rrorCode_AddEcsInstanceFailed\020\231P\022&\n!Erro" +
-      "rCode_RemoveEcsInstanceFailed\020\232P\022+\n&Erro" +
-      "rCode_AddDisasterEcsInstanceFailed\020\233P\022.\n" +
-      ")ErrorCode_RemoveDisasterEcsInstanceFail" +
-      "ed\020\234P\022%\n ErrorCode_UpdateAkskForEcsFaile" +
-      "d\020\235P\022$\n\037ErrorCode_AddMetadatabaseFailed\020",
-      "\236P\022\'\n\"ErrorCode_AddMetadatabaseExtFailed" +
-      "\020\237P\022\'\n\"ErrorCode_RemoveMetadatabaseFaile" +
-      "d\020\240P\022*\n%ErrorCode_AddMetadatabaseBackupF" +
-      "ailed\020\241P\022-\n(ErrorCode_RemoveMetadatabase" +
-      "BackupFailed\020\242P\0222\n-ErrorCode_AddDisaster" +
-      "MetadatabaseBackupFailed\020\243P\0225\n0ErrorCode" +
-      "_RemoveDisasterMetadatabaseBackupFailed\020" +
-      "\244P\022&\n!ErrorCode_UpdateDataArkRoleFailed\020" +
-      "\245P\022\033\n\026ErrorCode_AddRacFailed\020\246P\022\036\n\031Error" +
-      "Code_RemoveRacFailed\020\247P\022#\n\036ErrorCode_Add",
-      "RacDatabaseFailed\020\250P\022&\n!ErrorCode_Update" +
-      "RacDatabaseFailed\020\251P\022&\n!ErrorCode_Remove" +
-      "RacDatabaseFailed\020\252P\022\'\n\"ErrorCode_ForceR" +
-      "emoveDataArkFailed\020\253P\0224\n/ErrorCode_Updat" +
-      "eVmwareVirtualMachinBackupFailed\020\254P\022:\n5E" +
-      "rrorCode_AddDisasterVmwareVirtualMachine" +
-      "BackupFailed\020\255P\022=\n8ErrorCode_UpdateDisas" +
-      "terVmwareVirtualMachineBackupFailed\020\256P\022=" +
-      "\n8ErrorCode_RemoveDisasterVmwareVirtualM" +
-      "achineBackupFailed\020\257P\022\035\n\030ErrorCode_GetUs",
-      "ersFailed\020\274P\022$\n\037ErrorCode_CreateUserGrou" +
-      "pFailed\020\275P\022$\n\037ErrorCode_DeleteUserGroupF" +
-      "ailed\020\276P\022$\n\037ErrorCode_UpdateUserGroupFai" +
-      "led\020\277P\022%\n ErrorCode_MigrateUserGroupFail" +
-      "ed\020\300P\022\037\n\032ErrorCode_CreateUserFailed\020\301P\022\037" +
-      "\n\032ErrorCode_DeleteUserFailed\020\302P\022\'\n\"Error" +
-      "Code_UpdateUserPasswordFailed\020\303P\022&\n!Erro" +
-      "rCode_ResetUserPasswordFailed\020\304P\022\037\n\032Erro" +
-      "rCode_UpdateUserFailed\020\305P\022!\n\034ErrorCode_G" +
-      "etUserQuotaFailed\020\306P\022$\n\037ErrorCode_Update",
-      "UserQuotaFailed\020\307P\022 \n\033ErrorCode_MigrateU" +
-      "serFailed\020\311P\022$\n\037ErrorCode_CreateUserQuot" +
-      "aFailed\020\312P\022$\n\037ErrorCode_DeleteUserQuotaF" +
-      "ailed\020\313P\022!\n\034ErrorCode_GetAlarmLogsFailed" +
-      "\020\240Q\022#\n\036ErrorCode_DeleteAlarmLogFailed\020\242Q" +
-      "\022%\n ErrorCode_GetOperationLogsFailed\020\243Q\022" +
-      "6\n1ErrorCode_UpdateAlarmLogProcessed_Pro" +
-      "cessedFailed\020\244Q\0228\n3ErrorCode_UpdateAlarm" +
-      "LogProcessed_UnprocessedFailed\020\245Q\022\"\n\035Err" +
-      "orCode_GetEmailAlarmFailed\020\204R\022%\n ErrorCo",
-      "de_UpdateEmailAlarmFailed\020\205R\022%\n ErrorCod" +
-      "e_CreateEmailAlarmFailed\020\206R\022%\n ErrorCode" +
-      "_DeleteEmailAlarmFailed\020\207R\022%\n ErrorCode_" +
-      "VerifyEmailAlarmFailed\020\210R\022\034\n\027ErrorCode_G" +
-      "etSnmpFailed\020\211R\022\037\n\032ErrorCode_UpdateSnmpF" +
-      "ailed\020\212R\022,\n\'ErrorCode_GetCloudServiceEnd" +
-      "pointFailed\020\213R\022&\n!ErrorCode_UpdateRdsEnd" +
-      "pointFailed\020\214R\022&\n!ErrorCode_UpdateOssEnd" +
-      "pointFailed\020\215R\022&\n!ErrorCode_UpdateEcsEnd" +
-      "pointFailed\020\216R\022%\n ErrorCode_GetCloudMana",
-      "gersFailed\020\217R\022$\n\037ErrorCode_AddCloudManag" +
-      "erFailed\020\220R\022\'\n\"ErrorCode_UpdateCloudMana" +
-      "gerFailed\020\221R\022\'\n\"ErrorCode_RemoveCloudMan" +
-      "agerFailed\020\222R\022\'\n\"ErrorCode_VerifyCloudMa" +
-      "nagerFailed\020\223R*\245\021\n\tException\022\024\n\020Exceptio" +
-      "n_Normal\020\000\022\035\n\031Exception_ClientLocalLost\020" +
-      "\001\022\036\n\032Exception_ClientTargetLost\020\002\022(\n$Exc" +
-      "eption_VmwareCreateSnapshotFailed\020\003\022\033\n\027E" +
-      "xception_VmwareCbtDrop\020\004\022\033\n\027Exception_Cl" +
-      "ientOffline\020\005\022\034\n\030Exception_VcenterOfflin",
-      "e\020\006\022%\n!Exception_ClusterNodeExistOffline" +
-      "\020\007\022#\n\037Exception_ClusterNodeAllOffline\020\010\022" +
-      "\"\n\036Exception_StreamerPoolDisabled\020\t\022\035\n\031E" +
-      "xception_StreamerOffline\020\n\022$\n Exception_" +
-      "ClientAutoExpandFailed\020\013\022\'\n#Exception_Cl" +
-      "ientSnapshotMergeFailed\020\014\022\037\n\033Exception_O" +
-      "racleStorageDrop\020\r\022\'\n#Exception_Disaster" +
-      "ReplicationFailed\020\016\022!\n\035Exception_RacNode" +
-      "ExistOffline\020\017\022\037\n\033Exception_RacNodeAllOf" +
-      "fline\020\020\022%\n!Exception_RacInstanceExistOff",
-      "line\020\021\022#\n\037Exception_RacInstanceAllOfflin" +
-      "e\020\022\022)\n%Exception_VmwareVirtualMachineOff" +
-      "line\020\023\022(\n$Exception_ClientCreateSnapshot" +
-      "Failed\020\024\022%\n!Exception_RacCreateSnapshotF" +
-      "ailed\020\025\022#\n\037Exception_DisasterServerOffli" +
-      "ne\020\026\022+\n\'Exception_StreamerPoolExceededTh" +
-      "reshold\020\027\022\034\n\030Exception_AixDiskOffline\020\030\022" +
-      "$\n Exception_VmwareInitMirrorFailed\020\031\022&\n" +
-      "\"Exception_VmwareSnapshotSizeIsZero\020\032\022,\n" +
-      "(Exception_FileSingleCreateSnapshotFaile",
-      "d\020\033\022\037\n\033Exception_FileSingleOffline\020\034\022!\n\035" +
-      "Exception_FileSingleLocalLost\020\035\022\"\n\036Excep" +
-      "tion_FileSingleTargetLost\020\036\0222\n.Exception" +
-      "_RdsInstanceBackupPointDownloadFailed\020\037\022" +
-      " \n\034Exception_RdsInstanceOffline\020 \022\034\n\030Exc" +
-      "eption_RdsStorageDrop\020!\022\035\n\031Exception_Rds" +
-      "AuthAbnormal\020\"\022\036\n\032Exception_RdsClientOff" +
-      "line\020#\022%\n!Exception_RdsBackupServiceOffl" +
-      "ine\020$\022\036\n\032Exception_CloudStorageDrop\020%\022*\n" +
-      "&Exception_OssBackupPointDownloadFailed\020",
-      "&\022\035\n\031Exception_OssAuthAbnormal\020\'\022\036\n\032Exce" +
-      "ption_OssClientOffline\020(\022%\n!Exception_Os" +
-      "sBackupServiceOffline\020)\022-\n)Exception_Oss" +
-      "BackupSpaceExceededThreshold\020*\022\037\n\033Except" +
-      "ion_OssBackupDestLost\020+\022!\n\035Exception_Oss" +
-      "BackupSourceLost\020,\022\035\n\031Exception_EcsAuthA" +
-      "bnormal\020-\022\036\n\032Exception_EcsClientOffline\020" +
-      ".\0222\n.Exception_EcsInstanceBackupPointDow" +
-      "nloadFailed\020/\022-\n)Exception_EcsBackupSpac" +
-      "eExceededThreshold\0200\022\031\n\025Exception_EcsDes",
-      "tLost\0201\022 \n\034Exception_EcsInstanceOffline\020" +
-      "2\022\036\n\032Exception_MetaAuthAbnormal\0203\022\037\n\033Exc" +
-      "eption_MetaClientOffline\0204\022+\n\'Exception_" +
-      "MetaBackupPointDownloadFailed\0205\022.\n*Excep" +
-      "tion_MetaBackupSpaceExceededThreshold\0206\022" +
-      " \n\034Exception_MetaBackupDestLost\0207\022\"\n\036Exc" +
-      "eption_MetaBackupSourceLost\0208\022\037\n\033Excepti" +
-      "on_RdsBackupDestLost\0209\0220\n,Exception_Orac" +
-      "leBackupSpaceExceededThreshold\020:\022$\n Exce" +
-      "ption_ClientInitMirrorFailed\020;*\211\003\n\nClien",
-      "tType\022\025\n\021ClientType_Single\020\000\022#\n\037ClientTy" +
-      "pe_VmwareVirtualMachine\020\001\022\023\n\017ClientType_" +
-      "Mscs\020\002\022\022\n\016ClientType_Rac\020\003\022\026\n\022ClientType" +
-      "_Vcenter\020\004\022\022\n\016ClientType_AIX\020\005\022\031\n\025Client" +
-      "Type_FileSingle\020\013\022\022\n\016ClientType_Rds\020\014\022\032\n" +
-      "\026ClientType_RdsInstance\020\r\022\022\n\016ClientType_" +
-      "Oss\020\016\022\033\n\027ClientType_OssObjectSet\020\017\022\022\n\016Cl" +
-      "ientType_Ecs\020\020\022\032\n\026ClientType_EcsInstance" +
-      "\020\021\022\033\n\027ClientType_Metadatabase\020\022\022!\n\035Clien" +
-      "tType_MetadatabaseBackup\020\023*y\n\020DataArkGro",
-      "upType\022!\n\035DataArkGroupType_CloudManager\020" +
-      "\000\022\037\n\033DataArkGroupType_DataCenter\020\001\022!\n\035Da" +
-      "taArkGroupType_ResourcePool\020\002*Y\n\013DataArk" +
-      "Role\022\024\n\020DataArkRole_None\020\000\022\032\n\026DataArkRol" +
-      "e_Production\020\001\022\030\n\024DataArkRole_Disaster\020\002" +
-      "*\251\001\n\022UserPrivilegeLevel\022\033\n\027UserPrivilege" +
-      "Level_Root\020\000\022\034\n\030UserPrivilegeLevel_Admin" +
-      "\020\001\022\033\n\027UserPrivilegeLevel_User\020\002\022\036\n\032UserP" +
-      "rivilegeLevel_Auditor\020\003\022\033\n\027UserPrivilege" +
-      "Level_Topo\020\004*J\n\013SnmpVersion\022\022\n\016SnmpVersi",
-      "on_V1\020\000\022\023\n\017SnmpVersion_V2c\020\001\022\022\n\016SnmpVers" +
-      "ion_V3\020\002*i\n\032SnmpAuthenticationProtocol\022\'" +
-      "\n#SnmpAuthenticationProtocol_HMAC_MD5\020\000\022" +
-      "\"\n\036SnmpAuthenticationProtocol_SHA\020\001*\260\001\n\023" +
-      "SnmpPrivacyProtocol\022\033\n\027SnmpPrivacyProtoc" +
-      "ol_DES\020\000\022\034\n\030SnmpPrivacyProtocol_3DES\020\001\022\036" +
-      "\n\032SnmpPrivacyProtocol_AES128\020\002\022\036\n\032SnmpPr" +
-      "ivacyProtocol_AES192\020\003\022\036\n\032SnmpPrivacyPro" +
-      "tocol_AES256\020\004*\034\n\007Version\022\021\n\rVersion_Val" +
-      "ue\020\007"
+    java.lang.String[] descriptorData = {
+            "\n\031cloud-manager-alarm.proto\022\020scmp.proto." +
+                    "alarm\"\037\n\021AddDataArkRequest\022\n\n\002id\030\001 \002(\t\"\"" +
+                    "\n\024RemoveDataArkRequest\022\n\n\002id\030\001 \002(\t\"\"\n\024Up" +
+                    "dateDataArkRequest\022\n\n\002id\030\001 \002(\t\"*\n\027Update" +
+                    "EmailAlarmRequest\022\017\n\007user_id\030\001 \002(\t\"*\n\027Cr" +
+                    "eateEmailAlarmRequest\022\017\n\007user_id\030\001 \002(\t\"*" +
+                    "\n\027DeleteEmailAlarmRequest\022\017\n\007user_id\030\001 \002" +
+                    "(\t\"\336\001\n\027VerifyEmailAlarmRequest\022\024\n\014sender" +
+                    "_email\030\001 \002(\t\022\024\n\014smtp_address\030\002 \002(\t\022\021\n\tsm" +
+                    "tp_port\030\003 \002(\r\022\036\n\026is_ssl_encrypt_enabled\030",
+            "\004 \002(\010\022\036\n\026is_smtp_authentication\030\005 \002(\010\022\024\n" +
+                    "\014smtp_user_id\030\006 \002(\t\022\025\n\rsmtp_password\030\007 \002" +
+                    "(\t\022\027\n\017receiver_emails\030\010 \003(\t*\244&\n\007Command\022" +
+                    "\030\n\024Command_GetPublicKey\020\000\022\035\n\031Command_Log" +
+                    "inCloudManager\020\001\022\023\n\017Command_SendDek\020\002\022\036\n" +
+                    "\032Command_LogoutCloudManager\020\003\022\026\n\022Command" +
+                    "_VerifyUser\020\004\022+\n\'Command_ConsoleHeartbea" +
+                    "tsToCloudManager\020\005\022\"\n\036Command_ForceLogin" +
+                    "CloudManager\020\006\022\027\n\023Command_GetOverview\020d\022" +
+                    "\034\n\030Command_GetDataArkReport\020e\022\031\n\025Command",
+            "_GetUserReport\020f\022\033\n\027Command_GetBackupRep" +
+                    "ort\020g\022\037\n\033Command_ExportDataArkReport\020h\022\034" +
+                    "\n\030Command_ExportUserReport\020i\022\036\n\032Command_" +
+                    "ExportBackupReport\020j\022\037\n\033Command_GetOverv" +
+                    "iewDataArks\020k\022\036\n\032Command_GetOverviewClie" +
+                    "nts\020l\022,\n(Command_GetOverviewVmwareVirtua" +
+                    "lMachines\020m\022 \n\034Command_GetOverviewCloudH" +
+                    "ost\020n\022\030\n\023Command_GetDataArks\020\310\001\022\037\n\032Comma" +
+                    "nd_GetDataArkResource\020\311\001\022\037\n\032Command_Crea" +
+                    "teDataArkGroup\020\312\001\022\037\n\032Command_DeleteDataA",
+            "rkGroup\020\313\001\022\037\n\032Command_UpdateDataArkGroup" +
+                    "\020\314\001\022\027\n\022Command_AddDataArk\020\315\001\022\032\n\025Command_" +
+                    "RemoveDataArk\020\316\001\022\032\n\025Command_UpdateDataAr" +
+                    "k\020\317\001\022\033\n\026Command_MigrateDataArk\020\320\001\022\037\n\032Com" +
+                    "mand_AddDisasterDataArk\020\321\001\022\"\n\035Command_Re" +
+                    "moveDisasterDataArk\020\322\001\022\027\n\022Command_GetCli" +
+                    "ents\020\323\001\022\026\n\021Command_AddClient\020\324\001\022\027\n\022Comma" +
+                    "nd_AddVcenter\020\325\001\022$\n\037Command_AddVmwareVir" +
+                    "tualMachine\020\326\001\022\031\n\024Command_RemoveClient\020\327" +
+                    "\001\022\032\n\025Command_RemoveVcenter\020\330\001\022\'\n\"Command",
+            "_RemoveVmwareVirtualMachine\020\331\001\022,\n\'Comman" +
+                    "d_UpdateDataArkGroup_CloudManager\020\332\001\022*\n%" +
+                    "Command_CreateDataArkGroup_DataCenter\020\333\001" +
+                    "\022*\n%Command_DeleteDataArkGroup_DataCente" +
+                    "r\020\334\001\022*\n%Command_UpdateDataArkGroup_DataC" +
+                    "enter\020\335\001\022,\n\'Command_CreateDataArkGroup_R" +
+                    "esourcePool\020\336\001\022,\n\'Command_DeleteDataArkG" +
+                    "roup_ResourcePool\020\337\001\022,\n\'Command_UpdateDa" +
+                    "taArkGroup_ResourcePool\020\340\001\022\032\n\025Command_Ad" +
+                    "dDiskBackup\020\341\001\022\035\n\030Command_UpdateDiskBack",
+            "up\020\342\001\022\035\n\030Command_RemoveDiskBackup\020\343\001\022\037\n\032" +
+                    "Command_GetDisasterClients\020\344\001\022\"\n\035Command" +
+                    "_AddDisasterDiskBackup\020\345\001\022%\n Command_Upd" +
+                    "ateDisasterDiskBackup\020\346\001\022%\n Command_Remo" +
+                    "veDisasterDiskBackup\020\347\001\022\"\n\035Command_AddDi" +
+                    "skBackupStraight\020\350\001\022 \n\033Command_GetDisast" +
+                    "erDataArks\020\351\001\022\'\n\"Command_GetUserResource" +
+                    "ForTransfer\020\352\001\022!\n\034Command_TransferUserRe" +
+                    "source\020\353\001\022#\n\036Command_AddDisasterRacDatab" +
+                    "ase\020\354\001\022&\n!Command_RemoveDisasterRacDatab",
+            "ase\020\355\001\022\032\n\025Command_AddVcenterExt\020\356\001\022\"\n\035Co" +
+                    "mmand_AddDisasterDataArkExt\020\357\001\022\036\n\031Comman" +
+                    "d_CreateClientGroup\020\360\001\022\036\n\031Command_Update" +
+                    "ClientGroup\020\361\001\022\036\n\031Command_DeleteClientGr" +
+                    "oup\020\362\001\022\032\n\025Command_MigrateClient\020\363\001\022!\n\034Co" +
+                    "mmand_UpdateClientHostType\020\364\001\022\023\n\016Command" +
+                    "_AddRds\020\365\001\022\026\n\021Command_AddRdsExt\020\366\001\022\026\n\021Co" +
+                    "mmand_RemoveRds\020\367\001\022\033\n\026Command_AddRdsInst" +
+                    "ance\020\370\001\022\036\n\031Command_RemoveRdsInstance\020\371\001\022" +
+                    "#\n\036Command_AddDisasterRdsInstance\020\372\001\022&\n!",
+            "Command_RemoveDisasterRdsInstance\020\373\001\022\035\n\030" +
+                    "Command_UpdateAkskForRds\020\374\001\0221\n,Command_U" +
+                    "pdateDownloadScheduleForRdsInstance\020\375\001\022\023" +
+                    "\n\016Command_AddOss\020\376\001\022\026\n\021Command_AddOssExt" +
+                    "\020\377\001\022\026\n\021Command_RemoveOss\020\200\002\022\034\n\027Command_A" +
+                    "ddOssObjectSet\020\201\002\022\037\n\032Command_RemoveOssOb" +
+                    "jectSet\020\202\002\022$\n\037Command_AddDisasterOssObje" +
+                    "ctSet\020\203\002\022\'\n\"Command_RemoveDisasterOssObj" +
+                    "ectSet\020\204\002\022\035\n\030Command_UpdateAkskForOss\020\205\002" +
+                    "\022\023\n\016Command_AddEcs\020\206\002\022\026\n\021Command_AddEcsE",
+            "xt\020\207\002\022\026\n\021Command_RemoveEcs\020\210\002\022\033\n\026Command" +
+                    "_AddEcsInstance\020\211\002\022\036\n\031Command_RemoveEcsI" +
+                    "nstance\020\212\002\022#\n\036Command_AddDisasterEcsInst" +
+                    "ance\020\213\002\022&\n!Command_RemoveDisasterEcsInst" +
+                    "ance\020\214\002\022\035\n\030Command_UpdateAkskForEcs\020\215\002\022\034" +
+                    "\n\027Command_AddMetadatabase\020\216\002\022\037\n\032Command_" +
+                    "AddMetadatabaseExt\020\217\002\022\037\n\032Command_RemoveM" +
+                    "etadatabase\020\220\002\022\"\n\035Command_AddMetadatabas" +
+                    "eBackup\020\221\002\022%\n Command_RemoveMetadatabase" +
+                    "Backup\020\222\002\022*\n%Command_AddDisasterMetadata",
+            "baseBackup\020\223\002\022-\n(Command_RemoveDisasterM" +
+                    "etadatabaseBackup\020\224\002\022\036\n\031Command_UpdateDa" +
+                    "taArkRole\020\225\002\022\023\n\016Command_AddRac\020\226\002\022\026\n\021Com" +
+                    "mand_RemoveRac\020\227\002\022\033\n\026Command_AddRacDatab" +
+                    "ase\020\230\002\022\036\n\031Command_UpdateRacDatabase\020\231\002\022\036" +
+                    "\n\031Command_RemoveRacDatabase\020\232\002\022\037\n\032Comman" +
+                    "d_ForceRemoveDataArk\020\233\002\022,\n\'Command_Updat" +
+                    "eVmwareVirtualMachinBackup\020\234\002\0222\n-Command" +
+                    "_AddDisasterVmwareVirtualMachineBackup\020\235" +
+                    "\002\0225\n0Command_UpdateDisasterVmwareVirtual",
+            "MachineBackup\020\236\002\0225\n0Command_RemoveDisast" +
+                    "erVmwareVirtualMachineBackup\020\237\002\022\025\n\020Comma" +
+                    "nd_GetUsers\020\254\002\022\034\n\027Command_CreateUserGrou" +
+                    "p\020\255\002\022\034\n\027Command_DeleteUserGroup\020\256\002\022\034\n\027Co" +
+                    "mmand_UpdateUserGroup\020\257\002\022\035\n\030Command_Migr" +
+                    "ateUserGroup\020\260\002\022\027\n\022Command_CreateUser\020\261\002" +
+                    "\022\027\n\022Command_DeleteUser\020\262\002\022\037\n\032Command_Upd" +
+                    "ateUserPassword\020\263\002\022\036\n\031Command_ResetUserP" +
+                    "assword\020\264\002\022\027\n\022Command_UpdateUser\020\265\002\022\031\n\024C" +
+                    "ommand_GetUserQuota\020\266\002\022\034\n\027Command_Update",
+            "UserQuota\020\267\002\022\030\n\023Command_MigrateUser\020\271\002\022\034" +
+                    "\n\027Command_CreateUserQuota\020\272\002\022\034\n\027Command_" +
+                    "DeleteUserQuota\020\273\002\022\031\n\024Command_GetAlarmLo" +
+                    "gs\020\220\003\022$\n\037Command_UpdateAlarmLogProcessed" +
+                    "\020\221\003\022\033\n\026Command_DeleteAlarmLog\020\222\003\022\035\n\030Comm" +
+                    "and_GetOperationLogs\020\223\003\022.\n)Command_Updat" +
+                    "eAlarmLogProcessed_Processed\020\224\003\0220\n+Comma" +
+                    "nd_UpdateAlarmLogProcessed_Unprocessed\020\225" +
+                    "\003\022\037\n\032Command_InsertOperationLog\020\226\003\022\032\n\025Co" +
+                    "mmand_GetEmailAlarm\020\364\003\022\035\n\030Command_Update",
+            "EmailAlarm\020\365\003\022\035\n\030Command_CreateEmailAlar" +
+                    "m\020\366\003\022\035\n\030Command_DeleteEmailAlarm\020\367\003\022\035\n\030C" +
+                    "ommand_VerifyEmailAlarm\020\370\003\022\024\n\017Command_Ge" +
+                    "tSnmp\020\371\003\022\027\n\022Command_UpdateSnmp\020\372\003\022$\n\037Com" +
+                    "mand_GetCloudServiceEndpoint\020\373\003\022\036\n\031Comma" +
+                    "nd_UpdateRdsEndpoint\020\374\003\022\036\n\031Command_Updat" +
+                    "eOssEndpoint\020\375\003\022\036\n\031Command_UpdateEcsEndp" +
+                    "oint\020\376\003\022\035\n\030Command_GetCloudManagers\020\377\003\022\034" +
+                    "\n\027Command_AddCloudManager\020\200\004\022\037\n\032Command_" +
+                    "UpdateCloudManager\020\201\004\022\037\n\032Command_RemoveC",
+            "loudManager\020\202\004\022\037\n\032Command_VerifyCloudMan" +
+                    "ager\020\203\004\022\032\n\025Command_ManageDataArk\020\330\004\022\035\n\030C" +
+                    "ommand_ExportDataArkLog\020\331\004\022\036\n\031Command_Co" +
+                    "mmitTransaction\020\332\004\022 \n\033Command_RollbackTr" +
+                    "ansaction\020\333\004\022$\n\037Command_ProcessTransacti" +
+                    "onGroup\020\334\004*\351M\n\tErrorCode\022\025\n\021ErrorCode_Su" +
+                    "ccess\020\000\022\024\n\020ErrorCode_Failed\020\001\022\033\n\027ErrorCo" +
+                    "de_ConnectFailed\020\n\022\030\n\024ErrorCode_SendFail" +
+                    "ed\020\013\022\033\n\027ErrorCode_ReceiveFailed\020\014\022#\n\037Err" +
+                    "orCode_UnrecognizedOperation\020\r\022\"\n\036ErrorC",
+            "ode_EnqueueCommandFailed\020\016\022\"\n\036ErrorCode_" +
+                    "DequeueCommandFailed\020\017\022\036\n\032ErrorCode_Netw" +
+                    "orkException\020\020\022\"\n\036ErrorCode_UnsupportedO" +
+                    "peration\020\021\022\036\n\032ErrorCode_InvalidOperation" +
+                    "\020\022\022\034\n\030ErrorCode_ParameterError\020\024\022\035\n\031Erro" +
+                    "rCode_SerializeFailed\020\025\022\037\n\033ErrorCode_Des" +
+                    "erializeFailed\020\026\022\036\n\032ErrorCode_Permission" +
+                    "Denied\020\027\022#\n\037ErrorCode_ConnectDatabaseFai" +
+                    "led\020\030\022#\n\037ErrorCode_OperateDatabaseFailed" +
+                    "\020\031\022\037\n\033ErrorCode_OperationNotStart\020\032\022\034\n\030E",
+            "rrorCode_OperationUndid\020\033\022$\n ErrorCode_T" +
+                    "ransactionNonexistent\020\034\022!\n\035ErrorCode_Tra" +
+                    "nsactionExistent\020\035\022\036\n\032ErrorCode_Operatio" +
+                    "nAborted\020\036\022!\n\035ErrorCode_PerformingOperat" +
+                    "ion\020\037\022$\n ErrorCode_TargetUserLockOccupie" +
+                    "d\020 \022\032\n\026ErrorCode_LockOccupied\020!\0222\n-Error" +
+                    "Code_DataArkGroupCloudManagerNonexistent" +
+                    "\020\350\007\022-\n(ErrorCode_DataArkGroupDataCenterE" +
+                    "xistent\020\362\007\0220\n+ErrorCode_DataArkGroupData" +
+                    "CenterNonexistent\020\363\007\022-\n(ErrorCode_DataAr",
+            "kGroupDataCenterSameName\020\364\007\022/\n*ErrorCode" +
+                    "_DataArkGroupResourcePoolExistent\020\374\007\0222\n-" +
+                    "ErrorCode_DataArkGroupResourcePoolNonexi" +
+                    "stent\020\375\007\022/\n*ErrorCode_DataArkGroupResour" +
+                    "cePoolSameName\020\376\007\022\036\n\031ErrorCode_DataArkEx" +
+                    "istent\020\206\010\022!\n\034ErrorCode_DataArkNonexisten" +
+                    "t\020\207\010\022\036\n\031ErrorCode_DataArkSameName\020\210\010\022#\n\036" +
+                    "ErrorCode_DataArkRoleUndefined\020\211\010\022)\n$Err" +
+                    "orCode_DisasterSideOfOtherDataArk\020\212\010\022+\n&" +
+                    "ErrorCode_ProductionSideOfOtherDataArk\020\213",
+            "\010\022 \n\033ErrorCode_UserGroupExistent\020\220\010\022#\n\036E" +
+                    "rrorCode_UserGroupNonexistent\020\221\010\022 \n\033Erro" +
+                    "rCode_UserGroupSameName\020\222\010\022)\n$ErrorCode_" +
+                    "TargetUserGroupNonexistent\020\223\010\022\033\n\026ErrorCo" +
+                    "de_UserExistent\020\232\010\022\036\n\031ErrorCode_UserNone" +
+                    "xistent\020\233\010\022\031\n\024ErrorCode_UserSameID\020\234\010\022\"\n" +
+                    "\035ErrorCode_UserSameDisplayName\020\235\010\022\"\n\035Err" +
+                    "orCode_UserPasswordUnmatch\020\236\010\022\'\n\"ErrorCo" +
+                    "de_UserNewPasswordSameToOld\020\237\010\022\031\n\024ErrorC" +
+                    "ode_UserOnline\020\244\010\022 \n\033ErrorCode_UserAlrea",
+            "dyLogged\020\245\010\022(\n#ErrorCode_UserLongTimeNoI" +
+                    "nteraction\020\246\010\022!\n\034ErrorCode_UserLoginElse" +
+                    "where\020\247\010\022\034\n\027ErrorCode_QuotaExistent\020\256\010\022\037" +
+                    "\n\032ErrorCode_QuotaNonexistent\020\257\010\022\035\n\030Error" +
+                    "Code_QuotaNotEnough\020\260\010\022(\n#ErrorCode_Prod" +
+                    "uctionDataArkExistent\020\261\010\022+\n&ErrorCode_Pr" +
+                    "oductionDataArkNonexistent\020\262\010\022&\n!ErrorCo" +
+                    "de_DisasterDataArkExistent\020\263\010\022)\n$ErrorCo" +
+                    "de_DisasterDataArkNonexistent\020\264\010\022\035\n\030Erro" +
+                    "rCode_ClientExistent\020\265\010\022 \n\033ErrorCode_Cli",
+            "entNonexistent\020\266\010\022\036\n\031ErrorCode_VcenterEx" +
+                    "istent\020\267\010\022!\n\034ErrorCode_VcenterNonexisten" +
+                    "t\020\270\010\022+\n&ErrorCode_VmwareVirtualMachineEx" +
+                    "istent\020\271\010\022.\n)ErrorCode_VmwareVirtualMach" +
+                    "ineNonexistent\020\272\010\022!\n\034ErrorCode_DiskBacku" +
+                    "pExistent\020\273\010\022$\n\037ErrorCode_DiskBackupNone" +
+                    "xistent\020\274\010\022!\n\034ErrorCode_EmailAlarmExiste" +
+                    "nt\020\275\010\022$\n\037ErrorCode_EmailAlarmNonexistent" +
+                    "\020\276\010\022)\n$ErrorCode_DisasterDiskBackupExist" +
+                    "ent\020\277\010\022,\n\'ErrorCode_DisasterDiskBackupNo",
+            "nexistent\020\300\010\022*\n%ErrorCode_DisasterRacDat" +
+                    "abaseExistent\020\301\010\022-\n(ErrorCode_DisasterRa" +
+                    "cDatabaseNonexistent\020\302\010\022*\n%ErrorCode_Dis" +
+                    "asterRdsInstanceExistent\020\303\010\022-\n(ErrorCode" +
+                    "_DisasterRdsInstanceNonexistent\020\304\010\022\032\n\025Er" +
+                    "rorCode_RdsExistent\020\305\010\022\035\n\030ErrorCode_RdsN" +
+                    "onexistent\020\306\010\022\"\n\035ErrorCode_RdsInstanceEx" +
+                    "istent\020\307\010\022%\n ErrorCode_RdsInstanceNonexi" +
+                    "stent\020\310\010\022%\n ErrorCode_DisasterClientExis" +
+                    "tent\020\311\010\022(\n#ErrorCode_DisasterClientNonex",
+            "istent\020\312\010\022*\n%ErrorCode_RequestToAlarmSer" +
+                    "viceFailed\020\314\010\022%\n ErrorCode_RequestToCons" +
+                    "oleFailed\020\315\010\022&\n!ErrorCode_RequestToStrea" +
+                    "merFailed\020\316\010\022*\n%ErrorCode_RequestToCloud" +
+                    "ManagerFailed\020\317\010\022\"\n\035ErrorCode_ClientGrou" +
+                    "pExistent\020\326\010\022%\n ErrorCode_ClientGroupNon" +
+                    "existent\020\327\010\022\"\n\035ErrorCode_ClientGroupSame" +
+                    "Name\020\330\010\022#\n\036ErrorCode_CloudManagerExisten" +
+                    "t\020\331\010\022&\n!ErrorCode_CloudManagerNonexisten" +
+                    "t\020\332\010\022#\n\036ErrorCode_CloudManagerSameName\020\333",
+            "\010\022)\n$ErrorCode_CloudManagerIdInconsisten" +
+                    "t\020\334\010\022(\n#ErrorCode_CloudManagerIdNonexist" +
+                    "ent\020\335\010\022\032\n\025ErrorCode_OssExistent\020\260\t\022\035\n\030Er" +
+                    "rorCode_OssNonexistent\020\261\t\022#\n\036ErrorCode_O" +
+                    "ssObjectSetExistent\020\262\t\022&\n!ErrorCode_OssO" +
+                    "bjectSetNonexistent\020\263\t\022+\n&ErrorCode_Disa" +
+                    "sterOssObjectSetExistent\020\264\t\022.\n)ErrorCode" +
+                    "_DisasterOssObjectSetNonexistent\020\265\t\022\032\n\025E" +
+                    "rrorCode_RacExistent\020\266\t\022\035\n\030ErrorCode_Rac" +
+                    "Nonexistent\020\267\t\022\"\n\035ErrorCode_RacDatabaseE",
+            "xistent\020\270\t\022%\n ErrorCode_RacDatabaseNonex" +
+                    "istent\020\271\t\022\032\n\025ErrorCode_EcsExistent\020\272\t\022\035\n" +
+                    "\030ErrorCode_EcsNonexistent\020\273\t\022\"\n\035ErrorCod" +
+                    "e_EcsInstanceExistent\020\274\t\022%\n ErrorCode_Ec" +
+                    "sInstanceNonexistent\020\275\t\022*\n%ErrorCode_Dis" +
+                    "asterEcsInstanceExistent\020\276\t\022-\n(ErrorCode" +
+                    "_DisasterEcsInstanceNonexistent\020\277\t\022#\n\036Er" +
+                    "rorCode_MetadatabaseExistent\020\300\t\022&\n!Error" +
+                    "Code_MetadatabaseNonexistent\020\301\t\022)\n$Error" +
+                    "Code_MetadatabaseBackupExistent\020\302\t\022,\n\'Er",
+            "rorCode_MetadatabaseBackupNonexistent\020\303\t" +
+                    "\0221\n,ErrorCode_DisasterMetadatabaseBackup" +
+                    "Existent\020\304\t\0224\n/ErrorCode_DisasterMetadat" +
+                    "abaseBackupNonexistent\020\305\t\022\035\n\030ErrorCode_B" +
+                    "ackupExistent\020\306\t\022 \n\033ErrorCode_BackupNone" +
+                    "xistent\020\307\t\022%\n ErrorCode_DisasterBackupEx" +
+                    "istent\020\310\t\022(\n#ErrorCode_DisasterBackupNon" +
+                    "existent\020\311\t\022#\n\036ErrorCode_QuotaNotZeroExi" +
+                    "stent\020\312\t\022!\n\034ErrorCode_GetPublicKeyFailed" +
+                    "\020\220N\022&\n!ErrorCode_LoginCloudManagerFailed",
+            "\020\221N\022\034\n\027ErrorCode_SendDekFailed\020\222N\022\'\n\"Err" +
+                    "orCode_LogoutCloudManagerFailed\020\223N\022\037\n\032Er" +
+                    "rorCode_VerifyUserFailed\020\224N\022+\n&ErrorCode" +
+                    "_ForceLoginCloudManagerFailed\020\226N\022 \n\033Erro" +
+                    "rCode_GetOverviewFailed\020\364N\022%\n ErrorCode_" +
+                    "GetDataArkReportFailed\020\365N\022\"\n\035ErrorCode_G" +
+                    "etUserReportFailed\020\366N\022$\n\037ErrorCode_GetBa" +
+                    "ckupReportFailed\020\367N\022(\n#ErrorCode_GetOver" +
+                    "viewDataArksFailed\020\373N\022\'\n\"ErrorCode_GetOv" +
+                    "erviewClientsFailed\020\374N\0225\n0ErrorCode_GetO",
+            "verviewVmwareVirtualMachinesFailed\020\375N\022)\n" +
+                    "$ErrorCode_GetOverviewCloudHostFailed\020\376N" +
+                    "\022 \n\033ErrorCode_GetDataArksFailed\020\330O\022\'\n\"Er" +
+                    "rorCode_GetDataArkResourceFailed\020\331O\022\037\n\032E" +
+                    "rrorCode_AddDataArkFailed\020\335O\022\"\n\035ErrorCod" +
+                    "e_RemoveDataArkFailed\020\336O\022\"\n\035ErrorCode_Up" +
+                    "dateDataArkFailed\020\337O\022#\n\036ErrorCode_Migrat" +
+                    "eDataArkFailed\020\340O\022\'\n\"ErrorCode_AddDisast" +
+                    "erDataArkFailed\020\341O\022*\n%ErrorCode_RemoveDi" +
+                    "sasterDataArkFailed\020\342O\022\037\n\032ErrorCode_GetC",
+            "lientsFailed\020\343O\022\036\n\031ErrorCode_AddClientFa" +
+                    "iled\020\344O\022\037\n\032ErrorCode_AddVcenterFailed\020\345O" +
+                    "\022,\n\'ErrorCode_AddVmwareVirtualMachineFai" +
+                    "led\020\346O\022!\n\034ErrorCode_RemoveClientFailed\020\347" +
+                    "O\022\"\n\035ErrorCode_RemoveVcenterFailed\020\350O\022/\n" +
+                    "*ErrorCode_RemoveVmwareVirtualMachineFai" +
+                    "led\020\351O\0221\n,ErrorCode_CreateDataArkGroupDa" +
+                    "taCenterFailed\020\352O\0223\n.ErrorCode_CreateDat" +
+                    "aArkGroupResourcePoolFailed\020\353O\0221\n,ErrorC" +
+                    "ode_DeleteDataArkGroupDataCenterFailed\020\354",
+            "O\0223\n.ErrorCode_DeleteDataArkGroupResourc" +
+                    "ePoolFailed\020\355O\0223\n.ErrorCode_UpdateDataAr" +
+                    "kGroupCloudManagerFailed\020\356O\0221\n,ErrorCode" +
+                    "_UpdateDataArkGroupDataCenterFailed\020\357O\0223" +
+                    "\n.ErrorCode_UpdateDataArkGroupResourcePo" +
+                    "olFailed\020\360O\022\"\n\035ErrorCode_AddDiskBackupFa" +
+                    "iled\020\361O\022%\n ErrorCode_UpdateDiskBackupFai" +
+                    "led\020\362O\022%\n ErrorCode_RemoveDiskBackupFail" +
+                    "ed\020\363O\022\'\n\"ErrorCode_GetDisasterClientsFai" +
+                    "led\020\364O\022*\n%ErrorCode_AddDisasterDiskBacku",
+            "pFailed\020\365O\022-\n(ErrorCode_UpdateDisasterDi" +
+                    "skBackupFailed\020\366O\022-\n(ErrorCode_RemoveDis" +
+                    "asterDiskBackupFailed\020\367O\022*\n%ErrorCode_Ad" +
+                    "dDiskBackupStraightFailed\020\370O\022(\n#ErrorCod" +
+                    "e_GetDisasterDataArksFailed\020\371O\022/\n*ErrorC" +
+                    "ode_GetUserResourceForTransferFailed\020\372O\022" +
+                    ")\n$ErrorCode_TransferUserResourceFailed\020" +
+                    "\373O\022+\n&ErrorCode_AddDisasterRacDatabaseFa" +
+                    "iled\020\374O\022.\n)ErrorCode_RemoveDisasterRacDa" +
+                    "tabaseFailed\020\375O\022\"\n\035ErrorCode_AddVcenterE",
+            "xtFailed\020\376O\022*\n%ErrorCode_AddDisasterData" +
+                    "ArkExtFailed\020\377O\022&\n!ErrorCode_CreateClien" +
+                    "tGroupFailed\020\200P\022&\n!ErrorCode_UpdateClien" +
+                    "tGroupFailed\020\201P\022&\n!ErrorCode_DeleteClien" +
+                    "tGroupFailed\020\202P\022\"\n\035ErrorCode_MigrateClie" +
+                    "ntFailed\020\203P\022)\n$ErrorCode_UpdateClientHos" +
+                    "tTypeFailed\020\204P\022\033\n\026ErrorCode_AddRdsFailed" +
+                    "\020\205P\022\036\n\031ErrorCode_AddRdsExtFailed\020\206P\022\036\n\031E" +
+                    "rrorCode_RemoveRdsFailed\020\207P\022#\n\036ErrorCode" +
+                    "_AddRdsInstanceFailed\020\210P\022&\n!ErrorCode_Re",
+            "moveRdsInstanceFailed\020\211P\022+\n&ErrorCode_Ad" +
+                    "dDisasterRdsInstanceFailed\020\212P\022.\n)ErrorCo" +
+                    "de_RemoveDisasterRdsInstanceFailed\020\213P\022%\n" +
+                    " ErrorCode_UpdateAkskForRdsFailed\020\214P\022\033\n\026" +
+                    "ErrorCode_AddOssFailed\020\216P\022\036\n\031ErrorCode_A" +
+                    "ddOssExtFailed\020\217P\022\036\n\031ErrorCode_RemoveOss" +
+                    "Failed\020\220P\022$\n\037ErrorCode_AddOssObjectSetFa" +
+                    "iled\020\221P\022\'\n\"ErrorCode_RemoveOssObjectSetF" +
+                    "ailed\020\222P\022,\n\'ErrorCode_AddDisasterOssObje" +
+                    "ctSetFailed\020\223P\022/\n*ErrorCode_RemoveDisast",
+            "erOssObjectSetFailed\020\224P\022%\n ErrorCode_Upd" +
+                    "ateAkskForOssFailed\020\225P\022\033\n\026ErrorCode_AddE" +
+                    "csFailed\020\226P\022\036\n\031ErrorCode_AddEcsExtFailed" +
+                    "\020\227P\022\036\n\031ErrorCode_RemoveEcsFailed\020\230P\022#\n\036E" +
+                    "rrorCode_AddEcsInstanceFailed\020\231P\022&\n!Erro" +
+                    "rCode_RemoveEcsInstanceFailed\020\232P\022+\n&Erro" +
+                    "rCode_AddDisasterEcsInstanceFailed\020\233P\022.\n" +
+                    ")ErrorCode_RemoveDisasterEcsInstanceFail" +
+                    "ed\020\234P\022%\n ErrorCode_UpdateAkskForEcsFaile" +
+                    "d\020\235P\022$\n\037ErrorCode_AddMetadatabaseFailed\020",
+            "\236P\022\'\n\"ErrorCode_AddMetadatabaseExtFailed" +
+                    "\020\237P\022\'\n\"ErrorCode_RemoveMetadatabaseFaile" +
+                    "d\020\240P\022*\n%ErrorCode_AddMetadatabaseBackupF" +
+                    "ailed\020\241P\022-\n(ErrorCode_RemoveMetadatabase" +
+                    "BackupFailed\020\242P\0222\n-ErrorCode_AddDisaster" +
+                    "MetadatabaseBackupFailed\020\243P\0225\n0ErrorCode" +
+                    "_RemoveDisasterMetadatabaseBackupFailed\020" +
+                    "\244P\022&\n!ErrorCode_UpdateDataArkRoleFailed\020" +
+                    "\245P\022\033\n\026ErrorCode_AddRacFailed\020\246P\022\036\n\031Error" +
+                    "Code_RemoveRacFailed\020\247P\022#\n\036ErrorCode_Add",
+            "RacDatabaseFailed\020\250P\022&\n!ErrorCode_Update" +
+                    "RacDatabaseFailed\020\251P\022&\n!ErrorCode_Remove" +
+                    "RacDatabaseFailed\020\252P\022\'\n\"ErrorCode_ForceR" +
+                    "emoveDataArkFailed\020\253P\0224\n/ErrorCode_Updat" +
+                    "eVmwareVirtualMachinBackupFailed\020\254P\022:\n5E" +
+                    "rrorCode_AddDisasterVmwareVirtualMachine" +
+                    "BackupFailed\020\255P\022=\n8ErrorCode_UpdateDisas" +
+                    "terVmwareVirtualMachineBackupFailed\020\256P\022=" +
+                    "\n8ErrorCode_RemoveDisasterVmwareVirtualM" +
+                    "achineBackupFailed\020\257P\022\035\n\030ErrorCode_GetUs",
+            "ersFailed\020\274P\022$\n\037ErrorCode_CreateUserGrou" +
+                    "pFailed\020\275P\022$\n\037ErrorCode_DeleteUserGroupF" +
+                    "ailed\020\276P\022$\n\037ErrorCode_UpdateUserGroupFai" +
+                    "led\020\277P\022%\n ErrorCode_MigrateUserGroupFail" +
+                    "ed\020\300P\022\037\n\032ErrorCode_CreateUserFailed\020\301P\022\037" +
+                    "\n\032ErrorCode_DeleteUserFailed\020\302P\022\'\n\"Error" +
+                    "Code_UpdateUserPasswordFailed\020\303P\022&\n!Erro" +
+                    "rCode_ResetUserPasswordFailed\020\304P\022\037\n\032Erro" +
+                    "rCode_UpdateUserFailed\020\305P\022!\n\034ErrorCode_G" +
+                    "etUserQuotaFailed\020\306P\022$\n\037ErrorCode_Update",
+            "UserQuotaFailed\020\307P\022 \n\033ErrorCode_MigrateU" +
+                    "serFailed\020\311P\022$\n\037ErrorCode_CreateUserQuot" +
+                    "aFailed\020\312P\022$\n\037ErrorCode_DeleteUserQuotaF" +
+                    "ailed\020\313P\022!\n\034ErrorCode_GetAlarmLogsFailed" +
+                    "\020\240Q\022#\n\036ErrorCode_DeleteAlarmLogFailed\020\242Q" +
+                    "\022%\n ErrorCode_GetOperationLogsFailed\020\243Q\022" +
+                    "6\n1ErrorCode_UpdateAlarmLogProcessed_Pro" +
+                    "cessedFailed\020\244Q\0228\n3ErrorCode_UpdateAlarm" +
+                    "LogProcessed_UnprocessedFailed\020\245Q\022\"\n\035Err" +
+                    "orCode_GetEmailAlarmFailed\020\204R\022%\n ErrorCo",
+            "de_UpdateEmailAlarmFailed\020\205R\022%\n ErrorCod" +
+                    "e_CreateEmailAlarmFailed\020\206R\022%\n ErrorCode" +
+                    "_DeleteEmailAlarmFailed\020\207R\022%\n ErrorCode_" +
+                    "VerifyEmailAlarmFailed\020\210R\022\034\n\027ErrorCode_G" +
+                    "etSnmpFailed\020\211R\022\037\n\032ErrorCode_UpdateSnmpF" +
+                    "ailed\020\212R\022,\n\'ErrorCode_GetCloudServiceEnd" +
+                    "pointFailed\020\213R\022&\n!ErrorCode_UpdateRdsEnd" +
+                    "pointFailed\020\214R\022&\n!ErrorCode_UpdateOssEnd" +
+                    "pointFailed\020\215R\022&\n!ErrorCode_UpdateEcsEnd" +
+                    "pointFailed\020\216R\022%\n ErrorCode_GetCloudMana",
+            "gersFailed\020\217R\022$\n\037ErrorCode_AddCloudManag" +
+                    "erFailed\020\220R\022\'\n\"ErrorCode_UpdateCloudMana" +
+                    "gerFailed\020\221R\022\'\n\"ErrorCode_RemoveCloudMan" +
+                    "agerFailed\020\222R\022\'\n\"ErrorCode_VerifyCloudMa" +
+                    "nagerFailed\020\223R*\245\021\n\tException\022\024\n\020Exceptio" +
+                    "n_Normal\020\000\022\035\n\031Exception_ClientLocalLost\020" +
+                    "\001\022\036\n\032Exception_ClientTargetLost\020\002\022(\n$Exc" +
+                    "eption_VmwareCreateSnapshotFailed\020\003\022\033\n\027E" +
+                    "xception_VmwareCbtDrop\020\004\022\033\n\027Exception_Cl" +
+                    "ientOffline\020\005\022\034\n\030Exception_VcenterOfflin",
+            "e\020\006\022%\n!Exception_ClusterNodeExistOffline" +
+                    "\020\007\022#\n\037Exception_ClusterNodeAllOffline\020\010\022" +
+                    "\"\n\036Exception_StreamerPoolDisabled\020\t\022\035\n\031E" +
+                    "xception_StreamerOffline\020\n\022$\n Exception_" +
+                    "ClientAutoExpandFailed\020\013\022\'\n#Exception_Cl" +
+                    "ientSnapshotMergeFailed\020\014\022\037\n\033Exception_O" +
+                    "racleStorageDrop\020\r\022\'\n#Exception_Disaster" +
+                    "ReplicationFailed\020\016\022!\n\035Exception_RacNode" +
+                    "ExistOffline\020\017\022\037\n\033Exception_RacNodeAllOf" +
+                    "fline\020\020\022%\n!Exception_RacInstanceExistOff",
+            "line\020\021\022#\n\037Exception_RacInstanceAllOfflin" +
+                    "e\020\022\022)\n%Exception_VmwareVirtualMachineOff" +
+                    "line\020\023\022(\n$Exception_ClientCreateSnapshot" +
+                    "Failed\020\024\022%\n!Exception_RacCreateSnapshotF" +
+                    "ailed\020\025\022#\n\037Exception_DisasterServerOffli" +
+                    "ne\020\026\022+\n\'Exception_StreamerPoolExceededTh" +
+                    "reshold\020\027\022\034\n\030Exception_AixDiskOffline\020\030\022" +
+                    "$\n Exception_VmwareInitMirrorFailed\020\031\022&\n" +
+                    "\"Exception_VmwareSnapshotSizeIsZero\020\032\022,\n" +
+                    "(Exception_FileSingleCreateSnapshotFaile",
+            "d\020\033\022\037\n\033Exception_FileSingleOffline\020\034\022!\n\035" +
+                    "Exception_FileSingleLocalLost\020\035\022\"\n\036Excep" +
+                    "tion_FileSingleTargetLost\020\036\0222\n.Exception" +
+                    "_RdsInstanceBackupPointDownloadFailed\020\037\022" +
+                    " \n\034Exception_RdsInstanceOffline\020 \022\034\n\030Exc" +
+                    "eption_RdsStorageDrop\020!\022\035\n\031Exception_Rds" +
+                    "AuthAbnormal\020\"\022\036\n\032Exception_RdsClientOff" +
+                    "line\020#\022%\n!Exception_RdsBackupServiceOffl" +
+                    "ine\020$\022\036\n\032Exception_CloudStorageDrop\020%\022*\n" +
+                    "&Exception_OssBackupPointDownloadFailed\020",
+            "&\022\035\n\031Exception_OssAuthAbnormal\020\'\022\036\n\032Exce" +
+                    "ption_OssClientOffline\020(\022%\n!Exception_Os" +
+                    "sBackupServiceOffline\020)\022-\n)Exception_Oss" +
+                    "BackupSpaceExceededThreshold\020*\022\037\n\033Except" +
+                    "ion_OssBackupDestLost\020+\022!\n\035Exception_Oss" +
+                    "BackupSourceLost\020,\022\035\n\031Exception_EcsAuthA" +
+                    "bnormal\020-\022\036\n\032Exception_EcsClientOffline\020" +
+                    ".\0222\n.Exception_EcsInstanceBackupPointDow" +
+                    "nloadFailed\020/\022-\n)Exception_EcsBackupSpac" +
+                    "eExceededThreshold\0200\022\031\n\025Exception_EcsDes",
+            "tLost\0201\022 \n\034Exception_EcsInstanceOffline\020" +
+                    "2\022\036\n\032Exception_MetaAuthAbnormal\0203\022\037\n\033Exc" +
+                    "eption_MetaClientOffline\0204\022+\n\'Exception_" +
+                    "MetaBackupPointDownloadFailed\0205\022.\n*Excep" +
+                    "tion_MetaBackupSpaceExceededThreshold\0206\022" +
+                    " \n\034Exception_MetaBackupDestLost\0207\022\"\n\036Exc" +
+                    "eption_MetaBackupSourceLost\0208\022\037\n\033Excepti" +
+                    "on_RdsBackupDestLost\0209\0220\n,Exception_Orac" +
+                    "leBackupSpaceExceededThreshold\020:\022$\n Exce" +
+                    "ption_ClientInitMirrorFailed\020;*\211\003\n\nClien",
+            "tType\022\025\n\021ClientType_Single\020\000\022#\n\037ClientTy" +
+                    "pe_VmwareVirtualMachine\020\001\022\023\n\017ClientType_" +
+                    "Mscs\020\002\022\022\n\016ClientType_Rac\020\003\022\026\n\022ClientType" +
+                    "_Vcenter\020\004\022\022\n\016ClientType_AIX\020\005\022\031\n\025Client" +
+                    "Type_FileSingle\020\013\022\022\n\016ClientType_Rds\020\014\022\032\n" +
+                    "\026ClientType_RdsInstance\020\r\022\022\n\016ClientType_" +
+                    "Oss\020\016\022\033\n\027ClientType_OssObjectSet\020\017\022\022\n\016Cl" +
+                    "ientType_Ecs\020\020\022\032\n\026ClientType_EcsInstance" +
+                    "\020\021\022\033\n\027ClientType_Metadatabase\020\022\022!\n\035Clien" +
+                    "tType_MetadatabaseBackup\020\023*y\n\020DataArkGro",
+            "upType\022!\n\035DataArkGroupType_CloudManager\020" +
+                    "\000\022\037\n\033DataArkGroupType_DataCenter\020\001\022!\n\035Da" +
+                    "taArkGroupType_ResourcePool\020\002*Y\n\013DataArk" +
+                    "Role\022\024\n\020DataArkRole_None\020\000\022\032\n\026DataArkRol" +
+                    "e_Production\020\001\022\030\n\024DataArkRole_Disaster\020\002" +
+                    "*\251\001\n\022UserPrivilegeLevel\022\033\n\027UserPrivilege" +
+                    "Level_Root\020\000\022\034\n\030UserPrivilegeLevel_Admin" +
+                    "\020\001\022\033\n\027UserPrivilegeLevel_User\020\002\022\036\n\032UserP" +
+                    "rivilegeLevel_Auditor\020\003\022\033\n\027UserPrivilege" +
+                    "Level_Topo\020\004*J\n\013SnmpVersion\022\022\n\016SnmpVersi",
+            "on_V1\020\000\022\023\n\017SnmpVersion_V2c\020\001\022\022\n\016SnmpVers" +
+                    "ion_V3\020\002*i\n\032SnmpAuthenticationProtocol\022\'" +
+                    "\n#SnmpAuthenticationProtocol_HMAC_MD5\020\000\022" +
+                    "\"\n\036SnmpAuthenticationProtocol_SHA\020\001*\260\001\n\023" +
+                    "SnmpPrivacyProtocol\022\033\n\027SnmpPrivacyProtoc" +
+                    "ol_DES\020\000\022\034\n\030SnmpPrivacyProtocol_3DES\020\001\022\036" +
+                    "\n\032SnmpPrivacyProtocol_AES128\020\002\022\036\n\032SnmpPr" +
+                    "ivacyProtocol_AES192\020\003\022\036\n\032SnmpPrivacyPro" +
+                    "tocol_AES256\020\004*\034\n\007Version\022\021\n\rVersion_Val" +
+                    "ue\020\007"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-          public com.google.protobuf.ExtensionRegistry assignDescriptors(
-              com.google.protobuf.Descriptors.FileDescriptor root) {
-            descriptor = root;
-            return null;
-          }
-        };
+            new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+              public com.google.protobuf.ExtensionRegistry assignDescriptors(
+                      com.google.protobuf.Descriptors.FileDescriptor root) {
+                descriptor = root;
+                return null;
+              }
+            };
     com.google.protobuf.Descriptors.FileDescriptor
-      .internalBuildGeneratedFileFrom(descriptorData,
-        new com.google.protobuf.Descriptors.FileDescriptor[] {
-        }, assigner);
+            .internalBuildGeneratedFileFrom(descriptorData,
+                    new com.google.protobuf.Descriptors.FileDescriptor[] {
+                    }, assigner);
     internal_static_scmp_proto_alarm_AddDataArkRequest_descriptor =
-      getDescriptor().getMessageTypes().get(0);
+            getDescriptor().getMessageTypes().get(0);
     internal_static_scmp_proto_alarm_AddDataArkRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_scmp_proto_alarm_AddDataArkRequest_descriptor,
-        new String[] { "Id", });
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+            internal_static_scmp_proto_alarm_AddDataArkRequest_descriptor,
+            new java.lang.String[] { "Id", });
     internal_static_scmp_proto_alarm_RemoveDataArkRequest_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+            getDescriptor().getMessageTypes().get(1);
     internal_static_scmp_proto_alarm_RemoveDataArkRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_scmp_proto_alarm_RemoveDataArkRequest_descriptor,
-        new String[] { "Id", });
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+            internal_static_scmp_proto_alarm_RemoveDataArkRequest_descriptor,
+            new java.lang.String[] { "Id", });
     internal_static_scmp_proto_alarm_UpdateDataArkRequest_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+            getDescriptor().getMessageTypes().get(2);
     internal_static_scmp_proto_alarm_UpdateDataArkRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_scmp_proto_alarm_UpdateDataArkRequest_descriptor,
-        new String[] { "Id", });
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+            internal_static_scmp_proto_alarm_UpdateDataArkRequest_descriptor,
+            new java.lang.String[] { "Id", });
     internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+            getDescriptor().getMessageTypes().get(3);
     internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_descriptor,
-        new String[] { "UserId", });
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+            internal_static_scmp_proto_alarm_UpdateEmailAlarmRequest_descriptor,
+            new java.lang.String[] { "UserId", });
     internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+            getDescriptor().getMessageTypes().get(4);
     internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_descriptor,
-        new String[] { "UserId", });
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+            internal_static_scmp_proto_alarm_CreateEmailAlarmRequest_descriptor,
+            new java.lang.String[] { "UserId", });
     internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+            getDescriptor().getMessageTypes().get(5);
     internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_descriptor,
-        new String[] { "UserId", });
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+            internal_static_scmp_proto_alarm_DeleteEmailAlarmRequest_descriptor,
+            new java.lang.String[] { "UserId", });
     internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+            getDescriptor().getMessageTypes().get(6);
     internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_descriptor,
-        new String[] { "SenderEmail", "SmtpAddress", "SmtpPort", "IsSslEncryptEnabled", "IsSmtpAuthentication", "SmtpUserId", "SmtpPassword", "ReceiverEmails", });
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+            internal_static_scmp_proto_alarm_VerifyEmailAlarmRequest_descriptor,
+            new java.lang.String[] { "SenderEmail", "SmtpAddress", "SmtpPort", "IsSslEncryptEnabled", "IsSmtpAuthentication", "SmtpUserId", "SmtpPassword", "ReceiverEmails", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
