@@ -5,12 +5,11 @@ public class MySnmp {
     private int station_port; //维护端口
     private int version; //snmp通信版本 0:V1,1:V2c,2:V3
     private String station_name;
-    private String read_community_name;//读团体名
-    private String write_community_name;//写团体名
+    private String read_comm_name;//读团体名
+    private String write_comm_name;//写团体名
     private long timeout_ms;//超时时间
     private int update_version;//最后一次更新版本
     private int enabled;//0表示禁用
-
     private String security_username;
     private int authentication_protocol;
     private int authentication_password_enabled;
@@ -58,22 +57,6 @@ public class MySnmp {
 
     public void setStation_name(String station_name) {
         this.station_name = station_name;
-    }
-
-    public String getRead_community_name() {
-        return read_community_name;
-    }
-
-    public void setRead_community_name(String read_community_name) {
-        this.read_community_name = read_community_name;
-    }
-
-    public String getWrite_community_name() {
-        return write_community_name;
-    }
-
-    public void setWrite_community_name(String write_community_name) {
-        this.write_community_name = write_community_name;
     }
 
     public long getTimeout_ms() {
@@ -147,4 +130,22 @@ public class MySnmp {
     public void setPrivacy_password(String privacy_password) {
         this.privacy_password = privacy_password;
     }
+
+
+    public String getRead_comm_name() {
+        return read_comm_name;
+    }
+
+    public void setRead_comm_name(String read_comm_name) {
+        this.read_comm_name = read_comm_name;
+    }
+
+    public String getWrite_comm_name() {
+        return write_comm_name;
+    }
+
+    public void setWrite_comm_name(String write_comm_name) {
+        this.write_comm_name = write_comm_name;
+    }
+
 }

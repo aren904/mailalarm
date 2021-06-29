@@ -28,6 +28,7 @@ public class DataArkServiceImpl extends ServiceImpl<DateArkMapper, DataArkDO> im
         Long totalPoolSize = data_ark.getTotalCap();
         Long used = data_ark.getUsed_cap();
         String exceptions = data_ark.getExcept();
+        logger.info(exceptions);
         String ip = data_ark.getIp();
         Long oracleSpaceSize = data_ark.getTotal_oracle_capacity();
         // Long rdsSpaceSize = data_ark.getTotal_rds_capacity();
@@ -39,12 +40,13 @@ public class DataArkServiceImpl extends ServiceImpl<DateArkMapper, DataArkDO> im
         Long rdsUsed = data_ark.getRdsUsed();
         Long ossUsed = data_ark.getOssUsed();
         Long metaUsed = data_ark.getMetaUsed();
-        int limitClientCount =  (int)data_ark.getLimitClientCount();
-
+        int limitVcenterVmCount = (int) data_ark.getLimitVcenterVmCount();
+//        int limitClientCount =  (int)data_ark.getLimitClientCount();
+        int limitClientCount = (int) data_ark.getLimitClientCount();
         DataArkDO dataArkDO = new DataArkDO();
         dataArkDO.setId(id)
                 .setUuid(uuid)
-                //.setIp(ip)
+                .setIp(ip)
                 .setLimitClientCount(limitClientCount)
                 .setExceptions(exceptions)
                 .setTotalPoolSize(totalPoolSize)
@@ -57,6 +59,7 @@ public class DataArkServiceImpl extends ServiceImpl<DateArkMapper, DataArkDO> im
                 .setUsedOssSpaceSize(ossUsed)
                 .setUsedMdbSpaceSize(metaUsed)
                 .setName(name)
+                .setLimitVcenterVmCount(limitVcenterVmCount)
                 ;
 
 //        this.updateById(dataArkDO);
@@ -66,7 +69,6 @@ public class DataArkServiceImpl extends ServiceImpl<DateArkMapper, DataArkDO> im
     @Override
     public String getDataArkNameById(String id) {
 
-//        DataArkDO dataArkDO =  this.getById(id);
         DataArkDO dataArkDO = getDataArkByUuid(id);
 
         if (dataArkDO != null) {

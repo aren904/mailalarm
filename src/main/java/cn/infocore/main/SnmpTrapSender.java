@@ -4,10 +4,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 import cn.infocore.SnmpV3Sender.ANP;
 import cn.infocore.SnmpV3Sender.AP;
 import cn.infocore.SnmpV3Sender.NaNp;
+import cn.infocore.dao.AlarmLogMapper;
+import cn.infocore.entity.AlarmLogDO;
+import cn.infocore.manager.AlarmLogManager;
+import cn.infocore.utils.BeanUtil;
 import javafx.scene.layout.AnchorPane;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
@@ -29,8 +34,34 @@ import cn.infocore.dto.DataArkDTO;
 import cn.infocore.entity.MySnmp;
 import cn.infocore.handler.DataArk2Handler;
 import cn.infocore.utils.MyDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SnmpTrapSender {
+//    @Autowired
+//    AlarmLogManager alarmLogManager;
+//    public static volatile SnmpTrapSender instance = null;
+//
+//    public SnmpTrapSender(){
+//
+//    }
+//    public static SnmpTrapSender getInstance(){
+//        if(instance == null){
+//            synchronized (SnmpTrapSender.class){
+//                if(instance == null){
+//                    instance = new SnmpTrapSender();
+//                }
+//            }
+//        }
+//        return instance;
+//    }
+
+
+//
+//    @Autowired
+//    AlarmLogMapper alarmLogMapper;
+
     private Snmp snmp = null;
     private static Address targetAddress = null;
     private TransportMapping<UdpAddress> transport = null;
@@ -42,6 +73,7 @@ public class SnmpTrapSender {
     }
 
     public static void run(List<String> uuids) {
+//     public  void run(List<String> uuids) {
         logger.info(fmt("Get target streamer from DB,total size:" + uuids.size()));
 
         SnmpTrapSender poc = new SnmpTrapSender();
@@ -51,8 +83,9 @@ public class SnmpTrapSender {
         if (mySnmp != null && mySnmp.getEnabled() == 1) {
             try {
                 List<DataArkDTO> data_arks = new ArrayList<DataArkDTO>();
+                logger.info(uuids);
                 for (String uuid : uuids) {
-                    String sql = "select id,name,ip from data_ark where id=?";
+                    String sql = "select name,ip,id from data_ark where uuid=?";
                     Object[] param = {uuid};
                     QueryRunner qr = MyDataSource.getQueryRunner();
                     DataArkDTO data_ark = null;
@@ -61,21 +94,33 @@ public class SnmpTrapSender {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-                    logger.info(fmt("Target streamer info[Id:%s][IP:%s][Name:%s].", data_ark.getUuid(), data_ark.getIp(), data_ark.getName()));
+                    logger.info(data_ark);
+                    logger.info(fmt("Target streamer info[Id:%s][IP:%s][Name:%s].", data_ark.getId(), data_ark.getIp(), data_ark.getName()));
                     if (data_ark != null) {
                         data_arks.add(data_ark);
                     }
                 }
+
+
 
                 logger.info(fmt("Start to init target[Name:%s][IP:%s][Port:%s][AuthProtocol:%s][PrivProtocol:%s] info.",
                         mySnmp.getStation_name(), mySnmp.getStation_ip(), mySnmp.getStation_port(), mySnmp.getAuthentication_protocol(), mySnmp.getPrivacy_protocol()));
                 poc.init(mySnmp);
 
                 logger.info(fmt("Send trap。。。"));
+                //从alarm_log表中去获取所有异常
+//                AlarmLogMapper alarmLogMapper = (AlarmLogMapper)BeanUtil.getBean(AlarmLogMapper.class);
+//                logger.info("normal");
+
+
+
+
                 if (mySnmp.getVersion() == 1 || mySnmp.getVersion() == 0) {
+//                    poc.sendV2cTrap(mySnmp, data_arks,stringBuilder.toString());
                     poc.sendV2cTrap(mySnmp, data_arks);
                     logger.info(fmt("Sending trap is ended"));
                 }
+
                 if (mySnmp.getVersion() == 2) {
                     if (mySnmp.getAuthentication_password_enabled() == 0 && mySnmp.getPrivacy_password_enabled() == 0) {
                         NaNp.sendSnmpV3_NANP(mySnmp,targetAddress,data_arks);
@@ -107,13 +152,47 @@ public class SnmpTrapSender {
      * @return
      * @throws IOException
      */
+//    public ResponseEvent sendV2cTrap(MySnmp mySnmp, List<DataArkDTO> data_arks,String exceptions) throws IOException {
+//        PDU pdu = new PDU();
+//        for (int i = 0; i < data_arks.size(); i++) {
+//            DataArkDTO data_ark = data_arks.get(i);
+//            pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.4." + i), new OctetString(data_ark.getName())));
+//            pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3." + i), new OctetString(data_ark.getId())));//正常
+////            pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3." + i), new OctetString(data_ark.getUuid())));
+//            pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.2." + i), new OctetString(data_ark.getIp())));
+//            pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.5." + i), new Integer32(10)));  //离线告警状态是10
+//        }
+////        pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.6."), new OctetString(exceptions)));
+//        pdu.add(new VariableBinding(new OID("1.3.6.1.6.3.1.1.4.1.0"), new OID("1.3.6.1.4.1.35371.1.3.1"))); //ifcAlarmOfServer
+//        pdu.setType(PDU.TRAP);
+//
+//        // 设置管理端对象
+//        CommunityTarget target = new CommunityTarget();
+//        //target.setCommunity(new OctetString(mySnmp.getRead_community_name()));
+//        target.setCommunity(new OctetString(mySnmp.getWrite_comm_name()));
+//        target.setAddress(targetAddress);
+//
+//        // retry times when commuication error
+//        target.setRetries(2); //通信不成功，重试2次
+//        target.setTimeout(mySnmp.getTimeout_ms()); //超时时间
+//        if (mySnmp.getVersion() == 0) {
+//            target.setVersion(SnmpConstants.version1);
+//        } else if (mySnmp.getVersion() == 1) {
+//            target.setVersion(SnmpConstants.version2c); //暂时只支持v2c
+//        }
+//        logger.info(fmt("Start to send trap for streamer offline."));
+//        // send pdu
+//        ResponseEvent send = snmp.send(pdu, target);
+//        return snmp.send(pdu, target);
+//    }
+
     public ResponseEvent sendV2cTrap(MySnmp mySnmp, List<DataArkDTO> data_arks) throws IOException {
         PDU pdu = new PDU();
         for (int i = 0; i < data_arks.size(); i++) {
             DataArkDTO data_ark = data_arks.get(i);
             pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.4." + i), new OctetString(data_ark.getName())));
-//            pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3." + i), new OctetString(data_ark.getId())));//正常
-            pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3." + i), new OctetString(data_ark.getUuid())));
+            pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3." + i), new OctetString(data_ark.getId())));//正常
+//            pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3." + i), new OctetString(data_ark.getUuid())));
             pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.2." + i), new OctetString(data_ark.getIp())));
             pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.5." + i), new Integer32(10)));  //离线告警状态是10
         }
@@ -123,7 +202,7 @@ public class SnmpTrapSender {
         // 设置管理端对象
         CommunityTarget target = new CommunityTarget();
         //target.setCommunity(new OctetString(mySnmp.getRead_community_name()));
-        target.setCommunity(new OctetString(mySnmp.getWrite_community_name()));
+        target.setCommunity(new OctetString(mySnmp.getWrite_comm_name()));
         target.setAddress(targetAddress);
 
         // retry times when commuication error
@@ -139,6 +218,11 @@ public class SnmpTrapSender {
         ResponseEvent send = snmp.send(pdu, target);
         return snmp.send(pdu, target);
     }
+
+
+
+
+
 //
 //    public ResponseEvent sendV3(MySnmp mySnmp, List<DataArkDTO> data_arks) throws IOException {
 //        SNMP4JSettings.setExtensibilityEnabled(true);

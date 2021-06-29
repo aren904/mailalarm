@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.infocore.entity.*;
-import cn.infocore.protobuf.StmStreamerDrManage;
+//import cn.infocore.protobuf.StmStreamerDrManage;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 
@@ -17,7 +17,7 @@ import cn.infocore.handler.DataArkHandler;
 import cn.infocore.handler.ExceptHandler;
 import cn.infocore.service.impl.MailServiceImpl;
 import cn.infocore.utils.MyDataSource;
-import cn.infocore.protobuf.StmStreamerDrManage;
+//import cn.infocore.protobuf.StmStreamerDrManage;
 /**
  * 检测streamer服务端状态
  */
@@ -72,6 +72,7 @@ public class ThreadScanStreamer implements Runnable {
 					if (uuids.size() > 0) {
 						logger.info("Sender snmp server alarm.");
 						SnmpTrapSender.run(uuids);
+//						SnmpTrapSender.getInstance().run(uuids);
 					}
 				}
 

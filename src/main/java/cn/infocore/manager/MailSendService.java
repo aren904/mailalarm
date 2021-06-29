@@ -1,7 +1,7 @@
-package cn.infocore.manager;
-
-public class MailSendService {
-    
-    
-
-}
+//package cn.infocore.manager;
+//
+//public class MailSendService {
+//
+//
+//
+//}

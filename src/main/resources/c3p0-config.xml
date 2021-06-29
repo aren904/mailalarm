@@ -13,9 +13,10 @@
 	<named-config name="mysql">
 		<property name="driverClass">com.mysql.cj.jdbc.Driver</property>
 		<property name="jdbcUrl">jdbc:mysql://127.0.0.1:3306/scmp?serverTimezone=UTC&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;useSSL=false</property>
+<!--		<property name="jdbcUrl">jdbc:mysql://192.168.14.201:3306/scmp?serverTimezone=GMT&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;useSSL=false</property>-->
 		<property name="user">root</property>
- 		 <property name="password">vUZgC3bR+.b9MhfA</property>
-
+<!-- 		 <property name="password">vUZgC3bR+.b9MhfA</property>-->
+		<property name="password">DkfLF.OD8c_6xIcHNl0I</property>
   		<!-- <property name="password">0404</property> -->
 		
 		<!-- <property name="jdbcUrl">jdbc:mysql://localhost:3306/cm_db?serverTimezone=UTC&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;useSSL=false</property>
@@ -24,7 +25,7 @@
 		<!--<property name="password">Infocore`1q</property>-->
 		<property name="initialPoolSize">10</property>
 		<property name="maxIdleTime">30</property>
-		<property name="maxPoolSize">100</property>
+		<property name="maxPoolSize">500</property>
 		<property name="minPoolSize">10</property>
 		<property name="maxStatements">200</property>
 	</named-config>

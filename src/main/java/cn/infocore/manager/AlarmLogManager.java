@@ -3,7 +3,10 @@ package cn.infocore.manager;
 import java.util.*;
 
 
+import StmStreamerDrManage.StreamerClouddrmanage;
+import cn.infocore.consts.FaultEnum;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,16 +17,15 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import cn.infocore.bo.FaultSimple;
-import cn.infocore.consts.FaultEnum;
 import cn.infocore.dao.AlarmLogMapper;
 import cn.infocore.entity.AlarmLogDO;
-import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
+
 
 @Component
 public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
     private static final Logger logger = Logger.getLogger(AlarmLogManager.class);
-//    @Autowired
-//    AlarmLogMapper alarmLogMapper;
+    @Autowired
+    AlarmLogMapper alarmLogMapper;
 
     public void updateOrAddStatusBatchByType(List<FaultSimple> faultSimples) {
 
@@ -41,7 +43,7 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
         String dataArkIp = faultSimple.getDataArkIp();
         String targetName = faultSimple.getTargetName();
         String dataArkName = faultSimple.getDataArkName();
-        Collection<FaultType> faultTypes = faultSimple.getFaultTypes();
+        Collection<StreamerClouddrmanage.FaultType> faultTypes = faultSimple.getFaultTypes();
         Long timestamp = faultSimple.getTimestamp();
         List<String> userIds = faultSimple.getUserUuids();
 
@@ -52,7 +54,7 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
             exceptionSet.add(exc);
         }
         String userIdsString = getUserIdsString(userIds);
-        for (FaultType faultType : faultTypes) {
+        for (StreamerClouddrmanage.FaultType faultType : faultTypes) {
 
             Integer code = faultType.getNumber();
             AlarmLogDO alarmLogDO = new AlarmLogDO();
@@ -104,9 +106,11 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
             if (this.count(lambdaQueryWrapper) > 0) {
                 this.update(alarmLogDO, lambdaQueryWrapper);
             } else {
+                logger.info("enter");
                 long linuxTimestamp = System.currentTimeMillis() / 1000;
                 alarmLogDO.setTimestamp(linuxTimestamp);
                 this.save(alarmLogDO);
+//                alarmLogMapper.insert(alarmLogDO);
             }
 
         }

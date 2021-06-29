@@ -8,18 +8,18 @@ import java.sql.SQLException;
 /**
  * @ProjectName: mailalarm
  * @Package: cn.infocore.handler
- * @ClassName: IdHandler
+ * @ClassName: userUUidhandler
  * @Author: aren904
  * @Description:
- * @Date: 2021/5/18 19:17
+ * @Date: 2021/6/21 15:01
  * @Version: 1.0
  */
-public class IdHandler implements ResultSetHandler<String> {
+public class userUUidhandler implements ResultSetHandler<String> {
     @Override
     public String handle(ResultSet rs) throws SQLException {
         StringBuffer stringBuffer = new StringBuffer();
         while(rs.next()){
-            stringBuffer.append(rs.getString("user_id"));
+            stringBuffer.append(rs.getString("user_uuid"));
             stringBuffer.append(";");
         }
         if(stringBuffer.length()>=1){

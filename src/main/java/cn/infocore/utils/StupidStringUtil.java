@@ -1,14 +1,16 @@
 package cn.infocore.utils;
 
+import StmStreamerDrManage.StreamerClouddrmanage;
+
 import java.util.Collection;
 import java.util.List;
 
-import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
+//import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 
 public class StupidStringUtil {
 
     
-    public static String parseExceptionsToFaultyTypeString(List<FaultType> faultyList) {
+    public static String parseExceptionsToFaultyTypeString(List<StreamerClouddrmanage.FaultType> faultyList) {
         if (faultyList != null && !faultyList.isEmpty()) {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < faultyList.size(); i++) {

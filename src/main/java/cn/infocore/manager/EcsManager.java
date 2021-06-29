@@ -1,14 +1,10 @@
 package cn.infocore.manager;
 
-import cn.infocore.entity.MdbDO;
 import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import cn.infocore.dao.EcsMapper;
 import cn.infocore.entity.EcsDO;
-
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;

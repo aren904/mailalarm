@@ -1,5 +1,6 @@
 package cn.infocore.manager;
 
+import StmStreamerDrManage.StreamerClouddrmanage;
 import cn.infocore.bo.FaultSimple;
 import cn.infocore.utils.StupidStringUtil;
 import org.springframework.stereotype.Service;
@@ -12,23 +13,23 @@ import cn.infocore.entity.EcsInstanceDO;
 import java.util.LinkedList;
 import java.util.List;
 
-import static cn.infocore.protobuf.StmStreamerDrManage.*;
+//import static cn.infocore.protobuf.StmStreamerDrManage.*;
 
 @Service
 public class EcsInstanceManager extends ServiceImpl<EcsInstanceMapper, EcsInstanceDO> {
 
-    public void updateByInstanceId(String id, EcsInstanceDO ecsInstanceDO) {
-        LambdaQueryWrapper<EcsInstanceDO> queryWrapper = new LambdaQueryWrapper<>();
+//    public void updateByInstanceId(String id, EcsInstanceDO ecsInstanceDO) {
+//        LambdaQueryWrapper<EcsInstanceDO> queryWrapper = new LambdaQueryWrapper<>();
+//
+//        queryWrapper.eq(EcsInstanceDO::getInstanceId, id);
+//
+//        this.baseMapper.update(ecsInstanceDO, queryWrapper);
+//    }
 
-        queryWrapper.eq(EcsInstanceDO::getInstanceId, id);
-
-        this.baseMapper.update(ecsInstanceDO, queryWrapper);
-    }
-
-    public List<FaultSimple> updateList(List<EcsInstanceInfo> ecsInstanceInfos) {
+    public List<FaultSimple> updateList(List<StreamerClouddrmanage.EcsInstanceInfo> ecsInstanceInfos) {
         LinkedList<FaultSimple> faultList = new LinkedList<FaultSimple>();
-        for (EcsInstanceInfo ecsInstanceInfo : ecsInstanceInfos) {
-            List<FaultType> list = ecsInstanceInfo.getStatusList();
+        for (StreamerClouddrmanage.EcsInstanceInfo ecsInstanceInfo : ecsInstanceInfos) {
+            List<StreamerClouddrmanage.FaultType> list = ecsInstanceInfo.getStatusList();
             faultList.addAll(listFaults(list,ecsInstanceInfo));
         }
         return faultList;
@@ -36,11 +37,11 @@ public class EcsInstanceManager extends ServiceImpl<EcsInstanceMapper, EcsInstan
 
 
 
-    List<FaultSimple> listFaults(List<FaultType> faultTypes,EcsInstanceInfo ecsInstanceInfo) {
+    List<FaultSimple> listFaults(List<StreamerClouddrmanage.FaultType> faultTypes, StreamerClouddrmanage.EcsInstanceInfo ecsInstanceInfo) {
         LinkedList<FaultSimple> faultList = new LinkedList<FaultSimple>();
         if (faultTypes != null) {
             FaultSimple faultSimple = new FaultSimple();
-            faultSimple.setClientType(ClientType.EcsInstance);
+            faultSimple.setClientType(StreamerClouddrmanage.ClientType.EcsInstance);
             faultSimple.setFaultTypes(faultTypes);
             faultSimple.setTargetUuid(ecsInstanceInfo.getId());
             faultSimple.setDataArkName(ecsInstanceInfo.getName());
@@ -48,19 +49,5 @@ public class EcsInstanceManager extends ServiceImpl<EcsInstanceMapper, EcsInstan
         }
         return faultList;
     }
-
-
-    public boolean checkDrInstance(String instanceId) {
-        LambdaQueryWrapper<EcsInstanceDO> queryWrapper = new LambdaQueryWrapper<EcsInstanceDO>()
-                .eq(EcsInstanceDO::getInstanceId, instanceId);
-        EcsInstanceDO ecsInstanceDO = this.getOne(queryWrapper);
-        if (ecsInstanceDO != null) {
-            Integer isDr = ecsInstanceDO.getIsDrEnabled();
-            return isDr != null && isDr > 0;
-        }
-        return false;
-
-    }
-
 }
 

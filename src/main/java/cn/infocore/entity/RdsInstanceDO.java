@@ -2,10 +2,11 @@ package cn.infocore.entity;
 
 import java.util.List;
 
+import StmStreamerDrManage.StreamerClouddrmanage;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
-import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
+//import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -61,7 +62,7 @@ public class RdsInstanceDO {
 
 
 
-    public RdsInstanceDO setExceptionsWithFaultyTypeList(List<FaultType> faultyList) {
+    public RdsInstanceDO setExceptionsWithFaultyTypeList(List<StreamerClouddrmanage.FaultType> faultyList) {
         if (faultyList != null && !faultyList.isEmpty()) {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < faultyList.size(); i++) {

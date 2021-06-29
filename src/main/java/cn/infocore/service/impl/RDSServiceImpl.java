@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import StmStreamerDrManage.StreamerClouddrmanage;
 import cn.infocore.bo.FaultSimple;
 import cn.infocore.entity.*;
 import cn.infocore.manager.CloudClientDeviceManager;
 import cn.infocore.manager.CloudClientManager;
 import cn.infocore.operator.Header;
-import cn.infocore.protobuf.StmStreamerDrManage;
+//import cn.infocore.protobuf.StmStreamerDrManage;
 import cn.infocore.utils.StupidStringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.log4j.Logger;
@@ -21,10 +22,10 @@ import cn.infocore.dao.UserDAO;
 import cn.infocore.dto.DataArkDTO;
 import cn.infocore.manager.RDSInstanceManager;
 //import cn.infocore.manager.RdsManager;
-import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
-import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
-import cn.infocore.protobuf.StmStreamerDrManage.RdsInfo;
-import cn.infocore.protobuf.StmStreamerDrManage.RdsInstanceInfo;
+//import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
+//import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
+//import cn.infocore.protobuf.StmStreamerDrManage.RdsInfo;
+//import cn.infocore.protobuf.StmStreamerDrManage.RdsInstanceInfo;
 import cn.infocore.service.RDSService;
 
 @Service
@@ -42,25 +43,25 @@ public class RDSServiceImpl implements RDSService {
     private static final Logger logger = Logger.getLogger( RDSServiceImpl.class);
 
     @Override
-    public void ReUpdateRdsClient(RdsInfo rdsClient) {
+    public void ReUpdateRdsClient(StreamerClouddrmanage.RdsInfo rdsClient) {
 
         String uuid = rdsClient.getUuid();
         String name = rdsClient.getName();
-        ClientType type = rdsClient.getType();
-        List<StmStreamerDrManage.RdsInstanceInfo> RdsInstanceList = rdsClient.getInstanceListList();
-        List<FaultType> rdsFaultList = rdsClient.getStatusList();
+        StreamerClouddrmanage.ClientType type = rdsClient.getType();
+        List<StreamerClouddrmanage.RdsInstanceInfo> RdsInstanceList = rdsClient.getInstanceListList();
+        List<StreamerClouddrmanage.FaultType> rdsFaultList = rdsClient.getStatusList();
         StringBuffer RdsFaultLists = new StringBuffer();
-        for (FaultType fault : rdsFaultList) {
+        for (StreamerClouddrmanage.FaultType fault : rdsFaultList) {
             int code = fault.getNumber();
             RdsFaultLists.append(code).append(";");
         }
         CloudDo cloudDo = new CloudDo();
-        Boolean isDr = cloudClientManager.checkCloudIsDr(cloudDo);
-        if(isDr) {
-            cloudDo.setIsDr(1);
-        }else {
-            cloudDo.setIsDr(0);
-        }
+//        Boolean isDr = cloudClientManager.checkCloudIsDr(cloudDo);
+//        if(isDr) {
+//            cloudDo.setIsDr(1);
+//        }else {
+//            cloudDo.setIsDr(0);
+//        }
         cloudDo.setName(name);
         cloudDo.setUuId(uuid);
         cloudDo.setType(type.getNumber());
@@ -68,7 +69,7 @@ public class RDSServiceImpl implements RDSService {
         cloudClientManager.updateCloudClient(uuid, cloudDo);
         //更新CloudDevice
         if (RdsInstanceList != null) {
-            for (StmStreamerDrManage.RdsInstanceInfo rdsInstanceInfo :RdsInstanceList) {
+            for (StreamerClouddrmanage.RdsInstanceInfo rdsInstanceInfo :RdsInstanceList) {
                 CloudDeviceDo cloudDeviceDo = cloudClientDeviceManager.ReSetRdsCloudDevice(rdsInstanceInfo);
                 cloudDeviceDo.setSize(rdsInstanceInfo.getSize());
 //                cloudDeviceDo.setType(13);
@@ -77,7 +78,7 @@ public class RDSServiceImpl implements RDSService {
                 int preoccupationSizebyte = Integer.parseInt(String.valueOf(preoccupationSizeByte));
                 cloudDeviceDo.setPreoccupationSize(preoccupationSizebyte);
                 String objectSetId = cloudDeviceDo.getUuid();
-                cloudClientDeviceManager.updateObjectSetDo(cloudDeviceDo,objectSetId,rdsInstanceInfo.getType());
+                cloudClientDeviceManager.updateObjectSetDo(cloudDeviceDo,objectSetId);
             }
         }
 
@@ -86,20 +87,21 @@ public class RDSServiceImpl implements RDSService {
 
 
     @Override
-    public List<FaultSimple> updateRdsInfoClientList(List<RdsInfo> rdsInfos) {
+    public List<FaultSimple> updateRdsInfoClientList(List<StreamerClouddrmanage.RdsInfo> rdsInfos) {
         List<FaultSimple> faultSimpleList = new LinkedList<>();
-        for (RdsInfo rdsInfo : rdsInfos) {
+        for (StreamerClouddrmanage.RdsInfo rdsInfo : rdsInfos) {
             faultSimpleList.addAll(updateRdsClient(rdsInfo));
         }
         return faultSimpleList;
     }
 
-    public List<FaultSimple> updateRdsClient(RdsInfo rdsInfo) {
+    public List<FaultSimple> updateRdsClient(StreamerClouddrmanage.RdsInfo rdsInfo) {
 
         String uuid = rdsInfo.getUuid();
         String name = rdsInfo.getName();
-        List<FaultType> faultTypes = rdsInfo.getStatusList();
-        List<RdsInstanceInfo> instanceListList = rdsInfo.getInstanceListList();
+
+        List<StreamerClouddrmanage.FaultType> faultTypes = rdsInfo.getStatusList();
+        List<StreamerClouddrmanage.RdsInstanceInfo> instanceListList = rdsInfo.getInstanceListList();
         List<FaultSimple> rdsfaultSimpleList = rdsInstanceManager.updateList(instanceListList);
 
         RdsDO rdsDO = new RdsDO();
@@ -107,7 +109,7 @@ public class RDSServiceImpl implements RDSService {
 
         List<FaultSimple> faultsList = listFaults(faultTypes);
 
-        List<String> userIdList = cloudClientManager.getUserIdByUuid(uuid);
+        List<String> userUuIdList = cloudClientManager.getUserIdByUuid(uuid);
 
 
         for (FaultSimple faultSimple : faultsList) {
@@ -118,17 +120,17 @@ public class RDSServiceImpl implements RDSService {
         faultsList.addAll(rdsfaultSimpleList);
 
         for (FaultSimple faultSimple : faultsList) {
-            faultSimple.setUserUuids(userIdList);
+            faultSimple.setUserUuids(userUuIdList);
         }
 
         return faultsList;
     }
 
-    List<FaultSimple> listFaults(List<FaultType> faultTypes) {
+    List<FaultSimple> listFaults(List<StreamerClouddrmanage.FaultType> faultTypes) {
         LinkedList<FaultSimple> faultList = new LinkedList<FaultSimple>();
         if (faultTypes != null) {
             FaultSimple faultSimple = new FaultSimple();
-            faultSimple.setClientType(ClientType.Rds);
+            faultSimple.setClientType(StreamerClouddrmanage.ClientType.Rds);
             faultSimple.setFaultTypes(faultTypes);
             faultList.add(faultSimple);
         }

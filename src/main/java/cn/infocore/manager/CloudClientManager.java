@@ -2,8 +2,9 @@ package cn.infocore.manager;
 
 import cn.infocore.dao.CloudMapper;
 import cn.infocore.entity.CloudDo;
+import cn.infocore.entity.User;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,9 @@ public class CloudClientManager extends ServiceImpl< CloudMapper,CloudDo> {
     @Autowired
     CloudClientManager cloudClientManager;
 
+    @Autowired
+    UserManager userManager;
+
 
     public void updateCloudClient(String uuid,CloudDo cloudDo){
         LambdaQueryWrapper<CloudDo> cloudDoLambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -36,30 +40,33 @@ public class CloudClientManager extends ServiceImpl< CloudMapper,CloudDo> {
 
     public List<String> getUserIdByUuid(String uuid){
         LambdaQueryWrapper<CloudDo> cloudDoLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        //根据数据方舟uuid获取user_uuid,然后要到user表中根据user.id 找到user_uuid
         cloudDoLambdaQueryWrapper.eq(CloudDo::getUuId,uuid);
         List<CloudDo> CloudDoList = this.list(cloudDoLambdaQueryWrapper);
-        LinkedList<String> cloudDos = new LinkedList<>();
+        LinkedList<String> UserUuId = new LinkedList<>();
         if(CloudDoList!=null){
             for (CloudDo cloudDo:CloudDoList){
                 String userId = cloudDo.getUserId();
-
-                cloudDos.add(userId);
+                String userUuid= userManager.getUserIdById(userId);
+                UserUuId.add(userUuid);
             }
         }
-        return  cloudDos;
+        return  UserUuId;
     }
 
 
 
-    public Boolean checkCloudIsDr(CloudDo cloudDo){
-        LambdaQueryWrapper<CloudDo> cloudDoLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        cloudDoLambdaQueryWrapper.eq(CloudDo::getUuId, cloudDo.getUuId());
-        CloudDo cloudDo1 = cloudClientManager.getOne(cloudDoLambdaQueryWrapper);
-        if(cloudDo1!=null){
-            Integer isDr = cloudDo.getIsDr();
-            return isDr!=null&& isDr >0;
-        }
-        return false;
-    }
+
+
+//    public Boolean checkCloudIsDr(CloudDo cloudDo){
+//        LambdaQueryWrapper<CloudDo> cloudDoLambdaQueryWrapper = new LambdaQueryWrapper<>();
+//        cloudDoLambdaQueryWrapper.eq(CloudDo::getUuId, cloudDo.getUuId());
+//        CloudDo cloudDo1 = cloudClientManager.getOne(cloudDoLambdaQueryWrapper);
+//        if(cloudDo1!=null){
+//            Integer isDr = cloudDo.getIsDr();
+//            return isDr!=null&& isDr >0;
+//        }
+//        return false;
+//    }
 
 }

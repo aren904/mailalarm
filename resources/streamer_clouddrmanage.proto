@@ -1,5 +1,5 @@
-option java_package = "cn.infocore.protobuf";
-option java_outer_classname = "StmStreamerDrManage";
+syntax="proto2";
+package StmStreamerDrManage;
 
 enum ClientType{
     SINGLE = 0;
@@ -83,9 +83,9 @@ enum FaultType{
     META_BACKUP_SPACE_HAS_REACHED_THRESHOLD = 54;  // meta 备份空间达到阈值
     META_BACKUP_DST_LOST = 55;  // meta 备份目录找不到
     META_BACKUP_SOURCE_LOST = 56;  // meta备份源目录找不到
-    
     RDS_BACKUP_DST_LOST = 57;  // rds 备份目录找不到
-
+    ORACLE_BACKUP_SPACE_HAS_EXCEEDED_THRESHOLD = 58;  // Oracle备份空间达到阈值
+    CLIENT_INIT_MIRROR_FAILED = 59;  // 代理客户端同步数据失败
 }
 
 //服务器信息
@@ -104,6 +104,7 @@ message Streamer{
     required uint64 rds_used = 12;  // rds instance backup point size
     required uint64 oss_used = 13;  // oss objecet set backup point size 
     required uint64 meta_used = 14;  // oss objecet set backup point size 
+    required uint64 max_vcenter_vm = 15; // max vm number
 }
 
 //有代理客户端
@@ -113,7 +114,7 @@ message Client{
     optional string ip = 3;
     required ClientType type = 4;
     repeated FaultType Client_state = 5;
-    optional string System_Version =6;
+    optional string System_Version =6; 
 }
 
 //无代理客户端

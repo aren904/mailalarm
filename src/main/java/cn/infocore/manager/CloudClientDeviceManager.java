@@ -1,10 +1,11 @@
 package cn.infocore.manager;
 
+import StmStreamerDrManage.StreamerClouddrmanage;
 import cn.infocore.dao.CloudDeviceMapper;
 import cn.infocore.entity.CloudDeviceDo;
 import cn.infocore.entity.CloudDo;
 import cn.infocore.entity.OssObjectSetDO;
-import cn.infocore.protobuf.StmStreamerDrManage;
+//import cn.infocore.protobuf.StmStreamerDrManage;
 import cn.infocore.service.impl.MailServiceImpl;
 import cn.infocore.utils.StupidStringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -27,15 +28,16 @@ import java.util.List;
 public class CloudClientDeviceManager extends ServiceImpl<CloudDeviceMapper, CloudDeviceDo> {
     private static final Logger logger = Logger.getLogger(CloudClientDeviceManager.class);
 
-    public CloudDeviceDo ReSetOssCloudDevice(StmStreamerDrManage.OssObjectSetInfo ossObjectSetInfo) {
+    public CloudDeviceDo ReSetOssCloudDevice(StreamerClouddrmanage.OssObjectSetInfo ossObjectSetInfo) {
         CloudDeviceDo cloudDeviceDo = new CloudDeviceDo();
         String name = ossObjectSetInfo.getName();
         long size = ossObjectSetInfo.getSize();
-        StmStreamerDrManage.ClientType type = ossObjectSetInfo.getType();
+//       ClientType type = ossObjectSetInfo.getType();
+        StreamerClouddrmanage.ClientType type = ossObjectSetInfo.getType();
         String id = ossObjectSetInfo.getId();
-        List<StmStreamerDrManage.FaultType> faultTypeList = ossObjectSetInfo.getStatusList();
+        List<StreamerClouddrmanage.FaultType> faultTypeList = ossObjectSetInfo.getStatusList();
         String exceptions = StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypeList);
-
+        cloudDeviceDo.setSize(size);
         cloudDeviceDo.setExceptions(exceptions);
         cloudDeviceDo.setType(type.getNumber());
         cloudDeviceDo.setName(name);
@@ -44,15 +46,15 @@ public class CloudClientDeviceManager extends ServiceImpl<CloudDeviceMapper, Clo
         return cloudDeviceDo;
     }
 
-    public CloudDeviceDo ReSetEcsCloudDevice(StmStreamerDrManage.EcsInstanceInfo ecsInstanceInfo) {
+    public CloudDeviceDo ReSetEcsCloudDevice(StreamerClouddrmanage.EcsInstanceInfo ecsInstanceInfo) {
         CloudDeviceDo cloudDeviceDo = new CloudDeviceDo();
         String name = ecsInstanceInfo.getName();
         long size = ecsInstanceInfo.getSize();
-        StmStreamerDrManage.ClientType type = ecsInstanceInfo.getType();
+        StreamerClouddrmanage.ClientType type = ecsInstanceInfo.getType();
         String id = ecsInstanceInfo.getId();
-        List<StmStreamerDrManage.FaultType> faultTypeList = ecsInstanceInfo.getStatusList();
+        List<StreamerClouddrmanage.FaultType> faultTypeList = ecsInstanceInfo.getStatusList();
         String exceptions = StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypeList);
-
+        cloudDeviceDo.setSize(size);
         cloudDeviceDo.setExceptions(exceptions);
         cloudDeviceDo.setType(type.getNumber());
         cloudDeviceDo.setName(name);
@@ -61,13 +63,13 @@ public class CloudClientDeviceManager extends ServiceImpl<CloudDeviceMapper, Clo
         return cloudDeviceDo;
     }
 
-    public CloudDeviceDo ReSetRdsCloudDevice(StmStreamerDrManage.RdsInstanceInfo rdsInstanceInfo) {
+    public CloudDeviceDo ReSetRdsCloudDevice(StreamerClouddrmanage.RdsInstanceInfo rdsInstanceInfo) {
         CloudDeviceDo cloudDeviceDo = new CloudDeviceDo();
         String name = rdsInstanceInfo.getName();
         long size = rdsInstanceInfo.getSize();
-        StmStreamerDrManage.ClientType type = rdsInstanceInfo.getType();
+        StreamerClouddrmanage.ClientType type = rdsInstanceInfo.getType();
         String id = rdsInstanceInfo.getUuid();
-        List<StmStreamerDrManage.FaultType> faultTypeList = rdsInstanceInfo.getStatusList();
+        List<StreamerClouddrmanage.FaultType> faultTypeList = rdsInstanceInfo.getStatusList();
         String exceptions = StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypeList);
 
         cloudDeviceDo.setExceptions(exceptions);
@@ -78,15 +80,15 @@ public class CloudClientDeviceManager extends ServiceImpl<CloudDeviceMapper, Clo
         return cloudDeviceDo;
     }
 
-    public CloudDeviceDo ReSetMetaBackupListCloudDevice(StmStreamerDrManage.MetaBackupInfo metaBackupInfo){
+    public CloudDeviceDo ReSetMetaBackupListCloudDevice(StreamerClouddrmanage.MetaBackupInfo metaBackupInfo){
         CloudDeviceDo cloudDeviceDo = new CloudDeviceDo();
         String id = metaBackupInfo.getId();
         String name = metaBackupInfo.getName();
-        StmStreamerDrManage.ClientType type = metaBackupInfo.getType();
+        StreamerClouddrmanage.ClientType type = metaBackupInfo.getType();
         long size = metaBackupInfo.getSize();
-        List<StmStreamerDrManage.FaultType> faultTypeList = metaBackupInfo.getStatusList();
+        List<StreamerClouddrmanage.FaultType> faultTypeList = metaBackupInfo.getStatusList();
         String exceptions = StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypeList);
-
+        cloudDeviceDo.setSize(size);
         cloudDeviceDo.setExceptions(exceptions);
         cloudDeviceDo.setType(type.getNumber());
         cloudDeviceDo.setName(name);
@@ -94,18 +96,11 @@ public class CloudClientDeviceManager extends ServiceImpl<CloudDeviceMapper, Clo
         return cloudDeviceDo;
     }
 
-    public void updateObjectSetDo(CloudDeviceDo  cloudDeviceDo, String uuid, StmStreamerDrManage.ClientType type){
+    public void updateObjectSetDo(CloudDeviceDo  cloudDeviceDo, String uuid){
         LambdaQueryWrapper<CloudDeviceDo> cloudDeviceDoLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        cloudDeviceDoLambdaQueryWrapper.eq(CloudDeviceDo::getUuid,uuid).eq(CloudDeviceDo::getType,type.getNumber());
-//        String setId = cloudDeviceDo.getUuid();
-//        Boolean aBoolean = checkDrInstance(setId);
-//        if (aBoolean){
-//            cloudDeviceDo.setPreoccupationSize(cloudDeviceDo.getPreoccupationSize());
-//            cloudDeviceDo.setSize(cloudDeviceDo.getSize());
-//        }
-//        this.update(cloudDeviceDo,cloudDeviceDoLambdaQueryWrapper);
+        cloudDeviceDoLambdaQueryWrapper.eq(CloudDeviceDo::getUuid,uuid);
         update(cloudDeviceDo,cloudDeviceDoLambdaQueryWrapper);
-        logger.info(cloudDeviceDo);
+//        logger.info(cloudDeviceDo);
         logger.info("cloudDevice update is accomplished");
 
     }

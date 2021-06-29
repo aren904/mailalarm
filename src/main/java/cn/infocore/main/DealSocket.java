@@ -3,10 +3,12 @@ package cn.infocore.main;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+
+import StmStreamerDrManage.StreamerClouddrmanage;
 import lombok.Data;
 import org.apache.log4j.Logger;
 import cn.infocore.operator.Header;
-import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
+//import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
 import cn.infocore.service.AlarmLogService;
 import cn.infocore.service.DataArkService;
 import cn.infocore.service.OssService;
@@ -51,7 +53,7 @@ public class DealSocket implements Runnable {
             out = this.socket.getOutputStream();
             byte[] h = new byte[Header.STREAMER_HEADER_LENGTH];
             ioret = in.read(h, 0, Header.STREAMER_HEADER_LENGTH);
-            logger.debug(ioret);
+//            logger.debug(ioret);
             if (ioret != Header.STREAMER_HEADER_LENGTH) {
                 logger.error(Utils.fmt("Failed to receive header,[%d] byte(s) expected,but [%d] is received.",
                         Header.STREAMER_HEADER_LENGTH, ioret));
@@ -88,7 +90,7 @@ public class DealSocket implements Runnable {
             out.write(resp, 0, resp.length);
             out.flush();
 
-            GetServerInfoReturn hrt = GetServerInfoReturn.parseFrom(buffer);
+            StreamerClouddrmanage.GetServerInfoReturn hrt = StreamerClouddrmanage.GetServerInfoReturn.parseFrom(buffer);
             InfoProcessData process = new InfoProcessData(hrt);
             process.setRdsService(rdsService);
             process.setAlarmLogService(alarmLogService);

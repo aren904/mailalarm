@@ -21,6 +21,7 @@ import cn.hutool.cache.impl.TimedCache;
 import cn.infocore.entity.Email_alarm;
 import cn.infocore.entity.Fault;
 import cn.infocore.utils.Utils;
+import sun.nio.cs.ext.GBK;
 
 
 public class MailSender {
@@ -34,13 +35,13 @@ public class MailSender {
     public MailSender(Email_alarm config) {
         this.config = config;
         final Properties properties = new Properties();
-        properties.put("mail.smtp.auth", config.getSmtp_authentication() == (byte) 0 ? "false" : "true");
+        properties.put("mail.smtp.auth", config.getSmtp_auth_enadled() == (byte) 0 ? "false" : "true");
         //properties.put("mail.debug", "true");
         properties.put("mail.debug", "false");
         properties.put("mail.smtp.host", config.getSmtp_address());
         properties.put("mail.transport.protocol", "smtp");//
         //properties.put("mail.smtp.port", config.getSmtp_port());
-        properties.put("mail.smtp.starttls.enable", config.getSsl_encrypt() == (byte) 0 ? "false" : "true");
+        properties.put("mail.smtp.starttls.enable", config.getSsl_encrypt_enabled() == (byte) 0 ? "false" : "true");
 		/*properties.put("mail.user", config.getSmtp_user_id());
 		properties.put("mail.password", config.getStmp_password());
 		s = Session.getDefaultInstance(properties, new Authenticator() {
@@ -72,7 +73,7 @@ public class MailSender {
     // 逻辑处理
     public void judge(Fault fault, String user) {
 
-        logger.info("----------Userid:" + user + ",exception:" + config.getExceptions() + ",fault type:" + fault.getType() + ",enabled:" + config.getEnabled() + ",targetName:" + fault.getTarget_name() + ",timestamp:" + fault.getTimestamp());
+        logger.info("----------UserId:" + user + ",exception:" + config.getExceptions() + ",fault type:" + fault.getType() + ",enabled:" + config.getEnabled() + ",targetName:" + fault.getTarget_name() + ",timestamp:" + fault.getTimestamp());
         if (config.getEnabled() == 0) {
             logger.info(user + " doesn't need send email,for config is not enabled.");
             return;
@@ -86,6 +87,8 @@ public class MailSender {
                 String key = user + fault.getData_ark_uuid() + fault.getTarget_name() + fault.getType();
                 if (config.getLimit_enabled() == 0) {
                     // 未开启,直接发送异常邮件
+
+
                     try {
                         logger.info(user + " not enabled limit,send email:" + fault.getTarget_name() + "," + fault.getType());
                         send(fault);
@@ -96,7 +99,7 @@ public class MailSender {
                 } else {
                     // 已经开启
                     long split = config.getLimit_suppress_time();
-
+                    logger.info(split);
                     //初始map,未添加过或者指定时间内未添加过
                     if ((howOfen.get(key) == null || howOfen.get(key) + split <= now) && timedCache.get(key, false) == null) {
                         timedCache.put(key, key);
@@ -151,21 +154,22 @@ public class MailSender {
                 builder.append("\t告警时间:" + time + "\n");
                 builder.append("\t对应数据方舟:" + fault.getData_ark_name() + "\n");
                 builder.append("\t对应告警对象:" + fault.getTarget_name() + "\n");
+//                builder.append("\t对应告警对象:" + fault.getTarget_name() );
                 //builder.append("\t此致\n\t敬礼!\n\n");
             } else {
                 builder.append("这是一封来自数据方舟统一管理平台的测试邮件!");
             }
-            message.setText(builder.toString());
+            message.setText(builder.toString(),"utf8");
             message.setSentDate(new Date());
             //message.saveChanges();
             Transport transport = s.getTransport();
-            logger.info("Start  sending mail to " + config.getSmtp_user_id());
+            logger.info("Start sending mail to " + config.getSmtp_user_uuid());
 
-            transport.connect(config.getSmtp_user_id(), config.getSmtp_password());
+            transport.connect(config.getSmtp_user_uuid(), config.getSmtp_password());
             // 发送
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
-            logger.info("Mail send is successful.user :" + config.getSmtp_user_id());
+            logger.info("Mail send is successful.user :" + config.getSmtp_user_uuid());
 
             return true;
         } catch (Exception e) {

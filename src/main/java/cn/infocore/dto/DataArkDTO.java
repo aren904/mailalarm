@@ -31,6 +31,25 @@ public class DataArkDTO {
     // Oracle备份空间
     private long total_oracle_capacity;
 
+
+//    public Long getLimit_vcenter_vm_count() {
+//        return limit_vcenter_vm_count;
+//    }
+//
+//    public void setLimit_vcenter_vm_count(Long limit_vcenter_vm_count) {
+//        this.limit_vcenter_vm_count = limit_vcenter_vm_count;
+//    }
+
+    private long limitVcenterVmCount;
+
+    public long getLimitVcenterVmCount() {
+        return limitVcenterVmCount;
+    }
+
+    public void setLimitVcenterVmCount(long limitVcenterVmCount) {
+        this.limitVcenterVmCount = limitVcenterVmCount;
+    }
+
     // 数据方舟的异常 ; 分隔
     private String except;
 
@@ -256,8 +275,6 @@ public class DataArkDTO {
     public void setData_ark_group_id(int data_ark_group_id) {
         this.data_ark_group_id = data_ark_group_id;
     }
-    
-    
 
     public long getMetaUsed() {
         return metaUsed;

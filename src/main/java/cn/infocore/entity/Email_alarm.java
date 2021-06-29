@@ -2,7 +2,12 @@ package cn.infocore.entity;
 
 public class Email_alarm {
 	//自增的id
-	private int id;
+//	private int id;
+
+
+
+	private String user_id;
+
 	//是否开启邮件报警
 	private byte enabled;
 	//已经添加的异常 ; 分隔
@@ -14,13 +19,12 @@ public class Email_alarm {
 	//发件人邮箱
 	private String sender_email;
 	//授权密码
-	private String sender_password;
 	//smtp服务器地址
 	private String smtp_address;
 	//smtp端口
 	private int smtp_port;
 	//是否开启SSL
-	private byte ssl_encrypt;
+	private byte ssl_encrypt_enabled;
 	//收件人
 	private String receiver_emails;
 	
@@ -37,72 +41,14 @@ public class Email_alarm {
 	}
 
 	//是否启用身份验证
-	private byte smtp_authentication;
+	private byte smtp_auth_enadled;
 	
 	//smtp user
-	private String smtp_user_id;
+	private String smtp_user_uuid;
 	
 	//smtp password
 	private String smtp_password;
 
-	public String getUser_uuid() {
-		return user_uuid;
-	}
-
-	public void setUser_uuid(String user_uuid) {
-		this.user_uuid = user_uuid;
-	}
-
-	//对应User的id字段，是外健
-	private String user_uuid;
-
-//	public int getPrivilege_level() {
-//		return privilege_level;
-//	}
-//
-//	public void setPrivilege_level(int privilege_level) {
-//		this.privilege_level = privilege_level;
-//	}
-
-	public String getExceptions() {
-		return exceptions;
-	}
-
-	public void setExceptions(String exceptions) {
-		this.exceptions = exceptions;
-	}
-
-	public String getSmtp_password() {
-		return smtp_password;
-	}
-
-	public void setSmtp_password(String smtp_password) {
-		this.smtp_password = smtp_password;
-	}
-
-	public byte getSmtp_authentication() {
-		return smtp_authentication;
-	}
-
-	public void setSmtp_authentication(byte smtp_authentication) {
-		this.smtp_authentication = smtp_authentication;
-	}
-
-	public String getSmtp_user_id() {
-		return smtp_user_id;
-	}
-
-	public void setSmtp_user_id(String smtp_user_id) {
-		this.smtp_user_id = smtp_user_id;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public byte getEnabled() {
 		return enabled;
@@ -110,6 +56,14 @@ public class Email_alarm {
 
 	public void setEnabled(byte enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getExceptions() {
+		return exceptions;
+	}
+
+	public void setExceptions(String exceptions) {
+		this.exceptions = exceptions;
 	}
 
 	public byte getLimit_enabled() {
@@ -136,14 +90,6 @@ public class Email_alarm {
 		this.sender_email = sender_email;
 	}
 
-	public String getSender_password() {
-		return sender_password;
-	}
-
-	public void setSender_password(String sender_password) {
-		this.sender_password = sender_password;
-	}
-
 	public String getSmtp_address() {
 		return smtp_address;
 	}
@@ -160,12 +106,12 @@ public class Email_alarm {
 		this.smtp_port = smtp_port;
 	}
 
-	public byte getSsl_encrypt() {
-		return ssl_encrypt;
+	public byte getSsl_encrypt_enabled() {
+		return ssl_encrypt_enabled;
 	}
 
-	public void setSsl_encrypt(byte ssl_encrypt) {
-		this.ssl_encrypt = ssl_encrypt;
+	public void setSsl_encrypt_enabled(byte ssl_encrypt_enabled) {
+		this.ssl_encrypt_enabled = ssl_encrypt_enabled;
 	}
 
 	public String getReceiver_emails() {
@@ -176,5 +122,35 @@ public class Email_alarm {
 		this.receiver_emails = receiver_emails;
 	}
 
+	public byte getSmtp_auth_enadled() {
+		return smtp_auth_enadled;
+	}
 
+	public void setSmtp_auth_enadled(byte smtp_auth_enadled) {
+		this.smtp_auth_enadled = smtp_auth_enadled;
+	}
+
+	public String getSmtp_user_uuid() {
+		return smtp_user_uuid;
+	}
+
+	public void setSmtp_user_uuid(String smtp_user_uuid) {
+		this.smtp_user_uuid = smtp_user_uuid;
+	}
+
+	public String getSmtp_password() {
+		return smtp_password;
+	}
+
+	public void setSmtp_password(String smtp_password) {
+		this.smtp_password = smtp_password;
+	}
+
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 }

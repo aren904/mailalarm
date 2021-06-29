@@ -4,10 +4,14 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @TableName("data_ark")
 public class DataArkDO {
 
@@ -27,6 +31,9 @@ public class DataArkDO {
     
     @TableField(value = "limit_client_count")
     Integer limitClientCount;
+
+    @TableField(value = "limit_vcenter_vm_count")
+    Integer limitVcenterVmCount;
 
     @TableField(value = "is_zombie")
     Boolean isZombie;

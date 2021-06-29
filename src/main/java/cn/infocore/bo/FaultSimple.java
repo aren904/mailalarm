@@ -3,8 +3,9 @@ package cn.infocore.bo;
 import java.util.Collection;
 import java.util.List;
 
-import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
-import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
+import StmStreamerDrManage.StreamerClouddrmanage;
+//import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
+//import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
 import lombok.Data;
 import lombok.ToString;
 import lombok.experimental.Accessors;
@@ -26,9 +27,9 @@ public class FaultSimple {
     
     String targetName;
     
-    ClientType clientType;
+    StreamerClouddrmanage.ClientType clientType;
     
-    Collection<FaultType> faultTypes;
+    Collection<StreamerClouddrmanage.FaultType> faultTypes;
     
     List<String> userUuids;
     

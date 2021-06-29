@@ -1,7 +1,8 @@
 package cn.infocore.test;
 
+import StmStreamerDrManage.StreamerClouddrmanage;
 import cn.infocore.operator.Header;
-import cn.infocore.protobuf.StmStreamerDrManage;
+//import cn.infocore.protobuf.StmStreamerDrManage;
 
 
 import java.io.IOException;
@@ -24,15 +25,17 @@ import java.util.List;
  */
 public class TestIsUpdate {
     public static void main(String[] args) {
-        StmStreamerDrManage.GetServerInfoReturn.Builder get = StmStreamerDrManage.GetServerInfoReturn.newBuilder();
-        get.setUuid("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
-        StmStreamerDrManage.Streamer.Builder s = StmStreamerDrManage.Streamer.newBuilder();
+        StreamerClouddrmanage.GetServerInfoReturn.Builder get = StreamerClouddrmanage.GetServerInfoReturn.newBuilder();
+//        get.setUuid("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
+        get.setUuid("22ba929b-b8e9-48e4-b73f-b9f5cb202169");
+       StreamerClouddrmanage.Streamer.Builder s = StreamerClouddrmanage.Streamer.newBuilder();
         s.setIp("192.168.13.130");
         s.setName("localhost.localdomain");
         s.setTotal(new Long("57174596255744"));
         s.setUsed(new Long("47120136536064"));
-        List<StmStreamerDrManage.FaultType> fs = new ArrayList<>();
-        fs.add(StmStreamerDrManage.FaultType.NORMAL);
+        List<StreamerClouddrmanage.FaultType> fs = new ArrayList<>();
+        fs.add(StreamerClouddrmanage.FaultType.STREAMER_POOL_DISABLE);
+//        fs.add( STREAMER_POOL_DISABLE);
         s.addAllStreamerState(fs);
         s.setOracleVol(new Long("1087700467712"));
         s.setMaxClients(new Long("128"));
@@ -42,18 +45,19 @@ public class TestIsUpdate {
         s.setEcsUsed(0);
         s.setRdsUsed(2);
         s.setOssUsed(0);
+        s.setMaxVcenterVm(128);
         s.setMetaUsed(0);
         get.setServer(s.build());
 
-        List<StmStreamerDrManage.Vcent> vcs = new ArrayList<>();
-        StmStreamerDrManage.Vcent.Builder vc = StmStreamerDrManage.Vcent.newBuilder();
+        List<StreamerClouddrmanage.Vcent> vcs = new ArrayList<>();
+       StreamerClouddrmanage.Vcent.Builder vc = StreamerClouddrmanage.Vcent.newBuilder();
         vc.setVcName("VMware vCenter Server 5.5.0 build-2646482");
         vc.setVcIp("10.0.114.115");
-        vc.setVcUuid("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
-        List<StmStreamerDrManage.FaultType> fts = new ArrayList<>();
-        fts.add(StmStreamerDrManage.FaultType.VCENTER_OFFLINE);
+        vc.setVcUuid("135a120a-8a0d-4b39-97a2-2bea111c1a67");
+        List<StreamerClouddrmanage.FaultType> fts = new ArrayList<>();
+        fts.add(StreamerClouddrmanage.FaultType.VCENTER_OFFLINE);
         vc.addAllVcentState(fts);
-        vc.setType(StmStreamerDrManage.ClientType.VC);
+        vc.setType(StreamerClouddrmanage.ClientType.VC);
         get.addVcents(vc);
         /**
          * required string id = 1;
@@ -64,29 +68,30 @@ public class TestIsUpdate {
          required int32 System_Version =6;
          */
             //vm
-//        StmStreamerDrManage.Vmware.Builder vm1 = StmStreamerDrManage.Vmware.newBuilder();
-//        vm1.setName("QYXY_APP_10.0.112.17");
-//        vm1.setId("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
-//        vm1.setPath("[1]c.VMware vCenter Server 5.5.0 build-2646482/");
-//        vm1.setSystemVersion(1);
-//        vm1.setType(StmStreamerDrManage.ClientType.VMWARE);
-//        List<StmStreamerDrManage.FaultType> f4 = new ArrayList<>();
-//        f4.add(StmStreamerDrManage.FaultType.VMWARE_CREATE_SNAP_FAILED);
-//        vm1.addAllVmwareState(f4);
-//        vc.addClients(vm1);
-//        get.addVcents(vc);
+        StreamerClouddrmanage.Vmware.Builder vm1 = StreamerClouddrmanage.Vmware.newBuilder();
+        vm1.setName("QYXY_APP_10.0.112.17");
+        vm1.setId("135a120a-8a0d-4b39-97a2-2bea111c1a67");
+        vm1.setPath("[1]c.VMware vCenter Server 5.5.0 build-2646482/");
+        vm1.setSystemVersion(1);
+        vm1.setType(StreamerClouddrmanage.ClientType.VMWARE);
+        List<StreamerClouddrmanage.FaultType> f4 = new ArrayList<>();
+        f4.add(StreamerClouddrmanage.FaultType.VMWARE_CBT_DROP);
+        vm1.addAllVmwareState(f4);
+        vc.addClients(vm1);
+        get.addVcents(vc);
 
 
 
         //client
-        StmStreamerDrManage.Client.Builder builder2 = StmStreamerDrManage.Client.newBuilder();
+        StreamerClouddrmanage.Client.Builder builder2 = StreamerClouddrmanage.Client.newBuilder();
         builder2.setName("z2y");
-        builder2.setId("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
+//        builder2.setId("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
+        builder2.setId("135a120a-8a0d-4b39-97a2-2bea111c1a67");
         builder2.setIp("192.168.11.80");
-        builder2.setType(StmStreamerDrManage.ClientType.SINGLE);
+        builder2.setType(StreamerClouddrmanage.ClientType.SINGLE);
         builder2.setSystemVersion("linux");
-        ArrayList<StmStreamerDrManage.FaultType> f11  = new ArrayList<>();
-        f11.add(StmStreamerDrManage.FaultType.CLIENT_SNAP_MERGE_FAILED);
+        ArrayList<StreamerClouddrmanage.FaultType> f11  = new ArrayList<>();
+        f11.add(StreamerClouddrmanage.FaultType.CLIENT_OFFLINE);
         builder2.addAllClientState(f11);
         get.addClients(builder2);
 
@@ -94,7 +99,7 @@ public class TestIsUpdate {
 //        StmStreamerDrManage.MetaInfo.Builder builder = StmStreamerDrManage.MetaInfo.newBuilder();
 //        builder.setType(StmStreamerDrManage.ClientType.MetaDB);
 //        builder.setName("555");
-//        builder.setId("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
+//        builder.setId("b8ded222-7e40-44e5-8da4-ca999701b612");
 //        LinkedList<StmStreamerDrManage.FaultType> list = new LinkedList<>();
 //        list.add(StmStreamerDrManage.FaultType.META_CLIENT_OFFLINE);
 //        builder.addAllStatus(list);
@@ -107,11 +112,10 @@ public class TestIsUpdate {
 //        builder1.addAllStatus(faultTypes);
 //        builder1.setSize(223);
 //        builder1.setPreoccupationSizeByte(23);
-//        builder1.setId("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
-////        builder1.setPreoccupationSizeByte(0);
+//        builder1.setId("b8ded222-7e40-44e5-8da4-ca999701b612");
 //        get.addMetaClients(builder);
-
-
+//
+//
 
 
         //Oss
@@ -135,25 +139,25 @@ public class TestIsUpdate {
 //        get.addOssClients(builder);
 
             //rds
-        StmStreamerDrManage.RdsInfo.Builder builder4 = StmStreamerDrManage.RdsInfo.newBuilder();
-        builder4.setType(StmStreamerDrManage.ClientType.Rds);
-        builder4.setName("555");
-        builder4.setUuid("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
-        LinkedList<StmStreamerDrManage.FaultType> list1 = new LinkedList<>();
-        list1.add(StmStreamerDrManage.FaultType.RDS_STORAGE_DROP);
-        builder4.addAllStatus(list1);
+//        StmStreamerDrManage.RdsInfo.Builder builder4 = StmStreamerDrManage.RdsInfo.newBuilder();
+//        builder4.setType(StmStreamerDrManage.ClientType.Rds);
+//        builder4.setName("555");
+//        builder4.setUuid("5496868e-cdc6-4ec4-8d14-192f74ddef03");
+//        LinkedList<StmStreamerDrManage.FaultType> list1 = new LinkedList<>();
+//        list1.add(StmStreamerDrManage.FaultType.RDS_STORAGE_DROP);
+//        builder4.addAllStatus(list1);
 
 //        StmStreamerDrManage.RdsInstanceInfo.Builder builder5 = builder.addObjListBuilder();
-        StmStreamerDrManage.RdsInstanceInfo.Builder builder5 = builder4.addInstanceListBuilder();
-        builder5.setName("2341");
-        builder5.setType(StmStreamerDrManage.ClientType.RdsInstance);
-        LinkedList<StmStreamerDrManage.FaultType> faultTypes1 = new LinkedList<>();
-        faultTypes1.add(StmStreamerDrManage.FaultType.RDS_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED);
-        builder5.addAllStatus(faultTypes1);
-        builder5.setSize(8);
-        builder5.setUuid("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
-        builder5.setPreoccupationSizeByte(8);
-        get.addRdsClients(builder4);
+//        StmStreamerDrManage.RdsInstanceInfo.Builder builder5 = builder4.addInstanceListBuilder();
+//        builder5.setName("2341");
+//        builder5.setType(StmStreamerDrManage.ClientType.RdsInstance);
+//        LinkedList<StmStreamerDrManage.FaultType> faultTypes1 = new LinkedList<>();
+//        faultTypes1.add(StmStreamerDrManage.FaultType.RDS_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED);
+//        builder5.addAllStatus(faultTypes1);
+//        builder5.setSize(8);
+//        builder5.setUuid("5496868e-cdc6-4ec4-8d14-192f74ddef03");
+//        builder5.setPreoccupationSizeByte(8);
+//        get.addRdsClients(builder4);
 
 
         //Ecs
@@ -182,7 +186,7 @@ public class TestIsUpdate {
 
         try {
         //创建Socket对象,ip为mailalarm服务所在ip，端口23335
-        Socket socket = new Socket("192.168.13.130", 23335);
+        Socket socket = new Socket("192.168.11.223", 23335);
 
         //根据输入输出流和服务端连接
         OutputStream out = socket.getOutputStream();//获取一个输出流，向服务端发送信息

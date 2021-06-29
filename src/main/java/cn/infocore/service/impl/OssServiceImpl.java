@@ -1,6 +1,8 @@
 package cn.infocore.service.impl;
 import java.util.LinkedList;
 import java.util.List;
+
+import StmStreamerDrManage.StreamerClouddrmanage;
 import cn.infocore.entity.*;
 import cn.infocore.manager.CloudClientDeviceManager;
 import cn.infocore.manager.CloudClientManager;
@@ -10,20 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import cn.infocore.bo.FaultSimple;
 import cn.infocore.manager.OssObjectSetManager;
-import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
-import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
-import cn.infocore.protobuf.StmStreamerDrManage.OssInfo;
-import cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo;
+//import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
+//import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
+//import cn.infocore.protobuf.StmStreamerDrManage.OssInfo;
+//import cn.infocore.protobuf.StmStreamerDrManage.OssObjectSetInfo;
 import cn.infocore.service.OssService;
 import cn.infocore.utils.StupidStringUtil;
 @Service
 public class OssServiceImpl implements OssService {
     private static final org.apache.log4j.Logger logger = Logger.getLogger(OssServiceImpl.class);
 
-    
     @Autowired
     OssObjectSetManager ossObjectSetManager;
-
 
     @Autowired
     CloudClientManager cloudClientManager;
@@ -32,26 +32,21 @@ public class OssServiceImpl implements OssService {
     CloudClientDeviceManager cloudClientDeviceManager;
 
     @Override
-    public void ReUpdateOssClient(OssInfo ossClient) {
+    public void ReUpdateOssClient(StreamerClouddrmanage.OssInfo ossClient) {
 
 
         String uuid = ossClient.getUuid();
         String name = ossClient.getName();
-        ClientType type = ossClient.getType();
-        List<OssObjectSetInfo> objListList = ossClient.getObjListList();
-        List<FaultType> ossFaultList = ossClient.getStatusList();
+        StreamerClouddrmanage.ClientType type = ossClient.getType();
+        List<StreamerClouddrmanage.OssObjectSetInfo> objListList = ossClient.getObjListList();
+        List<StreamerClouddrmanage.FaultType> ossFaultList = ossClient.getStatusList();
         StringBuffer ossFaultLists = new StringBuffer();
-        for (FaultType fault : ossFaultList) {
+        for (StreamerClouddrmanage.FaultType fault : ossFaultList) {
             int code = fault.getNumber();
             ossFaultLists.append(code).append(";");
         }
         CloudDo cloudDo = new CloudDo();
-        Boolean isDr = CheckCloudIsDr(cloudDo);
-        if(isDr) {
-            cloudDo.setIsDr(1);
-        }else {
-            cloudDo.setIsDr(0);
-        }
+
         cloudDo.setName(name);
         cloudDo.setUuId(uuid);
         cloudDo.setType(type.getNumber());
@@ -59,37 +54,36 @@ public class OssServiceImpl implements OssService {
         cloudClientManager.updateCloudClient(uuid, cloudDo);
         //更新CloudDevice
         if (objListList != null) {
-            for (OssObjectSetInfo ossObjectSetInfo : objListList) {
+            for (StreamerClouddrmanage.OssObjectSetInfo ossObjectSetInfo : objListList) {
                 CloudDeviceDo cloudDeviceDo = cloudClientDeviceManager.ReSetOssCloudDevice(ossObjectSetInfo);
                 cloudDeviceDo.setSize(ossObjectSetInfo.getSize());
-//                cloudDeviceDo.setType(15);
                 cloudDeviceDo.setType(ossObjectSetInfo.getType().getNumber());
                 long preoccupationSizeByte = ossObjectSetInfo.getPreoccupationSizeByte();
                 int preoccupationSizebyte = Integer.parseInt(String.valueOf(preoccupationSizeByte));
                 cloudDeviceDo.setPreoccupationSize(preoccupationSizebyte);
                 String objectSetId = cloudDeviceDo.getUuid();
-                cloudClientDeviceManager.updateObjectSetDo(cloudDeviceDo,objectSetId,ossObjectSetInfo.getType());
+                cloudClientDeviceManager.updateObjectSetDo(cloudDeviceDo,objectSetId);
             }
         }
     }
     
     @Override
-    public List<FaultSimple> updateOssClientList(List<OssInfo> ossClients) {
+    public List<FaultSimple> updateOssClientList(List<StreamerClouddrmanage.OssInfo> ossClients) {
         List<FaultSimple> faultList =  new LinkedList<FaultSimple>();
         
-        for (OssInfo ossInfo : ossClients) {
+        for (StreamerClouddrmanage.OssInfo ossInfo : ossClients) {
             faultList.addAll(updateOssClient(ossInfo));
         }
         return faultList;
     }
 
-    public List<FaultSimple> updateOssClient(OssInfo ossInfo) {
+    public List<FaultSimple> updateOssClient(StreamerClouddrmanage.OssInfo ossInfo) {
         
         String id = ossInfo.getUuid();
         String name = ossInfo.getName();
-        ClientType type  = ossInfo.getType();
-        List<FaultType> faultTypes = ossInfo.getStatusList();
-        List<OssObjectSetInfo> ossObjectSetInfos = ossInfo.getObjListList();
+        StreamerClouddrmanage.ClientType type  = ossInfo.getType();
+        List<StreamerClouddrmanage.FaultType> faultTypes = ossInfo.getStatusList();
+        List<StreamerClouddrmanage.OssObjectSetInfo> ossObjectSetInfos = ossInfo.getObjListList();
         List<FaultSimple> ossObjectFaultSimpleList = ossObjectSetManager.updateList(ossObjectSetInfos);
         logger.info(ossObjectFaultSimpleList);
         OssDO ossDO = new OssDO();
@@ -98,7 +92,7 @@ public class OssServiceImpl implements OssService {
 
         List<FaultSimple>  faultsList = listFaults(faultTypes);
 
-        List<String> userIdList = cloudClientManager.getUserIdByUuid(id);
+        List<String> userUuIdList = cloudClientManager.getUserIdByUuid(id);
         for (FaultSimple faultSimple : faultsList) {
             faultSimple.setTargetUuid(id);
             faultSimple.setTargetName(name);
@@ -108,31 +102,22 @@ public class OssServiceImpl implements OssService {
         faultsList.addAll(ossObjectFaultSimpleList);
         
         for (FaultSimple faultSimple : faultsList) {
-            faultSimple.setUserUuids(userIdList);
+            faultSimple.setUserUuids(userUuIdList);
         }
         return faultsList;
     }
     
     
-    List<FaultSimple>  listFaults(List<FaultType> faultTypes){
+    List<FaultSimple>  listFaults(List<StreamerClouddrmanage.FaultType> faultTypes){
         LinkedList<FaultSimple> faultList =  new LinkedList<FaultSimple>();
         if (faultTypes!= null) {
                 FaultSimple faultSimple =  new FaultSimple();
-                faultSimple.setClientType(ClientType.Oss);
+                faultSimple.setClientType(StreamerClouddrmanage.ClientType.Oss);
                 faultSimple.setFaultTypes(faultTypes);
                 faultList.add(faultSimple);
         }
         return faultList;
     }
 
-    public Boolean CheckCloudIsDr(CloudDo cloudDo){
-        LambdaQueryWrapper<CloudDo> cloudDoLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        cloudDoLambdaQueryWrapper.eq(CloudDo::getUuId, cloudDo.getUuId());
-        CloudDo cloudDo1 = cloudClientManager.getOne(cloudDoLambdaQueryWrapper);
-        if(cloudDo1!=null){
-            Integer isDr = cloudDo.getIsDr();
-            return isDr!=null&& isDr >0;
-        }
-        return false;
-    }
+
 }

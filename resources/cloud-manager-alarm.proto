@@ -70,7 +70,7 @@ enum Command {
     Command_AddDiskBackup = 225;
     Command_UpdateDiskBackup = 226;
     Command_RemoveDiskBackup = 227;
-    Command_GetDisasterClients = 228;
+    Command_GetDisasterClients = 228;  // 8.0 中废弃
     Command_AddDisasterDiskBackup = 229;
     Command_UpdateDisasterDiskBackup = 230;
     Command_RemoveDisasterDiskBackup = 231;
@@ -125,6 +125,11 @@ enum Command {
     Command_AddRacDatabase = 280;
     Command_UpdateRacDatabase = 281;
     Command_RemoveRacDatabase = 282;
+    Command_ForceRemoveDataArk = 283;
+    Command_UpdateVmwareVirtualMachinBackup = 284;
+    Command_AddDisasterVmwareVirtualMachineBackup = 285;
+    Command_UpdateDisasterVmwareVirtualMachineBackup = 286;
+    Command_RemoveDisasterVmwareVirtualMachineBackup = 287;
 
     /* data ark management end */
 
@@ -188,7 +193,7 @@ enum Command {
     Command_ExportDataArkLog = 601;  // 导出数据方舟日志，即导出 streamer server 上的日志，仅用于记录操作日志，不作为接口指令
     Command_CommitTransaction = 602;
     Command_RollbackTransaction = 603;
-    Command_ProcessTransactionGroup = 604;
+    Command_ProcessTransactionGroup = 604;  // 8.0 中废弃
 
     /* other end */
 }
@@ -283,6 +288,8 @@ enum ErrorCode {
     ErrorCode_RdsNonexistent = 1094;  // 不存在 RDS
     ErrorCode_RdsInstanceExistent = 1095;  // 存在 RDS 实例
     ErrorCode_RdsInstanceNonexistent = 1096;  // 不存在 RDS 实例
+    ErrorCode_DisasterClientExistent = 1097;  // 存在容灾客户端
+    ErrorCode_DisasterClientNonexistent = 1098;  // 不存在容灾客户端
 
     ErrorCode_RequestToAlarmServiceFailed = 1100;  // 发送请求给邮件报警服务失败
     ErrorCode_RequestToConsoleFailed = 1101;  // 发送请求给控制台失败
@@ -432,6 +439,11 @@ enum ErrorCode {
     ErrorCode_AddRacDatabaseFailed = 10280;
     ErrorCode_UpdateRacDatabaseFailed = 10281;
     ErrorCode_RemoveRacDatabaseFailed = 10282;
+    ErrorCode_ForceRemoveDataArkFailed = 10283;
+    ErrorCode_UpdateVmwareVirtualMachinBackupFailed = 10284;
+    ErrorCode_AddDisasterVmwareVirtualMachineBackupFailed = 10285;
+    ErrorCode_UpdateDisasterVmwareVirtualMachineBackupFailed = 10286;
+    ErrorCode_RemoveDisasterVmwareVirtualMachineBackupFailed = 10287;
 
     /* data ark management end */
 
@@ -610,7 +622,7 @@ enum SnmpPrivacyProtocol {
 }
 
 enum Version {
-    Version_Value = 6;
+    Version_Value = 7;
 }
 
 /* enum end */

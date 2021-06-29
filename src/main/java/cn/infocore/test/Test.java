@@ -10,29 +10,30 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
+import StmStreamerDrManage.StreamerClouddrmanage;
 import cn.infocore.operator.Header;
-import cn.infocore.protobuf.StmStreamerDrManage;
-import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
-import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
-import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
-import cn.infocore.protobuf.StmStreamerDrManage.Streamer;
-import cn.infocore.protobuf.StmStreamerDrManage.Vcent;
-import cn.infocore.protobuf.StmStreamerDrManage.Vmware;
-
-import static cn.infocore.protobuf.StmStreamerDrManage.FaultType.*;
+//import cn.infocore.protobuf.StmStreamerDrManage;
+//import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
+//import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
+//import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
+//import cn.infocore.protobuf.StmStreamerDrManage.Streamer;
+//import cn.infocore.protobuf.StmStreamerDrManage.Vcent;
+//import cn.infocore.protobuf.StmStreamerDrManage.Vmware;
+//
+//import static cn.infocore.protobuf.StmStreamerDrManage.FaultType.*;
 
 public class Test {
     public static void main(String[] args) throws SQLException {
-        GetServerInfoReturn.Builder get = GetServerInfoReturn.newBuilder();
+        StreamerClouddrmanage.GetServerInfoReturn.Builder get = StreamerClouddrmanage.GetServerInfoReturn.newBuilder();
 //        get.setUuid("c1e5edca-12c1-4b60-bec1-00a83db972141");
         get.setUuid("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
-        Streamer.Builder s = Streamer.newBuilder();
+        StreamerClouddrmanage.Streamer.Builder s = StreamerClouddrmanage.Streamer.newBuilder();
         s.setIp("192.168.13.130");
         s.setName("localhost.localdomain");
         s.setTotal(new Long("57174596255744"));
         s.setUsed(new Long("47120136536064"));
-        List<FaultType> fs = new ArrayList<>();
-        fs.add(FaultType.NORMAL);
+        List<StreamerClouddrmanage.FaultType> fs = new ArrayList<>();
+        fs.add(StreamerClouddrmanage.FaultType.NORMAL);
         s.addAllStreamerState(fs);
         s.setOracleVol(new Long("1087700467712"));
         s.setMaxClients(new Long("128"));
@@ -45,15 +46,15 @@ public class Test {
         s.setMetaUsed(0);
         get.setServer(s.build());
 
-        List<Vcent> vcs = new ArrayList<>();
-        Vcent.Builder vc = Vcent.newBuilder();
+        List<StreamerClouddrmanage.Vcent> vcs = new ArrayList<>();
+        StreamerClouddrmanage.Vcent.Builder vc = StreamerClouddrmanage.Vcent.newBuilder();
         vc.setVcName("VMware vCenter Server 5.5.0 build-2646482");
         vc.setVcIp("10.0.114.115");
         vc.setVcUuid("8CEA50E4-9871-417C-8C6B-4C76EE795D31");
-        List<FaultType> fts = new ArrayList<>();
-        fts.add(FaultType.NORMAL);
+        List<StreamerClouddrmanage.FaultType> fts = new ArrayList<>();
+        fts.add(StreamerClouddrmanage.FaultType.NORMAL);
         vc.addAllVcentState(fts);
-        vc.setType(ClientType.VC);
+        vc.setType(StreamerClouddrmanage.ClientType.VC);
         /**
          * required string id = 1;
          required string name = 2;
@@ -158,14 +159,14 @@ public class Test {
 //        get.addMetaClients(builder1);
 
 //        get.addMetaClients(builder1);
-        Vmware.Builder vm1 = Vmware.newBuilder();
+        StreamerClouddrmanage.Vmware.Builder vm1 = StreamerClouddrmanage.Vmware.newBuilder();
         vm1.setName("QYXY_APP_10.0.112.17");
         vm1.setId("50353408-e86c-2e48-6ae8-b125adb5721a");
         vm1.setPath("[1]c.VMware vCenter Server 5.5.0 build-2646482/[2]vCenter_PD_DMZ/[4]DMZ_Cluster_\\346\\211\\230\\347\\256\\241\\345\\214\\272/[3]10.0.114.127/[5]\\346\\250\\252\\347\\220\\264\\344\\274\\201\\344\\270\\232\\344\\277\\241\\346\\201\\257\\357\\274\\210\\344\\277\\241\\347\\224\\250\\347\\275\\221\\357\\274\\211");
         vm1.setSystemVersion(1);
-        vm1.setType(ClientType.VMWARE);
-        List<FaultType> f4 = new ArrayList<>();
-        f4.add(FaultType.VMWARE_CREATE_SNAP_FAILED);
+        vm1.setType(StreamerClouddrmanage.ClientType.VMWARE);
+        List<StreamerClouddrmanage.FaultType> f4 = new ArrayList<>();
+        f4.add(StreamerClouddrmanage.FaultType.VMWARE_CREATE_SNAP_FAILED);
         vm1.addAllVmwareState(f4);
         vc.addClients(vm1);
 //

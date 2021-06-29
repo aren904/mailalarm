@@ -28,7 +28,7 @@ public class MySnmpCache {
 			try {
 				this.snmp = qr.query(sql, new BeanHandler<MySnmp>(MySnmp.class));
 				logger.info("Succeed to get snmp[Name:]" + snmp.getStation_name() + "[IP]:" + snmp.getStation_ip()
-						+ ",[Port:]" + snmp.getStation_port());
+						+ ",[Port:]" + snmp.getStation_port()+",enable"+snmp.getEnabled());
 			} catch (Exception e) {
 				logger.error(e);
 			} finally {
@@ -86,7 +86,7 @@ public class MySnmpCache {
 		logger.info("Station IP:" + this.snmp.getStation_ip());
 		logger.info("Station Name:" + this.snmp.getStation_name());
 		logger.info("Station Port:" + this.snmp.getStation_port());
-		logger.info("Read Community Name:" + this.snmp.getRead_community_name());
+		logger.info("Read Community Name:" + this.snmp.getRead_comm_name());
 		logger.info("Timeout ms:" + this.snmp.getTimeout_ms());
 		logger.info("Version:" + this.snmp.getVersion());
 		logger.debug("Update Version:" + this.snmp.getUpdate_version());

@@ -10,7 +10,8 @@ public class User_idHandler implements ResultSetHandler<String>{
 	public String handle(ResultSet rs) throws SQLException {
 		StringBuilder builder=new StringBuilder();
 		while(rs.next()) {
-			builder.append(rs.getString("user_id"));
+//			builder.append(rs.getString("user_id"));
+			builder.append(rs.getString("uuid"));
 			builder.append(";");
 		}
 		if (builder.length()>=1) {

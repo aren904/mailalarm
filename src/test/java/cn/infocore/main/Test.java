@@ -11,12 +11,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import StmStreamerDrManage.StreamerClouddrmanage;
 import cn.infocore.operator.Header;
-import cn.infocore.protobuf.StmStreamerDrManage.Client;
-import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
-import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
-import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
-import cn.infocore.protobuf.StmStreamerDrManage.Streamer;
+//import cn.infocore.protobuf.StmStreamerDrManage.Client;
+//import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
+//import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
+//import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
+//import cn.infocore.protobuf.StmStreamerDrManage.Streamer;
 
 public class Test {
 	public static void main(String[] args) throws SQLException {
@@ -50,14 +51,14 @@ public class Test {
 		mySnmp=MySnmpCache.getInstance().getMySnmp();
 		System.out.println(mySnmp.getStation_name());*/
 		
-		GetServerInfoReturn.Builder get=GetServerInfoReturn.newBuilder();
-		Streamer.Builder s=Streamer.newBuilder();
+		StreamerClouddrmanage.GetServerInfoReturn.Builder get= StreamerClouddrmanage.GetServerInfoReturn.newBuilder();
+		StreamerClouddrmanage.Streamer.Builder s= StreamerClouddrmanage.Streamer.newBuilder();
 		s.setIp("192.168.1.13");
 		s.setName("server13");
 		s.setTotal(new Long("66006659629056"));
 		s.setUsed(new Long("3236257857536"));
-		List<FaultType> fault=new ArrayList<FaultType>();
-		fault.add(FaultType.NORMAL);
+		List<StreamerClouddrmanage.FaultType> fault=new ArrayList<StreamerClouddrmanage.FaultType>();
+		fault.add(StreamerClouddrmanage.FaultType.NORMAL);
 		s.addAllStreamerState(fault);
 		//s.setStreamerState(0, FaultType.NORMAL);
 		s.setOracleVol(new Long("1087700467712"));
@@ -76,13 +77,13 @@ public class Test {
 		s.setCloudVol(0L);
 		s.setRdsVol(0L);
 
-		Client.Builder c=Client.newBuilder();
+		StreamerClouddrmanage.Client.Builder c= StreamerClouddrmanage.Client.newBuilder();
 		c.setId("6755a773-0000-0000-0000-000000000000");
 		c.setName("RACTT");
 		c.setIp("");
-		c.setType(ClientType.RAC);
-		List<FaultType> fault1=new ArrayList<FaultType>();
-		fault1.add(FaultType.NORMAL);
+		c.setType(StreamerClouddrmanage.ClientType.RAC);
+		List<StreamerClouddrmanage.FaultType> fault1=new ArrayList<StreamerClouddrmanage.FaultType>();
+		fault1.add(StreamerClouddrmanage.FaultType.NORMAL);
 		c.addAllClientState(fault1);
 		//c.setClientState(0, FaultType.NORMAL);
 		c.setSystemVersion("Red Hat Enterprise Linux Server release 6.5 (Santiago)");

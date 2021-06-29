@@ -9,8 +9,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import StmStreamerDrManage.StreamerClouddrmanage;
 import cn.infocore.entity.*;
 import cn.infocore.handler.IdHandler;
+import cn.infocore.handler.userUUidhandler;
 import lombok.Data;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -23,16 +25,16 @@ import cn.infocore.dao.AlarmLogDAO;
 import cn.infocore.dto.DataArkDTO;
 import cn.infocore.handler.NameHandler;
 import cn.infocore.handler.User_idHandler;
-import cn.infocore.protobuf.StmStreamerDrManage.Client;
-import cn.infocore.protobuf.StmStreamerDrManage.EcsInfo;
-import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
-import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
-import cn.infocore.protobuf.StmStreamerDrManage.MetaInfo;
-import cn.infocore.protobuf.StmStreamerDrManage.OssInfo;
-import cn.infocore.protobuf.StmStreamerDrManage.RdsInfo;
-import cn.infocore.protobuf.StmStreamerDrManage.Streamer;
-import cn.infocore.protobuf.StmStreamerDrManage.Vcent;
-import cn.infocore.protobuf.StmStreamerDrManage.Vmware;
+//import cn.infocore.protobuf.StmStreamerDrManage.Client;
+//import cn.infocore.protobuf.StmStreamerDrManage.EcsInfo;
+//import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
+//import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
+//import cn.infocore.protobuf.StmStreamerDrManage.MetaInfo;
+//import cn.infocore.protobuf.StmStreamerDrManage.OssInfo;
+//import cn.infocore.protobuf.StmStreamerDrManage.RdsInfo;
+//import cn.infocore.protobuf.StmStreamerDrManage.Streamer;
+//import cn.infocore.protobuf.StmStreamerDrManage.Vcent;
+//import cn.infocore.protobuf.StmStreamerDrManage.Vmware;
 import cn.infocore.service.AlarmLogService;
 import cn.infocore.service.DataArkService;
 import cn.infocore.service.OssService;
@@ -47,7 +49,7 @@ import cn.infocore.utils.MyDataSource;
 public class InfoProcessData {
     private static final Logger logger = Logger.getLogger(InfoProcessData.class);
 
-    private GetServerInfoReturn hrt;
+    private StreamerClouddrmanage.GetServerInfoReturn hrt;
     private RDSService rdsService;
     private DataArkService dataArkService;
     private OssService ossService;
@@ -60,7 +62,7 @@ public class InfoProcessData {
     private List<Virtual_machine> vmList;
     private List<Vcenter> vcList;
 
-    public InfoProcessData(GetServerInfoReturn hrt) {
+    public InfoProcessData(StreamerClouddrmanage.GetServerInfoReturn hrt) {
         this.hrt = hrt;
     }
 
@@ -100,11 +102,11 @@ public class InfoProcessData {
                 updateVirtualMachine(vmList);
             }
 
-            Streamer dataArk = hrt.getServer();
+            StreamerClouddrmanage.Streamer dataArk = hrt.getServer();
             String dataArkId = hrt.getUuid();
 
-            List<OssInfo> ossClients = hrt.getOssClientsList();
-            for (OssInfo ossClient : ossClients) {
+            List<StreamerClouddrmanage.OssInfo> ossClients = hrt.getOssClientsList();
+            for (StreamerClouddrmanage.OssInfo ossClient : ossClients) {
                 ReUpdateOssClient(ossClient);
             }
             if (ossClients != null && !ossClients.isEmpty()) {
@@ -113,9 +115,9 @@ public class InfoProcessData {
             }
 
 
-            List<RdsInfo> rdsInfoList = hrt.getRdsClientsList();
+            List<StreamerClouddrmanage.RdsInfo> rdsInfoList = hrt.getRdsClientsList();
             if (rdsInfoList != null) {
-                for (RdsInfo rdsClient : rdsInfoList) {
+                for (StreamerClouddrmanage.RdsInfo rdsClient : rdsInfoList) {
                     ReUpdateRdsClient(rdsClient);
                 }
             }
@@ -124,10 +126,10 @@ public class InfoProcessData {
                 faultSimples.addAll(RdsFaultSimples);
             }
 
-            List<MetaInfo> metaClientsList = hrt.getMetaClientsList();
+            List<StreamerClouddrmanage.MetaInfo> metaClientsList = hrt.getMetaClientsList();
 //            List<MetaInfo> metaInfos = metaClientsList;
             if (metaClientsList != null) {
-                for (MetaInfo metaClient : metaClientsList) {
+                for (StreamerClouddrmanage.MetaInfo metaClient : metaClientsList) {
                     ReUpdateMetaClient(metaClient);
                 }
             }
@@ -136,10 +138,10 @@ public class InfoProcessData {
                 faultSimples.addAll(MetaFaultSimples);
             }
 
-            List<EcsInfo> ecsClientsList = hrt.getEcsClientsList();
+            List<StreamerClouddrmanage.EcsInfo> ecsClientsList = hrt.getEcsClientsList();
 //            List<EcsInfo> ecsInfos = ecsClientsList;
             if (ecsClientsList != null) {
-                for (EcsInfo ecsInfo : ecsClientsList) {
+                for (StreamerClouddrmanage.EcsInfo ecsInfo : ecsClientsList) {
                     ReUpdateEcsClient(ecsInfo);
                 }
             }
@@ -161,6 +163,7 @@ public class InfoProcessData {
             }
 //            logger.warn(faultSimples);//遍历出结果
             alarmLogService.noticeFaults(faultSimples);//这个方法里包括
+
             if (faults.size() > 0) {
                 MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList, faults);
             }
@@ -178,23 +181,23 @@ public class InfoProcessData {
         }
     }
 
-    List<FaultSimple> updateMetaClient(List<MetaInfo> metaClientsList) {
+    List<FaultSimple> updateMetaClient(List<StreamerClouddrmanage.MetaInfo> metaClientsList) {
         List<FaultSimple> faultSimples = mdbService.updateMetaClientList(metaClientsList);
         return faultSimples;
     }
 
-    List<FaultSimple> updateEcsClient(List<EcsInfo> ecsClientsList) {
+    List<FaultSimple> updateEcsClient(List<StreamerClouddrmanage.EcsInfo> ecsClientsList) {
         List<FaultSimple> faultSimples = ecsService.updateEcsClientList(ecsClientsList);
         return faultSimples;
     }
 
     //
-    List<FaultSimple> updateRdsClient(List<RdsInfo> rdsInfoList) {
+    List<FaultSimple> updateRdsClient(List<StreamerClouddrmanage.RdsInfo> rdsInfoList) {
         List<FaultSimple> faultSimples = rdsService.updateRdsInfoClientList(rdsInfoList);
         return faultSimples;
     }
 
-    private List<FaultSimple> updateOssClient(List<OssInfo> ossClient) {
+    private List<FaultSimple> updateOssClient(List<StreamerClouddrmanage.OssInfo> ossClient) {
         List<FaultSimple> faultSimples = ossService.updateOssClientList(ossClient);
         return faultSimples;
     }
@@ -205,19 +208,19 @@ public class InfoProcessData {
 //    }
 
 
-    void ReUpdateOssClient(OssInfo ossClient) {
+    void ReUpdateOssClient(StreamerClouddrmanage.OssInfo ossClient) {
         ossService.ReUpdateOssClient(ossClient);
     }
 
-    void ReUpdateEcsClient(EcsInfo ecsClient) {
+    void ReUpdateEcsClient(StreamerClouddrmanage.EcsInfo ecsClient) {
         ecsService.ReUpdateEcsInfo(ecsClient);
     }
 
-    void ReUpdateRdsClient(RdsInfo rdsClient) {
+    void ReUpdateRdsClient(StreamerClouddrmanage.RdsInfo rdsClient) {
         rdsService.ReUpdateRdsClient(rdsClient);
     }
 
-    void ReUpdateMetaClient(MetaInfo metaClient) {
+    void ReUpdateMetaClient(StreamerClouddrmanage.MetaInfo metaClient) {
         mdbService.ReUpdateMdbClient(metaClient);
     }
 
@@ -417,7 +420,7 @@ public class InfoProcessData {
     }
 
     // 调试使用
-    private void logHeartbeat(GetServerInfoReturn hrt) {
+    private void logHeartbeat(StreamerClouddrmanage.GetServerInfoReturn hrt) {
         logger.info("From data ark heartbeat:");
         logger.info(hrt);
     }
@@ -458,12 +461,29 @@ public class InfoProcessData {
     }
 
     // 获取普通客户端的userid
-    private String getUserIdByClient(String clientId) {
+//    private String getUserIdByClient(String clientId) {
+//        QueryRunner q = MyDataSource.getQueryRunner();
+//        Object[] param = new Object[]{clientId};
+//        String result = "";
+////        String sql = "select user_id from client where id=?";
+////        String sql = "select user_id from client where data_ark_id=?";
+//     String sql ="select uuid from user where id = ?";
+//        try {
+//            result = q.query(sql, new User_idHandler(), param);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            // MyDataSource.close(connection);
+//        }
+//        return result;
+//    }
+
+    private String getUserUuIdByUser(String clientId) {
         QueryRunner q = MyDataSource.getQueryRunner();
         Object[] param = new Object[]{clientId};
         String result = "";
-//        String sql = "select user_id from client where id=?";
-        String sql = "select user_id from client where data_ark_id=?";
+
+        String sql ="select uuid from user where id = ?";
         try {
             result = q.query(sql, new User_idHandler(), param);
         } catch (SQLException e) {
@@ -475,14 +495,14 @@ public class InfoProcessData {
     }
 
     // 获取vc的userid，注意vc会被不同streamer添加
-    private String getUserIdByVcent(String vcId, String data_ark_id) {
+    private String getUserIdByVcent(String vcId) {
         QueryRunner q = MyDataSource.getQueryRunner();
-        Object[] param = new Object[]{vcId, data_ark_id};
+        Object[] param = new Object[]{vcId};
         String result = "";
 //        String sql = "select user_id from vcenter where vcenter_id=? and data_ark_id=?";
-        String sql = "select user_id from vcenter where uuid=? and data_ark_id=?";
+        String sql = "select user_id from vcenter where uuid=? ";
         try {
-            result = q.query(sql, new User_idHandler(), param);
+            result = q.query(sql, new IdHandler(), param);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -492,11 +512,32 @@ public class InfoProcessData {
     }
 
 
+
+
+
+    private String getUserIdByUuidFromventer(String uuid) {
+        QueryRunner q = MyDataSource.getQueryRunner();
+        Object[] param = new Object[]{uuid};
+        String result = "";
+//        String sql = "select user_id from data_ark where uuid=?";
+        String sql ="select user_id from vcenter where uuid = ?";
+        try {
+            result = q.query(sql, new IdHandler(), param);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+        return result;
+    }
+
+
     private String getUserIdByUuid(String uuid) {
         QueryRunner q = MyDataSource.getQueryRunner();
         Object[] param = new Object[]{uuid};
         String result = "";
-        String sql = "select id from data_ark where uuid=?";
+//        String sql = "select user_id from data_ark where uuid=?";
+        String sql ="select user_id from client where uuid = ?";
         try {
             result = q.query(sql, new IdHandler(), param);
         } catch (SQLException e) {
@@ -509,25 +550,41 @@ public class InfoProcessData {
 
 
 
-
-    private String getUserIdByVM(String uuid, String data_ark_id) {
-        // Connection connection=MyDataSource.getConnection();
+    private String getUserIdByUuidFromDataArk(String uuid) {
         QueryRunner q = MyDataSource.getQueryRunner();
-        Object[] param = new Object[]{uuid, data_ark_id};
-        String sql = "SELECT user_id from scmp.vcenter_vm as A inner join scmp.vcenter as B on A.vcenter_id=B.id and A.id =? and B.data_ark_id = ?  ";
-//        String sql = "SELECT user_id from scmp.vcenter_vm as A inner join scmp.vcenter as B on A.uuid=B.id and A.id =? and B.data_ark_id = ?  ";
+        Object[] param = new Object[]{uuid};
         String result = "";
+        String sql = "select user_uuid from data_ark where uuid=?";
+//        String sql ="select user_id from client where uuid = ?";
         try {
-            result = q.query(sql, new User_idHandler(), param);
+            result = q.query(sql, new userUUidhandler(), param);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            // MyDataSource.close(connection);
+
         }
         return result;
     }
 
-    private void parse(GetServerInfoReturn hrt) {
+
+//    private String getUserIdByVM(String uuid, String data_ark_id) {
+//        // Connection connection=MyDataSource.getConnection();
+//        QueryRunner q = MyDataSource.getQueryRunner();
+//        Object[] param = new Object[]{uuid, data_ark_id};
+//        String sql = "SELECT user_id from scmp.vcenter_vm as A inner join scmp.vcenter as B on A.vcenter_id=B.id and A.id =? and B.data_ark_id = ?  ";
+////        String sql = "SELECT user_id from scmp.vcenter_vm as A inner join scmp.vcenter as B on A.uuid=B.id and A.id =? and B.data_ark_id = ?  ";
+//        String result = "";
+//        try {
+//            result = q.query(sql, new User_idHandler(), param);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            // MyDataSource.close(connection);
+//        }
+//        return result;
+//    }
+
+    private void parse(StreamerClouddrmanage.GetServerInfoReturn hrt) {
         long now = System.currentTimeMillis() / 1000;
         this.data_ark = convertStreamerServer(hrt, now);//封装心跳
         convertClient(hrt, now);//封装Client信息（把接收到hdr中的内容一一赋值给对象）
@@ -535,24 +592,26 @@ public class InfoProcessData {
     }
 
 
-    private void convertVCenter(GetServerInfoReturn hrt, long now) {
+    private void convertVCenter(StreamerClouddrmanage.GetServerInfoReturn hrt, long now) {
         // 开始封装无代理客户端
-        List<Vcent> vList = hrt.getVcentsList();
+        List<StreamerClouddrmanage.Vcent> vList = hrt.getVcentsList();
         if (vList != null && vList.size() > 0) {
-            for (Vcent vcent : vList) {
+            for (StreamerClouddrmanage.Vcent vcent : vList) {
                 Vcenter vcenter = new Vcenter();
-//                vcenter.setId(vcent.getVcUuid());
+
                 vcenter.setUuid(vcent.getVcUuid());
                 vcenter.setName(vcent.getVcName());
                 vcenter.setIps(vcent.getVcIp());
 
-                String id = getUserIdByUuid(vcent.getVcUuid());
-                String user_id2 = getUserIdByVcent(vcent.getVcUuid(), id);
+                String user_id2 = getUserIdByVcent(vcent.getVcUuid());
+                String user_uuid =  getUserUuIdByUser(user_id2);
+//                logger.info();
+                logger.info("user_uuid:"+user_uuid);
                 List<Fault> v_list_faults = new LinkedList<Fault>();
-                for (FaultType fault : vcent.getVcentStateList()) {
+                for (StreamerClouddrmanage.FaultType fault : vcent.getVcentStateList()) {
                     Fault fault2 = new Fault();
                     fault2.setTimestamp(now);
-                    fault2.setUser_uuid(user_id2);
+                    fault2.setUser_uuid(user_uuid);
                     fault2.setType(fault.getNumber());
                     fault2.setData_ark_uuid(data_ark.getUuid());
                     fault2.setData_ark_name(data_ark.getName());
@@ -564,12 +623,13 @@ public class InfoProcessData {
                     faults.add(fault2);
                 }
                 vcenter.setFaults(v_list_faults);
-                vcenter.setUuid(data_ark.getUuid());
+//                logger.info("异常:"+vcenter.getFaults());
+                vcenter.setData_ark_id(data_ark.getUuid());
                 vcList.add(vcenter);
                 // 如果VC的异常是离线，则不用封装虚拟机以及虚拟机的异常
                 boolean offline = false;
-                for (FaultType ft : vcent.getVcentStateList()) {
-                    if (ft == FaultType.VCENTER_OFFLINE) {
+                for (StreamerClouddrmanage.FaultType ft : vcent.getVcentStateList()) {
+                    if (ft == StreamerClouddrmanage.FaultType.VCENTER_OFFLINE) {
                         offline = true;
                         break;
                     }
@@ -578,18 +638,18 @@ public class InfoProcessData {
                 if (offline) {
                     continue;
                 }
-                List<Vmware> vmwareList = convertVirtualMachine(now, vcent);
+                List<StreamerClouddrmanage.Vmware> vmwareList = convertVirtualMachine(now, vcent);
 
             }
         }
         // 封装结束
     }
 
-    private List<Vmware> convertVirtualMachine(long now, Vcent vcent) {
+    private List<StreamerClouddrmanage.Vmware> convertVirtualMachine(long now, StreamerClouddrmanage.Vcent vcent) {
         // 顺便封装虚拟机
-        List<Vmware> vmwareList = vcent.getClientsList();
+        List<StreamerClouddrmanage.Vmware> vmwareList = vcent.getClientsList();
         if (vmwareList != null && vmwareList.size() > 0) {
-            for (Vmware vmware : vmwareList) {
+            for (StreamerClouddrmanage.Vmware vmware : vmwareList) {
                 Virtual_machine vm = new Virtual_machine();
 //                vm.setId(vmware.getId());
                 vm.setUuid(vmware.getId());
@@ -597,13 +657,16 @@ public class InfoProcessData {
                 vm.setPath(vmware.getPath());
                 // add by wxx 2019/05/13
                 vm.setSystem_Version(vmware.getSystemVersion());
-                String user_id3 = getUserIdByVM(vmware.getId(), data_ark.getId());
+
+                String user_id =  getUserUuIdByUser(vmware.getId());
+                String user_uuid =  getUserUuIdByUser(user_id);
                 List<Fault> vmware_list_faults = new LinkedList<Fault>();
-                List<FaultType> vmwareStateList = vmware.getVmwareStateList();
-                for (FaultType faultType : vmwareStateList) {
+                List<StreamerClouddrmanage.FaultType> vmwareStateList = vmware.getVmwareStateList();
+//                logger.info("allVmExceptions:"+vmwareStateList);
+                for (StreamerClouddrmanage.FaultType faultType : vmwareStateList) {
                     Fault fault = new Fault();
                     fault.setTimestamp(now);
-                    fault.setUser_uuid(user_id3);
+                    fault.setUser_uuid(user_uuid );
                     fault.setType(faultType.getNumber());
                     fault.setData_ark_uuid(data_ark.getUuid());
                     fault.setData_ark_name(data_ark.getName());
@@ -612,10 +675,10 @@ public class InfoProcessData {
                     fault.setClient_type(3);
                     fault.setClient_id(vmware.getId());
 
-                    if (!FaultType.VMWARE_OFFLINE.equals(faultType)) {
+//                    if (!FaultType.VMWARE_OFFLINE.equals(faultType)) {
                         this.faults.add(fault);
                         vmware_list_faults.add(fault);
-                    }
+//                    }
                 }
                 vm.setFaults(vmware_list_faults);
                 vm.setVcenter_id(vcent.getVcUuid());
@@ -629,11 +692,11 @@ public class InfoProcessData {
     }
 
 
-    private void convertClient(GetServerInfoReturn hrt, long now) {
+    private void convertClient(StreamerClouddrmanage.GetServerInfoReturn hrt, long now) {
         // 开始封装有代理客户端Client
-        List<Client> cList = hrt.getClientsList();
+        List<StreamerClouddrmanage.Client> cList = hrt.getClientsList();
         if (cList != null && cList.size() > 0) {
-            for (Client client : cList) {
+            for (StreamerClouddrmanage.Client client : cList) {
 
                 Client_ tmp = new Client_();
 //                tmp.setId(client.getId());
@@ -644,13 +707,16 @@ public class InfoProcessData {
                 // client.get
                 // add by wxx 2019/05/13
                 tmp.setSystem_Version(client.getSystemVersion());
-                String id = getUserIdByUuid(client.getId());
-                String user_id1 = getUserIdByClient(id);
+//                logger.info("clientId:"+client.getId());
+                String user_id = getUserIdByUuid(client.getId());
+//                logger.info("user_id:"+user_id);
+                String user_uuid =  getUserUuIdByUser(user_id);
+//                logger.info("user_id1:"+user_uuid);
                 List<Fault> client_fault_list = new LinkedList<Fault>();
-                for (FaultType f : client.getClientStateList()) {
+                for (StreamerClouddrmanage.FaultType f : client.getClientStateList()) {
                     Fault fault = new Fault();
                     fault.setTimestamp(now);
-                    fault.setUser_uuid(user_id1);
+                    fault.setUser_uuid(user_uuid);
                     fault.setType(f.getNumber());
                     fault.setData_ark_uuid(data_ark.getUuid());
                     fault.setData_ark_name(data_ark.getName());
@@ -666,12 +732,13 @@ public class InfoProcessData {
 //                tmp.setData_ark_id(data_ark.getId());
                 tmp.setData_ark_id(data_ark.getUuid());
                 this.clientList.add(tmp);
+//                logger.info("dataArkId:"+tmp.getData_ark_id()+"Exception:"+ tmp.getExcept());
             }
         }
         // 封装有代理客户端Client完毕
     }
 
-    private DataArkDTO convertStreamerServer(GetServerInfoReturn hrt, long now) {
+    private DataArkDTO convertStreamerServer(StreamerClouddrmanage.GetServerInfoReturn hrt, long now) {
         // 把心跳过来的异常信息全部先封装起来
         DataArkDTO dataServer = new DataArkDTO();
         // 开始封装Data_ark
@@ -680,13 +747,15 @@ public class InfoProcessData {
 //        dataServer.setId(uuid);//正常
         dataServer.setUuid(uuid);
 //        dataServer.setUuid(uuid);
-        Streamer streamer = hrt.getServer();
+        StreamerClouddrmanage.Streamer streamer = hrt.getServer();
         dataServer.setIp(streamer.getIp());
         dataServer.setName(getDataArkName(uuid));
+//        dataServer.setName(streamer.getName());
         dataServer.setTotal_cap(streamer.getTotal());
         dataServer.setUsed_cap(streamer.getUsed());
         dataServer.setTotal_oracle_capacity(streamer.getOracleVol());
         dataServer.setTotal_rds_capacity(streamer.getRdsVol());
+        long maxVcenterVm = streamer.getMaxVcenterVm();
         long maxClient = streamer.getMaxClients();
 
         Long cloudVol = streamer.getCloudVol();
@@ -703,13 +772,18 @@ public class InfoProcessData {
         dataServer.setRdsUsed(rdsUsed);
         dataServer.setOssUsed(ossUsed);
         dataServer.setMetaUsed(metaUsed);
-        String id = getUserIdByUuid(uuid);
-        String user_id = getUserIdByDataArk(id);
+        dataServer.setLimitVcenterVmCount(maxVcenterVm);
+
+//        String id = getUserIdByUuid(uuid);
+//        String id = getUserIdByUuidFromDataArk(uuid);
+        String user_id = getUserIdByDataArk(uuid);
+        String id =  getUserUuIdByUser(user_id);
         List<Fault> data_ark_fault_list = new LinkedList<Fault>();
-        for (FaultType f : streamer.getStreamerStateList()) {
+//        logger.info(streamer.getStreamerStateList());
+        for (StreamerClouddrmanage.FaultType f : streamer.getStreamerStateList()) {
             Fault mFault = new Fault();
             mFault.setTimestamp(now);
-            mFault.setUser_uuid(user_id);
+            mFault.setUser_uuid(id);
             mFault.setType(f.getNumber());
 //            mFault.setData_ark_uuid(dataServer.getId());//正常
             mFault.setData_ark_uuid(dataServer.getUuid());

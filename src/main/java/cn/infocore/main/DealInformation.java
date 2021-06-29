@@ -244,7 +244,7 @@ public class DealInformation implements Runnable {
 		String uuid = request.getId();
 		logger.info("Need to add data ark id:" + uuid);
 		String ip = "";
-		String sql = "select ip from data_ark where id=?";
+		String sql = "select ip from data_ark where uuid=?";
 		Object[] param = { uuid };
 		QueryRunner qr = MyDataSource.getQueryRunner();
 		try {
@@ -303,9 +303,9 @@ public class DealInformation implements Runnable {
 		email.setSender_email(request.getSenderEmail());
 		email.setSmtp_address(request.getSmtpAddress());
 		email.setSmtp_port(request.getSmtpPort());
-		email.setSsl_encrypt(request.getIsSslEncryptEnabled() ? (byte) 1 : 0);
-		email.setSmtp_authentication(request.getIsSmtpAuthentication() ? (byte) 1 : 0);
-		email.setSmtp_user_id(request.getSmtpUserId());
+		email.setSsl_encrypt_enabled(request.getIsSslEncryptEnabled() ? (byte) 1 : 0);
+		email.setSmtp_auth_enadled(request.getIsSmtpAuthentication() ? (byte) 1 : 0);
+		email.setSmtp_user_uuid(request.getSmtpUserId());
 		email.setSmtp_password(request.getSmtpPassword());
 		List<String> list = request.getReceiverEmailsList();
 		StringBuilder builder = new StringBuilder();

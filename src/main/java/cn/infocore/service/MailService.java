@@ -7,7 +7,7 @@ import java.util.List;
 import cn.infocore.bo.FaultSimple;
 import cn.infocore.dto.DataArkDTO;
 import cn.infocore.entity.*;
-import cn.infocore.protobuf.StmStreamerDrManage;
+//import cn.infocore.protobuf.StmStreamerDrManage;
 
 public interface MailService {
 	
