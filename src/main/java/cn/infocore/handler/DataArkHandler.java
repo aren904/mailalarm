@@ -9,6 +9,7 @@ import cn.infocore.dto.DataArkDTO;
 
 public class DataArkHandler implements ResultSetHandler<DataArkDTO>{
 
+	@Override
 	public DataArkDTO handle(ResultSet rs) throws SQLException {
 		StringBuilder builder=new StringBuilder();
 		DataArkDTO data_ark=null;

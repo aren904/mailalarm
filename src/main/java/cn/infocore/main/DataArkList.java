@@ -5,26 +5,29 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import StmStreamerDrManage.StreamerClouddrmanage;
+import cn.infocore.utils.MyDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 
 import cn.infocore.entity.UUid_ip;
 import cn.infocore.handler.UUid_ipHandler;
-import cn.infocore.utils.MyDataSource;
 
-//内存中维护的数据方舟的列表<uuid,ip>,顺便初始化维护数据方舟心跳的单例queue
+//内存中维护的数据方舟的列表<uuid,ip>,顺便初始化维护数据方舟心跳的单例queuez
 public class DataArkList {
-	private static final Logger logger=Logger.getLogger(DataArkList.class);
+
+    private static final Logger logger = Logger.getLogger(DataArkList.class);
+    private StreamerClouddrmanage.GetServerInfoReturn hrt;
 	//维护的数据方舟的uuid-->ip列表
 	private Map<String,String> data_ark_list=new ConcurrentHashMap<String, String>();
-	
+
 	private DataArkList() {
 		logger.info("Init,Start get all data ark from database.");
 		//初始的时候，先从数据库中获取一次，写入缓存
 //		String sql="select id,ip from data_ark";
 //		String sql="select id,ip from data_ark";
-		String sql="select * from data_ark";
-		QueryRunner qr=MyDataSource.getQueryRunner();
+		String sql="select * from data_ark  ";
+		QueryRunner qr= MyDataSource.getQueryRunner();
 		List<UUid_ip> lIps=null;
 		try {
 			lIps=qr.query( sql, new UUid_ipHandler());
@@ -32,6 +35,7 @@ public class DataArkList {
 				this.data_ark_list.put(uid_ip.getUuid(),uid_ip.getIp());
 				//同时初始化维护数据方舟掉线的列表
 				HeartCache.getInstance().addHeartCache(uid_ip.getUuid(), 0L);
+//				HeartCache.getInstance().addHeartCache(uid_ip.getUuid(), System.currentTimeMillis()/1000L);
 		}
 			logger.info("Succeed to get data ark,count:"+this.data_ark_list.size());
 		} catch (SQLException e) {
@@ -40,28 +44,85 @@ public class DataArkList {
 			//MyDataSource.close(connection);
 		}
 	}
-	
+
 	private static class DataArkListHolder{
 		public static DataArkList instance=new DataArkList();
 	}
-	
+
 	public static DataArkList getInstance() {
 		return DataArkListHolder.instance;
 	}
-	
+
 	//添加
 	public synchronized void addDataArk(String uuid,String ip) {
 		data_ark_list.put(uuid, ip);
 	}
-	
+
 	//移除
 	public synchronized void removeDataArk(String uuid) {
 		data_ark_list.remove(uuid);
 	}
-	
+
 	//获取所有
 	public synchronized Map<String,String> getData_ark_list() {
 		return data_ark_list;
 	}
-	
+
+
+    //维护的数据方舟的uuid-->ip列表
+//    private Map<String, String> data_ark_list = new ConcurrentHashMap<String, String>();
+//
+//    private DataArkList() {
+//        logger.info("Init,Start get all data ark from database.");
+//        //初始的时候，先从数据库中获取一次，写入缓存
+////		String sql="select id,ip from data_ark";
+//		String sql="select id,ip from data_ark";
+//        //	String sql="select * from data_ark  ";
+//       QueryRunner qr= MyDataSource.getQueryRunner();
+//       List<UUid_ip> lIps=null;
+////        String ip = null;
+////        String uuid = null;
+////        if (hrt != null) {
+////            ip = hrt.getServer().getIp();
+////            uuid = hrt.getUuid();
+////            this.data_ark_list.put(ip, uuid);
+////        }
+//        try {
+//            lIps=qr.query( sql, new UUid_ipHandler());
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        for (UUid_ip uid_ip:lIps) {
+////
+//        this.data_ark_list.put(ip, uuid);
+//        //同时初始化维护数据方舟掉线的列表
+//        HeartCache.getInstance().addHeartCache(uuid, 0L);
+////				HeartCache.getInstance().addHeartCache(uid_ip.getUuid(), System.currentTimeMillis()/1000L);
+//        //}
+//        logger.info("Succeed to get data ark,count:" + this.data_ark_list.size());
+//
+//    }
+//
+//    private static class DataArkListHolder {
+//        public static DataArkList instance = new DataArkList();
+//    }
+//
+//    public static DataArkList getInstance() {
+//        return DataArkListHolder.instance;
+//    }
+//
+//    //添加
+//    public synchronized void addDataArk(String uuid, String ip) {
+//        data_ark_list.put(uuid, ip);
+//    }
+//
+//    //移除
+//    public synchronized void removeDataArk(String uuid) {
+//        data_ark_list.remove(uuid);
+//    }
+//
+//    //获取所有
+//    public synchronized Map<String, String> getData_ark_list() {
+//        return data_ark_list;
+//    }
 }

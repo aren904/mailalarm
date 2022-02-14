@@ -2,20 +2,23 @@ package cn.infocore.dao;
 
 import java.sql.SQLException;
 
+import cn.infocore.utils.MyDataSource;
 import org.apache.commons.dbutils.QueryRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import cn.infocore.handler.User_idHandler;
-import cn.infocore.utils.MyDataSource;
 
 @Component
 public class UserDAO {
+//
+//	@Autowired
+//	MyDataSource myDataSource;
 
-	
-	
 	// 获取vc的userid，注意vc会被不同streamer添加
 	public String getUserIdByVcent(String vcId, String data_ark_id) {
 		QueryRunner q = MyDataSource.getQueryRunner();
+//		QueryRunner q = myDataSource.getQueryRunner();
 		Object[] param = new Object[] { vcId, data_ark_id };
 		String result = "";
 //		String sql = "select user_id from vcenter where vcenter_id=? and data_ark_id=?";
@@ -49,6 +52,7 @@ public class UserDAO {
 	public String getUserIdByRDS(String rds_id, String data_ark_id) {
 		// Connection connection=MyDataSource.getConnection();
 		QueryRunner q = MyDataSource.getQueryRunner();
+//		QueryRunner q = myDataSource.getQueryRunner();
 		Object[] param = new Object[] { rds_id, data_ark_id };
 		String sql = "select user_id from rds where rds_id=? and data_ark_id=?";
 		String result = "";
@@ -64,6 +68,7 @@ public class UserDAO {
 	public String getUserIdByRDSInstance(String rds_instance_id, String data_ark_id) {
 		// Connection connection=MyDataSource.getConnection();
 		QueryRunner q = MyDataSource.getQueryRunner();
+//		QueryRunner q = myDataSource.getQueryRunner();
 		Object[] param = new Object[] { rds_instance_id, data_ark_id };
 		//String sql = "select user_id from rds_instance where id=? and data_ark_id=?";
 		String sql = "SELECT user_id from scmp.rds_instance as A inner join scmp.rds as B on A.rds_id=B.id  and A.instance_id =? and B.data_ark_id = ? ";

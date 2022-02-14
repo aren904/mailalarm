@@ -9,6 +9,7 @@ import cn.infocore.bo.FaultSimple;
 public interface OssService {
 
     //根据  更新客户端
+//    void ReUpdateOssClient(StreamerClouddrmanage.OssInfo ossClient);
     void ReUpdateOssClient(StreamerClouddrmanage.OssInfo ossClient);
 
     List<FaultSimple> updateOssClientList(List<StreamerClouddrmanage.OssInfo> ossClient);

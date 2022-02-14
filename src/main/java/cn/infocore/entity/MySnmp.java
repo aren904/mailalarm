@@ -11,6 +11,7 @@ public class MySnmp {
     private int update_version;//最后一次更新版本
     private int enabled;//0表示禁用
     private String security_username;
+//    Todo 下个版本需要将snmp.auth_password这些改成byte[]类型 加密字段需要用TestAesGcmAe去解密
     private int authentication_protocol;
     private int authentication_password_enabled;
     private String authentication_password;

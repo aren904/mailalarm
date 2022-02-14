@@ -20,7 +20,7 @@ import java.util.List;
  * @ProjectName: mailalarm
  * @Package: cn.infocore.SnmpV3Sender
  * @ClassName: NaNp
- * @Author: zxcdr
+ * @Author: aren904
  * @Description: 此类为既无认证有没有特权
  * @Date: 2021/4/13 19:25
  * @Version: 1.0

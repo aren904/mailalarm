@@ -1,30 +1,23 @@
 package cn.infocore.main;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
 import StmStreamerDrManage.StreamerClouddrmanage;
 import cn.infocore.entity.*;
-import cn.infocore.handler.IdHandler;
-import cn.infocore.handler.userUUidhandler;
+import cn.infocore.handler.*;
+import cn.infocore.utils.MyDataSource;
 import lombok.Data;
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.log4j.Logger;
 
 
 import cn.infocore.bo.FaultSimple;
 import cn.infocore.dao.AlarmLogDAO;
 import cn.infocore.dto.DataArkDTO;
-import cn.infocore.handler.NameHandler;
-import cn.infocore.handler.User_idHandler;
 //import cn.infocore.protobuf.StmStreamerDrManage.Client;
 //import cn.infocore.protobuf.StmStreamerDrManage.EcsInfo;
 //import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
@@ -42,7 +35,6 @@ import cn.infocore.service.RDSService;
 import cn.infocore.service.impl.EcsService;
 import cn.infocore.service.impl.MailServiceImpl;
 import cn.infocore.service.impl.MdbService;
-import cn.infocore.utils.MyDataSource;
 
 //解析数据，拦截，触发报警，写数据库等操作
 @Data
@@ -66,6 +58,8 @@ public class InfoProcessData {
         this.hrt = hrt;
     }
 
+
+//    QueryRunner q = MyDataSource.getQueryRunner();
     public void run() throws SQLException {
         logHeartbeat(hrt);
 
@@ -90,7 +84,9 @@ public class InfoProcessData {
             vmList = new LinkedList<Virtual_machine>();
             LinkedList<FaultSimple> faultSimples = new LinkedList<FaultSimple>();
             parse(hrt);
+            logger.debug("Transfer parameter from Heartbeat");
             updateDataArk(data_ark);
+
             // 判断是否为空，避免空指针异常抛出
             if (clientList != null && clientList.size() > 0) {
                 updateClient(clientList);
@@ -177,7 +173,7 @@ public class InfoProcessData {
             hrt.toBuilder().clearVcents();
             logger.info("Heartbeat received and parsed successfully,wait next.");
         } else {
-            logger.info("The data ark uuid:" + hrt.getUuid() + " is not in Cache or Database,refused it!!!");
+            logger.info("The data ark uuid:" + hrt.getUuid() + " is not in Cache or Database or delete force,refused it!!!");
         }
     }
 
@@ -201,11 +197,6 @@ public class InfoProcessData {
         List<FaultSimple> faultSimples = ossService.updateOssClientList(ossClient);
         return faultSimples;
     }
-
-//    private List<FaultSimple> updateDataArk(String dataArkId, Streamer dataArk) {
-//        // TODO Auto-generated method stub
-//        return null;
-//    }
 
 
     void ReUpdateOssClient(StreamerClouddrmanage.OssInfo ossClient) {
@@ -300,7 +291,7 @@ public class InfoProcessData {
         logger.info("Start to update VCenter..");
         QueryRunner qr = MyDataSource.getQueryRunner();
 //        String sql = "update vcenter set name=?,ips=?,exceptions=? where vcenter_id=?";
-        String sql = "update vcenter set name=?,ips=?,exceptions=? where uuid=?";
+        String sql = "update client set name=?,ips=?,exceptions=? where uuid=?";
         int size = list.size();
         int paramSize = 0;
         for (int i = 0; i < list.size(); i++) {
@@ -313,6 +304,7 @@ public class InfoProcessData {
         Object[][] param1 = new Object[size - paramSize][];
         int j = 0;
         for (int i = 0; i < size; i++) {
+//            logger.info("bbbbbbbbbbb");
             Vcenter v = list.get(i);
             if (v.getIps() != null && v.getIps() != "" && v.getIps().length() > 0) {
                 param[j] = new Object[4];
@@ -326,6 +318,7 @@ public class InfoProcessData {
         }
         int k = 0;
         for (int i = 0; i < size; i++) {
+
             Vcenter v = list.get(i);
             if (v.getIps() == null || v.getIps() == "" || v.getIps().length() == 0) {
                 param1[k] = new Object[3];
@@ -339,8 +332,9 @@ public class InfoProcessData {
         try {
             qr.batch(sql, param);
             if (param1.length > 0) {
+
 //                sql = "update vcenter set name=?,exceptions=? where vcenter_id=?";
-                sql = "update vcenter set name=?,exceptions=? where uuid=?";
+                sql = "update client set name=?,exceptions=? where uuid=?";
                 qr.batch(sql, param1);
             }
         } catch (SQLException e) {
@@ -356,7 +350,8 @@ public class InfoProcessData {
         logger.info("Start update virtual machine.");
         // Connection connection=MyDataSource.getConnection();
         QueryRunner qr = MyDataSource.getQueryRunner();
-        String sql = "update vcenter_vm set name=?,path=?,exceptions=?,operating_system=? where uuid=?";
+        //String sql = "update vcenter_vm set name=?,path=?,exceptions=?,operating_system=? where uuid=?";
+        String sql = "update client_backup set name=?,path=?,exceptions=?,operating_system=? where uuid=?";
         int size = vmlist.size();
         Object[][] param = new Object[size][];
         for (int i = 0; i < size; i++) {
@@ -450,7 +445,7 @@ public class InfoProcessData {
         String result = "";
         String sql = "select user_id from quota where data_ark_id=?";
         try {
-            result = q.query(sql, new User_idHandler(), param);
+            result = q.query(sql, new UUIDHandler(), param);
 //            result = q.query(sql, new BeanListHandler<>(), param);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -460,23 +455,7 @@ public class InfoProcessData {
         return result;
     }
 
-    // 获取普通客户端的userid
-//    private String getUserIdByClient(String clientId) {
-//        QueryRunner q = MyDataSource.getQueryRunner();
-//        Object[] param = new Object[]{clientId};
-//        String result = "";
-////        String sql = "select user_id from client where id=?";
-////        String sql = "select user_id from client where data_ark_id=?";
-//     String sql ="select uuid from user where id = ?";
-//        try {
-//            result = q.query(sql, new User_idHandler(), param);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } finally {
-//            // MyDataSource.close(connection);
-//        }
-//        return result;
-//    }
+
 
     private String getUserUuIdByUser(String clientId) {
         QueryRunner q = MyDataSource.getQueryRunner();
@@ -500,7 +479,7 @@ public class InfoProcessData {
         Object[] param = new Object[]{vcId};
         String result = "";
 //        String sql = "select user_id from vcenter where vcenter_id=? and data_ark_id=?";
-        String sql = "select user_id from vcenter where uuid=? ";
+        String sql = "select user_id from client where uuid=? ";
         try {
             result = q.query(sql, new IdHandler(), param);
         } catch (SQLException e) {
@@ -515,21 +494,7 @@ public class InfoProcessData {
 
 
 
-    private String getUserIdByUuidFromventer(String uuid) {
-        QueryRunner q = MyDataSource.getQueryRunner();
-        Object[] param = new Object[]{uuid};
-        String result = "";
-//        String sql = "select user_id from data_ark where uuid=?";
-        String sql ="select user_id from vcenter where uuid = ?";
-        try {
-            result = q.query(sql, new IdHandler(), param);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
 
-        }
-        return result;
-    }
 
 
     private String getUserIdByUuid(String uuid) {
@@ -550,39 +515,6 @@ public class InfoProcessData {
 
 
 
-    private String getUserIdByUuidFromDataArk(String uuid) {
-        QueryRunner q = MyDataSource.getQueryRunner();
-        Object[] param = new Object[]{uuid};
-        String result = "";
-        String sql = "select user_uuid from data_ark where uuid=?";
-//        String sql ="select user_id from client where uuid = ?";
-        try {
-            result = q.query(sql, new userUUidhandler(), param);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-
-        }
-        return result;
-    }
-
-
-//    private String getUserIdByVM(String uuid, String data_ark_id) {
-//        // Connection connection=MyDataSource.getConnection();
-//        QueryRunner q = MyDataSource.getQueryRunner();
-//        Object[] param = new Object[]{uuid, data_ark_id};
-//        String sql = "SELECT user_id from scmp.vcenter_vm as A inner join scmp.vcenter as B on A.vcenter_id=B.id and A.id =? and B.data_ark_id = ?  ";
-////        String sql = "SELECT user_id from scmp.vcenter_vm as A inner join scmp.vcenter as B on A.uuid=B.id and A.id =? and B.data_ark_id = ?  ";
-//        String result = "";
-//        try {
-//            result = q.query(sql, new User_idHandler(), param);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } finally {
-//            // MyDataSource.close(connection);
-//        }
-//        return result;
-//    }
 
     private void parse(StreamerClouddrmanage.GetServerInfoReturn hrt) {
         long now = System.currentTimeMillis() / 1000;
@@ -604,24 +536,36 @@ public class InfoProcessData {
                 vcenter.setIps(vcent.getVcIp());
 
                 String user_id2 = getUserIdByVcent(vcent.getVcUuid());
-                String user_uuid =  getUserUuIdByUser(user_id2);
-//                logger.info();
-                logger.info("user_uuid:"+user_uuid);
-                List<Fault> v_list_faults = new LinkedList<Fault>();
-                for (StreamerClouddrmanage.FaultType fault : vcent.getVcentStateList()) {
-                    Fault fault2 = new Fault();
-                    fault2.setTimestamp(now);
-                    fault2.setUser_uuid(user_uuid);
-                    fault2.setType(fault.getNumber());
-                    fault2.setData_ark_uuid(data_ark.getUuid());
-                    fault2.setData_ark_name(data_ark.getName());
-                    fault2.setData_ark_ip(data_ark.getIp());
-                    fault2.setTarget_name(vcent.getVcName());
-                    fault2.setClient_type(2);// 2019年3月11日18:04:13 朱伟添加
-                    fault2.setClient_id(vcent.getVcUuid());// 2019年3月11日18:04:13 朱伟添加
-                    v_list_faults.add(fault2);
-                    faults.add(fault2);
+                List<Fault> v_list_faults = null;
+                String[] user_id = user_id2.split(";");
+                for (String userId : user_id) {
+                    String userUuid = getUserUuIdByUser(userId);
+                    logger.info("User_uuid: "+userUuid);
+                    for (StreamerClouddrmanage.FaultType fault : vcent.getVcentStateList()) {
+                        v_list_faults = new LinkedList<Fault>();
+                        Fault fault2 = new Fault();
+                        fault2.setTimestamp(now);
+                        fault2.setUser_uuid(userUuid);
+                        fault2.setType(fault.getNumber());
+                        //  logger.info("Fault: "+fault.getNumber());
+                        fault2.setData_ark_uuid(data_ark.getUuid());
+                        fault2.setData_ark_name(data_ark.getName());
+                        fault2.setData_ark_ip(data_ark.getIp());
+                        fault2.setTarget_name(vcent.getVcName());
+                        fault2.setClient_type(2);// 2019年3月11日18:04:13 朱伟添加
+                        fault2.setClient_id(vcent.getVcUuid());// 2019年3月11日18:04:13 朱伟添加
+                        v_list_faults.add(fault2);
+                        faults.add(fault2);
+                    }
                 }
+//                logger.info("UserId: "+user_id2);
+//                String user_uuid =  getUserUuIdByUser(user_id2);
+//                logger.info("User_uuid: "+userUuid);
+
+//                logger.info();
+//                logger.info("user_uuid:"+user_uuid);
+
+
                 vcenter.setFaults(v_list_faults);
 //                logger.info("异常:"+vcenter.getFaults());
                 vcenter.setData_ark_id(data_ark.getUuid());
@@ -731,6 +675,7 @@ public class InfoProcessData {
                 tmp.setType(client.getType().getNumber());
 //                tmp.setData_ark_id(data_ark.getId());
                 tmp.setData_ark_id(data_ark.getUuid());
+                logger.info("Exception"+tmp.getExcept());
                 this.clientList.add(tmp);
 //                logger.info("dataArkId:"+tmp.getData_ark_id()+"Exception:"+ tmp.getExcept());
             }
@@ -743,14 +688,11 @@ public class InfoProcessData {
         DataArkDTO dataServer = new DataArkDTO();
         // 开始封装Data_ark
         String uuid = hrt.getUuid();
-
-//        dataServer.setId(uuid);//正常
+//        logger.info(uuid);
         dataServer.setUuid(uuid);
-//        dataServer.setUuid(uuid);
         StreamerClouddrmanage.Streamer streamer = hrt.getServer();
         dataServer.setIp(streamer.getIp());
         dataServer.setName(getDataArkName(uuid));
-//        dataServer.setName(streamer.getName());
         dataServer.setTotal_cap(streamer.getTotal());
         dataServer.setUsed_cap(streamer.getUsed());
         dataServer.setTotal_oracle_capacity(streamer.getOracleVol());
@@ -764,8 +706,10 @@ public class InfoProcessData {
         Long rdsUsed = streamer.getRdsUsed();
         Long ossUsed = streamer.getOssUsed();
         Long metaUsed = streamer.getMetaUsed();
+        Long cloudUsed = ecsUsed+rdsUsed+ossUsed+metaUsed;
         dataServer.setLimitClientCount(maxClient);
         dataServer.setCloudVol(cloudVol);
+        dataServer.setCloudUsed(cloudUsed);
         dataServer.setRacUsed(racUsed);
         dataServer.setEcsUsed(ecsUsed);
         dataServer.setRacUsed(racUsed);
@@ -774,12 +718,14 @@ public class InfoProcessData {
         dataServer.setMetaUsed(metaUsed);
         dataServer.setLimitVcenterVmCount(maxVcenterVm);
 
-//        String id = getUserIdByUuid(uuid);
-//        String id = getUserIdByUuidFromDataArk(uuid);
-        String user_id = getUserIdByDataArk(uuid);
+
+        String id1 = findDataArkUUIdById(uuid);
+        String user_id = getUserIdByDataArk(id1);
         String id =  getUserUuIdByUser(user_id);
+//        logger.info(id1);
+//        logger.info(user_id);
+//        logger.info(id);
         List<Fault> data_ark_fault_list = new LinkedList<Fault>();
-//        logger.info(streamer.getStreamerStateList());
         for (StreamerClouddrmanage.FaultType f : streamer.getStreamerStateList()) {
             Fault mFault = new Fault();
             mFault.setTimestamp(now);
@@ -813,6 +759,24 @@ public class InfoProcessData {
             e.printStackTrace();
         } finally {
             // MyDataSource.close(connection);
+        }
+        return result;
+    }
+
+
+
+    private String findDataArkUUIdById(String uuid) {
+        QueryRunner q = MyDataSource.getQueryRunner();
+        Object[] param = new Object[]{uuid};
+        String result = "";
+        String sql = "select id from data_ark where uuid=?";
+
+        try {
+            result = q.query(sql, new dataIdHandler(), param);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+
         }
         return result;
     }

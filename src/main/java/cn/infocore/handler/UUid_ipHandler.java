@@ -10,6 +10,7 @@ import org.apache.commons.dbutils.ResultSetHandler;
 import cn.infocore.entity.UUid_ip;
 
 public class UUid_ipHandler implements ResultSetHandler<List<UUid_ip>>{
+	@Override
 	public List<UUid_ip> handle(ResultSet set) throws SQLException {
 		List<UUid_ip> uid_ips=new LinkedList<UUid_ip>();
 		while(set.next()) {

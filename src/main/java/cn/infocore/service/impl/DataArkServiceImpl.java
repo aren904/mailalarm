@@ -23,30 +23,33 @@ public class DataArkServiceImpl extends ServiceImpl<DateArkMapper, DataArkDO> im
     @Override
     public void update(DataArkDTO data_ark) {
 
-        String id = data_ark.getId();
+//        String id = data_ark.getId();
         String uuid = data_ark.getUuid();
+//        logger.info(id);
+//        logger.info(uuid);
         Long totalPoolSize = data_ark.getTotalCap();
         Long used = data_ark.getUsed_cap();
         String exceptions = data_ark.getExcept();
-        logger.info(exceptions);
-        String ip = data_ark.getIp();
+//        logger.info(exceptions);
+//        String ip = data_ark.getIp();
         Long oracleSpaceSize = data_ark.getTotal_oracle_capacity();
-        // Long rdsSpaceSize = data_ark.getTotal_rds_capacity();
+
 
         Long cloudVol = data_ark.getCloudVol();
-        String name = data_ark.getName();
+//        String name = data_ark.getName();
+
         Long racUsed = data_ark.getRacUsed();
         Long ecsUsed = data_ark.getEcsUsed();
         Long rdsUsed = data_ark.getRdsUsed();
         Long ossUsed = data_ark.getOssUsed();
         Long metaUsed = data_ark.getMetaUsed();
+        Long cloudUsed = ecsUsed+rdsUsed+ossUsed+metaUsed;
         int limitVcenterVmCount = (int) data_ark.getLimitVcenterVmCount();
-//        int limitClientCount =  (int)data_ark.getLimitClientCount();
         int limitClientCount = (int) data_ark.getLimitClientCount();
         DataArkDO dataArkDO = new DataArkDO();
-        dataArkDO.setId(id)
-                .setUuid(uuid)
-                .setIp(ip)
+        dataArkDO.setUuid(uuid)
+//                .setIp(ip)
+                .setUsedCloudSpaceSize(cloudUsed)
                 .setLimitClientCount(limitClientCount)
                 .setExceptions(exceptions)
                 .setTotalPoolSize(totalPoolSize)
@@ -58,7 +61,8 @@ public class DataArkServiceImpl extends ServiceImpl<DateArkMapper, DataArkDO> im
                 .setUsedRdsSpaceSize(rdsUsed)
                 .setUsedOssSpaceSize(ossUsed)
                 .setUsedMdbSpaceSize(metaUsed)
-                .setName(name)
+                .setLimitClientCount(limitClientCount)
+//                .setName(name)
                 .setLimitVcenterVmCount(limitVcenterVmCount)
                 ;
 

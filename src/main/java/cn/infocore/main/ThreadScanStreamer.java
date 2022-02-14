@@ -1,14 +1,13 @@
 package cn.infocore.main;
 
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import cn.infocore.entity.*;
-//import cn.infocore.protobuf.StmStreamerDrManage;
+import cn.infocore.utils.MyDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 
@@ -16,7 +15,6 @@ import cn.infocore.dto.DataArkDTO;
 import cn.infocore.handler.DataArkHandler;
 import cn.infocore.handler.ExceptHandler;
 import cn.infocore.service.impl.MailServiceImpl;
-import cn.infocore.utils.MyDataSource;
 //import cn.infocore.protobuf.StmStreamerDrManage;
 /**
  * 检测streamer服务端状态
@@ -26,10 +24,83 @@ public class ThreadScanStreamer implements Runnable {
 	private static final long split = 3 * 60;
 	// private static final long split=30;
 	// Long timestamp = System.currentTimeMillis();
+//	CaptureDataArkIp captureDataArkIp;
 
 	// Long stp = 5000L;
+//	public ThreadScanStreamer(CaptureDataArkIp captureDataArkIp) {
+//		this.captureDataArkIp=captureDataArkIp;
+//		logger.info("Init Data ark offline listener thread.");
+//	}
+
 	public ThreadScanStreamer() {
 		logger.info("Init Data ark offline listener thread.");
+	}
+
+	@Override
+	public void run() {
+			Map<String, Long> map = null;
+			List<String> uuids = null;
+//			DataArkList.getInstance(); // for all streamer offline and start service not getcache
+		   DataArkList.getInstance();
+			//logger.info("kmj");
+			while (true) {
+				try {
+
+					map = HeartCache.getInstance().getAllCacheList();
+					logger.info("Start Scanner data ark offline is or not....data_ark size:" + map.size());
+					uuids = new ArrayList<String>();
+//				String ip = ObtainIpFromItself.getIp();
+//				String ip = ObtainIpFromItself.getInterfaceAddresses();
+//				List<InterfaceAddress> addresses = ObtainIpFromItself.getInterfaceAddresses();
+//				logger.info("addresses: " + addresses);
+//				String s = addresses.toString();
+//				System.out.println(s);
+					//	String[] ips = s.split("/");
+//				System.out.println(ips[1]);
+
+//				logger.info("ip:"+ips[1]);
+//				String uuid1 = captureDataArkIp.getUuidByDataArkIp(ips[1]);
+//				logger.info("当前ip的uuid:"+uuid1);
+					if (map.size() > 0) {
+						for (Map.Entry<String, Long> entry : map.entrySet()) {
+							String uuid = entry.getKey();
+							//只判断本机uuid的在线离线状态
+							//	if (uuid1.equals(uuid)) {
+							long time = entry.getValue();
+//						logger.info("time:"+time);
+							long now = System.currentTimeMillis() / 1000;
+//						logger.info("now:"+now);
+							if (now - time > split) {
+								// 当前时间-最后更新的时间>3分钟,认为掉线
+								logger.info("uuid:" + uuid + " is offline,update database.");
+								updateOffLine(uuid, false);
+								// 每3分钟发送一次Trap
+								logger.info("Collect offline streamer:" + uuid);
+								uuids.add(uuid);
+							} else {
+								logger.info("uuid:" + uuid + " is online,update database.");
+								updateOffLine(uuid, true);
+							}
+						}
+
+						if (uuids.size() > 0) {
+							logger.info("Sender snmp server alarm.");
+							SnmpTrapSender.run(uuids);
+//						SnmpTrapSender.getInstance().run(uuids);
+						}
+					}
+
+
+					try {
+						Thread.sleep(split * 1000);
+					} catch (InterruptedException e) {
+						logger.error("ThreadScanStreamer interrupted...", e);
+					}
+				} catch (Exception e) {
+					logger.error("ThreadScanStreamer:" + e);
+				}
+			}
+
 	}
 
 	private static class ThreadScanStreamerHolder {
@@ -40,52 +111,9 @@ public class ThreadScanStreamer implements Runnable {
 		return ThreadScanStreamerHolder.instance;
 	}
 
-	@Override
-	public void run() {
-		Map<String, Long> map = null;
-		List<String> uuids = null;
-		DataArkList.getInstance(); // for all streamer offline and start service not getcache
 
-		while (true) {
-			try {
-				map = HeartCache.getInstance().getAllCacheList();
-				logger.info("Start Scanner data ark offline is or not....data_ark size:" + map.size());
-				uuids = new ArrayList<String>();
-				if (map.size() > 0) {
-					for (Map.Entry<String, Long> entry : map.entrySet()) {
-						String uuid = entry.getKey();
-						long time = entry.getValue();
-						long now = System.currentTimeMillis() / 1000;
-						if (now - time > split) {
-							// 当前时间-最后更新的时间>3分钟,认为掉线
-							logger.info("uuid:" + uuid + " is offline,update database.");
-							updateOffLine(uuid, false);
-							// 每3分钟发送一次Trap
-							logger.info("Collect offline streamer:" + uuid);
-							uuids.add(uuid);
-						} else {
-							logger.info("uuid:" + uuid + " is online,update database.");
-							updateOffLine(uuid, true);
-						}
-					}
 
-					if (uuids.size() > 0) {
-						logger.info("Sender snmp server alarm.");
-						SnmpTrapSender.run(uuids);
-//						SnmpTrapSender.getInstance().run(uuids);
-					}
-				}
 
-				try {
-					Thread.sleep(split * 1000);
-				} catch (InterruptedException e) {
-					logger.error("ThreadScanStreamer interrupted...", e);
-				}
-			} catch (Exception e) {
-				logger.error("ThreadScanStreamer:" + e);
-			}
-		}
-	}
 
 	// 更新数据库中是否离线的标志
 	public static void updateOffLine(String uuid, boolean online) {

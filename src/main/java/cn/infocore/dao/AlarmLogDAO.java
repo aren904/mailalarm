@@ -3,16 +3,16 @@ package cn.infocore.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import cn.infocore.entity.AlarmLogDO;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import cn.infocore.utils.MyDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
-import cn.infocore.utils.MyDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class AlarmLogDAO {
+
+
 
 	private static final Logger logger = Logger.getLogger(AlarmLogDAO.class);
 

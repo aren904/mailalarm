@@ -43,6 +43,7 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
         String dataArkIp = faultSimple.getDataArkIp();
         String targetName = faultSimple.getTargetName();
         String dataArkName = faultSimple.getDataArkName();
+//        Collection<StreamerClouddrmanage.FaultType> faultTypes = faultSimple.getFaultTypes();
         Collection<StreamerClouddrmanage.FaultType> faultTypes = faultSimple.getFaultTypes();
         Long timestamp = faultSimple.getTimestamp();
         List<String> userIds = faultSimple.getUserUuids();
@@ -61,10 +62,10 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
             alarmLogDO.setDataArkName(dataArkName);
             alarmLogDO.setDataArkUuid(dataArkId);
             alarmLogDO.setDataArkIp(dataArkIp);
-            alarmLogDO.setTargetUuid(targetId);
+            alarmLogDO.setTargetUuid(targetId);//
             alarmLogDO.setTargetName(targetName);
             alarmLogDO.setUserUuid(userIdsString);
-            alarmLogDO.setException(code);
+            alarmLogDO.setException(code);//
             alarmLogDO.setTimestamp(timestamp);
             updateAlarmlog(alarmLogDO);
 //            exceptionSet.remove(code);//2.0.0版本
@@ -101,12 +102,13 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLogDO> {
         if (alarmLogDO.getException() > 0) {
             LambdaQueryWrapper<AlarmLogDO> lambdaQueryWrapper = new LambdaQueryWrapper<AlarmLogDO>();
             Integer exception = alarmLogDO.getException();
+            //如果targetUuid和exception类型一致则更新数据库该行数据
             lambdaQueryWrapper.eq(AlarmLogDO::getTargetUuid, alarmLogDO.getTargetUuid()).eq(AlarmLogDO::getException,
                     exception);
             if (this.count(lambdaQueryWrapper) > 0) {
                 this.update(alarmLogDO, lambdaQueryWrapper);
             } else {
-                logger.info("enter");
+                logger.info("insert new exceptions");
                 long linuxTimestamp = System.currentTimeMillis() / 1000;
                 alarmLogDO.setTimestamp(linuxTimestamp);
                 this.save(alarmLogDO);

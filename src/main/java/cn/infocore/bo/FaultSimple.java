@@ -3,9 +3,9 @@ package cn.infocore.bo;
 import java.util.Collection;
 import java.util.List;
 
-import StmStreamerDrManage.StreamerClouddrmanage;
 //import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
 //import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
+import StmStreamerDrManage.StreamerClouddrmanage;
 import lombok.Data;
 import lombok.ToString;
 import lombok.experimental.Accessors;

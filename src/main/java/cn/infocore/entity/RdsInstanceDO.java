@@ -2,13 +2,9 @@ package cn.infocore.entity;
 
 import java.util.List;
 
-import StmStreamerDrManage.StreamerClouddrmanage;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-
 //import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
+import StmStreamerDrManage.StreamerClouddrmanage;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 //@Accessors(chain = true)
 //@TableName("rds_instance")

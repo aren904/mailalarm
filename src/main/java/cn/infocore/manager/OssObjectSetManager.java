@@ -1,6 +1,5 @@
 package cn.infocore.manager;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,14 +12,16 @@ import cn.infocore.bo.FaultSimple;
 
 @Component
 public class OssObjectSetManager  {
-
+//    private static final org.apache.log4j.Logger logger = Logger.getLogger(OssServiceImpl.class);
     private static final Logger logger = Logger.getLogger(OssObjectSetManager.class);
 
     public List<FaultSimple> updateList(List<StreamerClouddrmanage.OssObjectSetInfo> ossObjectSetInfos) {
         LinkedList<FaultSimple> faultList = new LinkedList<FaultSimple>();
         for (StreamerClouddrmanage.OssObjectSetInfo ossObjectSetInfo : ossObjectSetInfos) {
             List<StreamerClouddrmanage.FaultType> list = ossObjectSetInfo.getStatusList();
-            faultList.addAll(listFaults(list,ossObjectSetInfo));
+            for (StreamerClouddrmanage.FaultType faultType:list) {
+                faultList.addAll(listFaults(list, ossObjectSetInfo));
+            }
         }
         return faultList;
     }

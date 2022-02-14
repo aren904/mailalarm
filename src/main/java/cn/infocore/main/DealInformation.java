@@ -1,12 +1,13 @@
 package cn.infocore.main;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
+import cn.infocore.utils.MyDataSource;
+import lombok.Synchronized;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 import cn.infocore.entity.Email_alarm;
@@ -14,7 +15,6 @@ import cn.infocore.mail.MailSender;
 import cn.infocore.operator.InforHeader;
 
 import cn.infocore.service.impl.MailServiceImpl;
-import cn.infocore.utils.MyDataSource;
 import cn.infocore.handler.StringHandler;
 import cn.infocore.utils.Utils;
 import scmp.proto.alarm.CloudManagerAlarm;
@@ -87,7 +87,7 @@ public class DealInformation implements Runnable {
 		int command=header.getCommand();
 		logger.info("dispatch code:"+command);
 		switch(command) {
-			case 205:
+			case 1501:
 				try {
 //					AddDataArkRequest request=AddDataArkRequest.parseFrom(buffer);
 //					scmp.proto.alarm.CloudManagerAlarm.AddDataArkRequest request = AddDataArkRequest.parseFrom(buffer);
@@ -96,7 +96,9 @@ public class DealInformation implements Runnable {
 					header.setErrorCode(0);
 				} catch (Exception e) {
 					logger.error(e);
-					header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_AddDataArkFailed_VALUE);
+					//header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_AddDataArkFailed_VALUE);
+					//header.setErrorCode(CloudManagerAlarm.ErrorCode.AddDataArkFailed_VALUE);
+					header.setErrorCode(11501);
 				}finally {
 					byte[] resp=header.toByteArray();
 					try {
@@ -107,7 +109,7 @@ public class DealInformation implements Runnable {
 					}
 				}
 				break;
-			case 206:
+			case 1502:
 				try {
 //					RemoveDataArkRequest request = RemoveDataArkRequest.parseFrom(buffer);
 //					scmp.proto.alarm.CloudManagerAlarm.RemoveDataArkRequest request = RemoveDataArkRequest.parseFrom(buffer);
@@ -116,7 +118,9 @@ public class DealInformation implements Runnable {
 					header.setErrorCode(0);
 				} catch (Exception e) {
 					logger.error(e);
-					header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_RemoveDataArkFailed_VALUE);
+					//header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_RemoveDataArkFailed_VALUE);
+					//header.setErrorCode(CloudManagerAlarm.ErrorCode.RemoveDataArkFailed_VALUE);
+					header.setErrorCode(11502);
 				}finally {
 					byte[] resp=header.toByteArray();
 					try {
@@ -128,7 +132,7 @@ public class DealInformation implements Runnable {
 				}
 				break;
 
-			case 207:
+			case 1505:
 				try {
 //					UpdateDataArkRequest request=UpdateDataArkRequest.parseFrom(buffer);
 //					scmp.proto.alarm.CloudManagerAlarm.UpdateDataArkRequest request = UpdateDataArkRequest.parseFrom(buffer);
@@ -138,7 +142,9 @@ public class DealInformation implements Runnable {
 					header.setErrorCode(0);
 				} catch (Exception e) {
 					logger.error(e);
-					header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_UpdateDataArkFailed_VALUE);
+					//header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_UpdateDataArkFailed_VALUE);
+					//header.setErrorCode(CloudManagerAlarm.ErrorCode.UpdateDataArkFailed_VALUE);
+					header.setErrorCode(12303);
 				}finally {
 					byte[] resp=header.toByteArray();
 					try {
@@ -149,7 +155,7 @@ public class DealInformation implements Runnable {
 					}
 				}
 				break;
-			case 502:
+			case 2301:
 				try {
 //					CreateEmailAlarmRequest request = CreateEmailAlarmRequest.parseFrom(buffer);
 //					scmp.proto.alarm.CloudManagerAlarm.CreateEmailAlarmRequest request = CreateEmailAlarmRequest.parseFrom(buffer);
@@ -158,7 +164,9 @@ public class DealInformation implements Runnable {
 					header.setErrorCode(0);
 				} catch (Exception e) {
 					logger.error(e);
-					header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_CreateEmailAlarmFailed_VALUE);
+					//header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_CreateEmailAlarmFailed_VALUE);
+					//header.setErrorCode(CloudManagerAlarm.ErrorCode.CreateEmailAlarmFailed_VALUE);
+					header.setErrorCode(12301);
 				}finally {
 					byte[] resp=header.toByteArray();
 					try {
@@ -169,7 +177,7 @@ public class DealInformation implements Runnable {
 					}
 				}
 				break;
-			case 501:
+			case 2303:
 				try {
 //					UpdateEmailAlarmRequest request= CloudManagerAlarm.UpdateEmailAlarmRequest.parseFrom(buffer);
 //					scmp.proto.alarm.CloudManagerAlarm.UpdateEmailAlarmRequest request = UpdateEmailAlarmRequest.parseFrom(buffer);
@@ -178,7 +186,10 @@ public class DealInformation implements Runnable {
 					header.setErrorCode(0);
 				} catch (Exception e) {
 					logger.error(e);
-					header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_UpdateEmailAlarmFailed_VALUE);
+					//header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_UpdateEmailAlarmFailed_VALUE);
+					//header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_UpdateEmailAlarmFailed_VALUE);
+					//header.setErrorCode(CloudManagerAlarm.ErrorCode.UpdateEmailAlarmFailed_VALUE);
+					header.setErrorCode(12303);
 				}finally {
 					byte[] resp=header.toByteArray();
 					try {
@@ -189,7 +200,7 @@ public class DealInformation implements Runnable {
 					}
 				}
 				break;
-			case 504:
+			case 2304:
 				try {
 					logger.info("Start sending a test email");
 //					VerifyEmailAlarmRequest request = VerifyEmailAlarmRequest.parseFrom(buffer);
@@ -199,30 +210,38 @@ public class DealInformation implements Runnable {
 					if (result) {
 						header.setErrorCode(0);
 					}else {
-						header.setErrorCode(10504);
+						header.setErrorCode(12304);
 					}
 
 				} catch (Exception e) {
 					logger.error(e);
-					header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_VerifyEmailAlarmFailed_VALUE);
+					header.setErrorCode(12304);
 				}finally {
 					byte[] resp=header.toByteArray();
 					try {
 						out.write(resp, 0, resp.length);
-						logger.info("Successfully receive  information.");
+//						DataOutputStream dos = new DataOutputStream(out);
+//						dos.write(resp,0,resp.length);
+//						logger.info("长度:"+resp.length+" "+"内容:"+ Arrays.toString(resp));
+						logger.info("Successfully receive information.");
+//						if(dos!=null) {
+//							dos.close();
+//						}
 					} catch (IOException e1) {
 						logger.error(e1);
 					}
 				}
 				break;
-			case 506:
+			case 2401:
 				//add by wxx 2019/04/16,update snmp
 				try {
 					MySnmpCache.getInstance().updateMySnmp();
 					header.setErrorCode(0);
 				} catch (Exception e) {
 					logger.error(e);
-					header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_UpdateSnmpFailed_VALUE);
+					//header.setErrorCode(CloudManagerAlarm.ErrorCode.ErrorCode_UpdateSnmpFailed_VALUE);
+					//header.setErrorCode(CloudManagerAlarm.ErrorCode.UpdateSnmpFailed_VALUE);
+					header.setErrorCode(12401);
 				}finally {
 					byte[] resp=header.toByteArray();
 					try {
@@ -241,7 +260,9 @@ public class DealInformation implements Runnable {
 
 	// 添加数据方舟
 	private void addDataArk(CloudManagerAlarm.AddDataArkRequest request){
-		String uuid = request.getId();
+//		String uuid = request.getId();
+		String uuid = request.getUuid();
+//		request.getUuid()
 		logger.info("Need to add data ark id:" + uuid);
 		String ip = "";
 		String sql = "select ip from data_ark where uuid=?";
@@ -257,63 +278,67 @@ public class DealInformation implements Runnable {
 		DataArkList.getInstance().addDataArk(uuid, ip);
 		logger.info("Add data ark is successful.");
 		request.toBuilder().clear();
-		request.toBuilder().clearId();
+//		request.toBuilder().clearId();
+		request.toBuilder().clearUuid();
 	}
 
 	// 删除数据方舟
 	private void removeDataArk(CloudManagerAlarm.RemoveDataArkRequest request){
-		String uuid = request.getId();
+//		String uuid = request.getId();
+		String uuid = request.getUuid();
 		DataArkList.getInstance().removeDataArk(uuid);
 		//同时删除掉线的缓存
 		HeartCache.getInstance().removeHeartCache(uuid);
 		request.toBuilder().clear();
-		request.toBuilder().clearId();
+		request.toBuilder().clearUuid();
 	}
 
 	// 更新数据方舟
 	private void updateDataArk(CloudManagerAlarm.UpdateDataArkRequest request){
 		// 使用添加接口
-		DataArkList.getInstance().addDataArk(request.getId(), request.getId());
+		DataArkList.getInstance().addDataArk(request.getUuid(), request.getUuid());
 		logger.info("Update data ark is successful.");
 		request.toBuilder().clear();
-		request.toBuilder().clearId();
+		request.toBuilder().clearUuid();
 	}
 
 	// 添加邮件报警配置
 	private void createEmailAlarm(CloudManagerAlarm.CreateEmailAlarmRequest request){
-		String name = request.getUserId();
+//		String name = request.getUserId();
+		String name = request.getUserUuid();
 		MailServiceImpl.getInstance().addMailService(name);
 		logger.info("Add email alarm user is successful.");
 		request.toBuilder().clear();
-		request.toBuilder().clearUserId();
+		request.toBuilder().clearUserUuid();
 	}
 
 	// 更新邮件报警配置,其实可以和上面同用一个接口
 	private void updateEmailAlarm(CloudManagerAlarm.UpdateEmailAlarmRequest request){
-		String name = request.getUserId();
+		String name = request.getUserUuid();
 		MailServiceImpl.getInstance().addMailService(name);
 		logger.info("Update email alarm user is successful.");
 		request.toBuilder().clear();
-		request.toBuilder().clearUserId();
+		request.toBuilder().clearUserUuid();
 	}
 
 	// 测试邮件报警配置
 	private boolean verifyEmailAlarm(CloudManagerAlarm.VerifyEmailAlarmRequest request) throws Exception{
 		Email_alarm email = new Email_alarm();
-		email.setSender_email(request.getSenderEmail());
-		email.setSmtp_address(request.getSmtpAddress());
-		email.setSmtp_port(request.getSmtpPort());
-		email.setSsl_encrypt_enabled(request.getIsSslEncryptEnabled() ? (byte) 1 : 0);
-		email.setSmtp_auth_enadled(request.getIsSmtpAuthentication() ? (byte) 1 : 0);
-		email.setSmtp_user_uuid(request.getSmtpUserId());
-		email.setSmtp_password(request.getSmtpPassword());
-		List<String> list = request.getReceiverEmailsList();
+		email.setSender_email(request.getAlarmEmailConfig().getSenderEmail());
+		email.setSmtp_address(request.getAlarmEmailConfig().getSmtpAddress());
+//		email.setSmtp_port(request.getAlarmEmailConfig().getSmtpPort());
+		//email.setSmtp_port(request.getAlarmEmailConfig().getSmtpPort());
+		email.setSsl_encrypt_enabled(request.getAlarmEmailConfig().getIsSslEncryptEnabled() ? (byte) 1 : 0);
+		email.setSmtp_auth_enabled(request.getAlarmEmailConfig().getIsSmtpAuthentication() ? (byte) 1 : 0);
+		email.setSmtp_user_uuid(request.getAlarmEmailConfig().getSmtpUserUuid());
+		email.setSmtp_password(request.getAlarmEmailConfig().getSmtpPassword().getBytes());
+		List<String> list = request.getAlarmEmailConfig().getReceiverEmailsList();
 		StringBuilder builder = new StringBuilder();
 		for (String s : list) {
 			builder.append(s + ";");
 		}
 		email.setReceiver_emails(builder.toString());
-		boolean result = new MailSender(email).send(null);
+		boolean result = new MailSender(email).send1(null);
 		request.toBuilder().clear();
 		return result;
 	}

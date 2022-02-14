@@ -2,12 +2,7 @@ package cn.infocore.manager;
 
 import StmStreamerDrManage.StreamerClouddrmanage;
 import cn.infocore.bo.FaultSimple;
-import cn.infocore.dao.MdbDeviceMapper;
-import cn.infocore.entity.MdbDeviceDo;
 //import cn.infocore.protobuf.StmStreamerDrManage;
-import cn.infocore.utils.StupidStringUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;

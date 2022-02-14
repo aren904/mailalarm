@@ -4,10 +4,7 @@ import java.util.List;
 
 import StmStreamerDrManage.StreamerClouddrmanage;
 import cn.infocore.bo.FaultSimple;
-import cn.infocore.dto.DataArkDTO;
-import cn.infocore.entity.Fault;
-import cn.infocore.entity.RdsDO;
-import cn.infocore.entity.RdsInstanceDO;
+import scmp.proto.alarm.CloudManagerAlarm;
 //import cn.infocore.protobuf.StmStreamerDrManage.RdsInfo;
 
 public interface RDSService {
@@ -18,6 +15,7 @@ public interface RDSService {
 //
 //	List<RdsInstanceDO> getRDSInstanceListFromSource(DataArkDTO data_ark, List<RdsInfo> rdsInfoList);
 	void ReUpdateRdsClient(StreamerClouddrmanage.RdsInfo rdsClient);
+//	void ReUpdateRdsClient(CloudManagerAlarm.RdsInfo rdsClient);
 
 	List<FaultSimple> updateRdsInfoClientList(List<StreamerClouddrmanage.RdsInfo> rdsInfo);
 }

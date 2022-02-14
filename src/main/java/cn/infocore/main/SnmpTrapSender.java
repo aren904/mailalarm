@@ -4,23 +4,16 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 
 import cn.infocore.SnmpV3Sender.ANP;
 import cn.infocore.SnmpV3Sender.AP;
 import cn.infocore.SnmpV3Sender.NaNp;
-import cn.infocore.dao.AlarmLogMapper;
-import cn.infocore.entity.AlarmLogDO;
-import cn.infocore.manager.AlarmLogManager;
-import cn.infocore.utils.BeanUtil;
-import javafx.scene.layout.AnchorPane;
+import cn.infocore.utils.MyDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 import org.snmp4j.*;
 import org.snmp4j.event.ResponseEvent;
-import org.snmp4j.mp.MPv3;
 import org.snmp4j.mp.SnmpConstants;
-import org.snmp4j.security.*;
 import org.snmp4j.smi.Address;
 import org.snmp4j.smi.GenericAddress;
 import org.snmp4j.smi.Integer32;
@@ -33,11 +26,9 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
 import cn.infocore.dto.DataArkDTO;
 import cn.infocore.entity.MySnmp;
 import cn.infocore.handler.DataArk2Handler;
-import cn.infocore.utils.MyDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class SnmpTrapSender {
 //    @Autowired
 //    AlarmLogManager alarmLogManager;
@@ -107,20 +98,18 @@ public class SnmpTrapSender {
                         mySnmp.getStation_name(), mySnmp.getStation_ip(), mySnmp.getStation_port(), mySnmp.getAuthentication_protocol(), mySnmp.getPrivacy_protocol()));
                 poc.init(mySnmp);
 
-                logger.info(fmt("Send trap。。。"));
+                logger.info(fmt("Send trap..."));
                 //从alarm_log表中去获取所有异常
 //                AlarmLogMapper alarmLogMapper = (AlarmLogMapper)BeanUtil.getBean(AlarmLogMapper.class);
 //                logger.info("normal");
-
-
-
 
                 if (mySnmp.getVersion() == 1 || mySnmp.getVersion() == 0) {
 //                    poc.sendV2cTrap(mySnmp, data_arks,stringBuilder.toString());
                     poc.sendV2cTrap(mySnmp, data_arks);
                     logger.info(fmt("Sending trap is ended"));
                 }
-
+//----------------------------------------------------------------------------------------
+//               Todo 以下部分8.0版本未实现,下个版本需要将snmp.auth_password和snmp.privacy_password字段解密操作 参考email_alarm表的stmp_password字段 还需完善
                 if (mySnmp.getVersion() == 2) {
                     if (mySnmp.getAuthentication_password_enabled() == 0 && mySnmp.getPrivacy_password_enabled() == 0) {
                         NaNp.sendSnmpV3_NANP(mySnmp,targetAddress,data_arks);
@@ -134,10 +123,10 @@ public class SnmpTrapSender {
                         ANP.sendSnmpV3_ANP(mySnmp,targetAddress,data_arks);
                         logger.debug("your option is AUTH_NOPRIV");
                     }
-                    if (mySnmp.getAuthentication_password_enabled() == 1 && mySnmp.getPrivacy_password_enabled() == 0) {
-                        logger.error("snmpv3 does not have this option");
-                        return;
-                    }
+//                    if (mySnmp.getAuthentication_password_enabled() == 1 && mySnmp.getPrivacy_password_enabled() == 0) {
+//                        logger.error("snmpv3 does not have this option");
+//                        return;
+//                    }
                 }
 
             } catch (Exception e) {

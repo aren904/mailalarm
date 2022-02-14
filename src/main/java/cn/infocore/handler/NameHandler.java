@@ -6,6 +6,7 @@ import org.apache.commons.dbutils.ResultSetHandler;
 
 public class NameHandler implements ResultSetHandler<String>{
 	
+	@Override
 	public String handle(ResultSet rs) throws SQLException {
 		String name="";
 		while(rs.next()) {

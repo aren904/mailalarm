@@ -9,6 +9,7 @@ import cn.infocore.entity.Quota;
 
 public class QuotaHandler implements ResultSetHandler<List<Quota>>{
 
+	@Override
 	public List<Quota> handle(ResultSet set) throws SQLException {
 		List<Quota> list=new LinkedList<Quota>();
 		while(set.next()) {

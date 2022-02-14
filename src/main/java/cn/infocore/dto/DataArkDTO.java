@@ -69,6 +69,16 @@ public class DataArkDTO {
 
     long metaUsed;
 
+    long cloudUsed;
+
+    public long getCloudUsed() {
+        return cloudUsed;
+    }
+
+    public void setCloudUsed(long cloudUsed) {
+        this.cloudUsed = cloudUsed;
+    }
+
     public String getId() {
         return id;
     }

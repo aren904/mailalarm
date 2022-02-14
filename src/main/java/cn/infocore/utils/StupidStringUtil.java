@@ -2,7 +2,6 @@ package cn.infocore.utils;
 
 import StmStreamerDrManage.StreamerClouddrmanage;
 
-import java.util.Collection;
 import java.util.List;
 
 //import cn.infocore.protobuf.StmStreamerDrManage.FaultType;

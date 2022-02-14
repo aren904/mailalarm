@@ -5,10 +5,12 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 @Component
 public class ThreadScanPoolService   extends Thread {
-
+//	@Autowired
+//	CaptureDataArkIp captureDataArkIp;
 	volatile boolean flag = false;
 	private ThreadPoolExecutor pool;
 	private Long snapTime = 5000L;
@@ -45,7 +47,8 @@ public class ThreadScanPoolService   extends Thread {
 		while(true) {
 			if (pool.getActiveCount()<1 && pool.getQueue().size()<1) {
 				pool.execute(new ThreadScanStreamer());
-			}
+//				pool.execute(new ThreadScanStreamer(captureDataArkIp));
+		}
 			Thread.sleep(snapTime);
 		}
 	}

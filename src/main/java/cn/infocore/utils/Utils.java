@@ -6,24 +6,117 @@ public class Utils {
     }
 
     // 获取异常等级
+//    public static String getAlarmInformationClass(int faultType) {
+//        String ret = "";
+//        switch (faultType) {
+//            case 5:
+//            case 6:
+//            case 8:
+//            case 9:
+//            case 10:
+//            case 13:
+//            case 14:
+//            case 16:
+//            case 17:
+//            case 18:
+//            case 19:
+//            case 22:
+//            case 32:
+//            case 36:
+//
+//                ret = "故障";
+//                break;
+//            case 1:
+//            case 2:
+//            case 3:
+//            case 4:
+//            case 7:
+//            case 11:
+//            case 12:
+//            case 15:
+//            case 20:
+//            case 21:
+//            case 23:
+//            case 24:
+//            case 25:
+//
+//            case 26:
+//            case 31:
+//            case 33:
+//            case 34:
+//            case 35:
+//            case 37:
+//            case 38:
+//            case 39:
+//            case 40:
+//            case 41:
+//            case 42:
+//            case 43:
+//            case 44:
+//                //added by xyr
+//            case 45:
+//            case 46:
+//            case 47:
+//            case 48:
+//            case 49:
+//            case 50:
+//            case 51:
+//            case 52:
+//            case 53:
+//            case 54:
+//            case 55:
+//            case 56:
+//            case 57:
+//
+//                ret = "警告";
+//                break;
+//            default:
+//                ret = "正常";
+//                break;
+//        }
+//        return ret;
+//    }
+
+
+
     public static String getAlarmInformationClass(int faultType) {
         String ret = "";
-        switch (faultType) {
+        switch (faultType){
             case 5:
             case 6:
-            case 8:
             case 9:
             case 10:
             case 13:
-            case 14:
             case 16:
             case 17:
             case 18:
             case 19:
             case 22:
+            case 24:
             case 32:
-            case 36:
+            case 34:
+            case 35:
+            case 39:
+            case 40:
+            case 43:
+            case 44:
+            case 45:
+            case 46:
+            case 49:
+            case 50:
+            case 51:
+            case 52:
+            case 55:
+            case 56:
+            case 57:
 
+            case 60:
+            case 61:
+            case 62:
+            case 63:
+            case 64:
+            case 65:
+            case 66:
                 ret = "故障";
                 break;
             case 1:
@@ -33,40 +126,25 @@ public class Utils {
             case 7:
             case 11:
             case 12:
+            case 14:
             case 15:
             case 20:
             case 21:
             case 23:
-            case 24:
             case 25:
-
             case 26:
             case 31:
             case 33:
-            case 34:
-            case 35:
             case 37:
             case 38:
-            case 39:
-            case 40:
             case 41:
             case 42:
-            case 43:
-            case 44:
-                //added by xyr
-            case 45:
-            case 46:
             case 47:
             case 48:
-            case 49:
-            case 50:
-            case 51:
-            case 52:
             case 53:
             case 54:
-            case 55:
-            case 56:
-            case 57:
+            case 58:
+            case 59:
 
                 ret = "警告";
                 break;
@@ -76,6 +154,15 @@ public class Utils {
         }
         return ret;
     }
+
+
+
+
+
+
+
+
+
 
     // 获取异常类型
     public static String getAlarmInformationType(int faultType) {
@@ -224,27 +311,56 @@ public class Utils {
                 ret = "ECS实例离线，即源丢失，云上实例离线";
                 break;
             case 51:
-                ret = "元数据库认证异常，AKSK/IP/Password异常";
+                ret = "云产品认证异常，AKSK/IP/Password异常";
                 break;
             case 52:
-                ret = "元数据库客户端离线";
+                ret = "云产品客户端离线";
                 break;
             case 53:
-                ret = "元数据库备份点下载失败";
+                ret = "云产品备份点下载失败";
                 break;
             case 54:
-                ret = "元数据库备份空间达到阈值";
+                ret = "云产品备份空间达到阈值";
                 break;
             case 55:
-                ret = "元数据库备份目标丢失，本地目录丢失";
+                ret = "云产品备份目标丢失，本地目录丢失";
                 break;
             case 56:
-                ret = "元数据库备份源丢失";
+                ret = "云产品库备份源丢失";
                 break;
             case 57:
                 ret = "RDS目标丢失，本地目录丢失";
                 break;
-
+            case 58:
+                ret = "Oracle备份空间达到阈值";
+                break;
+            case 59:
+                ret = "代理客户端同步数据失败";
+                break;
+            case 60:
+                ret = "stmvda服务离线";
+                break;
+            case 61:
+                ret = "stmvdp服务离线";
+                break;
+            case 62:
+                ret = "stmrecovery服务离线";
+                break;
+            case 63:
+                ret = "scmp服务离线";
+                break;
+            case 64:
+                ret = "osnsan服务离线";
+                break;
+            case 65:
+                ret = "osnibrs服务离线";
+                break;
+            case 66:
+                ret = "metabackup服务离线";
+                break;
+            case 67:
+                ret = "ecsbackup服务离线";
+                break;
             default:
                 ret = "未知异常";
                 break;

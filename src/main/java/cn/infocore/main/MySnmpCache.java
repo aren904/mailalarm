@@ -1,12 +1,12 @@
 package cn.infocore.main;
 
 
+import cn.infocore.utils.MyDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.log4j.Logger;
 
 import cn.infocore.entity.MySnmp;
-import cn.infocore.utils.MyDataSource;
 
 /**
  * Snmp只有唯一的一个值
