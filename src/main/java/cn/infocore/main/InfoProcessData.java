@@ -59,7 +59,7 @@ public class InfoProcessData {
     }
 
 
-//    QueryRunner q = MyDataSource.getQueryRunner();
+    QueryRunner q = MyDataSource.getQueryRunner();
     public void run() throws SQLException {
         logHeartbeat(hrt);
 
@@ -224,7 +224,7 @@ public class InfoProcessData {
     private void updateClient(List<Client_> list) {
         logger.info("Start to update client in database.");
         // Connection connection=MyDataSource.getConnection();
-        QueryRunner qr = MyDataSource.getQueryRunner();
+//        QueryRunner qr = MyDataSource.getQueryRunner();
         // String sql = "update client set
         // type=?,name=?,ips=?,exceptions=?,operating_system=? where id=?";
 
@@ -270,13 +270,13 @@ public class InfoProcessData {
         }
 
         try {
-            qr.batch(sql, param);
+            q.batch(sql, param);
             if (param1.length > 0) {
                 // sql = "update client set type=?,name=?,exceptions=?,operating_system=? where
                 // id=?";
 
                 sql = "update client set name=?,exceptions=?,operating_system=? where uuid=?";
-                qr.batch(sql, param1);
+                q.batch(sql, param1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -289,7 +289,7 @@ public class InfoProcessData {
     // 更新VC
     private void updateVcenter(List<Vcenter> list) {
         logger.info("Start to update VCenter..");
-        QueryRunner qr = MyDataSource.getQueryRunner();
+//        QueryRunner qr = MyDataSource.getQueryRunner();
 //        String sql = "update vcenter set name=?,ips=?,exceptions=? where vcenter_id=?";
         String sql = "update client set name=?,ips=?,exceptions=? where uuid=?";
         int size = list.size();
@@ -330,12 +330,12 @@ public class InfoProcessData {
             }
         }
         try {
-            qr.batch(sql, param);
+            q.batch(sql, param);
             if (param1.length > 0) {
 
 //                sql = "update vcenter set name=?,exceptions=? where vcenter_id=?";
                 sql = "update client set name=?,exceptions=? where uuid=?";
-                qr.batch(sql, param1);
+                q.batch(sql, param1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -349,7 +349,7 @@ public class InfoProcessData {
     private void updateVirtualMachine(List<Virtual_machine> vmlist) {
         logger.info("Start update virtual machine.");
         // Connection connection=MyDataSource.getConnection();
-        QueryRunner qr = MyDataSource.getQueryRunner();
+//        QueryRunner qr = MyDataSource.getQueryRunner();
         //String sql = "update vcenter_vm set name=?,path=?,exceptions=?,operating_system=? where uuid=?";
         String sql = "update client_backup set name=?,path=?,exceptions=?,operating_system=? where uuid=?";
         int size = vmlist.size();
@@ -404,7 +404,7 @@ public class InfoProcessData {
             // param[i][4]=vm.getVcenter_id();
         }
         try {
-            qr.batch(sql, param);
+            q.batch(sql, param);
         } catch (SQLException e) {
             logger.error("update virtual_machine failed", e);
             e.printStackTrace();
@@ -423,7 +423,7 @@ public class InfoProcessData {
     // 获取对应数据方舟的名称
     private String getDataArkName(String uuid) {
         // Connection connection=MyDataSource.getConnection();
-        QueryRunner q = MyDataSource.getQueryRunner();
+//        QueryRunner q = MyDataSource.getQueryRunner();
 //        String sql = "select name from data_ark where id=?";
         String sql = "select name from data_ark where uuid=?";
         Object[] param = {uuid};
@@ -440,7 +440,7 @@ public class InfoProcessData {
 
     // 获取数据方舟的userid
     private String getUserIdByDataArk(String uuid) {
-        QueryRunner q = MyDataSource.getQueryRunner();
+//        QueryRunner q = MyDataSource.getQueryRunner();
         Object[] param = new Object[]{uuid};
         String result = "";
         String sql = "select user_id from quota where data_ark_id=?";
@@ -458,7 +458,7 @@ public class InfoProcessData {
 
 
     private String getUserUuIdByUser(String clientId) {
-        QueryRunner q = MyDataSource.getQueryRunner();
+//        QueryRunner q = MyDataSource.getQueryRunner();
         Object[] param = new Object[]{clientId};
         String result = "";
 
@@ -475,7 +475,7 @@ public class InfoProcessData {
 
     // 获取vc的userid，注意vc会被不同streamer添加
     private String getUserIdByVcent(String vcId) {
-        QueryRunner q = MyDataSource.getQueryRunner();
+//        QueryRunner q = MyDataSource.getQueryRunner();
         Object[] param = new Object[]{vcId};
         String result = "";
 //        String sql = "select user_id from vcenter where vcenter_id=? and data_ark_id=?";
@@ -498,7 +498,7 @@ public class InfoProcessData {
 
 
     private String getUserIdByUuid(String uuid) {
-        QueryRunner q = MyDataSource.getQueryRunner();
+//        QueryRunner q = MyDataSource.getQueryRunner();
         Object[] param = new Object[]{uuid};
         String result = "";
 //        String sql = "select user_id from data_ark where uuid=?";
@@ -749,7 +749,7 @@ public class InfoProcessData {
     }
 
     public String getDataArkIdByUuID(String uuid){
-        QueryRunner q = MyDataSource.getQueryRunner();
+//        QueryRunner q = MyDataSource.getQueryRunner();
         Object[] param = new Object[]{uuid};
         String sql = " select id from data_ark where uuid=?";
         String result = "";
@@ -766,7 +766,7 @@ public class InfoProcessData {
 
 
     private String findDataArkUUIdById(String uuid) {
-        QueryRunner q = MyDataSource.getQueryRunner();
+//        QueryRunner q = MyDataSource.getQueryRunner();
         Object[] param = new Object[]{uuid};
         String result = "";
         String sql = "select id from data_ark where uuid=?";

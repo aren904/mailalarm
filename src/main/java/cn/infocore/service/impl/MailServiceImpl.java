@@ -40,7 +40,7 @@ public class MailServiceImpl implements MailService {
     private static final Logger logger = Logger.getLogger(MailServiceImpl.class);
     private Map<String, MailSender> normalSenderMap = null;// 必须线程安全
     private Map<String, MailSender> adminSenderMap = null;
-
+    QueryRunner qr = MyDataSource.getQueryRunner();
     private MailServiceImpl() {
 
         MailCenterRestryHolder.instance = this;
@@ -49,7 +49,7 @@ public class MailServiceImpl implements MailService {
         this.adminSenderMap = new ConcurrentHashMap<String, MailSender>();
         // 初始的时候，先从数据库中获取一次
         logger.info("Start to collect mail config from database.");
-        QueryRunner qr = MyDataSource.getQueryRunner();
+//        QueryRunner qr = MyDataSource.getQueryRunner();
 //        String sql = "select user_uuid,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,sender_password,smtp_address,"
 //                + "smtp_port,smtp_authentication,smtp_user_id,smtp_password,ssl_encrypt,receiver_emails,privilege_level "
 //                + "from email_alarm,user where email_alarm.user_id=user.id";
@@ -129,7 +129,7 @@ public class MailServiceImpl implements MailService {
         String sql = "select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,smtp_address,"
                 + "smtp_port,smtp_auth_enabled,smtp_user_uuid,smtp_password,ssl_encrypt_enabled,receiver_emails "
                 + "from email_alarm,user where email_alarm.user_id=user.id and email_alarm.user_id=?";
-        QueryRunner qr = MyDataSource.getQueryRunner();
+//        QueryRunner qr = MyDataSource.getQueryRunner();
 //        findUserIdByUuid();
         String id = findUserIdByUuid(name);
 //        logger.info("name:"+name);
@@ -182,7 +182,7 @@ public class MailServiceImpl implements MailService {
 
     public String findUserIdByUuid(String name) {
         String sql = "select id from user where uuid = ?";
-        QueryRunner qr = MyDataSource.getQueryRunner();
+//        QueryRunner qr = MyDataSource.getQueryRunner();
         Object[] params = {name};
         try {
             return qr.query(sql, new UserIdHd(), params);
@@ -194,7 +194,7 @@ public class MailServiceImpl implements MailService {
 
 
     protected Long findArkIdAndUserIdAndId(Fault fault, String user) {
-        QueryRunner qclent = MyDataSource.getQueryRunner();
+//        QueryRunner qclent = MyDataSource.getQueryRunner();
         String sql = "";
         if (fault.getClient_type() == 1) {
 //            sql = "select count(*) from client where user_id=? and data_ark_id=? and id=?";
@@ -214,7 +214,7 @@ public class MailServiceImpl implements MailService {
 //        Object[] param1 = {user, fault.getData_ark_uuid(), fault.getClient_id()};
         Object[] param1 = {user, fault.getData_ark_uuid()};
         try {
-            Long count = qclent.query(sql, new ScalarHandler<Long>(), param1);
+            Long count = qr.query(sql, new ScalarHandler<Long>(), param1);
             return count;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -237,9 +237,9 @@ public class MailServiceImpl implements MailService {
             try {
                 logger.info("-----------Userid:" + fault.getUser_uuid() + ",faultType:" + fault.getType() + ",targetName:"
                         + fault.getTarget_name() + ",data_ark ip:" + fault.getData_ark_ip() + ",client_id:"
-                        + fault.getClient_id());
-                //普通客户端
-                if (fault.getClient_type() == 1) {
+                        + fault.getClient_id()+",ClientType:"+fault.getClient_type());
+
+                if (fault.getType() == StreamerClouddrmanage.ClientType.SINGLE_VALUE) {
                     // 1.confirm all alarm log for target.
                     //更新（异常信息不是虚拟机快照点创建失败的，离线建立快照点，VMWARE同步数据失败）告警日志数据方舟id，并且设置未处理，
                     sql = "update alarm_log set processed=1 where data_ark_uuid=? and target_uuid=? and exception!=3 and exception!=25 and exception!=26";
@@ -250,7 +250,7 @@ public class MailServiceImpl implements MailService {
                     // add by wxx,for one fault to other fault and not confirm.
                     // current error
                     List<String> currentErrors = new ArrayList<String>();
-                    QueryRunner qr = MyDataSource.getQueryRunner();
+//                    QueryRunner qr = MyDataSource.getQueryRunner();
                     String excepts = "";
 
                     // 注意这里名称不一致，需要特殊处理
@@ -307,7 +307,7 @@ public class MailServiceImpl implements MailService {
                     sql = "select * from alarm_log where data_ark_uuid=? and binary target_name=? and target_uuid=? and processed=0";
                     condition = new Object[]{fault.getData_ark_uuid(), fault.getTarget_name(), fault.getClient_id()};
                     // db error
-                    qr = MyDataSource.getQueryRunner();
+//                    qr = MyDataSource.getQueryRunner();
                     List<Integer> dbErrors = qr.query(sql, new ColumnListHandler<Integer>("exception"), condition);
                     logger.debug("DB error condition:" + condition[0] + "," + condition[1] + "DB error:"
                             + dbErrors.toString());
@@ -356,7 +356,7 @@ public class MailServiceImpl implements MailService {
                     }
                 }
 
-                QueryRunner qr = MyDataSource.getQueryRunner();
+//                QueryRunner qr = MyDataSource.getQueryRunner();
                 qr.execute(sql, condition);
 
                 if (fault.getType() != 0) {
@@ -374,8 +374,8 @@ public class MailServiceImpl implements MailService {
                             String id = findDataArkUUIdById(fault.getData_ark_uuid());
 
                             Object[] param = {user, id};
-                            QueryRunner qRunner = MyDataSource.getQueryRunner();
-                            List<Quota> quotas = qRunner.query(sql, new QuotaHandler(), param);
+//                            QueryRunner qRunner = MyDataSource.getQueryRunner();
+                            List<Quota> quotas = qr.query(sql, new QuotaHandler(), param);
                             if (!quotas.isEmpty()) {
                                 // 包括客户端，VC，虚拟机
                                 if (fault.getClient_type().intValue() == 1 || fault.getClient_type().intValue() == 2
@@ -408,13 +408,13 @@ public class MailServiceImpl implements MailService {
 
 
     private String findDataArkUUIdById(String uuid) {
-        QueryRunner q = MyDataSource.getQueryRunner();
+//        QueryRunner q = MyDataSource.getQueryRunner();
         Object[] param = new Object[]{uuid};
         String result = "";
         String sql = "select id from data_ark where uuid=?";
 
         try {
-            result = q.query(sql, new dataIdHandler(), param);
+            result = qr.query(sql, new dataIdHandler(), param);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

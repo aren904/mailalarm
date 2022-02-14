@@ -27,7 +27,7 @@ public class TestIsUpdate {
     public static void main(String[] args) {
         StreamerClouddrmanage.GetServerInfoReturn.Builder get = StreamerClouddrmanage.GetServerInfoReturn.newBuilder();
 //        get.setUuid("a5c606a6-bf23-4d84-a677-eb6990c6bda9");
-        get.setUuid("c374f55c-f885-4bdc-a93c-d9d4e08ee1e3");
+        get.setUuid("b26d3b16-1195-4bc4-847a-98e7001fe609");
        StreamerClouddrmanage.Streamer.Builder s = StreamerClouddrmanage.Streamer.newBuilder();
         s.setIp("192.168.13.130");
         s.setName("localhost.localdomain");
@@ -40,7 +40,7 @@ public class TestIsUpdate {
         s.addAllStreamerState(fs);
         s.setOracleVol(new Long("1087700467712"));
         s.setMaxClients(new Long("128"));
-        s.setRdsVol(3);
+        s.setRdsVol(0);
         s.setCloudVol(0);
         s.setRacUsed(0);
         s.setEcsUsed(0);
@@ -88,33 +88,34 @@ public class TestIsUpdate {
         builder2.setName("VMware vCenter Server 6.7.0 build-8833120");
         builder2.setId("66be6134-5f96-4a6b-a67e-e761d038545a");
         builder2.setIp("192.168.11.80");
-        builder2.setType(StreamerClouddrmanage.ClientType.SINGLE);
+        builder2.setType(StreamerClouddrmanage.ClientType.RAC);
         builder2.setSystemVersion("linux");
         ArrayList<StreamerClouddrmanage.FaultType> f11  = new ArrayList<>();
-        f11.add(StreamerClouddrmanage.FaultType.NORMAL);
+        f11.add(StreamerClouddrmanage.FaultType.RAC_NODE_ALL_OFFLINE);
+        f11.add(StreamerClouddrmanage.FaultType.RAC_INSTANCE_ALL_OFFLINE);
         builder2.addAllClientState(f11);
         get.addClients(builder2);
 
         //mdb
-        StmStreamerDrManage.StreamerClouddrmanage.MetaInfo.Builder builder = StmStreamerDrManage.StreamerClouddrmanage.MetaInfo.newBuilder();
-        builder.setType(StmStreamerDrManage.StreamerClouddrmanage.ClientType.MetaDB);
-        builder.setName("aren");
-        builder.setId("000f08c1-0000-0000-0000-000000000000");
-        LinkedList<StreamerClouddrmanage.FaultType> list = new LinkedList<>();
-        list.add(StreamerClouddrmanage.FaultType.META_CLIENT_OFFLINE);
-        builder.addAllStatus(list);
-
-        StmStreamerDrManage.StreamerClouddrmanage.MetaBackupInfo.Builder builder1 = builder.addBackupListBuilder();
-        builder1.setName("aren");
-        builder1.setType(StreamerClouddrmanage.ClientType.MetaDBBackup);
-        LinkedList<StreamerClouddrmanage.FaultType> faultTypes = new LinkedList<>();
-        faultTypes.add(StreamerClouddrmanage.FaultType.META_CLIENT_OFFLINE);
-        builder1.addAllStatus(faultTypes);
-        
-        builder1.setSize(223);
-        builder1.setPreoccupationSizeByte(23);
-        builder1.setId("000f08c1-0000-0000-0000-000000000000");
-        get.addMetaClients(builder);
+//        StmStreamerDrManage.StreamerClouddrmanage.MetaInfo.Builder builder = StmStreamerDrManage.StreamerClouddrmanage.MetaInfo.newBuilder();
+//        builder.setType(StmStreamerDrManage.StreamerClouddrmanage.ClientType.MetaDB);
+//        builder.setName("aren");
+//        builder.setId("000f08c1-0000-0000-0000-000000000000");
+//        LinkedList<StreamerClouddrmanage.FaultType> list = new LinkedList<>();
+//        list.add(StreamerClouddrmanage.FaultType.META_CLIENT_OFFLINE);
+//        builder.addAllStatus(list);
+//
+//        StmStreamerDrManage.StreamerClouddrmanage.MetaBackupInfo.Builder builder1 = builder.addBackupListBuilder();
+//        builder1.setName("aren");
+//        builder1.setType(StreamerClouddrmanage.ClientType.MetaDBBackup);
+//        LinkedList<StreamerClouddrmanage.FaultType> faultTypes = new LinkedList<>();
+//        faultTypes.add(StreamerClouddrmanage.FaultType.META_CLIENT_OFFLINE);
+//        builder1.addAllStatus(faultTypes);
+//
+//        builder1.setSize(223);
+//        builder1.setPreoccupationSizeByte(23);
+//        builder1.setId("000f08c1-0000-0000-0000-000000000000");
+//        get.addMetaClients(builder);
 //
 //
 
@@ -189,7 +190,7 @@ public class TestIsUpdate {
 
         try {
         //创建Socket对象,ip为mailalarm服务所在ip，端口23335
-        Socket socket = new Socket("192.168.13.198", 23335);
+        Socket socket = new Socket("192.168.13.139", 23335);
 
         //根据输入输出流和服务端连接
         OutputStream out = socket.getOutputStream();//获取一个输出流，向服务端发送信息
