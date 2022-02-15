@@ -49,18 +49,7 @@ public class ThreadScanStreamer implements Runnable {
 					map = HeartCache.getInstance().getAllCacheList();
 					logger.info("Start Scanner data ark offline is or not....data_ark size:" + map.size());
 					uuids = new ArrayList<String>();
-//				String ip = ObtainIpFromItself.getIp();
-//				String ip = ObtainIpFromItself.getInterfaceAddresses();
-//				List<InterfaceAddress> addresses = ObtainIpFromItself.getInterfaceAddresses();
-//				logger.info("addresses: " + addresses);
-//				String s = addresses.toString();
-//				System.out.println(s);
-					//	String[] ips = s.split("/");
-//				System.out.println(ips[1]);
 
-//				logger.info("ip:"+ips[1]);
-//				String uuid1 = captureDataArkIp.getUuidByDataArkIp(ips[1]);
-//				logger.info("当前ip的uuid:"+uuid1);
 					if (map.size() > 0) {
 						for (Map.Entry<String, Long> entry : map.entrySet()) {
 							String uuid = entry.getKey();
@@ -136,16 +125,17 @@ public class ThreadScanStreamer implements Runnable {
 			fault.setType(10);
 			fault.setData_ark_uuid(uuid);
 			fault.setClient_type(0);
-			sql = "select d.name,d.ip,q.user_id from data_ark as d,quota as q where d.id=q.data_ark_id and q.data_ark_id=?";
+//			sql = "select d.name,d.ip,q.user_id from data_ark as d,quota as q where d.id=q.data_ark_id and q.data_ark_id=?";
 //			String sql1 = "select name,user_id,ip from data_ark where id=?";
 			String sql1 = "select name,user_uuid,ip from data_ark where uuid=?";
 			Object[] param1 = { uuid };
+//			Object[] param = { dataArkId }
 			try {
-				DataArkDTO data_ark = qr.query(sql, new DataArkHandler(), param1);
-				DataArkDTO adminData_ark = qr.query(sql1, new DataArkHandler(), param1);
-				if (data_ark == null && adminData_ark != null) {
-					data_ark = adminData_ark;
-				}
+//				DataArkDTO data_ark = qr.query(sql, new DataArkHandler(), param1);
+				DataArkDTO data_ark = qr.query(sql1, new DataArkHandler(), param1);
+//				if (data_ark == null && adminData_ark != null) {
+//					data_ark = adminData_ark;
+//				}
 
 				if (data_ark == null) {
 					fault.setData_ark_name("null");
