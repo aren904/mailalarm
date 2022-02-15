@@ -51,13 +51,20 @@ public class NoticeIpToOsnstm1 implements Runnable {
 //        for (int i = 0; i <= ips.length; i++) {
 //            SendDifferentIps(ips[i]);
 //        }
+
         for (String ip : ips) {
-            SendDifferentIps(ip);
+            try {
+                SendDifferentIps(ip);
+            } catch (IOException e) {
+                e.printStackTrace();
+                logger.error(e);
+                continue;
+            }
         }
     }
 
 
-    public void SendDifferentIps(String ip) {
+    public void SendDifferentIps(String ip) throws IOException {
 //        StreamerClouddrmanage.SendDataArkIp.Builder builder = StreamerClouddrmanage.SendDataArkIp.newBuilder();
 
 //        builder.setIp(ip);
@@ -74,14 +81,12 @@ public class NoticeIpToOsnstm1 implements Runnable {
 
 //        logger.info("hahahah");
         Socket socket = null;
-        try {
+//        try {
             socket = new Socket(ip, 9997);
-//            new Socket(ip,)
-//            logger.info("创建socket成功");
-        } catch (IOException e) {
-            e.printStackTrace();
-            logger.error(e);
-        }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            logger.error(e);
+//        }
 
         //根据输入输出流和服务端连接
         OutputStream out = null;//获取一个输出流，向服务端发送信息
