@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.infocore.mapper.DataArkMapper">
+    <resultMap id="dataArkMap" type="cn.infocore.entity.DataArk" >
+        <id column="id" property="id"  />
+        <result column="name" property="name" />
+        <result column="ip" property="ip"  />
+        <result column="uuid" property="uuid"  />
+    	<result column="limit_client_count" property="limitClientCount"  />
+    	<result column="limit_vcenter_vm_count" property="limitClientCount"  />
+    	<result column="total_pool_size" property="totalPoolSize"  />
+    	<result column="used_pool_size" property="usedPoolSize"  />
+    	<result column="total_oracle_space_size" property="totalOracleSpaceSize"  />
+    	<result column="used_oracle_space_size" property="usedOracleSpaceSize"  />
+    	<result column="total_cloud_space_size" property="totalCloudSpaceSize"  />
+    	<result column="used_cloud_space_size" property="usedCloudSpaceSize"  />
+    	<result column="used_rds_space_size" property="usedRdsSpaceSize"  />
+    	<result column="used_oss_space_size" property="usedOssSpaceSize"  />
+    	<result column="used_ecs_space_size" property="usedEcsSpaceSize"  />
+    	<result column="used_mdb_space_size" property="usedMdbSpaceSize"  />
+    	<result column="user_uuid" property="userUuid"  />
+    	<result column="user_password" property="userPassword"  />
+    	<result column="exceptions" property="exceptions"  />
+    	<result column="data_ark_group_id" property="dataArkGroupId"  />
+    	<result column="snmp_updated_version" property="snmpUpdatedVersion"  />
+    	<result column="rds_endpoint_updated_version" property="rdsEndpointUpdatedVersion"  />
+    	<result column="oss_endpoint_updated_version" property="ossEndpointUpdatedVersion"  />
+    	<result column="ecs_endpoint_updated_version" property="ecsEndpointUpdatedVersion"  />
+    </resultMap>
+    
+</mapper>

@@ -3,10 +3,9 @@ package cn.infocore.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import cn.infocore.bo.FaultSimple;
+import cn.infocore.dto.FaultDTO;
 import cn.infocore.manager.AlarmLogManager;
 import cn.infocore.service.AlarmLogService;
 import cn.infocore.service.MailService;
@@ -15,18 +14,30 @@ import cn.infocore.service.MailService;
 public class AlarmLogServiceImpl implements AlarmLogService {
     
     @Autowired
-    AlarmLogManager alarmLogManager;
+    private AlarmLogManager alarmLogManager;
     
     @Autowired
-    MailService mailService;    
+    private MailService mailService;   
     
+    /**
+	 * 查找指定客户端未确认的异常集合
+	 * @param targetUuid
+	 * @return
+	 */
     @Override
-    public void noticeFaults(List<FaultSimple> faultSimples) {
-        
-        alarmLogManager.updateOrAddStatusBatchByType(faultSimples);
-        
-        mailService.sentFault(faultSimples);
-        
+	public List<Integer> findVmUncheckedExceptions(String targetUuid) {
+    	return alarmLogManager.findVmUncheckedExceptions(targetUuid);
+	}
+    
+    /**
+     * 处理异常：更新/新建，自动确认
+     */
+    @Override
+    public void noticeFaults(List<FaultDTO> faults) {
+    	for (FaultDTO fault : faults) {
+    		alarmLogManager.updateOrAddAlarmlog(fault);
+        }
+        mailService.sentFault(faults);
     }
 
 }

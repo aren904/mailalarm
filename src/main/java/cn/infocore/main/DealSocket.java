@@ -4,39 +4,67 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-import StmStreamerDrManage.StreamerClouddrmanage;
-import lombok.Data;
 import org.apache.log4j.Logger;
-import cn.infocore.operator.Header;
-//import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
-import cn.infocore.service.AlarmLogService;
-import cn.infocore.service.DataArkService;
-import cn.infocore.service.OssService;
-import cn.infocore.service.RDSService;
-import cn.infocore.service.impl.EcsService;
-import cn.infocore.service.impl.MdbService;
-import cn.infocore.utils.Utils;
 
+import cn.infocore.net.StmHeader;
+import cn.infocore.protobuf.StmAlarmManage;
+import cn.infocore.service.AlarmLogService;
+import cn.infocore.service.ClientBackupService;
+import cn.infocore.service.ClientService;
+import cn.infocore.service.DataArkService;
+import cn.infocore.service.MetaService;
+import cn.infocore.service.OssService;
+import cn.infocore.service.QuotaService;
+import cn.infocore.service.RdsService;
+import cn.infocore.service.UserService;
+import cn.infocore.service.impl.EcsServiceImpl;
+import cn.infocore.utils.Utils;
+import lombok.Data;
+
+/**
+ * 解析心跳header
+ */
 @Data
 public class DealSocket implements Runnable {
-    private static final Logger logger = Logger.getLogger(DealSocket.class);
+	
+	private static final Logger logger = Logger.getLogger(DealSocket.class);
+    
     private Socket socket;
-    RDSService rdsService;
-    EcsService ecsService;
-    MdbService mdbService;
-    DataArkService dataArkService;
-    OssService ossService;
-    AlarmLogService alarmLogService;
-
-    public Header getHeaderObj() {
-        Header header = new Header();
-        header.setCommand(87000);
-        header.setVersion((short) 1);
+    
+    private RdsService rdsService;
+    
+    private EcsServiceImpl ecsService;
+    
+    private MetaService metaService;
+    
+    private DataArkService dataArkService;
+    
+    private OssService ossService;
+    
+    private AlarmLogService alarmLogService;
+    
+    private ClientService clientService;
+    
+    private UserService userService;
+    
+    private QuotaService quotaService;
+    
+    private ClientBackupService clientBackupService;
+    
+    /**
+     * 构造失败响应头
+     * @return
+     */
+    public StmHeader ResponseHeader() {
+        StmHeader header = new StmHeader();
+        header.setVersion((byte) 1);
+        header.setDataType((byte) 2);
+        header.setDirection((short) 25);
         header.setFlags((short) 0);
-        header.setDataType((short) 0);
+        header.setFlags2((short) 0);
+        header.setCommand(87000);
         header.setDataLength(0);
         header.setErrorCode(1);
-        header.setDirection((short) 0);
         return header;
     }
 
@@ -51,25 +79,29 @@ public class DealSocket implements Runnable {
         try {
             in = this.socket.getInputStream();
             out = this.socket.getOutputStream();
-            byte[] h = new byte[Header.STREAMER_HEADER_LENGTH];
-            ioret = in.read(h, 0, Header.STREAMER_HEADER_LENGTH);
-//            logger.debug(ioret);
-            if (ioret != Header.STREAMER_HEADER_LENGTH) {
+            
+            byte[] headerBuffer = new byte[StmHeader.STREAMER_HEADER_LENGTH];
+            ioret = in.read(headerBuffer, 0, StmHeader.STREAMER_HEADER_LENGTH);
+            if (ioret != StmHeader.STREAMER_HEADER_LENGTH) {
                 logger.error(Utils.fmt("Failed to receive header,[%d] byte(s) expected,but [%d] is received.",
-                        Header.STREAMER_HEADER_LENGTH, ioret));
-                Header header = getHeaderObj();
+                        StmHeader.STREAMER_HEADER_LENGTH, ioret));
+                
+                StmHeader header = ResponseHeader();
                 byte[] resp = header.toByteArray();
                 out.write(resp, 0, resp.length);
                 out.flush();
                 throw new Exception();
             }
 
-            Header header = new Header();
-            header.parseByteArray(h);
+            StmHeader header = new StmHeader();
+            header.parseByteArray(headerBuffer);
 
             if (header.getCommand() != 87000) {
-                logger.error(Utils.fmt("Incorrect command"));
+            	logger.error(Utils.fmt("Incorrect command for heartbeat."));
+            	header.setVersion((byte)1);
+            	header.setDirection((short)25);
                 header.setErrorCode(1);
+                header.setDataLength(0);
                 byte[] resp = header.toByteArray();
                 out.write(resp, 0, resp.length);
                 out.flush();
@@ -79,39 +111,41 @@ public class DealSocket implements Runnable {
             byte[] buffer = new byte[header.getDataLength()];
             ioret = in.read(buffer, 0, buffer.length);
             if (ioret != buffer.length) {
-                logger.error(Utils.fmt("Failed to receive Protobuf"));
+            	logger.error(Utils.fmt("Failed to receive protobuf buffer, [%d] byte(s) expected, but [%d] byte(s) received.",
+            			header.getDataLength(), ioret));
             }
-            logger.info("Received heartbeat from data_ark.");
-            /* GetServerInfoReturn hrt=GetServerInfoReturn.parseFrom(buffer); */
-            // 转化protobuf,放入阻塞队列
-            // CachedQueue.getInstance().addIntoQueue(GetServerInfoReturn.parseFrom(buffer.clone()));
+            
+            logger.info("Received heartbeat from osnstm.");
             header.setErrorCode(0);
+            header.setVersion((byte)1);
+        	header.setDirection((short)25);
+        	header.setDataLength(0);
             byte[] resp = header.toByteArray();
             out.write(resp, 0, resp.length);
             out.flush();
 
-            StreamerClouddrmanage.GetServerInfoReturn hrt = StreamerClouddrmanage.GetServerInfoReturn.parseFrom(buffer);
+            StmAlarmManage.GetServerInfoReturn hrt = StmAlarmManage.GetServerInfoReturn.parseFrom(buffer);
             InfoProcessData process = new InfoProcessData(hrt);
             process.setRdsService(rdsService);
             process.setAlarmLogService(alarmLogService);
             process.setDataArkService(dataArkService);
             process.setOssService(ossService);
-            process.setMdbService(mdbService);
+            process.setMetaService(metaService);
             process.setEcsService(ecsService);
+            process.setClientService(clientService);
+            process.setUserService(userService);
+            process.setQuotaService(quotaService);
+            process.setClientBackupService(clientBackupService);
             process.run();
 
-            // 清理内存
+            // 清理内存??为什么需要清理，待定
             hrt.toBuilder().clear();
             hrt.toBuilder().clearClients();
             hrt.toBuilder().clearServer();
             hrt.toBuilder().clearUuid();
             hrt.toBuilder().clearVcents();
-//            hrt.toBuilder().clearClients();
-//            hrt.toBuilder().clearEcsClients();
-//            .....
-            logger.info("Response heartbeat successfully..");
+            logger.debug("Response heartbeat successfully..");
         } catch (Exception e) {
-            e.printStackTrace();
             logger.error("DealSocket failed." + e);
         } finally {
             try {

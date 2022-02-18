@@ -9,12 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import StmStreamerDrManage.StreamerClouddrmanage;
-import cn.infocore.operator.Header;
-//import cn.infocore.protobuf.StmStreamerDrManage.Client;
-//import cn.infocore.protobuf.StmStreamerDrManage.ClientType;
-//import cn.infocore.protobuf.StmStreamerDrManage.FaultType;
-//import cn.infocore.protobuf.StmStreamerDrManage.GetServerInfoReturn;
-//import cn.infocore.protobuf.StmStreamerDrManage.Streamer;
+import cn.infocore.net.StmHeader;
 
 public class Test {
 	public static void main(String[] args) throws SQLException {
@@ -96,11 +91,11 @@ public class Test {
             //根据输入输出流和服务端连接
             OutputStream outputStream=socket.getOutputStream();//获取一个输出流，向服务端发送信息
             
-            Header header=new Header();
+            StmHeader header=new StmHeader();
     		header.setCommand(87000);
-    		header.setVersion((short) 1);
+    		//header.setVersion((short) 1);
     		header.setFlags((short) 0);
-    		header.setDataType((short) 0);
+    		//header.setDataType((short) 0);
     		header.setDataLength(0);
     		header.setErrorCode(1);
     		header.setDirection((short) 0);

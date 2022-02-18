@@ -1,19 +1,18 @@
 package cn.infocore.main;
 
 
+import cn.infocore.dto.MySnmpDTO;
 import cn.infocore.utils.MyDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.log4j.Logger;
-
-import cn.infocore.entity.MySnmp;
 
 /**
  * Snmp只有唯一的一个值
  */
 public class MySnmpCache {
 	private static final Logger logger = Logger.getLogger(MySnmpCache.class);
-	private MySnmp snmp = null;
+	private MySnmpDTO snmp = null;
 	private  boolean inited = false;
 
 	private MySnmpCache() {
@@ -26,7 +25,7 @@ public class MySnmpCache {
 			String sql = "select * from snmp";
 			QueryRunner qr = MyDataSource.getQueryRunner();
 			try {
-				this.snmp = qr.query(sql, new BeanHandler<MySnmp>(MySnmp.class));
+				this.snmp = qr.query(sql, new BeanHandler<MySnmpDTO>(MySnmpDTO.class));
 				logger.info("Succeed to get snmp[Name:]" + snmp.getStation_name() + "[IP]:" + snmp.getStation_ip()
 						+ ",[Port:]" + snmp.getStation_port()+",enable"+snmp.getEnabled());
 			} catch (Exception e) {
@@ -69,7 +68,7 @@ public class MySnmpCache {
 		MySnmpHolder.instance = new MySnmpCache();
 	}
 
-	public synchronized MySnmp getMySnmp() {
+	public synchronized MySnmpDTO getMySnmp() {
 		if (snmp != null) {
 			try {
 				logger.info("Prepare to send snmp. name: " + snmp.getStation_name() + "uri:" + snmp.getStation_ip()

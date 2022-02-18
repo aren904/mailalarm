@@ -1,37 +1,37 @@
 syntax = "proto2";
-
-package scmp.proto.alarm;
+option java_package = "cn.infocore.protobuf";
+option java_outer_classname = "CloudAlarmManage";
 
 enum Version {
-    Version_Value = 8;
+  Version_Value = 8;
 }
 
 message AlarmEmailConfig {
-    required string sender_email = 1;
-    required string smtp_address = 2;
-    required uint32 smtp_port = 3;
-    required bool is_ssl_encrypt_enabled = 4;
-    required bool is_smtp_authentication = 5;
-    required string smtp_user_uuid = 6;
-    required string smtp_password = 7;
-    repeated string receiver_emails = 16;
+  required string sender_email = 1;
+  required string smtp_address = 2;
+  required uint32 smtp_port = 3;
+  required bool is_ssl_encrypt_enabled = 4;
+  required bool is_smtp_authentication = 5;
+  required string smtp_user_uuid = 6;
+  required string smtp_password = 7;
+  repeated string receiver_emails = 16;
 }
 
 // request/response begin
 
 // AddDataArk = 1501
 message AddDataArkRequest {
-    required string uuid = 1;
+  required string uuid = 1;
 }
 
 // RemoveDataArk = 1502
 message RemoveDataArkRequest {
-    required string uuid = 1;
+  required string uuid = 1;
 }
 
 // UpdateDataArk = 1504
 message UpdateDataArkRequest {
-    required string uuid = 1;
+  required string uuid = 1;
 }
 
 // data ark end
@@ -40,22 +40,22 @@ message UpdateDataArkRequest {
 
 // CreateEmailAlarm = 2301
 message CreateEmailAlarmRequest {
-    required string user_uuid = 1;
+  required string user_uuid = 1;
 }
 
 // Command_DeleteEmailAlarm = 2302
 message DeleteEmailAlarmRequest {
-    required string user_uuid = 1;
+  required string user_uuid = 1;
 }
 
 // Command_UpdateEmailAlarm = 2303
 message UpdateEmailAlarmRequest {
-    required string user_uuid = 1;
+  required string user_uuid = 1;
 }
 
 // Command_VerifyEmailAlarm = 2304
 message VerifyEmailAlarmRequest {
-    required AlarmEmailConfig alarm_email_config = 1;
+  required AlarmEmailConfig alarm_email_config = 1;
 }
 
 // system - email alarm end

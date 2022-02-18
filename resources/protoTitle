@@ -1,0 +1,7 @@
+syntax = "proto2";
+option java_package = "cn.infocore.protobuf";
+option java_outer_classname = "StmAlarmManage";
+
+syntax = "proto2";
+option java_package = "cn.infocore.protobuf";
+option java_outer_classname = "CloudAlarmManage";

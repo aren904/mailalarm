@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.apache.commons.dbutils.ResultSetHandler;
 
-import cn.infocore.entity.UUid_ip;
+import cn.infocore.dto.UUid_ip;
 
 public class UUid_ipHandler implements ResultSetHandler<List<UUid_ip>>{
 	@Override

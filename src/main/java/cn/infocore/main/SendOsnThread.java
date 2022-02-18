@@ -1,25 +1,32 @@
 package cn.infocore.main;
 
-import StmStreamerDrManage.StreamerClouddrmanage;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import cn.infocore.service.DataArkService;
+
+/**
+ * 定时通知stm服务发心跳：1分钟
+ */
 @Component
 public class SendOsnThread extends Thread{
+	
+	private static final Logger logger = Logger.getLogger(SendOsnThread .class);
 
     @Autowired
-    CaptureDataArkIp captureDataArkIp;
+    private DataArkService dataArkService;
 
     private ThreadPoolExecutor pool;
+    
     private Long snapTime = 60000L;
 
-    private static final Logger logger = Logger.getLogger(SendOsnThread .class);
-    boolean flag =false;
+    private boolean flag =false;
+    
     public SendOsnThread init() {
         if (!flag) {
             flag = true;
@@ -29,27 +36,22 @@ public class SendOsnThread extends Thread{
         return this;
     }
 
-
     @Override
     public void run() {
         init();
         try {
             startService();
-            logger.info("SendOsnstm is starting....");
+            logger.info("SendOsnThread is starting....");
         } catch (InterruptedException e) {
-            logger.error("scan thread interrupted",e);
-
+            logger.error("SendOsnThread interrupted",e);
         }
         super.run();
     }
 
-
     public void  startService() throws InterruptedException{
-
         while(true) {
             if (pool.getActiveCount()<1 && pool.getQueue().size()<1) {
-                pool.execute(new NoticeIpToOsnstm1(captureDataArkIp));
-//				pool.execute(new ThreadScanStreamer(captureDataArkIp));
+                pool.execute(new NoticeIpToOsnstm(dataArkService));
             }
             Thread.sleep(snapTime);
         }

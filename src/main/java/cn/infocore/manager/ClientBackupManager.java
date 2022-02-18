@@ -1,103 +1,100 @@
 package cn.infocore.manager;
 
-import StmStreamerDrManage.StreamerClouddrmanage;
-import cn.infocore.dao.ClientBackupMapper;
-import cn.infocore.entity.ClientBackupDo;
-import cn.infocore.utils.StupidStringUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import java.util.List;
+
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
+import cn.infocore.entity.ClientBackup;
+import cn.infocore.mapper.ClientBackupMapper;
+import cn.infocore.protobuf.StmAlarmManage;
+import cn.infocore.utils.ConvertUtils;
+
 @Service
-public class ClientBackupManager extends ServiceImpl<ClientBackupMapper, ClientBackupDo> {
-    @Autowired
-    UserManager userManager;
-
-
-    private static final Logger logger = Logger.getLogger(ClientBackupManager.class);
-
-    public void updateObjectSetDo(ClientBackupDo clientBackupDo, String objectSetId) {
-        LambdaQueryWrapper<ClientBackupDo> clientDeviceDoLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        clientDeviceDoLambdaQueryWrapper.eq(ClientBackupDo::getUuid, objectSetId);
-        update(clientBackupDo, clientDeviceDoLambdaQueryWrapper);
-        logger.info("update ClientBackupDo is accomplished");
+public class ClientBackupManager extends ServiceImpl<ClientBackupMapper, ClientBackup> {
+	
+	private static final Logger logger = Logger.getLogger(ClientBackupManager.class);
+	
+	/**
+     * 更新备份关系/实例
+     * @param clientBackup
+     * @param uuid
+     */
+    public void updateClientBackup(ClientBackup clientBackup, String uuid) {
+        LambdaQueryWrapper<ClientBackup> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(ClientBackup::getUuid, uuid);
+        this.update(clientBackup, queryWrapper);
+    }
+    
+	/**
+	 * OSS备份关系转ClientBackup对象
+	 * @param ossObjectSetInfo
+	 * @return
+	 */
+	public ClientBackup ConvertOSSClientBackup(StmAlarmManage.OssObjectSetInfo ossObjectSetInfo) {
+        ClientBackup clientBackup = new ClientBackup();
+        List<StmAlarmManage.FaultType> faultTypeList = ossObjectSetInfo.getStatusList();
+        String exceptions = ConvertUtils.convertFaultTypesToString(faultTypeList);
+        clientBackup.setUuid(ossObjectSetInfo.getId());
+        clientBackup.setSize(ossObjectSetInfo.getSize());
+        clientBackup.setName(ossObjectSetInfo.getName());
+        clientBackup.setExceptions(exceptions);
+        clientBackup.setPreoccupationSize(ossObjectSetInfo.getPreoccupationSizeByte());
+        return clientBackup;
+    }
+	
+	/**
+	 * RDS备份关系转ClientBackup对象
+	 * @param rdsInstanceInfo
+	 * @return
+	 */
+	public ClientBackup ConvertRDSClientBackup(StmAlarmManage.RdsInstanceInfo rdsInstanceInfo) {
+        List<StmAlarmManage.FaultType> faultTypeList = rdsInstanceInfo.getStatusList();
+        String exceptions = ConvertUtils.convertFaultTypesToString(faultTypeList);
+        ClientBackup clientBackup = new ClientBackup();
+        clientBackup.setUuid(rdsInstanceInfo.getUuid());
+        clientBackup.setSize(rdsInstanceInfo.getSize());
+        clientBackup.setName(rdsInstanceInfo.getName());
+        clientBackup.setExceptions(exceptions);
+        clientBackup.setPreoccupationSize(rdsInstanceInfo.getPreoccupationSizeByte());
+        return clientBackup;
+    }
+	
+	/**
+	 * ECS备份关系转ClientBackup对象
+	 * @param ecsInstanceInfo
+	 * @return
+	 */
+	public ClientBackup ConvertECSClientBackup(StmAlarmManage.EcsInstanceInfo ecsInstanceInfo) {
+        List<StmAlarmManage.FaultType> faultTypeList = ecsInstanceInfo.getStatusList();
+        String exceptions = ConvertUtils.convertFaultTypesToString(faultTypeList);
+        ClientBackup clientBackup = new ClientBackup();
+        clientBackup.setUuid(ecsInstanceInfo.getId());
+        clientBackup.setSize(ecsInstanceInfo.getSize());
+        clientBackup.setName(ecsInstanceInfo.getName());
+        clientBackup.setExceptions(exceptions);
+        clientBackup.setPreoccupationSize(ecsInstanceInfo.getPreoccupationSizeByte());
+        return clientBackup;
     }
 
-    public ClientBackupDo ResetClientBackup(StreamerClouddrmanage.RdsInstanceInfo rdsInstanceInfo) {
-        ClientBackupDo clientBackupDo = new ClientBackupDo();
-        List<StreamerClouddrmanage.FaultType> faultTypeList = rdsInstanceInfo.getStatusList();
-        String exceptions = StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypeList);
-        long preoccupationSizeByte = rdsInstanceInfo.getPreoccupationSizeByte();
-        int preoccupationSizebyte = Integer.parseInt(String.valueOf(preoccupationSizeByte));
-
-        String name = rdsInstanceInfo.getName();
-        long size = rdsInstanceInfo.getSize();
-        String uuid = rdsInstanceInfo.getUuid();
-//        StreamerClouddrmanage.FaultType faultType = rdsInstanceInfo.getStatus();
-
-        clientBackupDo.setUuid(uuid);
-        clientBackupDo.setSize(size);
-        clientBackupDo.setName(name);
-        clientBackupDo.setExceptions(exceptions);
-        clientBackupDo.setPreoccupationSize(preoccupationSizebyte);
-        return clientBackupDo;
+	/**
+	 * META备份关系转ClientBackup对象
+	 * @param ossObjectSetInfo
+	 * @return
+	 */
+    public ClientBackup ConvertMetaClientBackup(StmAlarmManage.MetaBackupInfo metaBackupInfo) {
+        List<StmAlarmManage.FaultType> faultTypeList = metaBackupInfo.getStatusList();
+        String exceptions = ConvertUtils.convertFaultTypesToString(faultTypeList);
+        ClientBackup clientBackup = new ClientBackup();
+        clientBackup.setUuid(metaBackupInfo.getId());
+        clientBackup.setSize(metaBackupInfo.getSize());
+        clientBackup.setName(metaBackupInfo.getName());
+        clientBackup.setExceptions(exceptions);
+        clientBackup.setPreoccupationSize(metaBackupInfo.getPreoccupationSizeByte());
+        return clientBackup;
     }
-
-
-    public ClientBackupDo ResetClientBackup(StreamerClouddrmanage.OssObjectSetInfo ossObjectSetInfo) {
-        ClientBackupDo clientBackupDo = new ClientBackupDo();
-        String name = ossObjectSetInfo.getName();
-        long size = ossObjectSetInfo.getSize();
-        String uuid = ossObjectSetInfo.getId();
-        long preoccupationSizeByte = ossObjectSetInfo.getPreoccupationSizeByte();
-        List<StreamerClouddrmanage.FaultType> faultTypeList = ossObjectSetInfo.getStatusList();
-        String exceptions = StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypeList);
-        int preoccupationSizebyte = Integer.parseInt(String.valueOf(preoccupationSizeByte));
-        clientBackupDo.setUuid(uuid);
-        clientBackupDo.setSize(size);
-        clientBackupDo.setName(name);
-        clientBackupDo.setExceptions(exceptions);
-        clientBackupDo.setPreoccupationSize(preoccupationSizebyte);
-        return clientBackupDo;
-    }
-
-    public ClientBackupDo ResetClientBackup(StreamerClouddrmanage.EcsInstanceInfo ecsInstanceInfo) {
-        ClientBackupDo clientBackupDo = new ClientBackupDo();
-        List<StreamerClouddrmanage.FaultType> faultTypeList = ecsInstanceInfo.getStatusList();
-        String exceptions = StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypeList);
-        long preoccupationSizeByte = ecsInstanceInfo.getPreoccupationSizeByte();
-        int preoccupationSizebyte = Integer.parseInt(String.valueOf(preoccupationSizeByte));
-
-        String name = ecsInstanceInfo.getName();
-        long size = ecsInstanceInfo.getSize();
-        String uuid = ecsInstanceInfo.getId();
-
-        clientBackupDo .setUuid(uuid);
-        clientBackupDo .setSize(size);
-        clientBackupDo .setName(name);
-        clientBackupDo .setExceptions(exceptions);
-        clientBackupDo .setPreoccupationSize(preoccupationSizebyte);
-        return clientBackupDo ;
-    }
-
-    public ClientBackupDo ResetClientBackup(StreamerClouddrmanage.MetaBackupInfo metaBackupInfo) {
-        ClientBackupDo clientBackupDo = new ClientBackupDo();
-        List<StreamerClouddrmanage.FaultType> faultTypeList = metaBackupInfo.getStatusList();
-        String exceptions = StupidStringUtil.parseExceptionsToFaultyTypeString(faultTypeList);
-        long preoccupationSizeByte = metaBackupInfo.getPreoccupationSizeByte();
-        int preoccupationSizebyte = Integer.parseInt(String.valueOf(preoccupationSizeByte));
-        String name = metaBackupInfo.getName();
-        long size = metaBackupInfo.getSize();
-        String uuid = metaBackupInfo.getId();
-
-        clientBackupDo.setUuid(uuid);
-        clientBackupDo.setSize(size);
-        clientBackupDo.setName(name);
-        clientBackupDo.setExceptions(exceptions);
-        clientBackupDo.setPreoccupationSize(preoccupationSizebyte);
-        return clientBackupDo;
-    }
+   
 }

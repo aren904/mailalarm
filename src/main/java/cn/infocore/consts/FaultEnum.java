@@ -77,10 +77,6 @@ public enum FaultEnum {
     META_BACKUP_SERVICE_OFFLINE(66,"metabackup 服务离线"),
     ECS_BACKUP_SERVICE_OFFLINE(67,"ecsbackup 服务离线");
 
-
-
-
-
     int code;
     String message;
 
@@ -92,9 +88,7 @@ public enum FaultEnum {
     }
 
     public static FaultEnum valueOf(int code) {
-
         FaultEnum[] faultEnums = FaultEnum.values();
-
         for (FaultEnum faultEnum : faultEnums) {
             if (faultEnum.code == code) {
                 return faultEnum;
@@ -107,10 +101,8 @@ public enum FaultEnum {
     public static final Set<FaultEnum> AUTOCONFIRM = new HashSet<>();
 
     static {
-        //为了图方便把所有自动确认的异常加进来，因为不确定osnstm会怎么发保险起见。
-
-        //TODO
-//        需要加上oracle总配额预警 也就是58异常
+        //为了图方便把所有自动确认的异常加进来，因为不确定osnstm会怎么发保险起见
+        //需要加上oracle总配额预警 也就是58异常
         AUTOCONFIRM.add(STREAMER_POOL_DISABLE);
         AUTOCONFIRM.add(CLIENT_OFFLINE);
         AUTOCONFIRM.add(VMWARE_CBT_DROP);
@@ -154,7 +146,5 @@ public enum FaultEnum {
         AUTOCONFIRM.add(OSNIBRS_SERVICE_OFFLINE);
         AUTOCONFIRM.add(META_BACKUP_SERVICE_OFFLINE);
         AUTOCONFIRM.add(ECS_BACKUP_SERVICE_OFFLINE);
-
     }
-
 }

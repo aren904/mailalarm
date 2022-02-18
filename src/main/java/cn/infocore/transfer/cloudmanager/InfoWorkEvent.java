@@ -9,10 +9,7 @@ public class InfoWorkEvent implements WorkEventGroup{
 
 	@Override
 	public boolean select() {
-		
 		listener.select();
-		
-		
 		return false;
 	}
 }

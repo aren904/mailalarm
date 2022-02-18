@@ -1,6 +1,6 @@
 package cn.infocore.Test;
 
-import cn.infocore.entity.Email_alarm;
+import cn.infocore.dto.EmailAlarmDTO;
 import cn.infocore.mail.MailSender;
 import scmp.proto.alarm.CloudManagerAlarm;
 
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Test1 {
     public static void main(String[] args) {
-        Email_alarm email = new Email_alarm();
+        EmailAlarmDTO email = new EmailAlarmDTO();
 //		email.setSender_email(request.getSenderEmail());
         //email.setSender_email(request.getAlarmEmailConfig().getSenderEmail());
         email.setSender_email("zxcdr22@163.com");
@@ -39,7 +39,7 @@ public class Test1 {
         boolean result = false;
 
         try {
-            result = new MailSender(email).send1(null);
+            //result = new MailSender(email).send1(null);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e);

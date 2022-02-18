@@ -1,7 +1,8 @@
 package cn.infocore.handler;
 
-import cn.infocore.entity.Email_alarm;
 import org.apache.commons.dbutils.ResultSetHandler;
+
+import cn.infocore.dto.EmailAlarmDTO;
 
 import java.io.InputStream;
 import java.sql.ResultSet;
@@ -18,12 +19,12 @@ import java.util.List;
  * @Date: 2021/7/7 15:20
  * @Version: 1.0
  */
-public class email_alarmHandler implements ResultSetHandler<List<Email_alarm>> {
+public class email_alarmHandler implements ResultSetHandler<List<EmailAlarmDTO>> {
     @Override
-    public List<Email_alarm> handle(ResultSet resultSet) throws SQLException {
-        LinkedList<Email_alarm> list = new LinkedList<>();
+    public List<EmailAlarmDTO> handle(ResultSet resultSet) throws SQLException {
+        LinkedList<EmailAlarmDTO> list = new LinkedList<>();
         while (resultSet.next()) {
-            Email_alarm emailAlarm = new Email_alarm();
+            EmailAlarmDTO emailAlarm = new EmailAlarmDTO();
             emailAlarm.setLimit_suppress_time(resultSet.getLong("limit_suppress_time"));
             emailAlarm.setUser_id(resultSet.getString("user_id"));
             emailAlarm.setEnabled(resultSet.getByte("enabled"));

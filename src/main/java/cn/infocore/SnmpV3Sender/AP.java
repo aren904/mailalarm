@@ -1,7 +1,8 @@
 package cn.infocore.SnmpV3Sender;
 
 import cn.infocore.dto.DataArkDTO;
-import cn.infocore.entity.MySnmp;
+import cn.infocore.dto.MySnmpDTO;
+
 import org.apache.log4j.Logger;
 import org.snmp4j.*;
 import org.snmp4j.event.ResponseEvent;
@@ -26,7 +27,7 @@ import java.util.List;
 public class AP {
     private static final org.apache.log4j.Logger logger = Logger.getLogger(AP.class);
 
-    public static ResponseEvent sendSnmpV3_AP(MySnmp mySnmp, Address targetAddress, List<DataArkDTO> data_arks) throws IOException {
+    public static ResponseEvent sendSnmpV3_AP(MySnmpDTO mySnmp, Address targetAddress, List<DataArkDTO> data_arks) throws IOException {
         OctetString userName3 = new OctetString(mySnmp.getSecurity_username());
         OctetString authPass = new OctetString(mySnmp.getAuthentication_password());
         OctetString privPass = new OctetString(mySnmp.getPrivacy_password());

@@ -1,64 +1,93 @@
-//package cn.infocore.manager;
-//
-//import java.util.Collection;
-//import java.util.LinkedList;
-//import java.util.List;
-//
-//import cn.infocore.entity.MdbDO;
-//import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-//import org.springframework.stereotype.Component;
-//
-//import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-//import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-//import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-//
-//import cn.infocore.dao.RDSMapper;
-//import cn.infocore.entity.RdsDO;
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//public class RdsManager extends ServiceImpl<RDSMapper, RdsDO> {
-//
-////	public void updateByUUIDBatch(List<RdsDO> rdsList) {
-////
-////		for (RdsDO rds : rdsList) {
-////			updateByUUID(rds);
-////		}
-////
-////	}
-////
-////	public void updateByUUID(RdsDO rds) {
-////
-////		LambdaUpdateWrapper<RdsDO> update = new UpdateWrapper<RdsDO>().lambda().eq(RdsDO::getRdsId, rds.getRdsId())
-////				.set(RdsDO::getExceptions, rds.getExceptions());
-////		this.update(new RdsDO(), update);
-////	}
-////
-////
-////	public RdsDO getByData(String rdsId, String StreamerServerId) {
-////
-////
-////		return null;
-////	}
-//
-//	public List<String> getRdsUserIdsById(String uuid) {
-//		LambdaQueryWrapper<RdsDO> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-//		lambdaQueryWrapper.eq(RdsDO::getId, uuid);
-//		LinkedList<String> userIdList = new LinkedList<>();
-//
-//		Collection<RdsDO> rdsDOS = this.list(lambdaQueryWrapper);
-//		for (RdsDO rdsDO : rdsDOS) {
-//			userIdList.add(rdsDO.getUserId());
-//		}
-//
-//		return userIdList;
-//	}
-//
-//
-//
-//	public void updateRdsClientByRdsId(String rdsId,RdsDO rdsDO) {
-//		LambdaQueryWrapper<RdsDO> rdsDOLambdaQueryWrapper = new LambdaQueryWrapper<>();
-//		rdsDOLambdaQueryWrapper.eq(RdsDO::getRdsId,rdsId);
-//		this.baseMapper.update(rdsDO,rdsDOLambdaQueryWrapper);
-//	}
-//}
+package cn.infocore.manager;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import cn.infocore.dto.FaultDTO;
+import cn.infocore.protobuf.StmAlarmManage;
+
+@Service
+public class RdsManager  {
+	
+	@Autowired
+    private ClientManager clientManager;
+	
+	/**
+     * 获取RDS客户端的异常集合并转换为FaultDTO
+     * @param ossInfo
+     * @return
+     */
+	public List<FaultDTO> findFaultFromRdsClient(StmAlarmManage.RdsInfo rdsInfo) {
+		//获取客户端异常并转换为FaultDTO集合
+        List<StmAlarmManage.FaultType> faultTypes = rdsInfo.getStatusList();
+        List<FaultDTO> faults = convertRdsClientFaults(faultTypes);
+        
+        //获取实例的异常并转换为FaultDTO集合
+        List<StmAlarmManage.RdsInstanceInfo> instances = rdsInfo.getInstanceListList();
+        List<FaultDTO> rdsInstanceFaults = findFaultFromRdsIntance(instances);
+        faults.addAll(rdsInstanceFaults);
+
+        //补充信息
+        String uuid = rdsInfo.getUuid();
+        String name = rdsInfo.getName();
+        List<String> userUuids = clientManager.getUserUuidsByUuid(uuid);
+        for (FaultDTO faultSimple : faults) {
+            faultSimple.setTargetUuid(uuid);
+            faultSimple.setTargetName(name);
+            faultSimple.setUserUuids(userUuids);
+        }
+        return faults;
+	}
+
+	/**
+     * 获取实例的异常集合并转换为FaultDTO
+     * @param rdsInstanceInfos
+     * @return
+     */
+    public List<FaultDTO> findFaultFromRdsIntance(List<StmAlarmManage.RdsInstanceInfo> rdsInstanceInfos) {
+        LinkedList<FaultDTO> faultList = new LinkedList<FaultDTO>();
+        for (StmAlarmManage.RdsInstanceInfo rdsInstanceInfo : rdsInstanceInfos) {
+            List<StmAlarmManage.FaultType> list = rdsInstanceInfo.getStatusList();
+            faultList.addAll(convertRdsInstanceFaults(list,rdsInstanceInfo));
+        }
+        return faultList;
+    }
+    
+    /**
+     * FaultTypes转RdsInstanceInfo FaultDTO
+     * @param faultTypes
+     * @return
+     */
+    public List<FaultDTO> convertRdsInstanceFaults(List<StmAlarmManage.FaultType> faultTypes, StmAlarmManage.RdsInstanceInfo rdsInstanceInfo) {
+        LinkedList<FaultDTO> faultList = new LinkedList<FaultDTO>();
+        if (faultTypes != null) {
+            FaultDTO faultSimple = new FaultDTO();
+            faultSimple.setClientType(StmAlarmManage.ClientType.RdsInstance);
+            faultSimple.setFaultTypes(faultTypes);
+            faultSimple.setTargetName(rdsInstanceInfo.getName());
+            faultSimple.setTargetUuid(rdsInstanceInfo.getUuid());
+            faultList.add(faultSimple);
+        }
+        return faultList;
+    }
+    
+    /**
+     * FaultTypes转RDS FaultDTO
+     * @param faultTypes
+     * @return
+     */
+    public List<FaultDTO> convertRdsClientFaults(List<StmAlarmManage.FaultType> faultTypes) {
+        LinkedList<FaultDTO> faultList = new LinkedList<FaultDTO>();
+        if (faultTypes != null) {
+            FaultDTO faultSimple = new FaultDTO();
+            faultSimple.setClientType(StmAlarmManage.ClientType.Rds);
+            faultSimple.setFaultTypes(faultTypes);
+            faultList.add(faultSimple);
+        }
+        return faultList;
+    }
+
+}

@@ -1,99 +1,84 @@
 package cn.infocore.service.impl;
 
-import java.util.ArrayList;
+import java.util.List;
 
-
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import cn.infocore.dao.DateArkMapper;
 import cn.infocore.dto.DataArkDTO;
-import cn.infocore.entity.DataArkDO;
+import cn.infocore.entity.DataArk;
+import cn.infocore.manager.DataArkManager;
+import cn.infocore.mapper.DataArkMapper;
 import cn.infocore.service.DataArkService;
 
 @Service
-public class DataArkServiceImpl extends ServiceImpl<DateArkMapper, DataArkDO> implements DataArkService {
+public class DataArkServiceImpl extends ServiceImpl<DataArkMapper, DataArk> implements DataArkService {
 
     private  static final Logger logger = Logger.getLogger(DataArkServiceImpl.class);
-
+    
+    @Autowired
+    private DataArkManager dataArkManager;
+    
+    /**
+     * 更新数据方舟
+     */
     @Override
     public void update(DataArkDTO data_ark) {
-
-//        String id = data_ark.getId();
-        String uuid = data_ark.getUuid();
-//        logger.info(id);
-//        logger.info(uuid);
-        Long totalPoolSize = data_ark.getTotalCap();
-        Long used = data_ark.getUsed_cap();
-        String exceptions = data_ark.getExcept();
-//        logger.info(exceptions);
-//        String ip = data_ark.getIp();
-        Long oracleSpaceSize = data_ark.getTotal_oracle_capacity();
-
-
-        Long cloudVol = data_ark.getCloudVol();
-//        String name = data_ark.getName();
-
-        Long racUsed = data_ark.getRacUsed();
         Long ecsUsed = data_ark.getEcsUsed();
         Long rdsUsed = data_ark.getRdsUsed();
         Long ossUsed = data_ark.getOssUsed();
         Long metaUsed = data_ark.getMetaUsed();
         Long cloudUsed = ecsUsed+rdsUsed+ossUsed+metaUsed;
-        int limitVcenterVmCount = (int) data_ark.getLimitVcenterVmCount();
-        int limitClientCount = (int) data_ark.getLimitClientCount();
-        DataArkDO dataArkDO = new DataArkDO();
-        dataArkDO.setUuid(uuid)
-//                .setIp(ip)
+        
+        DataArk dataArk = new DataArk();
+        dataArk.setUuid(data_ark.getUuid())
                 .setUsedCloudSpaceSize(cloudUsed)
-                .setLimitClientCount(limitClientCount)
-                .setExceptions(exceptions)
-                .setTotalPoolSize(totalPoolSize)
-                .setUsedPoolSize(used)
-                .setTotalOracleSpaceSize(oracleSpaceSize)
-                .setTotalCloudSpaceSize(cloudVol)
-                .setUsedOracleSpaceSize(racUsed)
+                .setExceptions(data_ark.getExcept())
+                .setTotalPoolSize(data_ark.getTotal_cap())
+                .setUsedPoolSize(data_ark.getUsed_cap())
+                .setTotalOracleSpaceSize(data_ark.getTotal_oracle_capacity())
+                .setTotalCloudSpaceSize(data_ark.getCloudVol())
+                .setUsedOracleSpaceSize(data_ark.getRacUsed())
                 .setUsedEcsSpaceSize(ecsUsed)
                 .setUsedRdsSpaceSize(rdsUsed)
                 .setUsedOssSpaceSize(ossUsed)
                 .setUsedMdbSpaceSize(metaUsed)
-                .setLimitClientCount(limitClientCount)
-//                .setName(name)
-                .setLimitVcenterVmCount(limitVcenterVmCount)
-                ;
-
-//        this.updateById(dataArkDO);
-        this.updateByUuid(dataArkDO);
-        logger.info("updateDataArk is accomplished");
+                .setLimitClientCount(data_ark.getLimitClientCount())
+                .setLimitVcenterVmCount(data_ark.getLimitVcenterVmCount());
+        
+        logger.debug("Update data_ark:"+data_ark.getUuid());
+        logger.debug(dataArk.toString());
+        dataArkManager.updateByUuid(dataArk);
     }
+    
     @Override
-    public String getDataArkNameById(String id) {
+	public DataArk findByUuid(String uuid) {
+    	return dataArkManager.getDataArkByUuid(uuid);
+	}
 
-        DataArkDO dataArkDO = getDataArkByUuid(id);
+    /**
+     * 获取当前数据方舟的ip列表
+     * @return
+     */
+	@Override
+	public List<String> findIps() {
+		return dataArkManager.findIps();
+	}
 
-        if (dataArkDO != null) {
-            return  dataArkDO.getName();
-
-        }
-
-        return null;
-    }
-
-    public void updateByUuid(DataArkDO dataArkDO){
-        LambdaQueryWrapper<DataArkDO> dataArkDOLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        dataArkDOLambdaQueryWrapper.eq(DataArkDO::getUuid,dataArkDO.getUuid());
-        this.update(dataArkDO,dataArkDOLambdaQueryWrapper);
-    }
-
-    public DataArkDO getDataArkByUuid(String uuid){
-        LambdaQueryWrapper<DataArkDO> dataArkDOLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        dataArkDOLambdaQueryWrapper.eq(DataArkDO::getUuid,uuid);
-        DataArkDO dataArkDO = this.getOne(dataArkDOLambdaQueryWrapper);
-        return dataArkDO;
-    }
-
+	/**
+	 * 根据uuid更新指定数据方舟状态：在线离线
+	 * @param uuid
+	 * @param online 是否在线
+	 * @return 
+	 */
+	@Override
+	public void updateDataArkStatus(String uuid, boolean online) {
+		DataArk dataArk=dataArkManager.getDataArkByUuid(uuid);
+		dataArk.setExceptions(online ? "0" : "10");
+		dataArkManager.updateByUuid(dataArk);
+	}
+    
 }

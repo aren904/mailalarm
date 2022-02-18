@@ -14,8 +14,8 @@ public class QuotaHandler implements ResultSetHandler<List<Quota>>{
 		List<Quota> list=new LinkedList<Quota>();
 		while(set.next()) {
 			Quota quota=new Quota();
-			quota.setData_ark_id(set.getString("data_ark_id"));
-			quota.setUser_id(set.getString("user_id"));
+			quota.setData_ark_id(set.getLong("data_ark_id"));
+			quota.setUser_id(set.getLong("user_id"));
 			list.add(quota);
 		}
 		return list;

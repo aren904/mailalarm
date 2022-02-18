@@ -3,16 +3,13 @@ package cn.infocore.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import cn.infocore.utils.MyDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
 
+import cn.infocore.utils.MyDataSource;
 
 public class AlarmLogDAO {
-
-
 
 	private static final Logger logger = Logger.getLogger(AlarmLogDAO.class);
 
@@ -20,7 +17,6 @@ public class AlarmLogDAO {
 
 		String sql="select * from alarm_log where target_uuid=? and processed=0";
 		Object[] condition=new Object[]{clientId};
-		//db error
 		QueryRunner qr = MyDataSource.getQueryRunner();
 		List<Integer> dbErrors;
 		try {

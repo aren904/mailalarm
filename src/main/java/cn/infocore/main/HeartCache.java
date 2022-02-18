@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.log4j.Logger;
 
 public class HeartCache {
+	
 	private static final Logger logger=Logger.getLogger(HeartCache.class);
 	
 	//string-->数据方舟的uuid  long--->最近一次心跳过来的时间

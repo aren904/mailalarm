@@ -1,0 +1,231 @@
+syntax = "proto2";
+option java_package = "cn.infocore.protobuf";
+option java_outer_classname = "StmAlarmManage";
+
+enum ClientType{
+    SINGLE = 0;
+    VMWARE = 1;
+    MSCS = 2;
+    RAC = 3;
+    VC = 4;
+    AIX = 5;
+    FileSingle = 11;
+    Rds = 12;
+    RdsInstance = 13;
+    Oss = 14;
+    OssObjectSet = 15;
+    Ecs = 16;
+    EcsInstance = 17;
+    MetaDB = 18;
+    MetaDBBackup = 19;
+    StorageClient = 20;
+}
+
+//备份的错误类型
+enum FaultType{
+    NORMAL = 0;                      
+    CLIENT_LOCAL_LOST = 1;           //本地丢失
+    CLIENT_DST_LOST = 2;             //目标丢失
+    VMWARE_CREATE_SNAP_FAILED = 3;   //vmware任务计划创建快照点失败
+    VMWARE_CBT_DROP = 4;              //CBT异常
+    CLIENT_OFFLINE = 5;              //普通客户端离线
+    VCENTER_OFFLINE = 6;             //VCENTER离线
+    CLUSTER_NODE_EXIST_OFFLINE  = 7; //集群节点或实例离线
+    CLUSTER_NODE_ALL_OFFLINE = 8;    //集群离线
+    STREAMER_POOL_DISABLE = 9;       //存储池异常
+    STREAMER_OFFLINE = 10;           //Streamer离线
+    CLIENT_AUTO_EXPAND_FAILED = 11;  //自动扩容失败
+    CLIENT_SNAP_MERGE_FAILED = 12;   //快照合并失败
+    ORACLE_STORAGE_DROP = 13;        //oracle备份空间异常
+    DR_COPY_FAILED = 14;             //容灾复制失败
+    RAC_NODE_EXIST_OFFLINE  = 15;     //RAC节点离线
+    RAC_NODE_ALL_OFFLINE = 16;        //RAC节点全部离线
+    RAC_INSTANCE_EXIST_OFFLINE  = 17; //RAC实例离线
+    RAC_INSTANCE_ALL_OFFLINE = 18;    //RAC实例全部离线
+    VMWARE_OFFLINE = 19;              //虚拟机离线
+    CLIENT_CREATE_SNAP_FAILED = 20;   //普通客户端创建快照点失败 
+    RAC_CREATE_SNAP_FAILED = 21;      //Rac客户端创建快照点失败 
+    DR_SERVER_OFFLINE = 22;            //容灾服务离线 
+    STREAMER_POOL_ALMOST_FULL = 23;   //存储池已超过阈值
+    STREAMER_CLIENT_DISK_OFFLINE = 24;//映射的盘离线(用于AIX客户端)
+    VMWARE_INIT_MIRROR_FAILED = 25;   //vmware同步数据失败
+    VMWARE_SNAPSHOT_POINT_SIZE_IS_ZERO = 26;  //在线虚拟机创建快照点数据异常
+    FILE_SINGLE_CREATE_TARGET_FAILED = 27;  // 文件级备份客户端任务计划创建快照点失败
+    FILE_SINGLE_OFFLINE = 28;  // 文件级备份客户端离线
+    FILE_SINGLE_LOCAL_LOST = 29;  // 文件级备份客户端本地丢失
+    FILE_SINGLE_TARGET_LOST = 30;  // 文件级备份客户端目标丢失
+   
+    RDS_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED = 31;  // rds实例备份点下载失败
+    RDS_INSTANCE_OFFLINE= 32;  // rds实例离线
+    RDS_STORAGE_DROP = 33;  // rds备份空间异常  // 7.0中废弃
+    RDS_AUTH_ABNORMAL = 34;  // rds 认证异常
+    RDS_CLIENT_OFFLINE = 35;  // rds客户端离线
+    RDS_BACKUP_SERVICE_OFFLINE = 36;  // 弃用 rds备份模块服务异常
+    CLOUD_STORAGE_DROP = 37;  // 云备份空间异常 
+
+    OSS_BACKUP_POINT_DOWNLOAD_FAILED = 38;  // Oss备份点下载失败
+    OSS_AUTH_ABNORMAL = 39;  // oss 认证异常
+    OSS_CLIENT_OFFLINE = 40;  // oss客户端离线
+    OSS_BACKUP_SERVICE_OFFLINE = 41;  // 弃用
+    OSS_BACKUP_SPACE_HAS_REACHED_THRESHOLD = 42;  // oss备份空间达到阈值
+    OSS_BACKUP_DST_LOST = 43;  // oss 备份目录找不到
+    OSS_BACKUP_SOURCE_LOST = 44;  // oss 备份源目录找不到
+
+    ECS_AUTH_ABNORMAL = 45;  // ecs 认证异常
+    ECS_CLIENT_OFFLINE = 46;  // ecs 客户端离线
+    ECS_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED = 47;  // ecs 实例备份点下载失败
+    ECS_BACKUP_SPACE_HAS_REACHED_THRESHOLD = 48;  // ecs备份空间达到阈值
+    ECS_BACKUP_DST_LOST = 49;  // ecs 备份目录找不到
+    ECS_INSTANCE_OFFLINE = 50;  // ecs 实例离线
+
+    
+    META_AUTH_ABNORMAL = 51;  // meta 认证异常, aksk/ip/password 异常
+    META_CLIENT_OFFLINE = 52;  // meta 客户端离线
+    META_INSTANCE_BACKUP_POINT_DOWNLOAD_FAILED = 53;  // meta 备份点下载失败
+    META_BACKUP_SPACE_HAS_REACHED_THRESHOLD = 54;  // meta 备份空间达到阈值
+    META_BACKUP_DST_LOST = 55;  // meta 备份目录找不到
+    META_BACKUP_SOURCE_LOST = 56;  // meta备份源目录找不到
+    RDS_BACKUP_DST_LOST = 57;  // rds 备份目录找不到
+    ORACLE_BACKUP_SPACE_HAS_EXCEEDED_THRESHOLD = 58;  // Oracle备份空间达到阈值
+    CLIENT_INIT_MIRROR_FAILED = 59;  // 代理客户端同步数据失败
+    STMVDA_SERVICE_OFFLINE = 60;  // stmvda 服务离线
+    STMVDP_SERVICE_OFFLINE = 61;  // stmvdp 服务离线
+    STMRECOVERY_SERVICE_OFFLINE = 62;  // stmrecovery 服务离线
+    SCMP_SERVICE_OFFLINE = 63;    // scmp 服务离线
+    OSNSAN_SERVICE_OFFLINE = 64;  // osnsan 服务离线
+    OSNIBRS_SERVICE_OFFLINE = 65; // osnibrs 服务离线
+    META_BACKUP_SERVICE_OFFLINE = 66;   // metabackup 服务离线
+    ECS_BACKUP_SERVICE_OFFLINE = 67;    // ecsbackup 服务离线
+}
+
+//服务器信息
+message Streamer{
+	required string ip = 1; 
+    required string name = 2;
+    required uint64 total = 3;  // pool size
+    required uint64 used = 4;  // all of volumes size
+    repeated FaultType Streamer_state = 5;
+    required uint64 oracle_vol = 6;  // oracle vol size
+    required uint64 max_clients = 7;
+    required uint64 rds_vol = 8;  // rds vol size(used in hengqin 6.3)
+    required uint64 cloud_vol = 9;  // cloud vol size
+    required uint64 rac_used = 10;  // rac vol used
+    required uint64 ecs_used = 11;  // ecs  backup point size
+    required uint64 rds_used = 12;  // rds instance backup point size
+    required uint64 oss_used = 13;  // oss objecet set backup point size 
+    required uint64 meta_used = 14;  // oss objecet set backup point size 
+    required uint64 max_vcenter_vm = 15; // max vm number
+}
+
+//有代理客户端
+message Client{
+    required string id = 1;
+    required string name = 2;
+    optional string ip = 3;
+    required ClientType type = 4;
+    repeated FaultType Client_state = 5;
+    optional string System_Version =6; 
+}
+
+//无代理客户端
+message Vmware{
+    required string id = 1;
+    required string name = 2;
+    required ClientType type = 3;
+    required string path =4; 
+    repeated FaultType Vmware_state = 5;
+    required int32 System_Version =6; 
+
+}
+
+//Vcent的信息
+message Vcent{
+    required string vc_name = 1;
+    required string vc_uuid = 2;
+    required string vc_ip = 3;
+    repeated FaultType Vcent_state = 4;
+    repeated Vmware clients = 5;   
+    required ClientType type = 6;
+}
+
+message RdsInstanceInfo{
+    required string name = 1;
+    required string uuid = 2;
+    required ClientType type = 3;
+    repeated FaultType status = 4;
+    required uint64 size = 5;
+    required uint64 preoccupation_size_byte = 6; // 备份预留大小
+}
+
+message RdsInfo{
+    required string name = 1;
+    required string uuid = 2;
+    required ClientType type = 3;
+    repeated FaultType status = 4;
+    repeated RdsInstanceInfo instance_list = 5;
+}
+    
+message OssObjectSetInfo{
+    required string name = 1;
+    required string id = 2;
+    required ClientType type = 3;
+    repeated FaultType status = 4;
+    required uint64 size = 5;
+    required uint64 preoccupation_size_byte = 6; // 备份预留大小
+};
+
+message OssInfo{
+    required string name = 1;
+    required string uuid = 2;
+    required ClientType type = 3;
+    repeated FaultType status = 4;
+    repeated OssObjectSetInfo obj_list = 5;
+}
+
+message EcsInstanceInfo {
+    required string name = 1;
+    required string id = 2;
+    required ClientType type = 3;
+    repeated FaultType status = 4;
+    required uint64 size = 5;
+    required uint64 preoccupation_size_byte = 6; // 备份预留大小
+}
+
+message EcsInfo {
+    required string name = 1;
+    required string id = 2;
+    required ClientType type = 3;
+    repeated FaultType status = 4;
+    repeated EcsInstanceInfo instance_list = 5;
+}
+
+message MetaBackupInfo {
+    required string name = 1;
+    required string id = 2;
+    required ClientType type = 3;
+    repeated FaultType status = 4;
+    required uint64 size = 5;
+    required uint64 preoccupation_size_byte = 6; // 备份预留大小
+}
+
+message MetaInfo {
+    required string name = 1;
+    required string id = 2;
+    required ClientType type = 3;
+    repeated FaultType status = 4;
+    repeated MetaBackupInfo backup_list = 5;
+}
+//stm -> clouddrmanage
+message GetServerInfoReturn{
+    required string uuid =1;
+    required Streamer server = 2;
+    repeated Client  clients = 3;
+    repeated Vcent vcents = 4;
+    repeated RdsInfo rds_clients = 5;
+    repeated OssInfo oss_clients = 6;
+    repeated EcsInfo ecs_clients = 7;
+    repeated MetaInfo meta_clients = 8;
+}
+message SendDataArkIp {
+    repeated string ip = 1;
+}

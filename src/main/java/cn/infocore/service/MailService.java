@@ -4,15 +4,18 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
-import cn.infocore.bo.FaultSimple;
+import cn.infocore.dto.ClientDTO;
 import cn.infocore.dto.DataArkDTO;
-import cn.infocore.entity.*;
-//import cn.infocore.protobuf.StmStreamerDrManage;
+import cn.infocore.dto.EmailAlarmDTO;
+import cn.infocore.dto.Fault;
+import cn.infocore.dto.FaultDTO;
+import cn.infocore.dto.VCenterDTO;
+import cn.infocore.dto.VirtualMachineDTO;
 
 public interface MailService {
 	
 	//添加所有邮件服务
-	void addAllMailService(List<Email_alarm> l);
+	void addAllMailService(List<EmailAlarmDTO> l);
 	
 	//添加邮件服务
 	void addMailService(String name);
@@ -20,13 +23,10 @@ public interface MailService {
 	//移除邮件服务
 	void deleteMailService(String name);
 	
-	void updateMailService(String name,Email_alarm sender);
+	void updateMailService(String name,EmailAlarmDTO sender);
 	
 	//通知
-//	void notifyCenter (DataArkDTO data_ark,List<Client_> clientList,List<Vcenter> vcList,List<Virtual_machine> vmList,List<RdsDO> rdsList, List<RdsInstanceDO> rdsInstances,List<Fault> list_fault) throws SQLException;
+	void notifyCenter(DataArkDTO data_ark,List<ClientDTO> clientList,List<VCenterDTO> vcList,List<VirtualMachineDTO> vmList,List<Fault> list_fault) throws SQLException;
 
-	void notifyCenter (DataArkDTO data_ark,List<Client_> clientList,List<Vcenter> vcList,List<Virtual_machine> vmList,List<Fault> list_fault) throws SQLException;
-
-
-	void sentFault(Collection<FaultSimple> faultSimples);
+	void sentFault(Collection<FaultDTO> faultSimples);
 }

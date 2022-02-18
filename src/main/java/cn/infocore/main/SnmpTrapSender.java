@@ -24,7 +24,7 @@ import org.snmp4j.smi.VariableBinding;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 import cn.infocore.dto.DataArkDTO;
-import cn.infocore.entity.MySnmp;
+import cn.infocore.dto.MySnmpDTO;
 import cn.infocore.handler.DataArk2Handler;
 import org.springframework.stereotype.Component;
 
@@ -68,7 +68,7 @@ public class SnmpTrapSender {
         logger.info(fmt("Get target streamer from DB,total size:" + uuids.size()));
 
         SnmpTrapSender poc = new SnmpTrapSender();
-        MySnmp mySnmp = MySnmpCache.getInstance().getMySnmp();
+        MySnmpDTO mySnmp = MySnmpCache.getInstance().getMySnmp();
 
         //不空且启用了
         if (mySnmp != null && mySnmp.getEnabled() == 1) {
@@ -175,7 +175,7 @@ public class SnmpTrapSender {
 //        return snmp.send(pdu, target);
 //    }
 
-    public ResponseEvent sendV2cTrap(MySnmp mySnmp, List<DataArkDTO> data_arks) throws IOException {
+    public ResponseEvent sendV2cTrap(MySnmpDTO mySnmp, List<DataArkDTO> data_arks) throws IOException {
         PDU pdu = new PDU();
         for (int i = 0; i < data_arks.size(); i++) {
             DataArkDTO data_ark = data_arks.get(i);
@@ -302,7 +302,7 @@ public class SnmpTrapSender {
 
 
     // 设置管理进程的IP和端口
-    public void init(MySnmp mySnmp) throws IOException {
+    public void init(MySnmpDTO mySnmp) throws IOException {
         //目标主机的ip地址 和 端口号,162接收Trap信息
         targetAddress = GenericAddress.parse("udp:" + mySnmp.getStation_ip() + "/" + mySnmp.getStation_port());
         //使用UDP传输协议

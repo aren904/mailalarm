@@ -10,7 +10,6 @@ public class BossGroup {
 	LinkedList<WorkEventGroup> workServiceList;
 
 	protected void doSelect(LinkedList<WorkEventGroup> workServiceList) {
-		
 		while (!stop && Thread.currentThread().isInterrupted()) {
 			for (Iterator<WorkEventGroup> iterator = workServiceList.iterator(); iterator.hasNext();) {
 				WorkEventGroup workService = (WorkEventGroup) iterator.next();
@@ -20,11 +19,9 @@ public class BossGroup {
 	}
 
 	boolean interupt() {
-		
 		boolean prevStop = this.stop;
 		this.stop = true;
 		return prevStop;
-		
 	}
 
 	public LinkedList<WorkEventGroup> getWorkServiceList() {

@@ -10,7 +10,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-import StmStreamerDrManage.StreamerClouddrmanage;
 import cn.infocore.entity.*;
 
 import cn.infocore.handler.UserIdHd;
@@ -26,78 +25,61 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import cn.infocore.bo.FaultSimple;
+import cn.infocore.dto.ClientDTO;
 import cn.infocore.dto.DataArkDTO;
+import cn.infocore.dto.EmailAlarmDTO;
+import cn.infocore.dto.Fault;
+import cn.infocore.dto.FaultDTO;
+import cn.infocore.dto.VCenterDTO;
+import cn.infocore.dto.VirtualMachineDTO;
 import cn.infocore.handler.QuotaHandler;
 import cn.infocore.mail.MailSender;
-
+import cn.infocore.manager.MailManager;
+import cn.infocore.protobuf.StmAlarmManage;
 import cn.infocore.service.MailService;
 
-
-//内存中维护的邮件注册列表
 @Service
 public class MailServiceImpl implements MailService {
+	
     private static final Logger logger = Logger.getLogger(MailServiceImpl.class);
-    private Map<String, MailSender> normalSenderMap = null;// 必须线程安全
-    private Map<String, MailSender> adminSenderMap = null;
+    
+    private Map<Long, MailSender> normalSenderMap = null;// 必须线程安全
+    
+    private Map<Long, MailSender> adminSenderMap = null;
+    
+    private MailManager mailManager;
+    
     QueryRunner qr = MyDataSource.getQueryRunner();
+    
     private MailServiceImpl() {
-
+    	logger.info("Init,start to collect mail config from database.");
         MailCenterRestryHolder.instance = this;
 
-        this.normalSenderMap = new ConcurrentHashMap<String, MailSender>();
-        this.adminSenderMap = new ConcurrentHashMap<String, MailSender>();
-        // 初始的时候，先从数据库中获取一次
-        logger.info("Start to collect mail config from database.");
-//        QueryRunner qr = MyDataSource.getQueryRunner();
-//        String sql = "select user_uuid,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,sender_password,smtp_address,"
-//                + "smtp_port,smtp_authentication,smtp_user_id,smtp_password,ssl_encrypt,receiver_emails,privilege_level "
-//                + "from email_alarm,user where email_alarm.user_id=user.id";
-//        String sql = "select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,sender_password,smtp_address,"
-//                + "smtp_port,smtp_auth_enabled,smtp_user_uuid,smtp_password,ssl_encrypt_enabled,receiver_emails,role "
-//                + "from email_alarm,user where email_alarm.user_id=user.id";
-//        TODO此处需要加密查询
-//        String smtp_password = ""
-
-        String sql = "select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,smtp_address,"
-                + "smtp_port,smtp_auth_enabled,smtp_user_uuid,smtp_password,ssl_encrypt_enabled,receiver_emails,role "
-                + "from email_alarm,user where email_alarm.user_id=user.id ";
-        List<Email_alarm> eList = null;
-        try {
-//            eList = qr.query(sql, new BeanListHandler<Email_alarm>(Email_alarm.class));
-            eList = qr.query(sql, new email_alarmHandler());
-            for (Email_alarm email_alarm : eList) {
-                System.out.println(email_alarm);
-            }
-
-            if (eList.size() > 0) {
-                logger.info("Get mail config count:" + eList.size());
-                for (Email_alarm eAlarm : eList) {
-                    if (eAlarm.getEnabled() == (byte) 0) {
-                        continue;
-                    }
-                    MailSender sender = new MailSender(eAlarm);
-                    if (eAlarm.getRole() < 2) {
-                        this.adminSenderMap.put(eAlarm.getUser_id(), sender);
-//                        logger.info("admin用户"+eAlarm.getUser_id());
-                    }
-                    this.normalSenderMap.put(eAlarm.getUser_id(), sender);
-//                       logger.info("normal用户"+eAlarm.getUser_id());
-
+        //user_id与MailSender的键值对
+        this.normalSenderMap = new ConcurrentHashMap<Long, MailSender>();
+        this.adminSenderMap = new ConcurrentHashMap<Long, MailSender>();
+        
+        List<EmailAlarmDTO> emailAlaramDtos=mailManager.findAllWithUser();
+        
+        if (emailAlaramDtos.size() > 0) {
+            logger.info("Get mail config count:" + emailAlaramDtos.size());
+            for (EmailAlarmDTO emailAlaram : emailAlaramDtos) {
+                if (emailAlaram.getEnabled() == (byte) 0) {
+                    continue;
                 }
-                logger.info("Collected mail config finished.");
-            } else {
-                logger.warn("Collected mail config failed.");
+                MailSender sender = new MailSender(emailAlaram);
+                if (emailAlaram.getRole() < 2) {
+                    this.adminSenderMap.put(emailAlaram.getUser_id(), sender);
+                }
+                this.normalSenderMap.put(emailAlaram.getUser_id(), sender);
             }
-        } catch (SQLException e) {
-            logger.error(e);
-        } finally {
-            // MyDataSource.close(connection);
+            logger.info("Collected mail config finished.");
+        } else {
+            logger.warn("Collected mail config failed.");
         }
     }
 
     private static class MailCenterRestryHolder {
-
         public static MailServiceImpl instance = new MailServiceImpl();
     }
 
@@ -106,8 +88,8 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void addAllMailService(List<Email_alarm> l) {
-        for (Email_alarm email_alarm : l) {
+    public void addAllMailService(List<EmailAlarmDTO> l) {
+        for (EmailAlarmDTO email_alarm : l) {
             MailSender sender = new MailSender(email_alarm);
             if (email_alarm.getRole() < 2) {
                 this.adminSenderMap.put(email_alarm.getUser_id(), sender);
@@ -136,12 +118,12 @@ public class MailServiceImpl implements MailService {
 //        logger.info("id:"+id);
 //        Object[] para = {name};
         Object[] params = {id};
-        List<Email_alarm> elList = null;
+        List<EmailAlarmDTO> elList = null;
         try {
 //            elList = qr.query(sql, new BeanListHandler<Email_alarm>(Email_alarm.class), para);
-            elList = qr.query(sql, new BeanListHandler<Email_alarm>(Email_alarm.class), params);
+            elList = qr.query(sql, new BeanListHandler<EmailAlarmDTO>(EmailAlarmDTO.class), params);
             logger.info(elList);
-            for (Email_alarm email_alarm : elList) {
+            for (EmailAlarmDTO email_alarm : elList) {
                 if (email_alarm.getEnabled() == (byte) 0) {
                     if (this.normalSenderMap.containsKey(name)) {
                         this.normalSenderMap.remove(name);
@@ -175,7 +157,7 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void updateMailService(String name, Email_alarm sender) {
+    public void updateMailService(String name, EmailAlarmDTO sender) {
 
     }
 
@@ -223,13 +205,8 @@ public class MailServiceImpl implements MailService {
         return null;
     }
 
-//    public void updateMailService(String name, Email_alarm sender) {
-//        // 同理，查询数据库，更新
-//        // this.list.put(name, sender);
-//    }
-
     @Override
-    public void notifyCenter(DataArkDTO data_ark, List<Client_> clientList, List<Vcenter> vcList, List<Virtual_machine> vmList, List<Fault> list_fault) throws SQLException {
+    public void notifyCenter(DataArkDTO data_ark, List<ClientDTO> clientList, List<VCenterDTO> vcList, List<VirtualMachineDTO> vmList, List<Fault> list_fault) throws SQLException {
         String sql = null;
         Object[] condition = null;
 
@@ -239,7 +216,7 @@ public class MailServiceImpl implements MailService {
                         + fault.getTarget_name() + ",data_ark ip:" + fault.getData_ark_ip() + ",client_id:"
                         + fault.getClient_id()+",ClientType:"+fault.getClient_type());
 
-                if (fault.getType() == StreamerClouddrmanage.ClientType.SINGLE_VALUE) {
+                if (fault.getType() == StmAlarmManage.ClientType.SINGLE_VALUE) {
                     // 1.confirm all alarm log for target.
                     //更新（异常信息不是虚拟机快照点创建失败的，离线建立快照点，VMWARE同步数据失败）告警日志数据方舟id，并且设置未处理，
                     sql = "update alarm_log set processed=1 where data_ark_uuid=? and target_uuid=? and exception!=3 and exception!=25 and exception!=26";
@@ -254,40 +231,40 @@ public class MailServiceImpl implements MailService {
                     String excepts = "";
 
                     // 注意这里名称不一致，需要特殊处理
-                    if (fault.getClient_type() == StreamerClouddrmanage.ClientType.SINGLE_VALUE) {
+                    if (fault.getClient_type() == StmAlarmManage.ClientType.SINGLE_VALUE) {
 
                         excepts = data_ark.getExcept();
-                    } else if (fault.getClient_type() == StreamerClouddrmanage.ClientType.VMWARE_VALUE) {
+                    } else if (fault.getClient_type() == StmAlarmManage.ClientType.VMWARE_VALUE) {
 
 
-                        for (Client_ c : clientList) {
+                        for (ClientDTO c : clientList) {
 
                             if (fault.getData_ark_uuid().equals(c.getData_ark_id()) && fault.getClient_id().equals(c.getUuid())) {
                                 excepts = c.getExcept();
                                 break;
                             }
                         }
-                    } else if (fault.getClient_type() == StreamerClouddrmanage.ClientType.MSCS_VALUE) {
+                    } else if (fault.getClient_type() == StmAlarmManage.ClientType.MSCS_VALUE) {
                         /*
                          * sql="select exceptions from vcenter where data_ark_id=? and vcenter_id=?";
                          * excepts=qr.query(sql, new ExceptHandler(), condition);
                          */
 
-                        for (Vcenter vc : vcList) {
+                        for (VCenterDTO vc : vcList) {
 //                            logger.info(vc.getExcep());
                             if (fault.getData_ark_uuid().equals(vc.getData_ark_id()) && fault.getClient_id().equals(vc.getUuid())) {
-                                excepts = vc.getExcep();
+                                excepts = vc.getException();
                                 break;
                             }
                         }
 
 
-                    } else if (fault.getClient_type() == StreamerClouddrmanage.ClientType.RAC_VALUE) {
-                        for (Virtual_machine vm : vmList) {
+                    } else if (fault.getClient_type() == StmAlarmManage.ClientType.RAC_VALUE) {
+                        for (VirtualMachineDTO vm : vmList) {
 
                             if (fault.getData_ark_uuid().equals(vm.getData_ark_id())
                                     && fault.getClient_id().equals(vm.getUuid())) {
-                                excepts = vm.getExcept();
+                                excepts = vm.getException();
                                 break;
                             }
                         }
@@ -365,7 +342,7 @@ public class MailServiceImpl implements MailService {
                         String user = entry.getKey();
                         MailSender mailSender = entry.getValue();
                         // 判断是否属于管理员用户
-                        Email_alarm conf = mailSender.getConfig();
+                        EmailAlarmDTO conf = mailSender.getConfig();
                         if (conf.getRole() == 0 || conf.getRole() == 1) {
                             mailSender.judge(fault, user);
                             logger.info(user + " admin or root user start judge...");
@@ -425,9 +402,9 @@ public class MailServiceImpl implements MailService {
 
 
     @Override
-    public void sentFault(Collection<FaultSimple> faultSimples) {
+    public void sentFault(Collection<FaultDTO> faultSimples) {
 //        logger.warn(faultSimples);
-        for (FaultSimple faultSimple : faultSimples) {
+        for (FaultDTO faultSimple : faultSimples) {
             // send to normal users
             List<Fault> faults = convertFaultSimple(faultSimple);
             for (Fault fault : faults) {
@@ -471,9 +448,9 @@ public class MailServiceImpl implements MailService {
 
     }
 
-    List<Fault> convertFaultSimpleWithUserString(FaultSimple faultSimple) {
+    List<Fault> convertFaultSimpleWithUserString(FaultDTO faultSimple) {
 
-        Collection<StreamerClouddrmanage.FaultType> faultTypes = faultSimple.getFaultTypes();
+        Collection<StmAlarmManage.FaultType> faultTypes = faultSimple.getFaultTypes();
 
         String dataArkId = faultSimple.getDataArkUuid();
         String dataArkIp = faultSimple.getDataArkIp();
@@ -481,11 +458,11 @@ public class MailServiceImpl implements MailService {
         String targetId = faultSimple.getTargetUuid();
         String targetName = faultSimple.getTargetName();
         long timestamp = faultSimple.getTimestamp();
-        StreamerClouddrmanage.ClientType clientType = faultSimple.getClientType();
+        StmAlarmManage.ClientType clientType = faultSimple.getClientType();
 //        List<String> userIds = faultSimple.getUserIds();
 
         List<Fault> faults = new ArrayList<Fault>();
-        for (StreamerClouddrmanage.FaultType faultType : faultTypes) {
+        for (StmAlarmManage.FaultType faultType : faultTypes) {
             Integer code = faultType.getNumber();
             Fault fault = new Fault();
             fault.setType(code);
@@ -503,20 +480,20 @@ public class MailServiceImpl implements MailService {
     }
 
     //将faultSimple转化成faults
-    List<Fault> convertFaultSimple(FaultSimple faultSimple) {
+    List<Fault> convertFaultSimple(FaultDTO faultSimple) {
 
-        Collection<StreamerClouddrmanage.FaultType> faultTypes = faultSimple.getFaultTypes();
+        Collection<StmAlarmManage.FaultType> faultTypes = faultSimple.getFaultTypes();
 
         String dataArkId = faultSimple.getDataArkUuid();
         String dataArkIp = faultSimple.getDataArkIp();
         String data_ark_name = faultSimple.getDataArkName();
         String targetId = faultSimple.getTargetUuid();
         String targetName = faultSimple.getTargetName();
-        StreamerClouddrmanage.ClientType clientType = faultSimple.getClientType();
+        StmAlarmManage.ClientType clientType = faultSimple.getClientType();
         List<String> userIds = faultSimple.getUserUuids();
         Long timestamp = faultSimple.getTimestamp();
         List<Fault> faults = new ArrayList<Fault>();
-        for (StreamerClouddrmanage.FaultType faultType : faultTypes) {
+        for (StmAlarmManage.FaultType faultType : faultTypes) {
             for (String userId : userIds) {
                 Integer code = faultType.getNumber();
                 Fault fault = new Fault();

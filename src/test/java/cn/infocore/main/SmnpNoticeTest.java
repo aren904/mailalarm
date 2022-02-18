@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import cn.infocore.entity.MySnmp;
+import cn.infocore.dto.MySnmpDTO;
 
 public class SmnpNoticeTest {
 
@@ -12,7 +12,7 @@ public class SmnpNoticeTest {
 	public void test() {
 		
 		@SuppressWarnings("unused")
-		MySnmp mySnmp=MySnmpCache.getInstance().getMySnmp();
+		MySnmpDTO mySnmp=MySnmpCache.getInstance().getMySnmp();
 
 		assertTrue(true);
 		}

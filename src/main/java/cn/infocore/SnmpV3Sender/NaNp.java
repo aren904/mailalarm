@@ -1,7 +1,8 @@
 package cn.infocore.SnmpV3Sender;
 
 import cn.infocore.dto.DataArkDTO;
-import cn.infocore.entity.MySnmp;
+import cn.infocore.dto.MySnmpDTO;
+
 import org.apache.log4j.Logger;
 import org.snmp4j.*;
 import org.snmp4j.event.ResponseEvent;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 public class NaNp {
     private static final Logger logger = Logger.getLogger(NaNp.class);
-    public static ResponseEvent sendSnmpV3_NANP(MySnmp mySnmp, Address targetAddress, List<DataArkDTO> data_arks) throws IOException {
+    public static ResponseEvent sendSnmpV3_NANP(MySnmpDTO mySnmp, Address targetAddress, List<DataArkDTO> data_arks) throws IOException {
         SNMP4JSettings.setExtensibilityEnabled(true);
         SecurityProtocols.getInstance().addDefaultProtocols();
         TransportMapping transport;

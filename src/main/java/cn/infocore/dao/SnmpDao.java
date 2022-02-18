@@ -1,7 +1,8 @@
 package cn.infocore.dao;
 
-import cn.infocore.entity.MySnmp;
 import org.springframework.stereotype.Repository;
+
+import cn.infocore.dto.MySnmpDTO;
 
 /**
  * @ProjectName: mailalarm
@@ -14,5 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface SnmpDao {
-    public MySnmp SelectSnmpByIdIp(String ip);
+    public MySnmpDTO SelectSnmpByIdIp(String ip);
 }

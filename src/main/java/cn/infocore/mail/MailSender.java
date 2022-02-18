@@ -1,19 +1,13 @@
 package cn.infocore.mail;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.sql.Blob;
+import static cn.infocore.utils.TestAesGcmAe.hexStringToByteArray;
+
 import java.text.SimpleDateFormat;
-import java.util.Base64;
 import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.mail.Address;
@@ -23,30 +17,26 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-
-import cn.infocore.utils.*;
 import org.apache.log4j.Logger;
-
 
 import cn.hutool.cache.CacheUtil;
 import cn.hutool.cache.impl.TimedCache;
-import cn.infocore.entity.Email_alarm;
-import cn.infocore.entity.Fault;
-
-import static cn.infocore.utils.TestAesGcmAe.hexStringToByteArray;
-
+import cn.infocore.dto.EmailAlarmDTO;
+import cn.infocore.dto.Fault;
+import cn.infocore.utils.TestAesGcmAe;
+import cn.infocore.utils.Utils;
 
 public class MailSender {
+	
     private static final Logger logger = Logger.getLogger(MailSender.class);
-    private final SecureRandom secureRandom = new SecureRandom();
-    private final static int GCM_IV_LENGTH = 12;
+    
     private static Map<String, Long> howOfen = new ConcurrentHashMap<>();// 内存维护的发送间隔时间
     private static TimedCache<String, String> timedCache = CacheUtil.newTimedCache(10 * 60 * 1000); //缓存时间为10min
-    private Email_alarm config;
+    private EmailAlarmDTO config;
     private MimeMessage message;
     private Session s;
 
-    public MailSender(Email_alarm config) {
+    public MailSender(EmailAlarmDTO config) {
         this.config = config;
         final Properties properties = new Properties();
         properties.put("mail.smtp.auth", config.getSmtp_auth_enabled() == (byte) 0 ? "false" : "true");
@@ -80,25 +70,31 @@ public class MailSender {
         }
     }
 
-    public Email_alarm getConfig() {
+    public EmailAlarmDTO getConfig() {
         return this.config;
     }
 
-    // 逻辑处理
+    /**
+     * 邮件报警
+     * @param fault
+     * @param user
+     */
     public void judge(Fault fault, String user) {
-
-        logger.info("----------UserId:" + user + ",exception:" + config.getExceptions() + ",fault type:" + fault.getType() + ",enabled:" + config.getEnabled() + ",targetName:" + fault.getTarget_name() + ",timestamp:" + fault.getTimestamp());
-//        logger.info(config);
+    	logger.info("----------UserId:" + user + ",exception:" + config.getExceptions() + ",fault type:" 
+        		+ fault.getType() + ",enabled:" + config.getEnabled() + ",targetName:" + fault.getTarget_name() 
+        		+ ",timestamp:" + fault.getTimestamp());
+    	
         if (config.getEnabled() == 0) {
             logger.info(user + " doesn't need to send email,for config is not enabled.");
             return;
         }
+        
         long now = System.currentTimeMillis() / 1000;
-        String[] e = config.getExceptions().split(";");
-//        logger.info(config.getLimit_enabled());
-        for (String string : e) {
+        //配置里待报警的内容
+        String[] excepts = config.getExceptions().split(";");
+        for (String except : excepts) {
             // 如果该用户已经添加这个异常
-            if (string.equals(Integer.toString(fault.getType()))) {
+            if (except.equals(Integer.toString(fault.getType()))) {
                 // 是否开启限制同一时间内只发送一封邮件
                 String key = user + fault.getData_ark_uuid() + fault.getTarget_name() + fault.getType();
                 if (config.getLimit_enabled() == 0) {
@@ -136,14 +132,6 @@ public class MailSender {
     public boolean send(Fault fault) throws Exception {
         try {
             // 发件人
-			/*Address from = new InternetAddress(config.getSender_email());
-			message.setFrom(from);
-			
-			// 设置收件人邮箱,这里是多个收件人
-			String[] recv = config.getReceiver_emails().split(";");
-			for (String r : recv) {
-				message.addRecipient(Message.RecipientType.TO, new InternetAddress(r));
-			}*/
             // 邮件标题
             /*
              * 格式 主题:云容灾管理平台告警信息
@@ -157,7 +145,6 @@ public class MailSender {
              * 		此致 敬礼!
              */
             StringBuilder builder = new StringBuilder();
-//            message.setSubject("数据方舟统一管理平台告警信息");
             message.setSubject("数据方舟统一管理平台告警信息","utf-8");
             if (fault != null) {
                 builder.append("尊敬的用户,您好:\n");
@@ -169,7 +156,6 @@ public class MailSender {
                 builder.append("\t告警时间:" + time + "\n");
                 builder.append("\t对应数据方舟:" + fault.getData_ark_name() + "\n");
                 builder.append("\t对应告警对象:" + fault.getTarget_name() + "\n");
-
             } else {
                 builder.append("这是一封来自数据方舟统一管理平台的测试邮件!");
             }
@@ -178,42 +164,29 @@ public class MailSender {
 
             Transport transport = s.getTransport();
 
-            logger.info("Start sending mail to " + config.getSmtp_user_uuid());
-
-            logger.info("smtpPassword:"+config.getSmtp_password());
+            logger.info("Start sending mail to " + config.getSmtp_user_uuid()+",smtpPassword:"+config.getSmtp_password());
             //密钥
             byte[] key = hexStringToByteArray("cff315f48817496b9f23538c2d83942e");
             SecretKey secretKey = new SecretKeySpec(key, "AES");
             String s = TestAesGcmAe.decrypt(config.getSmtp_password(), secretKey, null);
             logger.info("解密后的字段:"+s);
 
-//            transport.connect(config.getSmtp_user_uuid(), config.getSmtp_password());
             transport.connect(config.getSmtp_user_uuid(), s);
             // 发送
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
             logger.info("Mail send is successful.user :" + config.getSmtp_user_uuid());
-
             return true;
         } catch (Exception e) {
-            String msg = "mail sent failed";
-            logger.error(msg, e);
+        	logger.error("mail sent failed", e);
             return false;
         }
     }
 
     //测试邮件不加密码
-    public boolean send1(Fault fault) throws Exception {
+    public boolean sendTest(Fault fault) throws Exception {
         try {
             // 发件人
-			/*Address from = new InternetAddress(config.getSender_email());
-			message.setFrom(from);
-
-			// 设置收件人邮箱,这里是多个收件人
-			String[] recv = config.getReceiver_emails().split(";");
-			for (String r : recv) {
-				message.addRecipient(Message.RecipientType.TO, new InternetAddress(r));
-			}*/
             // 邮件标题
             /*
              * 格式 主题:云容灾管理平台告警信息
@@ -238,8 +211,6 @@ public class MailSender {
                 builder.append("\t告警时间:" + time + "\n");
                 builder.append("\t对应数据方舟:" + fault.getData_ark_name() + "\n");
                 builder.append("\t对应告警对象:" + fault.getTarget_name() + "\n");
-//                builder.append("\t对应告警对象:" + fault.getTarget_name() );
-                //builder.append("\t此致\n\t敬礼!\n\n");
             } else {
                 builder.append("这是一封来自数据方舟统一管理平台的测试邮件!");
             }
@@ -248,26 +219,15 @@ public class MailSender {
             //message.saveChanges();
             Transport transport = s.getTransport();
 
-            logger.info("Start sending mail to " + config.getSmtp_user_uuid());
-            System.out.println("Start sending mail to " + config.getSmtp_user_uuid());
-
-
-            logger.info("smtpPassword:"+new String(config.getSmtp_password()));
-            System.out.println("smtpPassword:"+new String(config.getSmtp_password()));
-//
-
-           // transport.connect(config.getSmtp_user_uuid(), new String(config.getSmtp_password()));
+            logger.info("Start sending test mail to " + config.getSmtp_user_uuid()+",smtpPassword:"+new String(config.getSmtp_password()));
             transport.connect(config.getSmtp_user_uuid(),new String(config.getSmtp_password()));
-//            transport.connect(config.getSmtp_user_uuid(), decrypt);
             // 发送
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
-            logger.info("Mail send is successful.user :" + config.getSmtp_user_uuid());
-
+            logger.info("Test Mail send is successful.user :" + config.getSmtp_user_uuid());
             return true;
         } catch (Exception e) {
-            String msg = "mail sent failed";
-            logger.error(msg, e);
+        	logger.error("Test mail sent failed", e);
             return false;
         }
     }

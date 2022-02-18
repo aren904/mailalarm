@@ -1,95 +1,87 @@
 package cn.infocore.main;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import cn.infocore.entity.*;
-import cn.infocore.utils.MyDataSource;
-import org.apache.commons.dbutils.QueryRunner;
+
 import org.apache.log4j.Logger;
 
+import cn.infocore.dto.ClientDTO;
 import cn.infocore.dto.DataArkDTO;
-import cn.infocore.handler.DataArkHandler;
-import cn.infocore.handler.ExceptHandler;
+import cn.infocore.dto.Fault;
+import cn.infocore.dto.VCenterDTO;
+import cn.infocore.dto.VirtualMachineDTO;
+import cn.infocore.entity.DataArk;
+import cn.infocore.service.DataArkService;
 import cn.infocore.service.impl.MailServiceImpl;
-//import cn.infocore.protobuf.StmStreamerDrManage;
+
 /**
- * 检测streamer服务端状态
+ * 定时扫描缓存，判断数据方舟状态
+ * 周期：每3分钟扫描一次，3分钟无心跳则离线（因此数据方舟离线被检测到的时间范围是0~6分钟）
  */
 public class ThreadScanStreamer implements Runnable {
+	
 	private static final Logger logger = Logger.getLogger(ThreadScanStreamer.class);
+	
 	private static final long split = 3 * 60;
-	// private static final long split=30;
-	// Long timestamp = System.currentTimeMillis();
-//	CaptureDataArkIp captureDataArkIp;
-
-	// Long stp = 5000L;
-//	public ThreadScanStreamer(CaptureDataArkIp captureDataArkIp) {
-//		this.captureDataArkIp=captureDataArkIp;
-//		logger.info("Init Data ark offline listener thread.");
-//	}
+	
+	private DataArkService dataArkService;
+	
+	public ThreadScanStreamer(DataArkService dataArkService) {
+		this.dataArkService=dataArkService;
+	}
 
 	public ThreadScanStreamer() {
-		logger.info("Init Data ark offline listener thread.");
+		logger.info("ThreadScanStreamer launched.");
 	}
 
 	@Override
 	public void run() {
-			Map<String, Long> map = null;
-			List<String> uuids = null;
-//			DataArkList.getInstance(); // for all streamer offline and start service not getcache
-		   DataArkList.getInstance();
-			//logger.info("kmj");
-			while (true) {
-				try {
-
-					map = HeartCache.getInstance().getAllCacheList();
-					logger.info("Start Scanner data ark offline is or not....data_ark size:" + map.size());
-					uuids = new ArrayList<String>();
-
-					if (map.size() > 0) {
-						for (Map.Entry<String, Long> entry : map.entrySet()) {
-							String uuid = entry.getKey();
-							//只判断本机uuid的在线离线状态
-							//	if (uuid1.equals(uuid)) {
-							long time = entry.getValue();
-//						logger.info("time:"+time);
-							long now = System.currentTimeMillis() / 1000;
-//						logger.info("now:"+now);
-							if (now - time > split) {
-								// 当前时间-最后更新的时间>3分钟,认为掉线
-								logger.info("uuid:" + uuid + " is offline,update database.");
-								updateOffLine(uuid, false);
-								// 每3分钟发送一次Trap
-								logger.info("Collect offline streamer:" + uuid);
-								uuids.add(uuid);
-							} else {
-								logger.info("uuid:" + uuid + " is online,update database.");
-								updateOffLine(uuid, true);
-							}
-						}
-
-						if (uuids.size() > 0) {
-							logger.info("Sender snmp server alarm.");
-							SnmpTrapSender.run(uuids);
-//						SnmpTrapSender.getInstance().run(uuids);
+		Map<String, Long> map = null;
+		List<String> uuids = null;
+		//获取当前数据库的数据方舟记录写入缓存，并初始化心跳时间0L
+		DataArkList.getInstance();
+		
+		while (true) {
+			try {
+				//获取数据方舟心跳列表：如果是初始化的时间就是0L，之后是从心跳里获取的
+				map = HeartCache.getInstance().getAllCacheList();
+				
+				logger.info("Start check data_ark state....current cache data_ark size:" + map.size());
+				uuids = new ArrayList<String>();
+				if (map.size() > 0) {
+					for (Map.Entry<String, Long> entry : map.entrySet()) {
+						String uuid = entry.getKey();
+						long time = entry.getValue();
+						long now = System.currentTimeMillis() / 1000;
+						if (now - time > split) {
+							// 当前时间-最后更新的时间>3分钟,认为掉线
+							logger.info("uuid:" + uuid + " is offline,update database.");
+							updateOffLine(uuid, false);
+							uuids.add(uuid);
+						} else {
+							logger.info("uuid:" + uuid + " is online,update database.");
+							updateOffLine(uuid, true);
 						}
 					}
 
-
-					try {
-						Thread.sleep(split * 1000);
-					} catch (InterruptedException e) {
-						logger.error("ThreadScanStreamer interrupted...", e);
+					if (uuids.size() > 0) {
+						logger.info("Sender snmp server alarm.");
+						SnmpTrapSender.run(uuids);
 					}
-				} catch (Exception e) {
-					logger.error("ThreadScanStreamer:" + e);
 				}
-			}
 
+				try {
+					Thread.sleep(split * 1000);
+				} catch (InterruptedException e) {
+					logger.error("ThreadScanStreamer interrupted...", e);
+				}
+			} catch (Exception e) {
+				logger.error("ThreadScanStreamer:" + e);
+			}
+		}
 	}
 
 	private static class ThreadScanStreamerHolder {
@@ -100,44 +92,38 @@ public class ThreadScanStreamer implements Runnable {
 		return ThreadScanStreamerHolder.instance;
 	}
 
-
-
-
-
-	// 更新数据库中是否离线的标志
-	public static void updateOffLine(String uuid, boolean online) {
-		// true 在线 false 离线
+	/**
+	 * 更新数据库中是否离线的标志
+	 * @param uuid
+	 * @param online true 在线 false 离线
+	 */
+	public void updateOffLine(String uuid, boolean online) {
 		long now = System.currentTimeMillis() / 1000;
-		String sql = "";
-		QueryRunner qr = MyDataSource.getQueryRunner();
 		// bug#773->solved: maintain exceptions if online
-		List<String> result = getExceptionDb(uuid, qr);
+		List<String> result = findExceptionsByUuid(uuid);
+		
+		// 10->Streamer 服务器离线，如果在线但数据库中包含离线异常需要设置为在线；反之离线；
 		if ((result != null && result.contains("10") && online) || !online) {
-			updateStreamerStatus(uuid, online, qr);
+			dataArkService.updateDataArkStatus(uuid, online);
 		}
 
+		//对于离线的数据方舟需要邮件报警
 		if (!online) {
-			logger.warn("The data ark which uuid:" + uuid + " is offline...");
+			logger.debug("The data ark which uuid:" + uuid + " is offline...");
+			
 			// 如果离线，触发邮件报警
 			List<Fault> data_ark_fault_list = new LinkedList<Fault>();
 			Fault fault = new Fault();
 			fault.setTimestamp(now);
-			fault.setType(10);
+			fault.setType(10); //10表示离线
 			fault.setData_ark_uuid(uuid);
-			fault.setClient_type(0);
-//			sql = "select d.name,d.ip,q.user_id from data_ark as d,quota as q where d.id=q.data_ark_id and q.data_ark_id=?";
-//			String sql1 = "select name,user_id,ip from data_ark where id=?";
-			String sql1 = "select name,user_uuid,ip from data_ark where uuid=?";
-			Object[] param1 = { uuid };
-//			Object[] param = { dataArkId }
+			fault.setClient_type(0); //0表示数据方舟
+			
 			try {
-//				DataArkDTO data_ark = qr.query(sql, new DataArkHandler(), param1);
-				DataArkDTO data_ark = qr.query(sql1, new DataArkHandler(), param1);
-//				if (data_ark == null && adminData_ark != null) {
-//					data_ark = adminData_ark;
-//				}
-
-				if (data_ark == null) {
+				DataArk dataArk=dataArkService.findByUuid(uuid);
+				DataArkDTO dataArkDto=new DataArkDTO();
+				if (dataArk == null) {
+					logger.error("The data ark which uuid:" + uuid + " is not exist db...");
 					fault.setData_ark_name("null");
 					fault.setData_ark_ip("null");
 					fault.setTarget_name("null");
@@ -145,72 +131,54 @@ public class ThreadScanStreamer implements Runnable {
 					fault.setClient_id("null");
 					fault.setData_ark_uuid("null");
 				} else {
-					fault.setData_ark_name(data_ark.getName());
-					fault.setData_ark_ip(data_ark.getIp());
-					fault.setTarget_name(data_ark.getName());
-					fault.setUser_uuid(data_ark.getUser_uuid());
-					fault.setClient_id(uuid); // add by wxx
+					dataArkDto.setUser_uuid(dataArk.getUserUuid());
+					dataArkDto.setName(dataArk.getName());
+					dataArkDto.setIp(dataArk.getIp());
+					
+					fault.setData_ark_name(dataArkDto.getName());
+					fault.setData_ark_ip(dataArkDto.getIp());
+					fault.setTarget_name(dataArkDto.getName());
+					fault.setUser_uuid(dataArkDto.getUser_uuid());
+					fault.setClient_id(uuid);
 					fault.setData_ark_uuid(uuid);
 				}
-
-				data_ark_fault_list.add(fault);
-				data_ark.setFaults(data_ark_fault_list);
-				List<Client_> clientList = new LinkedList<Client_>();
-				List<Vcenter> vcList = new LinkedList<Vcenter>();
-				List<Virtual_machine> vmList = new LinkedList<Virtual_machine>();
-				List<RdsDO> rdsList = new ArrayList<>();
-				List<RdsInstanceDO> rdsInstanceList = new ArrayList<>();
-
-	            List<Fault> fault_list_single = new LinkedList<Fault>();
-	            fault_list_single.add(fault);
 				
-//				MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList,rdsList,rdsInstanceList, fault_list_single);
-				MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList, fault_list_single);
-			} catch (Exception e1) {
-				logger.error("ThreadScanStreamer:" + e1);
+				data_ark_fault_list.add(fault);
+				//将Faults设置成Exception
+				dataArkDto.setFaults(data_ark_fault_list);
+				
+				List<ClientDTO> clientList = new LinkedList<ClientDTO>(); //普通客户端
+				List<VCenterDTO> vcList = new LinkedList<VCenterDTO>(); //VC
+				List<VirtualMachineDTO> vmList = new LinkedList<VirtualMachineDTO>(); //VM
+				List<Fault> fault_list_single = new LinkedList<Fault>(); //数据方舟的离线异常
+				fault_list_single.add(fault);
+				//启动告警
+				MailServiceImpl.getInstance().notifyCenter(dataArkDto, clientList, vcList, vmList, fault_list_single);
+			} catch (Exception e) {
+				logger.warn("ThreadScanStreamer error.", e);
 			}
 		}
-		// MyDataSource.close(connection);
 	}
 
-	private static void updateStreamerStatus(String uuid, boolean online, QueryRunner qr) {
-		String sql;
-		// 更新数据库数据方舟的状态
-//		sql = "update data_ark set exceptions=? where id=?";
-		sql = "update data_ark set exceptions=? where uuid=?";
-		Object[] param = { online ? "0" : "10", uuid };
-		try {
-			qr.update(sql, param);
-		} catch (Exception e) {
-			logger.error(e);
-		}
-	}
-
-	private static List<String> getExceptionDb(String uuid, QueryRunner qr) {
-//		String selectsql = "select `exceptions` from data_ark where id=?";
-		String selectsql = "select `exceptions` from data_ark where uuid=?";
-		Object[] parm0 = { uuid };
-
-		try {
-			List<String> source = qr.execute(selectsql, new ExceptHandler(), parm0);
-			if (source != null && !source.isEmpty()) {
-				String exceptions = source.get(0);
-				if (exceptions!= null && exceptions.contains(";")) {
-					String[] resultArray = source.get(0).split(";");
-					return new ArrayList<String>(Arrays.asList(resultArray));
-				} else {
-					List<String> result = new ArrayList<String>();
-					result.add(exceptions);
-					return result;
-				}
-
-			}else {
-                return new ArrayList<String>();
-            }
-			
-		} catch (Exception e2) {
-			e2.printStackTrace();
-		}
-		return null;
+	/**
+	 * 获取指定数据方舟的异常
+	 * @param uuid
+	 * @return
+	 */
+	private List<String> findExceptionsByUuid(String uuid) {
+		DataArk dataArk=dataArkService.findByUuid(uuid);
+		if (dataArk != null) {
+			String exceptions = dataArk.getExceptions();
+			if (exceptions!= null && exceptions.contains(";")) {
+				String[] resultArray = exceptions.split(";");
+				return new ArrayList<String>(Arrays.asList(resultArray));
+			} else {
+				List<String> result = new ArrayList<String>();
+				result.add(exceptions);
+				return result;
+			}
+		}else {
+            return new ArrayList<String>();
+        }
 	}
 }

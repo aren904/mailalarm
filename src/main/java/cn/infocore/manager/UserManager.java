@@ -1,31 +1,25 @@
 package cn.infocore.manager;
 
-import cn.infocore.dao.UserMapper;
-import cn.infocore.entity.User;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-/**
- * @ProjectName: mailalarm
- * @Package: cn.infocore.manager
- * @ClassName: UserManager
- * @Author: aren904
- * @Description:
- * @Date: 2021/6/9 14:49
- * @Version: 1.0
- */
+import cn.infocore.entity.User;
+import cn.infocore.mapper.UserMapper;
+
 @Service
 public class UserManager extends ServiceImpl<UserMapper, User> {
 
-    public String getUserIdById(String userId) {
-        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(User::getId, userId);
-        User user = this.getOne(lambdaQueryWrapper);
-        String uuid = user.getUuid();
-        return uuid;
+	/**
+	 * 根据id获取对象
+	 * @param id
+	 * @return
+	 */
+    public User getUserById(Long id){
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getId,id);
+        return this.getOne(queryWrapper);
     }
+    
 }
