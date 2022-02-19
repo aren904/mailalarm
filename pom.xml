@@ -20,7 +20,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
-		<mybatis-plus.version>3.0.3</mybatis-plus.version>
+		<mybatis-plus.version>3.4.0</mybatis-plus.version>
 		<springboot.version>2.2.0.RELEASE</springboot.version>
 		<skipTests>true</skipTests>
 	</properties>
@@ -167,6 +167,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-test</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.github.yulichang</groupId>
+		    <artifactId>mybatis-plus-join</artifactId>
+		    <version>1.2.2</version>
 		</dependency>
     </dependencies>
 

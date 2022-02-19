@@ -79,7 +79,7 @@ public class MailSender {
      * @param fault
      * @param user
      */
-    public void judge(Fault fault, String user) {
+    public void judge(Fault fault, Long user) {
     	logger.info("----------UserId:" + user + ",exception:" + config.getExceptions() + ",fault type:" 
         		+ fault.getType() + ",enabled:" + config.getEnabled() + ",targetName:" + fault.getTarget_name() 
         		+ ",timestamp:" + fault.getTimestamp());

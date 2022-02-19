@@ -1,7 +1,11 @@
 package cn.infocore.utils;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import cn.infocore.dto.Fault;
+import cn.infocore.dto.FaultDTO;
 import cn.infocore.protobuf.StmAlarmManage;
 
 /**
@@ -43,6 +47,39 @@ public class ConvertUtils {
             }
         }
         return sb.toString();
+    }
+    
+    //将FaultDTO转化成Fault集合
+    public static List<Fault> convertFault(FaultDTO faultDto) {
+        List<StmAlarmManage.FaultType> faultTypes = faultDto.getFaultTypes();
+
+        String dataArkId = faultDto.getDataArkUuid();
+        String dataArkIp = faultDto.getDataArkIp();
+        String data_ark_name = faultDto.getDataArkName();
+        String targetId = faultDto.getTargetUuid();
+        String targetName = faultDto.getTargetName();
+        StmAlarmManage.ClientType clientType = faultDto.getClientType();
+        List<String> userIds = faultDto.getUserUuids();
+        Long timestamp = faultDto.getTimestamp();
+        
+        List<Fault> faults = new ArrayList<Fault>();
+        for (StmAlarmManage.FaultType faultType : faultTypes) {
+            for (String userId : userIds) {
+                Integer code = faultType.getNumber();
+                Fault fault = new Fault();
+                fault.setType(code);
+                fault.setClient_id(targetId);
+                fault.setClient_type(clientType.getNumber());
+                fault.setData_ark_uuid(dataArkId);
+                fault.setData_ark_ip(dataArkIp);
+                fault.setData_ark_name(data_ark_name);
+                fault.setTarget_name(targetName);
+                fault.setUser_uuid(userId);
+                fault.setTimestamp(timestamp);
+                faults.add(fault);
+            }
+        }
+        return faults;
     }
     
 }

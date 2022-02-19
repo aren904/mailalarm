@@ -1,7 +1,6 @@
 package cn.infocore.service;
 
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.List;
 
 import cn.infocore.dto.ClientDTO;
@@ -17,16 +16,15 @@ public interface MailService {
 	//添加所有邮件服务
 	void addAllMailService(List<EmailAlarmDTO> l);
 	
-	//添加邮件服务
+	//添加、更新邮件服务
 	void addMailService(String name);
 	
 	//移除邮件服务
-	void deleteMailService(String name);
-	
-	void updateMailService(String name,EmailAlarmDTO sender);
+	void deleteMailService(Long userId);
 	
 	//通知
 	void notifyCenter(DataArkDTO data_ark,List<ClientDTO> clientList,List<VCenterDTO> vcList,List<VirtualMachineDTO> vmList,List<Fault> list_fault) throws SQLException;
 
-	void sentFault(Collection<FaultDTO> faultSimples);
+	//处理异常
+	void sendFault(List<FaultDTO> faults);
 }

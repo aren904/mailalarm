@@ -30,7 +30,7 @@ public class Fault {
 	
 	private Integer Client_type;//0 数据方舟 1.客户端 2.VC 3.虚拟机
 	
-	//客户端ID 
+	//客户端UUID
 	private String Client_id;
 
 	//目标UUID 

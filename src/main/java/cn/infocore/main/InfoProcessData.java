@@ -408,8 +408,8 @@ public class InfoProcessData {
 
         //心跳过来的异常
         if(dataArk!=null) {
-        	Quota quota=quotaService.findByDataArkId(dataArk.getId());
-        	if(quota!=null) {
+        	List<Quota> quotas=quotaService.findByDataArkId(dataArk.getId());
+        	for(Quota quota:quotas) {
         		User user = userService.findById(quota.getUser_id());
         		if(user!=null) {
         			List<Fault> data_ark_fault_list = new LinkedList<Fault>();

@@ -1,5 +1,7 @@
 package cn.infocore.manager;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -12,14 +14,14 @@ import cn.infocore.mapper.QuotaMapper;
 public class QuotaManager extends ServiceImpl<QuotaMapper,Quota> {
 
 	/**
-	 * 根据数据方舟ID获取配额
+	 * 根据数据方舟ID获取配额集合
 	 * @param dataArkId
 	 * @return
 	 */
-	public Quota getByDataArkId(Long dataArkId){
+	public List<Quota> listByDataArkId(Long dataArkId){
         LambdaQueryWrapper<Quota> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Quota::getData_ark_id,dataArkId);
-        return this.getOne(queryWrapper);
+        return this.list(queryWrapper);
     }
 	
 }

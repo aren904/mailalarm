@@ -11,14 +11,9 @@ import cn.infocore.mapper.UserMapper;
 @Service
 public class UserManager extends ServiceImpl<UserMapper, User> {
 
-	/**
-	 * 根据id获取对象
-	 * @param id
-	 * @return
-	 */
-    public User getUserById(Long id){
+    public User findUserByUuid(String uuid){
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(User::getId,id);
+        queryWrapper.eq(User::getUuid,uuid);
         return this.getOne(queryWrapper);
     }
     

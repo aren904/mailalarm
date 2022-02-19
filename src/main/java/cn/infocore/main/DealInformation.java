@@ -4,21 +4,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.sql.SQLException;
 import java.util.List;
 
-import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 
 import cn.infocore.dto.EmailAlarmDTO;
 import cn.infocore.entity.DataArk;
-import cn.infocore.handler.StringHandler;
 import cn.infocore.mail.MailSender;
 import cn.infocore.net.CMHeader;
 import cn.infocore.protobuf.CloudAlarmManage;
 import cn.infocore.service.DataArkService;
 import cn.infocore.service.impl.MailServiceImpl;
-import cn.infocore.utils.MyDataSource;
 import cn.infocore.utils.Utils;
 import lombok.Data;
 

@@ -3,26 +3,13 @@ package cn.infocore.service.impl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-
-import cn.infocore.entity.*;
-
-import cn.infocore.handler.UserIdHd;
-import cn.infocore.handler.dataIdHandler;
-
-import cn.infocore.handler.email_alarmHandler;
-import cn.infocore.utils.MyDataSource;
-import org.apache.commons.dbutils.QueryRunner;
-
-import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.apache.commons.dbutils.handlers.ColumnListHandler;
-import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.infocore.dto.ClientDTO;
@@ -32,11 +19,18 @@ import cn.infocore.dto.Fault;
 import cn.infocore.dto.FaultDTO;
 import cn.infocore.dto.VCenterDTO;
 import cn.infocore.dto.VirtualMachineDTO;
-import cn.infocore.handler.QuotaHandler;
+import cn.infocore.entity.Quota;
+import cn.infocore.entity.User;
 import cn.infocore.mail.MailSender;
+import cn.infocore.manager.AlarmLogManager;
+import cn.infocore.manager.ClientManager;
+import cn.infocore.manager.DataArkManager;
 import cn.infocore.manager.MailManager;
+import cn.infocore.manager.QuotaManager;
+import cn.infocore.manager.UserManager;
 import cn.infocore.protobuf.StmAlarmManage;
 import cn.infocore.service.MailService;
+import cn.infocore.utils.ConvertUtils;
 
 @Service
 public class MailServiceImpl implements MailService {
@@ -47,9 +41,23 @@ public class MailServiceImpl implements MailService {
     
     private Map<Long, MailSender> adminSenderMap = null;
     
+    @Autowired
     private MailManager mailManager;
     
-    QueryRunner qr = MyDataSource.getQueryRunner();
+    @Autowired
+    private UserManager userManager;
+    
+    @Autowired
+    private AlarmLogManager alarmLogManager;
+    
+    @Autowired
+    private DataArkManager dataArkManager;
+    
+    @Autowired
+    private ClientManager clientManager;
+    
+    @Autowired
+    private QuotaManager quotaManager;
     
     private MailServiceImpl() {
     	logger.info("Init,start to collect mail config from database.");
@@ -96,183 +104,106 @@ public class MailServiceImpl implements MailService {
             }
             this.normalSenderMap.put(email_alarm.getUser_id(), sender);
         }
-
     }
 
-    // 更新邮件配置还是使用该接口
+    /**
+     * 添加或更新邮件配置
+     */
     @Override
-    public void addMailService(String name) {
-        // 通过查数据库，添加到本地，自己构造MailSender对象
-        // 初始的时候，先从数据库中获取一次
-//        String sql = "select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,sender_password,smtp_address,"
-//                + "smtp_port,smtp_authentication,smtp_user_id,smtp_password,ssl_encrypt,receiver_emails,privilege_level "
-//                + "from email_alarm,user where email_alarm.user_id=user.id and email_alarm.user_id=?";
-//        logger.info("hello add mail");
-        String sql = "select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,smtp_address,"
-                + "smtp_port,smtp_auth_enabled,smtp_user_uuid,smtp_password,ssl_encrypt_enabled,receiver_emails "
-                + "from email_alarm,user where email_alarm.user_id=user.id and email_alarm.user_id=?";
-//        QueryRunner qr = MyDataSource.getQueryRunner();
-//        findUserIdByUuid();
-        String id = findUserIdByUuid(name);
-//        logger.info("name:"+name);
-//        logger.info("id:"+id);
-//        Object[] para = {name};
-        Object[] params = {id};
-        List<EmailAlarmDTO> elList = null;
-        try {
-//            elList = qr.query(sql, new BeanListHandler<Email_alarm>(Email_alarm.class), para);
-            elList = qr.query(sql, new BeanListHandler<EmailAlarmDTO>(EmailAlarmDTO.class), params);
-            logger.info(elList);
-            for (EmailAlarmDTO email_alarm : elList) {
+    public void addMailService(String userUuid) {
+    	User user=userManager.findUserByUuid(userUuid);
+    	if(user!=null) {
+    		List<EmailAlarmDTO> emailAlarmDtos=mailManager.findWithUserByUserId(user.getId());
+    		
+    		for (EmailAlarmDTO email_alarm : emailAlarmDtos) {
+    			//对于添加禁用或更新禁用的要删除
                 if (email_alarm.getEnabled() == (byte) 0) {
-                    if (this.normalSenderMap.containsKey(name)) {
-                        this.normalSenderMap.remove(name);
+                    if (this.normalSenderMap.containsKey(user.getId())) {
+                        this.normalSenderMap.remove(user.getId());
                     }
                     continue;
                 }
+                
+                //对于添加，则收集到数据库
                 MailSender sender = new MailSender(email_alarm);
-//                logger.info(email_alarm.getLimit_enabled());
                 if (email_alarm.getRole() < 2) {
                     this.adminSenderMap.put(email_alarm.getUser_id(), sender);
                 }
-                this.normalSenderMap.put(name, sender);
+                this.normalSenderMap.put(user.getId(), sender);
             }
-        } catch (SQLException e) {
-            logger.error("addMailService.", e);
-        } finally {
-
-        }
+    	}
     }
 
     @Override
-    public void deleteMailService(String name) {
+    public void deleteMailService(Long userId) {
         // 查询数据库，从本地删除
-        if (this.normalSenderMap.containsKey(name)) {
-            this.normalSenderMap.remove(name);
+        if (this.normalSenderMap.containsKey(userId)) {
+            this.normalSenderMap.remove(userId);
         }
-        if (this.adminSenderMap.containsKey(name)) {
-            this.adminSenderMap.remove(name);
+        if (this.adminSenderMap.containsKey(userId)) {
+            this.adminSenderMap.remove(userId);
         }
-
     }
 
+    /**
+     * 查询指定用户是否添加过该客户端
+     * @param fault
+     * @param userId
+     * @return
+     */
+    protected Integer findArkIdAndUserIdAndId(Fault fault, Long dataArkId,Long userId) {
+        return clientManager.listCount(userId,dataArkId,fault.getClient_type());
+    }
+
+    /**
+     * 处理异常
+     */
     @Override
-    public void updateMailService(String name, EmailAlarmDTO sender) {
-
-    }
-
-
-    public String findUserIdByUuid(String name) {
-        String sql = "select id from user where uuid = ?";
-//        QueryRunner qr = MyDataSource.getQueryRunner();
-        Object[] params = {name};
-        try {
-            return qr.query(sql, new UserIdHd(), params);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
-    protected Long findArkIdAndUserIdAndId(Fault fault, String user) {
-//        QueryRunner qclent = MyDataSource.getQueryRunner();
-        String sql = "";
-        if (fault.getClient_type() == 1) {
-//            sql = "select count(*) from client where user_id=? and data_ark_id=? and id=?";
-            sql = "select count(*) from client where user_id=? and data_ark_id=?";
-            logger.info("enter type1");
-        } else if (fault.getClient_type() == 2) {
-//            sql = "select count(*) from vcenter where user_id=? and data_ark_id=? and id=?";
-            sql = "select count(*) from vcenter where user_id=? and data_ark_id=?";
-            logger.info("enter type2");
-        } else if (fault.getClient_type() == 3) {
-            // sql = "select count(*) from virtual_machine where user_id=? and data_ark_id=?
-            // and id=?";
-//            sql = "select count(*) from vcenter_vm inner join vcenter on  vcenter.id= vcenter_vm.vcenter_id and vcenter.user_id=? and vcenter.data_ark_id= ? and vcenter_vm.id=?  ";
-            sql = "select count(*) from vcenter_vm inner join vcenter on  vcenter.id= vcenter_vm.vcenter_id and vcenter.user_id=? and vcenter.data_ark_id= ?  ";
-            logger.info("enter type3");
-        }
-//        Object[] param1 = {user, fault.getData_ark_uuid(), fault.getClient_id()};
-        Object[] param1 = {user, fault.getData_ark_uuid()};
-        try {
-            Long count = qr.query(sql, new ScalarHandler<Long>(), param1);
-            return count;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            logger.error(e);
-        }
-        return null;
-    }
-
-    @Override
-    public void notifyCenter(DataArkDTO data_ark, List<ClientDTO> clientList, List<VCenterDTO> vcList, List<VirtualMachineDTO> vmList, List<Fault> list_fault) throws SQLException {
+    public void notifyCenter(DataArkDTO data_ark, List<ClientDTO> clientList, List<VCenterDTO> vcList, List<VirtualMachineDTO> vmList, 
+    		List<Fault> list_fault) throws SQLException {
         String sql = null;
         Object[] condition = null;
 
         for (Fault fault : list_fault) {
             try {
                 logger.info("-----------Userid:" + fault.getUser_uuid() + ",faultType:" + fault.getType() + ",targetName:"
-                        + fault.getTarget_name() + ",data_ark ip:" + fault.getData_ark_ip() + ",client_id:"
+                        + fault.getTarget_name() + ",data_ark ip:" + fault.getData_ark_ip() + ",client_uuid:"
                         + fault.getClient_id()+",ClientType:"+fault.getClient_type());
 
                 if (fault.getType() == StmAlarmManage.ClientType.SINGLE_VALUE) {
-                    // 1.confirm all alarm log for target.
-                    //更新（异常信息不是虚拟机快照点创建失败的，离线建立快照点，VMWARE同步数据失败）告警日志数据方舟id，并且设置未处理，
-                    sql = "update alarm_log set processed=1 where data_ark_uuid=? and target_uuid=? and exception!=3 and exception!=25 and exception!=26";
-
-                    condition = new Object[]{fault.getData_ark_uuid(), fault.getClient_id()};
-
+                	//更新（异常信息不是虚拟机快照点创建失败的，离线建立快照点，VMWARE同步数据失败），并且设置已确认
+                	alarmLogManager.updateConfirm(fault.getData_ark_uuid(), fault.getClient_id());
                 } else {
-                    // add by wxx,for one fault to other fault and not confirm.
-                    // current error
+                	// For one fault to other fault and not confirm.
                     List<String> currentErrors = new ArrayList<String>();
-//                    QueryRunner qr = MyDataSource.getQueryRunner();
                     String excepts = "";
 
                     // 注意这里名称不一致，需要特殊处理
                     if (fault.getClient_type() == StmAlarmManage.ClientType.SINGLE_VALUE) {
-
                         excepts = data_ark.getExcept();
                     } else if (fault.getClient_type() == StmAlarmManage.ClientType.VMWARE_VALUE) {
-
-
                         for (ClientDTO c : clientList) {
-
                             if (fault.getData_ark_uuid().equals(c.getData_ark_id()) && fault.getClient_id().equals(c.getUuid())) {
                                 excepts = c.getExcept();
                                 break;
                             }
                         }
                     } else if (fault.getClient_type() == StmAlarmManage.ClientType.MSCS_VALUE) {
-                        /*
-                         * sql="select exceptions from vcenter where data_ark_id=? and vcenter_id=?";
-                         * excepts=qr.query(sql, new ExceptHandler(), condition);
-                         */
-
                         for (VCenterDTO vc : vcList) {
-//                            logger.info(vc.getExcep());
                             if (fault.getData_ark_uuid().equals(vc.getData_ark_id()) && fault.getClient_id().equals(vc.getUuid())) {
                                 excepts = vc.getException();
                                 break;
                             }
                         }
-
-
                     } else if (fault.getClient_type() == StmAlarmManage.ClientType.RAC_VALUE) {
                         for (VirtualMachineDTO vm : vmList) {
-
-                            if (fault.getData_ark_uuid().equals(vm.getData_ark_id())
-                                    && fault.getClient_id().equals(vm.getUuid())) {
+                            if (fault.getData_ark_uuid().equals(vm.getData_ark_id()) && fault.getClient_id().equals(vm.getUuid())) {
                                 excepts = vm.getException();
                                 break;
                             }
                         }
-
                     }
 
-
-                    // current error
                     if (excepts != "" && excepts != null) {
                         currentErrors.addAll(Arrays.asList(excepts.split(";")));
                     }
@@ -280,98 +211,65 @@ public class MailServiceImpl implements MailService {
                             + "," + currentErrors.toString());
 
                     // not confirm error
+                    List<Integer> dbErrors=alarmLogManager.findUnconfirmByDataArkUuidAndTargetUuidAndTargetName(fault.getData_ark_uuid(), 
+                    		fault.getClient_id(),fault.getTarget_name());
+                    logger.debug("DB error condition:" + condition[0] + "," + condition[1] + "DB error:" + dbErrors.toString());
 
-                    sql = "select * from alarm_log where data_ark_uuid=? and binary target_name=? and target_uuid=? and processed=0";
-                    condition = new Object[]{fault.getData_ark_uuid(), fault.getTarget_name(), fault.getClient_id()};
-                    // db error
-//                    qr = MyDataSource.getQueryRunner();
-                    List<Integer> dbErrors = qr.query(sql, new ColumnListHandler<Integer>("exception"), condition);
-                    logger.debug("DB error condition:" + condition[0] + "," + condition[1] + "DB error:"
-                            + dbErrors.toString());
-
+                    //数据存在而当前不存在的需要确认
                     logger.info("start to compare current and db errors.");
                     for (Integer type : dbErrors) {
                         if (!currentErrors.contains(String.valueOf(type))) {
                             logger.info(fault.getUser_uuid() + "," + fault.getData_ark_ip()
                                     + " current not contains db,confirm it:" + type);
-                            // 2.current not contains db,confirm it.
-//                            if (type == 3 || type == 25 || type == 26 || type == 31 ) {
+                            //排除一些不需要确认的
                             if (type == 11 || type == 12 || type == 24 || type == 25 || type == 26) {
-                                logger.info("VM error don't need to confirm.");
+                                logger.info("The error:"+type+" don't need to confirm.");
                             } else {
-                                // remove user id update TODO
-                                // sql="update alarm_log set user_id=?,processed=1 where data_ark_id=? and
-                                // target_id=? and exeception=?";
-                                sql = "update alarm_log set processed=1 where data_ark_uuid=? and target_uuid=? and exception=?";
-                                // condition= new
-                                // Object[]{fault.getUser_id(),fault.getData_ark_id(),fault.getClient_id(),type};
-                                condition = new Object[]{fault.getData_ark_uuid(), fault.getClient_id(), type};
+                            	alarmLogManager.autoConfirmLog(fault.getData_ark_uuid(), fault.getClient_id(), type);
                             }
                         }
                     }
 
+                    //当前存在但数据库不存在的需要添加
                     for (String type : currentErrors) {
-
-                        if (!dbErrors.contains(Integer.parseInt(type)) && Integer.parseInt(type) != 0) { // insert error
-                            logger.info(fault.getUser_uuid() + "," + fault.getData_ark_ip() + " current is new,insert it:"
-                                    + type);
-                            // 3.current is new,insert/update it.
-
-                            sql = "insert into alarm_log(timestamp,processed,exception,data_ark_uuid,data_ark_name,data_ark_ip,target_uuid,target_name,last_alarm_timestamp,user_uuid) values(?,?,?,?,?,?,?,?,?,?)";
-                            condition = new Object[]{fault.getTimestamp(), 0L, fault.getType(),
-                                    fault.getData_ark_uuid(), fault.getData_ark_name(), fault.getData_ark_ip(),
-                                    fault.getClient_id(), fault.getTarget_name(), 0L, fault.getUser_uuid()};
+                        if (!dbErrors.contains(Integer.parseInt(type)) && Integer.parseInt(type) != 0) { 
+                            logger.info(fault.getUser_uuid() + "," + fault.getData_ark_ip() + " current is new,insert it:"+ type);
+                            alarmLogManager.addAlarmlog(fault);
                         } else if (dbErrors.contains(Integer.parseInt(type)) && (Integer.parseInt(type) == 11
                                 || Integer.parseInt(type) == 12 || Integer.parseInt(type) == 24 || Integer.parseInt(type) == 25 || Integer.parseInt(type) == 26)) {
-//                        } else if (dbErrors.contains(Integer.parseInt(type)) && (Integer.parseInt(type) == 3
-//                                || Integer.parseInt(type) == 25 || Integer.parseInt(type) == 26)) {
                             // bug#777 ->update time for snapshot error
-                            sql = "update alarm_log set timestamp=? where data_ark_uuid=? and target_uuid=? and exception=? and processed=0";
-                            condition = new Object[]{fault.getTimestamp(), fault.getData_ark_uuid(),
-                                    fault.getClient_id(), type};
+                        	alarmLogManager.updateAlarmlogTimestamp(fault,type);
                         }
                     }
                 }
 
-//                QueryRunner qr = MyDataSource.getQueryRunner();
-                qr.execute(sql, condition);
-
                 if (fault.getType() != 0) {
-
-                    for (Map.Entry<String, MailSender> entry : this.normalSenderMap.entrySet()) {
-                        String user = entry.getKey();
+                    for (Map.Entry<Long, MailSender> entry : this.normalSenderMap.entrySet()) {
+                        Long userId = entry.getKey();
                         MailSender mailSender = entry.getValue();
                         // 判断是否属于管理员用户
                         EmailAlarmDTO conf = mailSender.getConfig();
                         if (conf.getRole() == 0 || conf.getRole() == 1) {
-                            mailSender.judge(fault, user);
-                            logger.info(user + " admin or root user start judge...");
+                            mailSender.judge(fault, userId);
+                            logger.info("admin or root user:"+userId+" start judge...");
                         } else {
-                            sql = "select * from quota where user_id=? and data_ark_id=?";
-                            String id = findDataArkUUIdById(fault.getData_ark_uuid());
-
-                            Object[] param = {user, id};
-//                            QueryRunner qRunner = MyDataSource.getQueryRunner();
-                            List<Quota> quotas = qr.query(sql, new QuotaHandler(), param);
+                            Long dataArkId = dataArkManager.getDataArkByUuid(fault.getData_ark_uuid()).getId();
+                            List<Quota> quotas=quotaManager.listByDataArkId(dataArkId);
                             if (!quotas.isEmpty()) {
                                 // 包括客户端，VC，虚拟机
                                 if (fault.getClient_type().intValue() == 1 || fault.getClient_type().intValue() == 2
                                         || fault.getClient_type().intValue() == 3) {
-//                                    // 查询该user_id是否和报警客户端存在关系，即该客户端是否是该用户添加过，添加过则给该用户发送报警邮件
-//                                    Long count = findArkIdAndUserIdAndId(fault, user);
-//                                    if (count.intValue() > 0) {
-                                    mailSender.judge(fault, user);
-                                    logger.info(user + " commom user start to judge...");
-//                                        logger.info("count>0");
+                                    // 查询该user_id是否和报警客户端存在关系，即该客户端是否是该用户添加过，添加过则给该用户发送报警邮件
+                                	Integer count = findArkIdAndUserIdAndId(fault, dataArkId,userId);
+                                    if (count.intValue() > 0) {
+                                        mailSender.judge(fault, userId);
+                                    }
+                                } else {
+                                    mailSender.judge(fault, userId);
                                 }
-//                                } else {
-//                                    mailSender.judge(fault, user);
-//                                    logger.info("count=0");
-//                                }
-//                                mailSender.judge(fault, user);
-
+                                logger.info("commom user:"+userId+" start to judge...");
                             } else {
-                                logger.warn("email_alarm table doesn't have  user_id:" + user + " and data_ark_id:"
+                                logger.warn("email_alarm table has not user_id:" + userId + " and data_ark_id:"
                                         + fault.getData_ark_uuid());
                             }
                         }
@@ -383,134 +281,47 @@ public class MailServiceImpl implements MailService {
         }
     }
 
-
-    private String findDataArkUUIdById(String uuid) {
-//        QueryRunner q = MyDataSource.getQueryRunner();
-        Object[] param = new Object[]{uuid};
-        String result = "";
-        String sql = "select id from data_ark where uuid=?";
-
-        try {
-            result = qr.query(sql, new dataIdHandler(), param);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-
-        }
-        return result;
-    }
-
-
     @Override
-    public void sentFault(Collection<FaultDTO> faultSimples) {
-//        logger.warn(faultSimples);
-        for (FaultDTO faultSimple : faultSimples) {
+    public void sendFault(List<FaultDTO> faultDtos) {
+        for (FaultDTO faultDto : faultDtos) {
             // send to normal users
-            List<Fault> faults = convertFaultSimple(faultSimple);
+            List<Fault> faults = ConvertUtils.convertFault(faultDto);
+            
             for (Fault fault : faults) {
                 logger.debug("==========MAIL USER_:" + fault.toString());
-                String userId = fault.getUser_uuid();
-                String uuid = findUserIdByUuid(userId);
-//                MailSender sender = this.normalSenderMap.get(userId);
-                MailSender sender = this.normalSenderMap.get(uuid);
+                
+                String userUuid = fault.getUser_uuid();
+                Long userId = userManager.findUserByUuid(userUuid).getId();
+                
+                MailSender sender = this.normalSenderMap.get(userId);
                 logger.debug("==========MAIL SENDER_:" + normalSenderMap.toString());
-                for (Map.Entry<String, MailSender> map : this.normalSenderMap.entrySet()) {
-                    if (uuid != null) {
-                        if (sender != null) {
-                            if (uuid.equals(map.getKey())){
-                                sender.judge(fault, userId);
-                            }
+                for (Map.Entry<Long, MailSender> map : this.normalSenderMap.entrySet()) {
+                    if (userId!=null && sender != null) {
+                        if (userId.equals(map.getKey())){
+                            sender.judge(fault, userId);
                         }
                     }
                 }
             }
+            
             // send all to admin user
-
-            Set<Map.Entry<String, MailSender>> senderSet = this.adminSenderMap.entrySet();
+            Set<Map.Entry<Long, MailSender>> senderSet = this.adminSenderMap.entrySet();
             logger.debug("==========MAIL SENDER_ADMIN:" + adminSenderMap.toString());
 
-            List<Fault> faultsWithUserIdString = convertFaultSimpleWithUserString(faultSimple);
-            for (Map.Entry<String, MailSender> entry : senderSet) {
+            for (Map.Entry<Long, MailSender> entry : senderSet) {
                 MailSender sender = entry.getValue();
-                String userId = entry.getKey();
-                for (Fault fault : faultsWithUserIdString) {
+                Long userId = entry.getKey();
+                for (Fault fault : faults) {
                     logger.debug("==========MAIL ADMIN_:" + fault.toString());
-
                     try {
                         sender.judge(fault, userId);
                     } catch (Exception e) {
-                        logger.error("send mail to" + userId + " failed", e);
+                        logger.error("Send mail to" + userId + " failed", e);
                     }
                 }
             }
-
         }
 
     }
-
-    List<Fault> convertFaultSimpleWithUserString(FaultDTO faultSimple) {
-
-        Collection<StmAlarmManage.FaultType> faultTypes = faultSimple.getFaultTypes();
-
-        String dataArkId = faultSimple.getDataArkUuid();
-        String dataArkIp = faultSimple.getDataArkIp();
-        String data_ark_name = faultSimple.getDataArkName();
-        String targetId = faultSimple.getTargetUuid();
-        String targetName = faultSimple.getTargetName();
-        long timestamp = faultSimple.getTimestamp();
-        StmAlarmManage.ClientType clientType = faultSimple.getClientType();
-//        List<String> userIds = faultSimple.getUserIds();
-
-        List<Fault> faults = new ArrayList<Fault>();
-        for (StmAlarmManage.FaultType faultType : faultTypes) {
-            Integer code = faultType.getNumber();
-            Fault fault = new Fault();
-            fault.setType(code);
-            fault.setClient_id(targetId);
-            fault.setClient_type(clientType.getNumber());
-            fault.setData_ark_uuid(dataArkId);
-            fault.setData_ark_ip(dataArkIp);
-            fault.setData_ark_name(data_ark_name);
-            fault.setTarget_name(targetName);
-//            fault.setUser_id(StupidStringUtil.parseUserIdListToUserIdsString(userIds));
-            fault.setTimestamp(timestamp);
-            faults.add(fault);
-        }
-        return faults;
-    }
-
-    //将faultSimple转化成faults
-    List<Fault> convertFaultSimple(FaultDTO faultSimple) {
-
-        Collection<StmAlarmManage.FaultType> faultTypes = faultSimple.getFaultTypes();
-
-        String dataArkId = faultSimple.getDataArkUuid();
-        String dataArkIp = faultSimple.getDataArkIp();
-        String data_ark_name = faultSimple.getDataArkName();
-        String targetId = faultSimple.getTargetUuid();
-        String targetName = faultSimple.getTargetName();
-        StmAlarmManage.ClientType clientType = faultSimple.getClientType();
-        List<String> userIds = faultSimple.getUserUuids();
-        Long timestamp = faultSimple.getTimestamp();
-        List<Fault> faults = new ArrayList<Fault>();
-        for (StmAlarmManage.FaultType faultType : faultTypes) {
-            for (String userId : userIds) {
-                Integer code = faultType.getNumber();
-                Fault fault = new Fault();
-                fault.setType(code);
-                fault.setClient_id(targetId);
-                fault.setClient_type(clientType.getNumber());
-                fault.setData_ark_uuid(dataArkId);
-                fault.setData_ark_ip(dataArkIp);
-                fault.setData_ark_name(data_ark_name);
-                fault.setTarget_name(targetName);
-                fault.setUser_uuid(userId);
-                fault.setTimestamp(timestamp);
-                faults.add(fault);
-            }
-        }
-        return faults;
-    }
-
 
 }

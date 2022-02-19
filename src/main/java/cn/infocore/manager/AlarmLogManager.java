@@ -16,6 +16,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import cn.infocore.consts.FaultEnum;
+import cn.infocore.dto.Fault;
 import cn.infocore.dto.FaultDTO;
 import cn.infocore.entity.AlarmLog;
 import cn.infocore.mapper.AlarmLogMapper;
@@ -95,6 +96,7 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLog> {
      * @param dataArkId
      * @param targetId
      * @param exception
+     * sql = "update alarm_log set processed=1 where data_ark_uuid=? and target_uuid=? and exception=?";
      */
     public void autoConfirmLog(String dataArkUuid, String targetUuid, Integer exception) {
         AlarmLog alarmLog = new AlarmLog();
@@ -138,5 +140,70 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLog> {
             }
         }
     }
+
+    /**
+     * 自动确认指定数据方舟下指定客户端的异常
+     * @param dataArkUuid
+     * @param targetUuid
+     * sql = "update alarm_log set processed=1 where data_ark_uuid=? and target_uuid=? and exception!=3 and exception!=25 and exception!=26";
+     */
+	public void updateConfirm(String dataArkUuid, String targetUuid) {
+		AlarmLog alarmLog = new AlarmLog();
+        alarmLog.setProcessed(1);
+        LambdaUpdateWrapper<AlarmLog> updateWrapper = new UpdateWrapper<AlarmLog>().lambda();
+        updateWrapper.eq(AlarmLog::getDataArkUuid, dataArkUuid).eq(AlarmLog::getTargetUuid, targetUuid)
+        	.ne(AlarmLog::getException, 3).ne(AlarmLog::getException, 25).ne(AlarmLog::getException, 26);
+        this.update(alarmLog, updateWrapper);
+	}
+
+	/**
+	 * 查询指定数据方舟下指定客户端的未确认的异常
+	 * @param dataArkUuid
+	 * @param targetUuid
+	 * @param targetName
+	 * sql = "select * from alarm_log where data_ark_uuid=? and binary target_name=? and target_uuid=? and processed=0";
+	 */
+	public List<Integer> findUnconfirmByDataArkUuidAndTargetUuidAndTargetName(String dataArkUuid, String targetUuid,
+			String targetName) {
+		LambdaQueryWrapper<AlarmLog> queryWrapper = new LambdaQueryWrapper<AlarmLog>();
+        queryWrapper.eq(AlarmLog::getDataArkUuid, dataArkUuid).eq(AlarmLog::getTargetUuid, targetUuid)
+        	.eq(AlarmLog::getTargetName, targetName).eq(AlarmLog::getProcessed, 0);
+        List<AlarmLog> logs= this.list(queryWrapper);
+        return logs.stream().map(AlarmLog::getException).collect(Collectors.toList());
+	}
+
+	/**
+	 * 添加日志
+	 * @param fault
+	 * sql = "insert into alarm_log(timestamp,processed,exception,data_ark_uuid,data_ark_name,data_ark_ip,
+	 * 	target_uuid,target_name,last_alarm_timestamp,user_uuid) values(?,?,?,?,?,?,?,?,?,?)";
+	 */
+	public void addAlarmlog(Fault fault) {
+		AlarmLog alarmLog = new AlarmLog();
+        alarmLog.setDataArkName(fault.getData_ark_name());
+        alarmLog.setDataArkUuid(fault.getData_ark_uuid());
+        alarmLog.setDataArkIp(fault.getData_ark_ip());
+        alarmLog.setTargetUuid(fault.getTarget_uuid());
+        alarmLog.setTargetName(fault.getTarget_name());
+        alarmLog.setUserUuid(fault.getUser_uuid());
+        alarmLog.setException(fault.getType());
+        alarmLog.setTimestamp(0L);
+        this.save(alarmLog);
+	}
+
+	/**
+	 * 更新日志时间
+	 * @param fault
+	 * @param type
+	 * sql = "update alarm_log set timestamp=? where data_ark_uuid=? and target_uuid=? and exception=? and processed=0";
+	 */
+	public void updateAlarmlogTimestamp(Fault fault, String type) {
+		AlarmLog alarmLog = new AlarmLog();
+        alarmLog.setTimestamp(fault.getTimestamp());;
+        LambdaUpdateWrapper<AlarmLog> updateWrapper = new UpdateWrapper<AlarmLog>().lambda();
+        updateWrapper.eq(AlarmLog::getDataArkUuid, fault.getData_ark_uuid()).eq(AlarmLog::getTargetUuid, fault.getTarget_uuid())
+        	.eq(AlarmLog::getException, type).eq(AlarmLog::getProcessed, 0);
+        this.update(alarmLog, updateWrapper);
+	}
 
 }

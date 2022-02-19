@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 public class User {
 	
     @TableField(value = "id")
-    private String id;
+    private Long id;
     
     @TableField(value = "uuid")
     private String uuid;

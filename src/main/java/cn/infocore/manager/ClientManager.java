@@ -19,6 +19,12 @@ public class ClientManager extends ServiceImpl<ClientMapper,Client> {
     @Autowired
     private UserManager userManager;
     
+    public Integer listCount(Long userId,Long dataArkId,int type) {
+    	LambdaQueryWrapper<Client> queryWrapper = new LambdaQueryWrapper<>();
+    	queryWrapper.eq(Client::getUserId,userId).eq(Client::getDataArkId, dataArkId).eq(Client::getType, type);
+    	return this.count(queryWrapper);
+    }
+    
     /**
      * 根据uuid获取有用该客户端的用户id列表
      * @param uuid

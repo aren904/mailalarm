@@ -1,6 +1,5 @@
 package cn.infocore.dto;
 
-import java.util.Collection;
 import java.util.List;
 
 import cn.infocore.protobuf.StmAlarmManage;
@@ -33,7 +32,7 @@ public class FaultDTO {
     private StmAlarmManage.ClientType clientType; 
     
     //异常类型
-    private Collection<StmAlarmManage.FaultType> faultTypes;
+    private List<StmAlarmManage.FaultType> faultTypes;
     
     private List<String> userUuids;
     

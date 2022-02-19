@@ -37,7 +37,7 @@ public class AlarmLogServiceImpl implements AlarmLogService {
     	for (FaultDTO fault : faults) {
     		alarmLogManager.updateOrAddAlarmlog(fault);
         }
-        mailService.sentFault(faults);
+        mailService.sendFault(faults);
     }
 
 }

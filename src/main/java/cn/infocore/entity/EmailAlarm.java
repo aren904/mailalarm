@@ -2,9 +2,7 @@ package cn.infocore.entity;
 
 import java.util.Arrays;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import lombok.AllArgsConstructor;
@@ -69,9 +67,6 @@ public class EmailAlarm {
 	@TableField(value = "receiver_emails")
     private String receiver_emails;
 
-    //该发件人的权限等级： 1和0是管理员级别，普通用户是2，见user表
-    private int role;
-
     @Override
     public String toString() {
         return "Email_alarm{" +
@@ -85,7 +80,6 @@ public class EmailAlarm {
                 ", smtp_port=" + smtp_port +
                 ", ssl_encrypt_enabled=" + ssl_encrypt_enabled +
                 ", receiver_emails='" + receiver_emails + '\'' +
-                ", role=" + role +
                 ", smtp_auth_enabled=" + smtp_auth_enabled +
                 ", smtp_user_uuid='" + smtp_user_uuid + '\'' +
                 ", smtp_password=" + Arrays.toString(smtp_password) +
