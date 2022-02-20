@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import cn.infocore.service.DataArkService;
+import cn.infocore.service.MySnmpService;
 import cn.infocore.utils.Utils;
 
 /**
@@ -32,6 +33,9 @@ public class ThreadInformation extends Thread {
     
     @Autowired
     private DataArkService dataArkService;
+    
+    @Autowired
+    private MySnmpService mySnmpService;
 
     private ThreadInformation() {
     	//创建一个可重用，固定线程数为10的线程池
@@ -71,6 +75,7 @@ public class ThreadInformation extends Thread {
                 logger.info("ThreadInformation new incoming connection.");
                 DealInformation dealInfo=new DealInformation(incoming);
                 dealInfo.setDataArkService(dataArkService);
+                dealInfo.setMySnmpService(mySnmpService);
                 pool.execute(dealInfo);
             }
 

@@ -71,7 +71,6 @@ public class Utils {
             case 54:
             case 58:
             case 59:
-
                 ret = "警告";
                 break;
             default:
@@ -80,15 +79,6 @@ public class Utils {
         }
         return ret;
     }
-
-
-
-
-
-
-
-
-
 
     // 获取异常类型
     public static String getAlarmInformationType(int faultType) {

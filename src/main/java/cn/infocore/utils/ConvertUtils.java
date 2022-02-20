@@ -1,7 +1,6 @@
 package cn.infocore.utils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import cn.infocore.dto.Fault;
@@ -49,8 +48,12 @@ public class ConvertUtils {
         return sb.toString();
     }
     
-    //将FaultDTO转化成Fault集合
-    public static List<Fault> convertFault(FaultDTO faultDto) {
+    /**
+     * 普通用户：将FaultDTO转化成Fault集合
+     * @param faultDto
+     * @return
+     */
+    public static List<Fault> convertFaultWithUsers(FaultDTO faultDto) {
         List<StmAlarmManage.FaultType> faultTypes = faultDto.getFaultTypes();
 
         String dataArkId = faultDto.getDataArkUuid();
@@ -78,6 +81,39 @@ public class ConvertUtils {
                 fault.setTimestamp(timestamp);
                 faults.add(fault);
             }
+        }
+        return faults;
+    }
+    
+    /**
+     * 管理员：将FaultDTO转化成Fault集合
+     * @param faultDto
+     * @return
+     */
+    public static List<Fault> convertFault(FaultDTO faultDto) {
+        List<StmAlarmManage.FaultType> faultTypes = faultDto.getFaultTypes();
+
+        String dataArkId = faultDto.getDataArkUuid();
+        String dataArkIp = faultDto.getDataArkIp();
+        String data_ark_name = faultDto.getDataArkName();
+        String targetId = faultDto.getTargetUuid();
+        String targetName = faultDto.getTargetName();
+        long timestamp = faultDto.getTimestamp();
+        StmAlarmManage.ClientType clientType = faultDto.getClientType();
+        
+        List<Fault> faults = new ArrayList<Fault>();
+        for (StmAlarmManage.FaultType faultType : faultTypes) {
+            Integer code = faultType.getNumber();
+            Fault fault = new Fault();
+            fault.setType(code);
+            fault.setClient_id(targetId);
+            fault.setClient_type(clientType.getNumber());
+            fault.setData_ark_uuid(dataArkId);
+            fault.setData_ark_ip(dataArkIp);
+            fault.setData_ark_name(data_ark_name);
+            fault.setTarget_name(targetName);
+            fault.setTimestamp(timestamp);
+            faults.add(fault);
         }
         return faults;
     }

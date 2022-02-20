@@ -30,14 +30,14 @@ public class AlarmLogServiceImpl implements AlarmLogService {
 	}
     
     /**
-     * 处理异常：更新/新建，自动确认
+     * 处理心跳异常：更新/新建，自动确认，发送告警
      */
     @Override
     public void noticeFaults(List<FaultDTO> faults) {
     	for (FaultDTO fault : faults) {
     		alarmLogManager.updateOrAddAlarmlog(fault);
         }
-        mailService.sendFault(faults);
+        mailService.sendFaults(faults);
     }
 
 }

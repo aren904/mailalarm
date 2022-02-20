@@ -1,19 +1,36 @@
 package cn.infocore.SnmpV3Sender;
 
-import cn.infocore.dto.DataArkDTO;
-import cn.infocore.dto.MySnmpDTO;
+import java.io.IOException;
+import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.snmp4j.*;
+import org.snmp4j.PDU;
+import org.snmp4j.ScopedPDU;
+import org.snmp4j.Snmp;
+import org.snmp4j.TransportMapping;
+import org.snmp4j.UserTarget;
 import org.snmp4j.event.ResponseEvent;
 import org.snmp4j.mp.MPv3;
 import org.snmp4j.mp.SnmpConstants;
-import org.snmp4j.security.*;
-import org.snmp4j.smi.*;
+import org.snmp4j.security.AuthMD5;
+import org.snmp4j.security.Priv3DES;
+import org.snmp4j.security.PrivAES128;
+import org.snmp4j.security.PrivAES192;
+import org.snmp4j.security.PrivAES256;
+import org.snmp4j.security.SecurityLevel;
+import org.snmp4j.security.SecurityModels;
+import org.snmp4j.security.SecurityProtocols;
+import org.snmp4j.security.USM;
+import org.snmp4j.security.UsmUser;
+import org.snmp4j.smi.Address;
+import org.snmp4j.smi.Integer32;
+import org.snmp4j.smi.OID;
+import org.snmp4j.smi.OctetString;
+import org.snmp4j.smi.VariableBinding;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
 
-import java.io.IOException;
-import java.util.List;
+import cn.infocore.entity.DataArk;
+import cn.infocore.entity.MySnmp;
 
 /**
  * @ProjectName: mailalarm
@@ -27,9 +44,9 @@ import java.util.List;
 public class AP {
     private static final org.apache.log4j.Logger logger = Logger.getLogger(AP.class);
 
-    public static ResponseEvent sendSnmpV3_AP(MySnmpDTO mySnmp, Address targetAddress, List<DataArkDTO> data_arks) throws IOException {
+    public static ResponseEvent sendSnmpV3_AP(MySnmp mySnmp, Address targetAddress, List<DataArk> data_arks) throws IOException {
         OctetString userName3 = new OctetString(mySnmp.getSecurity_username());
-        OctetString authPass = new OctetString(mySnmp.getAuthentication_password());
+        OctetString authPass = new OctetString(mySnmp.getAuth_password());
         OctetString privPass = new OctetString(mySnmp.getPrivacy_password());
         logger.debug(userName3);
         logger.debug(authPass);
@@ -51,21 +68,17 @@ public class AP {
                 secModels.addSecurityModel(usm);
             }
 
-            // add user to the USM
-//            snmp.getUSM().addUser(userName3, new OctetString(enginId),
-////                    new UsmUser(userName3, AuthMD5.ID, authPass, Priv3DES.ID, privPass)
-////            );
             if(mySnmp.getPrivacy_protocol()==1) {
-                snmp.getUSM().addUser(new OctetString(mySnmp.getSecurity_username()), new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurity_username()), AuthMD5.ID, new OctetString(mySnmp.getAuthentication_password()), Priv3DES.ID, new OctetString(mySnmp.getPrivacy_password())));
+                snmp.getUSM().addUser(new OctetString(mySnmp.getSecurity_username()), new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurity_username()), AuthMD5.ID, new OctetString(mySnmp.getAuth_password()), Priv3DES.ID, new OctetString(mySnmp.getPrivacy_password())));
             }
             if(mySnmp.getPrivacy_protocol()==2) {
-                snmp.getUSM().addUser(new OctetString(mySnmp.getSecurity_username()), new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurity_username()), AuthMD5.ID, new OctetString(mySnmp.getAuthentication_password()), PrivAES128.ID, new OctetString(mySnmp.getPrivacy_password())));
+                snmp.getUSM().addUser(new OctetString(mySnmp.getSecurity_username()), new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurity_username()), AuthMD5.ID, new OctetString(mySnmp.getAuth_password()), PrivAES128.ID, new OctetString(mySnmp.getPrivacy_password())));
             }
             if(mySnmp.getPrivacy_protocol()==3) {
-                snmp.getUSM().addUser(new OctetString(mySnmp.getSecurity_username()), new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurity_username()), AuthMD5.ID, new OctetString(mySnmp.getAuthentication_password()),  PrivAES192.ID, new OctetString(mySnmp.getPrivacy_password())));
+                snmp.getUSM().addUser(new OctetString(mySnmp.getSecurity_username()), new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurity_username()), AuthMD5.ID, new OctetString(mySnmp.getAuth_password()),  PrivAES192.ID, new OctetString(mySnmp.getPrivacy_password())));
             }
             if(mySnmp.getPrivacy_protocol()==4) {
-                snmp.getUSM().addUser(new OctetString(mySnmp.getSecurity_username()), new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurity_username()), AuthMD5.ID, new OctetString(mySnmp.getAuthentication_password()),  PrivAES256.ID, new OctetString(mySnmp.getPrivacy_password())));
+                snmp.getUSM().addUser(new OctetString(mySnmp.getSecurity_username()), new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurity_username()), AuthMD5.ID, new OctetString(mySnmp.getAuth_password()),  PrivAES256.ID, new OctetString(mySnmp.getPrivacy_password())));
             }
             logger.debug(snmp);
 
@@ -84,7 +97,7 @@ public class AP {
 //            System.out.println("Snmp Trap V3 Test sendV3 AUTH_PRIV");
 //            pdu.add(v);
             for (int i = 0; i < data_arks.size(); i++) {
-                DataArkDTO data_ark = data_arks.get(i);
+            	DataArk data_ark = data_arks.get(i);
                 pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.4." + i), new OctetString(data_ark.getName())));
 //                pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3." + i), new OctetString(data_ark.getId())));//正常
                 pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3." + i), new OctetString(data_ark.getUuid())));
@@ -95,8 +108,6 @@ public class AP {
             pdu.setType(PDU.TRAP);
             snmp.setLocalEngine(enginId, 500, 1);
             ResponseEvent send = snmp.send(pdu, target);
-            //System.out.println(send.getError());
-
             return send;
         }
     }

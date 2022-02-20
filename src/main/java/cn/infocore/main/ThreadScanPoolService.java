@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import cn.infocore.service.DataArkService;
+import cn.infocore.service.MySnmpService;
 
 /**
  * 每隔5秒检查一次，如果无扫描线程在，则启动扫描
@@ -27,6 +28,9 @@ public class ThreadScanPoolService extends Thread {
 	
 	@Autowired
     private DataArkService dataArkService;
+	
+	@Autowired
+	private MySnmpService mySnmpService;
 	
 	public ThreadScanPoolService init() {
 		if (!flag) {
@@ -56,7 +60,7 @@ public class ThreadScanPoolService extends Thread {
 	public void  startService() throws InterruptedException{
 		while(true) {
 			if (pool.getActiveCount()<1 && pool.getQueue().size()<1) {
-				pool.execute(new ThreadScanStreamer(dataArkService));
+				pool.execute(new ThreadScanStreamer(dataArkService,mySnmpService));
 			}
 			Thread.sleep(snapTime);
 		}

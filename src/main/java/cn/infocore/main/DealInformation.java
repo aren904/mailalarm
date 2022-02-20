@@ -14,6 +14,7 @@ import cn.infocore.mail.MailSender;
 import cn.infocore.net.CMHeader;
 import cn.infocore.protobuf.CloudAlarmManage;
 import cn.infocore.service.DataArkService;
+import cn.infocore.service.MySnmpService;
 import cn.infocore.service.impl.MailServiceImpl;
 import cn.infocore.utils.Utils;
 import lombok.Data;
@@ -31,6 +32,8 @@ public class DealInformation implements Runnable {
 	private Socket socket;
 	
 	private DataArkService dataArkService;
+	
+	private MySnmpService mySnmpService;
 	
 	public DealInformation(Socket socket) {
 		this.socket = socket;
@@ -206,7 +209,7 @@ public class DealInformation implements Runnable {
 				break;
 			case 2401:
 				try {
-					MySnmpCache.getInstance().updateMySnmp();
+					MySnmpCache.getInstance(mySnmpService).updateMySnmp();
 					header.setErrorCode(0);
 				} catch (Exception e) {
 					logger.error("Failed to updateMySnmp.",e);
@@ -233,7 +236,7 @@ public class DealInformation implements Runnable {
 		String uuid = request.getUuid();
 		DataArk dataArk=dataArkService.findByUuid(uuid);
 		logger.info("addDataArk:" + uuid+"|"+dataArk.getIp());
-		DataArkList.getInstance().addDataArk(uuid, dataArk.getIp());
+		DataArkList.getInstance(dataArkService).addDataArk(uuid, dataArk.getIp());
 		request.toBuilder().clear();
 		request.toBuilder().clearUuid();
 	}
@@ -245,7 +248,7 @@ public class DealInformation implements Runnable {
 	private void removeDataArk(CloudAlarmManage.RemoveDataArkRequest request){
 		String uuid = request.getUuid();
 		logger.info("removeDataArk:" + uuid);
-		DataArkList.getInstance().removeDataArk(uuid);
+		DataArkList.getInstance(dataArkService).removeDataArk(uuid);
 		HeartCache.getInstance().removeHeartCache(uuid);
 		request.toBuilder().clear();
 		request.toBuilder().clearUuid();
@@ -259,7 +262,7 @@ public class DealInformation implements Runnable {
 		String uuid = request.getUuid();
 		DataArk dataArk=dataArkService.findByUuid(uuid);
 		logger.info("updateDataArk:" + uuid+"|"+dataArk.getIp());
-		DataArkList.getInstance().addDataArk(uuid, dataArk.getIp());
+		DataArkList.getInstance(dataArkService).addDataArk(uuid, dataArk.getIp());
 		request.toBuilder().clear();
 		request.toBuilder().clearUuid();
 	}

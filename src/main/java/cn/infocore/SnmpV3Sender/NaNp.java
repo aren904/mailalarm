@@ -1,34 +1,39 @@
 package cn.infocore.SnmpV3Sender;
 
-import cn.infocore.dto.DataArkDTO;
-import cn.infocore.dto.MySnmpDTO;
+import java.io.IOException;
+import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.snmp4j.*;
+import org.snmp4j.PDU;
+import org.snmp4j.SNMP4JSettings;
+import org.snmp4j.ScopedPDU;
+import org.snmp4j.Snmp;
+import org.snmp4j.TransportMapping;
+import org.snmp4j.UserTarget;
 import org.snmp4j.event.ResponseEvent;
 import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.security.SecurityLevel;
 import org.snmp4j.security.SecurityModels;
 import org.snmp4j.security.SecurityProtocols;
 import org.snmp4j.security.USM;
-import org.snmp4j.smi.*;
+import org.snmp4j.smi.Address;
+import org.snmp4j.smi.Integer32;
+import org.snmp4j.smi.OID;
+import org.snmp4j.smi.OctetString;
+import org.snmp4j.smi.VariableBinding;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
 
-import java.io.IOException;
-import java.util.List;
+import cn.infocore.entity.DataArk;
+import cn.infocore.entity.MySnmp;
 
 /**
- * @ProjectName: mailalarm
- * @Package: cn.infocore.SnmpV3Sender
- * @ClassName: NaNp
- * @Author: aren904
- * @Description: 此类为既无认证有没有特权
- * @Date: 2021/4/13 19:25
- * @Version: 1.0
+ * 暂未用到：此类为既无认证有没有特权
  */
 public class NaNp {
+	
     private static final Logger logger = Logger.getLogger(NaNp.class);
-    public static ResponseEvent sendSnmpV3_NANP(MySnmpDTO mySnmp, Address targetAddress, List<DataArkDTO> data_arks) throws IOException {
+    
+    public static ResponseEvent sendSnmpV3_NANP(MySnmp mySnmp, Address targetAddress, List<DataArk> data_arks) throws IOException {
         SNMP4JSettings.setExtensibilityEnabled(true);
         SecurityProtocols.getInstance().addDefaultProtocols();
         TransportMapping transport;
@@ -47,14 +52,12 @@ public class NaNp {
             secModels.addSecurityModel(usm);
         }
 
-
         ScopedPDU pdu = new ScopedPDU();
         pdu.setType(PDU.NOTIFICATION);
 
         for (int i = 0; i < data_arks.size(); i++) {
-            DataArkDTO data_ark = data_arks.get(i);
+            DataArk data_ark = data_arks.get(i);
             pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.4." + i), new OctetString(data_ark.getName())));
-//            pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3." + i), new OctetString(data_ark.getId())));//正常
             pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.3." + i), new OctetString(data_ark.getUuid())));
             pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.2." + i), new OctetString(data_ark.getIp())));
             pdu.add(new VariableBinding(new OID("1.3.6.1.4.1.35371.1.2.1.1.5." + i), new Integer32(10)));  //离线告警状态是10

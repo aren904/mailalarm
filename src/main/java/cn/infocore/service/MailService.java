@@ -26,5 +26,5 @@ public interface MailService {
 	void notifyCenter(DataArkDTO data_ark,List<ClientDTO> clientList,List<VCenterDTO> vcList,List<VirtualMachineDTO> vmList,List<Fault> list_fault) throws SQLException;
 
 	//处理异常
-	void sendFault(List<FaultDTO> faults);
+	void sendFaults(List<FaultDTO> faults);
 }

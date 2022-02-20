@@ -26,14 +26,21 @@ import cn.infocore.dto.Fault;
 import cn.infocore.utils.TestAesGcmAe;
 import cn.infocore.utils.Utils;
 
+/**
+ * 邮件发送类
+ */
 public class MailSender {
 	
     private static final Logger logger = Logger.getLogger(MailSender.class);
     
     private static Map<String, Long> howOfen = new ConcurrentHashMap<>();// 内存维护的发送间隔时间
+    
     private static TimedCache<String, String> timedCache = CacheUtil.newTimedCache(10 * 60 * 1000); //缓存时间为10min
+    
     private EmailAlarmDTO config;
+    
     private MimeMessage message;
+    
     private Session s;
 
     public MailSender(EmailAlarmDTO config) {
@@ -66,7 +73,7 @@ public class MailSender {
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(r));
             }
         } catch (Exception e) {
-            logger.error(e);
+            logger.error("Failed to create MailSender.",e);
         }
     }
 

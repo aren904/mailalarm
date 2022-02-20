@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import cn.infocore.dao.AlarmLogDAO;
 import cn.infocore.dto.VirtualMachineDTO;
 import cn.infocore.entity.ClientBackup;
 import cn.infocore.manager.AlarmLogManager;

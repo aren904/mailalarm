@@ -6,6 +6,8 @@ import cn.infocore.dto.DataArkDTO;
 import cn.infocore.entity.DataArk;
 
 public interface DataArkService  {
+	
+	public List<DataArk> list();
 
 	/**
 	 * 更新数据方舟

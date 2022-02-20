@@ -6,16 +6,13 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import cn.infocore.dto.DataArkDTO;
 import cn.infocore.entity.DataArk;
 import cn.infocore.manager.DataArkManager;
-import cn.infocore.mapper.DataArkMapper;
 import cn.infocore.service.DataArkService;
 
 @Service
-public class DataArkServiceImpl extends ServiceImpl<DataArkMapper, DataArk> implements DataArkService {
+public class DataArkServiceImpl implements DataArkService {
 
     private  static final Logger logger = Logger.getLogger(DataArkServiceImpl.class);
     
@@ -79,6 +76,11 @@ public class DataArkServiceImpl extends ServiceImpl<DataArkMapper, DataArk> impl
 		DataArk dataArk=dataArkManager.getDataArkByUuid(uuid);
 		dataArk.setExceptions(online ? "0" : "10");
 		dataArkManager.updateByUuid(dataArk);
+	}
+
+	@Override
+	public List<DataArk> list() {
+		return dataArkManager.list();
 	}
     
 }

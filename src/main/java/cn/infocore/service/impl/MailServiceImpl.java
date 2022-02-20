@@ -161,9 +161,6 @@ public class MailServiceImpl implements MailService {
     @Override
     public void notifyCenter(DataArkDTO data_ark, List<ClientDTO> clientList, List<VCenterDTO> vcList, List<VirtualMachineDTO> vmList, 
     		List<Fault> list_fault) throws SQLException {
-        String sql = null;
-        Object[] condition = null;
-
         for (Fault fault : list_fault) {
             try {
                 logger.info("-----------Userid:" + fault.getUser_uuid() + ",faultType:" + fault.getType() + ",targetName:"
@@ -213,7 +210,7 @@ public class MailServiceImpl implements MailService {
                     // not confirm error
                     List<Integer> dbErrors=alarmLogManager.findUnconfirmByDataArkUuidAndTargetUuidAndTargetName(fault.getData_ark_uuid(), 
                     		fault.getClient_id(),fault.getTarget_name());
-                    logger.debug("DB error condition:" + condition[0] + "," + condition[1] + "DB error:" + dbErrors.toString());
+                    logger.debug("DB error dataArkId:" + fault.getData_ark_uuid() + "," + fault.getClient_id() + "DB error:" + dbErrors.toString());
 
                     //数据存在而当前不存在的需要确认
                     logger.info("start to compare current and db errors.");
@@ -281,42 +278,49 @@ public class MailServiceImpl implements MailService {
         }
     }
 
+    /**
+     * 解析心跳异常：需要邮件告警的发送告警
+     */
     @Override
-    public void sendFault(List<FaultDTO> faultDtos) {
+    public void sendFaults(List<FaultDTO> faultDtos) {
         for (FaultDTO faultDto : faultDtos) {
-            // send to normal users
-            List<Fault> faults = ConvertUtils.convertFault(faultDto);
+            // 所有对象将DTO对象解析为异常集合
+            List<Fault> faults = ConvertUtils.convertFaultWithUsers(faultDto);
+            logger.debug("==========Mail sender User:" + normalSenderMap.toString());
             
             for (Fault fault : faults) {
-                logger.debug("==========MAIL USER_:" + fault.toString());
-                
+                logger.debug("Send mail user faults:" + fault.toString());
                 String userUuid = fault.getUser_uuid();
                 Long userId = userManager.findUserByUuid(userUuid).getId();
                 
+                //获取缓存的用户邮件配置键值对里符合要求的对象，触发告警
                 MailSender sender = this.normalSenderMap.get(userId);
-                logger.debug("==========MAIL SENDER_:" + normalSenderMap.toString());
                 for (Map.Entry<Long, MailSender> map : this.normalSenderMap.entrySet()) {
                     if (userId!=null && sender != null) {
                         if (userId.equals(map.getKey())){
-                            sender.judge(fault, userId);
+                            try {
+								sender.judge(fault, userId);
+							} catch (Exception e) {
+								logger.error("Failed to send nirmal mail to" + userId + " failed", e);
+							}
                         }
                     }
                 }
             }
             
-            // send all to admin user
+            // 管理员都对象
             Set<Map.Entry<Long, MailSender>> senderSet = this.adminSenderMap.entrySet();
-            logger.debug("==========MAIL SENDER_ADMIN:" + adminSenderMap.toString());
-
+            logger.debug("==========Mail sender admin:" + adminSenderMap.toString());
+            List<Fault> adminFaults = ConvertUtils.convertFault(faultDto);
             for (Map.Entry<Long, MailSender> entry : senderSet) {
                 MailSender sender = entry.getValue();
                 Long userId = entry.getKey();
-                for (Fault fault : faults) {
-                    logger.debug("==========MAIL ADMIN_:" + fault.toString());
+                for (Fault fault : adminFaults) {
+                	logger.debug("Send mail admin faults:" + fault.toString());
                     try {
                         sender.judge(fault, userId);
                     } catch (Exception e) {
-                        logger.error("Send mail to" + userId + " failed", e);
+                        logger.error("Failed to send admin mail to" + userId + " failed", e);
                     }
                 }
             }

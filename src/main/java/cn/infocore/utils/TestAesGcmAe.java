@@ -1,15 +1,5 @@
 package cn.infocore.utils;
 
-
-/**
- * @ProjectName: trytry
- * @Package: AboutString
- * @ClassName: TestAesGcmAe
- * @Author: aren904
- * @Description:
- * @Date: 2021/7/8 10:45
- * @Version: 1.0
- */
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
@@ -20,10 +10,12 @@ import java.security.SecureRandom;
 import java.security.spec.AlgorithmParameterSpec;
 
 /**
- * A simple showcase for encryption and decryption with AES + GCM in Java
+ * 解密密钥
  */
 public class TestAesGcmAe {
+	
     private final SecureRandom secureRandom = new SecureRandom();
+    
     private final static int GCM_IV_LENGTH = 12;
 
     public static void main(String args[]){
@@ -49,6 +41,7 @@ public class TestAesGcmAe {
     }
 
     private static final byte[] HEX_ARRAY = "0123456789ABCDEF".getBytes(StandardCharsets.US_ASCII);
+    
     public static String bytesToHex(byte[] bytes) {
         byte[] hexChars = new byte[bytes.length * 2];
         for (int j = 0; j < bytes.length; j++) {

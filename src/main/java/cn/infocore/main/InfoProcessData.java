@@ -78,7 +78,7 @@ public class InfoProcessData {
         logHeartbeat(hrt);
 
         // 获取DataArkList缓存的链表<uuid,ip>
-        Set<String> uSet = DataArkList.getInstance().getData_ark_list().keySet();
+        Set<String> uSet = DataArkList.getInstance(dataArkService).getData_ark_list().keySet();
         logger.debug("Current cache with uuid,ip in DataArkList:" + uSet);
         
         long now = System.currentTimeMillis() / 1000;

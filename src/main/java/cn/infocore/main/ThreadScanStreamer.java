@@ -15,6 +15,7 @@ import cn.infocore.dto.VCenterDTO;
 import cn.infocore.dto.VirtualMachineDTO;
 import cn.infocore.entity.DataArk;
 import cn.infocore.service.DataArkService;
+import cn.infocore.service.MySnmpService;
 import cn.infocore.service.impl.MailServiceImpl;
 
 /**
@@ -29,8 +30,11 @@ public class ThreadScanStreamer implements Runnable {
 	
 	private DataArkService dataArkService;
 	
-	public ThreadScanStreamer(DataArkService dataArkService) {
+	private MySnmpService mySnmpService;
+	
+	public ThreadScanStreamer(DataArkService dataArkService,MySnmpService mySnmpService) {
 		this.dataArkService=dataArkService;
+		this.mySnmpService=mySnmpService;
 	}
 
 	public ThreadScanStreamer() {
@@ -42,7 +46,7 @@ public class ThreadScanStreamer implements Runnable {
 		Map<String, Long> map = null;
 		List<String> uuids = null;
 		//获取当前数据库的数据方舟记录写入缓存，并初始化心跳时间0L
-		DataArkList.getInstance();
+		DataArkList.getInstance(dataArkService);
 		
 		while (true) {
 			try {
@@ -68,8 +72,8 @@ public class ThreadScanStreamer implements Runnable {
 					}
 
 					if (uuids.size() > 0) {
-						logger.info("Sender snmp server alarm.");
-						SnmpTrapSender.run(uuids);
+						SnmpTrapSender sender=new SnmpTrapSender(dataArkService,mySnmpService);
+						sender.run(uuids);
 					}
 				}
 

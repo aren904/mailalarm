@@ -1,16 +1,13 @@
 package cn.infocore.main;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 
-import cn.infocore.dto.UUid_ip;
-import cn.infocore.handler.UUid_ipHandler;
-import cn.infocore.utils.MyDataSource;
+import cn.infocore.entity.DataArk;
+import cn.infocore.service.DataArkService;
 
 /**
  * 内存中维护的数据方舟的列表<uuid,ip>,顺便初始化维护数据方舟心跳的单例queue
@@ -21,34 +18,35 @@ public class DataArkList {
     
 	//维护的数据方舟的uuid-->ip列表
 	private Map<String,String> data_ark_list=new ConcurrentHashMap<String, String>();
-
-	private DataArkList() {
-		logger.info("Init,Start get all data ark from database.");
-		
-		String sql="select * from data_ark";
-		QueryRunner qr= MyDataSource.getQueryRunner();
-		List<UUid_ip> lIps=null;
-		try {
-			lIps=qr.query( sql, new UUid_ipHandler());
-			for (UUid_ip uid_ip:lIps) {
-				this.data_ark_list.put(uid_ip.getUuid(),uid_ip.getIp());
+	
+	private DataArkList dataArkList = null;
+	
+	private boolean inited = false;
+	
+	private DataArkList() {}
+	
+	private DataArkList init(DataArkService dataArkService) {
+		if (this.inited == false||dataArkList ==null) {
+			this.inited = true;
+			logger.info("Init,Start get all data ark from database.");
+			List<DataArk> dataArks=dataArkService.list();
+			for (DataArk dataArk:dataArks) {
+				this.data_ark_list.put(dataArk.getUuid(),dataArk.getIp());
 				//同时初始化维护数据方舟掉线的列表
-				HeartCache.getInstance().addHeartCache(uid_ip.getUuid(), 0L);
-		}
+				HeartCache.getInstance().addHeartCache(dataArk.getUuid(), 0L);
+			}
 			logger.info("Succeed to get data ark,count:"+this.data_ark_list.size());
-		} catch (SQLException e) {
-			logger.error(e);
-		}finally {
-			//MyDataSource.close(connection);
 		}
+		return this;
+		
 	}
 
 	private static class DataArkListHolder{
 		public static DataArkList instance=new DataArkList();
 	}
 
-	public static DataArkList getInstance() {
-		return DataArkListHolder.instance;
+	public static DataArkList getInstance(DataArkService dataArkService) {
+		return DataArkListHolder.instance.init(dataArkService);
 	}
 
 	//添加
