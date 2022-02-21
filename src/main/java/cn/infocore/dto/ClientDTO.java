@@ -28,6 +28,7 @@ public class ClientDTO{
 	
 	private List<Fault> fList;
 	
+	//客户端类型 SINGLE = 0;VMWARE = 1;MSCS = 2;RAC = 3;VC = 4; AIX=5;
 	private int type;
 	
 	//对应Data_ark中的id字段，是外健

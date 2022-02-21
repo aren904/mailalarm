@@ -10,12 +10,14 @@ import org.apache.log4j.Logger;
 
 import cn.infocore.dto.EmailAlarmDTO;
 import cn.infocore.entity.DataArk;
-import cn.infocore.mail.MailSender;
+import cn.infocore.net.CMCommand;
 import cn.infocore.net.CMHeader;
+import cn.infocore.net.CMRetStatus;
 import cn.infocore.protobuf.CloudAlarmManage;
 import cn.infocore.service.DataArkService;
 import cn.infocore.service.MySnmpService;
-import cn.infocore.service.impl.MailServiceImpl;
+import cn.infocore.service.impl.EmailAlarmServiceImpl;
+import cn.infocore.utils.MailSender;
 import cn.infocore.utils.Utils;
 import lombok.Data;
 
@@ -28,7 +30,9 @@ public class DealInformation implements Runnable {
 	private static final Logger logger = Logger.getLogger(DealInformation.class);
 	
 	private InputStream in;
+	
 	private OutputStream out;
+	
 	private Socket socket;
 	
 	private DataArkService dataArkService;
@@ -59,6 +63,7 @@ public class DealInformation implements Runnable {
 			CMHeader myHeader = new CMHeader();
 			myHeader.parseByteArray(header);
 			logger.info("Successfully received request from Cloud Manager.");
+			//分发请求
 			dispatch(myHeader);
 		} catch (Exception e) {
 			logger.error("Failed to received on DealInformation.",e);
@@ -97,17 +102,17 @@ public class DealInformation implements Runnable {
 			return;
 		}
 		
-		int command=header.getCommand();
+		CMCommand command=header.getCommand();
 		logger.info("----------------Received operation code:"+command);
-		switch(command) {
+		switch(command.getValue()) {
 			case 1501:
 				try {
 					CloudAlarmManage.AddDataArkRequest request = CloudAlarmManage.AddDataArkRequest.parseFrom(buffer);
 					addDataArk(request);
-					header.setErrorCode(0);
+					header.setErrorCode(CMRetStatus.ST_RES_SUCCESS);
 				} catch (Exception e) {
 					logger.error("Failed to AddDataArk.",e);
-					header.setErrorCode(11501);
+					header.setErrorCode(CMRetStatus.ST_RES_ADD_DATA_ARK_FAIL);
 				}finally {
 					byte[] resp=header.toByteArray();
 					try {
@@ -122,10 +127,10 @@ public class DealInformation implements Runnable {
 				try {
 					CloudAlarmManage.RemoveDataArkRequest request = CloudAlarmManage.RemoveDataArkRequest.parseFrom(buffer);
 					removeDataArk(request);
-					header.setErrorCode(0);
+					header.setErrorCode(CMRetStatus.ST_RES_SUCCESS);
 				} catch (Exception e) {
 					logger.error("Failed to RemoveDataArk.",e);
-					header.setErrorCode(11502);
+					header.setErrorCode(CMRetStatus.ST_RES_REMOVE_DATA_ARK_FAIL);
 				}finally {
 					byte[] resp=header.toByteArray();
 					try {
@@ -139,10 +144,10 @@ public class DealInformation implements Runnable {
 				try {
 					CloudAlarmManage.UpdateDataArkRequest request = CloudAlarmManage.UpdateDataArkRequest.parseFrom(buffer);
 					updateDataArk(request);
-					header.setErrorCode(0);
+					header.setErrorCode(CMRetStatus.ST_RES_SUCCESS);
 				} catch (Exception e) {
 					logger.error("Failed to UpdateDataArk.",e);
-					header.setErrorCode(12303);
+					header.setErrorCode(CMRetStatus.ST_RES_UPDATE_DATA_ARK_FAIL);
 				}finally {
 					byte[] resp=header.toByteArray();
 					try {
@@ -156,10 +161,10 @@ public class DealInformation implements Runnable {
 				try {
 					CloudAlarmManage.CreateEmailAlarmRequest request = CloudAlarmManage.CreateEmailAlarmRequest.parseFrom(buffer);
 					createEmailAlarm(request);
-					header.setErrorCode(0);
+					header.setErrorCode(CMRetStatus.ST_RES_SUCCESS);
 				} catch (Exception e) {
 					logger.error("Failed to CreateEmailAlarm.",e);
-					header.setErrorCode(12301);
+					header.setErrorCode(CMRetStatus.ST_RES_CREATE_EMAIL_ALARM_FAIL);
 				}finally {
 					byte[] resp=header.toByteArray();
 					try {
@@ -173,10 +178,10 @@ public class DealInformation implements Runnable {
 				try {
 					CloudAlarmManage.UpdateEmailAlarmRequest request = CloudAlarmManage.UpdateEmailAlarmRequest.parseFrom(buffer);
 					updateEmailAlarm(request);
-					header.setErrorCode(0);
+					header.setErrorCode(CMRetStatus.ST_RES_SUCCESS);
 				} catch (Exception e) {
 					logger.error("Failed to UpdateEmailAlarm.",e);
-					header.setErrorCode(12303);
+					header.setErrorCode(CMRetStatus.ST_RES_UPDATE_EMAIL_ALARM_FAIL);
 				}finally {
 					byte[] resp=header.toByteArray();
 					try {
@@ -191,13 +196,13 @@ public class DealInformation implements Runnable {
 					CloudAlarmManage.VerifyEmailAlarmRequest request = CloudAlarmManage.VerifyEmailAlarmRequest.parseFrom(buffer);
 					boolean result = verifyEmailAlarm(request);
 					if (result) {
-						header.setErrorCode(0);
+						header.setErrorCode(CMRetStatus.ST_RES_SUCCESS);
 					}else {
-						header.setErrorCode(12304);
+						header.setErrorCode(CMRetStatus.ST_RES_VERIFY_EMAIL_ALARM_FAIL);
 					}
 				} catch (Exception e) {
 					logger.error("Failed to VerifyEmailAlarm.",e);
-					header.setErrorCode(12304);
+					header.setErrorCode(CMRetStatus.ST_RES_VERIFY_EMAIL_ALARM_FAIL);
 				}finally {
 					byte[] resp=header.toByteArray();
 					try {
@@ -210,10 +215,10 @@ public class DealInformation implements Runnable {
 			case 2401:
 				try {
 					MySnmpCache.getInstance(mySnmpService).updateMySnmp();
-					header.setErrorCode(0);
+					header.setErrorCode(CMRetStatus.ST_RES_SUCCESS);
 				} catch (Exception e) {
 					logger.error("Failed to updateMySnmp.",e);
-					header.setErrorCode(12401);
+					header.setErrorCode(CMRetStatus.ST_RES_UPDATE_SNMP_FAIL);
 				}finally {
 					byte[] resp=header.toByteArray();
 					try {
@@ -236,7 +241,7 @@ public class DealInformation implements Runnable {
 		String uuid = request.getUuid();
 		DataArk dataArk=dataArkService.findByUuid(uuid);
 		logger.info("addDataArk:" + uuid+"|"+dataArk.getIp());
-		DataArkList.getInstance(dataArkService).addDataArk(uuid, dataArk.getIp());
+		DataArkListCache.getInstance(dataArkService).addDataArk(uuid, dataArk.getIp());
 		request.toBuilder().clear();
 		request.toBuilder().clearUuid();
 	}
@@ -248,7 +253,7 @@ public class DealInformation implements Runnable {
 	private void removeDataArk(CloudAlarmManage.RemoveDataArkRequest request){
 		String uuid = request.getUuid();
 		logger.info("removeDataArk:" + uuid);
-		DataArkList.getInstance(dataArkService).removeDataArk(uuid);
+		DataArkListCache.getInstance(dataArkService).removeDataArk(uuid);
 		HeartCache.getInstance().removeHeartCache(uuid);
 		request.toBuilder().clear();
 		request.toBuilder().clearUuid();
@@ -262,7 +267,7 @@ public class DealInformation implements Runnable {
 		String uuid = request.getUuid();
 		DataArk dataArk=dataArkService.findByUuid(uuid);
 		logger.info("updateDataArk:" + uuid+"|"+dataArk.getIp());
-		DataArkList.getInstance(dataArkService).addDataArk(uuid, dataArk.getIp());
+		DataArkListCache.getInstance(dataArkService).addDataArk(uuid, dataArk.getIp());
 		request.toBuilder().clear();
 		request.toBuilder().clearUuid();
 	}
@@ -274,7 +279,7 @@ public class DealInformation implements Runnable {
 	private void createEmailAlarm(CloudAlarmManage.CreateEmailAlarmRequest request){
 		String userUuid = request.getUserUuid();
 		logger.info("createEmailAlarm:" + userUuid);
-		MailServiceImpl.getInstance().addMailService(userUuid);
+		EmailAlarmServiceImpl.getInstance().addMailService(userUuid);
 		request.toBuilder().clear();
 		request.toBuilder().clearUserUuid();
 	}
@@ -286,7 +291,7 @@ public class DealInformation implements Runnable {
 	private void updateEmailAlarm(CloudAlarmManage.UpdateEmailAlarmRequest request){
 		String userUuid = request.getUserUuid();
 		logger.info("updateEmailAlarm:" + userUuid);
-		MailServiceImpl.getInstance().addMailService(userUuid);
+		EmailAlarmServiceImpl.getInstance().addMailService(userUuid);
 		request.toBuilder().clear();
 		request.toBuilder().clearUserUuid();
 	}

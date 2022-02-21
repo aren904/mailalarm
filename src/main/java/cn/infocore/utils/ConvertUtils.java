@@ -49,7 +49,7 @@ public class ConvertUtils {
     }
     
     /**
-     * 普通用户：将FaultDTO转化成Fault集合
+     * 将FaultDTO转化成Fault集合，拥有该异常的用户都要发
      * @param faultDto
      * @return
      */
@@ -62,12 +62,12 @@ public class ConvertUtils {
         String targetId = faultDto.getTargetUuid();
         String targetName = faultDto.getTargetName();
         StmAlarmManage.ClientType clientType = faultDto.getClientType();
-        List<String> userIds = faultDto.getUserUuids();
+        List<String> userUuids = faultDto.getUserUuids();
         Long timestamp = faultDto.getTimestamp();
         
         List<Fault> faults = new ArrayList<Fault>();
         for (StmAlarmManage.FaultType faultType : faultTypes) {
-            for (String userId : userIds) {
+            for (String userUuid : userUuids) {
                 Integer code = faultType.getNumber();
                 Fault fault = new Fault();
                 fault.setType(code);
@@ -77,7 +77,7 @@ public class ConvertUtils {
                 fault.setData_ark_ip(dataArkIp);
                 fault.setData_ark_name(data_ark_name);
                 fault.setTarget_name(targetName);
-                fault.setUser_uuid(userId);
+                fault.setUser_uuid(userUuid);
                 fault.setTimestamp(timestamp);
                 faults.add(fault);
             }

@@ -3,7 +3,6 @@ package cn.infocore.service.impl;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +18,6 @@ import cn.infocore.service.RdsService;
 @Service
 public class RdsServiceImpl implements RdsService {
 	
-	private static final Logger logger = Logger.getLogger( RdsServiceImpl.class);
-
     @Autowired
     private RdsManager rdsManager;
 
@@ -49,12 +46,12 @@ public class RdsServiceImpl implements RdsService {
                 .setUuId(uuid)
                 .setType(rdsClient.getType().getNumber())
                 .setExceptions(faults.toString());
-        clientManager.updateClient(uuid, client);
+        clientManager.updateClient(client);
         
         if(faults!=null){
             for (StmAlarmManage.RdsInstanceInfo rdsInstanceInfo : rdsInstanceInfos) {
                 ClientBackup clientBackupDo =  clientBackupManager.ConvertRDSClientBackup(rdsInstanceInfo);
-                clientBackupManager.updateClientBackup(clientBackupDo,clientBackupDo.getUuid());
+                clientBackupManager.updateClientBackup(clientBackupDo);
             }
         }
     }

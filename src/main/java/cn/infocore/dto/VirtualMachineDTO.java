@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class VirtualMachineDTO {
 
-	private String id;
+	//private String id;
 	
 	private String uuid;
 
@@ -49,7 +49,6 @@ public class VirtualMachineDTO {
 	@Override
 	public String toString() {
 		return "VirtualMachine{" +
-				"id='" + id + '\'' +
 				", uuid='" + uuid + '\'' +
 				", name='" + name + '\'' +
 				", path='" + path + '\'' +

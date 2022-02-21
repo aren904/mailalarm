@@ -14,7 +14,7 @@ public interface AlarmLogService {
 	public List<Integer> findVmUncheckedExceptions(String targetUuid);
 	
 	/**
-	 * 处理心跳异常：更新/新建，自动确认
+	 * 处理心跳异常：更新/新建日志信息，要自动确认的自动确认；还有邮件报警
 	 * @param faults
 	 */
     public void noticeFaults(List<FaultDTO> faults);

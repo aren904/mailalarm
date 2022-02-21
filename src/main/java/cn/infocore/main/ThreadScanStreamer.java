@@ -16,7 +16,7 @@ import cn.infocore.dto.VirtualMachineDTO;
 import cn.infocore.entity.DataArk;
 import cn.infocore.service.DataArkService;
 import cn.infocore.service.MySnmpService;
-import cn.infocore.service.impl.MailServiceImpl;
+import cn.infocore.service.impl.EmailAlarmServiceImpl;
 
 /**
  * 定时扫描缓存，判断数据方舟状态
@@ -46,7 +46,7 @@ public class ThreadScanStreamer implements Runnable {
 		Map<String, Long> map = null;
 		List<String> uuids = null;
 		//获取当前数据库的数据方舟记录写入缓存，并初始化心跳时间0L
-		DataArkList.getInstance(dataArkService);
+		DataArkListCache.getInstance(dataArkService);
 		
 		while (true) {
 			try {
@@ -116,7 +116,7 @@ public class ThreadScanStreamer implements Runnable {
 			logger.debug("The data ark which uuid:" + uuid + " is offline...");
 			
 			// 如果离线，触发邮件报警
-			List<Fault> data_ark_fault_list = new LinkedList<Fault>();
+			List<Fault> data_ark_faults = new LinkedList<Fault>();
 			Fault fault = new Fault();
 			fault.setTimestamp(now);
 			fault.setType(10); //10表示离线
@@ -147,17 +147,17 @@ public class ThreadScanStreamer implements Runnable {
 					fault.setData_ark_uuid(uuid);
 				}
 				
-				data_ark_fault_list.add(fault);
-				//将Faults设置成Exception
-				dataArkDto.setFaults(data_ark_fault_list);
+				data_ark_faults.add(fault);
+				//将Faults设置成Exception，这里是数据方舟离线
+				dataArkDto.setFaults(data_ark_faults);
 				
+				//构造参数
 				List<ClientDTO> clientList = new LinkedList<ClientDTO>(); //普通客户端
 				List<VCenterDTO> vcList = new LinkedList<VCenterDTO>(); //VC
 				List<VirtualMachineDTO> vmList = new LinkedList<VirtualMachineDTO>(); //VM
-				List<Fault> fault_list_single = new LinkedList<Fault>(); //数据方舟的离线异常
-				fault_list_single.add(fault);
-				//启动告警
-				MailServiceImpl.getInstance().notifyCenter(dataArkDto, clientList, vcList, vmList, fault_list_single);
+				
+				//启动离线告警
+				EmailAlarmServiceImpl.getInstance().notifyCenter(dataArkDto, clientList, vcList, vmList, data_ark_faults);
 			} catch (Exception e) {
 				logger.warn("ThreadScanStreamer error.", e);
 			}

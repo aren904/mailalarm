@@ -6,83 +6,53 @@ import java.util.Arrays;
 
 import org.apache.log4j.Logger;
 
-//云平台交互头信息
+import lombok.Data;
+
+/**
+ * 与管理平台交互头信息
+ */
+@Data
 public class CMHeader {
 	
 	private static final Logger logger=Logger.getLogger(CMHeader.class);
 	
 	public static final byte CM_HEADER_VERSION=1;
+	
 	public static final int CM_HEADER_LENGTH=24;
 	
+	/**
+	 * 消息头:长度24
+	 * Message header
+	 *      offset    length    type    description
+	 *           0         1    byte    version [1]
+	 *           1         1    byte    The data type of the message body [2]
+	 *           2         2    int16   Request from [3]
+	 *           4         4    int32   Command, see also enum CMCommand
+	 *           8         4    int32   Error code, see also enum CMErrorCode
+	 *           12        4    int32   The data length of the message body
+	 *           16        8    int32   flags1 no use
+	 *  [1] cloud -> mailalarm : 1
+	 *      mailalarm -> cloud  : 1
+	 *  [2] 0: ST_MSG_XML, // xml
+        	1: ST_MSG_BINARY_STREAM, //流
+        	2: ST_MSG_PROTOBUF, //protobuf
+	 *  [3] cloud -> mailalarm : 0
+	 *      mailalarm -> cloud  : 25
+	 */
+	
 	private byte version;
+	
 	private byte dataType;
-	private short direction;
-	private short flags;
-	private int command;
-	private int errorCode;
+	
+	private short from;
+	
+	private CMCommand command;
+	
+	private CMRetStatus errorCode;
+	
 	private int dataLength;
+	
 	private long flags1;
-	
-	public byte getVersion() {
-		return version;
-	}
-	public void setVersion(byte version) {
-		this.version = version;
-	}
-	public byte getDataType() {
-		return dataType;
-	}
-	public void setDataType(byte dataType) {
-		this.dataType = dataType;
-	}
-	public short getDirection() {
-		return direction;
-	}
-	public void setDirection(short direction) {
-		this.direction = direction;
-	}
-	public short getFlags() {
-		return flags;
-	}
-	public void setFlags(short flags) {
-		this.flags = flags;
-	}
-	public int getCommand() {
-		return command;
-	}
-	public void setCommand(int command) {
-		this.command = command;
-	}
-	public int getErrorCode() {
-		return errorCode;
-	}
-	public void setErrorCode(int errorCode) {
-		this.errorCode = errorCode;
-	}
-	public int getDataLength() {
-		return dataLength;
-	}
-	public void setDataLength(int dataLength) {
-		this.dataLength = dataLength;
-	}
-	public long getFlags1() {
-		return flags1;
-	}
-	public void setFlags1(long flags1) {
-		this.flags1 = flags1;
-	}
-	
-	public void logMe () {
-		logger.debug("----------CMHeader------------ ");
-		logger.debug("[version]: " + (int) this.version);
-		logger.debug("[dataType]: " +  (int)this.dataType);
-		logger.debug("[direction]:"+this.direction);
-		logger.debug("[Flags]: " + this.flags);
-		logger.debug("[Command]: " + this.command);
-		logger.debug("[ErrorCode]: " + this.errorCode);
-		logger.debug("[Data length]: " + this.dataLength);
-		logger.debug("[Flags1]:"+this.flags1);
-	}
 	
 	public boolean parseByteArray(byte[] ba) {
 		if (ba==null) {
@@ -101,14 +71,14 @@ public class CMHeader {
 		byte[] baMsgType=Arrays.copyOfRange(ba, 1, 2);
 		this.dataType=ByteBuffer.wrap(baMsgType).order(ByteOrder.LITTLE_ENDIAN).get();
 		
-		byte[] baDirection=Arrays.copyOfRange(ba, 2, 4);
-		this.direction=ByteBuffer.wrap(baDirection).order(ByteOrder.LITTLE_ENDIAN).getShort();
+		byte[] baFrom=Arrays.copyOfRange(ba, 2, 4);
+		this.from=ByteBuffer.wrap(baFrom).order(ByteOrder.LITTLE_ENDIAN).getShort();
 		
 		byte[] baCommand=Arrays.copyOfRange(ba, 4, 8);
-		this.command=ByteBuffer.wrap(baCommand).order(ByteOrder.LITTLE_ENDIAN).getInt();
+		this.command=CMCommand.getCommandCode(ByteBuffer.wrap(baCommand).order(ByteOrder.LITTLE_ENDIAN).getInt());
 		
-		byte[] baerrorCode=Arrays.copyOfRange(ba, 8, 12);
-		this.errorCode=ByteBuffer.wrap(baerrorCode).order(ByteOrder.LITTLE_ENDIAN).getInt();
+		byte[] baErrorCode=Arrays.copyOfRange(ba, 8, 12);
+		this.errorCode=CMRetStatus.getRetStatus(ByteBuffer.wrap(baErrorCode).order(ByteOrder.LITTLE_ENDIAN).getInt());
 		
 		byte[] baLength = Arrays.copyOfRange(ba, 12, 16);
 		this.dataLength = ByteBuffer.wrap(baLength).order(ByteOrder.LITTLE_ENDIAN).getInt();
@@ -131,13 +101,13 @@ public class CMHeader {
 		byte[] baMsgType = ByteBuffer.allocate(1).order(ByteOrder.LITTLE_ENDIAN).put(this.dataType).array();
 		System.arraycopy(baMsgType, 0, header, 1, 1);
 
-		byte[] baDirection=ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN).putShort(this.direction).array();
-		System.arraycopy(baDirection, 0, header,2, 2);
+		byte[] baFrom=ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN).putShort(this.from).array();
+		System.arraycopy(baFrom, 0, header,2, 2);
 		
-		byte[] baCommand=ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(this.command).array();
+		byte[] baCommand=ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(this.command.getValue()).array();
 		System.arraycopy(baCommand, 0, header, 4, 4);
 		
-		byte[] baerrorCode=ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(this.errorCode).array();
+		byte[] baerrorCode=ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(this.errorCode.getValue()).array();
 		System.arraycopy(baerrorCode, 0, header, 8, 4);
 		
 		byte[] baLength=ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(0).array();
@@ -149,6 +119,17 @@ public class CMHeader {
 		logger.debug("CMHeader dumped to binary array.");
 		logMe();
 		return header;
+	}
+	
+	public void logMe () {
+		logger.debug("----------CMHeader------------ ");
+		logger.debug("[version]: " + (int) this.version);
+		logger.debug("[dataType]: " +  (int)this.dataType);
+		logger.debug("[From]:"+this.from);
+		logger.debug("[Command]: " + this.command);
+		logger.debug("[ErrorCode]: " + this.errorCode);
+		logger.debug("[Data length]: " + this.dataLength);
+		logger.debug("[Flags1]:"+this.flags1);
 	}
 
 }

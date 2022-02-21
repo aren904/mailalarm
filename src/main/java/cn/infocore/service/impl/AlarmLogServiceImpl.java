@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import cn.infocore.dto.FaultDTO;
 import cn.infocore.manager.AlarmLogManager;
 import cn.infocore.service.AlarmLogService;
-import cn.infocore.service.MailService;
+import cn.infocore.service.EmailAlarmService;
 
 @Service
 public class AlarmLogServiceImpl implements AlarmLogService {
@@ -17,7 +17,7 @@ public class AlarmLogServiceImpl implements AlarmLogService {
     private AlarmLogManager alarmLogManager;
     
     @Autowired
-    private MailService mailService;   
+    private EmailAlarmService mailService;   
     
     /**
 	 * 查找指定客户端未确认的异常集合

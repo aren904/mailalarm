@@ -15,9 +15,9 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import cn.infocore.consts.FaultEnum;
 import cn.infocore.dto.Fault;
 import cn.infocore.dto.FaultDTO;
+import cn.infocore.dto.FaultEnum;
 import cn.infocore.entity.AlarmLog;
 import cn.infocore.mapper.AlarmLogMapper;
 import cn.infocore.protobuf.StmAlarmManage;
@@ -126,19 +126,23 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLog> {
      */
     @Transactional
     public void updateAlarmlog(AlarmLog alarmLog) {
-        if (alarmLog.getException() > 0) {
-            LambdaQueryWrapper<AlarmLog> queryWrapper = new LambdaQueryWrapper<AlarmLog>();
-            //如果targetUuid和exception类型一致则更新数据库该行数据
-            queryWrapper.eq(AlarmLog::getTargetUuid, alarmLog.getTargetUuid()).eq(AlarmLog::getException,alarmLog.getException());
-            if (this.count(queryWrapper) > 0) {
-                this.update(alarmLog, queryWrapper);
-            } else {
-                logger.info("Insert new exceptions:"+alarmLog.getTargetUuid()+"|"+alarmLog.getTargetName()+"|"+alarmLog.getException());
-                long linuxTimestamp = System.currentTimeMillis() / 1000;
-                alarmLog.setTimestamp(linuxTimestamp);
-                this.save(alarmLog);
-            }
-        }
+        try {
+			if (alarmLog.getException() > 0) {
+			    LambdaQueryWrapper<AlarmLog> queryWrapper = new LambdaQueryWrapper<AlarmLog>();
+			    //如果targetUuid和exception类型一致则更新数据库该行数据
+			    queryWrapper.eq(AlarmLog::getTargetUuid, alarmLog.getTargetUuid()).eq(AlarmLog::getException,alarmLog.getException());
+			    if (this.count(queryWrapper) > 0) {
+			        this.update(alarmLog, queryWrapper);
+			    } else {
+			        logger.info("Insert new exceptions:"+alarmLog.getTargetUuid()+"|"+alarmLog.getTargetName()+"|"+alarmLog.getException());
+			        long linuxTimestamp = System.currentTimeMillis() / 1000;
+			        alarmLog.setTimestamp(linuxTimestamp);
+			        this.save(alarmLog);
+			    }
+			}
+		} catch (Exception e) {
+			logger.error("Failed to updateAlarmlog:"+alarmLog.getException(),e);
+		}
     }
 
     /**
@@ -148,12 +152,16 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLog> {
      * sql = "update alarm_log set processed=1 where data_ark_uuid=? and target_uuid=? and exception!=3 and exception!=25 and exception!=26";
      */
 	public void updateConfirm(String dataArkUuid, String targetUuid) {
-		AlarmLog alarmLog = new AlarmLog();
-        alarmLog.setProcessed(1);
-        LambdaUpdateWrapper<AlarmLog> updateWrapper = new UpdateWrapper<AlarmLog>().lambda();
-        updateWrapper.eq(AlarmLog::getDataArkUuid, dataArkUuid).eq(AlarmLog::getTargetUuid, targetUuid)
-        	.ne(AlarmLog::getException, 3).ne(AlarmLog::getException, 25).ne(AlarmLog::getException, 26);
-        this.update(alarmLog, updateWrapper);
+		try {
+			AlarmLog alarmLog = new AlarmLog();
+			alarmLog.setProcessed(1);
+			LambdaUpdateWrapper<AlarmLog> updateWrapper = new UpdateWrapper<AlarmLog>().lambda();
+			updateWrapper.eq(AlarmLog::getDataArkUuid, dataArkUuid).eq(AlarmLog::getTargetUuid, targetUuid)
+				.ne(AlarmLog::getException, 3).ne(AlarmLog::getException, 25).ne(AlarmLog::getException, 26);
+			this.update(alarmLog, updateWrapper);
+		} catch (Exception e) {
+			logger.error("Failed to updateConfirm:"+dataArkUuid+"|"+targetUuid,e);
+		}
 	}
 
 	/**
@@ -197,13 +205,17 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLog> {
 	 * @param type
 	 * sql = "update alarm_log set timestamp=? where data_ark_uuid=? and target_uuid=? and exception=? and processed=0";
 	 */
-	public void updateAlarmlogTimestamp(Fault fault, String type) {
-		AlarmLog alarmLog = new AlarmLog();
-        alarmLog.setTimestamp(fault.getTimestamp());;
-        LambdaUpdateWrapper<AlarmLog> updateWrapper = new UpdateWrapper<AlarmLog>().lambda();
-        updateWrapper.eq(AlarmLog::getDataArkUuid, fault.getData_ark_uuid()).eq(AlarmLog::getTargetUuid, fault.getTarget_uuid())
-        	.eq(AlarmLog::getException, type).eq(AlarmLog::getProcessed, 0);
-        this.update(alarmLog, updateWrapper);
+	public void updateAlarmlogTimestamp(Fault fault, Integer type) {
+		try {
+			AlarmLog alarmLog = new AlarmLog();
+			alarmLog.setTimestamp(fault.getTimestamp());;
+			LambdaUpdateWrapper<AlarmLog> updateWrapper = new UpdateWrapper<AlarmLog>().lambda();
+			updateWrapper.eq(AlarmLog::getDataArkUuid, fault.getData_ark_uuid()).eq(AlarmLog::getTargetUuid, fault.getTarget_uuid())
+				.eq(AlarmLog::getException, type).eq(AlarmLog::getProcessed, 0);
+			this.update(alarmLog, updateWrapper);
+		} catch (Exception e) {
+			logger.error("Failed to updateAlarmlogTimestamp.",e);
+		}
 	}
 
 }

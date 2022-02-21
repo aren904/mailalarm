@@ -48,6 +48,7 @@ public class MailMain {
             sendOsnThread.join();
             heartbeat.join();
             information.join();
+            scanService.join();
             logger.info("Mailalarm is stopped");
         } catch (Exception e) {
         	logger.warn("Application main thread is interrupted.", e);

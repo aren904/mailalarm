@@ -3,7 +3,6 @@ package cn.infocore.service.impl;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +18,6 @@ import cn.infocore.service.OssService;
 @Service
 public class OssServiceImpl implements OssService {
 	
-    private static final org.apache.log4j.Logger logger = Logger.getLogger(OssServiceImpl.class);
-
     @Autowired
     private OssManager ossManager;
 
@@ -49,12 +46,12 @@ public class OssServiceImpl implements OssService {
                 .setUuId(uuid)
                 .setType(ossClient.getType().getNumber())
                 .setExceptions(faults.toString());
-        clientManager.updateClient(uuid, client);
+        clientManager.updateClient(client);
         
         if(faults!=null){
             for (StmAlarmManage.OssObjectSetInfo ossObjectSetInfo : ossObjectSetInfos) {
                 ClientBackup clientBackup = clientBackupManager.ConvertOSSClientBackup(ossObjectSetInfo);
-                clientBackupManager.updateClientBackup(clientBackup,clientBackup.getUuid());
+                clientBackupManager.updateClientBackup(clientBackup);
             }
         }
     }

@@ -3,7 +3,6 @@ package cn.infocore.service.impl;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +18,6 @@ import cn.infocore.service.EcsService;
 @Service
 public class EcsServiceImpl implements EcsService{
 	
-	private static final org.apache.log4j.Logger logger = Logger.getLogger(EcsServiceImpl.class);
-
     @Autowired
     private EcsManager ecsManager;
     
@@ -50,12 +47,12 @@ public class EcsServiceImpl implements EcsService{
                 .setUuId(uuid)
                 .setType(ecsInfo.getType().getNumber())
                 .setExceptions(EcsFaultLists.toString());
-        clientManager.updateClient(uuid, client);
+        clientManager.updateClient(client);
         
         if(EcsFaultLists!=null){
             for (StmAlarmManage.EcsInstanceInfo ecsInstanceInfo : ecsInstanceInfos) {
                 ClientBackup clientBackup = clientBackupManager.ConvertECSClientBackup(ecsInstanceInfo);
-                clientBackupManager.updateClientBackup(clientBackup,clientBackup.getUuid());
+                clientBackupManager.updateClientBackup(clientBackup);
             }
         }
     }

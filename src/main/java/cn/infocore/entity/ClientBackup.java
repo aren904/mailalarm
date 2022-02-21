@@ -3,10 +3,15 @@ package cn.infocore.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
+/**
+ * 备份关系/对象
+ */
 @Accessors(chain = true)
 @Data
+@ToString
 @TableName("client_backup")
 public class ClientBackup {
 	

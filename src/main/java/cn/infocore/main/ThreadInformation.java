@@ -38,6 +38,7 @@ public class ThreadInformation extends Thread {
     private MySnmpService mySnmpService;
 
     private ThreadInformation() {
+    	logger.debug("Create pool for ThreadInformation.");
     	//创建一个可重用，固定线程数为10的线程池
         pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
         //空闲线程超过10s便销毁

@@ -46,8 +46,7 @@ public class DataArkServiceImpl implements DataArkService {
                 .setLimitClientCount(data_ark.getLimitClientCount())
                 .setLimitVcenterVmCount(data_ark.getLimitVcenterVmCount());
         
-        logger.debug("Update data_ark:"+data_ark.getUuid());
-        logger.debug(dataArk.toString());
+        logger.debug("Update data_ark:"+dataArk.toString());
         dataArkManager.updateByUuid(dataArk);
     }
     

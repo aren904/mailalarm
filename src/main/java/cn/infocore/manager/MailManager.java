@@ -22,6 +22,10 @@ public class MailManager extends ServiceImpl<MailMapper, EmailAlarm> {
 	@Autowired
     private MailMapper mailMapper;
 	
+	/**
+	 * 联合查询，当前用户和邮件的配置
+	 * @return
+	 */
 	public List<EmailAlarmDTO> findAllWithUser() {
 		/**
 		 * String sql = "select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,smtp_address,"
@@ -38,21 +42,24 @@ public class MailManager extends ServiceImpl<MailMapper, EmailAlarm> {
 		return emailAlarmDtos;
 	}
 
-	public List<EmailAlarmDTO> findWithUserByUserId(Long userId) {
+	/**
+	 * 联合查询，根据用户ID查找邮件配置：没配置就为空
+	 * @param userId
+	 * @return
+	 */
+	public EmailAlarmDTO findByUserId(Long userId) {
 		/**
 		 * String sql = "select user_id,enabled,exceptions,limit_enabled,limit_suppress_time,sender_email,smtp_address,"
                 + "smtp_port,smtp_auth_enabled,smtp_user_uuid,smtp_password,ssl_encrypt_enabled,receiver_emails "
                 + "from email_alarm,user where email_alarm.user_id=user.id and email_alarm.user_id=?";
 		 */
-		List<EmailAlarmDTO> emailAlarmDtos = mailMapper.selectJoinList(EmailAlarmDTO.class,
+		EmailAlarmDTO emailAlarmDto = mailMapper.selectJoinOne(EmailAlarmDTO.class,
                 new MPJLambdaWrapper<EmailAlarm>()
                 .selectAll(EmailAlarm.class)
                 .select(User::getRole)
                 .leftJoin(User.class, User::getId, EmailAlarm::getUser_id)
                 .eq(EmailAlarm::getUser_id, userId));
-		
-		logger.debug("findWithUserByUserId EmailAlarmDTO size:"+emailAlarmDtos.size());
-		return emailAlarmDtos;
+		return emailAlarmDto;
 	}
     
 }

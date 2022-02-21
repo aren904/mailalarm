@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 /**
- * 网络管理协议
+ * 邮件传输协议
  */
 @Data
 public class MySnmp {
@@ -27,7 +27,7 @@ public class MySnmp {
     private int station_port; //维护端口
     
 	@TableField(value = "version")
-    private int version; //snmp通信版本 0:V1,1:V2c,2:V3
+    private int version; //snmp通信版本 0:V1,1:V2c,2:V3，目前只有1
     
 	@TableField(value = "read_comm_name")
     private String read_comm_name;//读团体名

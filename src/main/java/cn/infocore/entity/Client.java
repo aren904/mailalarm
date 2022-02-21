@@ -3,13 +3,15 @@ package cn.infocore.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
- * 客户端：包括有代理和无代理
+ * 客户端：类型很多
  */
 @Accessors(chain = true)
 @TableName(value = "client")
+@ToString
 @Data
 public class Client {
 	
@@ -29,7 +31,24 @@ public class Client {
     @TableField("is_dr")
     private Integer isDr;
     
-    //客户端类型 SINGLE = 0;VMWARE = 1;MSCS = 2;RAC = 3;VC = 4; AIX=5;
+    /**
+     *  SINGLE = 0;  // 普通客户端
+	    VMWARE = 1; // vm 
+	    MSCS = 2; // windows集群
+	    RAC = 3;   // oracle 客户端
+	    VC = 4;     // vcent
+	    AIX = 5;    // 手动创建的客户端
+	    FileSingle = 11; // 文件备份客户端
+	    Rds = 12; // rds 客户端
+	    RdsInstance = 13; // rds 实例
+	    Oss = 14; // oss 客户端
+	    OssObjectSet = 15; // oss 备份
+	    Ecs = 16; // ecs 客户端
+	    EcsInstance = 17; // ecs 实例
+	    MetaDB = 18; // meta 客户端  // 元数据库？
+	    MetaDBBackup = 19; // meta 客户端备份
+	    StorageClient = 20; // 存储客户端
+     */
     @TableField("type")
     private Integer type;
     

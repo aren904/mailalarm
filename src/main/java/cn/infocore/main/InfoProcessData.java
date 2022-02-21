@@ -27,7 +27,7 @@ import cn.infocore.service.QuotaService;
 import cn.infocore.service.RdsService;
 import cn.infocore.service.UserService;
 import cn.infocore.service.impl.EcsServiceImpl;
-import cn.infocore.service.impl.MailServiceImpl;
+import cn.infocore.service.impl.EmailAlarmServiceImpl;
 import lombok.Data;
 
 /**
@@ -78,7 +78,7 @@ public class InfoProcessData {
         logHeartbeat(hrt);
 
         // 获取DataArkList缓存的链表<uuid,ip>
-        Set<String> uSet = DataArkList.getInstance(dataArkService).getData_ark_list().keySet();
+        Set<String> uSet = DataArkListCache.getInstance(dataArkService).getData_ark_list().keySet();
         logger.debug("Current cache with uuid,ip in DataArkList:" + uSet);
         
         long now = System.currentTimeMillis() / 1000;
@@ -178,12 +178,11 @@ public class InfoProcessData {
             	fault.setDataArkName(hrt.getServer().getName());
             	fault.setTimestamp(System.currentTimeMillis() / 1000);
             }
-            //不需要告警的异常自动确认
             alarmLogService.noticeFaults(faultDtos);
 
             if (faults.size() > 0) {
             	//启动邮件报警
-                MailServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList, faults);
+                EmailAlarmServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList, faults);
             }
 
             // 为什么又要释放一次
@@ -211,7 +210,7 @@ public class InfoProcessData {
     private void parse(StmAlarmManage.GetServerInfoReturn hrt) {
         try {
 			long now = System.currentTimeMillis() / 1000;
-			this.data_ark = convertStreamerServer(hrt, now);//封装数据方舟
+			this.data_ark = convertStreamer(hrt, now);//封装数据方舟
 			convertClient(hrt, now);//封装Client信息（把接收到hdr中的内容一一赋值给对象）
 			convertVCenter(hrt, now); //封装Vcenter信息
 		} catch (Exception e) {
@@ -372,7 +371,7 @@ public class InfoProcessData {
      * @param now
      * @return
      */
-    private DataArkDTO convertStreamerServer(StmAlarmManage.GetServerInfoReturn hrt, long now) {
+    private DataArkDTO convertStreamer(StmAlarmManage.GetServerInfoReturn hrt, long now) {
         // 把心跳过来的异常信息全部先封装起来
         DataArkDTO dataServer = new DataArkDTO();
         
@@ -406,13 +405,14 @@ public class InfoProcessData {
         dataServer.setMetaUsed(metaUsed);
         dataServer.setLimitVcenterVmCount((int)streamer.getMaxVcenterVm());
 
-        //心跳过来的异常
+        //心跳过来的异常：每一个拥有该数据方舟的用户都需要构造Fault
         if(dataArk!=null) {
         	List<Quota> quotas=quotaService.findByDataArkId(dataArk.getId());
         	for(Quota quota:quotas) {
         		User user = userService.findById(quota.getUser_id());
         		if(user!=null) {
         			List<Fault> data_ark_fault_list = new LinkedList<Fault>();
+        			//注意这里收集了所有状态封装到Fault，包括在线
                     for (StmAlarmManage.FaultType f : streamer.getStreamerStateList()) {
                         Fault mFault = new Fault();
                         mFault.setTimestamp(now);

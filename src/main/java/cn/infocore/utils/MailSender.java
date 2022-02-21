@@ -1,4 +1,4 @@
-package cn.infocore.mail;
+package cn.infocore.utils;
 
 import static cn.infocore.utils.TestAesGcmAe.hexStringToByteArray;
 
@@ -23,8 +23,6 @@ import cn.hutool.cache.CacheUtil;
 import cn.hutool.cache.impl.TimedCache;
 import cn.infocore.dto.EmailAlarmDTO;
 import cn.infocore.dto.Fault;
-import cn.infocore.utils.TestAesGcmAe;
-import cn.infocore.utils.Utils;
 
 /**
  * 邮件发送类
@@ -86,31 +84,32 @@ public class MailSender {
      * @param fault
      * @param user
      */
-    public void judge(Fault fault, Long user) {
-    	logger.info("----------UserId:" + user + ",exception:" + config.getExceptions() + ",fault type:" 
-        		+ fault.getType() + ",enabled:" + config.getEnabled() + ",targetName:" + fault.getTarget_name() 
+    public void judge(Fault fault, Long userId) {
+    	logger.info("----------UserId:" + userId + ",exception:" + config.getExceptions() + ",fault type:" 
+        		+ fault.getType() + ",enabled:" + config.getEnabled() + ",target:" + fault.getTarget_name()+"|"+fault.getTarget_uuid()
         		+ ",timestamp:" + fault.getTimestamp());
     	
+    	//未启用过滤
         if (config.getEnabled() == 0) {
-            logger.info(user + " doesn't need to send email,for config is not enabled.");
+            logger.info(userId + " doesn't need to send email,for config is not enabled.");
             return;
         }
         
         long now = System.currentTimeMillis() / 1000;
-        //配置里待报警的内容
+        //配置里待报警的范围
         String[] excepts = config.getExceptions().split(";");
         for (String except : excepts) {
-            // 如果该用户已经添加这个异常
-            if (except.equals(Integer.toString(fault.getType()))) {
+            // 如果该范围包含当前异常
+            if (except.equals(fault.getType())) {
                 // 是否开启限制同一时间内只发送一封邮件
-                String key = user + fault.getData_ark_uuid() + fault.getTarget_name() + fault.getType();
+                String key = userId + fault.getData_ark_uuid() + fault.getTarget_name() + fault.getType();
                 if (config.getLimit_enabled() == 0) {
                     // 未开启,直接发送异常邮件
                     try {
-                        logger.info(user + " not enabled limit,send email:" + fault.getTarget_name() + "," + fault.getType());
+                        logger.info(userId + " not enabled limit,send email:" + fault.getTarget_name() + "," + fault.getType());
                         send(fault);
-                    } catch (Exception e1) {
-                        logger.error(user + ":" + e1);
+                    } catch (Exception e) {
+                        logger.error(userId + " filed to send email.",e);
                     }
                     howOfen.put(key, now);// 保存一下发送的时间戳
                 } else {
@@ -121,10 +120,10 @@ public class MailSender {
                     if ((howOfen.get(key) == null || howOfen.get(key) + split <= now) && timedCache.get(key, false) == null) {
                         timedCache.put(key, key);
                         try {
-                            logger.info(user + " enabled limit,send email:" + fault.getTarget_name() + "," + fault.getType());
+                            logger.info(userId + " enabled limit,send email:" + fault.getTarget_name() + "," + fault.getType());
                             send(fault);
-                        } catch (Exception e1) {
-                            logger.error(user + ":" + e1);
+                        } catch (Exception e) {
+                        	logger.error(userId + " filed to send email.",e);
                         }
                         howOfen.put(key, now);// 保存一下发送的时间戳
                     }
@@ -223,7 +222,6 @@ public class MailSender {
             }
             message.setText(builder.toString(), "utf8");
             message.setSentDate(new Date());
-            //message.saveChanges();
             Transport transport = s.getTransport();
 
             logger.info("Start sending test mail to " + config.getSmtp_user_uuid()+",smtpPassword:"+new String(config.getSmtp_password()));

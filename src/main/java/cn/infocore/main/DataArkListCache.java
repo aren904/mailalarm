@@ -12,20 +12,20 @@ import cn.infocore.service.DataArkService;
 /**
  * 内存中维护的数据方舟的列表<uuid,ip>,顺便初始化维护数据方舟心跳的单例queue
  */
-public class DataArkList {
+public class DataArkListCache {
 
-    private static final Logger logger = Logger.getLogger(DataArkList.class);
+    private static final Logger logger = Logger.getLogger(DataArkListCache.class);
     
 	//维护的数据方舟的uuid-->ip列表
 	private Map<String,String> data_ark_list=new ConcurrentHashMap<String, String>();
 	
-	private DataArkList dataArkList = null;
+	private DataArkListCache dataArkList = null;
 	
 	private boolean inited = false;
 	
-	private DataArkList() {}
+	private DataArkListCache() {}
 	
-	private DataArkList init(DataArkService dataArkService) {
+	private DataArkListCache init(DataArkService dataArkService) {
 		if (this.inited == false||dataArkList ==null) {
 			this.inited = true;
 			logger.info("Init,Start get all data ark from database.");
@@ -42,10 +42,10 @@ public class DataArkList {
 	}
 
 	private static class DataArkListHolder{
-		public static DataArkList instance=new DataArkList();
+		public static DataArkListCache instance=new DataArkListCache();
 	}
 
-	public static DataArkList getInstance(DataArkService dataArkService) {
+	public static DataArkListCache getInstance(DataArkService dataArkService) {
 		return DataArkListHolder.instance.init(dataArkService);
 	}
 

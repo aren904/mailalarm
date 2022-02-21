@@ -10,7 +10,7 @@ public class Fault {
 	//时间戳
 	private long timestamp;
 	
-	//异常类型
+	//异常类型，对应FaultEnum
 	private int type;
 	
 	//数据方舟id
@@ -28,7 +28,8 @@ public class Fault {
 	//所属用户名
 	private String user_uuid;
 	
-	private Integer Client_type;//0 数据方舟 1.客户端 2.VC 3.虚拟机
+	//0 数据方舟 1.客户端 2.VC 3.虚拟机
+	private Integer Client_type;
 	
 	//客户端UUID
 	private String Client_id;

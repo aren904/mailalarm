@@ -1,4 +1,4 @@
-package cn.infocore.consts;
+package cn.infocore.dto;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -96,8 +96,12 @@ public enum FaultEnum {
         }
         return FaultEnum.UNKNOW;
     }
+    
+    public int getCode() {
+		return code;
+	}
 
-    //不要用ArrayList去存储性能不如HashSet集合
+	//不要用ArrayList去存储性能不如HashSet集合
     public static final Set<FaultEnum> AUTOCONFIRM = new HashSet<>();
 
     static {

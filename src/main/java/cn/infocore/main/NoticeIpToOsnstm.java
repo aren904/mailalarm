@@ -8,7 +8,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import cn.infocore.net.StmCommand;
 import cn.infocore.net.StmHeader;
+import cn.infocore.net.StmRetStatus;
 import cn.infocore.protobuf.StmAlarmManage;
 import cn.infocore.service.DataArkService;
 
@@ -68,12 +70,11 @@ public class NoticeIpToOsnstm implements Runnable {
         StmHeader header = new StmHeader();
         header.setVersion((byte) 1);
         header.setDataType((byte) 2);
-        header.setDirection((short) 25);
+        header.setErrorCode(StmRetStatus.ST_RES_SUCCESS);
         header.setFlags((short) 0);
-        header.setFlags2((short) 0);
-        header.setCommand(87001);
+        header.setFrom((short) 25);
+        header.setCommand(StmCommand.ST_OP_MAILALARM_GET_HEARTBEAT);
         header.setDataLength(bytes.length);
-        header.setErrorCode((short) 0);
         
         byte[] headerBuffer = header.toByteArray();
         try {

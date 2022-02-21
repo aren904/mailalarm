@@ -5,15 +5,14 @@ import java.util.Arrays;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+/**
+ * 邮件报警管理配置：一个用户一个
+ */
 @Accessors(chain = true)
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @TableName("email_alarm")
 public class EmailAlarm {
 	

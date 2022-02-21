@@ -11,7 +11,7 @@ import cn.infocore.dto.FaultDTO;
 import cn.infocore.dto.VCenterDTO;
 import cn.infocore.dto.VirtualMachineDTO;
 
-public interface MailService {
+public interface EmailAlarmService {
 	
 	//添加所有邮件服务
 	void addAllMailService(List<EmailAlarmDTO> l);

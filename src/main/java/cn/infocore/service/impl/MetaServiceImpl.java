@@ -3,7 +3,6 @@ package cn.infocore.service.impl;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +17,6 @@ import cn.infocore.service.MetaService;
 
 @Service
 public class MetaServiceImpl implements MetaService {
-	
-	private static final Logger logger = Logger.getLogger(MetaServiceImpl.class);
 	
     @Autowired
     private MetaManager metaManager;
@@ -50,12 +47,12 @@ public class MetaServiceImpl implements MetaService {
                 .setUuId(uuid)
                 .setType(metaClient.getType().getNumber())
                 .setExceptions(faults.toString());
-        clientManager.updateClient(uuid, client);
+        clientManager.updateClient(client);
        
         if(metaBackupInfos!=null){
             for (StmAlarmManage.MetaBackupInfo metaBackupInfo : metaBackupInfos) {
                 ClientBackup clientBackup = clientBackupManager.ConvertMetaClientBackup(metaBackupInfo);
-                clientBackupManager.updateClientBackup(clientBackup,clientBackup.getUuid());
+                clientBackupManager.updateClientBackup(clientBackup);
             }
         }
     }

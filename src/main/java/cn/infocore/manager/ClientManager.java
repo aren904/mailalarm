@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,8 @@ import cn.infocore.mapper.ClientMapper;
 
 @Service
 public class ClientManager extends ServiceImpl<ClientMapper,Client> {
+	
+	private static final Logger logger = Logger.getLogger(ClientManager.class);
 
     @Autowired
     private UserManager userManager;
@@ -56,15 +59,16 @@ public class ClientManager extends ServiceImpl<ClientMapper,Client> {
         return userUuIds;
     }
     
-    /**
-     * 更新客户端：OSS
-     * @param uuid
-     * @param client
-     */
-    public void updateClient(String uuid, Client client) {
-        LambdaQueryWrapper<Client> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Client::getUuId, uuid);
-        this.update(client,queryWrapper);
-    }
+	public void updateClient(Client client) {
+		try {
+			logger.debug("Update client:"+client.toString());
+			LambdaQueryWrapper<Client> queryWrapper = new LambdaQueryWrapper<>();
+			queryWrapper.eq(Client::getUuId,client.getUuId());
+			this.update(client,queryWrapper);
+		} catch (Exception e) {
+			logger.error("Failed to update client:"+client.getUuId(),e);
+		}
+		
+	}
 
 }

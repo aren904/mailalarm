@@ -95,13 +95,6 @@ public class EcsManager extends ServiceImpl<EcsMapper, EcsDTO>{
         return faultList;
     }
 	
-    
-    public void updateByEcsId(String ecsId, EcsDTO ecsDO) {
-        LambdaQueryWrapper<EcsDTO> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(EcsDTO::getEcsId, ecsId);
-        this.update(ecsDO, queryWrapper);
-    }
-
     public List<String> getEcsUserIdsById(String id) {
         LambdaQueryWrapper<EcsDTO> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(EcsDTO::getId, id);

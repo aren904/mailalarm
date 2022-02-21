@@ -6,7 +6,9 @@ import java.net.Socket;
 
 import org.apache.log4j.Logger;
 
+import cn.infocore.net.StmCommand;
 import cn.infocore.net.StmHeader;
+import cn.infocore.net.StmRetStatus;
 import cn.infocore.protobuf.StmAlarmManage;
 import cn.infocore.service.AlarmLogService;
 import cn.infocore.service.ClientBackupService;
@@ -59,12 +61,11 @@ public class DealSocket implements Runnable {
         StmHeader header = new StmHeader();
         header.setVersion((byte) 1);
         header.setDataType((byte) 2);
-        header.setDirection((short) 25);
+        header.setErrorCode(StmRetStatus.ST_RES_FAILED);
         header.setFlags((short) 0);
-        header.setFlags2((short) 0);
-        header.setCommand(87000);
+        header.setFrom((short) 25);
+        header.setCommand(StmCommand.ST_OP_MANAGEMENT_HEARTBEAT);
         header.setDataLength(0);
-        header.setErrorCode(1);
         return header;
     }
 
@@ -96,11 +97,10 @@ public class DealSocket implements Runnable {
             StmHeader header = new StmHeader();
             header.parseByteArray(headerBuffer);
 
-            if (header.getCommand() != 87000) {
+            if (header.getCommand() != StmCommand.ST_OP_MANAGEMENT_HEARTBEAT) {
             	logger.error(Utils.fmt("Incorrect command for heartbeat."));
-            	header.setVersion((byte)1);
-            	header.setDirection((short)25);
-                header.setErrorCode(1);
+            	header.setFrom((short) 25);
+            	header.setErrorCode(StmRetStatus.ST_RES_FAILED);
                 header.setDataLength(0);
                 byte[] resp = header.toByteArray();
                 out.write(resp, 0, resp.length);
@@ -116,9 +116,9 @@ public class DealSocket implements Runnable {
             }
             
             logger.info("Received heartbeat from osnstm.");
-            header.setErrorCode(0);
+            header.setErrorCode(StmRetStatus.ST_RES_SUCCESS);
             header.setVersion((byte)1);
-        	header.setDirection((short)25);
+            header.setFrom((short) 25);
         	header.setDataLength(0);
             byte[] resp = header.toByteArray();
             out.write(resp, 0, resp.length);

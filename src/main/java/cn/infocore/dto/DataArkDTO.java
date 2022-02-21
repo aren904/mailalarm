@@ -76,7 +76,7 @@ public class DataArkDTO {
         this.faults = faults;
         StringBuilder string = new StringBuilder();
         for (Fault fault : faults) {
-            string.append(Integer.toString(fault.getType()));
+            string.append(fault.getType());
             string.append(";");
         }
         string.deleteCharAt(string.length() - 1);

@@ -17,21 +17,21 @@ public class StmHeader {
 	private static final Logger logger = Logger.getLogger(StmHeader.class);
 	
 	public static final byte STREAMER_VERSION_CODE = 1;
+	
     public static final int STREAMER_HEADER_LENGTH = 20;
     
     /**
-	 * 消息头:长度20
+	 * 消息头:长度16
 	 * Message header
 	 *      offset    length    type    description
 	 *           0         1    byte    version [1]
 	 *           1         1    byte    The data type of the message body [2]
-	 *           2         2    int16   Request direction [3]
+	 *           2         2    int16   Error code, see also enum StmRetStatus
 	 *           4         2    int16   no use
-	 *           6         2    int16   no use
-	 *           8         4    int32   Command, see also enum Command
-	 *           12        4    int32   Error code, see also enum ErrorCode
+	 *           6         2    int16   Request from [3]
+	 *           12        4    int32   Command, see also enum StmCommand
 	 *           16        4    int32   The data length of the message body
-	 *  [1] osnstm -> mailalarm : 4
+	 *  [1] osnstm -> mailalarm : 1
 	 *      mailalarm -> osnstm  : 1
 	 *  [2] 0: ST_MSG_XML, // xml
         	1: ST_MSG_BINARY_STREAM, //流
@@ -41,11 +41,10 @@ public class StmHeader {
 	 */
     private byte version;
     private byte dataType;
-    private short direction;
+    private StmRetStatus errorCode;
     private short flags;  //暂未用到，默认值传0
-    private short flags2;  //暂未用到，默认值传0
-    private int command;
-    private int errorCode;
+    private short from;
+    private StmCommand command;
     private int dataLength;
 
     /**
@@ -70,22 +69,19 @@ public class StmHeader {
         byte[] baDataType = Arrays.copyOfRange(ba, 1, 2);
         this.dataType = ByteBuffer.wrap(baDataType).order(ByteOrder.LITTLE_ENDIAN).get();
 
-        byte[] baDirection = Arrays.copyOfRange(ba, 2, 4);
-        this.direction =ByteBuffer.wrap(baDirection).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        byte[] baErrorCode = Arrays.copyOfRange(ba, 2, 4);
+        this.errorCode =StmRetStatus.getRetStatus(ByteBuffer.wrap(baErrorCode).order(ByteOrder.LITTLE_ENDIAN).getShort());
 
         byte[] baFlags = Arrays.copyOfRange(ba, 4, 6);
         this.flags = ByteBuffer.wrap(baFlags).order(ByteOrder.LITTLE_ENDIAN).getShort();
         
-        byte[] baFlags2 = Arrays.copyOfRange(ba, 6, 8);
-        this.flags2 = ByteBuffer.wrap(baFlags2).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        byte[] baFrom = Arrays.copyOfRange(ba, 6, 8);
+        this.from = ByteBuffer.wrap(baFrom).order(ByteOrder.LITTLE_ENDIAN).getShort();
 
         byte[] baCommand = Arrays.copyOfRange(ba, 8, 12);
-        this.command = ByteBuffer.wrap(baCommand).order(ByteOrder.LITTLE_ENDIAN).getInt();
+        this.command = StmCommand.getCommandCode(ByteBuffer.wrap(baCommand).order(ByteOrder.LITTLE_ENDIAN).getInt());
 
-        byte[] baErrorCode = Arrays.copyOfRange(ba, 12, 16);
-        this.errorCode = ByteBuffer.wrap(baErrorCode).order(ByteOrder.LITTLE_ENDIAN).getInt();
-
-        byte[] baLength = Arrays.copyOfRange(ba, 16, 20);
+        byte[] baLength = Arrays.copyOfRange(ba, 12, 16);
         this.dataLength = ByteBuffer.wrap(baLength).order(ByteOrder.LITTLE_ENDIAN).getInt();
 
         logger.debug("Create Header by little endian parsing binary array.");
@@ -105,38 +101,34 @@ public class StmHeader {
 
         byte[] baDatatype=ByteBuffer.allocate(1).put(this.dataType).array();
         System.arraycopy(baDatatype, 0, header, 1, 1);
-
-        byte[] baDirection=ByteBuffer.allocate(2).putShort(this.direction).array();
-        System.arraycopy(baDirection, 0, header, 2, 2);
         
+        byte[] baErrorCode = ByteBuffer.allocate(2).putShort(this.errorCode.getShort()).array();
+        System.arraycopy(baErrorCode, 0, header, 2, 2);
+
         byte[] baFlags=ByteBuffer.allocate(2).putShort(this.flags).array();
         System.arraycopy(baFlags, 0, header, 4, 2);
+        
+        byte[] baFrom=ByteBuffer.allocate(2).putShort(this.from).array();
+        System.arraycopy(baFrom, 0, header, 6, 2);
 
-        byte[] baFlags2=ByteBuffer.allocate(2).putShort(this.flags2).array();
-        System.arraycopy(baFlags2, 0, header, 6, 2);
-
-        byte[] baCommand=ByteBuffer.allocate(4).putInt(this.command).array();
+        byte[] baCommand=ByteBuffer.allocate(4).putInt(this.command.getValue()).array();
         System.arraycopy(baCommand, 0, header, 8, 4);
 
-        byte[] baErrorCode = ByteBuffer.allocate(4).putInt(this.errorCode).array();
-        System.arraycopy(baErrorCode, 0, header, 12, 4);
-
         byte[] baLength = ByteBuffer.allocate(4).putInt(this.dataLength).array();
-        System.arraycopy(baLength, 0, header, 16, 4);
+        System.arraycopy(baLength, 0, header, 12, 4);
 
         logger.debug("Header dumped to binary array.");
         return header;
     }
 
     public void logMe () {
-        logger.debug(String.format("[version]:%s [dataType]:%s [direction]:%s [Flags]:%s [Flags2]:%s [Command]:%s [ErrorCode]:%s [Data length]:%s",
-                (int) this.version,
+        logger.debug(String.format("[version]:%s [dataType]:%s [ErrorCode]:%s [Flags]:%s [from]:%s [Command]:%s [Data length]:%s",
+                (int)this.version,
                 (int)this.dataType,
-                this.direction,
-                this.flags,
-                this.flags2,
-                this.command,
                 this.errorCode,
+                this.flags,
+                this.from,
+                this.command,
                 this.dataLength
         ));
     }
