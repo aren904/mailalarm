@@ -21,13 +21,13 @@ import cn.infocore.service.AlarmLogService;
 import cn.infocore.service.ClientBackupService;
 import cn.infocore.service.ClientService;
 import cn.infocore.service.DataArkService;
+import cn.infocore.service.EmailAlarmService;
 import cn.infocore.service.MetaService;
 import cn.infocore.service.OssService;
 import cn.infocore.service.QuotaService;
 import cn.infocore.service.RdsService;
 import cn.infocore.service.UserService;
 import cn.infocore.service.impl.EcsServiceImpl;
-import cn.infocore.service.impl.EmailAlarmServiceImpl;
 import lombok.Data;
 
 /**
@@ -59,6 +59,8 @@ public class InfoProcessData {
     private QuotaService quotaService;
     
     private ClientBackupService clientBackupService;
+    
+    private EmailAlarmService emailAlarmService;
     
     private List<ClientDTO> clientList;
     
@@ -179,10 +181,11 @@ public class InfoProcessData {
             	fault.setTimestamp(System.currentTimeMillis() / 1000);
             }
             alarmLogService.noticeFaults(faultDtos);
-
+            
             if (faults.size() > 0) {
             	//启动邮件报警
-                EmailAlarmServiceImpl.getInstance().notifyCenter(data_ark, clientList, vcList, vmList, faults);
+            	logger.debug("Start to notice fault for heartbeat...");
+            	emailAlarmService.notifyCenter(data_ark, clientList, vcList, vmList, faults);
             }
 
             // 为什么又要释放一次
@@ -245,6 +248,7 @@ public class InfoProcessData {
                         fault.setData_ark_name(data_ark.getName());
                         fault.setData_ark_ip(data_ark.getIp());
                         fault.setTarget_name(vcent.getVcName());
+                        fault.setTarget_uuid(vcent.getVcUuid());
                         fault.setClient_type(2);
                         fault.setClient_id(vcent.getVcUuid());
                         v_list_faults.add(fault);
@@ -304,6 +308,7 @@ public class InfoProcessData {
                         fault.setData_ark_name(data_ark.getName());
                         fault.setData_ark_ip(data_ark.getIp());
                         fault.setTarget_name(vmware.getName());
+                        fault.setTarget_uuid(vmware.getId());
                         fault.setClient_type(3);
                         fault.setClient_id(vmware.getId());
 
@@ -350,6 +355,7 @@ public class InfoProcessData {
                         fault.setData_ark_name(data_ark.getName());
                         fault.setData_ark_ip(data_ark.getIp());
                         fault.setTarget_name(client.getName());
+                        fault.setTarget_uuid(client.getId());
                         fault.setClient_type(1);
                         fault.setClient_id(client.getId());
                         client_fault_list.add(fault);
@@ -409,7 +415,7 @@ public class InfoProcessData {
         if(dataArk!=null) {
         	List<Quota> quotas=quotaService.findByDataArkId(dataArk.getId());
         	for(Quota quota:quotas) {
-        		User user = userService.findById(quota.getUser_id());
+        		User user = userService.findById(quota.getUserId());
         		if(user!=null) {
         			List<Fault> data_ark_fault_list = new LinkedList<Fault>();
         			//注意这里收集了所有状态封装到Fault，包括在线
@@ -422,6 +428,7 @@ public class InfoProcessData {
                         mFault.setData_ark_name(dataServer.getName());
                         mFault.setData_ark_ip(dataServer.getIp());
                         mFault.setTarget_name(dataServer.getName());
+                        mFault.setTarget_uuid(dataServer.getUuid());
                         mFault.setClient_type(0);
                         mFault.setClient_id(uuid);
                         data_ark_fault_list.add(mFault);

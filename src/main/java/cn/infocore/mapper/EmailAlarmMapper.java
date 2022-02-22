@@ -5,6 +5,6 @@ import com.github.yulichang.base.MPJBaseMapper;
 
 import cn.infocore.entity.EmailAlarm;
 
-public interface MailMapper extends BaseMapper<EmailAlarm>,MPJBaseMapper<EmailAlarm> {
+public interface EmailAlarmMapper extends BaseMapper<EmailAlarm>,MPJBaseMapper<EmailAlarm> {
 
 }

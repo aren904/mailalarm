@@ -24,7 +24,7 @@ public class AlarmLog {
     private Integer processed;
     
     @TableField("exception")
-    private  Integer exception;
+    private Integer exception;
     
     @TableField("data_ark_uuid")
     private String dataArkUuid;

@@ -84,7 +84,6 @@ public class StmHeader {
         byte[] baLength = Arrays.copyOfRange(ba, 12, 16);
         this.dataLength = ByteBuffer.wrap(baLength).order(ByteOrder.LITTLE_ENDIAN).getInt();
 
-        logger.debug("Create Header by little endian parsing binary array.");
         logMe();
         return true;
     }
@@ -117,7 +116,6 @@ public class StmHeader {
         byte[] baLength = ByteBuffer.allocate(4).putInt(this.dataLength).array();
         System.arraycopy(baLength, 0, header, 12, 4);
 
-        logger.debug("Header dumped to binary array.");
         return header;
     }
 

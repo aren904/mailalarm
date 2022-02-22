@@ -6,11 +6,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import cn.infocore.dto.FaultDTO;
+import cn.infocore.entity.Client;
+import cn.infocore.mapper.ClientMapper;
 import cn.infocore.protobuf.StmAlarmManage;
 
 @Service
-public class RdsManager  {
+public class RdsManager extends ServiceImpl<ClientMapper,Client>{
 	
 	@Autowired
     private ClientManager clientManager;

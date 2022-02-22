@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import lombok.Data;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
@@ -13,6 +14,7 @@ import lombok.experimental.Accessors;
  */
 @Accessors(chain = true)
 @Data
+@ToString
 @TableName("data_ark")
 public class DataArk {
 
@@ -88,19 +90,4 @@ public class DataArk {
     @TableField(value = "ecs_endpoint_updated_version")
     private Integer ecsEndpointUpdatedVersion;
 
-	@Override
-	public String toString() {
-		return "DataArk [id=" + id + ", name=" + name + ", ip=" + ip + ", uuid=" + uuid + ", limitClientCount="
-				+ limitClientCount + ", limitVcenterVmCount=" + limitVcenterVmCount + ", totalPoolSize=" + totalPoolSize
-				+ ", usedPoolSize=" + usedPoolSize + ", totalOracleSpaceSize=" + totalOracleSpaceSize
-				+ ", usedOracleSpaceSize=" + usedOracleSpaceSize + ", totalCloudSpaceSize=" + totalCloudSpaceSize
-				+ ", usedCloudSpaceSize=" + usedCloudSpaceSize + ", usedRdsSpaceSize=" + usedRdsSpaceSize
-				+ ", usedOssSpaceSize=" + usedOssSpaceSize + ", usedEcsSpaceSize=" + usedEcsSpaceSize
-				+ ", usedMdbSpaceSize=" + usedMdbSpaceSize + ", userUuid=" + userUuid + ", userPassword=" + userPassword
-				+ ", exceptions=" + exceptions + ", dataArkGroupId=" + dataArkGroupId + ", snmpUpdatedVersion="
-				+ snmpUpdatedVersion + ", rdsEndpointUpdatedVersion=" + rdsEndpointUpdatedVersion
-				+ ", ossEndpointUpdatedVersion=" + ossEndpointUpdatedVersion + ", ecsEndpointUpdatedVersion="
-				+ ecsEndpointUpdatedVersion + "]";
-	}
-    
 }

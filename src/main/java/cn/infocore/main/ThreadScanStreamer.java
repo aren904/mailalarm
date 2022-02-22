@@ -15,13 +15,15 @@ import cn.infocore.dto.VCenterDTO;
 import cn.infocore.dto.VirtualMachineDTO;
 import cn.infocore.entity.DataArk;
 import cn.infocore.service.DataArkService;
-import cn.infocore.service.MySnmpService;
-import cn.infocore.service.impl.EmailAlarmServiceImpl;
+import cn.infocore.service.EmailAlarmService;
+import cn.infocore.service.SnmpService;
+import lombok.Data;
 
 /**
  * 定时扫描缓存，判断数据方舟状态
  * 周期：每3分钟扫描一次，3分钟无心跳则离线（因此数据方舟离线被检测到的时间范围是0~6分钟）
  */
+@Data
 public class ThreadScanStreamer implements Runnable {
 	
 	private static final Logger logger = Logger.getLogger(ThreadScanStreamer.class);
@@ -30,16 +32,26 @@ public class ThreadScanStreamer implements Runnable {
 	
 	private DataArkService dataArkService;
 	
-	private MySnmpService mySnmpService;
+	private SnmpService mySnmpService;
 	
-	public ThreadScanStreamer(DataArkService dataArkService,MySnmpService mySnmpService) {
-		this.dataArkService=dataArkService;
-		this.mySnmpService=mySnmpService;
-	}
-
+	private EmailAlarmService emailAlarmService;
+	
+	private static volatile ThreadScanStreamer instance = null;
+	
 	public ThreadScanStreamer() {
 		logger.info("ThreadScanStreamer launched.");
 	}
+	
+	public static ThreadScanStreamer getInstance() {
+    	if (instance==null) {
+			synchronized (ThreadScanStreamer.class) {
+                if (instance == null) {
+                    instance = new ThreadScanStreamer();
+                }
+            }
+		}
+		return instance;
+    }
 
 	@Override
 	public void run() {
@@ -88,14 +100,6 @@ public class ThreadScanStreamer implements Runnable {
 		}
 	}
 
-	private static class ThreadScanStreamerHolder {
-		public static ThreadScanStreamer instance = new ThreadScanStreamer();
-	}
-
-	public static ThreadScanStreamer getInstance() {
-		return ThreadScanStreamerHolder.instance;
-	}
-
 	/**
 	 * 更新数据库中是否离线的标志
 	 * @param uuid
@@ -131,6 +135,7 @@ public class ThreadScanStreamer implements Runnable {
 					fault.setData_ark_name("null");
 					fault.setData_ark_ip("null");
 					fault.setTarget_name("null");
+					fault.setTarget_uuid("null");
 					fault.setUser_uuid("null");
 					fault.setClient_id("null");
 					fault.setData_ark_uuid("null");
@@ -138,10 +143,12 @@ public class ThreadScanStreamer implements Runnable {
 					dataArkDto.setUser_uuid(dataArk.getUserUuid());
 					dataArkDto.setName(dataArk.getName());
 					dataArkDto.setIp(dataArk.getIp());
+					dataArkDto.setUuid(dataArk.getUuid());
 					
 					fault.setData_ark_name(dataArkDto.getName());
 					fault.setData_ark_ip(dataArkDto.getIp());
 					fault.setTarget_name(dataArkDto.getName());
+					fault.setTarget_uuid(dataArkDto.getUuid());
 					fault.setUser_uuid(dataArkDto.getUser_uuid());
 					fault.setClient_id(uuid);
 					fault.setData_ark_uuid(uuid);
@@ -157,7 +164,8 @@ public class ThreadScanStreamer implements Runnable {
 				List<VirtualMachineDTO> vmList = new LinkedList<VirtualMachineDTO>(); //VM
 				
 				//启动离线告警
-				EmailAlarmServiceImpl.getInstance().notifyCenter(dataArkDto, clientList, vcList, vmList, data_ark_faults);
+				logger.debug("Start to notice fault for scan...");
+				emailAlarmService.notifyCenter(dataArkDto, clientList, vcList, vmList, data_ark_faults);
 			} catch (Exception e) {
 				logger.warn("ThreadScanStreamer error.", e);
 			}

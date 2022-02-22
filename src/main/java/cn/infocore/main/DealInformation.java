@@ -15,14 +15,15 @@ import cn.infocore.net.CMHeader;
 import cn.infocore.net.CMRetStatus;
 import cn.infocore.protobuf.CloudAlarmManage;
 import cn.infocore.service.DataArkService;
-import cn.infocore.service.MySnmpService;
-import cn.infocore.service.impl.EmailAlarmServiceImpl;
+import cn.infocore.service.EmailAlarmService;
+import cn.infocore.service.SnmpService;
+import cn.infocore.service.UserService;
 import cn.infocore.utils.MailSender;
 import cn.infocore.utils.Utils;
 import lombok.Data;
 
 /**
- * 处理与管理界面的请求：不需要操作数据库，只更新缓存
+ * 处理与管理界面的请求：不需要更新数据库，只更新缓存
  */
 @Data
 public class DealInformation implements Runnable {
@@ -37,7 +38,11 @@ public class DealInformation implements Runnable {
 	
 	private DataArkService dataArkService;
 	
-	private MySnmpService mySnmpService;
+	private SnmpService mySnmpService;
+	
+	private EmailAlarmService emailAlarmService;
+	
+	private UserService userService;
 	
 	public DealInformation(Socket socket) {
 		this.socket = socket;
@@ -103,7 +108,7 @@ public class DealInformation implements Runnable {
 		}
 		
 		CMCommand command=header.getCommand();
-		logger.info("----------------Received operation code:"+command);
+		logger.info("----------------DealInformation received operation code from cloud manager:"+command);
 		switch(command.getValue()) {
 			case 1501:
 				try {
@@ -214,7 +219,8 @@ public class DealInformation implements Runnable {
 				break;
 			case 2401:
 				try {
-					MySnmpCache.getInstance(mySnmpService).updateMySnmp();
+					//mySnmpService.updateMySnmp();
+					//去掉了缓存，压根不需要
 					header.setErrorCode(CMRetStatus.ST_RES_SUCCESS);
 				} catch (Exception e) {
 					logger.error("Failed to updateMySnmp.",e);
@@ -240,7 +246,7 @@ public class DealInformation implements Runnable {
 	private void addDataArk(CloudAlarmManage.AddDataArkRequest request){
 		String uuid = request.getUuid();
 		DataArk dataArk=dataArkService.findByUuid(uuid);
-		logger.info("addDataArk:" + uuid+"|"+dataArk.getIp());
+		logger.info("-----------addDataArk:" + uuid+"|"+dataArk.getIp());
 		DataArkListCache.getInstance(dataArkService).addDataArk(uuid, dataArk.getIp());
 		request.toBuilder().clear();
 		request.toBuilder().clearUuid();
@@ -252,7 +258,7 @@ public class DealInformation implements Runnable {
 	 */
 	private void removeDataArk(CloudAlarmManage.RemoveDataArkRequest request){
 		String uuid = request.getUuid();
-		logger.info("removeDataArk:" + uuid);
+		logger.info("-----------removeDataArk:" + uuid);
 		DataArkListCache.getInstance(dataArkService).removeDataArk(uuid);
 		HeartCache.getInstance().removeHeartCache(uuid);
 		request.toBuilder().clear();
@@ -266,7 +272,7 @@ public class DealInformation implements Runnable {
 	private void updateDataArk(CloudAlarmManage.UpdateDataArkRequest request){
 		String uuid = request.getUuid();
 		DataArk dataArk=dataArkService.findByUuid(uuid);
-		logger.info("updateDataArk:" + uuid+"|"+dataArk.getIp());
+		logger.info("-----------updateDataArk:" + uuid+"|"+dataArk.getIp());
 		DataArkListCache.getInstance(dataArkService).addDataArk(uuid, dataArk.getIp());
 		request.toBuilder().clear();
 		request.toBuilder().clearUuid();
@@ -279,7 +285,7 @@ public class DealInformation implements Runnable {
 	private void createEmailAlarm(CloudAlarmManage.CreateEmailAlarmRequest request){
 		String userUuid = request.getUserUuid();
 		logger.info("createEmailAlarm:" + userUuid);
-		EmailAlarmServiceImpl.getInstance().addMailService(userUuid);
+		emailAlarmService.addEmailAlarm(userUuid);
 		request.toBuilder().clear();
 		request.toBuilder().clearUserUuid();
 	}
@@ -291,7 +297,7 @@ public class DealInformation implements Runnable {
 	private void updateEmailAlarm(CloudAlarmManage.UpdateEmailAlarmRequest request){
 		String userUuid = request.getUserUuid();
 		logger.info("updateEmailAlarm:" + userUuid);
-		EmailAlarmServiceImpl.getInstance().addMailService(userUuid);
+		emailAlarmService.addEmailAlarm(userUuid);
 		request.toBuilder().clear();
 		request.toBuilder().clearUserUuid();
 	}

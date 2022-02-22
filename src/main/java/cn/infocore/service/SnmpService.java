@@ -2,7 +2,7 @@ package cn.infocore.service;
 
 import cn.infocore.entity.MySnmp;
 
-public interface MySnmpService {
+public interface SnmpService {
 	
 	public MySnmp get();
 	

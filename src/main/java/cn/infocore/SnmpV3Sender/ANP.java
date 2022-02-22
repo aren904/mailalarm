@@ -45,9 +45,9 @@ public class ANP {
 
     public static ResponseEvent sendSnmpV3_ANP(MySnmp mySnmp, Address targetAddress, List<DataArk> data_arks) throws IOException {
 
-        OctetString userName2 = new OctetString(mySnmp.getSecurity_username());
-        OctetString authPass = new OctetString(mySnmp.getAuth_password());
-        OctetString privPass = new OctetString(mySnmp.getPrivacy_password());
+        OctetString userName2 = new OctetString(mySnmp.getSecurityUsername());
+        OctetString authPass = new OctetString(mySnmp.getAuthPassword());
+        OctetString privPass = new OctetString(mySnmp.getPrivacyPassword());
         logger.debug(userName2);
         logger.debug(authPass);
         logger.debug(privPass);
@@ -71,11 +71,14 @@ public class ANP {
 //            snmp.getUSM().addUser(userName2, new OctetString(enginId),
 //                    new UsmUser(userName2, AuthMD5.ID, authPass, Priv3DES.ID, privPass)
 //            );
-            snmp.getUSM().addUser(new OctetString(mySnmp.getSecurity_username()), new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurity_username()), AuthMD5.ID, new OctetString(mySnmp.getAuth_password()), PrivDES.ID, new OctetString(mySnmp.getPrivacy_password())));
+            snmp.getUSM().addUser(new OctetString(mySnmp.getSecurityUsername()), 
+            		new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurityUsername()), 
+            				AuthMD5.ID, new OctetString(mySnmp.getAuthPassword()), PrivDES.ID, 
+            				new OctetString(mySnmp.getPrivacyPassword())));
 
             target.setAddress(targetAddress);
             target.setRetries(2);
-            target.setTimeout(mySnmp.getTimeout_ms());
+            target.setTimeout(mySnmp.getTimeoutMs());
             target.setVersion(SnmpConstants.version3);
             target.setSecurityLevel(SecurityLevel.AUTH_NOPRIV);
             target.setSecurityName(userName2);

@@ -1,22 +1,20 @@
 package cn.infocore.manager;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import cn.infocore.dto.EcsDTO;
 import cn.infocore.dto.FaultDTO;
-import cn.infocore.mapper.EcsMapper;
+import cn.infocore.entity.Client;
+import cn.infocore.mapper.ClientMapper;
 import cn.infocore.protobuf.StmAlarmManage;
 
 @Service
-public class EcsManager extends ServiceImpl<EcsMapper, EcsDTO>{
+public class EcsManager extends ServiceImpl<ClientMapper,Client>{
 	
     @Autowired
     private ClientManager clientManager;
@@ -93,18 +91,5 @@ public class EcsManager extends ServiceImpl<EcsMapper, EcsDTO>{
             faultList.add(faultSimple);
         }
         return faultList;
-    }
-	
-    public List<String> getEcsUserIdsById(String id) {
-        LambdaQueryWrapper<EcsDTO> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(EcsDTO::getId, id);
-        LinkedList<String> userIdList = new LinkedList<>();
-
-        Collection<EcsDTO> ecsDOS = this.list(lambdaQueryWrapper);
-        for (EcsDTO ecsDO : ecsDOS) {
-            userIdList.add(ecsDO.getUserId());
-        }
-
-        return userIdList;
     }
 }

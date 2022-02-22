@@ -14,17 +14,17 @@ import cn.infocore.dto.VirtualMachineDTO;
 public interface EmailAlarmService {
 	
 	//添加所有邮件服务
-	void addAllMailService(List<EmailAlarmDTO> l);
+	void addAllEmailAlarm(List<EmailAlarmDTO> l);
 	
 	//添加、更新邮件服务
-	void addMailService(String name);
-	
-	//移除邮件服务
-	void deleteMailService(Long userId);
+	void addEmailAlarm(String name);
 	
 	//通知
 	void notifyCenter(DataArkDTO data_ark,List<ClientDTO> clientList,List<VCenterDTO> vcList,List<VirtualMachineDTO> vmList,List<Fault> list_fault) throws SQLException;
 
 	//处理异常
 	void sendFaults(List<FaultDTO> faults);
+
+	//获取邮件配置
+	List<EmailAlarmDTO> findAllWithUser();
 }

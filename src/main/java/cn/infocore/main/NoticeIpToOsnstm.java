@@ -35,8 +35,7 @@ public class NoticeIpToOsnstm implements Runnable {
         for (String ip : ips) {
             try {
                 SendDifferentIps(ip);
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
                 logger.error(e);
                 continue;
             }
@@ -55,62 +54,41 @@ public class NoticeIpToOsnstm implements Runnable {
 
         Socket socket = new Socket(ip, 9997);
         OutputStream out = null;
-        try {
-            out = socket.getOutputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         InputStream sis = null;
         try {
             sis = socket.getInputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        StmHeader header = new StmHeader();
-        header.setVersion((byte) 1);
-        header.setDataType((byte) 2);
-        header.setErrorCode(StmRetStatus.ST_RES_SUCCESS);
-        header.setFlags((short) 0);
-        header.setFrom((short) 25);
-        header.setCommand(StmCommand.ST_OP_MAILALARM_GET_HEARTBEAT);
-        header.setDataLength(bytes.length);
-        
-        byte[] headerBuffer = header.toByteArray();
-        try {
+            out = socket.getOutputStream();
+            
+            StmHeader header = new StmHeader();
+            header.setVersion((byte) 1);
+            header.setDataType((byte) 2);
+            header.setErrorCode(StmRetStatus.ST_RES_SUCCESS);
+            header.setFlags((short) 0);
+            header.setFrom((short) 25);
+            header.setCommand(StmCommand.ST_OP_MAILALARM_GET_HEARTBEAT);
+            header.setDataLength(bytes.length);
+            
+            byte[] headerBuffer = header.toByteArray();
             out.write(headerBuffer, 0, headerBuffer.length);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (bytes != null) {
-            try {
-                out.write(bytes, 0, bytes.length);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (bytes != null) {
+            	out.write(bytes, 0, bytes.length);
             }
-        }
-
-        byte[] headerBuffer1 = new byte[16];
-        int ioret = 0;
-        try {
-            ioret = sis.read(headerBuffer1, 0, 16);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (ioret != 16) {
-            System.out.println("error headerLength!");
-        }
-
-        try {
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            
+            byte[] headerBuffer1 = new byte[16];
+            int ioret = sis.read(headerBuffer1, 0, 16);
+            if (ioret != 16) {
+                System.out.println("error headerLength!");
+            }
+        } catch (Exception e) {
+        	logger.error(e);
+        } finally {
+        	try {
+        		sis.close();
+                out.close();
+                socket.close();
+            } catch (Exception e) {
+            	logger.error(e);
+            }
         }
     }
 }

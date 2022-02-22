@@ -45,9 +45,9 @@ public class AP {
     private static final org.apache.log4j.Logger logger = Logger.getLogger(AP.class);
 
     public static ResponseEvent sendSnmpV3_AP(MySnmp mySnmp, Address targetAddress, List<DataArk> data_arks) throws IOException {
-        OctetString userName3 = new OctetString(mySnmp.getSecurity_username());
-        OctetString authPass = new OctetString(mySnmp.getAuth_password());
-        OctetString privPass = new OctetString(mySnmp.getPrivacy_password());
+        OctetString userName3 = new OctetString(mySnmp.getSecurityUsername());
+        OctetString authPass = new OctetString(mySnmp.getAuthPassword());
+        OctetString privPass = new OctetString(mySnmp.getPrivacyPassword());
         logger.debug(userName3);
         logger.debug(authPass);
         logger.debug(privPass);
@@ -68,23 +68,35 @@ public class AP {
                 secModels.addSecurityModel(usm);
             }
 
-            if(mySnmp.getPrivacy_protocol()==1) {
-                snmp.getUSM().addUser(new OctetString(mySnmp.getSecurity_username()), new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurity_username()), AuthMD5.ID, new OctetString(mySnmp.getAuth_password()), Priv3DES.ID, new OctetString(mySnmp.getPrivacy_password())));
+            if(mySnmp.getPrivacyProtocol()==1) {
+                snmp.getUSM().addUser(new OctetString(mySnmp.getSecurityUsername()), 
+                		new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurityUsername()), 
+                				AuthMD5.ID, new OctetString(mySnmp.getAuthPassword()), 
+                				Priv3DES.ID, new OctetString(mySnmp.getPrivacyPassword())));
             }
-            if(mySnmp.getPrivacy_protocol()==2) {
-                snmp.getUSM().addUser(new OctetString(mySnmp.getSecurity_username()), new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurity_username()), AuthMD5.ID, new OctetString(mySnmp.getAuth_password()), PrivAES128.ID, new OctetString(mySnmp.getPrivacy_password())));
+            if(mySnmp.getPrivacyProtocol()==2) {
+                snmp.getUSM().addUser(new OctetString(mySnmp.getSecurityUsername()), 
+                		new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurityUsername()), 
+                				AuthMD5.ID, new OctetString(mySnmp.getAuthPassword()), 
+                				PrivAES128.ID, new OctetString(mySnmp.getPrivacyPassword())));
             }
-            if(mySnmp.getPrivacy_protocol()==3) {
-                snmp.getUSM().addUser(new OctetString(mySnmp.getSecurity_username()), new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurity_username()), AuthMD5.ID, new OctetString(mySnmp.getAuth_password()),  PrivAES192.ID, new OctetString(mySnmp.getPrivacy_password())));
+            if(mySnmp.getPrivacyProtocol()==3) {
+                snmp.getUSM().addUser(new OctetString(mySnmp.getSecurityUsername()), 
+                		new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurityUsername()), 
+                				AuthMD5.ID, new OctetString(mySnmp.getAuthPassword()),  
+                				PrivAES192.ID, new OctetString(mySnmp.getPrivacyPassword())));
             }
-            if(mySnmp.getPrivacy_protocol()==4) {
-                snmp.getUSM().addUser(new OctetString(mySnmp.getSecurity_username()), new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurity_username()), AuthMD5.ID, new OctetString(mySnmp.getAuth_password()),  PrivAES256.ID, new OctetString(mySnmp.getPrivacy_password())));
+            if(mySnmp.getPrivacyProtocol()==4) {
+                snmp.getUSM().addUser(new OctetString(mySnmp.getSecurityUsername()), 
+                		new OctetString(enginId), new UsmUser(new OctetString(mySnmp.getSecurityUsername()), 
+                				AuthMD5.ID, new OctetString(mySnmp.getAuthPassword()),  
+                				PrivAES256.ID, new OctetString(mySnmp.getPrivacyPassword())));
             }
             logger.debug(snmp);
 
             target.setAddress(targetAddress);
             target.setRetries(2);
-            target.setTimeout(mySnmp.getTimeout_ms());
+            target.setTimeout(mySnmp.getTimeoutMs());
             target.setVersion(SnmpConstants.version3);
             target.setSecurityLevel(SecurityLevel.AUTH_PRIV);
             target.setSecurityName(userName3);

@@ -14,6 +14,7 @@ import cn.infocore.service.AlarmLogService;
 import cn.infocore.service.ClientBackupService;
 import cn.infocore.service.ClientService;
 import cn.infocore.service.DataArkService;
+import cn.infocore.service.EmailAlarmService;
 import cn.infocore.service.MetaService;
 import cn.infocore.service.OssService;
 import cn.infocore.service.QuotaService;
@@ -52,6 +53,8 @@ public class DealSocket implements Runnable {
     private QuotaService quotaService;
     
     private ClientBackupService clientBackupService;
+    
+    private EmailAlarmService emailAlarmService;
     
     /**
      * 构造失败响应头
@@ -113,6 +116,13 @@ public class DealSocket implements Runnable {
             if (ioret != buffer.length) {
             	logger.error(Utils.fmt("Failed to receive protobuf buffer, [%d] byte(s) expected, but [%d] byte(s) received.",
             			header.getDataLength(), ioret));
+            	header.setFrom((short) 25);
+            	header.setErrorCode(StmRetStatus.ST_RES_FAILED);
+                header.setDataLength(0);
+                byte[] resp = header.toByteArray();
+                out.write(resp, 0, resp.length);
+                out.flush();
+            	throw new Exception();
             }
             
             logger.info("Received heartbeat from osnstm.");
@@ -136,6 +146,7 @@ public class DealSocket implements Runnable {
             process.setUserService(userService);
             process.setQuotaService(quotaService);
             process.setClientBackupService(clientBackupService);
+            process.setEmailAlarmService(emailAlarmService);
             process.run();
 
             // 清理内存??为什么需要清理，待定

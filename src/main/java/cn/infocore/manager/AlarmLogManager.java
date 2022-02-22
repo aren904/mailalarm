@@ -188,14 +188,16 @@ public class AlarmLogManager extends ServiceImpl<AlarmLogMapper, AlarmLog> {
 	 */
 	public void addAlarmlog(Fault fault) {
 		AlarmLog alarmLog = new AlarmLog();
+		alarmLog.setTimestamp(fault.getTimestamp());
+		alarmLog.setProcessed(0);
+		alarmLog.setException(fault.getType());
+		alarmLog.setDataArkUuid(fault.getData_ark_uuid());
         alarmLog.setDataArkName(fault.getData_ark_name());
-        alarmLog.setDataArkUuid(fault.getData_ark_uuid());
         alarmLog.setDataArkIp(fault.getData_ark_ip());
         alarmLog.setTargetUuid(fault.getTarget_uuid());
         alarmLog.setTargetName(fault.getTarget_name());
+        alarmLog.setLastAlarmTimestamp(0L);
         alarmLog.setUserUuid(fault.getUser_uuid());
-        alarmLog.setException(fault.getType());
-        alarmLog.setTimestamp(0L);
         this.save(alarmLog);
 	}
 

@@ -32,8 +32,8 @@ public class MailMain {
     public void start() {
     	logger.info("Mailalarm launched.");
 
-        sendOsnThread.start();
-        logger.info("SendOsnThread is start....");
+        //sendOsnThread.start();
+        //logger.info("SendOsnThread is start....");
 
         heartbeat.start();
         logger.info("ThreadHeartbeat is start....");

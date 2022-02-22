@@ -16,5 +16,5 @@ public class UserManager extends ServiceImpl<UserMapper, User> {
         queryWrapper.eq(User::getUuid,uuid);
         return this.getOne(queryWrapper);
     }
-    
+
 }

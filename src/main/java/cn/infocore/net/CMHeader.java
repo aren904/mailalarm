@@ -56,12 +56,12 @@ public class CMHeader {
 	
 	public boolean parseByteArray(byte[] ba) {
 		if (ba==null) {
-			logger.info("byte[] is null");
+			logger.error("CMHeader byte[] is null");
 			return false;
 		}
 		
 		if (ba.length!=CM_HEADER_LENGTH) {
-			logger.info("Length is wrong");
+			logger.error("CMHeader length is wrong");
 			return false;
 		}
 		
@@ -86,7 +86,6 @@ public class CMHeader {
 		byte[] baFlags1 = Arrays.copyOfRange(ba, 16, 24);
 		this.flags1 = ByteBuffer.wrap(baFlags1).order(ByteOrder.LITTLE_ENDIAN).getLong();
 		
-		logger.debug("Create CMHeader by little endian parsing binary array.");
 		logMe();
 		return true;
 	}
@@ -116,7 +115,6 @@ public class CMHeader {
 		byte[] baFlags1=ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN).putLong(this.flags1).array();
 		System.arraycopy(baFlags1, 0, header, 16, 8);
 		
-		logger.debug("CMHeader dumped to binary array.");
 		logMe();
 		return header;
 	}

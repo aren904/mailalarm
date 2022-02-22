@@ -19,16 +19,16 @@ public class Quota {
 	private Long id;
 	
 	@TableField("user_id")
-	private Long user_id;
+	private Long userId;
 	
 	@TableField("data_ark_id")
-	private Long data_ark_id;
+	private Long dataArkId;
 	
 	@TableField("client_count")
-	private Integer client_count;
+	private Integer clientCount;
 	
 	@TableField("vcenter_vm_count")
-	private Integer vcenter_vm_count;
+	private Integer vcenterVmCount;
 	
 	@TableField("block")
 	private Long block;

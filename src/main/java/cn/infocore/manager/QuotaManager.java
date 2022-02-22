@@ -20,7 +20,7 @@ public class QuotaManager extends ServiceImpl<QuotaMapper,Quota> {
 	 */
 	public List<Quota> listByDataArkId(Long dataArkId){
         LambdaQueryWrapper<Quota> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Quota::getData_ark_id,dataArkId);
+        queryWrapper.eq(Quota::getDataArkId,dataArkId);
         return this.list(queryWrapper);
     }
 	

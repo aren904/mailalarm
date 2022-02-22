@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import cn.infocore.service.DataArkService;
-import cn.infocore.service.MySnmpService;
+import cn.infocore.service.EmailAlarmService;
+import cn.infocore.service.SnmpService;
+import cn.infocore.service.UserService;
 import cn.infocore.utils.Utils;
 
 /**
@@ -35,7 +37,13 @@ public class ThreadInformation extends Thread {
     private DataArkService dataArkService;
     
     @Autowired
-    private MySnmpService mySnmpService;
+    private SnmpService mySnmpService;
+    
+    @Autowired
+    private EmailAlarmService emailAlarmService;
+    
+    @Autowired
+    private UserService userService;
 
     private ThreadInformation() {
     	logger.debug("Create pool for ThreadInformation.");
@@ -77,6 +85,8 @@ public class ThreadInformation extends Thread {
                 DealInformation dealInfo=new DealInformation(incoming);
                 dealInfo.setDataArkService(dataArkService);
                 dealInfo.setMySnmpService(mySnmpService);
+                dealInfo.setEmailAlarmService(emailAlarmService);
+                dealInfo.setUserService(userService);
                 pool.execute(dealInfo);
             }
 
@@ -86,9 +96,7 @@ public class ThreadInformation extends Thread {
             if(server!=null){
                 try {
                     server.close();
-                } catch (IOException e1) {
-
-                }
+                } catch (IOException e1) {}
             }
             System.exit(1);
         }

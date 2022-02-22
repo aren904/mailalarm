@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 import cn.infocore.entity.MySnmp;
 import cn.infocore.manager.MySnmpManager;
-import cn.infocore.service.MySnmpService;
+import cn.infocore.service.SnmpService;
 
 @Service
-public class MySnmpServiceImpl implements MySnmpService {
+public class SnmpServiceImpl implements SnmpService {
 
     @Autowired	
     private MySnmpManager mySnmpManager;

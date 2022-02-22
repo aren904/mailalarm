@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +20,11 @@ import cn.infocore.dto.VCenterDTO;
 import cn.infocore.dto.VirtualMachineDTO;
 import cn.infocore.entity.Quota;
 import cn.infocore.entity.User;
+import cn.infocore.main.EmailAlarmListCache;
 import cn.infocore.manager.AlarmLogManager;
 import cn.infocore.manager.ClientManager;
 import cn.infocore.manager.DataArkManager;
-import cn.infocore.manager.MailManager;
+import cn.infocore.manager.EmailAlarmManager;
 import cn.infocore.manager.QuotaManager;
 import cn.infocore.manager.UserManager;
 import cn.infocore.service.EmailAlarmService;
@@ -37,12 +36,8 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
 	
     private static final Logger logger = Logger.getLogger(EmailAlarmServiceImpl.class);
     
-    private Map<Long, MailSender> normalSenderMap = null;// 必须线程安全
-    
-    private Map<Long, MailSender> adminSenderMap = null;
-    
     @Autowired
-    private MailManager mailManager;
+    private EmailAlarmManager mailManager;
     
     @Autowired
     private UserManager userManager;
@@ -59,98 +54,26 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
     @Autowired
     private QuotaManager quotaManager;
     
-    private EmailAlarmServiceImpl() {
-    	logger.info("Init,start to collect mail config from database.");
-        MailCenterRestryHolder.instance = this;
-
-        //user_id与MailSender的键值对
-        //所有用户
-        this.normalSenderMap = new ConcurrentHashMap<Long, MailSender>();
-        //管理员
-        this.adminSenderMap = new ConcurrentHashMap<Long, MailSender>();
-        
-        List<EmailAlarmDTO> emailAlaramDtos=mailManager.findAllWithUser();
-        
-        if (emailAlaramDtos.size() > 0) {
-            logger.info("Get mail config count:" + emailAlaramDtos.size());
-            for (EmailAlarmDTO emailAlaram : emailAlaramDtos) {
-                if (emailAlaram.getEnabled() == (byte) 0) {
-                    continue;
-                }
-                MailSender sender = new MailSender(emailAlaram);
-                if (emailAlaram.getRole() < 2) {
-                    this.adminSenderMap.put(emailAlaram.getUser_id(), sender);
-                }
-                this.normalSenderMap.put(emailAlaram.getUser_id(), sender);
-            }
-            logger.info("Collected mail config finished.");
-        } else {
-            logger.warn("Collected mail config failed.");
-        }
-    }
-
-    private static class MailCenterRestryHolder {
-        public static EmailAlarmServiceImpl instance = new EmailAlarmServiceImpl();
-    }
-
-    public static EmailAlarmServiceImpl getInstance() {
-        return MailCenterRestryHolder.instance;
-    }
+    @Override
+	public List<EmailAlarmDTO> findAllWithUser() {
+		return mailManager.findAllWithUser();
+	}
 
     @Override
-    public void addAllMailService(List<EmailAlarmDTO> emailAlarmDTos) {
-        for (EmailAlarmDTO emailAlarmDTo : emailAlarmDTos) {
-            MailSender sender = new MailSender(emailAlarmDTo);
-            if (emailAlarmDTo.getRole() < 2) {
-                this.adminSenderMap.put(emailAlarmDTo.getUser_id(), sender);
-            }
-            this.normalSenderMap.put(emailAlarmDTo.getUser_id(), sender);
-        }
+    public void addAllEmailAlarm(List<EmailAlarmDTO> emailAlarmDTos) {
+        EmailAlarmListCache.getInstance(mailManager).addAllEmailAlarm(emailAlarmDTos);
     }
 
     /**
      * 为指定用户添加或更新邮件配置：一个用户有0个或者1个配置
      */
     @Override
-    public void addMailService(String userUuid) {
+    public void addEmailAlarm(String userUuid) {
     	User user=userManager.findUserByUuid(userUuid);
     	if(user!=null) {
     		EmailAlarmDTO emailAlarmDto=mailManager.findByUserId(user.getId());
-    		
-    		if(emailAlarmDto!=null) {
-    			if (emailAlarmDto.getEnabled() == (byte) 0) {
-                	//对于禁用的要删除
-    				if (emailAlarmDto.getRole() < 2) {
-                        if (this.adminSenderMap.containsKey(user.getId())) {
-                            this.adminSenderMap.remove(user.getId());
-                        }
-                    }
-                    if (this.normalSenderMap.containsKey(user.getId())) {
-                        this.normalSenderMap.remove(user.getId());
-                    }
-                }else {
-                	//对于添加，则收集到数据库
-                    MailSender sender = new MailSender(emailAlarmDto);
-                    if (emailAlarmDto.getRole() < 2) {
-                        this.adminSenderMap.put(emailAlarmDto.getUser_id(), sender);
-                    }
-                    this.normalSenderMap.put(user.getId(), sender);
-                }
-                logger.info("add or update mail config for user:"+emailAlarmDto.getUser_id()+" successfully! "+
-                		"current normalSenderMap size:"+normalSenderMap.size()+",adminSenderMap size:"+adminSenderMap.size());
-    		}
+    		EmailAlarmListCache.getInstance(mailManager).addEmailAlarm(user.getId(), emailAlarmDto);
     	}
-    }
-
-    @Override
-    public void deleteMailService(Long userId) {
-        // 查询数据库，从本地删除
-        if (this.normalSenderMap.containsKey(userId)) {
-            this.normalSenderMap.remove(userId);
-        }
-        if (this.adminSenderMap.containsKey(userId)) {
-            this.adminSenderMap.remove(userId);
-        }
     }
 
     /**
@@ -171,8 +94,8 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
     		List<Fault> list_fault) throws SQLException {
         for (Fault fault : list_fault) {
             try {
-                logger.info("-----------Userid:" + fault.getUser_uuid() + ",faultType:" + fault.getType() + ",targetName:"
-                        + fault.getTarget_name() + ",data_ark ip:" + fault.getData_ark_ip() + ",client_uuid:"
+                logger.info("-----------Userid:" + fault.getUser_uuid() + ",faultType:" + fault.getType() + ",target info:"
+                        + fault.getTarget_name()+"|"+fault.getTarget_uuid() + ",data_ark ip:" + fault.getData_ark_ip() + ",client_uuid:"
                         + fault.getClient_id()+",ClientType:"+fault.getClient_type());
 
                 if (fault.getType() == FaultEnum.NORMAL.getCode()) {
@@ -246,7 +169,7 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
                     for (String currentError : currentErrors) {
                     	Integer type=Integer.parseInt(currentError);
                         if (!dbErrors.contains(type) && type != 0) { 
-                            logger.info(fault.getUser_uuid() + "," + fault.getData_ark_ip() + " current is new,insert it:"+ type);
+                            logger.info(fault.getUser_uuid() + "," + fault.getData_ark_ip() +","+fault.getTarget_uuid()+ " current is new,insert it:"+ type);
                             alarmLogManager.addAlarmlog(fault);
                         } else if (dbErrors.contains(type) && (type == 11
                                 || type == 12 || type == 24 || type == 25 || type == 26)) {
@@ -259,7 +182,9 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
 
                 if (fault.getType() != 0) {
                 	//normalSenderMap包含所有邮件用户配置
-                    for (Map.Entry<Long, MailSender> entry : this.normalSenderMap.entrySet()) {
+                	Map<Long, MailSender> normalSenderMap=EmailAlarmListCache.getInstance(mailManager).getNormalSenderMap();
+                	
+                    for (Map.Entry<Long, MailSender> entry : normalSenderMap.entrySet()) {
                         Long userId = entry.getKey();
                         MailSender mailSender = entry.getValue();
                         
@@ -306,6 +231,7 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
         for (FaultDTO faultDto : faultDtos) {
             // 所有对象将DTO对象解析为异常集合
             List<Fault> faults = ConvertUtils.convertFaultWithUsers(faultDto);
+        	Map<Long, MailSender> normalSenderMap=EmailAlarmListCache.getInstance(mailManager).getNormalSenderMap();
             logger.debug("Mail sender User:" + normalSenderMap.toString());
             
             for (Fault fault : faults) {
@@ -314,8 +240,8 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
                 Long userId = userManager.findUserByUuid(userUuid).getId();
                 
                 //获取缓存的用户邮件配置键值对里符合要求的对象，触发告警
-                MailSender sender = this.normalSenderMap.get(userId);
-                for (Map.Entry<Long, MailSender> map : this.normalSenderMap.entrySet()) {
+                MailSender sender = normalSenderMap.get(userId);
+                for (Map.Entry<Long, MailSender> map : normalSenderMap.entrySet()) {
                     if (userId!=null && sender != null) {
                         if (userId.equals(map.getKey())){
                             try {

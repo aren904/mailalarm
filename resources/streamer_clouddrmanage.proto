@@ -219,7 +219,7 @@ message MetaInfo {
 message GetServerInfoReturn{
     required string uuid =1;
     required Streamer server = 2;
-    repeated Client  clients = 3;
+    repeated Client clients = 3;
     repeated Vcent vcents = 4;
     repeated RdsInfo rds_clients = 5;
     repeated OssInfo oss_clients = 6;

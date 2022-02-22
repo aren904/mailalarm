@@ -1,7 +1,9 @@
 package cn.infocore.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import lombok.Data;
 import lombok.ToString;
 import lombok.experimental.Accessors;
@@ -15,7 +17,7 @@ import lombok.experimental.Accessors;
 @Data
 public class Client {
 	
-    @TableField("id")
+    @TableId(value = "id")
     private Long id;
     
     @TableField("uuid")

@@ -8,7 +8,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import cn.infocore.main.MailMain;
 
 @SpringBootApplication
-@MapperScan({"cn.infocore.dao","cn.infocore.mapper"}) //扫描DAO
+@MapperScan({"cn.infocore.mapper"})
 public class Application {
 	
 	public static void main(String[] args) throws Exception {

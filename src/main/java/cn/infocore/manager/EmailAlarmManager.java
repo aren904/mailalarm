@@ -12,15 +12,15 @@ import com.github.yulichang.wrapper.MPJLambdaWrapper;
 import cn.infocore.dto.EmailAlarmDTO;
 import cn.infocore.entity.EmailAlarm;
 import cn.infocore.entity.User;
-import cn.infocore.mapper.MailMapper;
+import cn.infocore.mapper.EmailAlarmMapper;
 
 @Service
-public class MailManager extends ServiceImpl<MailMapper, EmailAlarm> {
+public class EmailAlarmManager extends ServiceImpl<EmailAlarmMapper, EmailAlarm> {
 	
-	private static final Logger logger = Logger.getLogger(MailManager.class);
+	private static final Logger logger = Logger.getLogger(EmailAlarmManager.class);
 	
 	@Autowired
-    private MailMapper mailMapper;
+    private EmailAlarmMapper mailMapper;
 	
 	/**
 	 * 联合查询，当前用户和邮件的配置

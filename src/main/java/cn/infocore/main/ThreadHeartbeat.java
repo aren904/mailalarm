@@ -15,6 +15,7 @@ import cn.infocore.service.AlarmLogService;
 import cn.infocore.service.ClientBackupService;
 import cn.infocore.service.ClientService;
 import cn.infocore.service.DataArkService;
+import cn.infocore.service.EmailAlarmService;
 import cn.infocore.service.OssService;
 import cn.infocore.service.QuotaService;
 import cn.infocore.service.RdsService;
@@ -63,7 +64,12 @@ private static final Logger logger = Logger.getLogger(ThreadHeartbeat.class);
     private QuotaService quotaService;
     
     @Autowired
+    private EmailAlarmService emailAlarmService;
+    
+    @Autowired
     private ClientBackupService clientBackupService;
+    
+    private static volatile ThreadHeartbeat instance = null;
     
     private ThreadHeartbeat() {
     	//新建一个100-500的线程池
@@ -72,12 +78,15 @@ private static final Logger logger = Logger.getLogger(ThreadHeartbeat.class);
         threadPool.allowCoreThreadTimeOut(true);
     }
 
-    private static class ThreadHeartbeatHolder {
-        public static ThreadHeartbeat instance = new ThreadHeartbeat();
-    }
-
     public static ThreadHeartbeat getInstance() {
-        return ThreadHeartbeatHolder.instance;
+    	if (instance==null) {
+			synchronized (ThreadHeartbeat.class) {
+                if (instance == null) {
+                    instance = new ThreadHeartbeat();
+                }
+            }
+		}
+		return instance;
     }
 
     @Override
@@ -88,7 +97,7 @@ private static final Logger logger = Logger.getLogger(ThreadHeartbeat.class);
             while (true) {
                 Socket socket = serverSocket.accept();
                 //从线程池中取一个线程处理
-                logger.info("Receiving a heartbeat from osnstm...");
+                logger.info("------------------Receiving a heartbeat from osnstm..."+socket.getInetAddress().getHostAddress());
                 DealSocket dealSocket = new DealSocket();
                 dealSocket.setSocket(socket);
                 dealSocket.setRdsService(rdsService);
@@ -101,6 +110,7 @@ private static final Logger logger = Logger.getLogger(ThreadHeartbeat.class);
                 dealSocket.setUserService(userService);
                 dealSocket.setQuotaService(quotaService);
                 dealSocket.setClientBackupService(clientBackupService);
+                dealSocket.setEmailAlarmService(emailAlarmService);
                 threadPool.execute(dealSocket);
             }
         } catch (Exception e) {

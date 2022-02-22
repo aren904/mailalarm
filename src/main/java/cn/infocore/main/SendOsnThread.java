@@ -16,7 +16,7 @@ import cn.infocore.service.DataArkService;
 @Component
 public class SendOsnThread extends Thread{
 	
-	private static final Logger logger = Logger.getLogger(SendOsnThread .class);
+	private static final Logger logger = Logger.getLogger(SendOsnThread.class);
 
     @Autowired
     private DataArkService dataArkService;

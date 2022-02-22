@@ -17,36 +17,32 @@ public class DataArkListCache {
     private static final Logger logger = Logger.getLogger(DataArkListCache.class);
     
 	//维护的数据方舟的uuid-->ip列表
-	private Map<String,String> data_ark_list=new ConcurrentHashMap<String, String>();
-	
-	private DataArkListCache dataArkList = null;
-	
-	private boolean inited = false;
+    private static Map<String,String> data_ark_list = null;
+    
+    private static volatile DataArkListCache instance = null;
 	
 	private DataArkListCache() {}
 	
-	private DataArkListCache init(DataArkService dataArkService) {
-		if (this.inited == false||dataArkList ==null) {
-			this.inited = true;
-			logger.info("Init,Start get all data ark from database.");
-			List<DataArk> dataArks=dataArkService.list();
-			for (DataArk dataArk:dataArks) {
-				this.data_ark_list.put(dataArk.getUuid(),dataArk.getIp());
-				//同时初始化维护数据方舟掉线的列表
-				HeartCache.getInstance().addHeartCache(dataArk.getUuid(), 0L);
-			}
-			logger.info("Succeed to get data ark,count:"+this.data_ark_list.size());
-		}
-		return this;
-		
-	}
-
-	private static class DataArkListHolder{
-		public static DataArkListCache instance=new DataArkListCache();
-	}
-
 	public static DataArkListCache getInstance(DataArkService dataArkService) {
-		return DataArkListHolder.instance.init(dataArkService);
+		if (instance==null) {
+			synchronized (DataArkListCache.class) {
+                if (instance == null) {
+                    instance = new DataArkListCache();
+                    
+                    logger.info("-------------Init,Start get all data ark from database.");
+        			data_ark_list=new ConcurrentHashMap<String, String>();
+        			
+        			List<DataArk> dataArks=dataArkService.list();
+        			for (DataArk dataArk:dataArks) {
+        				data_ark_list.put(dataArk.getUuid(),dataArk.getIp());
+        				//同时初始化维护数据方舟掉线的列表
+        				HeartCache.getInstance().addHeartCache(dataArk.getUuid(), 0L);
+        			}
+        			logger.info("Succeed to get data ark,count:"+data_ark_list.size());
+                }
+            }
+		}
+		return instance;
 	}
 
 	//添加
