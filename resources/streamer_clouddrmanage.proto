@@ -3,22 +3,22 @@ option java_package = "cn.infocore.protobuf";
 option java_outer_classname = "StmAlarmManage";
 
 enum ClientType{
-    SINGLE = 0;
-    VMWARE = 1;
-    MSCS = 2;
-    RAC = 3;
-    VC = 4;
-    AIX = 5;
-    FileSingle = 11;
-    Rds = 12;
-    RdsInstance = 13;
-    Oss = 14;
-    OssObjectSet = 15;
-    Ecs = 16;
-    EcsInstance = 17;
-    MetaDB = 18;
-    MetaDBBackup = 19;
-    StorageClient = 20;
+    SINGLE = 0;             // 普通客户端
+    VMWARE = 1;             // vm (vcenter 下的一台虚拟机)
+    MSCS = 2;               // windows集群
+    RAC = 3;                // oracle 客户端
+    VC = 4;                 // vcenter
+    AIX = 5;                // 手动创建的客户端
+    FileSingle = 11;        // 文件备份客户端
+    Rds = 12;               // rds 客户端
+    RdsInstance = 13;       // rds 实例(备份)
+    Oss = 14;               // oss 客户端
+    OssObjectSet = 15;      // oss 备份
+    Ecs = 16;               // ecs 客户端
+    EcsInstance = 17;       // ecs 实例(备份)
+    MetaDB = 18;            // meta 客户端  // 元数据库？
+    MetaDBBackup = 19;      // meta 客户端备份
+    StorageClient = 20;     // 存储客户端
 }
 
 //备份的错误类型
@@ -219,7 +219,7 @@ message MetaInfo {
 message GetServerInfoReturn{
     required string uuid =1;
     required Streamer server = 2;
-    repeated Client clients = 3;
+    repeated Client  clients = 3;
     repeated Vcent vcents = 4;
     repeated RdsInfo rds_clients = 5;
     repeated OssInfo oss_clients = 6;

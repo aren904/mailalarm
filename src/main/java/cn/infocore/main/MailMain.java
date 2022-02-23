@@ -23,18 +23,14 @@ public class MailMain {
     //定时扫描检测更新数据方舟状态
     @Autowired
     protected ThreadScanPoolService scanService;
-
-    //通知stm服务发心跳：待修改，此方式不合理
+    
     @Autowired
-    public SendOsnThread sendOsnThread;
+    protected ThreadSendHeartbeatRequest request;
 
     //主函数入口
     public void start() {
     	logger.info("Mailalarm launched.");
-
-        //sendOsnThread.start();
-        //logger.info("SendOsnThread is start....");
-
+    	
         heartbeat.start();
         logger.info("ThreadHeartbeat is start....");
         
@@ -43,12 +39,15 @@ public class MailMain {
         
         scanService.start();
         logger.info("ThreadScanPoolService is start...");
+        
+        request.start();
+        logger.info("ThreadSendHeartbeatRequest is start...");
 
         try {
-            sendOsnThread.join();
             heartbeat.join();
             information.join();
             scanService.join();
+            request.join();
             logger.info("Mailalarm is stopped");
         } catch (Exception e) {
         	logger.warn("Application main thread is interrupted.", e);

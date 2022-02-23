@@ -21,13 +21,13 @@ import cn.infocore.service.AlarmLogService;
 import cn.infocore.service.ClientBackupService;
 import cn.infocore.service.ClientService;
 import cn.infocore.service.DataArkService;
+import cn.infocore.service.EcsService;
 import cn.infocore.service.EmailAlarmService;
 import cn.infocore.service.MetaService;
 import cn.infocore.service.OssService;
 import cn.infocore.service.QuotaService;
 import cn.infocore.service.RdsService;
 import cn.infocore.service.UserService;
-import cn.infocore.service.impl.EcsServiceImpl;
 import lombok.Data;
 
 /**
@@ -48,7 +48,7 @@ public class InfoProcessData {
     
     private AlarmLogService alarmLogService;
     
-    private EcsServiceImpl ecsService;
+    private EcsService ecsService;
     
     private MetaService metaService;
     

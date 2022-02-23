@@ -33,7 +33,6 @@ D:\workspace\mailalarm\src\main\java\cn\infocore\utils\Utils.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\protobuf\CloudAlarmManage.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\mapper\AlarmLogMapper.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\utils\TestAesGcmAe.java
-D:\workspace\mailalarm\src\main\java\cn\infocore\main\SendOsnThread.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\main\ThreadHeartbeat.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\main\DealSocket.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\service\EmailAlarmService.java
@@ -41,7 +40,6 @@ D:\workspace\mailalarm\src\main\java\cn\infocore\manager\RdsManager.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\utils\BeanUtil.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\entity\MySnmp.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\manager\OssManager.java
-D:\workspace\mailalarm\src\main\java\cn\infocore\main\NoticeIpToOsnstm.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\service\AlarmLogService.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\SnmpV3Sender\NaNp.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\protobuf\StmAlarmManage.java
@@ -75,6 +73,7 @@ D:\workspace\mailalarm\src\main\java\cn\infocore\entity\Client.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\manager\QuotaManager.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\dto\VCenterDTO.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\mapper\MySnmpMapper.java
+D:\workspace\mailalarm\src\main\java\cn\infocore\main\ThreadSendHeartbeatRequest.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\utils\ConvertUtils.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\net\CMRetStatus.java
 D:\workspace\mailalarm\src\main\java\cn\infocore\service\impl\OssServiceImpl.java

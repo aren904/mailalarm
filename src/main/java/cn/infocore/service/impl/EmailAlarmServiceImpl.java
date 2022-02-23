@@ -198,8 +198,8 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
                             //获取数据方舟拥有的配额信息：一个数据方舟可能被多个用户拥有，因此可能存在多种配额
                             List<Quota> quotas=quotaManager.listByDataArkId(dataArkId);
                             if (!quotas.isEmpty()) {
-                                if (fault.getClient_type().intValue() == 1 || fault.getClient_type().intValue() == 2
-                                        || fault.getClient_type().intValue() == 3) {
+                                if (fault.getClient_type() == 1 || fault.getClient_type() == 2
+                                        || fault.getClient_type() == 3) {
                                     // 针对客户端，VC，虚拟机：查询该对象是否是该用户添加过，添加过则给该用户发送报警邮件
                                 	Integer count = findArkIdAndUserIdAndId(fault, dataArkId,userId);
                                     if (count.intValue() > 0) {

@@ -100,7 +100,7 @@ public class MailSender {
         String[] excepts = config.getExceptions().split(";");
         for (String except : excepts) {
             // 如果该范围包含当前异常
-            if (except.equals(fault.getType())) {
+            if (Integer.parseInt(except)==fault.getType()) {
                 // 是否开启限制同一时间内只发送一封邮件
                 String key = userId + fault.getData_ark_uuid() + fault.getTarget_name() + fault.getType();
                 if (config.getLimit_enabled() == 0) {

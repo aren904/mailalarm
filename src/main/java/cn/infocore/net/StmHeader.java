@@ -18,7 +18,7 @@ public class StmHeader {
 	
 	public static final byte STREAMER_VERSION_CODE = 1;
 	
-    public static final int STREAMER_HEADER_LENGTH = 20;
+    public static final int STREAMER_HEADER_LENGTH = 16;
     
     /**
 	 * 消息头:长度16

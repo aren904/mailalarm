@@ -128,7 +128,6 @@ cn\infocore\protobuf\CloudAlarmManage$1.class
 cn\infocore\protobuf\StmAlarmManage$EcsInstanceInfo$1.class
 cn\infocore\protobuf\StmAlarmManage$VmwareOrBuilder.class
 cn\infocore\service\impl\RdsServiceImpl.class
-cn\infocore\main\NoticeIpToOsnstm.class
 cn\infocore\entity\User.class
 cn\infocore\protobuf\StmAlarmManage$Vcent.class
 cn\infocore\protobuf\StmAlarmManage$RdsInfo.class
@@ -150,15 +149,12 @@ cn\infocore\service\impl\DataArkServiceImpl.class
 cn\infocore\protobuf\StmAlarmManage$MetaBackupInfo$Builder.class
 cn\infocore\protobuf\CloudAlarmManage$CreateEmailAlarmRequest.class
 cn\infocore\main\InfoProcessData.class
-cn\infocore\main\ThreadInformation$ThreadInformationHolder.class
-cn\infocore\main\ThreadInformation$1.class
 cn\infocore\service\impl\MetaServiceImpl.class
 cn\infocore\protobuf\CloudAlarmManage$UpdateDataArkRequest$Builder.class
 cn\infocore\main\EmailAlarmListCache.class
 cn\infocore\manager\EmailAlarmManager.class
 cn\infocore\protobuf\StmAlarmManage$ClientType$1.class
 cn\infocore\manager\ClientBackupManager.class
-cn\infocore\main\SendOsnThread.class
 cn\infocore\protobuf\StmAlarmManage$OssObjectSetInfo$Builder.class
 cn\infocore\dto\VirtualMachineDTO.class
 cn\infocore\protobuf\CloudAlarmManage$UpdateEmailAlarmRequest$1.class

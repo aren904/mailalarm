@@ -15,132 +15,260 @@ public final class StmAlarmManage {
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <code>SINGLE = 0;</code>
+     *
+     * <pre>
+     * 普通客户端
+     * </pre>
      */
     SINGLE(0, 0),
     /**
      * <code>VMWARE = 1;</code>
+     *
+     * <pre>
+     * vm (vcenter 下的一台虚拟机)
+     * </pre>
      */
     VMWARE(1, 1),
     /**
      * <code>MSCS = 2;</code>
+     *
+     * <pre>
+     * windows集群
+     * </pre>
      */
     MSCS(2, 2),
     /**
      * <code>RAC = 3;</code>
+     *
+     * <pre>
+     * oracle 客户端
+     * </pre>
      */
     RAC(3, 3),
     /**
      * <code>VC = 4;</code>
+     *
+     * <pre>
+     * vcenter
+     * </pre>
      */
     VC(4, 4),
     /**
      * <code>AIX = 5;</code>
+     *
+     * <pre>
+     * 手动创建的客户端
+     * </pre>
      */
     AIX(5, 5),
     /**
      * <code>FileSingle = 11;</code>
+     *
+     * <pre>
+     * 文件备份客户端
+     * </pre>
      */
     FileSingle(6, 11),
     /**
      * <code>Rds = 12;</code>
+     *
+     * <pre>
+     * rds 客户端
+     * </pre>
      */
     Rds(7, 12),
     /**
      * <code>RdsInstance = 13;</code>
+     *
+     * <pre>
+     * rds 实例(备份)
+     * </pre>
      */
     RdsInstance(8, 13),
     /**
      * <code>Oss = 14;</code>
+     *
+     * <pre>
+     * oss 客户端
+     * </pre>
      */
     Oss(9, 14),
     /**
      * <code>OssObjectSet = 15;</code>
+     *
+     * <pre>
+     * oss 备份
+     * </pre>
      */
     OssObjectSet(10, 15),
     /**
      * <code>Ecs = 16;</code>
+     *
+     * <pre>
+     * ecs 客户端
+     * </pre>
      */
     Ecs(11, 16),
     /**
      * <code>EcsInstance = 17;</code>
+     *
+     * <pre>
+     * ecs 实例(备份)
+     * </pre>
      */
     EcsInstance(12, 17),
     /**
      * <code>MetaDB = 18;</code>
+     *
+     * <pre>
+     * meta 客户端  // 元数据库？
+     * </pre>
      */
     MetaDB(13, 18),
     /**
      * <code>MetaDBBackup = 19;</code>
+     *
+     * <pre>
+     * meta 客户端备份
+     * </pre>
      */
     MetaDBBackup(14, 19),
     /**
      * <code>StorageClient = 20;</code>
+     *
+     * <pre>
+     * 存储客户端
+     * </pre>
      */
     StorageClient(15, 20),
     ;
 
     /**
      * <code>SINGLE = 0;</code>
+     *
+     * <pre>
+     * 普通客户端
+     * </pre>
      */
     public static final int SINGLE_VALUE = 0;
     /**
      * <code>VMWARE = 1;</code>
+     *
+     * <pre>
+     * vm (vcenter 下的一台虚拟机)
+     * </pre>
      */
     public static final int VMWARE_VALUE = 1;
     /**
      * <code>MSCS = 2;</code>
+     *
+     * <pre>
+     * windows集群
+     * </pre>
      */
     public static final int MSCS_VALUE = 2;
     /**
      * <code>RAC = 3;</code>
+     *
+     * <pre>
+     * oracle 客户端
+     * </pre>
      */
     public static final int RAC_VALUE = 3;
     /**
      * <code>VC = 4;</code>
+     *
+     * <pre>
+     * vcenter
+     * </pre>
      */
     public static final int VC_VALUE = 4;
     /**
      * <code>AIX = 5;</code>
+     *
+     * <pre>
+     * 手动创建的客户端
+     * </pre>
      */
     public static final int AIX_VALUE = 5;
     /**
      * <code>FileSingle = 11;</code>
+     *
+     * <pre>
+     * 文件备份客户端
+     * </pre>
      */
     public static final int FileSingle_VALUE = 11;
     /**
      * <code>Rds = 12;</code>
+     *
+     * <pre>
+     * rds 客户端
+     * </pre>
      */
     public static final int Rds_VALUE = 12;
     /**
      * <code>RdsInstance = 13;</code>
+     *
+     * <pre>
+     * rds 实例(备份)
+     * </pre>
      */
     public static final int RdsInstance_VALUE = 13;
     /**
      * <code>Oss = 14;</code>
+     *
+     * <pre>
+     * oss 客户端
+     * </pre>
      */
     public static final int Oss_VALUE = 14;
     /**
      * <code>OssObjectSet = 15;</code>
+     *
+     * <pre>
+     * oss 备份
+     * </pre>
      */
     public static final int OssObjectSet_VALUE = 15;
     /**
      * <code>Ecs = 16;</code>
+     *
+     * <pre>
+     * ecs 客户端
+     * </pre>
      */
     public static final int Ecs_VALUE = 16;
     /**
      * <code>EcsInstance = 17;</code>
+     *
+     * <pre>
+     * ecs 实例(备份)
+     * </pre>
      */
     public static final int EcsInstance_VALUE = 17;
     /**
      * <code>MetaDB = 18;</code>
+     *
+     * <pre>
+     * meta 客户端  // 元数据库？
+     * </pre>
      */
     public static final int MetaDB_VALUE = 18;
     /**
      * <code>MetaDBBackup = 19;</code>
+     *
+     * <pre>
+     * meta 客户端备份
+     * </pre>
      */
     public static final int MetaDBBackup_VALUE = 19;
     /**
      * <code>StorageClient = 20;</code>
+     *
+     * <pre>
+     * 存储客户端
+     * </pre>
      */
     public static final int StorageClient_VALUE = 20;
 

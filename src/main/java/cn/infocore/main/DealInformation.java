@@ -248,6 +248,8 @@ public class DealInformation implements Runnable {
 		DataArk dataArk=dataArkService.findByUuid(uuid);
 		logger.info("-----------addDataArk:" + uuid+"|"+dataArk.getIp());
 		DataArkListCache.getInstance(dataArkService).addDataArk(uuid, dataArk.getIp());
+		//通知心跳信息改变
+		new ThreadSendHeartbeatRequest().start();
 		request.toBuilder().clear();
 		request.toBuilder().clearUuid();
 	}
@@ -261,6 +263,8 @@ public class DealInformation implements Runnable {
 		logger.info("-----------removeDataArk:" + uuid);
 		DataArkListCache.getInstance(dataArkService).removeDataArk(uuid);
 		HeartCache.getInstance().removeHeartCache(uuid);
+		//通知心跳信息改变
+		new ThreadSendHeartbeatRequest().start();
 		request.toBuilder().clear();
 		request.toBuilder().clearUuid();
 	}
@@ -274,6 +278,8 @@ public class DealInformation implements Runnable {
 		DataArk dataArk=dataArkService.findByUuid(uuid);
 		logger.info("-----------updateDataArk:" + uuid+"|"+dataArk.getIp());
 		DataArkListCache.getInstance(dataArkService).addDataArk(uuid, dataArk.getIp());
+		//通知心跳信息改变
+		new ThreadSendHeartbeatRequest().start();
 		request.toBuilder().clear();
 		request.toBuilder().clearUuid();
 	}

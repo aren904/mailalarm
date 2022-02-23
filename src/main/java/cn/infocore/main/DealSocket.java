@@ -14,13 +14,13 @@ import cn.infocore.service.AlarmLogService;
 import cn.infocore.service.ClientBackupService;
 import cn.infocore.service.ClientService;
 import cn.infocore.service.DataArkService;
+import cn.infocore.service.EcsService;
 import cn.infocore.service.EmailAlarmService;
 import cn.infocore.service.MetaService;
 import cn.infocore.service.OssService;
 import cn.infocore.service.QuotaService;
 import cn.infocore.service.RdsService;
 import cn.infocore.service.UserService;
-import cn.infocore.service.impl.EcsServiceImpl;
 import cn.infocore.utils.Utils;
 import lombok.Data;
 
@@ -36,7 +36,7 @@ public class DealSocket implements Runnable {
     
     private RdsService rdsService;
     
-    private EcsServiceImpl ecsService;
+    private EcsService ecsService;
     
     private MetaService metaService;
     
@@ -125,7 +125,7 @@ public class DealSocket implements Runnable {
             	throw new Exception();
             }
             
-            logger.info("Received heartbeat from osnstm.");
+            logger.info("Received heartbeat from osnstm:"+buffer.length);
             header.setErrorCode(StmRetStatus.ST_RES_SUCCESS);
             header.setVersion((byte)1);
             header.setFrom((short) 25);

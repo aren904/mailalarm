@@ -7,6 +7,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,13 +17,13 @@ import cn.infocore.service.AlarmLogService;
 import cn.infocore.service.ClientBackupService;
 import cn.infocore.service.ClientService;
 import cn.infocore.service.DataArkService;
+import cn.infocore.service.EcsService;
 import cn.infocore.service.EmailAlarmService;
+import cn.infocore.service.MetaService;
 import cn.infocore.service.OssService;
 import cn.infocore.service.QuotaService;
 import cn.infocore.service.RdsService;
 import cn.infocore.service.UserService;
-import cn.infocore.service.impl.EcsServiceImpl;
-import cn.infocore.service.impl.MetaServiceImpl;
 
 /**
  * 负责接收来自数据方舟端（stm）发来的心跳，心跳1分钟发一次
@@ -30,20 +32,20 @@ import cn.infocore.service.impl.MetaServiceImpl;
 @Component
 public class ThreadHeartbeat extends Thread {
 	
-private static final Logger logger = Logger.getLogger(ThreadHeartbeat.class);
+	private static final Logger logger = Logger.getLogger(ThreadHeartbeat.class);
 	
     private static final int PORT = 23335;
     
     private ThreadPoolExecutor threadPool;
     
     @Autowired
-    private RdsService rdsService;
+    private static RdsService rdsService;
     
     @Autowired
-    private EcsServiceImpl ecsService;
+    private EcsService ecsService;
     
     @Autowired
-    private MetaServiceImpl metaService;
+    private MetaService metaService;
     
     @Autowired
     private DataArkService dataArkService;
@@ -69,26 +71,17 @@ private static final Logger logger = Logger.getLogger(ThreadHeartbeat.class);
     @Autowired
     private ClientBackupService clientBackupService;
     
-    private static volatile ThreadHeartbeat instance = null;
+    public ThreadHeartbeat() {}
     
-    private ThreadHeartbeat() {
+    @PostConstruct
+    public void init(){
+    	logger.debug("Create pool for ThreadHeartbeat."+dataArkService);
     	//新建一个100-500的线程池
         threadPool = new ThreadPoolExecutor(100, 500, 1, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(1000), new ThreadPoolExecutor.CallerRunsPolicy());
         //无任务执行时回收线程
         threadPool.allowCoreThreadTimeOut(true);
     }
-
-    public static ThreadHeartbeat getInstance() {
-    	if (instance==null) {
-			synchronized (ThreadHeartbeat.class) {
-                if (instance == null) {
-                    instance = new ThreadHeartbeat();
-                }
-            }
-		}
-		return instance;
-    }
-
+    
     @Override
     public void run() {
         ServerSocket serverSocket = null;
@@ -124,6 +117,5 @@ private static final Logger logger = Logger.getLogger(ThreadHeartbeat.class);
                 logger.error(e);
             }
         }
-
     }
 }

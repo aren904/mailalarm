@@ -108,9 +108,9 @@ public class EmailAlarmListCache {
         for (EmailAlarmDTO emailAlarmDTo : emailAlarmDTos) {
             MailSender sender = new MailSender(emailAlarmDTo);
             if (emailAlarmDTo.getRole() < 2) {
-                this.adminSenderMap.put(emailAlarmDTo.getUser_id(), sender);
+                adminSenderMap.put(emailAlarmDTo.getUser_id(), sender);
             }
-            this.normalSenderMap.put(emailAlarmDTo.getUser_id(), sender);
+            normalSenderMap.put(emailAlarmDTo.getUser_id(), sender);
         }
     }
 

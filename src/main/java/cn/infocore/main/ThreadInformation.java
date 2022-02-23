@@ -7,6 +7,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.log4j.Logger;
 import org.newsclub.net.unix.AFUNIXServerSocket;
 import org.newsclub.net.unix.AFUNIXSocketAddress;
@@ -44,23 +46,18 @@ public class ThreadInformation extends Thread {
     
     @Autowired
     private UserService userService;
-
-    private ThreadInformation() {
-    	logger.debug("Create pool for ThreadInformation.");
+    
+    public ThreadInformation() {}
+    
+    @PostConstruct
+    public void init(){
+    	logger.debug("Create pool for ThreadInformation."+dataArkService);
     	//创建一个可重用，固定线程数为10的线程池
         pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
         //空闲线程超过10s便销毁
         pool.setKeepAliveTime(10, TimeUnit.SECONDS);
         //允许空闲核心线程超时
         pool.allowCoreThreadTimeOut(true);
-    }
-    
-    private static class ThreadInformationHolder {
-        public static ThreadInformation instance = new ThreadInformation();
-    }
-    
-    public static ThreadInformation instance() {
-        return ThreadInformationHolder.instance;
     }
 
     @Override

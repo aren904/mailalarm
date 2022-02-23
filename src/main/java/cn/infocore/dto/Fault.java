@@ -29,7 +29,7 @@ public class Fault {
 	private String user_uuid;
 	
 	//0 数据方舟 1.客户端 2.VC 3.虚拟机
-	private Integer Client_type;
+	private int Client_type;
 	
 	//客户端UUID
 	private String Client_id;

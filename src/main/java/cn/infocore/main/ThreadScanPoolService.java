@@ -52,7 +52,7 @@ public class ThreadScanPoolService extends Thread {
 		init();
 		try {
 			startService();
-			logger.info("ThreadScanPoolService is starting....");
+			logger.info("ThreadScanPoolService is starting...."+dataArkService);
 		} catch (InterruptedException e) {
 			logger.error("ThreadScanPoolService interrupted",e);
 
@@ -61,7 +61,7 @@ public class ThreadScanPoolService extends Thread {
 	}
 	
 	
-	public void  startService() throws InterruptedException{
+	public void startService() throws InterruptedException{
 		while(true) {
 			if (pool.getActiveCount()<1 && pool.getQueue().size()<1) {
 				ThreadScanStreamer scan=new ThreadScanStreamer();
