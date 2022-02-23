@@ -3,6 +3,9 @@ package cn.infocore.dto;
 import lombok.Data;
 import lombok.ToString;
 
+/**
+ * 对应StreamerClouddrmanage.FaultType，属于FaultDTO的子集
+ */
 @ToString
 @Data
 public class Fault {

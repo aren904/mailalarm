@@ -3,6 +3,7 @@ package cn.infocore.main;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -24,61 +25,83 @@ public class ThreadSendHeartbeatRequest extends Thread{
 	
 	private static final Logger logger = Logger.getLogger(ThreadSendHeartbeatRequest.class);
 	
+	private volatile boolean reload = true;
+	
 	@Autowired
     private DataArkService dataArkService;
+	
+	private static final long split = 3 * 60;
+	
+	private static List<String> noticedIps = new ArrayList<>();
 
 	@Override
 	public void run() {
-		logger.info("ThreadSendHeartbeatRequest launched."+dataArkService);
-		List<String> ips = dataArkService.findIps();
-    	
-    	for (String ip : ips) {
-    		OutputStream out = null;
-            InputStream sis = null;
-            Socket socket=null;
-    		try {
-	    		StmAlarmManage.SendDataArkIp.Builder builder = StmAlarmManage.SendDataArkIp.newBuilder();
-	            builder.addAllIp(ips);
-	            byte[] bytes = builder.build().toByteArray();
-	
-	            socket = new Socket(ip, 9997);
-                sis = socket.getInputStream();
-                out = socket.getOutputStream();
-                
-                StmHeader header = new StmHeader();
-                header.setVersion((byte) 1);
-                header.setDataType((byte) 2);
-                header.setErrorCode(StmRetStatus.ST_RES_SUCCESS);
-                header.setFlags((short) 0);
-                header.setFrom((short) 25);
-                header.setCommand(StmCommand.ST_OP_MAILALARM_GET_HEARTBEAT);
-                header.setDataLength(bytes.length);
-                
-                logger.debug("sendHeartBeatRequest:"+ip+","+ips.toString());
-                byte[] headerBuffer = header.toByteArray();
-                out.write(headerBuffer, 0, headerBuffer.length);
-                if (bytes != null) {
-                	out.write(bytes, 0, bytes.length);
-                }
-                
-                byte[] headerBuffer1 = new byte[16];
-                int ioret = sis.read(headerBuffer1, 0, 16);
-                if (ioret != 16) {
-                    logger.error("error headerLength!");
-                }
-            } catch (Exception e) {
-            	logger.error(e);
-            } finally {
-            	try {
-            		sis.close();
-                    out.close();
-                    socket.close();
-                } catch (Exception e) {
-                	logger.error(e);
-                }
-            }
-        }
-		
+		while(reload) {
+			List<String> ips = dataArkService.findIps();
+			logger.info("start to sendHeartbeat request:"+ips.toString());
+	    	
+			OutputStream out = null;
+	        InputStream sis = null;
+	        Socket socket=null;
+	        StmAlarmManage.SendDataArkIp.Builder builder = StmAlarmManage.SendDataArkIp.newBuilder();
+	        builder.addAllIp(ips);
+	        byte[] bytes = builder.build().toByteArray();
+	        
+	        StmHeader header = new StmHeader();
+	        header.setVersion((byte) 1);
+	        header.setDataType((byte) 2);
+	        header.setErrorCode(StmRetStatus.ST_RES_SUCCESS);
+	        header.setFlags((short) 0);
+	        header.setFrom((short) 25);
+	        header.setCommand(StmCommand.ST_OP_MAILALARM_GET_HEARTBEAT);
+	        header.setDataLength(bytes.length);
+	        
+	        //取差集
+	        ips.removeAll(noticedIps);
+	        logger.debug("SendHeartBeatRequest to:"+ips.toString());
+	    	for (String ip : ips) {
+	    		try {
+		            logger.debug("current request for heartbeat:"+ip+","+ip.length());
+		            socket = new Socket(ip, 9997);
+	                sis = socket.getInputStream();
+	                out = socket.getOutputStream();
+	                
+	                byte[] headerBuffer = header.toByteArrayLittle();
+	                out.write(headerBuffer, 0, headerBuffer.length);
+	                if (bytes != null) {
+	                	out.write(bytes, 0, bytes.length);
+	                }
+	                
+	                byte[] headerBuffer1 = new byte[16];
+	                int ioret = sis.read(headerBuffer1, 0, 16);
+	                if (ioret != 16) {
+	                    logger.error("error headerLength!");
+	                }
+	                noticedIps.add(ip);
+	            } catch (Exception e) {
+	            	logger.error(e);
+	            } finally {
+	            	try {
+	            		sis.close();
+	                    out.close();
+	                    socket.close();
+	                } catch (Exception e) {
+	                	logger.error(e);
+	                }
+	            }
+	        }
+	    	
+	    	logger.info("current noticed ips:"+noticedIps.toString()+",all:"+ips.toString());
+	    	if(noticedIps.size()==ips.size()) {
+				reload=false;
+			}else {
+				try {
+					Thread.sleep(split * 1000);
+				} catch (InterruptedException e) {
+					logger.error("ThreadSendHeartbeatRequest interrupted...", e);
+				}
+			}
+		}
 	}
 
 }

@@ -73,13 +73,13 @@ public class Client {
     private String ak;
     
     @TableField("sk")
-    private String sk;
+    private byte[] sk;
     
     @TableField("oss_ak")
     private String ossAk;
     
     @TableField("oss_sk")
-    private String ossSk;
+    private byte[] ossSk;
     
     @TableField("oss_bucket")
     private String ossBucket;

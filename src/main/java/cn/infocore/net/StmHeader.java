@@ -118,6 +118,33 @@ public class StmHeader {
 
         return header;
     }
+    
+    public byte[] toByteArrayLittle () {
+    	byte[] header = new byte[STREAMER_HEADER_LENGTH];
+
+        byte[] baVersion = ByteBuffer.allocate(1).order(ByteOrder.LITTLE_ENDIAN).put(STREAMER_VERSION_CODE).array();
+        System.arraycopy(baVersion, 0, header, 0, 1);
+
+        byte[] baDatatype=ByteBuffer.allocate(1).order(ByteOrder.LITTLE_ENDIAN).put(this.dataType).array();
+        System.arraycopy(baDatatype, 0, header, 1, 1);
+        
+        byte[] baErrorCode = ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN).putShort(this.errorCode.getShort()).array();
+        System.arraycopy(baErrorCode, 0, header, 2, 2);
+
+        byte[] baFlags=ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN).putShort(this.flags).array();
+        System.arraycopy(baFlags, 0, header, 4, 2);
+        
+        byte[] baFrom=ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN).putShort(this.from).array();
+        System.arraycopy(baFrom, 0, header, 6, 2);
+
+        byte[] baCommand=ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(this.command.getValue()).array();
+        System.arraycopy(baCommand, 0, header, 8, 4);
+
+        byte[] baLength = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(this.dataLength).array();
+        System.arraycopy(baLength, 0, header, 12, 4);
+
+        return header;
+    }
 
     public void logMe () {
         logger.debug(String.format("[version]:%s [dataType]:%s [ErrorCode]:%s [Flags]:%s [from]:%s [Command]:%s [Data length]:%s",

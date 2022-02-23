@@ -16,8 +16,6 @@ import lombok.experimental.Accessors;
 @Data
 public class FaultDTO {
     
-    private volatile boolean done = false;
-    
     private String dataArkUuid;
     
     private String dataArkIp;

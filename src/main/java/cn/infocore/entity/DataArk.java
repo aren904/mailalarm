@@ -70,7 +70,7 @@ public class DataArk {
     private String userUuid;
     
     @TableField(value = "user_password")
-    private String userPassword;
+    private byte[] userPassword;
     
     @TableField(value = "exceptions")
     private String exceptions;

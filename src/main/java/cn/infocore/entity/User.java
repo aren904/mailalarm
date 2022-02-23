@@ -24,7 +24,7 @@ public class User {
     private String name;
     
     @TableField(value = "password")
-    private String password;
+    private byte[] password;
     
     @TableField(value = "phone")
     private String phone;
@@ -43,5 +43,8 @@ public class User {
     
     @TableField(value = "user_group_id")
     private int userGroupId;
+    
+    @TableField(value = "salt")
+    private byte[] salt;
     
 }
