@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import cn.infocore.service.DataArkService;
 import cn.infocore.service.EmailAlarmService;
 import cn.infocore.service.SnmpService;
+import cn.infocore.service.UserService;
 
 /**
  * 每隔5秒检查一次，如果无扫描线程在，则启动扫描
@@ -35,6 +36,9 @@ public class ThreadScanPoolService extends Thread {
 	
 	@Autowired
 	private EmailAlarmService emailAlarmService;
+	
+	@Autowired
+	private UserService userService;
 	
 	public ThreadScanPoolService init() {
 		if (!flag) {
@@ -68,6 +72,7 @@ public class ThreadScanPoolService extends Thread {
 				scan.setDataArkService(dataArkService);
 				scan.setEmailAlarmService(emailAlarmService);
 				scan.setMySnmpService(mySnmpService);
+				scan.setUserService(userService);
 				pool.execute(scan);
 			}
 			Thread.sleep(snapTime);

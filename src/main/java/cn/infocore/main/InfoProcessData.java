@@ -1,6 +1,7 @@
 package cn.infocore.main;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -79,12 +80,16 @@ public class InfoProcessData {
     public void run() throws SQLException {
         logHeartbeat(hrt);
 
-        // 获取DataArkList缓存的链表<uuid,ip>
-        Set<String> uSet = DataArkListCache.getInstance(dataArkService).getData_ark_list().keySet();
-        logger.debug("Current cache with uuid,ip in DataArkList:" + uSet);
+        // 获取数据库中获取<uuid,ip>
+        List<DataArk> dataArks=dataArkService.list();
+        List<String> uuids=new ArrayList<>();
+        for(DataArk dataArk:dataArks) {
+        	uuids.add(dataArk.getUuid());
+        }
+        logger.debug("Current DataArk list in DB:" + dataArks.size()+"|"+uuids.toString());
         
-        if (uSet.contains(hrt.getUuid())) {
-            logger.debug("Received to heartbeat from osnstm,uuid:"+hrt.getUuid()+" is in DataArkList cache.");
+        if (uuids.contains(hrt.getUuid())) {
+            logger.debug("Received to heartbeat from osnstm,uuid:"+hrt.getUuid()+" is in dataArks DB.");
 
             // 初始化
             data_ark = new DataArkDTO();
@@ -240,6 +245,7 @@ public class InfoProcessData {
                         Fault fault = new Fault();
                         fault.setTimestamp(now);
                         fault.setUser_uuid(user_uuid);
+                        fault.setUser_id(user_id);
                         fault.setType(f.getNumber());
                         fault.setData_ark_uuid(data_ark.getUuid());
                         fault.setData_ark_name(data_ark.getName());
@@ -300,6 +306,7 @@ public class InfoProcessData {
                         Fault fault = new Fault();
                         fault.setTimestamp(now);
                         fault.setUser_uuid(user_uuid);
+                        fault.setUser_id(user_id);
                         fault.setType(faultType.getNumber());
                         fault.setData_ark_uuid(data_ark.getUuid());
                         fault.setData_ark_name(data_ark.getName());
@@ -347,6 +354,7 @@ public class InfoProcessData {
                         Fault fault = new Fault();
                         fault.setTimestamp(now);
                         fault.setUser_uuid(user_uuid);
+                        fault.setUser_id(user_id);
                         fault.setType(f.getNumber());
                         fault.setData_ark_uuid(data_ark.getUuid());
                         fault.setData_ark_name(data_ark.getName());
@@ -421,6 +429,7 @@ public class InfoProcessData {
                         Fault mFault = new Fault();
                         mFault.setTimestamp(now);
                         mFault.setUser_uuid(user.getUuid());
+                        mFault.setUser_id(user.getId());
                         mFault.setType(f.getNumber());
                         mFault.setData_ark_uuid(dataServer.getUuid());
                         mFault.setData_ark_name(dataServer.getName());

@@ -19,8 +19,6 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
 
-import cn.hutool.cache.CacheUtil;
-import cn.hutool.cache.impl.TimedCache;
 import cn.infocore.dto.EmailAlarmDTO;
 import cn.infocore.dto.Fault;
 
@@ -31,9 +29,11 @@ public class MailSender {
 	
     private static final Logger logger = Logger.getLogger(MailSender.class);
     
-    private static Map<String, Long> howOfen = new ConcurrentHashMap<>();// 内存维护的发送间隔时间
+    //内存维护的键值对<某异常唯一标识，告警时间>
+    private static Map<String, Long> howOfen = new ConcurrentHashMap<>();
     
-    private static TimedCache<String, String> timedCache = CacheUtil.newTimedCache(10 * 60 * 1000); //缓存时间为10min
+    //缓存时间为10min
+    //private static TimedCache<String, String> timedCache = CacheUtil.newTimedCache(10 * 60 * 1000); 
     
     private EmailAlarmDTO config;
     
@@ -52,7 +52,7 @@ public class MailSender {
         properties.put("mail.smtp.host", config.getSmtpAddress());
         properties.put("mail.transport.protocol", "smtp");//
         //properties.put("mail.smtp.port", config.getSmtp_port());
-        properties.put("mail.smtp.starttls.enable", config.getSslRncryptEnabled() == (byte) 0 ? "false" : "true");
+        properties.put("mail.smtp.starttls.enable", config.getSslEncryptEnabled() == (byte) 0 ? "false" : "true");
 		/*properties.put("mail.user", config.getSmtp_user_id());
 		properties.put("mail.password", config.getStmp_password());
 		s = Session.getDefaultInstance(properties, new Authenticator() {
@@ -86,7 +86,7 @@ public class MailSender {
     public void judge(Fault fault, Long userId) {
     	logger.info("----------UserId:" + userId + ",exception:" + config.getExceptions() + ",fault type:" 
         		+ fault.getType() + ",enabled:" + config.getEnabled() + ",target:" + fault.getTarget_name()+"|"+fault.getTarget_uuid()
-        		+ ",timestamp:" + fault.getTimestamp());
+        		+ ",timestamp:" + fault.getTimestamp()+",limitSuppressTime:"+config.getLimitSuppressTime());
     	
     	//未启用过滤
         if (config.getEnabled() == 0) {
@@ -102,31 +102,18 @@ public class MailSender {
             if (Integer.parseInt(except)==fault.getType()) {
                 // 是否开启限制同一时间内只发送一封邮件
                 String key = userId + fault.getData_ark_uuid() + fault.getTarget_name() + fault.getType();
-                if (config.getLimitEnabled() == 0) {
-                    // 未开启,直接发送异常邮件
-                    try {
-                        logger.info(userId + " not enabled limit,send email:" + fault.getTarget_name() + "," + fault.getType());
+                
+                // 未开启,默认一分钟
+                long split = config.getLimitEnabled() == 0?60:config.getLimitSuppressTime();
+                if ((howOfen.get(key) == null || howOfen.get(key) + split <= now)) {
+            		try {
+                        logger.info(userId + " send email:" + fault.getTarget_name() + "," + fault.getType()+",per split:"+split);
                         send(fault);
                     } catch (Exception e) {
                         logger.error(userId + " filed to send email.",e);
                     }
                     howOfen.put(key, now);// 保存一下发送的时间戳
-                } else {
-                    // 已经开启
-                    long split = config.getLimitSuppressTime();
-                    logger.info(split);
-                    //初始map,未添加过或者指定时间内未添加过
-                    if ((howOfen.get(key) == null || howOfen.get(key) + split <= now) && timedCache.get(key, false) == null) {
-                        timedCache.put(key, key);
-                        try {
-                            logger.info(userId + " enabled limit,send email:" + fault.getTarget_name() + "," + fault.getType());
-                            send(fault);
-                        } catch (Exception e) {
-                        	logger.error(userId + " filed to send email.",e);
-                        }
-                        howOfen.put(key, now);// 保存一下发送的时间戳
-                    }
-                }
+            	}
             }
         }
     }

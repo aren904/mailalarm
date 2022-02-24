@@ -1,5 +1,6 @@
 package cn.infocore.manager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -10,9 +11,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
 
 import cn.infocore.dto.EmailAlarmDTO;
+import cn.infocore.dto.Fault;
+import cn.infocore.dto.FaultDTO;
 import cn.infocore.entity.EmailAlarm;
 import cn.infocore.entity.User;
 import cn.infocore.mapper.EmailAlarmMapper;
+import cn.infocore.protobuf.StmAlarmManage;
+import cn.infocore.service.UserService;
 
 @Service
 public class EmailAlarmManager extends ServiceImpl<EmailAlarmMapper, EmailAlarm> {
@@ -21,6 +26,9 @@ public class EmailAlarmManager extends ServiceImpl<EmailAlarmMapper, EmailAlarm>
 	
 	@Autowired
     private EmailAlarmMapper mailMapper;
+	
+	@Autowired
+    private UserService userService;
 	
 	/**
 	 * 联合查询，当前用户和邮件的配置
@@ -60,5 +68,44 @@ public class EmailAlarmManager extends ServiceImpl<EmailAlarmMapper, EmailAlarm>
                 .eq(EmailAlarm::getUserId, userId));
 		return emailAlarmDto;
 	}
+	
+	/**
+     * 将FaultDTO转化成Fault集合，拥有该异常的用户都要发
+     * @param faultDto
+     * @return
+     */
+    public List<Fault> convertFaultWithUsers(FaultDTO faultDto) {
+        List<StmAlarmManage.FaultType> faultTypes = faultDto.getFaultTypes();
+
+        String dataArkId = faultDto.getDataArkUuid();
+        String dataArkIp = faultDto.getDataArkIp();
+        String data_ark_name = faultDto.getDataArkName();
+        String targetId = faultDto.getTargetUuid();
+        String targetName = faultDto.getTargetName();
+        StmAlarmManage.ClientType clientType = faultDto.getClientType();
+        List<String> userUuids = faultDto.getUserUuids();
+        Long timestamp = faultDto.getTimestamp();
+        
+        List<Fault> faults = new ArrayList<Fault>();
+        for (StmAlarmManage.FaultType faultType : faultTypes) {
+            for (String userUuid : userUuids) {
+            	User user=userService.findByUuid(userUuid);
+                Integer code = faultType.getNumber();
+                Fault fault = new Fault();
+                fault.setType(code);
+                fault.setClient_id(targetId);
+                fault.setClient_type(clientType.getNumber());
+                fault.setData_ark_uuid(dataArkId);
+                fault.setData_ark_ip(dataArkIp);
+                fault.setData_ark_name(data_ark_name);
+                fault.setTarget_name(targetName);
+                fault.setUser_uuid(userUuid);
+                fault.setUser_id(user.getId());
+                fault.setTimestamp(timestamp);
+                faults.add(fault);
+            }
+        }
+        return faults;
+    }
     
 }

@@ -39,7 +39,7 @@ public class EmailAlarmDTO {
     private byte[] smtpPassword;
     
     //是否开启SSL
-    private byte sslRncryptEnabled;
+    private byte sslEncryptEnabled;
     
     //收件人
     private String receiverEmails;

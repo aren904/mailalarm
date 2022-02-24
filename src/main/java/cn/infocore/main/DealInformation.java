@@ -164,8 +164,8 @@ public class DealInformation implements Runnable {
 				break;
 			case 2301:
 				try {
-					CloudAlarmManage.CreateEmailAlarmRequest request = CloudAlarmManage.CreateEmailAlarmRequest.parseFrom(buffer);
-					createEmailAlarm(request);
+					//CloudAlarmManage.CreateEmailAlarmRequest request = CloudAlarmManage.CreateEmailAlarmRequest.parseFrom(buffer);
+					//createEmailAlarm(request);
 					header.setErrorCode(CMRetStatus.ST_RES_SUCCESS);
 				} catch (Exception e) {
 					logger.error("Failed to CreateEmailAlarm.",e);
@@ -181,8 +181,8 @@ public class DealInformation implements Runnable {
 				break;
 			case 2303:
 				try {
-					CloudAlarmManage.UpdateEmailAlarmRequest request = CloudAlarmManage.UpdateEmailAlarmRequest.parseFrom(buffer);
-					updateEmailAlarm(request);
+					//CloudAlarmManage.UpdateEmailAlarmRequest request = CloudAlarmManage.UpdateEmailAlarmRequest.parseFrom(buffer);
+					//updateEmailAlarm(request);
 					header.setErrorCode(CMRetStatus.ST_RES_SUCCESS);
 				} catch (Exception e) {
 					logger.error("Failed to UpdateEmailAlarm.",e);
@@ -247,7 +247,7 @@ public class DealInformation implements Runnable {
 		String uuid = request.getUuid();
 		DataArk dataArk=dataArkService.findByUuid(uuid);
 		logger.info("-----------addDataArk:" + uuid+"|"+dataArk.getIp());
-		DataArkListCache.getInstance(dataArkService).addDataArk(uuid, dataArk.getIp());
+		//DataArkListCache.getInstance(dataArkService).addDataArk(uuid, dataArk.getIp());
 		//通知心跳信息改变
 		new ThreadSendHeartbeatRequest().start();
 		request.toBuilder().clear();
@@ -261,7 +261,7 @@ public class DealInformation implements Runnable {
 	private void removeDataArk(CloudAlarmManage.RemoveDataArkRequest request){
 		String uuid = request.getUuid();
 		logger.info("-----------removeDataArk:" + uuid);
-		DataArkListCache.getInstance(dataArkService).removeDataArk(uuid);
+		//DataArkListCache.getInstance(dataArkService).removeDataArk(uuid);
 		//通知心跳信息改变
 		new ThreadSendHeartbeatRequest().start();
 		request.toBuilder().clear();
@@ -276,11 +276,11 @@ public class DealInformation implements Runnable {
 		String uuid = request.getUuid();
 		DataArk dataArk=dataArkService.findByUuid(uuid);
 		logger.info("-----------updateDataArk:" + uuid+"|"+dataArk.getIp());
-		DataArkListCache.getInstance(dataArkService).addDataArk(uuid, dataArk.getIp());
+		//DataArkListCache.getInstance(dataArkService).addDataArk(uuid, dataArk.getIp());
 		//通知心跳信息改变
 		new ThreadSendHeartbeatRequest().start();
-		request.toBuilder().clear();
-		request.toBuilder().clearUuid();
+		//request.toBuilder().clear();
+		//request.toBuilder().clearUuid();
 	}
 
 	/**
@@ -290,7 +290,7 @@ public class DealInformation implements Runnable {
 	private void createEmailAlarm(CloudAlarmManage.CreateEmailAlarmRequest request){
 		String userUuid = request.getUserUuid();
 		logger.info("createEmailAlarm:" + userUuid);
-		emailAlarmService.addEmailAlarm(userUuid);
+		//emailAlarmService.addEmailAlarm(userUuid);
 		request.toBuilder().clear();
 		request.toBuilder().clearUserUuid();
 	}
@@ -302,7 +302,7 @@ public class DealInformation implements Runnable {
 	private void updateEmailAlarm(CloudAlarmManage.UpdateEmailAlarmRequest request){
 		String userUuid = request.getUserUuid();
 		logger.info("updateEmailAlarm:" + userUuid);
-		emailAlarmService.addEmailAlarm(userUuid);
+		//emailAlarmService.addEmailAlarm(userUuid);
 		request.toBuilder().clear();
 		request.toBuilder().clearUserUuid();
 	}
@@ -313,22 +313,27 @@ public class DealInformation implements Runnable {
 	 * @return
 	 * @throws Exception
 	 */
-	private boolean verifyEmailAlarm(CloudAlarmManage.VerifyEmailAlarmRequest request) throws Exception{
-		EmailAlarmDTO email = new EmailAlarmDTO();
-		email.setSenderEmail(request.getAlarmEmailConfig().getSenderEmail());
-		email.setSmtpAddress(request.getAlarmEmailConfig().getSmtpAddress());
-		email.setSslRncryptEnabled(request.getAlarmEmailConfig().getIsSslEncryptEnabled() ? (byte) 1 : 0);
-		email.setSmtpAuthEnabled(request.getAlarmEmailConfig().getIsSmtpAuthentication() ? (byte) 1 : 0);
-		email.setSmtpUserUuid(request.getAlarmEmailConfig().getSmtpUserUuid());
-		email.setSmtpPassword(request.getAlarmEmailConfig().getSmtpPassword().getBytes());
-		List<String> list = request.getAlarmEmailConfig().getReceiverEmailsList();
-		StringBuilder builder = new StringBuilder();
-		for (String s : list) {
-			builder.append(s + ";");
+	private boolean verifyEmailAlarm(CloudAlarmManage.VerifyEmailAlarmRequest request){
+		boolean result=false;
+		try {
+			EmailAlarmDTO email = new EmailAlarmDTO();
+			email.setSenderEmail(request.getAlarmEmailConfig().getSenderEmail());
+			email.setSmtpAddress(request.getAlarmEmailConfig().getSmtpAddress());
+			email.setSslEncryptEnabled(request.getAlarmEmailConfig().getIsSslEncryptEnabled() ? (byte) 1 : 0);
+			email.setSmtpAuthEnabled(request.getAlarmEmailConfig().getIsSmtpAuthentication() ? (byte) 1 : 0);
+			email.setSmtpUserUuid(request.getAlarmEmailConfig().getSmtpUserUuid());
+			email.setSmtpPassword(request.getAlarmEmailConfig().getSmtpPassword().getBytes());
+			List<String> list = request.getAlarmEmailConfig().getReceiverEmailsList();
+			StringBuilder builder = new StringBuilder();
+			for (String s : list) {
+				builder.append(s + ";");
+			}
+			email.setReceiverEmails(builder.toString());
+			result = new MailSender(email).sendTest(null);
+			request.toBuilder().clear();
+		} catch (Exception e) {
+			logger.error("Failed to verifyEmailAlarm.",e);
 		}
-		email.setReceiverEmails(builder.toString());
-		boolean result = new MailSender(email).sendTest(null);
-		request.toBuilder().clear();
 		return result;
 	}
 

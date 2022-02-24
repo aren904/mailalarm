@@ -61,7 +61,7 @@ public class EmailAlarm {
     
     //是否开启SSL
 	@TableField(value = "ssl_encrypt_enabled")
-    private byte sslRncryptEnabled;
+    private byte sslEncryptEnabled;
     
     //收件人
 	@TableField(value = "receiver_emails")

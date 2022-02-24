@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -14,9 +13,11 @@ import cn.infocore.dto.Fault;
 import cn.infocore.dto.VCenterDTO;
 import cn.infocore.dto.VirtualMachineDTO;
 import cn.infocore.entity.DataArk;
+import cn.infocore.entity.User;
 import cn.infocore.service.DataArkService;
 import cn.infocore.service.EmailAlarmService;
 import cn.infocore.service.SnmpService;
+import cn.infocore.service.UserService;
 import lombok.Data;
 
 /**
@@ -35,6 +36,8 @@ public class ThreadScanStreamer implements Runnable {
 	private SnmpService mySnmpService;
 	
 	private EmailAlarmService emailAlarmService;
+	
+	private UserService userService;
 	
 	private static volatile ThreadScanStreamer instance = null;
 	
@@ -56,9 +59,6 @@ public class ThreadScanStreamer implements Runnable {
 	@Override
 	public void run() {
 		List<String> uuids = null;
-		//获取当前数据库的数据方舟记录写入缓存，并初始化心跳时间0L
-		DataArkListCache.getInstance(dataArkService);
-		EmailAlarmListCache.getInstance(emailAlarmService);
 		
 		while (true) {
 			try {
@@ -135,9 +135,11 @@ public class ThreadScanStreamer implements Runnable {
 					fault.setTarget_name("null");
 					fault.setTarget_uuid("null");
 					fault.setUser_uuid("null");
+					fault.setUser_id(0L);
 					fault.setClient_id("null");
 					fault.setData_ark_uuid("null");
 				} else {
+					User user=userService.findByUuid(dataArk.getUserUuid());
 					dataArkDto.setUser_uuid(dataArk.getUserUuid());
 					dataArkDto.setName(dataArk.getName());
 					dataArkDto.setIp(dataArk.getIp());
@@ -148,6 +150,7 @@ public class ThreadScanStreamer implements Runnable {
 					fault.setTarget_name(dataArkDto.getName());
 					fault.setTarget_uuid(dataArkDto.getUuid());
 					fault.setUser_uuid(dataArkDto.getUser_uuid());
+					fault.setUser_id(user.getId());
 					fault.setClient_id(uuid);
 					fault.setData_ark_uuid(uuid);
 				}

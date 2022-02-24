@@ -28,8 +28,10 @@ public class Fault {
 	//数据方舟名或客户端名或vc或虚拟机
 	private String target_name;
 	
-	//所属用户名
+	//所属用户
 	private String user_uuid;
+	
+	private Long user_id;
 	
 	//0 数据方舟 1.客户端 2.VC 3.虚拟机
 	private int Client_type;

@@ -13,9 +13,6 @@ import cn.infocore.dto.VirtualMachineDTO;
 
 public interface EmailAlarmService {
 	
-	//添加、更新邮件服务
-	void addEmailAlarm(String name);
-	
 	//通知
 	void notifyCenter(DataArkDTO data_ark,List<ClientDTO> clientList,List<VCenterDTO> vcList,List<VirtualMachineDTO> vmList,List<Fault> list_fault) throws SQLException;
 

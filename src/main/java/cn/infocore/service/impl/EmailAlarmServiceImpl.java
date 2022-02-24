@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +18,12 @@ import cn.infocore.dto.FaultEnum;
 import cn.infocore.dto.VCenterDTO;
 import cn.infocore.dto.VirtualMachineDTO;
 import cn.infocore.entity.Quota;
-import cn.infocore.entity.User;
-import cn.infocore.main.EmailAlarmListCache;
 import cn.infocore.manager.AlarmLogManager;
 import cn.infocore.manager.ClientManager;
 import cn.infocore.manager.DataArkManager;
 import cn.infocore.manager.EmailAlarmManager;
 import cn.infocore.manager.QuotaManager;
-import cn.infocore.manager.UserManager;
 import cn.infocore.service.EmailAlarmService;
-import cn.infocore.utils.ConvertUtils;
 import cn.infocore.utils.MailSender;
 
 @Service
@@ -37,13 +32,7 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
     private static final Logger logger = Logger.getLogger(EmailAlarmServiceImpl.class);
     
     @Autowired
-    private EmailAlarmService emailAlarmService;
-    
-    @Autowired
     private EmailAlarmManager mailManager;
-    
-    @Autowired
-    private UserManager userManager;
     
     @Autowired
     private AlarmLogManager alarmLogManager;
@@ -61,18 +50,6 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
 	public List<EmailAlarmDTO> findAllWithUser() {
 		return mailManager.findAllWithUser();
 	}
-
-    /**
-     * 为指定用户添加或更新邮件配置：一个用户有0个或者1个配置
-     */
-    @Override
-    public void addEmailAlarm(String userUuid) {
-    	User user=userManager.findUserByUuid(userUuid);
-    	if(user!=null) {
-    		EmailAlarmDTO emailAlarmDto=mailManager.findByUserId(user.getId());
-    		EmailAlarmListCache.getInstance(emailAlarmService).addEmailAlarm(user.getId(), emailAlarmDto);
-    	}
-    }
 
     /**
      * 查询指定用户是否添加过该客户端
@@ -180,16 +157,19 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
                 }
 
                 if (fault.getType() != 0) {
-                	//normalSenderMap包含所有邮件用户配置
-                	Map<Long, MailSender> normalSenderMap=EmailAlarmListCache.getInstance(emailAlarmService).getNormalSenderMap();
-                	
+                	//查找当前异常对应的用户的邮件配置
+                	EmailAlarmDTO emailAlarmDTO=mailManager.findByUserId(fault.getUser_id());
                 	logger.info(fault.getUser_uuid() + "," + fault.getData_ark_ip() +","+fault.getTarget_uuid()
-                		+ " to send email for fault:"+fault.getType()+", normalSenderMap:"+normalSenderMap.size());
-                    for (Map.Entry<Long, MailSender> entry : normalSenderMap.entrySet()) {
-                        Long userId = entry.getKey();
-                        MailSender mailSender = entry.getValue();
-                        
-                        // 判断是否属于管理员用户，管理员配置则直接触发告警邮件，普通用户需要判断是否拥有该异常
+                		+ " to send email for fault:"+fault.getType()+", emailAlarmDTO userId:"+emailAlarmDTO.getUserId()+"|"+emailAlarmDTO.getEnabled());
+                    
+                	if (emailAlarmDTO==null||emailAlarmDTO.getEnabled() == (byte) 0) {
+                		//未启用则不需要邮件告警
+                		logger.debug(fault.getUser_uuid()+" Email_alarm is not enabled.");
+                	}else {
+                		MailSender mailSender = new MailSender(emailAlarmDTO);
+                		Long userId=fault.getUser_id();
+                		
+                		// 判断是否属于管理员用户，管理员配置则直接触发告警邮件，普通用户需要判断是否拥有该异常
                         EmailAlarmDTO conf = mailSender.getConfig();
                         if (conf.getRole() == 0 || conf.getRole() == 1) {
                             mailSender.judge(fault, userId);
@@ -218,7 +198,7 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
                                         + fault.getData_ark_uuid());
                             }
                         }
-                    }
+                	}
                 }
             } catch (Exception e) {
                 logger.error(fault.getUser_uuid() + ":" + e);
@@ -233,46 +213,28 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
     public void sendFaults(List<FaultDTO> faultDtos) {
         for (FaultDTO faultDto : faultDtos) {
             // 所有对象将DTO对象解析为异常集合
-            List<Fault> faults = ConvertUtils.convertFaultWithUsers(faultDto);
-        	Map<Long, MailSender> normalSenderMap=EmailAlarmListCache.getInstance(emailAlarmService).getNormalSenderMap();
-            logger.debug("Mail sender User:" + normalSenderMap.toString());
+            List<Fault> faults = mailManager.convertFaultWithUsers(faultDto);
             
             for (Fault fault : faults) {
-                logger.debug("Send mail user faults:" + fault.toString());
-                String userUuid = fault.getUser_uuid();
-                Long userId = userManager.findUserByUuid(userUuid).getId();
+            	EmailAlarmDTO emailAlarmDTO=mailManager.findByUserId(fault.getUser_id());
+            	logger.info("Other "+fault.getUser_uuid() + "," + fault.getData_ark_ip() +","+fault.getTarget_uuid()
+            		+ " to send email for fault:"+fault.getType()+", emailAlarmDTO userId:"+emailAlarmDTO.getUserId()+"|"+emailAlarmDTO.getEnabled());
                 
-                //获取缓存的用户邮件配置键值对里符合要求的对象，触发告警
-                MailSender sender = normalSenderMap.get(userId);
-                for (Map.Entry<Long, MailSender> map : normalSenderMap.entrySet()) {
-                    if (userId!=null && sender != null) {
-                        if (userId.equals(map.getKey())){
-                            try {
-								sender.judge(fault, userId);
-							} catch (Exception e) {
-								logger.error("Failed to send nirmal mail to" + userId + " failed", e);
-							}
-                        }
-                    }
-                }
+            	if (emailAlarmDTO==null||emailAlarmDTO.getEnabled() == (byte) 0) {
+            		//未启用则不需要邮件告警
+            		logger.debug(fault.getUser_uuid()+" Email_alarm is not enabled.");
+            	}else {
+            		logger.debug("Send mail user faults:" + fault.toString());
+            		
+            		Long userId=fault.getUser_id();
+            		try {
+            			MailSender mailSender = new MailSender(emailAlarmDTO);
+                    	mailSender.judge(fault, userId);
+					} catch (Exception e) {
+						logger.error("Failed to send nirmal mail to" + userId + " failed", e);
+					}
+            	}
             }
-            
-            // 管理员都对象
-            /*Set<Map.Entry<Long, MailSender>> senderSet = this.adminSenderMap.entrySet();
-            logger.debug("==========Mail sender admin:" + adminSenderMap.toString());
-            List<Fault> adminFaults = ConvertUtils.convertFault(faultDto);
-            for (Map.Entry<Long, MailSender> entry : senderSet) {
-                MailSender sender = entry.getValue();
-                Long userId = entry.getKey();
-                for (Fault fault : adminFaults) {
-                	logger.debug("Send mail admin faults:" + fault.toString());
-                    try {
-                        sender.judge(fault, userId);
-                    } catch (Exception e) {
-                        logger.error("Failed to send admin mail to" + userId + " failed", e);
-                    }
-                }
-            }*/
         }
 
     }
