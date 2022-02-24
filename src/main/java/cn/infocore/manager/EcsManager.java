@@ -67,12 +67,12 @@ public class EcsManager extends ServiceImpl<ClientMapper,Client>{
     public List<FaultDTO> convertECSInstanceFaults(List<StmAlarmManage.FaultType> faultTypes, StmAlarmManage.EcsInstanceInfo ecsInstanceInfo) {
         LinkedList<FaultDTO> faultList = new LinkedList<FaultDTO>();
         if (faultTypes != null) {
-            FaultDTO faultSimple = new FaultDTO();
-            faultSimple.setClientType(StmAlarmManage.ClientType.EcsInstance);
-            faultSimple.setFaultTypes(faultTypes);
-            faultSimple.setTargetUuid(ecsInstanceInfo.getId());
-            faultSimple.setTargetName(ecsInstanceInfo.getName());
-            faultList.add(faultSimple);
+            FaultDTO fault = new FaultDTO();
+            fault.setClientType(StmAlarmManage.ClientType.EcsInstance);
+            fault.setFaultTypes(faultTypes);
+            fault.setTargetUuid(ecsInstanceInfo.getId());
+            fault.setTargetName(ecsInstanceInfo.getName());
+            faultList.add(fault);
         }
         return faultList;
     }
@@ -85,10 +85,10 @@ public class EcsManager extends ServiceImpl<ClientMapper,Client>{
 	public List<FaultDTO> convertEcsClientFaults(List<StmAlarmManage.FaultType> faultTypes) {
         LinkedList<FaultDTO> faultList = new LinkedList<FaultDTO>();
         if (faultTypes != null) {
-            FaultDTO faultSimple = new FaultDTO();
-            faultSimple.setClientType(StmAlarmManage.ClientType.Ecs);
-            faultSimple.setFaultTypes(faultTypes);
-            faultList.add(faultSimple);
+            FaultDTO fault = new FaultDTO();
+            fault.setClientType(StmAlarmManage.ClientType.Ecs);
+            fault.setFaultTypes(faultTypes);
+            faultList.add(fault);
         }
         return faultList;
     }

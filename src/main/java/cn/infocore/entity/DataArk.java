@@ -89,5 +89,9 @@ public class DataArk {
 
     @TableField(value = "ecs_endpoint_updated_version")
     private Integer ecsEndpointUpdatedVersion;
+    
+    //最近接收到的心跳时间
+    @TableField(value = "updated_timestamp")
+    private Long updatedTimestamp;
 
 }

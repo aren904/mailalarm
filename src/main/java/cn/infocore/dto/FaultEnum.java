@@ -50,7 +50,7 @@ public enum FaultEnum {
     OSS_CLIENT_OFFLINE(40, "oss客户端离线"),
     OSS_BACKUP_SERVICE_OFFLINE(41, "oss备份模块服务异常"),
     OSS_BACKUP_SPACE_HAS_REACHED_THRESHOLD(42, "oss备份空间达到阈值"),
-    //    added by xyr
+    
     OSS_BACKUP_DST_LOST(43, "OSS备份目标丢失,本地目录丢失"),
     OSS_BACKUP_SOURCE_LOST(44, "OSS备份源丢失，即云上桶或目录丢失"),
     ECS_AUTH_ABNORMAL(45, "ECS认证异常"),
@@ -68,7 +68,8 @@ public enum FaultEnum {
     RDS_BACKUP_DST_LOST(57, "RDS目标丢失，本地目录丢失"), 
     ORACLE_BACKUP_SPACE_HAS_EXCEEDED_THRESHOLD(58,"Oracle备份空间达到阈值" ),
     CLIENT_INIT_MIRROR_FAILED(59,"代理客户端同步数据失败"),
-    STMVDA_SERVICE_OFFLINE(60,"stmvda 服务离线"),
+    //8.0新增的服务离线异常，在数据方舟的exceptions
+    STMVDA_SERVICE_OFFLINE(60,"stmvda 服务离线"), 
     STMVDP_SERVICE_OFFLINE(61,"stmvdp 服务离线"),
     STMRECOVERY_SERVICE_OFFLINE(62,"stmrecovery 服务离线"),
     SCMP_SERVICE_OFFLINE(63,"scmp 服务离线"),

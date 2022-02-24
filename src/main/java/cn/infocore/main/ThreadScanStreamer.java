@@ -55,24 +55,22 @@ public class ThreadScanStreamer implements Runnable {
 
 	@Override
 	public void run() {
-		Map<String, Long> map = null;
 		List<String> uuids = null;
 		//获取当前数据库的数据方舟记录写入缓存，并初始化心跳时间0L
 		DataArkListCache.getInstance(dataArkService);
+		EmailAlarmListCache.getInstance(emailAlarmService);
 		
 		while (true) {
 			try {
-				//获取数据方舟心跳列表：如果是初始化的时间就是0L，之后是从心跳里获取的
-				map = HeartCache.getInstance().getAllCacheList();
-				
-				logger.info("Start check data_ark state....current cache data_ark size:" + map.size());
+				List<DataArk> dataArks=dataArkService.list();
+				logger.info("Start check data_ark state....current cache data_ark size:" + dataArks.size());
 				uuids = new ArrayList<String>();
-				if (map.size() > 0) {
-					for (Map.Entry<String, Long> entry : map.entrySet()) {
-						String uuid = entry.getKey();
-						long time = entry.getValue();
+				if (dataArks.size() > 0) {
+					for(DataArk dataArk:dataArks) {
+						String uuid=dataArk.getUuid();
+						Long updateTimestamp = dataArk.getUpdatedTimestamp();
 						long now = System.currentTimeMillis() / 1000;
-						if (now - time > split) {
+						if (updateTimestamp!=null&&now - updateTimestamp > split) {
 							// 当前时间-最后更新的时间>3分钟,认为掉线
 							logger.info("uuid:" + uuid + " is offline,update database.");
 							updateOffLine(uuid, false);

@@ -42,7 +42,7 @@ public class ClientManager extends ServiceImpl<ClientMapper,Client> {
 	}
     
     /**
-     * 根据uuid获取有用该客户端的用户uuid列表
+     * 根据uuid获取有用该客户端/关系的用户uuid列表
      * @param uuid
      * @return
      */

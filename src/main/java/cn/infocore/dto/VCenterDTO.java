@@ -3,11 +3,13 @@ package cn.infocore.dto;
 import java.util.List;
 
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * 无代理客户端整合
  */
 @Data
+@ToString
 public class VCenterDTO {
 
     private String uuid;
@@ -37,18 +39,5 @@ public class VCenterDTO {
         }
         string.deleteCharAt(string.length() - 1);
         setException(string.toString());
-    }
-
-    @Override
-    public String toString() {
-        return "Vcenter{" +
-                "uuid='" + uuid + '\'' +
-                ", name='" + name + '\'' +
-                ", ips='" + ips + '\'' +
-                ", excep='" + exception + '\'' +
-                ", client_group_id='" + client_group_id + '\'' +
-                ", data_ark_id='" + data_ark_id + '\'' +
-                ", faults=" + faults +
-                '}';
     }
 }

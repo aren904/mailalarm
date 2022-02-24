@@ -6,6 +6,7 @@ import lombok.Data;
 
 /**
  * 有代理客户端整合对象：只包含本服务需要的信息
+ * 客户端等对象，可能对应数据库多条记录，因为一个对象可以被多个用户和多个数据方舟添加，数据方舟也可被多个用户添加
  */
 @Data
 public class ClientDTO{
@@ -34,9 +35,6 @@ public class ClientDTO{
 	//对应Data_ark中的id字段，是外健
 	private String data_ark_id;
 	
-	//对应User中的id字段，是外健
-	private String user_id;
-
 	public void setFaultList(List<Fault> fList) {
 		this.fList = fList;
 		StringBuilder string=new StringBuilder();

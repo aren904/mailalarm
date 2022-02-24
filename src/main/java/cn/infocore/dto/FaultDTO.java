@@ -32,6 +32,7 @@ public class FaultDTO {
     //异常类型
     private List<StmAlarmManage.FaultType> faultTypes;
     
+    //拥有该异常集合的所有用户UUIDS
     private List<String> userUuids;
     
     private Long timestamp;

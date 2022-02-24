@@ -3,15 +3,15 @@ package cn.infocore.dto;
 import java.util.List;
 
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * 虚拟机整合
  */
 @Data
+@ToString
 public class VirtualMachineDTO {
 
-	//private String id;
-	
 	private String uuid;
 
 	private String name;
@@ -28,9 +28,6 @@ public class VirtualMachineDTO {
 	// 对应Data_ark的id字段，外健
 	private String data_ark_id;
 	
-	// 对应User的id字段，外健
-	private String user_id;
-
 	private int system_Version;
 
 	public void setFaults(List<Fault> faults) {
@@ -44,20 +41,5 @@ public class VirtualMachineDTO {
 			string.deleteCharAt(string.length() - 1);
 		}
 		setException(string.toString());
-	}
-
-	@Override
-	public String toString() {
-		return "VirtualMachine{" +
-				", uuid='" + uuid + '\'' +
-				", name='" + name + '\'' +
-				", path='" + path + '\'' +
-				", except='" + exception + '\'' +
-				", faults=" + faults +
-				", vcenter_id='" + vcenter_id + '\'' +
-				", data_ark_id='" + data_ark_id + '\'' +
-				", user_id='" + user_id + '\'' +
-				", system_Version=" + system_Version +
-				'}';
 	}
 }

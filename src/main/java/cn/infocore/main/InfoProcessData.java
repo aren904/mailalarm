@@ -83,13 +83,9 @@ public class InfoProcessData {
         Set<String> uSet = DataArkListCache.getInstance(dataArkService).getData_ark_list().keySet();
         logger.debug("Current cache with uuid,ip in DataArkList:" + uSet);
         
-        long now = System.currentTimeMillis() / 1000;
         if (uSet.contains(hrt.getUuid())) {
             logger.debug("Received to heartbeat from osnstm,uuid:"+hrt.getUuid()+" is in DataArkList cache.");
 
-            // 把所有心跳过来的时间更新到HeartCache,做这个是为了检测数据方舟离线的.
-            HeartCache.getInstance().addHeartCache(hrt.getUuid(), now);
-            
             // 初始化
             data_ark = new DataArkDTO();
             //数据方舟，有代理客户端，VC,VM的异常
@@ -102,7 +98,7 @@ public class InfoProcessData {
             
             //解析心跳信息
             parse(hrt);
-            //更新数据方舟
+            //更新数据方舟(包括最近更新时间为当前)
             dataArkService.update(data_ark);
 
             //更新客户端与虚拟机
@@ -180,11 +176,12 @@ public class InfoProcessData {
             	fault.setDataArkName(hrt.getServer().getName());
             	fault.setTimestamp(System.currentTimeMillis() / 1000);
             }
+            logger.debug("Start to notice fault for heartbeat..."+faultDtos.size());
             alarmLogService.noticeFaults(faultDtos);
             
             if (faults.size() > 0) {
             	//启动邮件报警
-            	logger.debug("Start to notice fault for heartbeat...");
+            	logger.debug("Start to notice client fault for heartbeat..."+faults.size());
             	emailAlarmService.notifyCenter(data_ark, clientList, vcList, vmList, faults);
             }
 
@@ -302,7 +299,7 @@ public class InfoProcessData {
                     for (StmAlarmManage.FaultType faultType : vmwareStateList) {
                         Fault fault = new Fault();
                         fault.setTimestamp(now);
-                        fault.setUser_uuid(user_uuid );
+                        fault.setUser_uuid(user_uuid);
                         fault.setType(faultType.getNumber());
                         fault.setData_ark_uuid(data_ark.getUuid());
                         fault.setData_ark_name(data_ark.getName());
@@ -392,6 +389,7 @@ public class InfoProcessData {
         dataServer.setUsed_cap(streamer.getUsed());
         dataServer.setTotal_oracle_capacity(streamer.getOracleVol());
         dataServer.setTotal_rds_capacity(streamer.getRdsVol());
+        dataServer.setUpdatedTimestamp(System.currentTimeMillis() / 1000);
         
         //配额
         Long racUsed = streamer.getRacUsed();
@@ -411,7 +409,7 @@ public class InfoProcessData {
         dataServer.setMetaUsed(metaUsed);
         dataServer.setLimitVcenterVmCount((int)streamer.getMaxVcenterVm());
 
-        //心跳过来的异常：每一个拥有该数据方舟的用户都需要构造Fault
+        //心跳过来的异常：每一个拥有该数据方舟的用户都需要构造Fault，到时候需要给每一个用户都发
         if(dataArk!=null) {
         	List<Quota> quotas=quotaService.findByDataArkId(dataArk.getId());
         	for(Quota quota:quotas) {

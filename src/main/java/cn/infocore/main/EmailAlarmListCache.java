@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.log4j.Logger;
 
 import cn.infocore.dto.EmailAlarmDTO;
-import cn.infocore.manager.EmailAlarmManager;
+import cn.infocore.service.EmailAlarmService;
 import cn.infocore.utils.MailSender;
 
 /**
@@ -20,13 +20,13 @@ public class EmailAlarmListCache {
     //user_id与MailSender的键值对
 	private static Map<Long, MailSender> normalSenderMap=null;// 必须线程安全
     
-    private static Map<Long, MailSender> adminSenderMap=null;
+    private static Map<Long, MailSender> adminSenderMap=null; //暂未用到，后续考虑去掉
     
     private static volatile EmailAlarmListCache instance = null;
 	
 	private EmailAlarmListCache() {}
 	
-	public static EmailAlarmListCache getInstance(EmailAlarmManager mailManager) {
+	public static EmailAlarmListCache getInstance(EmailAlarmService emailAlarmService) {
 		if (instance==null) {
 			synchronized (EmailAlarmListCache.class) {
                 if (instance == null) {
@@ -35,9 +35,8 @@ public class EmailAlarmListCache {
                     normalSenderMap = new ConcurrentHashMap<Long, MailSender>();
         	        adminSenderMap = new ConcurrentHashMap<Long, MailSender>();
         			
-        			logger.info("Init,Start get all emailalarm from database.");
-        			logger.info("mailManager:"+mailManager);
-        			List<EmailAlarmDTO> emailAlaramDtos=mailManager.findAllWithUser();
+        			logger.info("-----------Init,Start get all emailalarm from database.");
+        			List<EmailAlarmDTO> emailAlaramDtos=emailAlarmService.findAllWithUser();
         	        
         	        if (emailAlaramDtos.size() > 0) {
         	            logger.info("Get mail config count:" + emailAlaramDtos.size());
@@ -45,13 +44,18 @@ public class EmailAlarmListCache {
         	                if (emailAlaram.getEnabled() == (byte) 0) {
         	                    continue;
         	                }
-        	                MailSender sender = new MailSender(emailAlaram);
-        	                if (emailAlaram.getRole() < 2) {
-        	                    adminSenderMap.put(emailAlaram.getUser_id(), sender);
-        	                }
-        	                normalSenderMap.put(emailAlaram.getUser_id(), sender);
+        	                
+							try {
+								MailSender sender = new MailSender(emailAlaram);
+								if (emailAlaram.getRole() < 2) {
+	        	                    adminSenderMap.put(emailAlaram.getUserId(), sender);
+	        	                }
+	        	                normalSenderMap.put(emailAlaram.getUserId(), sender);
+							} catch (Exception e) {
+								logger.error("Failed to collect mail config:"+emailAlaram.getUserId(),e);
+							}
         	            }
-        	            logger.info("Collected mail config finished.");
+        	            logger.info("Collected mail config finished,normalSenderMap count:"+normalSenderMap.size());
         	        } else {
         	            logger.warn("Collected mail config failed.");
         	        }
@@ -61,9 +65,14 @@ public class EmailAlarmListCache {
 		return instance;
 	}
 
-	//添加
+	/**
+	 * 添加/更新邮件配置缓存
+	 * @param userId
+	 * @param emailAlarmDto
+	 */
 	public synchronized void addEmailAlarm(Long userId,EmailAlarmDTO emailAlarmDto) {
 		if (emailAlarmDto.getEnabled() == (byte) 0) {
+			logger.debug("start to remove email config:"+emailAlarmDto.getUserId());
         	//对于禁用的要删除
 			if (emailAlarmDto.getRole() < 2) {
                 if (adminSenderMap.containsKey(userId)) {
@@ -74,15 +83,19 @@ public class EmailAlarmListCache {
                 normalSenderMap.remove(userId);
             }
         }else {
-        	//对于添加，则收集到数据库
-            MailSender sender = new MailSender(emailAlarmDto);
-            if (emailAlarmDto.getRole() < 2) {
-                adminSenderMap.put(emailAlarmDto.getUser_id(), sender);
-            }
-            normalSenderMap.put(userId, sender);
+        	//启用的需要添加或更新
+			try {
+				MailSender sender = new MailSender(emailAlarmDto);
+				if (emailAlarmDto.getRole() < 2) {
+	                adminSenderMap.put(emailAlarmDto.getUserId(), sender);
+	            }
+	            normalSenderMap.put(userId, sender);
+			} catch (Exception e) {
+				logger.error("Failed to add mail config:"+emailAlarmDto.getUserId(),e);
+			}
         }
-        logger.info("add or update mail config for user:"+emailAlarmDto.getUser_id()+" successfully! "+
-        		"current normalSenderMap size:"+normalSenderMap.size()+",adminSenderMap size:"+adminSenderMap.size());
+        logger.info("add or update mail config for user:"+emailAlarmDto.getUserId()+" successfully! "+
+        		"current normalSenderMap size:"+normalSenderMap.size());
 	}
 
 	//移除
@@ -104,14 +117,4 @@ public class EmailAlarmListCache {
 		return adminSenderMap;
 	}
 	
-	public synchronized void addAllEmailAlarm(List<EmailAlarmDTO> emailAlarmDTos) {
-        for (EmailAlarmDTO emailAlarmDTo : emailAlarmDTos) {
-            MailSender sender = new MailSender(emailAlarmDTo);
-            if (emailAlarmDTo.getRole() < 2) {
-                adminSenderMap.put(emailAlarmDTo.getUser_id(), sender);
-            }
-            normalSenderMap.put(emailAlarmDTo.getUser_id(), sender);
-        }
-    }
-
 }

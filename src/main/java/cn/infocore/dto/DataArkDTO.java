@@ -67,6 +67,8 @@ public class DataArkDTO {
     private int rds_endpoint_updated_version;
 
     private int oss_endpoint_updated_version;
+    
+    private Long updatedTimestamp;
 
     /**
      * 转字符串保存到数据库

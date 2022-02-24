@@ -35,8 +35,6 @@ public class DataArkListCache {
         			List<DataArk> dataArks=dataArkService.list();
         			for (DataArk dataArk:dataArks) {
         				data_ark_list.put(dataArk.getUuid(),dataArk.getIp());
-        				//同时初始化维护数据方舟掉线的列表
-        				HeartCache.getInstance().addHeartCache(dataArk.getUuid(), 0L);
         			}
         			logger.info("Succeed to get data ark,count:"+data_ark_list.size());
                 }

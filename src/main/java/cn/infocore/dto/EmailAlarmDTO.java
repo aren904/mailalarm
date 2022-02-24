@@ -1,13 +1,13 @@
 package cn.infocore.dto;
 
-import java.util.Arrays;
-
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
 public class EmailAlarmDTO {
 	
-    private long user_id;
+    private Long userId;
 
     //是否开启邮件报警
     private byte enabled;
@@ -16,54 +16,35 @@ public class EmailAlarmDTO {
     private String exceptions;
     
     //是否启用限制：同一告警事件在 limit_suppress_time
-    private byte limit_enabled;
+    private byte limitEnabled;
     
     //时间范围内只发送一封邮件
-    private long limit_suppress_time;
+    private Long limitSuppressTime;
     
     //发件人邮箱
-    private String sender_email;
+    private String senderEmail;
     
     //授权密码
     //smtp服务器地址
-    private String smtp_address;
+    private String smtpAddress;
     
     //smtp端口
-    private int smtp_port;
+    private Integer smtpPort;
 	
 	//是否启用身份验证
-    private byte smtp_auth_enabled;
+    private byte smtpAuthEnabled;
 	
-	private String smtp_user_uuid;
+	private String smtpUserUuid;
 
-    private byte[] smtp_password;
+    private byte[] smtpPassword;
     
     //是否开启SSL
-    private byte ssl_encrypt_enabled;
+    private byte sslRncryptEnabled;
     
     //收件人
-    private String receiver_emails;
+    private String receiverEmails;
 
     //该发件人的权限等级： 1和0是管理员级别，普通用户是2，见user表
     private int role;
-
-    @Override
-    public String toString() {
-        return "Email_alarm{" +
-                "user_id='" + user_id + '\'' +
-                ", enabled=" + enabled +
-                ", exceptions='" + exceptions + '\'' +
-                ", limit_enabled=" + limit_enabled +
-                ", limit_suppress_time=" + limit_suppress_time +
-                ", sender_email='" + sender_email + '\'' +
-                ", smtp_address='" + smtp_address + '\'' +
-                ", smtp_port=" + smtp_port +
-                ", ssl_encrypt_enabled=" + ssl_encrypt_enabled +
-                ", receiver_emails='" + receiver_emails + '\'' +
-                ", role=" + role +
-                ", smtp_auth_enabled=" + smtp_auth_enabled +
-                ", smtp_user_uuid='" + smtp_user_uuid + '\'' +
-                ", smtp_password=" + Arrays.toString(smtp_password) +
-                '}';
-    }
+    
 }

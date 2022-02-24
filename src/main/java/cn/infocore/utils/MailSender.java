@@ -41,16 +41,18 @@ public class MailSender {
     
     private Session s;
 
-    public MailSender(EmailAlarmDTO config) {
-        this.config = config;
+    public MailSender(EmailAlarmDTO config) throws Exception {
+    	this.config = config;
+    	logger.debug("MailSender config:"+config.toString());
+    	
         final Properties properties = new Properties();
-        properties.put("mail.smtp.auth", config.getSmtp_auth_enabled() == (byte) 0 ? "false" : "true");
+        properties.put("mail.smtp.auth", config.getSmtpAuthEnabled() == (byte) 0 ? "false" : "true");
         //properties.put("mail.debug", "true");
         properties.put("mail.debug", "false");
-        properties.put("mail.smtp.host", config.getSmtp_address());
+        properties.put("mail.smtp.host", config.getSmtpAddress());
         properties.put("mail.transport.protocol", "smtp");//
         //properties.put("mail.smtp.port", config.getSmtp_port());
-        properties.put("mail.smtp.starttls.enable", config.getSsl_encrypt_enabled() == (byte) 0 ? "false" : "true");
+        properties.put("mail.smtp.starttls.enable", config.getSslRncryptEnabled() == (byte) 0 ? "false" : "true");
 		/*properties.put("mail.user", config.getSmtp_user_id());
 		properties.put("mail.password", config.getStmp_password());
 		s = Session.getDefaultInstance(properties, new Authenticator() {
@@ -61,17 +63,14 @@ public class MailSender {
 		});*/
         s = Session.getInstance(properties);
         message = new MimeMessage(s);
-        try {
-            Address from = new InternetAddress(config.getSender_email());
-            message.setFrom(from);
+        
+        Address from = new InternetAddress(config.getSenderEmail());
+        message.setFrom(from);
 
-            // 设置收件人邮箱,这里是多个收件人
-            String[] recv = config.getReceiver_emails().split(";");
-            for (String r : recv) {
-                message.addRecipient(Message.RecipientType.TO, new InternetAddress(r));
-            }
-        } catch (Exception e) {
-            logger.error("Failed to create MailSender.",e);
+        // 设置收件人邮箱,这里是多个收件人
+        String[] recv = config.getReceiverEmails().split(";");
+        for (String r : recv) {
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(r));
         }
     }
 
@@ -103,7 +102,7 @@ public class MailSender {
             if (Integer.parseInt(except)==fault.getType()) {
                 // 是否开启限制同一时间内只发送一封邮件
                 String key = userId + fault.getData_ark_uuid() + fault.getTarget_name() + fault.getType();
-                if (config.getLimit_enabled() == 0) {
+                if (config.getLimitEnabled() == 0) {
                     // 未开启,直接发送异常邮件
                     try {
                         logger.info(userId + " not enabled limit,send email:" + fault.getTarget_name() + "," + fault.getType());
@@ -114,7 +113,7 @@ public class MailSender {
                     howOfen.put(key, now);// 保存一下发送的时间戳
                 } else {
                     // 已经开启
-                    long split = config.getLimit_suppress_time();
+                    long split = config.getLimitSuppressTime();
                     logger.info(split);
                     //初始map,未添加过或者指定时间内未添加过
                     if ((howOfen.get(key) == null || howOfen.get(key) + split <= now) && timedCache.get(key, false) == null) {
@@ -170,18 +169,18 @@ public class MailSender {
 
             Transport transport = s.getTransport();
 
-            logger.info("Start sending mail to " + config.getSmtp_user_uuid()+",smtpPassword:"+config.getSmtp_password());
+            logger.info("Start sending mail to " + config.getSmtpUserUuid()+",smtpPassword:"+config.getSmtpPassword());
             //密钥
             byte[] key = hexStringToByteArray("cff315f48817496b9f23538c2d83942e");
             SecretKey secretKey = new SecretKeySpec(key, "AES");
-            String s = TestAesGcmAe.decrypt(config.getSmtp_password(), secretKey, null);
+            String s = TestAesGcmAe.decrypt(config.getSmtpPassword(), secretKey, null);
             logger.info("解密后的字段:"+s);
 
-            transport.connect(config.getSmtp_user_uuid(), s);
+            transport.connect(config.getSmtpUserUuid(), s);
             // 发送
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
-            logger.info("Mail send is successful.user :" + config.getSmtp_user_uuid());
+            logger.info("Mail send is successful.user :" + config.getSmtpUserUuid());
             return true;
         } catch (Exception e) {
         	logger.error("mail sent failed", e);
@@ -224,12 +223,12 @@ public class MailSender {
             message.setSentDate(new Date());
             Transport transport = s.getTransport();
 
-            logger.info("Start sending test mail to " + config.getSmtp_user_uuid()+",smtpPassword:"+new String(config.getSmtp_password()));
-            transport.connect(config.getSmtp_user_uuid(),new String(config.getSmtp_password()));
+            logger.info("Start sending test mail to " + config.getSmtpUserUuid()+",smtpPassword:"+new String(config.getSmtpPassword()));
+            transport.connect(config.getSmtpUserUuid(),new String(config.getSmtpPassword()));
             // 发送
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
-            logger.info("Test Mail send is successful.user :" + config.getSmtp_user_uuid());
+            logger.info("Test Mail send is successful.user :" + config.getSmtpUserUuid());
             return true;
         } catch (Exception e) {
         	logger.error("Test mail sent failed", e);

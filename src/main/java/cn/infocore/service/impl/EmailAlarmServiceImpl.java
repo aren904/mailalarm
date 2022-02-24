@@ -37,6 +37,9 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
     private static final Logger logger = Logger.getLogger(EmailAlarmServiceImpl.class);
     
     @Autowired
+    private EmailAlarmService emailAlarmService;
+    
+    @Autowired
     private EmailAlarmManager mailManager;
     
     @Autowired
@@ -59,11 +62,6 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
 		return mailManager.findAllWithUser();
 	}
 
-    @Override
-    public void addAllEmailAlarm(List<EmailAlarmDTO> emailAlarmDTos) {
-        EmailAlarmListCache.getInstance(mailManager).addAllEmailAlarm(emailAlarmDTos);
-    }
-
     /**
      * 为指定用户添加或更新邮件配置：一个用户有0个或者1个配置
      */
@@ -72,7 +70,7 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
     	User user=userManager.findUserByUuid(userUuid);
     	if(user!=null) {
     		EmailAlarmDTO emailAlarmDto=mailManager.findByUserId(user.getId());
-    		EmailAlarmListCache.getInstance(mailManager).addEmailAlarm(user.getId(), emailAlarmDto);
+    		EmailAlarmListCache.getInstance(emailAlarmService).addEmailAlarm(user.getId(), emailAlarmDto);
     	}
     }
 
@@ -94,14 +92,15 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
     		List<Fault> list_fault) throws SQLException {
         for (Fault fault : list_fault) {
             try {
-                logger.info("-----------Userid:" + fault.getUser_uuid() + ",faultType:" + fault.getType() + ",target info:"
-                        + fault.getTarget_name()+"|"+fault.getTarget_uuid() + ",data_ark ip:" + fault.getData_ark_ip() + ",client_uuid:"
-                        + fault.getClient_id()+",ClientType:"+fault.getClient_type());
+            	//对于数据方舟Data_ark就是target就是client，对于client，target就是client
+                logger.info("-----------Useruuid:" + fault.getUser_uuid() + ",data_ark ip:" + fault.getData_ark_ip() + ",targetInfo:" 
+                		+ fault.getTarget_name()+"|"+fault.getTarget_uuid()  + ",client:"+fault.getClient_id()+"|"+fault.getClient_type()
+                		+ ",faultType:" + fault.getType());
 
                 if (fault.getType() == FaultEnum.NORMAL.getCode()) {
                 	//当前异常类型是NORMAL，即现在正常，则自动确认历史异常（除异常信息不是虚拟机快照点创建失败的，离线建立快照点，VMWARE同步数据失败不能自动确认）
                 	//???以上三种类型是文档里定义的不需要确认
-                	alarmLogManager.updateConfirm(fault.getData_ark_uuid(), fault.getClient_id());
+                	alarmLogManager.updateConfirm(fault.getData_ark_uuid(), fault.getClient_id(),fault.getUser_uuid());
                 } else {
                 	//当前为异常，不是NORMAL
                 	//excepts是由Faults转换而来
@@ -141,14 +140,14 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
                     if (excepts != "" && excepts != null) {
                         currentErrors.addAll(Arrays.asList(excepts.split(";")));
                     }
-                    logger.info("DataArkId:"+fault.getData_ark_uuid()+",target:" +fault.getTarget_uuid()+"|"+fault.getTarget_name()+"|"+fault.getClient_type()
-                    	+",Current error:" + currentErrors.toString());
+                    logger.info("Useruuid:" + fault.getUser_uuid() + ",data_ark ip:" + fault.getData_ark_ip() +",targetInfo:" 
+                    		+fault.getTarget_uuid()+"|"+fault.getTarget_name()+",Current error:" + currentErrors.toString());
 
-                    // 获取目标对象的未确认异常
-                    List<Integer> dbErrors=alarmLogManager.findUnconfirmByDataArkUuidAndTargetUuidAndTargetName(fault.getData_ark_uuid(), 
-                    		fault.getClient_id(),fault.getTarget_name());
-                    logger.info("DataArkId:"+fault.getData_ark_uuid()+",target:" +fault.getTarget_uuid()+"|"+fault.getTarget_name()+"|"+fault.getClient_type()
-                		+",DB error:" + dbErrors.toString());
+                    // 获取指定用户的目标对象的未确认异常
+                    List<Integer> dbErrors=alarmLogManager.findUnconfirmByDataArkUuidAndTargetUuidAndTargetNameAndUserUuid(fault.getData_ark_uuid(), 
+                    		fault.getClient_id(),fault.getTarget_name(),fault.getUser_uuid());
+                    logger.info("Useruuid:" + fault.getUser_uuid() + ",data_ark ip:" + fault.getData_ark_ip() +",targetInfo:" 
+                    		+fault.getTarget_uuid()+"|"+fault.getTarget_name()+",DB error:" + dbErrors.toString());
 
                     //数据库存在而当前不存在的需要确认
                     logger.info("Start to compare current and db errors...");
@@ -160,7 +159,7 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
                             if (type == 11 || type == 12 || type == 24 || type == 25 || type == 26) {
                                 logger.info("The error:"+type+" don't need to confirm.");
                             } else {
-                            	alarmLogManager.autoConfirmLog(fault.getData_ark_uuid(), fault.getClient_id(), type);
+                            	alarmLogManager.autoConfirmLog(fault.getData_ark_uuid(), fault.getClient_id(), fault.getUser_uuid(),type);
                             }
                         }
                     }
@@ -182,13 +181,15 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
 
                 if (fault.getType() != 0) {
                 	//normalSenderMap包含所有邮件用户配置
-                	Map<Long, MailSender> normalSenderMap=EmailAlarmListCache.getInstance(mailManager).getNormalSenderMap();
+                	Map<Long, MailSender> normalSenderMap=EmailAlarmListCache.getInstance(emailAlarmService).getNormalSenderMap();
                 	
+                	logger.info(fault.getUser_uuid() + "," + fault.getData_ark_ip() +","+fault.getTarget_uuid()
+                		+ " to send email for fault:"+fault.getType()+", normalSenderMap:"+normalSenderMap.size());
                     for (Map.Entry<Long, MailSender> entry : normalSenderMap.entrySet()) {
                         Long userId = entry.getKey();
                         MailSender mailSender = entry.getValue();
                         
-                        // 判断是否属于管理员用户
+                        // 判断是否属于管理员用户，管理员配置则直接触发告警邮件，普通用户需要判断是否拥有该异常
                         EmailAlarmDTO conf = mailSender.getConfig();
                         if (conf.getRole() == 0 || conf.getRole() == 1) {
                             mailSender.judge(fault, userId);
@@ -204,6 +205,8 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
                                 	Integer count = findArkIdAndUserIdAndId(fault, dataArkId,userId);
                                     if (count.intValue() > 0) {
                                         mailSender.judge(fault, userId);
+                                    }else {
+                                    	logger.debug("UserId:"+userId+",dataArkId:"+dataArkId+" does not has the fault:"+fault);
                                     }
                                 } else {
                                 	// 针对数据方舟直接告警
@@ -224,14 +227,14 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
     }
 
     /**
-     * 解析心跳异常：需要邮件告警的发送告警
+     * 解析心跳异常(ecs之类的客户端)：需要邮件告警的发送告警
      */
     @Override
     public void sendFaults(List<FaultDTO> faultDtos) {
         for (FaultDTO faultDto : faultDtos) {
             // 所有对象将DTO对象解析为异常集合
             List<Fault> faults = ConvertUtils.convertFaultWithUsers(faultDto);
-        	Map<Long, MailSender> normalSenderMap=EmailAlarmListCache.getInstance(mailManager).getNormalSenderMap();
+        	Map<Long, MailSender> normalSenderMap=EmailAlarmListCache.getInstance(emailAlarmService).getNormalSenderMap();
             logger.debug("Mail sender User:" + normalSenderMap.toString());
             
             for (Fault fault : faults) {

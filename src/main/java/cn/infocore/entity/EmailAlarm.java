@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
 public class EmailAlarm {
 	
 	@TableId(value = "user_id")
-    private Long user_id;
+    private Long userId;
 
     //是否开启邮件报警
 	@TableField(value = "enabled")
@@ -30,7 +30,7 @@ public class EmailAlarm {
     
     //是否启用限制：同一告警事件在 limit_suppress_time
 	@TableField(value = "limit_enabled")
-    private Long limitEnabled;
+    private byte limitEnabled;
     
     //时间范围内只发送一封邮件
 	@TableField(value = "limit_suppress_time")

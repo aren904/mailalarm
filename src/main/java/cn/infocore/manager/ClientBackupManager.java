@@ -32,7 +32,7 @@ public class ClientBackupManager extends ServiceImpl<ClientBackupMapper, ClientB
      */
     public void updateClientBackup(ClientBackup clientBackup) {
         try {
-        	logger.debug("Update client backup:"+clientBackup.toString());
+        	//logger.debug("Update client backup:"+clientBackup.toString());
 			LambdaQueryWrapper<ClientBackup> queryWrapper = new LambdaQueryWrapper<>();
 			queryWrapper.eq(ClientBackup::getUuid, clientBackup.getUuid());
 			this.update(clientBackup, queryWrapper);
@@ -140,7 +140,7 @@ public class ClientBackupManager extends ServiceImpl<ClientBackupMapper, ClientB
                     sb.deleteCharAt(sb.length() - 1);
                 }
                 vmExceptions = sb.toString();
-                logger.debug("vm: " + vm.getName()+"|"+vm.getUuid() + ",exceptions:" + vmExceptions);
+                //logger.debug("vm: " + vm.getName()+"|"+vm.getUuid() + ",exceptions:" + vmExceptions);
             }
 		}
         ClientBackup clientBackup = new ClientBackup();

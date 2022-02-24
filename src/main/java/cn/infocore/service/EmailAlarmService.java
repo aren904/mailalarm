@@ -13,9 +13,6 @@ import cn.infocore.dto.VirtualMachineDTO;
 
 public interface EmailAlarmService {
 	
-	//添加所有邮件服务
-	void addAllEmailAlarm(List<EmailAlarmDTO> l);
-	
 	//添加、更新邮件服务
 	void addEmailAlarm(String name);
 	

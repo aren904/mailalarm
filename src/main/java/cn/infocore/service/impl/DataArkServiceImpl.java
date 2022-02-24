@@ -44,7 +44,8 @@ public class DataArkServiceImpl implements DataArkService {
                 .setUsedOssSpaceSize(ossUsed)
                 .setUsedMdbSpaceSize(metaUsed)
                 .setLimitClientCount(data_ark.getLimitClientCount())
-                .setLimitVcenterVmCount(data_ark.getLimitVcenterVmCount());
+                .setLimitVcenterVmCount(data_ark.getLimitVcenterVmCount())
+                .setUpdatedTimestamp(data_ark.getUpdatedTimestamp());
         
         logger.debug("Update data_ark:"+dataArk.toString());
         dataArkManager.updateByUuid(dataArk);

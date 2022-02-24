@@ -20,16 +20,6 @@ public class AlarmLogServiceImpl implements AlarmLogService {
     private EmailAlarmService mailService;   
     
     /**
-	 * 查找指定客户端未确认的异常集合
-	 * @param targetUuid
-	 * @return
-	 */
-    @Override
-	public List<Integer> findVmUncheckedExceptions(String targetUuid) {
-    	return alarmLogManager.findVmUncheckedExceptions(targetUuid);
-	}
-    
-    /**
      * 处理心跳异常：更新/新建，自动确认，发送告警
      */
     @Override

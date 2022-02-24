@@ -262,7 +262,6 @@ public class DealInformation implements Runnable {
 		String uuid = request.getUuid();
 		logger.info("-----------removeDataArk:" + uuid);
 		DataArkListCache.getInstance(dataArkService).removeDataArk(uuid);
-		HeartCache.getInstance().removeHeartCache(uuid);
 		//通知心跳信息改变
 		new ThreadSendHeartbeatRequest().start();
 		request.toBuilder().clear();
@@ -316,18 +315,18 @@ public class DealInformation implements Runnable {
 	 */
 	private boolean verifyEmailAlarm(CloudAlarmManage.VerifyEmailAlarmRequest request) throws Exception{
 		EmailAlarmDTO email = new EmailAlarmDTO();
-		email.setSender_email(request.getAlarmEmailConfig().getSenderEmail());
-		email.setSmtp_address(request.getAlarmEmailConfig().getSmtpAddress());
-		email.setSsl_encrypt_enabled(request.getAlarmEmailConfig().getIsSslEncryptEnabled() ? (byte) 1 : 0);
-		email.setSmtp_auth_enabled(request.getAlarmEmailConfig().getIsSmtpAuthentication() ? (byte) 1 : 0);
-		email.setSmtp_user_uuid(request.getAlarmEmailConfig().getSmtpUserUuid());
-		email.setSmtp_password(request.getAlarmEmailConfig().getSmtpPassword().getBytes());
+		email.setSenderEmail(request.getAlarmEmailConfig().getSenderEmail());
+		email.setSmtpAddress(request.getAlarmEmailConfig().getSmtpAddress());
+		email.setSslRncryptEnabled(request.getAlarmEmailConfig().getIsSslEncryptEnabled() ? (byte) 1 : 0);
+		email.setSmtpAuthEnabled(request.getAlarmEmailConfig().getIsSmtpAuthentication() ? (byte) 1 : 0);
+		email.setSmtpUserUuid(request.getAlarmEmailConfig().getSmtpUserUuid());
+		email.setSmtpPassword(request.getAlarmEmailConfig().getSmtpPassword().getBytes());
 		List<String> list = request.getAlarmEmailConfig().getReceiverEmailsList();
 		StringBuilder builder = new StringBuilder();
 		for (String s : list) {
 			builder.append(s + ";");
 		}
-		email.setReceiver_emails(builder.toString());
+		email.setReceiverEmails(builder.toString());
 		boolean result = new MailSender(email).sendTest(null);
 		request.toBuilder().clear();
 		return result;

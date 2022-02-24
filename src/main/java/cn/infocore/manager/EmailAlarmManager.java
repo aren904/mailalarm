@@ -33,10 +33,9 @@ public class EmailAlarmManager extends ServiceImpl<EmailAlarmMapper, EmailAlarm>
                 + "from email_alarm,user where email_alarm.user_id=user.id";
 		 */
 		List<EmailAlarmDTO> emailAlarmDtos = mailMapper.selectJoinList(EmailAlarmDTO.class,
-                new MPJLambdaWrapper<EmailAlarm>()
-                .selectAll(EmailAlarm.class)
+                new MPJLambdaWrapper<EmailAlarm>().selectAll(EmailAlarm.class)
                 .select(User::getRole)
-                .leftJoin(User.class, User::getId, EmailAlarm::getUser_id));
+                .leftJoin(User.class, User::getId, EmailAlarm::getUserId));
 		
 		logger.debug("findAllWithUser EmailAlarmDTO size:"+emailAlarmDtos.size());
 		return emailAlarmDtos;
@@ -57,8 +56,8 @@ public class EmailAlarmManager extends ServiceImpl<EmailAlarmMapper, EmailAlarm>
                 new MPJLambdaWrapper<EmailAlarm>()
                 .selectAll(EmailAlarm.class)
                 .select(User::getRole)
-                .leftJoin(User.class, User::getId, EmailAlarm::getUser_id)
-                .eq(EmailAlarm::getUser_id, userId));
+                .leftJoin(User.class, User::getId, EmailAlarm::getUserId)
+                .eq(EmailAlarm::getUserId, userId));
 		return emailAlarmDto;
 	}
     
