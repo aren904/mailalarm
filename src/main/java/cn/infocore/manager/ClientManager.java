@@ -1,6 +1,7 @@
 package cn.infocore.manager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,10 +23,18 @@ public class ClientManager extends ServiceImpl<ClientMapper,Client> {
     @Autowired
     private UserManager userManager;
     
-    public Integer listCount(Long userId,Long dataArkId,int type) {
+    public boolean existExcept(Long userId,Long dataArkId,String clientUuid,int type) {
     	LambdaQueryWrapper<Client> queryWrapper = new LambdaQueryWrapper<>();
-    	queryWrapper.eq(Client::getUserId,userId).eq(Client::getDataArkId, dataArkId).eq(Client::getType, type);
-    	return this.count(queryWrapper);
+    	queryWrapper.eq(Client::getUserId,userId).eq(Client::getDataArkId, dataArkId).eq(Client::getUuId, clientUuid);
+    	List<Client> clients = this.list(queryWrapper);
+    	for(Client client:clients) {
+    		List<String> exceptions=Arrays.asList(client.getExceptions().split(";"));
+    		if(exceptions.contains(String.valueOf(type))) {
+    			logger.debug("userId:"+userId+",dataArkId:"+dataArkId+",clientInfo:"+client.getUuId()+" has fault:"+type);
+    			return true;
+    		}
+    	}
+    	return false;
     }
     
     /**
@@ -61,7 +70,7 @@ public class ClientManager extends ServiceImpl<ClientMapper,Client> {
     
 	public void updateClient(Client client) {
 		try {
-			logger.debug("Update client:"+client.toString());
+			//logger.debug("Update client:"+client.toString());
 			LambdaQueryWrapper<Client> queryWrapper = new LambdaQueryWrapper<>();
 			queryWrapper.eq(Client::getUuId,client.getUuId());
 			this.update(client,queryWrapper);

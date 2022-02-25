@@ -84,38 +84,44 @@ public class MailSender {
      * @param user
      */
     public void judge(Fault fault, Long userId) {
-    	logger.info("----------UserId:" + userId + ",exception:" + config.getExceptions() + ",fault type:" 
-        		+ fault.getType() + ",enabled:" + config.getEnabled() + ",target:" + fault.getTarget_name()+"|"+fault.getTarget_uuid()
-        		+ ",timestamp:" + fault.getTimestamp()+",limitSuppressTime:"+config.getLimitSuppressTime());
-    	
-    	//未启用过滤
-        if (config.getEnabled() == 0) {
-            logger.info(userId + " doesn't need to send email,for config is not enabled.");
-            return;
-        }
-        
-        long now = System.currentTimeMillis() / 1000;
-        //配置里待报警的范围
-        String[] excepts = config.getExceptions().split(";");
-        for (String except : excepts) {
-            // 如果该范围包含当前异常
-            if (Integer.parseInt(except)==fault.getType()) {
-                // 是否开启限制同一时间内只发送一封邮件
-                String key = userId + fault.getData_ark_uuid() + fault.getTarget_name() + fault.getType();
-                
-                // 未开启,默认一分钟
-                long split = config.getLimitEnabled() == 0?60:config.getLimitSuppressTime();
-                if ((howOfen.get(key) == null || howOfen.get(key) + split <= now)) {
-            		try {
-                        logger.info(userId + " send email:" + fault.getTarget_name() + "," + fault.getType()+",per split:"+split);
-                        send(fault);
-                    } catch (Exception e) {
-                        logger.error(userId + " filed to send email.",e);
-                    }
-                    howOfen.put(key, now);// 保存一下发送的时间戳
-            	}
-            }
-        }
+    	try {
+			logger.info("----------UserId:" + userId + ",exception:" + config.getExceptions() + ",fault type:" 
+					+ fault.getType() + ",enabled:" + config.getEnabled() + ",target:" + fault.getTarget_name()+"|"+fault.getTarget_uuid()
+					+ ",timestamp:" + fault.getTimestamp()+",limitSuppressTime:"+config.getLimitSuppressTime());
+			
+			//未启用过滤
+			if (config.getEnabled() == 0) {
+			    logger.info(userId + " doesn't need to send email,for config is not enabled.");
+			    return;
+			}
+			
+			//秒
+			long now = System.currentTimeMillis() / 1000;
+			//配置里待报警的范围
+			String[] excepts = config.getExceptions().split(";");
+			for (String except : excepts) {
+			    // 如果该范围包含当前异常
+			    if (Integer.parseInt(except)==fault.getType()) {
+			        // 是否开启限制同一时间内只发送一封邮件
+			        String key = userId + fault.getData_ark_uuid() + fault.getTarget_name() + fault.getType();
+			        
+			        // 未开启,默认一分钟，服务启动时会发送一次
+			        long split = config.getLimitEnabled() == 0?60:config.getLimitSuppressTime();
+			        logger.debug(userId +" per:"+split+ " send email,prev exec time:"+howOfen.get(key));
+			        if (howOfen.get(key) == null || howOfen.get(key) + split <= now) {
+			    		try {
+			                logger.info(userId + " send email:" + fault.getTarget_name() + "," + fault.getType()+",per split:"+split);
+			                send(fault);
+			            } catch (Exception e) {
+			                logger.error(userId + " filed to send email.",e);
+			            }
+			            howOfen.put(key, now);// 保存一下发送的时间戳
+			    	}
+			    }
+			}
+		} catch (Exception e) {
+			logger.error("Failed to judge,userId:"+userId+",fault type:"+fault.getType(),e);
+		}
     }
 
     /**

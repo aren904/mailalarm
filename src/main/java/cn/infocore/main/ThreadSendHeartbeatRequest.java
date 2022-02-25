@@ -92,7 +92,7 @@ public class ThreadSendHeartbeatRequest extends Thread{
 	        }
 	    	
 	    	logger.info("current noticed ips:"+noticedIps.toString()+",all:"+ips.toString());
-	    	if(noticedIps.size()==ips.size()) {
+	    	if(ips.size()==0) {
 				reload=false;
 			}else {
 				try {

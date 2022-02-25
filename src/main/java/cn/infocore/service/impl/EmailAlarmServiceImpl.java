@@ -52,16 +52,6 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
 	}
 
     /**
-     * 查询指定用户是否添加过该客户端
-     * @param fault
-     * @param userId
-     * @return
-     */
-    protected Integer findArkIdAndUserIdAndId(Fault fault, Long dataArkId,Long userId) {
-        return clientManager.listCount(userId,dataArkId,fault.getClient_type());
-    }
-
-    /**
      * 处理异常
      */
     @Override
@@ -182,17 +172,18 @@ public class EmailAlarmServiceImpl implements EmailAlarmService {
                                 if (fault.getClient_type() == 1 || fault.getClient_type() == 2
                                         || fault.getClient_type() == 3) {
                                     // 针对客户端，VC，虚拟机：查询该对象是否是该用户添加过，添加过则给该用户发送报警邮件
-                                	Integer count = findArkIdAndUserIdAndId(fault, dataArkId,userId);
-                                    if (count.intValue() > 0) {
+                                	boolean exist = clientManager.existExcept(userId,dataArkId,fault.getClient_id(),fault.getType());
+                                    if (exist) {
                                         mailSender.judge(fault, userId);
+                                        logger.info("Commom user:"+userId+" start to judge client...");
                                     }else {
-                                    	logger.debug("UserId:"+userId+",dataArkId:"+dataArkId+" does not has the fault:"+fault);
+                                    	logger.debug("UserId:"+userId+",dataArkId:"+dataArkId+",clientUuid:"+fault.getClient_id()+" does not has the fault:"+fault.getType());
                                     }
                                 } else {
                                 	// 针对数据方舟直接告警
                                     mailSender.judge(fault, userId);
+                                    logger.info("Commom user:"+userId+" start to judge streamer...");
                                 }
-                                logger.info("Commom user:"+userId+" start to judge...");
                             } else {
                                 logger.warn("Email_alarm table has not user_id:" + userId + " and data_ark_id:"
                                         + fault.getData_ark_uuid());
